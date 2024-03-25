@@ -1,0 +1,239 @@
+package ir
+
+import (
+	"fhir-toolbox/generate/model"
+	"fmt"
+	"slices"
+	"strings"
+)
+
+var (
+	primitives = []string{
+		"base64Binary",
+		"boolean",
+		"canonical",
+		"code",
+		"date",
+		"dateTime",
+		"decimal",
+		"id",
+		"instant",
+		"integer",
+		"integer64",
+		"markdown",
+		"oid",
+		"positiveInt",
+		"string",
+		"time",
+		"unsignedInt",
+		"uri",
+		"url",
+		"uuid",
+		"xhtml",
+	}
+	notDomainResources = []string{"Binary", "Bundle", "Parameters"}
+)
+
+func Parse(bundle *model.Bundle) []SourceFile {
+	var sourceFiles []SourceFile
+
+	for _, s := range flattenBundle(bundle) {
+		if s.Kind == "logical" {
+			continue
+		}
+		if s.Abstract {
+			continue
+		}
+		if s.Name == "Element" {
+			continue
+		}
+
+		sourceFile := SourceFile{
+			Name: toGoFileCasing(s.Name),
+		}
+
+		parseStruct(
+			&sourceFile.Structs,
+			s.Name,
+			s.Kind == "resource",
+			s.Snapshot.Element,
+			s.Type,
+			fmt.Sprintf("%s\n\n%s", s.Description, s.Purpose),
+		)
+
+		sourceFiles = append(sourceFiles, sourceFile)
+	}
+
+	return sourceFiles
+}
+
+func flattenBundle(bundle *model.Bundle) []*model.StructureDefinition {
+	var definitions []*model.StructureDefinition
+
+	for _, e := range bundle.Entry {
+		if sd, ok := e.Resource.(*model.StructureDefinition); ok {
+			definitions = append(definitions, sd)
+		}
+	}
+
+	return definitions
+}
+
+func parseStruct(
+	into *[]*Struct,
+	name string,
+	isResource bool,
+	elementDefinitions []model.ElementDefinition,
+	elementPathStripPrefix string,
+	docComment string,
+) {
+	structName := toGoTypeCasing(name)
+
+	groupedDefinitions := groupElementDefinitionsByPrefix(elementDefinitions, elementPathStripPrefix)
+
+	newStruct := &Struct{
+		Name:             structName,
+		IsResource:       isResource,
+		IsDomainResource: isResource && !slices.Contains(notDomainResources, name),
+		IsPrimitive:      slices.Contains(primitives, name),
+		DocComment:       docComment,
+	}
+	*into = append(*into, newStruct)
+
+	for _, g := range groupedDefinitions {
+		if g.definitions[0].Max == "0" {
+			continue
+		}
+
+		typeName := structName + toGoTypeCasing(g.fieldName)
+
+		if len(g.definitions) > 1 {
+			parseStruct(
+				into,
+				typeName,
+				false,
+				g.definitions,
+				g.definitions[0].Path,
+				g.definitions[0].Definition,
+			)
+		}
+
+		newStruct.Fields = append(newStruct.Fields, parseField(
+			structName,
+			isResource,
+			g.definitions[0],
+			elementPathStripPrefix,
+		))
+	}
+}
+
+type definitionsGroup struct {
+	fieldName   string
+	definitions []model.ElementDefinition
+}
+
+func groupElementDefinitionsByPrefix(elementDefinitions []model.ElementDefinition, stripPrefix string) []definitionsGroup {
+	var grouped []definitionsGroup
+
+	for _, d := range elementDefinitions {
+		if d.Path == stripPrefix {
+			continue
+		}
+
+		fieldName := strings.SplitN(d.Path[len(stripPrefix)+1:], ".", 2)[0]
+
+		if len(grouped) == 0 || grouped[len(grouped)-1].fieldName != fieldName {
+			grouped = append(grouped, definitionsGroup{
+				fieldName: fieldName,
+			})
+		}
+
+		grouped[len(grouped)-1].definitions = append(grouped[len(grouped)-1].definitions, d)
+	}
+
+	return grouped
+}
+
+func parseField(
+	structName string,
+	isResource bool,
+	elementDefinition model.ElementDefinition,
+	elementPathStripPrefix string,
+) StructField {
+	fieldName := elementDefinition.Path[len(elementPathStripPrefix)+1:]
+	fieldName, polymorph := strings.CutSuffix(fieldName, "[x]")
+
+	var fieldTypes []FieldType
+	if polymorph {
+		for _, t := range elementDefinition.Type {
+			fieldTypes = append(fieldTypes, matchFieldType(elementDefinition.Path, t.Code))
+		}
+	} else if isResource && fieldName == "id" {
+		fieldTypes = append(fieldTypes, FieldType{
+			Name:        "Id",
+			IsPrimitive: true,
+		})
+	} else if elementDefinition.Type != nil {
+		code := (elementDefinition.Type)[0].Code
+
+		switch code {
+		case "BackboneElement", "Element":
+			fieldTypes = append(fieldTypes, FieldType{
+				Name: structName + toGoTypeCasing(fieldName),
+			})
+		default:
+			fieldTypes = append(fieldTypes, matchFieldType(elementDefinition.Path, code))
+		}
+	} else {
+		// content reference
+		// strip "#"
+		fieldTypes = append(fieldTypes, FieldType{
+			Name: toGoTypeCasing(elementDefinition.ContentReference[1:]),
+		})
+	}
+
+	return StructField{
+		Name:          toGoFieldCasing(fieldName),
+		MarshalName:   fieldName,
+		PossibleTypes: fieldTypes,
+		Polymorph:     polymorph,
+		Multiple:      elementDefinition.Max == "*",
+		Optional:      elementDefinition.Min == 0,
+		DocComment:    elementDefinition.Definition,
+	}
+}
+
+func matchFieldType(path string, code string) FieldType {
+	var fieldType FieldType
+
+	// type like http://hl7.org/fhirpath/System.String
+	switch t := code[strings.LastIndex(code, "/")+1:]; t {
+	case "System.Boolean":
+		fieldType.Name = "bool"
+	case "System.Integer":
+		switch path {
+		case "integer64.value":
+			fieldType.Name = "int64"
+		default:
+			fieldType.Name = "int32"
+		}
+	case "System.String":
+		switch path {
+		case "unsignedInt.value", "positiveInt.value":
+			fieldType.Name = "uint32"
+		default:
+			fieldType.Name = "string"
+		}
+	case "System.Decimal":
+		fieldType.Name = "string"
+	case "System.Date", "System.DateTime", "System.Time":
+		fieldType.Name = "string"
+	case "Resource":
+		fieldType.IsNestedResource = true
+	default:
+		fieldType.Name = toGoTypeCasing(t)
+		fieldType.IsPrimitive = slices.Contains(primitives, t)
+	}
+
+	return fieldType
+}

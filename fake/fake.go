@@ -1,8 +1,8 @@
 package fake
 
 import (
-	r4 "fhir-toolbox/model/gen/r4/resources"
-	t4 "fhir-toolbox/model/gen/r4/types"
+	"encoding/json"
+	"fhir-toolbox/model/gen/r4"
 	"fhir-toolbox/utils"
 )
 
@@ -10,18 +10,36 @@ type Fake struct{}
 
 func (c *Fake) GetPatient() *r4.Patient {
 	return &r4.Patient{
-		Id: &t4.Id{
+		Id: &r4.Id{
 			Value: utils.Ptr("1234"),
 		}}
 }
 
 func (c *Fake) GetObservtion() *r4.Observation {
-	return &r4.Observation{
-		Id: &t4.Id{
-			Value: utils.Ptr("1234"),
-		},
-		Value: &t4.Integer{
-			Value: utils.Ptr[int32](28),
-		},
+	var o r4.Observation
+	err := json.Unmarshal([]byte(
+		`{
+		  "resourceType": "Observation",
+		  "id": "1234",
+		  "contained": [
+		    {
+		      "resourceType": "Patient",
+		      "id": "1234"
+		    }
+		  ],
+		  "status": null,
+		  "code": {},
+		  "valueInteger": 28,
+		  "_valueInteger": {
+		    "extension": [
+		      {
+		        "url": "xxx"
+		      }
+		    ]
+		  }
+}`), &o)
+	if err != nil {
+		panic(err)
 	}
+	return &o
 }

@@ -1,4 +1,4 @@
-.PHONY: codegen
+.PHONY: generate
 
 BUILD_DIR   := build
 BIN_NAME    := fhir-facade
@@ -16,8 +16,8 @@ clean:
 	go clean
 	rm -rf ./${BUILD_DIR}
 
-codegen:
-	go run ./codegen
+generate:
+	go run ./generate
 
 
 NEW_VERSION = $(shell grep -om1 'v\d.\d.\d' CHANGELOG.md)

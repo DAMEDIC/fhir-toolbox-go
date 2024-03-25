@@ -1,0 +1,129 @@
+package r4
+
+import "encoding/json"
+
+// Base StructureDefinition for SampledData Type: A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data.
+//
+// There is a need for a concise way to handle the data produced by devices that sample a physical state at a high frequency.
+type SampledData struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// The base quantity that a measured value of zero represents. In addition, this provides the units of the entire measurement series.
+	Origin Quantity
+	// The length of time between sampling times, measured in milliseconds.
+	Period Decimal
+	// A correction factor that is applied to the sampled data points before they are added to the origin.
+	Factor *Decimal
+	// The lower limit of detection of the measured points. This is needed if any of the data points have the value "L" (lower than detection limit).
+	LowerLimit *Decimal
+	// The upper limit of detection of the measured points. This is needed if any of the data points have the value "U" (higher than detection limit).
+	UpperLimit *Decimal
+	// The number of sample points at each time point. If this value is greater than one, then the dimensions will be interlaced - all the sample points for a point in time will be recorded at once.
+	Dimensions PositiveInt
+	// A series of data points which are decimal values separated by a single space (character u20). The special values "E" (error), "L" (below detection limit) and "U" (above detection limit) can also be used in place of a decimal value.
+	Data *String
+}
+type jsonSampledData struct {
+	Id                         *string           `json:"id,omitempty"`
+	Extension                  []Extension       `json:"extension,omitempty"`
+	Origin                     Quantity          `json:"origin,omitempty"`
+	Period                     Decimal           `json:"period,omitempty"`
+	PeriodPrimitiveElement     *primitiveElement `json:"_period,omitempty"`
+	Factor                     *Decimal          `json:"factor,omitempty"`
+	FactorPrimitiveElement     *primitiveElement `json:"_factor,omitempty"`
+	LowerLimit                 *Decimal          `json:"lowerLimit,omitempty"`
+	LowerLimitPrimitiveElement *primitiveElement `json:"_lowerLimit,omitempty"`
+	UpperLimit                 *Decimal          `json:"upperLimit,omitempty"`
+	UpperLimitPrimitiveElement *primitiveElement `json:"_upperLimit,omitempty"`
+	Dimensions                 PositiveInt       `json:"dimensions,omitempty"`
+	DimensionsPrimitiveElement *primitiveElement `json:"_dimensions,omitempty"`
+	Data                       *String           `json:"data,omitempty"`
+	DataPrimitiveElement       *primitiveElement `json:"_data,omitempty"`
+}
+
+func (r SampledData) MarshalJSON() ([]byte, error) {
+	return json.Marshal(r.marshalJSON())
+}
+func (r SampledData) marshalJSON() jsonSampledData {
+	m := jsonSampledData{}
+	m.Id = r.Id
+	m.Extension = r.Extension
+	m.Origin = r.Origin
+	m.Period = r.Period
+	if r.Period.Id != nil || r.Period.Extension != nil {
+		m.PeriodPrimitiveElement = &primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
+	}
+	m.Factor = r.Factor
+	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
+		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+	}
+	m.LowerLimit = r.LowerLimit
+	if r.LowerLimit != nil && (r.LowerLimit.Id != nil || r.LowerLimit.Extension != nil) {
+		m.LowerLimitPrimitiveElement = &primitiveElement{Id: r.LowerLimit.Id, Extension: r.LowerLimit.Extension}
+	}
+	m.UpperLimit = r.UpperLimit
+	if r.UpperLimit != nil && (r.UpperLimit.Id != nil || r.UpperLimit.Extension != nil) {
+		m.UpperLimitPrimitiveElement = &primitiveElement{Id: r.UpperLimit.Id, Extension: r.UpperLimit.Extension}
+	}
+	m.Dimensions = r.Dimensions
+	if r.Dimensions.Id != nil || r.Dimensions.Extension != nil {
+		m.DimensionsPrimitiveElement = &primitiveElement{Id: r.Dimensions.Id, Extension: r.Dimensions.Extension}
+	}
+	m.Data = r.Data
+	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
+		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
+	}
+	return m
+}
+func (r *SampledData) UnmarshalJSON(b []byte) error {
+	var m jsonSampledData
+	if err := json.Unmarshal(b, &m); err != nil {
+		return err
+	}
+	return r.unmarshalJSON(m)
+}
+func (r *SampledData) unmarshalJSON(m jsonSampledData) error {
+	r.Id = m.Id
+	r.Extension = m.Extension
+	r.Origin = m.Origin
+	r.Period = m.Period
+	if m.PeriodPrimitiveElement != nil {
+		r.Period.Id = m.PeriodPrimitiveElement.Id
+		r.Period.Extension = m.PeriodPrimitiveElement.Extension
+	}
+	r.Factor = m.Factor
+	if m.FactorPrimitiveElement != nil {
+		r.Factor.Id = m.FactorPrimitiveElement.Id
+		r.Factor.Extension = m.FactorPrimitiveElement.Extension
+	}
+	r.LowerLimit = m.LowerLimit
+	if m.LowerLimitPrimitiveElement != nil {
+		r.LowerLimit.Id = m.LowerLimitPrimitiveElement.Id
+		r.LowerLimit.Extension = m.LowerLimitPrimitiveElement.Extension
+	}
+	r.UpperLimit = m.UpperLimit
+	if m.UpperLimitPrimitiveElement != nil {
+		r.UpperLimit.Id = m.UpperLimitPrimitiveElement.Id
+		r.UpperLimit.Extension = m.UpperLimitPrimitiveElement.Extension
+	}
+	r.Dimensions = m.Dimensions
+	if m.DimensionsPrimitiveElement != nil {
+		r.Dimensions.Id = m.DimensionsPrimitiveElement.Id
+		r.Dimensions.Extension = m.DimensionsPrimitiveElement.Extension
+	}
+	r.Data = m.Data
+	if m.DataPrimitiveElement != nil {
+		r.Data.Id = m.DataPrimitiveElement.Id
+		r.Data.Extension = m.DataPrimitiveElement.Extension
+	}
+	return nil
+}
+func (r SampledData) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	return string(buf)
+}
