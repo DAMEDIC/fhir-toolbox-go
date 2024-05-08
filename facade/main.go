@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log/slog"
+	"os"
 
 	"fhir-toolbox/backend/fake"
 	"fhir-toolbox/facade/config"
@@ -13,7 +15,14 @@ import (
 var Version = "dev"
 
 func main() {
-	c := config.Load()
+	configFile := flag.String("f", "", "config file path")
+	flag.Parse()
+
+	c, err := config.Load(*configFile)
+	if err != nil {
+		slog.Error("error loading config", "error", err)
+		os.Exit(1)
+	}
 
 	slog.Info("starting FHIR facade",
 		"version", Version,

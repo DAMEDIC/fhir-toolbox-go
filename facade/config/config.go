@@ -2,9 +2,9 @@ package config
 
 import (
 	"bytes"
+	"cmp"
 	"encoding/json"
-	"flag"
-	"log"
+	"fmt"
 	"log/slog"
 	"os"
 	"strings"
@@ -14,40 +14,55 @@ type config struct {
 	LogLevel string `json:"logLevel"`
 }
 
-func Load() config {
-	configFile := flag.String("f", "", "config file path")
-	flag.Parse()
+var defaultConfig = config{
+	LogLevel: cmp.Or(os.Getenv("LOG_LEVEL"), "INFO"),
+}
 
-	if *configFile == "" {
-		log.Fatalf("No config file provided (use -f <config_file>)")
-	}
+func Load(configFile string) (config, error) {
+	// first thing? initialize logging
+	level := slog.LevelVar{}
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		Level: &level,
+	}))
+	slog.SetDefault(logger)
 
-	configJsonBytes, _ := os.ReadFile(*configFile)
+	var c = defaultConfig
 
-	configJsonDecoder := json.NewDecoder(bytes.NewReader(configJsonBytes))
-	configJsonDecoder.DisallowUnknownFields()
-
-	var c = config{}
-
-	err := configJsonDecoder.Decode(&c)
-	if err != nil {
-		log.Fatalf("Unable to decode JSON: %v", err)
+	if configFile != "" {
+		err := loadConfigFile(&c, configFile)
+		if err != nil {
+			return c, fmt.Errorf("Unable to decode JSON: %w", err)
+		}
 	}
 
 	// set log level
-	var level slog.Level
 	switch strings.ToUpper(c.LogLevel) {
 	case "DEBUG":
-		level = slog.LevelDebug
+		level.Set(slog.LevelDebug)
 	case "INFO":
-		level = slog.LevelInfo
+		level.Set(slog.LevelInfo)
 	case "WARN":
-		level = slog.LevelWarn
+		level.Set(slog.LevelWarn)
 	case "ERROR":
-		level = slog.LevelError
+		level.Set(slog.LevelError)
+	default:
+		return c, fmt.Errorf("unknown log level: %v", c.LogLevel)
 	}
 
-	slog.SetLogLoggerLevel(level)
+	return c, nil
+}
 
-	return c
+func loadConfigFile(c *config, configFile string) error {
+	if configFile != "" {
+		configJsonBytes, _ := os.ReadFile(configFile)
+
+		configJsonDecoder := json.NewDecoder(bytes.NewReader(configJsonBytes))
+		configJsonDecoder.DisallowUnknownFields()
+
+		err := configJsonDecoder.Decode(c)
+		if err != nil {
+			return fmt.Errorf("Unable to decode JSON: %w", err)
+		}
+	}
+	return nil
 }
