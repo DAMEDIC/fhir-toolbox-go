@@ -12,7 +12,7 @@ none yet :/
 - Extensible REST API (WIP)
   - FHIR types
   - Capabilities modeled as interfaces
-  - Capability detection by runtime refelcting implemented interfaces (see [Capabilities](#capabilities))
+  - Capability detection by runtime ~~reflecting~~ type assertion of implemented interfaces (see [Capabilities](#capabilities))
 - Proof-of-conept REST backend (WIP)
 - Read-only Orbis Backend (TODO)
 - Read-only M-KIS Backend (TODO)
@@ -29,7 +29,7 @@ See [Contribution](#contribution) below.
 Run the example in `./example` using the following command:
 
 ```sh
-go run example/main.go https://hapi.fhir.org/baseR4
+go run ./example https://hapi.fhir.org/baseR4
 ```
 
 This starts a simple mock-facade that forwards all requests to the HAPI test-server.

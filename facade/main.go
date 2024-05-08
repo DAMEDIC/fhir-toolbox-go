@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 
+	"fhir-toolbox/backend/fake"
 	"fhir-toolbox/facade/config"
-	"fhir-toolbox/fake"
+	dispatchR4 "fhir-toolbox/server/dispatch/gen/r4"
 )
 
 var Version = "dev"
@@ -17,8 +19,10 @@ func main() {
 		"version", Version,
 		"config", c)
 
-	f := fake.Fake{}
+	client := fake.Fake{}
 
-	fmt.Println(f.GetPatient())
-	fmt.Println(f.GetObservtion())
+	ctx := context.TODO()
+
+	fmt.Println(dispatchR4.Read(ctx, &client, "Patient", "1234"))
+	fmt.Println(dispatchR4.Read(ctx, &client, "Observation", "1234"))
 }

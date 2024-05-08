@@ -1,21 +1,21 @@
 package fake
 
 import (
+	"context"
 	"encoding/json"
 	"fhir-toolbox/model/gen/r4"
-	"fhir-toolbox/utils"
 )
 
 type Fake struct{}
 
-func (c *Fake) GetPatient() *r4.Patient {
-	return &r4.Patient{
+func (c *Fake) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
+	return r4.Patient{
 		Id: &r4.Id{
-			Value: utils.Ptr("1234"),
-		}}
+			Value: &id,
+		}}, nil
 }
 
-func (c *Fake) GetObservtion() *r4.Observation {
+func (c *Fake) ReadObservation(ctx context.Context, id string) (r4.Observation, error) {
 	var o r4.Observation
 	err := json.Unmarshal([]byte(
 		`{
@@ -41,5 +41,5 @@ func (c *Fake) GetObservtion() *r4.Observation {
 	if err != nil {
 		panic(err)
 	}
-	return &o
+	return o, nil
 }

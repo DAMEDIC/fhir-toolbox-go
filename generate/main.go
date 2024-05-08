@@ -5,17 +5,22 @@ import (
 	"fhir-toolbox/generate/ir"
 	"fmt"
 	"log"
+	"os"
 )
 
 var (
-	buildReleases        = []string{"R4"}
-	definitionsURLFmtStr = "http://hl7.org/fhir/%s/definitions.json.zip"
-	modelGenTarget       = "model/gen"
+	buildReleases           = []string{"R4"}
+	definitionsURLFmtStr    = "http://hl7.org/fhir/%s/definitions.json.zip"
+	modelGenTarget          = "model/gen"
+	capabilitiesGenTarget   = "capabilities/gen"
+	serverDispatchGenTarget = "server/dispatch/gen"
 )
 
 func main() {
 	fmt.Println("Running code generation...")
-	gen.CleanGeneratedFiles(modelGenTarget)
+	os.RemoveAll(modelGenTarget)
+	os.RemoveAll(capabilitiesGenTarget)
+	os.RemoveAll(serverDispatchGenTarget)
 
 	for _, r := range buildReleases {
 		log.Printf("Generating for FHIR %v ...\n", r)
@@ -23,13 +28,17 @@ func main() {
 		zipPath := downloadDefinitions(r)
 		bundles := readJSONFromZIP(zipPath)
 
-		typesIR := ir.Parse(&bundles.types)
-		resourcesIR := ir.Parse(&bundles.resources)
+		typesSourceFiles := ir.Parse(&bundles.types)
+		resourcesSourceFiles := ir.Parse(&bundles.resources)
+		allResourcesStructs := ir.FilterResources(resourcesSourceFiles)
 
 		gen.GenerateInterfaces(modelGenTarget, r)
-		gen.GenerateMarshalHelpers(ir.FilterResources(resourcesIR), modelGenTarget, r)
-		gen.GenerateTypes(typesIR, modelGenTarget, r)
-		gen.GenerateResources(resourcesIR, modelGenTarget, r)
+		gen.GenerateTypes(typesSourceFiles, modelGenTarget, r)
+		gen.GenerateResources(resourcesSourceFiles, modelGenTarget, r)
+		gen.GenerateMarshalHelpers(allResourcesStructs, modelGenTarget, r)
+
+		gen.GenerateCapabilityInterfaces(allResourcesStructs, capabilitiesGenTarget, r)
+		gen.GenerateServerDispatch(allResourcesStructs, serverDispatchGenTarget, r)
 	}
 
 	log.Println("Code generation done.")

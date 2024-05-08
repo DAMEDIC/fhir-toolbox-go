@@ -1,10 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	"fhir-toolbox/fake"
+	"fhir-toolbox/backend/fake"
 )
 
 func main() {
@@ -13,6 +14,6 @@ func main() {
 
 	f := fake.Fake{}
 
-	fmt.Printf("%v\n", f.GetPatient())
-	fmt.Printf("%v\n", f.GetObservtion())
+	fmt.Println(f.ReadPatient(context.TODO(), "1234"))
+	fmt.Println(f.ReadObservation(context.TODO(), "1234"))
 }
