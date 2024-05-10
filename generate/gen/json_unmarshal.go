@@ -93,7 +93,7 @@ func implementUnmarshalJSONStruct(f *File, s ir.Struct) {
 
 				if t.IsNestedResource {
 					if sf.Multiple {
-						g.Id("r."+sf.Name).Op("=").Make(Id("[]Resource"), Lit(0), Len(Id("m."+sf.Name)))
+						g.Id("r."+sf.Name).Op("=").Make(Index().Qual("fhir-toolbox/model", "Resource"), Lit(0), Len(Id("m."+sf.Name)))
 						g.For(List(Id("_"), Id("v")).Op(":=").Range().Id("m." + sf.Name)).Block(
 							Id("r."+sf.Name).Op("=").Append(Id("r."+sf.Name), Id("v.resource")),
 						)

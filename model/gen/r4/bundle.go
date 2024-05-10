@@ -1,6 +1,9 @@
 package r4
 
-import "encoding/json"
+import (
+	"encoding/json"
+	model "fhir-toolbox/model"
+)
 
 // A container for a collection of resources.
 type Bundle struct {
@@ -229,7 +232,7 @@ type BundleEntry struct {
 	// * Results from operations might involve resources that are not identified.
 	FullUrl *Uri
 	// The Resource for the entry. The purpose/meaning of the resource is determined by the Bundle.type.
-	Resource *Resource
+	Resource *model.Resource
 	// Information about the search process that lead to the creation of this entry.
 	Search *BundleEntrySearch
 	// Additional information about how this entry should be processed as part of a transaction or batch.  For history, it shows how the entry was processed to create the version contained in the entry.
@@ -523,7 +526,7 @@ type BundleEntryResponse struct {
 	// The date/time that the resource was modified on the server.
 	LastModified *Instant
 	// An OperationOutcome containing hints and warnings produced as part of processing this entry in a batch or transaction.
-	Outcome *Resource
+	Outcome *model.Resource
 }
 type jsonBundleEntryResponse struct {
 	Id                           *string            `json:"id,omitempty"`

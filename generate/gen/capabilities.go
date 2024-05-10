@@ -29,18 +29,19 @@ var (
 		Id("id"): String(),
 	}
 	searchParams = map[Code]Code{
-		Id("parameters"): Map(String()).String(),
+		Id("parameters"): Qual("fhir-toolbox/capabilities", "SearchParameters"),
 	}
+	searchCapabilitiesReturn = Qual("fhir-toolbox/capabilities", "SearchCapabilities")
 )
 
 type returnTypeFunc = func(typeName, releaseLower string) Code
 
-func readReturn(typeName, releaseLower string) Code {
-	return Qual("fhir-toolbox/model/gen/"+releaseLower, typeName)
+func readReturn(typeName, release string) Code {
+	return Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), typeName)
 }
 
-func searchReturn(typeName, releaseLower string) Code {
-	return Index().Qual("fhir-toolbox/model/gen/"+releaseLower, typeName)
+func searchReturn(typeName, release string) Code {
+	return Index().Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), typeName)
 }
 
 func generateCapability(genDir string, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
@@ -53,15 +54,14 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 	}
 
 	f := NewFilePathName(genDir, "capabilities"+strings.ToUpper(release))
-	f.ImportAlias("fhir-toolbox/model/gen/"+strings.ToLower(release), "model")
 
 	for _, r := range resources {
 		f.Type().Id(r.Name + interactionName).InterfaceFunc(func(g *Group) {
 			if interaction == "search" {
-				g.Id("SearchParams" + r.Name).Params().Params(Index().String())
+				g.Id("SearchCapabilities" + r.Name).Params().Params(searchCapabilitiesReturn)
 			}
 
-			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, strings.ToLower(release)), Error())
+			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Error())
 		})
 	}
 

@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	model "fhir-toolbox/model"
 	"fmt"
 )
 
@@ -10,7 +11,7 @@ type primitiveElement struct {
 	Extension []Extension `json:"extension,omitempty"`
 }
 type containedResource struct {
-	resource Resource
+	resource model.Resource
 }
 
 func (r containedResource) MarshalJSON() ([]byte, error) {

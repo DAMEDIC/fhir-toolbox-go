@@ -1,4 +1,4 @@
-package r4
+package model
 
 type Resource interface{}
 type Element interface{}

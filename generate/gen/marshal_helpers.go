@@ -19,7 +19,7 @@ func GenerateMarshalHelpers(resources []ir.Struct, genTarget, release string) {
 	)
 
 	f.Type().Id("containedResource").Struct(
-		Id("resource").Id("Resource"),
+		Id("resource").Qual("fhir-toolbox/model", "Resource"),
 	)
 	implementMarshalJSONContained(f)
 	implementUnmarshalJSONContained(resources, f)

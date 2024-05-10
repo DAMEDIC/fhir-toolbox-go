@@ -82,7 +82,7 @@ func generateStruct(f *File, s ir.Struct) {
 				t := f.PossibleTypes[0]
 
 				if t.IsNestedResource {
-					stmt.Id("Resource")
+					stmt.Qual("fhir-toolbox/model", "Resource")
 				} else {
 					stmt.Id(t.Name)
 				}

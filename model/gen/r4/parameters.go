@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	model "fhir-toolbox/model"
 	"fmt"
 )
 
@@ -102,7 +103,7 @@ type ParametersParameter struct {
 	// If the parameter is a data type.
 	Value isParametersParameterValue
 	// If the parameter is a whole resource.
-	Resource *Resource
+	Resource *model.Resource
 	// A named part of a multi-part parameter.
 	Part []ParametersParameter
 }

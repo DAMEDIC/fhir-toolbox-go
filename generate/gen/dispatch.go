@@ -49,7 +49,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 	f := NewFilePathName(genDir, "dispatch"+strings.ToUpper(release))
 
 	if interaction == "search" {
-		f.Add(generateSearchParams(interactionName, strings.ToLower(release), resources))
+		f.Add(generateSearchCapabilities(interactionName, release, resources))
 	}
 
 	f.Func().Id(interactionName).
@@ -60,7 +60,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
 						g.List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName))
-						g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name))
+						g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, Nil()))
 
 						if interaction == "search" {
 							g.List(Id("v"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
@@ -76,7 +76,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 					})
 				}
 
-				g.Default().Block(returnUnknownError("resourceType"))
+				g.Default().Block(returnUnknownError("resourceType", Nil()))
 			}),
 		)
 
@@ -86,36 +86,36 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 	}
 }
 
-func generateSearchParams(interactionName, releaseLower string, resources []ir.Struct) Code {
-	return Func().Id("SearchParams").
+func generateSearchCapabilities(interactionName, release string, resources []ir.Struct) Code {
+	return Func().Id("SearchCapabilities").
 		Params(Id("api").Id("any"), Id("resourceType").String()).
-		Params(Index().String(), Error()).
+		Params(searchCapabilitiesReturn, Error()).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).Block(
-						List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+releaseLower, r.Name+interactionName)),
+						List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName)),
 						If(Op("!").Id("ok")).Block(
-							If(Op("!").Id("ok")).Block(returnNotImplementedError("SearchParams", r.Name)),
+							If(Op("!").Id("ok")).Block(returnNotImplementedError("SearchParams", r.Name, searchCapabilitiesReturn.Clone().Block())),
 						),
-						Return(Id("impl.SearchParams"+r.Name).Call(), Nil()),
+						Return(Id("impl.SearchCapabilities"+r.Name).Call(), Nil()),
 					)
 				}
 
-				g.Default().Block(returnUnknownError("resourceType"))
+				g.Default().Block(returnUnknownError("resourceType", searchCapabilitiesReturn.Clone().Block()))
 			}),
 		)
 }
 
-func returnNotImplementedError(interaction, resourceType string) Code {
-	return Return(Nil(), Qual("fhir-toolbox/dispatch", "NotImplementedError").Values(
+func returnNotImplementedError(interaction, resourceType string, defaultReturn Code) Code {
+	return Return(defaultReturn, Qual("fhir-toolbox/dispatch/errors", "NotImplementedError").Values(
 		Id("Interaction").Op(":").Lit(interaction),
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }
 
-func returnUnknownError(resourceType string) Code {
-	return Return(Nil(), Qual("fhir-toolbox/dispatch", "UnknownResourceError").Values(
+func returnUnknownError(resourceType string, defaultReturn Code) Code {
+	return Return(defaultReturn, Qual("fhir-toolbox/dispatch/errors", "UnknownResourceError").Values(
 		Id("ResourceType").Op(":").Id(resourceType)),
 	)
 }

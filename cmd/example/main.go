@@ -1,19 +1,22 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"log"
+	"log/slog"
+	"net/http"
 	"os"
 
 	"fhir-toolbox/backend/fake"
+	"fhir-toolbox/model"
+	"fhir-toolbox/rest"
 )
 
 func main() {
 	var backendUrl = os.Args[1]
-	fmt.Println("FHIR Server:", backendUrl)
 
-	f := fake.Fake{}
+	slog.SetLogLoggerLevel(slog.LevelDebug)
+	log.Printf("FHIR Server: %s", backendUrl)
 
-	fmt.Println(f.ReadPatient(context.TODO(), "1234"))
-	fmt.Println(f.ReadObservation(context.TODO(), "1234"))
+	backend := fake.Fake{}
+	log.Fatal(http.ListenAndServe(":80", rest.NewServer[model.R4](&backend, rest.DefaultConfig)))
 }

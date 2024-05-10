@@ -32,7 +32,6 @@ func main() {
 		resourcesSourceFiles := ir.Parse(&bundles.resources)
 		allResourcesStructs := ir.FilterResources(resourcesSourceFiles)
 
-		gen.GenerateInterfaces(modelGenTarget, r)
 		gen.GenerateTypes(typesSourceFiles, modelGenTarget, r)
 		gen.GenerateResources(resourcesSourceFiles, modelGenTarget, r)
 		gen.GenerateMarshalHelpers(allResourcesStructs, modelGenTarget, r)
