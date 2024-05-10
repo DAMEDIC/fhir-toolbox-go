@@ -13,7 +13,7 @@ var (
 	definitionsURLFmtStr    = "http://hl7.org/fhir/%s/definitions.json.zip"
 	modelGenTarget          = "model/gen"
 	capabilitiesGenTarget   = "capabilities/gen"
-	serverDispatchGenTarget = "server/dispatch/gen"
+	serverDispatchGenTarget = "dispatch/gen"
 )
 
 func main() {

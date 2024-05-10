@@ -44,7 +44,6 @@ func searchReturn(typeName, releaseLower string) Code {
 }
 
 func generateCapability(genDir string, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
-	releaseLower := strings.ToLower(release)
 	interactionName := strcase.ToCamel(interaction)
 	fileName := strings.ToLower(interaction)
 
@@ -53,8 +52,8 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 		allParams = append(allParams, &Statement{k, v})
 	}
 
-	f := NewFilePath(genDir)
-	f.ImportAlias("fhir-toolbox/model/gen/"+releaseLower, "model")
+	f := NewFilePathName(genDir, "capabilities"+strings.ToUpper(release))
+	f.ImportAlias("fhir-toolbox/model/gen/"+strings.ToLower(release), "model")
 
 	for _, r := range resources {
 		f.Type().Id(r.Name + interactionName).InterfaceFunc(func(g *Group) {
@@ -62,7 +61,7 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 				g.Id("SearchParams" + r.Name).Params().Params(Index().String())
 			}
 
-			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, releaseLower), Error())
+			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, strings.ToLower(release)), Error())
 		})
 	}
 

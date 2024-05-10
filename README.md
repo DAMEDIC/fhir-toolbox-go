@@ -7,6 +7,35 @@ This includes model types, as well as interfaces (and some implementations) mode
 
 none yet :/
 
+## Example
+
+Run the example in `./example` using the following command:
+
+```sh
+go run ./cmd/example https://hapi.fhir.org/baseR4
+```
+
+This starts a simple mock-facade that forwards all requests to the HAPI test-server.
+
+## Capabilities
+
+Everyting is archtectured around capabilities, represented by interfaces (e.g. `PatientSearch`).
+This flexible architecture allows different use cases, such as
+
+- building FHIR facades to legacy systems by implementing a custom backend
+- using this library as a FHIR client (by leveraging a - still to be build - REST backend)
+
+## Packages
+
+| Package      | Description                                                                                                                                  |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `model`      | Generated FHIR model types                                                                                                                   |
+| `capability` | Interfaces modeling capabilities a server provides or a client can consume                                                                   |
+| `dispatch`   | Dispatch from resource types to concrete implementations (e.g. `Read("Patient", 123) to ReadPatient(123)`). This is used by the REST server. |
+| `rest`       | FHIR REST server implementation                                                                                                              |
+| `backend`    | Implementations of capabilities for different backends; database wrappers or the REST client go here                                         |
+| `generate`   | Code generation tools for generating FHIR model types, capabilites and dispatchers from the FHIR specification                               |
+
 ## Roadmap
 
 - Extensible REST API (WIP)
@@ -23,24 +52,6 @@ Everything part of the FHIR specification is in scope of this project.
 However, we (DAMEDIC) do not strive for feature-completion.
 Instead we will only implemented what we need for building our products.
 See [Contribution](#contribution) below.
-
-## Example
-
-Run the example in `./example` using the following command:
-
-```sh
-go run ./example https://hapi.fhir.org/baseR4
-```
-
-This starts a simple mock-facade that forwards all requests to the HAPI test-server.
-
-## Capabilities
-
-Everyting is archtectured around capabilities, represented by interfaces (e.g. `PatientSearch`).
-This flexible architecture allows different use cases, such as
-
-- building FHIR facades to legacy systems by implementing a custom backend
-- using this library as a FHIR client (by leveraging the REST backend)
 
 ## Contribution
 

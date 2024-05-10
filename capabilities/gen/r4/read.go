@@ -1,4 +1,4 @@
-package r4
+package capabilitiesR4
 
 import (
 	"context"

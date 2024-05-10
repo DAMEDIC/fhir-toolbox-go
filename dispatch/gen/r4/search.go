@@ -1,15 +1,15 @@
-package r4
+package dispatchR4
 
 import (
 	"context"
-	cap1 "fhir-toolbox/capabilities/gen/R4"
-	dispatch "fhir-toolbox/server/dispatch"
+	r4 "fhir-toolbox/capabilities/gen/r4"
+	dispatch "fhir-toolbox/dispatch"
 )
 
 func SearchParams(api any, resourceType string) ([]string, error) {
 	switch resourceType {
 	case "Account":
-		impl, ok := api.(cap1.AccountSearch)
+		impl, ok := api.(r4.AccountSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Account"}
@@ -17,7 +17,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAccount(), nil
 	case "ActivityDefinition":
-		impl, ok := api.(cap1.ActivityDefinitionSearch)
+		impl, ok := api.(r4.ActivityDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ActivityDefinition"}
@@ -25,7 +25,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsActivityDefinition(), nil
 	case "AdverseEvent":
-		impl, ok := api.(cap1.AdverseEventSearch)
+		impl, ok := api.(r4.AdverseEventSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "AdverseEvent"}
@@ -33,7 +33,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAdverseEvent(), nil
 	case "AllergyIntolerance":
-		impl, ok := api.(cap1.AllergyIntoleranceSearch)
+		impl, ok := api.(r4.AllergyIntoleranceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "AllergyIntolerance"}
@@ -41,7 +41,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAllergyIntolerance(), nil
 	case "Appointment":
-		impl, ok := api.(cap1.AppointmentSearch)
+		impl, ok := api.(r4.AppointmentSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Appointment"}
@@ -49,7 +49,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAppointment(), nil
 	case "AppointmentResponse":
-		impl, ok := api.(cap1.AppointmentResponseSearch)
+		impl, ok := api.(r4.AppointmentResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "AppointmentResponse"}
@@ -57,7 +57,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAppointmentResponse(), nil
 	case "AuditEvent":
-		impl, ok := api.(cap1.AuditEventSearch)
+		impl, ok := api.(r4.AuditEventSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "AuditEvent"}
@@ -65,7 +65,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsAuditEvent(), nil
 	case "Basic":
-		impl, ok := api.(cap1.BasicSearch)
+		impl, ok := api.(r4.BasicSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Basic"}
@@ -73,7 +73,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsBasic(), nil
 	case "Binary":
-		impl, ok := api.(cap1.BinarySearch)
+		impl, ok := api.(r4.BinarySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Binary"}
@@ -81,7 +81,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsBinary(), nil
 	case "BiologicallyDerivedProduct":
-		impl, ok := api.(cap1.BiologicallyDerivedProductSearch)
+		impl, ok := api.(r4.BiologicallyDerivedProductSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "BiologicallyDerivedProduct"}
@@ -89,7 +89,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsBiologicallyDerivedProduct(), nil
 	case "BodyStructure":
-		impl, ok := api.(cap1.BodyStructureSearch)
+		impl, ok := api.(r4.BodyStructureSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "BodyStructure"}
@@ -97,7 +97,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsBodyStructure(), nil
 	case "Bundle":
-		impl, ok := api.(cap1.BundleSearch)
+		impl, ok := api.(r4.BundleSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Bundle"}
@@ -105,7 +105,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsBundle(), nil
 	case "CapabilityStatement":
-		impl, ok := api.(cap1.CapabilityStatementSearch)
+		impl, ok := api.(r4.CapabilityStatementSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CapabilityStatement"}
@@ -113,7 +113,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCapabilityStatement(), nil
 	case "CarePlan":
-		impl, ok := api.(cap1.CarePlanSearch)
+		impl, ok := api.(r4.CarePlanSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CarePlan"}
@@ -121,7 +121,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCarePlan(), nil
 	case "CareTeam":
-		impl, ok := api.(cap1.CareTeamSearch)
+		impl, ok := api.(r4.CareTeamSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CareTeam"}
@@ -129,7 +129,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCareTeam(), nil
 	case "CatalogEntry":
-		impl, ok := api.(cap1.CatalogEntrySearch)
+		impl, ok := api.(r4.CatalogEntrySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CatalogEntry"}
@@ -137,7 +137,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCatalogEntry(), nil
 	case "ChargeItem":
-		impl, ok := api.(cap1.ChargeItemSearch)
+		impl, ok := api.(r4.ChargeItemSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ChargeItem"}
@@ -145,7 +145,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsChargeItem(), nil
 	case "ChargeItemDefinition":
-		impl, ok := api.(cap1.ChargeItemDefinitionSearch)
+		impl, ok := api.(r4.ChargeItemDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ChargeItemDefinition"}
@@ -153,7 +153,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsChargeItemDefinition(), nil
 	case "Claim":
-		impl, ok := api.(cap1.ClaimSearch)
+		impl, ok := api.(r4.ClaimSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Claim"}
@@ -161,7 +161,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsClaim(), nil
 	case "ClaimResponse":
-		impl, ok := api.(cap1.ClaimResponseSearch)
+		impl, ok := api.(r4.ClaimResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ClaimResponse"}
@@ -169,7 +169,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsClaimResponse(), nil
 	case "ClinicalImpression":
-		impl, ok := api.(cap1.ClinicalImpressionSearch)
+		impl, ok := api.(r4.ClinicalImpressionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ClinicalImpression"}
@@ -177,7 +177,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsClinicalImpression(), nil
 	case "CodeSystem":
-		impl, ok := api.(cap1.CodeSystemSearch)
+		impl, ok := api.(r4.CodeSystemSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CodeSystem"}
@@ -185,7 +185,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCodeSystem(), nil
 	case "Communication":
-		impl, ok := api.(cap1.CommunicationSearch)
+		impl, ok := api.(r4.CommunicationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Communication"}
@@ -193,7 +193,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCommunication(), nil
 	case "CommunicationRequest":
-		impl, ok := api.(cap1.CommunicationRequestSearch)
+		impl, ok := api.(r4.CommunicationRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CommunicationRequest"}
@@ -201,7 +201,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCommunicationRequest(), nil
 	case "CompartmentDefinition":
-		impl, ok := api.(cap1.CompartmentDefinitionSearch)
+		impl, ok := api.(r4.CompartmentDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CompartmentDefinition"}
@@ -209,7 +209,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCompartmentDefinition(), nil
 	case "Composition":
-		impl, ok := api.(cap1.CompositionSearch)
+		impl, ok := api.(r4.CompositionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Composition"}
@@ -217,7 +217,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsComposition(), nil
 	case "ConceptMap":
-		impl, ok := api.(cap1.ConceptMapSearch)
+		impl, ok := api.(r4.ConceptMapSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ConceptMap"}
@@ -225,7 +225,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsConceptMap(), nil
 	case "Condition":
-		impl, ok := api.(cap1.ConditionSearch)
+		impl, ok := api.(r4.ConditionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Condition"}
@@ -233,7 +233,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCondition(), nil
 	case "Consent":
-		impl, ok := api.(cap1.ConsentSearch)
+		impl, ok := api.(r4.ConsentSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Consent"}
@@ -241,7 +241,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsConsent(), nil
 	case "Contract":
-		impl, ok := api.(cap1.ContractSearch)
+		impl, ok := api.(r4.ContractSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Contract"}
@@ -249,7 +249,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsContract(), nil
 	case "Coverage":
-		impl, ok := api.(cap1.CoverageSearch)
+		impl, ok := api.(r4.CoverageSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Coverage"}
@@ -257,7 +257,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCoverage(), nil
 	case "CoverageEligibilityRequest":
-		impl, ok := api.(cap1.CoverageEligibilityRequestSearch)
+		impl, ok := api.(r4.CoverageEligibilityRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CoverageEligibilityRequest"}
@@ -265,7 +265,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCoverageEligibilityRequest(), nil
 	case "CoverageEligibilityResponse":
-		impl, ok := api.(cap1.CoverageEligibilityResponseSearch)
+		impl, ok := api.(r4.CoverageEligibilityResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "CoverageEligibilityResponse"}
@@ -273,7 +273,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsCoverageEligibilityResponse(), nil
 	case "DetectedIssue":
-		impl, ok := api.(cap1.DetectedIssueSearch)
+		impl, ok := api.(r4.DetectedIssueSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DetectedIssue"}
@@ -281,7 +281,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDetectedIssue(), nil
 	case "Device":
-		impl, ok := api.(cap1.DeviceSearch)
+		impl, ok := api.(r4.DeviceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Device"}
@@ -289,7 +289,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDevice(), nil
 	case "DeviceDefinition":
-		impl, ok := api.(cap1.DeviceDefinitionSearch)
+		impl, ok := api.(r4.DeviceDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DeviceDefinition"}
@@ -297,7 +297,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDeviceDefinition(), nil
 	case "DeviceMetric":
-		impl, ok := api.(cap1.DeviceMetricSearch)
+		impl, ok := api.(r4.DeviceMetricSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DeviceMetric"}
@@ -305,7 +305,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDeviceMetric(), nil
 	case "DeviceRequest":
-		impl, ok := api.(cap1.DeviceRequestSearch)
+		impl, ok := api.(r4.DeviceRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DeviceRequest"}
@@ -313,7 +313,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDeviceRequest(), nil
 	case "DeviceUseStatement":
-		impl, ok := api.(cap1.DeviceUseStatementSearch)
+		impl, ok := api.(r4.DeviceUseStatementSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DeviceUseStatement"}
@@ -321,7 +321,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDeviceUseStatement(), nil
 	case "DiagnosticReport":
-		impl, ok := api.(cap1.DiagnosticReportSearch)
+		impl, ok := api.(r4.DiagnosticReportSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DiagnosticReport"}
@@ -329,7 +329,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDiagnosticReport(), nil
 	case "DocumentManifest":
-		impl, ok := api.(cap1.DocumentManifestSearch)
+		impl, ok := api.(r4.DocumentManifestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DocumentManifest"}
@@ -337,7 +337,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDocumentManifest(), nil
 	case "DocumentReference":
-		impl, ok := api.(cap1.DocumentReferenceSearch)
+		impl, ok := api.(r4.DocumentReferenceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "DocumentReference"}
@@ -345,7 +345,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsDocumentReference(), nil
 	case "EffectEvidenceSynthesis":
-		impl, ok := api.(cap1.EffectEvidenceSynthesisSearch)
+		impl, ok := api.(r4.EffectEvidenceSynthesisSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EffectEvidenceSynthesis"}
@@ -353,7 +353,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEffectEvidenceSynthesis(), nil
 	case "Encounter":
-		impl, ok := api.(cap1.EncounterSearch)
+		impl, ok := api.(r4.EncounterSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Encounter"}
@@ -361,7 +361,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEncounter(), nil
 	case "Endpoint":
-		impl, ok := api.(cap1.EndpointSearch)
+		impl, ok := api.(r4.EndpointSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Endpoint"}
@@ -369,7 +369,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEndpoint(), nil
 	case "EnrollmentRequest":
-		impl, ok := api.(cap1.EnrollmentRequestSearch)
+		impl, ok := api.(r4.EnrollmentRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EnrollmentRequest"}
@@ -377,7 +377,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEnrollmentRequest(), nil
 	case "EnrollmentResponse":
-		impl, ok := api.(cap1.EnrollmentResponseSearch)
+		impl, ok := api.(r4.EnrollmentResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EnrollmentResponse"}
@@ -385,7 +385,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEnrollmentResponse(), nil
 	case "EpisodeOfCare":
-		impl, ok := api.(cap1.EpisodeOfCareSearch)
+		impl, ok := api.(r4.EpisodeOfCareSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EpisodeOfCare"}
@@ -393,7 +393,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEpisodeOfCare(), nil
 	case "EventDefinition":
-		impl, ok := api.(cap1.EventDefinitionSearch)
+		impl, ok := api.(r4.EventDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EventDefinition"}
@@ -401,7 +401,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEventDefinition(), nil
 	case "Evidence":
-		impl, ok := api.(cap1.EvidenceSearch)
+		impl, ok := api.(r4.EvidenceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Evidence"}
@@ -409,7 +409,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEvidence(), nil
 	case "EvidenceVariable":
-		impl, ok := api.(cap1.EvidenceVariableSearch)
+		impl, ok := api.(r4.EvidenceVariableSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "EvidenceVariable"}
@@ -417,7 +417,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsEvidenceVariable(), nil
 	case "ExampleScenario":
-		impl, ok := api.(cap1.ExampleScenarioSearch)
+		impl, ok := api.(r4.ExampleScenarioSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ExampleScenario"}
@@ -425,7 +425,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsExampleScenario(), nil
 	case "ExplanationOfBenefit":
-		impl, ok := api.(cap1.ExplanationOfBenefitSearch)
+		impl, ok := api.(r4.ExplanationOfBenefitSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ExplanationOfBenefit"}
@@ -433,7 +433,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsExplanationOfBenefit(), nil
 	case "FamilyMemberHistory":
-		impl, ok := api.(cap1.FamilyMemberHistorySearch)
+		impl, ok := api.(r4.FamilyMemberHistorySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "FamilyMemberHistory"}
@@ -441,7 +441,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsFamilyMemberHistory(), nil
 	case "Flag":
-		impl, ok := api.(cap1.FlagSearch)
+		impl, ok := api.(r4.FlagSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Flag"}
@@ -449,7 +449,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsFlag(), nil
 	case "Goal":
-		impl, ok := api.(cap1.GoalSearch)
+		impl, ok := api.(r4.GoalSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Goal"}
@@ -457,7 +457,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsGoal(), nil
 	case "GraphDefinition":
-		impl, ok := api.(cap1.GraphDefinitionSearch)
+		impl, ok := api.(r4.GraphDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "GraphDefinition"}
@@ -465,7 +465,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsGraphDefinition(), nil
 	case "Group":
-		impl, ok := api.(cap1.GroupSearch)
+		impl, ok := api.(r4.GroupSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Group"}
@@ -473,7 +473,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsGroup(), nil
 	case "GuidanceResponse":
-		impl, ok := api.(cap1.GuidanceResponseSearch)
+		impl, ok := api.(r4.GuidanceResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "GuidanceResponse"}
@@ -481,7 +481,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsGuidanceResponse(), nil
 	case "HealthcareService":
-		impl, ok := api.(cap1.HealthcareServiceSearch)
+		impl, ok := api.(r4.HealthcareServiceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "HealthcareService"}
@@ -489,7 +489,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsHealthcareService(), nil
 	case "ImagingStudy":
-		impl, ok := api.(cap1.ImagingStudySearch)
+		impl, ok := api.(r4.ImagingStudySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ImagingStudy"}
@@ -497,7 +497,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsImagingStudy(), nil
 	case "Immunization":
-		impl, ok := api.(cap1.ImmunizationSearch)
+		impl, ok := api.(r4.ImmunizationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Immunization"}
@@ -505,7 +505,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsImmunization(), nil
 	case "ImmunizationEvaluation":
-		impl, ok := api.(cap1.ImmunizationEvaluationSearch)
+		impl, ok := api.(r4.ImmunizationEvaluationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ImmunizationEvaluation"}
@@ -513,7 +513,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsImmunizationEvaluation(), nil
 	case "ImmunizationRecommendation":
-		impl, ok := api.(cap1.ImmunizationRecommendationSearch)
+		impl, ok := api.(r4.ImmunizationRecommendationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ImmunizationRecommendation"}
@@ -521,7 +521,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsImmunizationRecommendation(), nil
 	case "ImplementationGuide":
-		impl, ok := api.(cap1.ImplementationGuideSearch)
+		impl, ok := api.(r4.ImplementationGuideSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ImplementationGuide"}
@@ -529,7 +529,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsImplementationGuide(), nil
 	case "InsurancePlan":
-		impl, ok := api.(cap1.InsurancePlanSearch)
+		impl, ok := api.(r4.InsurancePlanSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "InsurancePlan"}
@@ -537,7 +537,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsInsurancePlan(), nil
 	case "Invoice":
-		impl, ok := api.(cap1.InvoiceSearch)
+		impl, ok := api.(r4.InvoiceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Invoice"}
@@ -545,7 +545,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsInvoice(), nil
 	case "Library":
-		impl, ok := api.(cap1.LibrarySearch)
+		impl, ok := api.(r4.LibrarySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Library"}
@@ -553,7 +553,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsLibrary(), nil
 	case "Linkage":
-		impl, ok := api.(cap1.LinkageSearch)
+		impl, ok := api.(r4.LinkageSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Linkage"}
@@ -561,7 +561,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsLinkage(), nil
 	case "List":
-		impl, ok := api.(cap1.ListSearch)
+		impl, ok := api.(r4.ListSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "List"}
@@ -569,7 +569,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsList(), nil
 	case "Location":
-		impl, ok := api.(cap1.LocationSearch)
+		impl, ok := api.(r4.LocationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Location"}
@@ -577,7 +577,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsLocation(), nil
 	case "Measure":
-		impl, ok := api.(cap1.MeasureSearch)
+		impl, ok := api.(r4.MeasureSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Measure"}
@@ -585,7 +585,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMeasure(), nil
 	case "MeasureReport":
-		impl, ok := api.(cap1.MeasureReportSearch)
+		impl, ok := api.(r4.MeasureReportSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MeasureReport"}
@@ -593,7 +593,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMeasureReport(), nil
 	case "Media":
-		impl, ok := api.(cap1.MediaSearch)
+		impl, ok := api.(r4.MediaSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Media"}
@@ -601,7 +601,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedia(), nil
 	case "Medication":
-		impl, ok := api.(cap1.MedicationSearch)
+		impl, ok := api.(r4.MedicationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Medication"}
@@ -609,7 +609,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedication(), nil
 	case "MedicationAdministration":
-		impl, ok := api.(cap1.MedicationAdministrationSearch)
+		impl, ok := api.(r4.MedicationAdministrationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicationAdministration"}
@@ -617,7 +617,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicationAdministration(), nil
 	case "MedicationDispense":
-		impl, ok := api.(cap1.MedicationDispenseSearch)
+		impl, ok := api.(r4.MedicationDispenseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicationDispense"}
@@ -625,7 +625,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicationDispense(), nil
 	case "MedicationKnowledge":
-		impl, ok := api.(cap1.MedicationKnowledgeSearch)
+		impl, ok := api.(r4.MedicationKnowledgeSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicationKnowledge"}
@@ -633,7 +633,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicationKnowledge(), nil
 	case "MedicationRequest":
-		impl, ok := api.(cap1.MedicationRequestSearch)
+		impl, ok := api.(r4.MedicationRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicationRequest"}
@@ -641,7 +641,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicationRequest(), nil
 	case "MedicationStatement":
-		impl, ok := api.(cap1.MedicationStatementSearch)
+		impl, ok := api.(r4.MedicationStatementSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicationStatement"}
@@ -649,7 +649,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicationStatement(), nil
 	case "MedicinalProduct":
-		impl, ok := api.(cap1.MedicinalProductSearch)
+		impl, ok := api.(r4.MedicinalProductSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProduct"}
@@ -657,7 +657,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProduct(), nil
 	case "MedicinalProductAuthorization":
-		impl, ok := api.(cap1.MedicinalProductAuthorizationSearch)
+		impl, ok := api.(r4.MedicinalProductAuthorizationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductAuthorization"}
@@ -665,7 +665,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductAuthorization(), nil
 	case "MedicinalProductContraindication":
-		impl, ok := api.(cap1.MedicinalProductContraindicationSearch)
+		impl, ok := api.(r4.MedicinalProductContraindicationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductContraindication"}
@@ -673,7 +673,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductContraindication(), nil
 	case "MedicinalProductIndication":
-		impl, ok := api.(cap1.MedicinalProductIndicationSearch)
+		impl, ok := api.(r4.MedicinalProductIndicationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductIndication"}
@@ -681,7 +681,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductIndication(), nil
 	case "MedicinalProductIngredient":
-		impl, ok := api.(cap1.MedicinalProductIngredientSearch)
+		impl, ok := api.(r4.MedicinalProductIngredientSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductIngredient"}
@@ -689,7 +689,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductIngredient(), nil
 	case "MedicinalProductInteraction":
-		impl, ok := api.(cap1.MedicinalProductInteractionSearch)
+		impl, ok := api.(r4.MedicinalProductInteractionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductInteraction"}
@@ -697,7 +697,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductInteraction(), nil
 	case "MedicinalProductManufactured":
-		impl, ok := api.(cap1.MedicinalProductManufacturedSearch)
+		impl, ok := api.(r4.MedicinalProductManufacturedSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductManufactured"}
@@ -705,7 +705,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductManufactured(), nil
 	case "MedicinalProductPackaged":
-		impl, ok := api.(cap1.MedicinalProductPackagedSearch)
+		impl, ok := api.(r4.MedicinalProductPackagedSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductPackaged"}
@@ -713,7 +713,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductPackaged(), nil
 	case "MedicinalProductPharmaceutical":
-		impl, ok := api.(cap1.MedicinalProductPharmaceuticalSearch)
+		impl, ok := api.(r4.MedicinalProductPharmaceuticalSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductPharmaceutical"}
@@ -721,7 +721,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductPharmaceutical(), nil
 	case "MedicinalProductUndesirableEffect":
-		impl, ok := api.(cap1.MedicinalProductUndesirableEffectSearch)
+		impl, ok := api.(r4.MedicinalProductUndesirableEffectSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MedicinalProductUndesirableEffect"}
@@ -729,7 +729,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMedicinalProductUndesirableEffect(), nil
 	case "MessageDefinition":
-		impl, ok := api.(cap1.MessageDefinitionSearch)
+		impl, ok := api.(r4.MessageDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MessageDefinition"}
@@ -737,7 +737,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMessageDefinition(), nil
 	case "MessageHeader":
-		impl, ok := api.(cap1.MessageHeaderSearch)
+		impl, ok := api.(r4.MessageHeaderSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MessageHeader"}
@@ -745,7 +745,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMessageHeader(), nil
 	case "MolecularSequence":
-		impl, ok := api.(cap1.MolecularSequenceSearch)
+		impl, ok := api.(r4.MolecularSequenceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "MolecularSequence"}
@@ -753,7 +753,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsMolecularSequence(), nil
 	case "NamingSystem":
-		impl, ok := api.(cap1.NamingSystemSearch)
+		impl, ok := api.(r4.NamingSystemSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "NamingSystem"}
@@ -761,7 +761,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsNamingSystem(), nil
 	case "NutritionOrder":
-		impl, ok := api.(cap1.NutritionOrderSearch)
+		impl, ok := api.(r4.NutritionOrderSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "NutritionOrder"}
@@ -769,7 +769,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsNutritionOrder(), nil
 	case "Observation":
-		impl, ok := api.(cap1.ObservationSearch)
+		impl, ok := api.(r4.ObservationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Observation"}
@@ -777,7 +777,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsObservation(), nil
 	case "ObservationDefinition":
-		impl, ok := api.(cap1.ObservationDefinitionSearch)
+		impl, ok := api.(r4.ObservationDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ObservationDefinition"}
@@ -785,7 +785,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsObservationDefinition(), nil
 	case "OperationDefinition":
-		impl, ok := api.(cap1.OperationDefinitionSearch)
+		impl, ok := api.(r4.OperationDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "OperationDefinition"}
@@ -793,7 +793,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsOperationDefinition(), nil
 	case "OperationOutcome":
-		impl, ok := api.(cap1.OperationOutcomeSearch)
+		impl, ok := api.(r4.OperationOutcomeSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "OperationOutcome"}
@@ -801,7 +801,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsOperationOutcome(), nil
 	case "Organization":
-		impl, ok := api.(cap1.OrganizationSearch)
+		impl, ok := api.(r4.OrganizationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Organization"}
@@ -809,7 +809,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsOrganization(), nil
 	case "OrganizationAffiliation":
-		impl, ok := api.(cap1.OrganizationAffiliationSearch)
+		impl, ok := api.(r4.OrganizationAffiliationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "OrganizationAffiliation"}
@@ -817,7 +817,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsOrganizationAffiliation(), nil
 	case "Parameters":
-		impl, ok := api.(cap1.ParametersSearch)
+		impl, ok := api.(r4.ParametersSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Parameters"}
@@ -825,7 +825,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsParameters(), nil
 	case "Patient":
-		impl, ok := api.(cap1.PatientSearch)
+		impl, ok := api.(r4.PatientSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Patient"}
@@ -833,7 +833,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPatient(), nil
 	case "PaymentNotice":
-		impl, ok := api.(cap1.PaymentNoticeSearch)
+		impl, ok := api.(r4.PaymentNoticeSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "PaymentNotice"}
@@ -841,7 +841,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPaymentNotice(), nil
 	case "PaymentReconciliation":
-		impl, ok := api.(cap1.PaymentReconciliationSearch)
+		impl, ok := api.(r4.PaymentReconciliationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "PaymentReconciliation"}
@@ -849,7 +849,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPaymentReconciliation(), nil
 	case "Person":
-		impl, ok := api.(cap1.PersonSearch)
+		impl, ok := api.(r4.PersonSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Person"}
@@ -857,7 +857,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPerson(), nil
 	case "PlanDefinition":
-		impl, ok := api.(cap1.PlanDefinitionSearch)
+		impl, ok := api.(r4.PlanDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "PlanDefinition"}
@@ -865,7 +865,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPlanDefinition(), nil
 	case "Practitioner":
-		impl, ok := api.(cap1.PractitionerSearch)
+		impl, ok := api.(r4.PractitionerSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Practitioner"}
@@ -873,7 +873,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPractitioner(), nil
 	case "PractitionerRole":
-		impl, ok := api.(cap1.PractitionerRoleSearch)
+		impl, ok := api.(r4.PractitionerRoleSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "PractitionerRole"}
@@ -881,7 +881,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsPractitionerRole(), nil
 	case "Procedure":
-		impl, ok := api.(cap1.ProcedureSearch)
+		impl, ok := api.(r4.ProcedureSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Procedure"}
@@ -889,7 +889,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsProcedure(), nil
 	case "Provenance":
-		impl, ok := api.(cap1.ProvenanceSearch)
+		impl, ok := api.(r4.ProvenanceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Provenance"}
@@ -897,7 +897,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsProvenance(), nil
 	case "Questionnaire":
-		impl, ok := api.(cap1.QuestionnaireSearch)
+		impl, ok := api.(r4.QuestionnaireSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Questionnaire"}
@@ -905,7 +905,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsQuestionnaire(), nil
 	case "QuestionnaireResponse":
-		impl, ok := api.(cap1.QuestionnaireResponseSearch)
+		impl, ok := api.(r4.QuestionnaireResponseSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "QuestionnaireResponse"}
@@ -913,7 +913,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsQuestionnaireResponse(), nil
 	case "RelatedPerson":
-		impl, ok := api.(cap1.RelatedPersonSearch)
+		impl, ok := api.(r4.RelatedPersonSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "RelatedPerson"}
@@ -921,7 +921,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsRelatedPerson(), nil
 	case "RequestGroup":
-		impl, ok := api.(cap1.RequestGroupSearch)
+		impl, ok := api.(r4.RequestGroupSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "RequestGroup"}
@@ -929,7 +929,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsRequestGroup(), nil
 	case "ResearchDefinition":
-		impl, ok := api.(cap1.ResearchDefinitionSearch)
+		impl, ok := api.(r4.ResearchDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ResearchDefinition"}
@@ -937,7 +937,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsResearchDefinition(), nil
 	case "ResearchElementDefinition":
-		impl, ok := api.(cap1.ResearchElementDefinitionSearch)
+		impl, ok := api.(r4.ResearchElementDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ResearchElementDefinition"}
@@ -945,7 +945,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsResearchElementDefinition(), nil
 	case "ResearchStudy":
-		impl, ok := api.(cap1.ResearchStudySearch)
+		impl, ok := api.(r4.ResearchStudySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ResearchStudy"}
@@ -953,7 +953,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsResearchStudy(), nil
 	case "ResearchSubject":
-		impl, ok := api.(cap1.ResearchSubjectSearch)
+		impl, ok := api.(r4.ResearchSubjectSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ResearchSubject"}
@@ -961,7 +961,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsResearchSubject(), nil
 	case "RiskAssessment":
-		impl, ok := api.(cap1.RiskAssessmentSearch)
+		impl, ok := api.(r4.RiskAssessmentSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "RiskAssessment"}
@@ -969,7 +969,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsRiskAssessment(), nil
 	case "RiskEvidenceSynthesis":
-		impl, ok := api.(cap1.RiskEvidenceSynthesisSearch)
+		impl, ok := api.(r4.RiskEvidenceSynthesisSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "RiskEvidenceSynthesis"}
@@ -977,7 +977,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsRiskEvidenceSynthesis(), nil
 	case "Schedule":
-		impl, ok := api.(cap1.ScheduleSearch)
+		impl, ok := api.(r4.ScheduleSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Schedule"}
@@ -985,7 +985,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSchedule(), nil
 	case "SearchParameter":
-		impl, ok := api.(cap1.SearchParameterSearch)
+		impl, ok := api.(r4.SearchParameterSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SearchParameter"}
@@ -993,7 +993,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSearchParameter(), nil
 	case "ServiceRequest":
-		impl, ok := api.(cap1.ServiceRequestSearch)
+		impl, ok := api.(r4.ServiceRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ServiceRequest"}
@@ -1001,7 +1001,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsServiceRequest(), nil
 	case "Slot":
-		impl, ok := api.(cap1.SlotSearch)
+		impl, ok := api.(r4.SlotSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Slot"}
@@ -1009,7 +1009,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSlot(), nil
 	case "Specimen":
-		impl, ok := api.(cap1.SpecimenSearch)
+		impl, ok := api.(r4.SpecimenSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Specimen"}
@@ -1017,7 +1017,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSpecimen(), nil
 	case "SpecimenDefinition":
-		impl, ok := api.(cap1.SpecimenDefinitionSearch)
+		impl, ok := api.(r4.SpecimenDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SpecimenDefinition"}
@@ -1025,7 +1025,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSpecimenDefinition(), nil
 	case "StructureDefinition":
-		impl, ok := api.(cap1.StructureDefinitionSearch)
+		impl, ok := api.(r4.StructureDefinitionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "StructureDefinition"}
@@ -1033,7 +1033,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsStructureDefinition(), nil
 	case "StructureMap":
-		impl, ok := api.(cap1.StructureMapSearch)
+		impl, ok := api.(r4.StructureMapSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "StructureMap"}
@@ -1041,7 +1041,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsStructureMap(), nil
 	case "Subscription":
-		impl, ok := api.(cap1.SubscriptionSearch)
+		impl, ok := api.(r4.SubscriptionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Subscription"}
@@ -1049,7 +1049,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubscription(), nil
 	case "Substance":
-		impl, ok := api.(cap1.SubstanceSearch)
+		impl, ok := api.(r4.SubstanceSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Substance"}
@@ -1057,7 +1057,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstance(), nil
 	case "SubstanceNucleicAcid":
-		impl, ok := api.(cap1.SubstanceNucleicAcidSearch)
+		impl, ok := api.(r4.SubstanceNucleicAcidSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstanceNucleicAcid"}
@@ -1065,7 +1065,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstanceNucleicAcid(), nil
 	case "SubstancePolymer":
-		impl, ok := api.(cap1.SubstancePolymerSearch)
+		impl, ok := api.(r4.SubstancePolymerSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstancePolymer"}
@@ -1073,7 +1073,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstancePolymer(), nil
 	case "SubstanceProtein":
-		impl, ok := api.(cap1.SubstanceProteinSearch)
+		impl, ok := api.(r4.SubstanceProteinSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstanceProtein"}
@@ -1081,7 +1081,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstanceProtein(), nil
 	case "SubstanceReferenceInformation":
-		impl, ok := api.(cap1.SubstanceReferenceInformationSearch)
+		impl, ok := api.(r4.SubstanceReferenceInformationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstanceReferenceInformation"}
@@ -1089,7 +1089,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstanceReferenceInformation(), nil
 	case "SubstanceSourceMaterial":
-		impl, ok := api.(cap1.SubstanceSourceMaterialSearch)
+		impl, ok := api.(r4.SubstanceSourceMaterialSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstanceSourceMaterial"}
@@ -1097,7 +1097,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstanceSourceMaterial(), nil
 	case "SubstanceSpecification":
-		impl, ok := api.(cap1.SubstanceSpecificationSearch)
+		impl, ok := api.(r4.SubstanceSpecificationSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SubstanceSpecification"}
@@ -1105,7 +1105,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSubstanceSpecification(), nil
 	case "SupplyDelivery":
-		impl, ok := api.(cap1.SupplyDeliverySearch)
+		impl, ok := api.(r4.SupplyDeliverySearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SupplyDelivery"}
@@ -1113,7 +1113,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSupplyDelivery(), nil
 	case "SupplyRequest":
-		impl, ok := api.(cap1.SupplyRequestSearch)
+		impl, ok := api.(r4.SupplyRequestSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "SupplyRequest"}
@@ -1121,7 +1121,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsSupplyRequest(), nil
 	case "Task":
-		impl, ok := api.(cap1.TaskSearch)
+		impl, ok := api.(r4.TaskSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "Task"}
@@ -1129,7 +1129,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsTask(), nil
 	case "TerminologyCapabilities":
-		impl, ok := api.(cap1.TerminologyCapabilitiesSearch)
+		impl, ok := api.(r4.TerminologyCapabilitiesSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "TerminologyCapabilities"}
@@ -1137,7 +1137,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsTerminologyCapabilities(), nil
 	case "TestReport":
-		impl, ok := api.(cap1.TestReportSearch)
+		impl, ok := api.(r4.TestReportSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "TestReport"}
@@ -1145,7 +1145,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsTestReport(), nil
 	case "TestScript":
-		impl, ok := api.(cap1.TestScriptSearch)
+		impl, ok := api.(r4.TestScriptSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "TestScript"}
@@ -1153,7 +1153,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsTestScript(), nil
 	case "ValueSet":
-		impl, ok := api.(cap1.ValueSetSearch)
+		impl, ok := api.(r4.ValueSetSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "ValueSet"}
@@ -1161,7 +1161,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsValueSet(), nil
 	case "VerificationResult":
-		impl, ok := api.(cap1.VerificationResultSearch)
+		impl, ok := api.(r4.VerificationResultSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "VerificationResult"}
@@ -1169,7 +1169,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 		}
 		return impl.SearchParamsVerificationResult(), nil
 	case "VisionPrescription":
-		impl, ok := api.(cap1.VisionPrescriptionSearch)
+		impl, ok := api.(r4.VisionPrescriptionSearch)
 		if !ok {
 			if !ok {
 				return nil, dispatch.NotImplementedError{Interaction: "SearchParams", ResourceType: "VisionPrescription"}
@@ -1183,7 +1183,7 @@ func SearchParams(api any, resourceType string) ([]string, error) {
 func Search(ctx context.Context, api any, resourceType string, parameters map[string]string) ([]any, error) {
 	switch resourceType {
 	case "Account":
-		impl, ok := api.(cap1.AccountSearch)
+		impl, ok := api.(r4.AccountSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Account"}
 		}
@@ -1197,7 +1197,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ActivityDefinition":
-		impl, ok := api.(cap1.ActivityDefinitionSearch)
+		impl, ok := api.(r4.ActivityDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ActivityDefinition"}
 		}
@@ -1211,7 +1211,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "AdverseEvent":
-		impl, ok := api.(cap1.AdverseEventSearch)
+		impl, ok := api.(r4.AdverseEventSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "AdverseEvent"}
 		}
@@ -1225,7 +1225,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "AllergyIntolerance":
-		impl, ok := api.(cap1.AllergyIntoleranceSearch)
+		impl, ok := api.(r4.AllergyIntoleranceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "AllergyIntolerance"}
 		}
@@ -1239,7 +1239,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Appointment":
-		impl, ok := api.(cap1.AppointmentSearch)
+		impl, ok := api.(r4.AppointmentSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Appointment"}
 		}
@@ -1253,7 +1253,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "AppointmentResponse":
-		impl, ok := api.(cap1.AppointmentResponseSearch)
+		impl, ok := api.(r4.AppointmentResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "AppointmentResponse"}
 		}
@@ -1267,7 +1267,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "AuditEvent":
-		impl, ok := api.(cap1.AuditEventSearch)
+		impl, ok := api.(r4.AuditEventSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "AuditEvent"}
 		}
@@ -1281,7 +1281,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Basic":
-		impl, ok := api.(cap1.BasicSearch)
+		impl, ok := api.(r4.BasicSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Basic"}
 		}
@@ -1295,7 +1295,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Binary":
-		impl, ok := api.(cap1.BinarySearch)
+		impl, ok := api.(r4.BinarySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Binary"}
 		}
@@ -1309,7 +1309,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "BiologicallyDerivedProduct":
-		impl, ok := api.(cap1.BiologicallyDerivedProductSearch)
+		impl, ok := api.(r4.BiologicallyDerivedProductSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "BiologicallyDerivedProduct"}
 		}
@@ -1323,7 +1323,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "BodyStructure":
-		impl, ok := api.(cap1.BodyStructureSearch)
+		impl, ok := api.(r4.BodyStructureSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "BodyStructure"}
 		}
@@ -1337,7 +1337,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Bundle":
-		impl, ok := api.(cap1.BundleSearch)
+		impl, ok := api.(r4.BundleSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Bundle"}
 		}
@@ -1351,7 +1351,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CapabilityStatement":
-		impl, ok := api.(cap1.CapabilityStatementSearch)
+		impl, ok := api.(r4.CapabilityStatementSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CapabilityStatement"}
 		}
@@ -1365,7 +1365,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CarePlan":
-		impl, ok := api.(cap1.CarePlanSearch)
+		impl, ok := api.(r4.CarePlanSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CarePlan"}
 		}
@@ -1379,7 +1379,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CareTeam":
-		impl, ok := api.(cap1.CareTeamSearch)
+		impl, ok := api.(r4.CareTeamSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CareTeam"}
 		}
@@ -1393,7 +1393,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CatalogEntry":
-		impl, ok := api.(cap1.CatalogEntrySearch)
+		impl, ok := api.(r4.CatalogEntrySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CatalogEntry"}
 		}
@@ -1407,7 +1407,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ChargeItem":
-		impl, ok := api.(cap1.ChargeItemSearch)
+		impl, ok := api.(r4.ChargeItemSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ChargeItem"}
 		}
@@ -1421,7 +1421,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ChargeItemDefinition":
-		impl, ok := api.(cap1.ChargeItemDefinitionSearch)
+		impl, ok := api.(r4.ChargeItemDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ChargeItemDefinition"}
 		}
@@ -1435,7 +1435,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Claim":
-		impl, ok := api.(cap1.ClaimSearch)
+		impl, ok := api.(r4.ClaimSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Claim"}
 		}
@@ -1449,7 +1449,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ClaimResponse":
-		impl, ok := api.(cap1.ClaimResponseSearch)
+		impl, ok := api.(r4.ClaimResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ClaimResponse"}
 		}
@@ -1463,7 +1463,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ClinicalImpression":
-		impl, ok := api.(cap1.ClinicalImpressionSearch)
+		impl, ok := api.(r4.ClinicalImpressionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ClinicalImpression"}
 		}
@@ -1477,7 +1477,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CodeSystem":
-		impl, ok := api.(cap1.CodeSystemSearch)
+		impl, ok := api.(r4.CodeSystemSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CodeSystem"}
 		}
@@ -1491,7 +1491,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Communication":
-		impl, ok := api.(cap1.CommunicationSearch)
+		impl, ok := api.(r4.CommunicationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Communication"}
 		}
@@ -1505,7 +1505,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CommunicationRequest":
-		impl, ok := api.(cap1.CommunicationRequestSearch)
+		impl, ok := api.(r4.CommunicationRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CommunicationRequest"}
 		}
@@ -1519,7 +1519,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CompartmentDefinition":
-		impl, ok := api.(cap1.CompartmentDefinitionSearch)
+		impl, ok := api.(r4.CompartmentDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CompartmentDefinition"}
 		}
@@ -1533,7 +1533,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Composition":
-		impl, ok := api.(cap1.CompositionSearch)
+		impl, ok := api.(r4.CompositionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Composition"}
 		}
@@ -1547,7 +1547,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ConceptMap":
-		impl, ok := api.(cap1.ConceptMapSearch)
+		impl, ok := api.(r4.ConceptMapSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ConceptMap"}
 		}
@@ -1561,7 +1561,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Condition":
-		impl, ok := api.(cap1.ConditionSearch)
+		impl, ok := api.(r4.ConditionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Condition"}
 		}
@@ -1575,7 +1575,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Consent":
-		impl, ok := api.(cap1.ConsentSearch)
+		impl, ok := api.(r4.ConsentSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Consent"}
 		}
@@ -1589,7 +1589,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Contract":
-		impl, ok := api.(cap1.ContractSearch)
+		impl, ok := api.(r4.ContractSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Contract"}
 		}
@@ -1603,7 +1603,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Coverage":
-		impl, ok := api.(cap1.CoverageSearch)
+		impl, ok := api.(r4.CoverageSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Coverage"}
 		}
@@ -1617,7 +1617,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CoverageEligibilityRequest":
-		impl, ok := api.(cap1.CoverageEligibilityRequestSearch)
+		impl, ok := api.(r4.CoverageEligibilityRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CoverageEligibilityRequest"}
 		}
@@ -1631,7 +1631,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "CoverageEligibilityResponse":
-		impl, ok := api.(cap1.CoverageEligibilityResponseSearch)
+		impl, ok := api.(r4.CoverageEligibilityResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "CoverageEligibilityResponse"}
 		}
@@ -1645,7 +1645,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DetectedIssue":
-		impl, ok := api.(cap1.DetectedIssueSearch)
+		impl, ok := api.(r4.DetectedIssueSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DetectedIssue"}
 		}
@@ -1659,7 +1659,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Device":
-		impl, ok := api.(cap1.DeviceSearch)
+		impl, ok := api.(r4.DeviceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Device"}
 		}
@@ -1673,7 +1673,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DeviceDefinition":
-		impl, ok := api.(cap1.DeviceDefinitionSearch)
+		impl, ok := api.(r4.DeviceDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DeviceDefinition"}
 		}
@@ -1687,7 +1687,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DeviceMetric":
-		impl, ok := api.(cap1.DeviceMetricSearch)
+		impl, ok := api.(r4.DeviceMetricSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DeviceMetric"}
 		}
@@ -1701,7 +1701,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DeviceRequest":
-		impl, ok := api.(cap1.DeviceRequestSearch)
+		impl, ok := api.(r4.DeviceRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DeviceRequest"}
 		}
@@ -1715,7 +1715,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DeviceUseStatement":
-		impl, ok := api.(cap1.DeviceUseStatementSearch)
+		impl, ok := api.(r4.DeviceUseStatementSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DeviceUseStatement"}
 		}
@@ -1729,7 +1729,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DiagnosticReport":
-		impl, ok := api.(cap1.DiagnosticReportSearch)
+		impl, ok := api.(r4.DiagnosticReportSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DiagnosticReport"}
 		}
@@ -1743,7 +1743,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DocumentManifest":
-		impl, ok := api.(cap1.DocumentManifestSearch)
+		impl, ok := api.(r4.DocumentManifestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DocumentManifest"}
 		}
@@ -1757,7 +1757,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "DocumentReference":
-		impl, ok := api.(cap1.DocumentReferenceSearch)
+		impl, ok := api.(r4.DocumentReferenceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "DocumentReference"}
 		}
@@ -1771,7 +1771,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EffectEvidenceSynthesis":
-		impl, ok := api.(cap1.EffectEvidenceSynthesisSearch)
+		impl, ok := api.(r4.EffectEvidenceSynthesisSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EffectEvidenceSynthesis"}
 		}
@@ -1785,7 +1785,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Encounter":
-		impl, ok := api.(cap1.EncounterSearch)
+		impl, ok := api.(r4.EncounterSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Encounter"}
 		}
@@ -1799,7 +1799,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Endpoint":
-		impl, ok := api.(cap1.EndpointSearch)
+		impl, ok := api.(r4.EndpointSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Endpoint"}
 		}
@@ -1813,7 +1813,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EnrollmentRequest":
-		impl, ok := api.(cap1.EnrollmentRequestSearch)
+		impl, ok := api.(r4.EnrollmentRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EnrollmentRequest"}
 		}
@@ -1827,7 +1827,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EnrollmentResponse":
-		impl, ok := api.(cap1.EnrollmentResponseSearch)
+		impl, ok := api.(r4.EnrollmentResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EnrollmentResponse"}
 		}
@@ -1841,7 +1841,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EpisodeOfCare":
-		impl, ok := api.(cap1.EpisodeOfCareSearch)
+		impl, ok := api.(r4.EpisodeOfCareSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EpisodeOfCare"}
 		}
@@ -1855,7 +1855,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EventDefinition":
-		impl, ok := api.(cap1.EventDefinitionSearch)
+		impl, ok := api.(r4.EventDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EventDefinition"}
 		}
@@ -1869,7 +1869,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Evidence":
-		impl, ok := api.(cap1.EvidenceSearch)
+		impl, ok := api.(r4.EvidenceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Evidence"}
 		}
@@ -1883,7 +1883,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "EvidenceVariable":
-		impl, ok := api.(cap1.EvidenceVariableSearch)
+		impl, ok := api.(r4.EvidenceVariableSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "EvidenceVariable"}
 		}
@@ -1897,7 +1897,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ExampleScenario":
-		impl, ok := api.(cap1.ExampleScenarioSearch)
+		impl, ok := api.(r4.ExampleScenarioSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ExampleScenario"}
 		}
@@ -1911,7 +1911,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ExplanationOfBenefit":
-		impl, ok := api.(cap1.ExplanationOfBenefitSearch)
+		impl, ok := api.(r4.ExplanationOfBenefitSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ExplanationOfBenefit"}
 		}
@@ -1925,7 +1925,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "FamilyMemberHistory":
-		impl, ok := api.(cap1.FamilyMemberHistorySearch)
+		impl, ok := api.(r4.FamilyMemberHistorySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "FamilyMemberHistory"}
 		}
@@ -1939,7 +1939,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Flag":
-		impl, ok := api.(cap1.FlagSearch)
+		impl, ok := api.(r4.FlagSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Flag"}
 		}
@@ -1953,7 +1953,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Goal":
-		impl, ok := api.(cap1.GoalSearch)
+		impl, ok := api.(r4.GoalSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Goal"}
 		}
@@ -1967,7 +1967,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "GraphDefinition":
-		impl, ok := api.(cap1.GraphDefinitionSearch)
+		impl, ok := api.(r4.GraphDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "GraphDefinition"}
 		}
@@ -1981,7 +1981,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Group":
-		impl, ok := api.(cap1.GroupSearch)
+		impl, ok := api.(r4.GroupSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Group"}
 		}
@@ -1995,7 +1995,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "GuidanceResponse":
-		impl, ok := api.(cap1.GuidanceResponseSearch)
+		impl, ok := api.(r4.GuidanceResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "GuidanceResponse"}
 		}
@@ -2009,7 +2009,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "HealthcareService":
-		impl, ok := api.(cap1.HealthcareServiceSearch)
+		impl, ok := api.(r4.HealthcareServiceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "HealthcareService"}
 		}
@@ -2023,7 +2023,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ImagingStudy":
-		impl, ok := api.(cap1.ImagingStudySearch)
+		impl, ok := api.(r4.ImagingStudySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ImagingStudy"}
 		}
@@ -2037,7 +2037,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Immunization":
-		impl, ok := api.(cap1.ImmunizationSearch)
+		impl, ok := api.(r4.ImmunizationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Immunization"}
 		}
@@ -2051,7 +2051,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ImmunizationEvaluation":
-		impl, ok := api.(cap1.ImmunizationEvaluationSearch)
+		impl, ok := api.(r4.ImmunizationEvaluationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ImmunizationEvaluation"}
 		}
@@ -2065,7 +2065,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ImmunizationRecommendation":
-		impl, ok := api.(cap1.ImmunizationRecommendationSearch)
+		impl, ok := api.(r4.ImmunizationRecommendationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ImmunizationRecommendation"}
 		}
@@ -2079,7 +2079,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ImplementationGuide":
-		impl, ok := api.(cap1.ImplementationGuideSearch)
+		impl, ok := api.(r4.ImplementationGuideSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ImplementationGuide"}
 		}
@@ -2093,7 +2093,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "InsurancePlan":
-		impl, ok := api.(cap1.InsurancePlanSearch)
+		impl, ok := api.(r4.InsurancePlanSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "InsurancePlan"}
 		}
@@ -2107,7 +2107,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Invoice":
-		impl, ok := api.(cap1.InvoiceSearch)
+		impl, ok := api.(r4.InvoiceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Invoice"}
 		}
@@ -2121,7 +2121,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Library":
-		impl, ok := api.(cap1.LibrarySearch)
+		impl, ok := api.(r4.LibrarySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Library"}
 		}
@@ -2135,7 +2135,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Linkage":
-		impl, ok := api.(cap1.LinkageSearch)
+		impl, ok := api.(r4.LinkageSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Linkage"}
 		}
@@ -2149,7 +2149,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "List":
-		impl, ok := api.(cap1.ListSearch)
+		impl, ok := api.(r4.ListSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "List"}
 		}
@@ -2163,7 +2163,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Location":
-		impl, ok := api.(cap1.LocationSearch)
+		impl, ok := api.(r4.LocationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Location"}
 		}
@@ -2177,7 +2177,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Measure":
-		impl, ok := api.(cap1.MeasureSearch)
+		impl, ok := api.(r4.MeasureSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Measure"}
 		}
@@ -2191,7 +2191,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MeasureReport":
-		impl, ok := api.(cap1.MeasureReportSearch)
+		impl, ok := api.(r4.MeasureReportSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MeasureReport"}
 		}
@@ -2205,7 +2205,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Media":
-		impl, ok := api.(cap1.MediaSearch)
+		impl, ok := api.(r4.MediaSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Media"}
 		}
@@ -2219,7 +2219,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Medication":
-		impl, ok := api.(cap1.MedicationSearch)
+		impl, ok := api.(r4.MedicationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Medication"}
 		}
@@ -2233,7 +2233,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicationAdministration":
-		impl, ok := api.(cap1.MedicationAdministrationSearch)
+		impl, ok := api.(r4.MedicationAdministrationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicationAdministration"}
 		}
@@ -2247,7 +2247,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicationDispense":
-		impl, ok := api.(cap1.MedicationDispenseSearch)
+		impl, ok := api.(r4.MedicationDispenseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicationDispense"}
 		}
@@ -2261,7 +2261,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicationKnowledge":
-		impl, ok := api.(cap1.MedicationKnowledgeSearch)
+		impl, ok := api.(r4.MedicationKnowledgeSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicationKnowledge"}
 		}
@@ -2275,7 +2275,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicationRequest":
-		impl, ok := api.(cap1.MedicationRequestSearch)
+		impl, ok := api.(r4.MedicationRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicationRequest"}
 		}
@@ -2289,7 +2289,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicationStatement":
-		impl, ok := api.(cap1.MedicationStatementSearch)
+		impl, ok := api.(r4.MedicationStatementSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicationStatement"}
 		}
@@ -2303,7 +2303,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProduct":
-		impl, ok := api.(cap1.MedicinalProductSearch)
+		impl, ok := api.(r4.MedicinalProductSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProduct"}
 		}
@@ -2317,7 +2317,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductAuthorization":
-		impl, ok := api.(cap1.MedicinalProductAuthorizationSearch)
+		impl, ok := api.(r4.MedicinalProductAuthorizationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductAuthorization"}
 		}
@@ -2331,7 +2331,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductContraindication":
-		impl, ok := api.(cap1.MedicinalProductContraindicationSearch)
+		impl, ok := api.(r4.MedicinalProductContraindicationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductContraindication"}
 		}
@@ -2345,7 +2345,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductIndication":
-		impl, ok := api.(cap1.MedicinalProductIndicationSearch)
+		impl, ok := api.(r4.MedicinalProductIndicationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductIndication"}
 		}
@@ -2359,7 +2359,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductIngredient":
-		impl, ok := api.(cap1.MedicinalProductIngredientSearch)
+		impl, ok := api.(r4.MedicinalProductIngredientSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductIngredient"}
 		}
@@ -2373,7 +2373,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductInteraction":
-		impl, ok := api.(cap1.MedicinalProductInteractionSearch)
+		impl, ok := api.(r4.MedicinalProductInteractionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductInteraction"}
 		}
@@ -2387,7 +2387,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductManufactured":
-		impl, ok := api.(cap1.MedicinalProductManufacturedSearch)
+		impl, ok := api.(r4.MedicinalProductManufacturedSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductManufactured"}
 		}
@@ -2401,7 +2401,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductPackaged":
-		impl, ok := api.(cap1.MedicinalProductPackagedSearch)
+		impl, ok := api.(r4.MedicinalProductPackagedSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductPackaged"}
 		}
@@ -2415,7 +2415,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductPharmaceutical":
-		impl, ok := api.(cap1.MedicinalProductPharmaceuticalSearch)
+		impl, ok := api.(r4.MedicinalProductPharmaceuticalSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductPharmaceutical"}
 		}
@@ -2429,7 +2429,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MedicinalProductUndesirableEffect":
-		impl, ok := api.(cap1.MedicinalProductUndesirableEffectSearch)
+		impl, ok := api.(r4.MedicinalProductUndesirableEffectSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductUndesirableEffect"}
 		}
@@ -2443,7 +2443,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MessageDefinition":
-		impl, ok := api.(cap1.MessageDefinitionSearch)
+		impl, ok := api.(r4.MessageDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MessageDefinition"}
 		}
@@ -2457,7 +2457,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MessageHeader":
-		impl, ok := api.(cap1.MessageHeaderSearch)
+		impl, ok := api.(r4.MessageHeaderSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MessageHeader"}
 		}
@@ -2471,7 +2471,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "MolecularSequence":
-		impl, ok := api.(cap1.MolecularSequenceSearch)
+		impl, ok := api.(r4.MolecularSequenceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "MolecularSequence"}
 		}
@@ -2485,7 +2485,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "NamingSystem":
-		impl, ok := api.(cap1.NamingSystemSearch)
+		impl, ok := api.(r4.NamingSystemSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "NamingSystem"}
 		}
@@ -2499,7 +2499,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "NutritionOrder":
-		impl, ok := api.(cap1.NutritionOrderSearch)
+		impl, ok := api.(r4.NutritionOrderSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "NutritionOrder"}
 		}
@@ -2513,7 +2513,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Observation":
-		impl, ok := api.(cap1.ObservationSearch)
+		impl, ok := api.(r4.ObservationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Observation"}
 		}
@@ -2527,7 +2527,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ObservationDefinition":
-		impl, ok := api.(cap1.ObservationDefinitionSearch)
+		impl, ok := api.(r4.ObservationDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ObservationDefinition"}
 		}
@@ -2541,7 +2541,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "OperationDefinition":
-		impl, ok := api.(cap1.OperationDefinitionSearch)
+		impl, ok := api.(r4.OperationDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "OperationDefinition"}
 		}
@@ -2555,7 +2555,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "OperationOutcome":
-		impl, ok := api.(cap1.OperationOutcomeSearch)
+		impl, ok := api.(r4.OperationOutcomeSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "OperationOutcome"}
 		}
@@ -2569,7 +2569,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Organization":
-		impl, ok := api.(cap1.OrganizationSearch)
+		impl, ok := api.(r4.OrganizationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Organization"}
 		}
@@ -2583,7 +2583,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "OrganizationAffiliation":
-		impl, ok := api.(cap1.OrganizationAffiliationSearch)
+		impl, ok := api.(r4.OrganizationAffiliationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "OrganizationAffiliation"}
 		}
@@ -2597,7 +2597,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Parameters":
-		impl, ok := api.(cap1.ParametersSearch)
+		impl, ok := api.(r4.ParametersSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Parameters"}
 		}
@@ -2611,7 +2611,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Patient":
-		impl, ok := api.(cap1.PatientSearch)
+		impl, ok := api.(r4.PatientSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Patient"}
 		}
@@ -2625,7 +2625,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "PaymentNotice":
-		impl, ok := api.(cap1.PaymentNoticeSearch)
+		impl, ok := api.(r4.PaymentNoticeSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "PaymentNotice"}
 		}
@@ -2639,7 +2639,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "PaymentReconciliation":
-		impl, ok := api.(cap1.PaymentReconciliationSearch)
+		impl, ok := api.(r4.PaymentReconciliationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "PaymentReconciliation"}
 		}
@@ -2653,7 +2653,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Person":
-		impl, ok := api.(cap1.PersonSearch)
+		impl, ok := api.(r4.PersonSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Person"}
 		}
@@ -2667,7 +2667,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "PlanDefinition":
-		impl, ok := api.(cap1.PlanDefinitionSearch)
+		impl, ok := api.(r4.PlanDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "PlanDefinition"}
 		}
@@ -2681,7 +2681,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Practitioner":
-		impl, ok := api.(cap1.PractitionerSearch)
+		impl, ok := api.(r4.PractitionerSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Practitioner"}
 		}
@@ -2695,7 +2695,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "PractitionerRole":
-		impl, ok := api.(cap1.PractitionerRoleSearch)
+		impl, ok := api.(r4.PractitionerRoleSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "PractitionerRole"}
 		}
@@ -2709,7 +2709,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Procedure":
-		impl, ok := api.(cap1.ProcedureSearch)
+		impl, ok := api.(r4.ProcedureSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Procedure"}
 		}
@@ -2723,7 +2723,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Provenance":
-		impl, ok := api.(cap1.ProvenanceSearch)
+		impl, ok := api.(r4.ProvenanceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Provenance"}
 		}
@@ -2737,7 +2737,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Questionnaire":
-		impl, ok := api.(cap1.QuestionnaireSearch)
+		impl, ok := api.(r4.QuestionnaireSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Questionnaire"}
 		}
@@ -2751,7 +2751,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "QuestionnaireResponse":
-		impl, ok := api.(cap1.QuestionnaireResponseSearch)
+		impl, ok := api.(r4.QuestionnaireResponseSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "QuestionnaireResponse"}
 		}
@@ -2765,7 +2765,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "RelatedPerson":
-		impl, ok := api.(cap1.RelatedPersonSearch)
+		impl, ok := api.(r4.RelatedPersonSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "RelatedPerson"}
 		}
@@ -2779,7 +2779,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "RequestGroup":
-		impl, ok := api.(cap1.RequestGroupSearch)
+		impl, ok := api.(r4.RequestGroupSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "RequestGroup"}
 		}
@@ -2793,7 +2793,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ResearchDefinition":
-		impl, ok := api.(cap1.ResearchDefinitionSearch)
+		impl, ok := api.(r4.ResearchDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ResearchDefinition"}
 		}
@@ -2807,7 +2807,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ResearchElementDefinition":
-		impl, ok := api.(cap1.ResearchElementDefinitionSearch)
+		impl, ok := api.(r4.ResearchElementDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ResearchElementDefinition"}
 		}
@@ -2821,7 +2821,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ResearchStudy":
-		impl, ok := api.(cap1.ResearchStudySearch)
+		impl, ok := api.(r4.ResearchStudySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ResearchStudy"}
 		}
@@ -2835,7 +2835,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ResearchSubject":
-		impl, ok := api.(cap1.ResearchSubjectSearch)
+		impl, ok := api.(r4.ResearchSubjectSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ResearchSubject"}
 		}
@@ -2849,7 +2849,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "RiskAssessment":
-		impl, ok := api.(cap1.RiskAssessmentSearch)
+		impl, ok := api.(r4.RiskAssessmentSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "RiskAssessment"}
 		}
@@ -2863,7 +2863,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "RiskEvidenceSynthesis":
-		impl, ok := api.(cap1.RiskEvidenceSynthesisSearch)
+		impl, ok := api.(r4.RiskEvidenceSynthesisSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "RiskEvidenceSynthesis"}
 		}
@@ -2877,7 +2877,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Schedule":
-		impl, ok := api.(cap1.ScheduleSearch)
+		impl, ok := api.(r4.ScheduleSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Schedule"}
 		}
@@ -2891,7 +2891,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SearchParameter":
-		impl, ok := api.(cap1.SearchParameterSearch)
+		impl, ok := api.(r4.SearchParameterSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SearchParameter"}
 		}
@@ -2905,7 +2905,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ServiceRequest":
-		impl, ok := api.(cap1.ServiceRequestSearch)
+		impl, ok := api.(r4.ServiceRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ServiceRequest"}
 		}
@@ -2919,7 +2919,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Slot":
-		impl, ok := api.(cap1.SlotSearch)
+		impl, ok := api.(r4.SlotSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Slot"}
 		}
@@ -2933,7 +2933,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Specimen":
-		impl, ok := api.(cap1.SpecimenSearch)
+		impl, ok := api.(r4.SpecimenSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Specimen"}
 		}
@@ -2947,7 +2947,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SpecimenDefinition":
-		impl, ok := api.(cap1.SpecimenDefinitionSearch)
+		impl, ok := api.(r4.SpecimenDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SpecimenDefinition"}
 		}
@@ -2961,7 +2961,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "StructureDefinition":
-		impl, ok := api.(cap1.StructureDefinitionSearch)
+		impl, ok := api.(r4.StructureDefinitionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "StructureDefinition"}
 		}
@@ -2975,7 +2975,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "StructureMap":
-		impl, ok := api.(cap1.StructureMapSearch)
+		impl, ok := api.(r4.StructureMapSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "StructureMap"}
 		}
@@ -2989,7 +2989,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Subscription":
-		impl, ok := api.(cap1.SubscriptionSearch)
+		impl, ok := api.(r4.SubscriptionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Subscription"}
 		}
@@ -3003,7 +3003,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Substance":
-		impl, ok := api.(cap1.SubstanceSearch)
+		impl, ok := api.(r4.SubstanceSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Substance"}
 		}
@@ -3017,7 +3017,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstanceNucleicAcid":
-		impl, ok := api.(cap1.SubstanceNucleicAcidSearch)
+		impl, ok := api.(r4.SubstanceNucleicAcidSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceNucleicAcid"}
 		}
@@ -3031,7 +3031,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstancePolymer":
-		impl, ok := api.(cap1.SubstancePolymerSearch)
+		impl, ok := api.(r4.SubstancePolymerSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstancePolymer"}
 		}
@@ -3045,7 +3045,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstanceProtein":
-		impl, ok := api.(cap1.SubstanceProteinSearch)
+		impl, ok := api.(r4.SubstanceProteinSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceProtein"}
 		}
@@ -3059,7 +3059,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstanceReferenceInformation":
-		impl, ok := api.(cap1.SubstanceReferenceInformationSearch)
+		impl, ok := api.(r4.SubstanceReferenceInformationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceReferenceInformation"}
 		}
@@ -3073,7 +3073,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstanceSourceMaterial":
-		impl, ok := api.(cap1.SubstanceSourceMaterialSearch)
+		impl, ok := api.(r4.SubstanceSourceMaterialSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceSourceMaterial"}
 		}
@@ -3087,7 +3087,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SubstanceSpecification":
-		impl, ok := api.(cap1.SubstanceSpecificationSearch)
+		impl, ok := api.(r4.SubstanceSpecificationSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceSpecification"}
 		}
@@ -3101,7 +3101,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SupplyDelivery":
-		impl, ok := api.(cap1.SupplyDeliverySearch)
+		impl, ok := api.(r4.SupplyDeliverySearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SupplyDelivery"}
 		}
@@ -3115,7 +3115,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "SupplyRequest":
-		impl, ok := api.(cap1.SupplyRequestSearch)
+		impl, ok := api.(r4.SupplyRequestSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "SupplyRequest"}
 		}
@@ -3129,7 +3129,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "Task":
-		impl, ok := api.(cap1.TaskSearch)
+		impl, ok := api.(r4.TaskSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "Task"}
 		}
@@ -3143,7 +3143,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "TerminologyCapabilities":
-		impl, ok := api.(cap1.TerminologyCapabilitiesSearch)
+		impl, ok := api.(r4.TerminologyCapabilitiesSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "TerminologyCapabilities"}
 		}
@@ -3157,7 +3157,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "TestReport":
-		impl, ok := api.(cap1.TestReportSearch)
+		impl, ok := api.(r4.TestReportSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "TestReport"}
 		}
@@ -3171,7 +3171,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "TestScript":
-		impl, ok := api.(cap1.TestScriptSearch)
+		impl, ok := api.(r4.TestScriptSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "TestScript"}
 		}
@@ -3185,7 +3185,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "ValueSet":
-		impl, ok := api.(cap1.ValueSetSearch)
+		impl, ok := api.(r4.ValueSetSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "ValueSet"}
 		}
@@ -3199,7 +3199,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "VerificationResult":
-		impl, ok := api.(cap1.VerificationResultSearch)
+		impl, ok := api.(r4.VerificationResultSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "VerificationResult"}
 		}
@@ -3213,7 +3213,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters map[st
 		}
 		return r, nil
 	case "VisionPrescription":
-		impl, ok := api.(cap1.VisionPrescriptionSearch)
+		impl, ok := api.(r4.VisionPrescriptionSearch)
 		if !ok {
 			return nil, dispatch.NotImplementedError{Interaction: "Search", ResourceType: "VisionPrescription"}
 		}

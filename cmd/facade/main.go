@@ -8,10 +8,11 @@ import (
 	"os"
 
 	"fhir-toolbox/backend/fake"
-	"fhir-toolbox/facade/config"
-	dispatchR4 "fhir-toolbox/server/dispatch/gen/r4"
+	"fhir-toolbox/cmd/facade/config"
+	dispatchR4 "fhir-toolbox/dispatch/gen/r4"
 )
 
+// set by Makefile at build time
 var Version = "dev"
 
 func main() {

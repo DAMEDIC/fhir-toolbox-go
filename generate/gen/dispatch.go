@@ -32,7 +32,7 @@ func anySearchReturn(_, _ string) Code {
 	return Index().Any()
 }
 
-func generateDispatch(genDir, releaseLower string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateDispatch(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
 	interactionName := strcase.ToCamel(interaction)
 	fileName := strings.ToLower(interaction) + ".go"
 
@@ -46,11 +46,10 @@ func generateDispatch(genDir, releaseLower string, resources []ir.Struct, intera
 		passParams = append(passParams, k)
 	}
 
-	f := NewFilePath(genDir)
-	f.ImportAlias("fhir-toolbox/capabilities/gen/"+releaseLower, "cap")
+	f := NewFilePathName(genDir, "dispatch"+strings.ToUpper(release))
 
 	if interaction == "search" {
-		f.Add(generateSearchParams(interactionName, releaseLower, resources))
+		f.Add(generateSearchParams(interactionName, strings.ToLower(release), resources))
 	}
 
 	f.Func().Id(interactionName).
@@ -60,7 +59,7 @@ func generateDispatch(genDir, releaseLower string, resources []ir.Struct, intera
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
-						g.List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+releaseLower, r.Name+interactionName))
+						g.List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName))
 						g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name))
 
 						if interaction == "search" {
@@ -109,14 +108,14 @@ func generateSearchParams(interactionName, releaseLower string, resources []ir.S
 }
 
 func returnNotImplementedError(interaction, resourceType string) Code {
-	return Return(Nil(), Qual("fhir-toolbox/server/dispatch", "NotImplementedError").Values(
+	return Return(Nil(), Qual("fhir-toolbox/dispatch", "NotImplementedError").Values(
 		Id("Interaction").Op(":").Lit(interaction),
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }
 
 func returnUnknownError(resourceType string) Code {
-	return Return(Nil(), Qual("fhir-toolbox/server/dispatch", "UnknownResourceError").Values(
+	return Return(Nil(), Qual("fhir-toolbox/dispatch", "UnknownResourceError").Values(
 		Id("ResourceType").Op(":").Id(resourceType)),
 	)
 }
