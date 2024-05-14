@@ -1,8 +1,13 @@
 package capabilities
 
 type SearchCapabilities struct {
-	Include    []string
 	Parameters []string
+	Includes   []string
+}
+
+type SearchOptions struct {
+	Parameters []SearchParameters
+	Includes   []string
 }
 
 type SearchParameters = map[string]SearchParameterAnd

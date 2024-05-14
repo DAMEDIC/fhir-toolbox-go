@@ -1181,14 +1181,14 @@ func SearchCapabilities(api any, resourceType string) (capabilities.SearchCapabi
 		return capabilities.SearchCapabilities{}, errors.UnknownResourceError{ResourceType: resourceType}
 	}
 }
-func Search(ctx context.Context, api any, resourceType string, parameters capabilities.SearchParameters) ([]any, error) {
+func Search(ctx context.Context, api any, resourceType string, options capabilities.SearchOptions) ([]any, error) {
 	switch resourceType {
 	case "Account":
 		impl, ok := api.(r4.AccountSearch)
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Account"}
 		}
-		v, err := impl.SearchAccount(ctx, parameters)
+		v, err := impl.SearchAccount(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1202,7 +1202,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ActivityDefinition"}
 		}
-		v, err := impl.SearchActivityDefinition(ctx, parameters)
+		v, err := impl.SearchActivityDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1216,7 +1216,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "AdverseEvent"}
 		}
-		v, err := impl.SearchAdverseEvent(ctx, parameters)
+		v, err := impl.SearchAdverseEvent(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1230,7 +1230,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "AllergyIntolerance"}
 		}
-		v, err := impl.SearchAllergyIntolerance(ctx, parameters)
+		v, err := impl.SearchAllergyIntolerance(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1244,7 +1244,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Appointment"}
 		}
-		v, err := impl.SearchAppointment(ctx, parameters)
+		v, err := impl.SearchAppointment(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1258,7 +1258,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "AppointmentResponse"}
 		}
-		v, err := impl.SearchAppointmentResponse(ctx, parameters)
+		v, err := impl.SearchAppointmentResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1272,7 +1272,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "AuditEvent"}
 		}
-		v, err := impl.SearchAuditEvent(ctx, parameters)
+		v, err := impl.SearchAuditEvent(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1286,7 +1286,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Basic"}
 		}
-		v, err := impl.SearchBasic(ctx, parameters)
+		v, err := impl.SearchBasic(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1300,7 +1300,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Binary"}
 		}
-		v, err := impl.SearchBinary(ctx, parameters)
+		v, err := impl.SearchBinary(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1314,7 +1314,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "BiologicallyDerivedProduct"}
 		}
-		v, err := impl.SearchBiologicallyDerivedProduct(ctx, parameters)
+		v, err := impl.SearchBiologicallyDerivedProduct(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1328,7 +1328,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "BodyStructure"}
 		}
-		v, err := impl.SearchBodyStructure(ctx, parameters)
+		v, err := impl.SearchBodyStructure(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1342,7 +1342,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Bundle"}
 		}
-		v, err := impl.SearchBundle(ctx, parameters)
+		v, err := impl.SearchBundle(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1356,7 +1356,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CapabilityStatement"}
 		}
-		v, err := impl.SearchCapabilityStatement(ctx, parameters)
+		v, err := impl.SearchCapabilityStatement(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1370,7 +1370,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CarePlan"}
 		}
-		v, err := impl.SearchCarePlan(ctx, parameters)
+		v, err := impl.SearchCarePlan(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1384,7 +1384,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CareTeam"}
 		}
-		v, err := impl.SearchCareTeam(ctx, parameters)
+		v, err := impl.SearchCareTeam(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1398,7 +1398,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CatalogEntry"}
 		}
-		v, err := impl.SearchCatalogEntry(ctx, parameters)
+		v, err := impl.SearchCatalogEntry(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1412,7 +1412,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ChargeItem"}
 		}
-		v, err := impl.SearchChargeItem(ctx, parameters)
+		v, err := impl.SearchChargeItem(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1426,7 +1426,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ChargeItemDefinition"}
 		}
-		v, err := impl.SearchChargeItemDefinition(ctx, parameters)
+		v, err := impl.SearchChargeItemDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1440,7 +1440,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Claim"}
 		}
-		v, err := impl.SearchClaim(ctx, parameters)
+		v, err := impl.SearchClaim(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1454,7 +1454,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ClaimResponse"}
 		}
-		v, err := impl.SearchClaimResponse(ctx, parameters)
+		v, err := impl.SearchClaimResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1468,7 +1468,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ClinicalImpression"}
 		}
-		v, err := impl.SearchClinicalImpression(ctx, parameters)
+		v, err := impl.SearchClinicalImpression(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1482,7 +1482,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CodeSystem"}
 		}
-		v, err := impl.SearchCodeSystem(ctx, parameters)
+		v, err := impl.SearchCodeSystem(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1496,7 +1496,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Communication"}
 		}
-		v, err := impl.SearchCommunication(ctx, parameters)
+		v, err := impl.SearchCommunication(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1510,7 +1510,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CommunicationRequest"}
 		}
-		v, err := impl.SearchCommunicationRequest(ctx, parameters)
+		v, err := impl.SearchCommunicationRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1524,7 +1524,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CompartmentDefinition"}
 		}
-		v, err := impl.SearchCompartmentDefinition(ctx, parameters)
+		v, err := impl.SearchCompartmentDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1538,7 +1538,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Composition"}
 		}
-		v, err := impl.SearchComposition(ctx, parameters)
+		v, err := impl.SearchComposition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1552,7 +1552,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ConceptMap"}
 		}
-		v, err := impl.SearchConceptMap(ctx, parameters)
+		v, err := impl.SearchConceptMap(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1566,7 +1566,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Condition"}
 		}
-		v, err := impl.SearchCondition(ctx, parameters)
+		v, err := impl.SearchCondition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1580,7 +1580,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Consent"}
 		}
-		v, err := impl.SearchConsent(ctx, parameters)
+		v, err := impl.SearchConsent(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1594,7 +1594,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Contract"}
 		}
-		v, err := impl.SearchContract(ctx, parameters)
+		v, err := impl.SearchContract(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1608,7 +1608,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Coverage"}
 		}
-		v, err := impl.SearchCoverage(ctx, parameters)
+		v, err := impl.SearchCoverage(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1622,7 +1622,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CoverageEligibilityRequest"}
 		}
-		v, err := impl.SearchCoverageEligibilityRequest(ctx, parameters)
+		v, err := impl.SearchCoverageEligibilityRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1636,7 +1636,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "CoverageEligibilityResponse"}
 		}
-		v, err := impl.SearchCoverageEligibilityResponse(ctx, parameters)
+		v, err := impl.SearchCoverageEligibilityResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1650,7 +1650,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DetectedIssue"}
 		}
-		v, err := impl.SearchDetectedIssue(ctx, parameters)
+		v, err := impl.SearchDetectedIssue(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1664,7 +1664,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Device"}
 		}
-		v, err := impl.SearchDevice(ctx, parameters)
+		v, err := impl.SearchDevice(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1678,7 +1678,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DeviceDefinition"}
 		}
-		v, err := impl.SearchDeviceDefinition(ctx, parameters)
+		v, err := impl.SearchDeviceDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1692,7 +1692,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DeviceMetric"}
 		}
-		v, err := impl.SearchDeviceMetric(ctx, parameters)
+		v, err := impl.SearchDeviceMetric(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1706,7 +1706,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DeviceRequest"}
 		}
-		v, err := impl.SearchDeviceRequest(ctx, parameters)
+		v, err := impl.SearchDeviceRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1720,7 +1720,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DeviceUseStatement"}
 		}
-		v, err := impl.SearchDeviceUseStatement(ctx, parameters)
+		v, err := impl.SearchDeviceUseStatement(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1734,7 +1734,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DiagnosticReport"}
 		}
-		v, err := impl.SearchDiagnosticReport(ctx, parameters)
+		v, err := impl.SearchDiagnosticReport(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1748,7 +1748,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DocumentManifest"}
 		}
-		v, err := impl.SearchDocumentManifest(ctx, parameters)
+		v, err := impl.SearchDocumentManifest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1762,7 +1762,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "DocumentReference"}
 		}
-		v, err := impl.SearchDocumentReference(ctx, parameters)
+		v, err := impl.SearchDocumentReference(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1776,7 +1776,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EffectEvidenceSynthesis"}
 		}
-		v, err := impl.SearchEffectEvidenceSynthesis(ctx, parameters)
+		v, err := impl.SearchEffectEvidenceSynthesis(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1790,7 +1790,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Encounter"}
 		}
-		v, err := impl.SearchEncounter(ctx, parameters)
+		v, err := impl.SearchEncounter(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1804,7 +1804,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Endpoint"}
 		}
-		v, err := impl.SearchEndpoint(ctx, parameters)
+		v, err := impl.SearchEndpoint(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1818,7 +1818,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EnrollmentRequest"}
 		}
-		v, err := impl.SearchEnrollmentRequest(ctx, parameters)
+		v, err := impl.SearchEnrollmentRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1832,7 +1832,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EnrollmentResponse"}
 		}
-		v, err := impl.SearchEnrollmentResponse(ctx, parameters)
+		v, err := impl.SearchEnrollmentResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1846,7 +1846,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EpisodeOfCare"}
 		}
-		v, err := impl.SearchEpisodeOfCare(ctx, parameters)
+		v, err := impl.SearchEpisodeOfCare(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1860,7 +1860,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EventDefinition"}
 		}
-		v, err := impl.SearchEventDefinition(ctx, parameters)
+		v, err := impl.SearchEventDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1874,7 +1874,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Evidence"}
 		}
-		v, err := impl.SearchEvidence(ctx, parameters)
+		v, err := impl.SearchEvidence(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1888,7 +1888,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "EvidenceVariable"}
 		}
-		v, err := impl.SearchEvidenceVariable(ctx, parameters)
+		v, err := impl.SearchEvidenceVariable(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1902,7 +1902,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ExampleScenario"}
 		}
-		v, err := impl.SearchExampleScenario(ctx, parameters)
+		v, err := impl.SearchExampleScenario(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1916,7 +1916,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ExplanationOfBenefit"}
 		}
-		v, err := impl.SearchExplanationOfBenefit(ctx, parameters)
+		v, err := impl.SearchExplanationOfBenefit(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1930,7 +1930,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "FamilyMemberHistory"}
 		}
-		v, err := impl.SearchFamilyMemberHistory(ctx, parameters)
+		v, err := impl.SearchFamilyMemberHistory(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1944,7 +1944,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Flag"}
 		}
-		v, err := impl.SearchFlag(ctx, parameters)
+		v, err := impl.SearchFlag(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1958,7 +1958,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Goal"}
 		}
-		v, err := impl.SearchGoal(ctx, parameters)
+		v, err := impl.SearchGoal(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1972,7 +1972,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "GraphDefinition"}
 		}
-		v, err := impl.SearchGraphDefinition(ctx, parameters)
+		v, err := impl.SearchGraphDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -1986,7 +1986,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Group"}
 		}
-		v, err := impl.SearchGroup(ctx, parameters)
+		v, err := impl.SearchGroup(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2000,7 +2000,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "GuidanceResponse"}
 		}
-		v, err := impl.SearchGuidanceResponse(ctx, parameters)
+		v, err := impl.SearchGuidanceResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2014,7 +2014,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "HealthcareService"}
 		}
-		v, err := impl.SearchHealthcareService(ctx, parameters)
+		v, err := impl.SearchHealthcareService(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2028,7 +2028,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ImagingStudy"}
 		}
-		v, err := impl.SearchImagingStudy(ctx, parameters)
+		v, err := impl.SearchImagingStudy(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2042,7 +2042,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Immunization"}
 		}
-		v, err := impl.SearchImmunization(ctx, parameters)
+		v, err := impl.SearchImmunization(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2056,7 +2056,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ImmunizationEvaluation"}
 		}
-		v, err := impl.SearchImmunizationEvaluation(ctx, parameters)
+		v, err := impl.SearchImmunizationEvaluation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2070,7 +2070,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ImmunizationRecommendation"}
 		}
-		v, err := impl.SearchImmunizationRecommendation(ctx, parameters)
+		v, err := impl.SearchImmunizationRecommendation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2084,7 +2084,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ImplementationGuide"}
 		}
-		v, err := impl.SearchImplementationGuide(ctx, parameters)
+		v, err := impl.SearchImplementationGuide(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2098,7 +2098,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "InsurancePlan"}
 		}
-		v, err := impl.SearchInsurancePlan(ctx, parameters)
+		v, err := impl.SearchInsurancePlan(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2112,7 +2112,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Invoice"}
 		}
-		v, err := impl.SearchInvoice(ctx, parameters)
+		v, err := impl.SearchInvoice(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2126,7 +2126,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Library"}
 		}
-		v, err := impl.SearchLibrary(ctx, parameters)
+		v, err := impl.SearchLibrary(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2140,7 +2140,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Linkage"}
 		}
-		v, err := impl.SearchLinkage(ctx, parameters)
+		v, err := impl.SearchLinkage(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2154,7 +2154,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "List"}
 		}
-		v, err := impl.SearchList(ctx, parameters)
+		v, err := impl.SearchList(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2168,7 +2168,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Location"}
 		}
-		v, err := impl.SearchLocation(ctx, parameters)
+		v, err := impl.SearchLocation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2182,7 +2182,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Measure"}
 		}
-		v, err := impl.SearchMeasure(ctx, parameters)
+		v, err := impl.SearchMeasure(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2196,7 +2196,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MeasureReport"}
 		}
-		v, err := impl.SearchMeasureReport(ctx, parameters)
+		v, err := impl.SearchMeasureReport(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2210,7 +2210,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Media"}
 		}
-		v, err := impl.SearchMedia(ctx, parameters)
+		v, err := impl.SearchMedia(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2224,7 +2224,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Medication"}
 		}
-		v, err := impl.SearchMedication(ctx, parameters)
+		v, err := impl.SearchMedication(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2238,7 +2238,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicationAdministration"}
 		}
-		v, err := impl.SearchMedicationAdministration(ctx, parameters)
+		v, err := impl.SearchMedicationAdministration(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2252,7 +2252,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicationDispense"}
 		}
-		v, err := impl.SearchMedicationDispense(ctx, parameters)
+		v, err := impl.SearchMedicationDispense(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2266,7 +2266,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicationKnowledge"}
 		}
-		v, err := impl.SearchMedicationKnowledge(ctx, parameters)
+		v, err := impl.SearchMedicationKnowledge(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2280,7 +2280,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicationRequest"}
 		}
-		v, err := impl.SearchMedicationRequest(ctx, parameters)
+		v, err := impl.SearchMedicationRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2294,7 +2294,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicationStatement"}
 		}
-		v, err := impl.SearchMedicationStatement(ctx, parameters)
+		v, err := impl.SearchMedicationStatement(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2308,7 +2308,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProduct"}
 		}
-		v, err := impl.SearchMedicinalProduct(ctx, parameters)
+		v, err := impl.SearchMedicinalProduct(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2322,7 +2322,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductAuthorization"}
 		}
-		v, err := impl.SearchMedicinalProductAuthorization(ctx, parameters)
+		v, err := impl.SearchMedicinalProductAuthorization(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2336,7 +2336,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductContraindication"}
 		}
-		v, err := impl.SearchMedicinalProductContraindication(ctx, parameters)
+		v, err := impl.SearchMedicinalProductContraindication(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2350,7 +2350,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductIndication"}
 		}
-		v, err := impl.SearchMedicinalProductIndication(ctx, parameters)
+		v, err := impl.SearchMedicinalProductIndication(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2364,7 +2364,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductIngredient"}
 		}
-		v, err := impl.SearchMedicinalProductIngredient(ctx, parameters)
+		v, err := impl.SearchMedicinalProductIngredient(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2378,7 +2378,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductInteraction"}
 		}
-		v, err := impl.SearchMedicinalProductInteraction(ctx, parameters)
+		v, err := impl.SearchMedicinalProductInteraction(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2392,7 +2392,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductManufactured"}
 		}
-		v, err := impl.SearchMedicinalProductManufactured(ctx, parameters)
+		v, err := impl.SearchMedicinalProductManufactured(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2406,7 +2406,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductPackaged"}
 		}
-		v, err := impl.SearchMedicinalProductPackaged(ctx, parameters)
+		v, err := impl.SearchMedicinalProductPackaged(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2420,7 +2420,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductPharmaceutical"}
 		}
-		v, err := impl.SearchMedicinalProductPharmaceutical(ctx, parameters)
+		v, err := impl.SearchMedicinalProductPharmaceutical(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2434,7 +2434,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MedicinalProductUndesirableEffect"}
 		}
-		v, err := impl.SearchMedicinalProductUndesirableEffect(ctx, parameters)
+		v, err := impl.SearchMedicinalProductUndesirableEffect(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2448,7 +2448,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MessageDefinition"}
 		}
-		v, err := impl.SearchMessageDefinition(ctx, parameters)
+		v, err := impl.SearchMessageDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2462,7 +2462,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MessageHeader"}
 		}
-		v, err := impl.SearchMessageHeader(ctx, parameters)
+		v, err := impl.SearchMessageHeader(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2476,7 +2476,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "MolecularSequence"}
 		}
-		v, err := impl.SearchMolecularSequence(ctx, parameters)
+		v, err := impl.SearchMolecularSequence(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2490,7 +2490,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "NamingSystem"}
 		}
-		v, err := impl.SearchNamingSystem(ctx, parameters)
+		v, err := impl.SearchNamingSystem(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2504,7 +2504,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "NutritionOrder"}
 		}
-		v, err := impl.SearchNutritionOrder(ctx, parameters)
+		v, err := impl.SearchNutritionOrder(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2518,7 +2518,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Observation"}
 		}
-		v, err := impl.SearchObservation(ctx, parameters)
+		v, err := impl.SearchObservation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2532,7 +2532,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ObservationDefinition"}
 		}
-		v, err := impl.SearchObservationDefinition(ctx, parameters)
+		v, err := impl.SearchObservationDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2546,7 +2546,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "OperationDefinition"}
 		}
-		v, err := impl.SearchOperationDefinition(ctx, parameters)
+		v, err := impl.SearchOperationDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2560,7 +2560,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "OperationOutcome"}
 		}
-		v, err := impl.SearchOperationOutcome(ctx, parameters)
+		v, err := impl.SearchOperationOutcome(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2574,7 +2574,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Organization"}
 		}
-		v, err := impl.SearchOrganization(ctx, parameters)
+		v, err := impl.SearchOrganization(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2588,7 +2588,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "OrganizationAffiliation"}
 		}
-		v, err := impl.SearchOrganizationAffiliation(ctx, parameters)
+		v, err := impl.SearchOrganizationAffiliation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2602,7 +2602,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Parameters"}
 		}
-		v, err := impl.SearchParameters(ctx, parameters)
+		v, err := impl.SearchParameters(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2616,7 +2616,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Patient"}
 		}
-		v, err := impl.SearchPatient(ctx, parameters)
+		v, err := impl.SearchPatient(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2630,7 +2630,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "PaymentNotice"}
 		}
-		v, err := impl.SearchPaymentNotice(ctx, parameters)
+		v, err := impl.SearchPaymentNotice(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2644,7 +2644,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "PaymentReconciliation"}
 		}
-		v, err := impl.SearchPaymentReconciliation(ctx, parameters)
+		v, err := impl.SearchPaymentReconciliation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2658,7 +2658,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Person"}
 		}
-		v, err := impl.SearchPerson(ctx, parameters)
+		v, err := impl.SearchPerson(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2672,7 +2672,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "PlanDefinition"}
 		}
-		v, err := impl.SearchPlanDefinition(ctx, parameters)
+		v, err := impl.SearchPlanDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2686,7 +2686,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Practitioner"}
 		}
-		v, err := impl.SearchPractitioner(ctx, parameters)
+		v, err := impl.SearchPractitioner(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2700,7 +2700,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "PractitionerRole"}
 		}
-		v, err := impl.SearchPractitionerRole(ctx, parameters)
+		v, err := impl.SearchPractitionerRole(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2714,7 +2714,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Procedure"}
 		}
-		v, err := impl.SearchProcedure(ctx, parameters)
+		v, err := impl.SearchProcedure(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2728,7 +2728,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Provenance"}
 		}
-		v, err := impl.SearchProvenance(ctx, parameters)
+		v, err := impl.SearchProvenance(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2742,7 +2742,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Questionnaire"}
 		}
-		v, err := impl.SearchQuestionnaire(ctx, parameters)
+		v, err := impl.SearchQuestionnaire(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2756,7 +2756,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "QuestionnaireResponse"}
 		}
-		v, err := impl.SearchQuestionnaireResponse(ctx, parameters)
+		v, err := impl.SearchQuestionnaireResponse(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2770,7 +2770,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "RelatedPerson"}
 		}
-		v, err := impl.SearchRelatedPerson(ctx, parameters)
+		v, err := impl.SearchRelatedPerson(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2784,7 +2784,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "RequestGroup"}
 		}
-		v, err := impl.SearchRequestGroup(ctx, parameters)
+		v, err := impl.SearchRequestGroup(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2798,7 +2798,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ResearchDefinition"}
 		}
-		v, err := impl.SearchResearchDefinition(ctx, parameters)
+		v, err := impl.SearchResearchDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2812,7 +2812,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ResearchElementDefinition"}
 		}
-		v, err := impl.SearchResearchElementDefinition(ctx, parameters)
+		v, err := impl.SearchResearchElementDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2826,7 +2826,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ResearchStudy"}
 		}
-		v, err := impl.SearchResearchStudy(ctx, parameters)
+		v, err := impl.SearchResearchStudy(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2840,7 +2840,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ResearchSubject"}
 		}
-		v, err := impl.SearchResearchSubject(ctx, parameters)
+		v, err := impl.SearchResearchSubject(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2854,7 +2854,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "RiskAssessment"}
 		}
-		v, err := impl.SearchRiskAssessment(ctx, parameters)
+		v, err := impl.SearchRiskAssessment(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2868,7 +2868,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "RiskEvidenceSynthesis"}
 		}
-		v, err := impl.SearchRiskEvidenceSynthesis(ctx, parameters)
+		v, err := impl.SearchRiskEvidenceSynthesis(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2882,7 +2882,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Schedule"}
 		}
-		v, err := impl.SearchSchedule(ctx, parameters)
+		v, err := impl.SearchSchedule(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2896,7 +2896,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SearchParameter"}
 		}
-		v, err := impl.SearchSearchParameter(ctx, parameters)
+		v, err := impl.SearchSearchParameter(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2910,7 +2910,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ServiceRequest"}
 		}
-		v, err := impl.SearchServiceRequest(ctx, parameters)
+		v, err := impl.SearchServiceRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2924,7 +2924,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Slot"}
 		}
-		v, err := impl.SearchSlot(ctx, parameters)
+		v, err := impl.SearchSlot(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2938,7 +2938,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Specimen"}
 		}
-		v, err := impl.SearchSpecimen(ctx, parameters)
+		v, err := impl.SearchSpecimen(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2952,7 +2952,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SpecimenDefinition"}
 		}
-		v, err := impl.SearchSpecimenDefinition(ctx, parameters)
+		v, err := impl.SearchSpecimenDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2966,7 +2966,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "StructureDefinition"}
 		}
-		v, err := impl.SearchStructureDefinition(ctx, parameters)
+		v, err := impl.SearchStructureDefinition(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2980,7 +2980,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "StructureMap"}
 		}
-		v, err := impl.SearchStructureMap(ctx, parameters)
+		v, err := impl.SearchStructureMap(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2994,7 +2994,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Subscription"}
 		}
-		v, err := impl.SearchSubscription(ctx, parameters)
+		v, err := impl.SearchSubscription(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3008,7 +3008,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Substance"}
 		}
-		v, err := impl.SearchSubstance(ctx, parameters)
+		v, err := impl.SearchSubstance(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3022,7 +3022,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceNucleicAcid"}
 		}
-		v, err := impl.SearchSubstanceNucleicAcid(ctx, parameters)
+		v, err := impl.SearchSubstanceNucleicAcid(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3036,7 +3036,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstancePolymer"}
 		}
-		v, err := impl.SearchSubstancePolymer(ctx, parameters)
+		v, err := impl.SearchSubstancePolymer(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3050,7 +3050,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceProtein"}
 		}
-		v, err := impl.SearchSubstanceProtein(ctx, parameters)
+		v, err := impl.SearchSubstanceProtein(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3064,7 +3064,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceReferenceInformation"}
 		}
-		v, err := impl.SearchSubstanceReferenceInformation(ctx, parameters)
+		v, err := impl.SearchSubstanceReferenceInformation(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3078,7 +3078,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceSourceMaterial"}
 		}
-		v, err := impl.SearchSubstanceSourceMaterial(ctx, parameters)
+		v, err := impl.SearchSubstanceSourceMaterial(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3092,7 +3092,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SubstanceSpecification"}
 		}
-		v, err := impl.SearchSubstanceSpecification(ctx, parameters)
+		v, err := impl.SearchSubstanceSpecification(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3106,7 +3106,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SupplyDelivery"}
 		}
-		v, err := impl.SearchSupplyDelivery(ctx, parameters)
+		v, err := impl.SearchSupplyDelivery(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3120,7 +3120,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "SupplyRequest"}
 		}
-		v, err := impl.SearchSupplyRequest(ctx, parameters)
+		v, err := impl.SearchSupplyRequest(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3134,7 +3134,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "Task"}
 		}
-		v, err := impl.SearchTask(ctx, parameters)
+		v, err := impl.SearchTask(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3148,7 +3148,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "TerminologyCapabilities"}
 		}
-		v, err := impl.SearchTerminologyCapabilities(ctx, parameters)
+		v, err := impl.SearchTerminologyCapabilities(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3162,7 +3162,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "TestReport"}
 		}
-		v, err := impl.SearchTestReport(ctx, parameters)
+		v, err := impl.SearchTestReport(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3176,7 +3176,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "TestScript"}
 		}
-		v, err := impl.SearchTestScript(ctx, parameters)
+		v, err := impl.SearchTestScript(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3190,7 +3190,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "ValueSet"}
 		}
-		v, err := impl.SearchValueSet(ctx, parameters)
+		v, err := impl.SearchValueSet(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3204,7 +3204,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "VerificationResult"}
 		}
-		v, err := impl.SearchVerificationResult(ctx, parameters)
+		v, err := impl.SearchVerificationResult(ctx, options)
 		if err != nil {
 			return nil, err
 		}
@@ -3218,7 +3218,7 @@ func Search(ctx context.Context, api any, resourceType string, parameters capabi
 		if !ok {
 			return nil, errors.NotImplementedError{Interaction: "Search", ResourceType: "VisionPrescription"}
 		}
-		v, err := impl.SearchVisionPrescription(ctx, parameters)
+		v, err := impl.SearchVisionPrescription(ctx, options)
 		if err != nil {
 			return nil, err
 		}

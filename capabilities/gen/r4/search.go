@@ -3,590 +3,590 @@ package capabilitiesR4
 import (
 	"context"
 	capabilities "fhir-toolbox/capabilities"
-	r4 "fhir-toolbox/model/gen/r4"
+	model "fhir-toolbox/model"
 )
 
 type AccountSearch interface {
 	SearchCapabilitiesAccount() capabilities.SearchCapabilities
-	SearchAccount(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Account, error)
+	SearchAccount(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ActivityDefinitionSearch interface {
 	SearchCapabilitiesActivityDefinition() capabilities.SearchCapabilities
-	SearchActivityDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ActivityDefinition, error)
+	SearchActivityDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type AdverseEventSearch interface {
 	SearchCapabilitiesAdverseEvent() capabilities.SearchCapabilities
-	SearchAdverseEvent(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.AdverseEvent, error)
+	SearchAdverseEvent(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type AllergyIntoleranceSearch interface {
 	SearchCapabilitiesAllergyIntolerance() capabilities.SearchCapabilities
-	SearchAllergyIntolerance(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.AllergyIntolerance, error)
+	SearchAllergyIntolerance(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type AppointmentSearch interface {
 	SearchCapabilitiesAppointment() capabilities.SearchCapabilities
-	SearchAppointment(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Appointment, error)
+	SearchAppointment(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type AppointmentResponseSearch interface {
 	SearchCapabilitiesAppointmentResponse() capabilities.SearchCapabilities
-	SearchAppointmentResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.AppointmentResponse, error)
+	SearchAppointmentResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type AuditEventSearch interface {
 	SearchCapabilitiesAuditEvent() capabilities.SearchCapabilities
-	SearchAuditEvent(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.AuditEvent, error)
+	SearchAuditEvent(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type BasicSearch interface {
 	SearchCapabilitiesBasic() capabilities.SearchCapabilities
-	SearchBasic(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Basic, error)
+	SearchBasic(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type BinarySearch interface {
 	SearchCapabilitiesBinary() capabilities.SearchCapabilities
-	SearchBinary(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Binary, error)
+	SearchBinary(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type BiologicallyDerivedProductSearch interface {
 	SearchCapabilitiesBiologicallyDerivedProduct() capabilities.SearchCapabilities
-	SearchBiologicallyDerivedProduct(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.BiologicallyDerivedProduct, error)
+	SearchBiologicallyDerivedProduct(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type BodyStructureSearch interface {
 	SearchCapabilitiesBodyStructure() capabilities.SearchCapabilities
-	SearchBodyStructure(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.BodyStructure, error)
+	SearchBodyStructure(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type BundleSearch interface {
 	SearchCapabilitiesBundle() capabilities.SearchCapabilities
-	SearchBundle(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Bundle, error)
+	SearchBundle(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CapabilityStatementSearch interface {
 	SearchCapabilitiesCapabilityStatement() capabilities.SearchCapabilities
-	SearchCapabilityStatement(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CapabilityStatement, error)
+	SearchCapabilityStatement(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CarePlanSearch interface {
 	SearchCapabilitiesCarePlan() capabilities.SearchCapabilities
-	SearchCarePlan(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CarePlan, error)
+	SearchCarePlan(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CareTeamSearch interface {
 	SearchCapabilitiesCareTeam() capabilities.SearchCapabilities
-	SearchCareTeam(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CareTeam, error)
+	SearchCareTeam(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CatalogEntrySearch interface {
 	SearchCapabilitiesCatalogEntry() capabilities.SearchCapabilities
-	SearchCatalogEntry(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CatalogEntry, error)
+	SearchCatalogEntry(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ChargeItemSearch interface {
 	SearchCapabilitiesChargeItem() capabilities.SearchCapabilities
-	SearchChargeItem(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ChargeItem, error)
+	SearchChargeItem(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ChargeItemDefinitionSearch interface {
 	SearchCapabilitiesChargeItemDefinition() capabilities.SearchCapabilities
-	SearchChargeItemDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ChargeItemDefinition, error)
+	SearchChargeItemDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ClaimSearch interface {
 	SearchCapabilitiesClaim() capabilities.SearchCapabilities
-	SearchClaim(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Claim, error)
+	SearchClaim(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ClaimResponseSearch interface {
 	SearchCapabilitiesClaimResponse() capabilities.SearchCapabilities
-	SearchClaimResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ClaimResponse, error)
+	SearchClaimResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ClinicalImpressionSearch interface {
 	SearchCapabilitiesClinicalImpression() capabilities.SearchCapabilities
-	SearchClinicalImpression(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ClinicalImpression, error)
+	SearchClinicalImpression(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CodeSystemSearch interface {
 	SearchCapabilitiesCodeSystem() capabilities.SearchCapabilities
-	SearchCodeSystem(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CodeSystem, error)
+	SearchCodeSystem(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CommunicationSearch interface {
 	SearchCapabilitiesCommunication() capabilities.SearchCapabilities
-	SearchCommunication(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Communication, error)
+	SearchCommunication(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CommunicationRequestSearch interface {
 	SearchCapabilitiesCommunicationRequest() capabilities.SearchCapabilities
-	SearchCommunicationRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CommunicationRequest, error)
+	SearchCommunicationRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CompartmentDefinitionSearch interface {
 	SearchCapabilitiesCompartmentDefinition() capabilities.SearchCapabilities
-	SearchCompartmentDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CompartmentDefinition, error)
+	SearchCompartmentDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CompositionSearch interface {
 	SearchCapabilitiesComposition() capabilities.SearchCapabilities
-	SearchComposition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Composition, error)
+	SearchComposition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ConceptMapSearch interface {
 	SearchCapabilitiesConceptMap() capabilities.SearchCapabilities
-	SearchConceptMap(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ConceptMap, error)
+	SearchConceptMap(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ConditionSearch interface {
 	SearchCapabilitiesCondition() capabilities.SearchCapabilities
-	SearchCondition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Condition, error)
+	SearchCondition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ConsentSearch interface {
 	SearchCapabilitiesConsent() capabilities.SearchCapabilities
-	SearchConsent(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Consent, error)
+	SearchConsent(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ContractSearch interface {
 	SearchCapabilitiesContract() capabilities.SearchCapabilities
-	SearchContract(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Contract, error)
+	SearchContract(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CoverageSearch interface {
 	SearchCapabilitiesCoverage() capabilities.SearchCapabilities
-	SearchCoverage(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Coverage, error)
+	SearchCoverage(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CoverageEligibilityRequestSearch interface {
 	SearchCapabilitiesCoverageEligibilityRequest() capabilities.SearchCapabilities
-	SearchCoverageEligibilityRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CoverageEligibilityRequest, error)
+	SearchCoverageEligibilityRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type CoverageEligibilityResponseSearch interface {
 	SearchCapabilitiesCoverageEligibilityResponse() capabilities.SearchCapabilities
-	SearchCoverageEligibilityResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.CoverageEligibilityResponse, error)
+	SearchCoverageEligibilityResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DetectedIssueSearch interface {
 	SearchCapabilitiesDetectedIssue() capabilities.SearchCapabilities
-	SearchDetectedIssue(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DetectedIssue, error)
+	SearchDetectedIssue(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DeviceSearch interface {
 	SearchCapabilitiesDevice() capabilities.SearchCapabilities
-	SearchDevice(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Device, error)
+	SearchDevice(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DeviceDefinitionSearch interface {
 	SearchCapabilitiesDeviceDefinition() capabilities.SearchCapabilities
-	SearchDeviceDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DeviceDefinition, error)
+	SearchDeviceDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DeviceMetricSearch interface {
 	SearchCapabilitiesDeviceMetric() capabilities.SearchCapabilities
-	SearchDeviceMetric(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DeviceMetric, error)
+	SearchDeviceMetric(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DeviceRequestSearch interface {
 	SearchCapabilitiesDeviceRequest() capabilities.SearchCapabilities
-	SearchDeviceRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DeviceRequest, error)
+	SearchDeviceRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DeviceUseStatementSearch interface {
 	SearchCapabilitiesDeviceUseStatement() capabilities.SearchCapabilities
-	SearchDeviceUseStatement(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DeviceUseStatement, error)
+	SearchDeviceUseStatement(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DiagnosticReportSearch interface {
 	SearchCapabilitiesDiagnosticReport() capabilities.SearchCapabilities
-	SearchDiagnosticReport(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DiagnosticReport, error)
+	SearchDiagnosticReport(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DocumentManifestSearch interface {
 	SearchCapabilitiesDocumentManifest() capabilities.SearchCapabilities
-	SearchDocumentManifest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DocumentManifest, error)
+	SearchDocumentManifest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type DocumentReferenceSearch interface {
 	SearchCapabilitiesDocumentReference() capabilities.SearchCapabilities
-	SearchDocumentReference(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.DocumentReference, error)
+	SearchDocumentReference(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EffectEvidenceSynthesisSearch interface {
 	SearchCapabilitiesEffectEvidenceSynthesis() capabilities.SearchCapabilities
-	SearchEffectEvidenceSynthesis(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EffectEvidenceSynthesis, error)
+	SearchEffectEvidenceSynthesis(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EncounterSearch interface {
 	SearchCapabilitiesEncounter() capabilities.SearchCapabilities
-	SearchEncounter(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Encounter, error)
+	SearchEncounter(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EndpointSearch interface {
 	SearchCapabilitiesEndpoint() capabilities.SearchCapabilities
-	SearchEndpoint(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Endpoint, error)
+	SearchEndpoint(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EnrollmentRequestSearch interface {
 	SearchCapabilitiesEnrollmentRequest() capabilities.SearchCapabilities
-	SearchEnrollmentRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EnrollmentRequest, error)
+	SearchEnrollmentRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EnrollmentResponseSearch interface {
 	SearchCapabilitiesEnrollmentResponse() capabilities.SearchCapabilities
-	SearchEnrollmentResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EnrollmentResponse, error)
+	SearchEnrollmentResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EpisodeOfCareSearch interface {
 	SearchCapabilitiesEpisodeOfCare() capabilities.SearchCapabilities
-	SearchEpisodeOfCare(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EpisodeOfCare, error)
+	SearchEpisodeOfCare(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EventDefinitionSearch interface {
 	SearchCapabilitiesEventDefinition() capabilities.SearchCapabilities
-	SearchEventDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EventDefinition, error)
+	SearchEventDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EvidenceSearch interface {
 	SearchCapabilitiesEvidence() capabilities.SearchCapabilities
-	SearchEvidence(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Evidence, error)
+	SearchEvidence(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type EvidenceVariableSearch interface {
 	SearchCapabilitiesEvidenceVariable() capabilities.SearchCapabilities
-	SearchEvidenceVariable(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.EvidenceVariable, error)
+	SearchEvidenceVariable(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ExampleScenarioSearch interface {
 	SearchCapabilitiesExampleScenario() capabilities.SearchCapabilities
-	SearchExampleScenario(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ExampleScenario, error)
+	SearchExampleScenario(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ExplanationOfBenefitSearch interface {
 	SearchCapabilitiesExplanationOfBenefit() capabilities.SearchCapabilities
-	SearchExplanationOfBenefit(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ExplanationOfBenefit, error)
+	SearchExplanationOfBenefit(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type FamilyMemberHistorySearch interface {
 	SearchCapabilitiesFamilyMemberHistory() capabilities.SearchCapabilities
-	SearchFamilyMemberHistory(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.FamilyMemberHistory, error)
+	SearchFamilyMemberHistory(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type FlagSearch interface {
 	SearchCapabilitiesFlag() capabilities.SearchCapabilities
-	SearchFlag(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Flag, error)
+	SearchFlag(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type GoalSearch interface {
 	SearchCapabilitiesGoal() capabilities.SearchCapabilities
-	SearchGoal(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Goal, error)
+	SearchGoal(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type GraphDefinitionSearch interface {
 	SearchCapabilitiesGraphDefinition() capabilities.SearchCapabilities
-	SearchGraphDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.GraphDefinition, error)
+	SearchGraphDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type GroupSearch interface {
 	SearchCapabilitiesGroup() capabilities.SearchCapabilities
-	SearchGroup(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Group, error)
+	SearchGroup(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type GuidanceResponseSearch interface {
 	SearchCapabilitiesGuidanceResponse() capabilities.SearchCapabilities
-	SearchGuidanceResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.GuidanceResponse, error)
+	SearchGuidanceResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type HealthcareServiceSearch interface {
 	SearchCapabilitiesHealthcareService() capabilities.SearchCapabilities
-	SearchHealthcareService(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.HealthcareService, error)
+	SearchHealthcareService(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ImagingStudySearch interface {
 	SearchCapabilitiesImagingStudy() capabilities.SearchCapabilities
-	SearchImagingStudy(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ImagingStudy, error)
+	SearchImagingStudy(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ImmunizationSearch interface {
 	SearchCapabilitiesImmunization() capabilities.SearchCapabilities
-	SearchImmunization(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Immunization, error)
+	SearchImmunization(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ImmunizationEvaluationSearch interface {
 	SearchCapabilitiesImmunizationEvaluation() capabilities.SearchCapabilities
-	SearchImmunizationEvaluation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ImmunizationEvaluation, error)
+	SearchImmunizationEvaluation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ImmunizationRecommendationSearch interface {
 	SearchCapabilitiesImmunizationRecommendation() capabilities.SearchCapabilities
-	SearchImmunizationRecommendation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ImmunizationRecommendation, error)
+	SearchImmunizationRecommendation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ImplementationGuideSearch interface {
 	SearchCapabilitiesImplementationGuide() capabilities.SearchCapabilities
-	SearchImplementationGuide(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ImplementationGuide, error)
+	SearchImplementationGuide(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type InsurancePlanSearch interface {
 	SearchCapabilitiesInsurancePlan() capabilities.SearchCapabilities
-	SearchInsurancePlan(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.InsurancePlan, error)
+	SearchInsurancePlan(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type InvoiceSearch interface {
 	SearchCapabilitiesInvoice() capabilities.SearchCapabilities
-	SearchInvoice(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Invoice, error)
+	SearchInvoice(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type LibrarySearch interface {
 	SearchCapabilitiesLibrary() capabilities.SearchCapabilities
-	SearchLibrary(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Library, error)
+	SearchLibrary(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type LinkageSearch interface {
 	SearchCapabilitiesLinkage() capabilities.SearchCapabilities
-	SearchLinkage(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Linkage, error)
+	SearchLinkage(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ListSearch interface {
 	SearchCapabilitiesList() capabilities.SearchCapabilities
-	SearchList(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.List, error)
+	SearchList(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type LocationSearch interface {
 	SearchCapabilitiesLocation() capabilities.SearchCapabilities
-	SearchLocation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Location, error)
+	SearchLocation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MeasureSearch interface {
 	SearchCapabilitiesMeasure() capabilities.SearchCapabilities
-	SearchMeasure(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Measure, error)
+	SearchMeasure(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MeasureReportSearch interface {
 	SearchCapabilitiesMeasureReport() capabilities.SearchCapabilities
-	SearchMeasureReport(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MeasureReport, error)
+	SearchMeasureReport(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MediaSearch interface {
 	SearchCapabilitiesMedia() capabilities.SearchCapabilities
-	SearchMedia(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Media, error)
+	SearchMedia(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationSearch interface {
 	SearchCapabilitiesMedication() capabilities.SearchCapabilities
-	SearchMedication(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Medication, error)
+	SearchMedication(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationAdministrationSearch interface {
 	SearchCapabilitiesMedicationAdministration() capabilities.SearchCapabilities
-	SearchMedicationAdministration(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicationAdministration, error)
+	SearchMedicationAdministration(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationDispenseSearch interface {
 	SearchCapabilitiesMedicationDispense() capabilities.SearchCapabilities
-	SearchMedicationDispense(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicationDispense, error)
+	SearchMedicationDispense(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationKnowledgeSearch interface {
 	SearchCapabilitiesMedicationKnowledge() capabilities.SearchCapabilities
-	SearchMedicationKnowledge(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicationKnowledge, error)
+	SearchMedicationKnowledge(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationRequestSearch interface {
 	SearchCapabilitiesMedicationRequest() capabilities.SearchCapabilities
-	SearchMedicationRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicationRequest, error)
+	SearchMedicationRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicationStatementSearch interface {
 	SearchCapabilitiesMedicationStatement() capabilities.SearchCapabilities
-	SearchMedicationStatement(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicationStatement, error)
+	SearchMedicationStatement(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductSearch interface {
 	SearchCapabilitiesMedicinalProduct() capabilities.SearchCapabilities
-	SearchMedicinalProduct(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProduct, error)
+	SearchMedicinalProduct(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductAuthorizationSearch interface {
 	SearchCapabilitiesMedicinalProductAuthorization() capabilities.SearchCapabilities
-	SearchMedicinalProductAuthorization(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductAuthorization, error)
+	SearchMedicinalProductAuthorization(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductContraindicationSearch interface {
 	SearchCapabilitiesMedicinalProductContraindication() capabilities.SearchCapabilities
-	SearchMedicinalProductContraindication(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductContraindication, error)
+	SearchMedicinalProductContraindication(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductIndicationSearch interface {
 	SearchCapabilitiesMedicinalProductIndication() capabilities.SearchCapabilities
-	SearchMedicinalProductIndication(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductIndication, error)
+	SearchMedicinalProductIndication(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductIngredientSearch interface {
 	SearchCapabilitiesMedicinalProductIngredient() capabilities.SearchCapabilities
-	SearchMedicinalProductIngredient(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductIngredient, error)
+	SearchMedicinalProductIngredient(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductInteractionSearch interface {
 	SearchCapabilitiesMedicinalProductInteraction() capabilities.SearchCapabilities
-	SearchMedicinalProductInteraction(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductInteraction, error)
+	SearchMedicinalProductInteraction(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductManufacturedSearch interface {
 	SearchCapabilitiesMedicinalProductManufactured() capabilities.SearchCapabilities
-	SearchMedicinalProductManufactured(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductManufactured, error)
+	SearchMedicinalProductManufactured(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductPackagedSearch interface {
 	SearchCapabilitiesMedicinalProductPackaged() capabilities.SearchCapabilities
-	SearchMedicinalProductPackaged(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductPackaged, error)
+	SearchMedicinalProductPackaged(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductPharmaceuticalSearch interface {
 	SearchCapabilitiesMedicinalProductPharmaceutical() capabilities.SearchCapabilities
-	SearchMedicinalProductPharmaceutical(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductPharmaceutical, error)
+	SearchMedicinalProductPharmaceutical(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MedicinalProductUndesirableEffectSearch interface {
 	SearchCapabilitiesMedicinalProductUndesirableEffect() capabilities.SearchCapabilities
-	SearchMedicinalProductUndesirableEffect(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MedicinalProductUndesirableEffect, error)
+	SearchMedicinalProductUndesirableEffect(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MessageDefinitionSearch interface {
 	SearchCapabilitiesMessageDefinition() capabilities.SearchCapabilities
-	SearchMessageDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MessageDefinition, error)
+	SearchMessageDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MessageHeaderSearch interface {
 	SearchCapabilitiesMessageHeader() capabilities.SearchCapabilities
-	SearchMessageHeader(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MessageHeader, error)
+	SearchMessageHeader(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type MolecularSequenceSearch interface {
 	SearchCapabilitiesMolecularSequence() capabilities.SearchCapabilities
-	SearchMolecularSequence(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.MolecularSequence, error)
+	SearchMolecularSequence(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type NamingSystemSearch interface {
 	SearchCapabilitiesNamingSystem() capabilities.SearchCapabilities
-	SearchNamingSystem(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.NamingSystem, error)
+	SearchNamingSystem(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type NutritionOrderSearch interface {
 	SearchCapabilitiesNutritionOrder() capabilities.SearchCapabilities
-	SearchNutritionOrder(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.NutritionOrder, error)
+	SearchNutritionOrder(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ObservationSearch interface {
 	SearchCapabilitiesObservation() capabilities.SearchCapabilities
-	SearchObservation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Observation, error)
+	SearchObservation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ObservationDefinitionSearch interface {
 	SearchCapabilitiesObservationDefinition() capabilities.SearchCapabilities
-	SearchObservationDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ObservationDefinition, error)
+	SearchObservationDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type OperationDefinitionSearch interface {
 	SearchCapabilitiesOperationDefinition() capabilities.SearchCapabilities
-	SearchOperationDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.OperationDefinition, error)
+	SearchOperationDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type OperationOutcomeSearch interface {
 	SearchCapabilitiesOperationOutcome() capabilities.SearchCapabilities
-	SearchOperationOutcome(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.OperationOutcome, error)
+	SearchOperationOutcome(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type OrganizationSearch interface {
 	SearchCapabilitiesOrganization() capabilities.SearchCapabilities
-	SearchOrganization(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Organization, error)
+	SearchOrganization(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type OrganizationAffiliationSearch interface {
 	SearchCapabilitiesOrganizationAffiliation() capabilities.SearchCapabilities
-	SearchOrganizationAffiliation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.OrganizationAffiliation, error)
+	SearchOrganizationAffiliation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ParametersSearch interface {
 	SearchCapabilitiesParameters() capabilities.SearchCapabilities
-	SearchParameters(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Parameters, error)
+	SearchParameters(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PatientSearch interface {
 	SearchCapabilitiesPatient() capabilities.SearchCapabilities
-	SearchPatient(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Patient, error)
+	SearchPatient(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PaymentNoticeSearch interface {
 	SearchCapabilitiesPaymentNotice() capabilities.SearchCapabilities
-	SearchPaymentNotice(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.PaymentNotice, error)
+	SearchPaymentNotice(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PaymentReconciliationSearch interface {
 	SearchCapabilitiesPaymentReconciliation() capabilities.SearchCapabilities
-	SearchPaymentReconciliation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.PaymentReconciliation, error)
+	SearchPaymentReconciliation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PersonSearch interface {
 	SearchCapabilitiesPerson() capabilities.SearchCapabilities
-	SearchPerson(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Person, error)
+	SearchPerson(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PlanDefinitionSearch interface {
 	SearchCapabilitiesPlanDefinition() capabilities.SearchCapabilities
-	SearchPlanDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.PlanDefinition, error)
+	SearchPlanDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PractitionerSearch interface {
 	SearchCapabilitiesPractitioner() capabilities.SearchCapabilities
-	SearchPractitioner(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Practitioner, error)
+	SearchPractitioner(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type PractitionerRoleSearch interface {
 	SearchCapabilitiesPractitionerRole() capabilities.SearchCapabilities
-	SearchPractitionerRole(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.PractitionerRole, error)
+	SearchPractitionerRole(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ProcedureSearch interface {
 	SearchCapabilitiesProcedure() capabilities.SearchCapabilities
-	SearchProcedure(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Procedure, error)
+	SearchProcedure(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ProvenanceSearch interface {
 	SearchCapabilitiesProvenance() capabilities.SearchCapabilities
-	SearchProvenance(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Provenance, error)
+	SearchProvenance(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type QuestionnaireSearch interface {
 	SearchCapabilitiesQuestionnaire() capabilities.SearchCapabilities
-	SearchQuestionnaire(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Questionnaire, error)
+	SearchQuestionnaire(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type QuestionnaireResponseSearch interface {
 	SearchCapabilitiesQuestionnaireResponse() capabilities.SearchCapabilities
-	SearchQuestionnaireResponse(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.QuestionnaireResponse, error)
+	SearchQuestionnaireResponse(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type RelatedPersonSearch interface {
 	SearchCapabilitiesRelatedPerson() capabilities.SearchCapabilities
-	SearchRelatedPerson(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.RelatedPerson, error)
+	SearchRelatedPerson(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type RequestGroupSearch interface {
 	SearchCapabilitiesRequestGroup() capabilities.SearchCapabilities
-	SearchRequestGroup(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.RequestGroup, error)
+	SearchRequestGroup(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ResearchDefinitionSearch interface {
 	SearchCapabilitiesResearchDefinition() capabilities.SearchCapabilities
-	SearchResearchDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ResearchDefinition, error)
+	SearchResearchDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ResearchElementDefinitionSearch interface {
 	SearchCapabilitiesResearchElementDefinition() capabilities.SearchCapabilities
-	SearchResearchElementDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ResearchElementDefinition, error)
+	SearchResearchElementDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ResearchStudySearch interface {
 	SearchCapabilitiesResearchStudy() capabilities.SearchCapabilities
-	SearchResearchStudy(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ResearchStudy, error)
+	SearchResearchStudy(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ResearchSubjectSearch interface {
 	SearchCapabilitiesResearchSubject() capabilities.SearchCapabilities
-	SearchResearchSubject(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ResearchSubject, error)
+	SearchResearchSubject(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type RiskAssessmentSearch interface {
 	SearchCapabilitiesRiskAssessment() capabilities.SearchCapabilities
-	SearchRiskAssessment(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.RiskAssessment, error)
+	SearchRiskAssessment(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type RiskEvidenceSynthesisSearch interface {
 	SearchCapabilitiesRiskEvidenceSynthesis() capabilities.SearchCapabilities
-	SearchRiskEvidenceSynthesis(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.RiskEvidenceSynthesis, error)
+	SearchRiskEvidenceSynthesis(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ScheduleSearch interface {
 	SearchCapabilitiesSchedule() capabilities.SearchCapabilities
-	SearchSchedule(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Schedule, error)
+	SearchSchedule(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SearchParameterSearch interface {
 	SearchCapabilitiesSearchParameter() capabilities.SearchCapabilities
-	SearchSearchParameter(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SearchParameter, error)
+	SearchSearchParameter(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ServiceRequestSearch interface {
 	SearchCapabilitiesServiceRequest() capabilities.SearchCapabilities
-	SearchServiceRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ServiceRequest, error)
+	SearchServiceRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SlotSearch interface {
 	SearchCapabilitiesSlot() capabilities.SearchCapabilities
-	SearchSlot(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Slot, error)
+	SearchSlot(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SpecimenSearch interface {
 	SearchCapabilitiesSpecimen() capabilities.SearchCapabilities
-	SearchSpecimen(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Specimen, error)
+	SearchSpecimen(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SpecimenDefinitionSearch interface {
 	SearchCapabilitiesSpecimenDefinition() capabilities.SearchCapabilities
-	SearchSpecimenDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SpecimenDefinition, error)
+	SearchSpecimenDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type StructureDefinitionSearch interface {
 	SearchCapabilitiesStructureDefinition() capabilities.SearchCapabilities
-	SearchStructureDefinition(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.StructureDefinition, error)
+	SearchStructureDefinition(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type StructureMapSearch interface {
 	SearchCapabilitiesStructureMap() capabilities.SearchCapabilities
-	SearchStructureMap(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.StructureMap, error)
+	SearchStructureMap(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubscriptionSearch interface {
 	SearchCapabilitiesSubscription() capabilities.SearchCapabilities
-	SearchSubscription(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Subscription, error)
+	SearchSubscription(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceSearch interface {
 	SearchCapabilitiesSubstance() capabilities.SearchCapabilities
-	SearchSubstance(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Substance, error)
+	SearchSubstance(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceNucleicAcidSearch interface {
 	SearchCapabilitiesSubstanceNucleicAcid() capabilities.SearchCapabilities
-	SearchSubstanceNucleicAcid(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstanceNucleicAcid, error)
+	SearchSubstanceNucleicAcid(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstancePolymerSearch interface {
 	SearchCapabilitiesSubstancePolymer() capabilities.SearchCapabilities
-	SearchSubstancePolymer(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstancePolymer, error)
+	SearchSubstancePolymer(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceProteinSearch interface {
 	SearchCapabilitiesSubstanceProtein() capabilities.SearchCapabilities
-	SearchSubstanceProtein(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstanceProtein, error)
+	SearchSubstanceProtein(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceReferenceInformationSearch interface {
 	SearchCapabilitiesSubstanceReferenceInformation() capabilities.SearchCapabilities
-	SearchSubstanceReferenceInformation(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstanceReferenceInformation, error)
+	SearchSubstanceReferenceInformation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceSourceMaterialSearch interface {
 	SearchCapabilitiesSubstanceSourceMaterial() capabilities.SearchCapabilities
-	SearchSubstanceSourceMaterial(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstanceSourceMaterial, error)
+	SearchSubstanceSourceMaterial(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SubstanceSpecificationSearch interface {
 	SearchCapabilitiesSubstanceSpecification() capabilities.SearchCapabilities
-	SearchSubstanceSpecification(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SubstanceSpecification, error)
+	SearchSubstanceSpecification(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SupplyDeliverySearch interface {
 	SearchCapabilitiesSupplyDelivery() capabilities.SearchCapabilities
-	SearchSupplyDelivery(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SupplyDelivery, error)
+	SearchSupplyDelivery(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type SupplyRequestSearch interface {
 	SearchCapabilitiesSupplyRequest() capabilities.SearchCapabilities
-	SearchSupplyRequest(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.SupplyRequest, error)
+	SearchSupplyRequest(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type TaskSearch interface {
 	SearchCapabilitiesTask() capabilities.SearchCapabilities
-	SearchTask(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.Task, error)
+	SearchTask(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type TerminologyCapabilitiesSearch interface {
 	SearchCapabilitiesTerminologyCapabilities() capabilities.SearchCapabilities
-	SearchTerminologyCapabilities(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.TerminologyCapabilities, error)
+	SearchTerminologyCapabilities(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type TestReportSearch interface {
 	SearchCapabilitiesTestReport() capabilities.SearchCapabilities
-	SearchTestReport(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.TestReport, error)
+	SearchTestReport(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type TestScriptSearch interface {
 	SearchCapabilitiesTestScript() capabilities.SearchCapabilities
-	SearchTestScript(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.TestScript, error)
+	SearchTestScript(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type ValueSetSearch interface {
 	SearchCapabilitiesValueSet() capabilities.SearchCapabilities
-	SearchValueSet(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.ValueSet, error)
+	SearchValueSet(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type VerificationResultSearch interface {
 	SearchCapabilitiesVerificationResult() capabilities.SearchCapabilities
-	SearchVerificationResult(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.VerificationResult, error)
+	SearchVerificationResult(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }
 type VisionPrescriptionSearch interface {
 	SearchCapabilitiesVisionPrescription() capabilities.SearchCapabilities
-	SearchVisionPrescription(ctx context.Context, parameters capabilities.SearchParameters) ([]r4.VisionPrescription, error)
+	SearchVisionPrescription(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, error)
 }

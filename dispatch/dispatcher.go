@@ -11,7 +11,7 @@ import (
 type Dispatcher struct {
 	Read               func(ctx context.Context, api any, resourceType string, id string) (any, error)
 	SearchCapabilities func(api any, resourceType string) (capabilities.SearchCapabilities, error)
-	Search             func(ctx context.Context, api any, resourceType string, parameters capabilities.SearchParameters) ([]any, error)
+	Search             func(ctx context.Context, api any, resourceType string, options capabilities.SearchOptions) ([]any, error)
 }
 
 func DispatcherFor[R model.Release]() Dispatcher {

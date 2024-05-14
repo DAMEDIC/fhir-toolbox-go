@@ -12,7 +12,7 @@ none yet :/
 Run the example in `./example` using the following command:
 
 ```sh
-go run ./cmd/example https://hapi.fhir.org/baseR4
+go run ./cmd/example https://server.fire.ly/
 ```
 
 This starts a simple mock-facade that forwards all requests to the HAPI test-server.
