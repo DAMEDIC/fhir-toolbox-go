@@ -5,7 +5,10 @@ This includes model types, as well as interfaces (and some implementations) mode
 
 ## Features
 
-none yet :/
+- Extensible REST API with capabilties modeled as interfaces
+  - FHIR model types
+  - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (see [Capabilities](#capabilities))
+  - Interactions: `read`
 
 ## Example
 
@@ -22,6 +25,8 @@ From another terminal, run
 ```sh
 curl 'http://localhost/Patient/547'
 ```
+
+The client implementation in `./cmd/example` is only a proof-of-concept and does only implement the `read` interaction for a very limited set of resources.
 
 ## Capabilities
 
@@ -44,11 +49,8 @@ This flexible architecture allows different use cases, such as
 
 ## Roadmap
 
-- Extensible REST API (WIP)
-  - FHIR types
-  - Capabilities modeled as interfaces
-  - Capability detection by runtime ~~reflecting~~ type assertion of implemented interfaces (see [Capabilities](#capabilities))
-- Proof-of-conept REST backend (WIP)
+- Extensible REST API
+  - Interactions: `search`
 - Read-only Orbis Backend (TODO)
 - Read-only M-KIS Backend (TODO)
 
