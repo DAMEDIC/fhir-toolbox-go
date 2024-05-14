@@ -17,6 +17,7 @@ func NewServer[R model.Release](backend backend.Backend, config Config) http.Han
 
 	var handler http.Handler = mux
 	handler = withLogging(handler)
+	handler = withRequestContext(handler)
 
 	return handler
 }

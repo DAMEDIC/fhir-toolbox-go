@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"cmp"
 	"encoding/json"
+	"fhir-toolbox/rest"
 	"fmt"
 	"log/slog"
 	"os"
@@ -23,9 +24,11 @@ var defaultConfig = config{
 func Load(configFile string) (config, error) {
 	// first thing? initialize logging
 	level := slog.LevelVar{}
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+	jsonHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 		Level: &level,
-	}))
+	})
+	requestContextHandler := rest.NewRequestContextSlogHandler(jsonHandler)
+	logger := slog.New(requestContextHandler)
 	slog.SetDefault(logger)
 
 	var c = defaultConfig

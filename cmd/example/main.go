@@ -20,13 +20,28 @@ import (
 func main() {
 	var backendUrl = os.Args[1]
 
-	slog.SetLogLoggerLevel(slog.LevelDebug)
+	textHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelDebug,
+	})
+	// Add some addtionnal context to the log (like request id).
+	requestContextHandler := rest.NewRequestContextSlogHandler(textHandler)
+	slog.SetDefault(slog.New(requestContextHandler))
+
 	log.Printf("FHIR Server: %s", backendUrl)
 
+	// Create the client to the backing server.
+	// The client is implemented below and is only an example.
+	// It currenlty only supports the read operation.
 	client := Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
-	log.Fatal(http.ListenAndServe(":80", rest.NewServer[model.R4](&client, rest.DefaultConfig)))
+
+	// Create the REST server.
+	// You can plug in any backend you want here.
+	server := rest.NewServer[model.R4](&client, rest.DefaultConfig)
+
+	// Start the server and listen on port 80.
+	log.Fatal(http.ListenAndServe(":80", server))
 }
 
 type Client struct {

@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/dave/jennifer v1.7.0
 	github.com/dustin/go-humanize v1.0.1
+	github.com/google/uuid v1.6.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggest/assertjson v1.9.0

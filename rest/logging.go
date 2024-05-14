@@ -1,12 +1,47 @@
 package rest
 
 import (
+	"context"
 	"log/slog"
 	"net/http"
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/google/uuid"
 )
+
+type requestContextKey struct{}
+type RequestContext map[string]string
+
+func withRequestContext(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+		ctx = context.WithValue(ctx, requestContextKey{}, RequestContext{
+			"id": uuid.New().String(),
+		})
+		h.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+type requestContextHandler struct {
+	slog.Handler
+}
+
+func (h requestContextHandler) Handle(ctx context.Context, r slog.Record) error {
+	if requestCtx, ok := ctx.Value(requestContextKey{}).(RequestContext); ok {
+		attrs := make([]slog.Attr, 0, len(requestCtx))
+		for k, v := range requestCtx {
+			attrs = append(attrs, slog.String(k, v))
+		}
+		r.Add("request", slog.GroupValue(attrs...))
+	}
+
+	return h.Handler.Handle(ctx, r)
+}
+
+func NewRequestContextSlogHandler(h slog.Handler) slog.Handler {
+	return requestContextHandler{h}
+}
 
 type responseData struct {
 	status int
@@ -31,7 +66,7 @@ func (r *loggingResponseWriter) WriteHeader(statusCode int) {
 
 func withLogging(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		slog.Debug("handling request",
+		slog.DebugContext(r.Context(), "handling request",
 			"uri", r.RequestURI,
 			"method", r.Method,
 		)
@@ -49,7 +84,7 @@ func withLogging(h http.Handler) http.Handler {
 
 		duration := time.Since(start)
 
-		slog.Debug("handled request",
+		slog.DebugContext(r.Context(), "handled request",
 			"uri", r.RequestURI,
 			"method", r.Method,
 			"status", responseData.status,
