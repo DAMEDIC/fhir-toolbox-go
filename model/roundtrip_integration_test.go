@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/swaggest/assertjson"
 
-	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/generate/model"
 	"fhir-toolbox/testdata"
 )
 
@@ -22,7 +22,7 @@ func TestRoundtripJSONR4Integration(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			var r r4.Resource
+			var r model.Resource
 			json.Unmarshal(jsonIn, &r)
 
 			jsonOut, err := json.Marshal(r)
