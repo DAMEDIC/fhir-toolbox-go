@@ -11,11 +11,13 @@ import (
 )
 
 type config struct {
-	LogLevel string `json:"logLevel"`
+	LogLevel     string       `json:"logLevel"`
+	ServerConfig serverConfig `json:"server"`
 }
 
 var defaultConfig = config{
-	LogLevel: cmp.Or(os.Getenv("LOG_LEVEL"), "INFO"),
+	LogLevel:     cmp.Or(os.Getenv("LOG_LEVEL"), "INFO"),
+	ServerConfig: defaultServerConfig,
 }
 
 func Load(configFile string) (config, error) {
