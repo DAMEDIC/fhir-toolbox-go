@@ -63,6 +63,11 @@ type MedicationStatement struct {
 	// Indicates how the medication is/was or should be taken by the patient.
 	Dosage []Dosage
 }
+
+func (r MedicationStatement) ResourceType() string {
+	return "MedicationStatement"
+}
+
 type isMedicationStatementMedication interface {
 	isMedicationStatementMedication()
 }

@@ -63,6 +63,11 @@ type ValueSet struct {
 	// A value set can also be "expanded", where the value set is turned into a simple collection of enumerated codes. This element holds the expansion, if it has been performed.
 	Expansion *ValueSetExpansion
 }
+
+func (r ValueSet) ResourceType() string {
+	return "ValueSet"
+}
+
 type jsonValueSet struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

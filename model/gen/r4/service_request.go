@@ -93,6 +93,11 @@ type ServiceRequest struct {
 	// Key events in the history of the request.
 	RelevantHistory []Reference
 }
+
+func (r ServiceRequest) ResourceType() string {
+	return "ServiceRequest"
+}
+
 type isServiceRequestQuantity interface {
 	isServiceRequestQuantity()
 }

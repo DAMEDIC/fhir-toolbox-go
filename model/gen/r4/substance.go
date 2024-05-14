@@ -41,6 +41,11 @@ type Substance struct {
 	// A substance can be composed of other substances.
 	Ingredient []SubstanceIngredient
 }
+
+func (r Substance) ResourceType() string {
+	return "Substance"
+}
+
 type jsonSubstance struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

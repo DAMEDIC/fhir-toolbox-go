@@ -48,6 +48,11 @@ type Endpoint struct {
 	// Additional headers / information to send as part of the notification.
 	Header []String
 }
+
+func (r Endpoint) ResourceType() string {
+	return "Endpoint"
+}
+
 type jsonEndpoint struct {
 	ResourceType                    string              `json:"resourceType"`
 	Id                              *Id                 `json:"id,omitempty"`

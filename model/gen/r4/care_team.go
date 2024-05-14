@@ -52,6 +52,11 @@ type CareTeam struct {
 	// Comments made about the CareTeam.
 	Note []Annotation
 }
+
+func (r CareTeam) ResourceType() string {
+	return "CareTeam"
+}
+
 type jsonCareTeam struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

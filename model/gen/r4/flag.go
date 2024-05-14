@@ -42,6 +42,11 @@ type Flag struct {
 	// The person, organization or device that created the flag.
 	Author *Reference
 }
+
+func (r Flag) ResourceType() string {
+	return "Flag"
+}
+
 type jsonFlag struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

@@ -74,6 +74,11 @@ type HealthcareService struct {
 	// Technical endpoints providing access to services operated for the specific healthcare services defined at this resource.
 	Endpoint []Reference
 }
+
+func (r HealthcareService) ResourceType() string {
+	return "HealthcareService"
+}
+
 type jsonHealthcareService struct {
 	ResourceType                           string                           `json:"resourceType"`
 	Id                                     *Id                              `json:"id,omitempty"`

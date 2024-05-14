@@ -37,6 +37,11 @@ type SubstanceReferenceInformation struct {
 	// Todo.
 	Target []SubstanceReferenceInformationTarget
 }
+
+func (r SubstanceReferenceInformation) ResourceType() string {
+	return "SubstanceReferenceInformation"
+}
+
 type jsonSubstanceReferenceInformation struct {
 	ResourceType                  string                                        `json:"resourceType"`
 	Id                            *Id                                           `json:"id,omitempty"`

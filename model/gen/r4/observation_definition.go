@@ -54,6 +54,11 @@ type ObservationDefinition struct {
 	// The set of critical coded results for the observation conforming to this ObservationDefinition.
 	CriticalCodedValueSet *Reference
 }
+
+func (r ObservationDefinition) ResourceType() string {
+	return "ObservationDefinition"
+}
+
 type jsonObservationDefinition struct {
 	ResourceType                           string                                    `json:"resourceType"`
 	Id                                     *Id                                       `json:"id,omitempty"`

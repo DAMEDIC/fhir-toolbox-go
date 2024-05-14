@@ -92,6 +92,11 @@ type EffectEvidenceSynthesis struct {
 	// A description of the certainty of the effect estimate.
 	Certainty []EffectEvidenceSynthesisCertainty
 }
+
+func (r EffectEvidenceSynthesis) ResourceType() string {
+	return "EffectEvidenceSynthesis"
+}
+
 type jsonEffectEvidenceSynthesis struct {
 	ResourceType                   string                                     `json:"resourceType"`
 	Id                             *Id                                        `json:"id,omitempty"`

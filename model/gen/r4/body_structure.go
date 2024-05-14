@@ -42,6 +42,11 @@ type BodyStructure struct {
 	// The person to which the body site belongs.
 	Patient Reference
 }
+
+func (r BodyStructure) ResourceType() string {
+	return "BodyStructure"
+}
+
 type jsonBodyStructure struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

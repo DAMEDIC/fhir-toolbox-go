@@ -52,6 +52,11 @@ type List struct {
 	// If the list is empty, why the list is empty.
 	EmptyReason *CodeableConcept
 }
+
+func (r List) ResourceType() string {
+	return "List"
+}
+
 type jsonList struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

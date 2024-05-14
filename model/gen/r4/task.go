@@ -89,6 +89,11 @@ type Task struct {
 	// Outputs produced by the Task.
 	Output []TaskOutput
 }
+
+func (r Task) ResourceType() string {
+	return "Task"
+}
+
 type jsonTask struct {
 	ResourceType                          string              `json:"resourceType"`
 	Id                                    *Id                 `json:"id,omitempty"`

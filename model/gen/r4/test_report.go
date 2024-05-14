@@ -50,6 +50,11 @@ type TestReport struct {
 	// The results of the series of operations required to clean up after all the tests were executed (successfully or otherwise).
 	Teardown *TestReportTeardown
 }
+
+func (r TestReport) ResourceType() string {
+	return "TestReport"
+}
+
 type jsonTestReport struct {
 	ResourceType                  string                  `json:"resourceType"`
 	Id                            *Id                     `json:"id,omitempty"`

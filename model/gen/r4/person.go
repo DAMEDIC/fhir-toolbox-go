@@ -48,6 +48,11 @@ type Person struct {
 	// Link to a resource that concerns the same actual person.
 	Link []PersonLink
 }
+
+func (r Person) ResourceType() string {
+	return "Person"
+}
+
 type jsonPerson struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

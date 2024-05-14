@@ -71,6 +71,11 @@ type MedicationKnowledge struct {
 	// The time course of drug absorption, distribution, metabolism and excretion of a medication from the body.
 	Kinetics []MedicationKnowledgeKinetics
 }
+
+func (r MedicationKnowledge) ResourceType() string {
+	return "MedicationKnowledge"
+}
+
 type jsonMedicationKnowledge struct {
 	ResourceType                           string                                          `json:"resourceType"`
 	Id                                     *Id                                             `json:"id,omitempty"`

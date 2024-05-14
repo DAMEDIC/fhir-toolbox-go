@@ -52,6 +52,11 @@ type SubstanceSourceMaterial struct {
 	// To do.
 	PartDescription []SubstanceSourceMaterialPartDescription
 }
+
+func (r SubstanceSourceMaterial) ResourceType() string {
+	return "SubstanceSourceMaterial"
+}
+
 type jsonSubstanceSourceMaterial struct {
 	ResourceType                         string                                       `json:"resourceType"`
 	Id                                   *Id                                          `json:"id,omitempty"`

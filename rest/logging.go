@@ -30,7 +30,12 @@ func (r *loggingResponseWriter) WriteHeader(statusCode int) {
 }
 
 func withLogging(h http.Handler) http.Handler {
-	logFn := func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		slog.Debug("handling request",
+			"uri", r.RequestURI,
+			"method", r.Method,
+		)
+
 		start := time.Now()
 
 		responseData := &responseData{
@@ -44,7 +49,7 @@ func withLogging(h http.Handler) http.Handler {
 
 		duration := time.Since(start)
 
-		slog.Debug("handling request",
+		slog.Debug("handled request",
 			"uri", r.RequestURI,
 			"method", r.Method,
 			"status", responseData.status,
@@ -54,6 +59,5 @@ func withLogging(h http.Handler) http.Handler {
 				"readable", humanize.Bytes(uint64(responseData.size)),
 			),
 		)
-	}
-	return http.HandlerFunc(logFn)
+	})
 }

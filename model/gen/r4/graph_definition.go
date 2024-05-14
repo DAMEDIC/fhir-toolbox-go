@@ -56,6 +56,11 @@ type GraphDefinition struct {
 	// Links this graph makes rules about.
 	Link []GraphDefinitionLink
 }
+
+func (r GraphDefinition) ResourceType() string {
+	return "GraphDefinition"
+}
+
 type jsonGraphDefinition struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

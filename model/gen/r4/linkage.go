@@ -32,6 +32,11 @@ type Linkage struct {
 	// Identifies which record considered as the reference to the same real-world occurrence as well as how the items should be evaluated within the collection of linked items.
 	Item []LinkageItem
 }
+
+func (r Linkage) ResourceType() string {
+	return "Linkage"
+}
+
 type jsonLinkage struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

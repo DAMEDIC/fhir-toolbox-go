@@ -38,6 +38,11 @@ type MedicinalProductIngredient struct {
 	// The ingredient substance.
 	Substance *MedicinalProductIngredientSubstance
 }
+
+func (r MedicinalProductIngredient) ResourceType() string {
+	return "MedicinalProductIngredient"
+}
+
 type jsonMedicinalProductIngredient struct {
 	ResourceType                        string                                         `json:"resourceType"`
 	Id                                  *Id                                            `json:"id,omitempty"`

@@ -67,6 +67,11 @@ type MedicinalProduct struct {
 	// Indicates if the medicinal product has an orphan designation for the treatment of a rare disease.
 	SpecialDesignation []MedicinalProductSpecialDesignation
 }
+
+func (r MedicinalProduct) ResourceType() string {
+	return "MedicinalProduct"
+}
+
 type jsonMedicinalProduct struct {
 	ResourceType                    string                                           `json:"resourceType"`
 	Id                              *Id                                              `json:"id,omitempty"`

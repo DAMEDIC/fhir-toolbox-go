@@ -57,6 +57,11 @@ type CoverageEligibilityResponse struct {
 	// Errors encountered during the processing of the request.
 	Error []CoverageEligibilityResponseError
 }
+
+func (r CoverageEligibilityResponse) ResourceType() string {
+	return "CoverageEligibilityResponse"
+}
+
 type isCoverageEligibilityResponseServiced interface {
 	isCoverageEligibilityResponseServiced()
 }

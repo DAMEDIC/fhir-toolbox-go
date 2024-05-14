@@ -61,6 +61,11 @@ type NutritionOrder struct {
 	// Comments made about the {{title}} by the requester, performer, subject or other participants.
 	Note []Annotation
 }
+
+func (r NutritionOrder) ResourceType() string {
+	return "NutritionOrder"
+}
+
 type jsonNutritionOrder struct {
 	ResourceType                          string                        `json:"resourceType"`
 	Id                                    *Id                           `json:"id,omitempty"`

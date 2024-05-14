@@ -52,6 +52,11 @@ type RelatedPerson struct {
 	// A language which may be used to communicate with about the patient's health.
 	Communication []RelatedPersonCommunication
 }
+
+func (r RelatedPerson) ResourceType() string {
+	return "RelatedPerson"
+}
+
 type jsonRelatedPerson struct {
 	ResourceType                  string                       `json:"resourceType"`
 	Id                            *Id                          `json:"id,omitempty"`

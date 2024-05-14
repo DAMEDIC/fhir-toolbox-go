@@ -52,6 +52,11 @@ type CatalogEntry struct {
 	// Used for example, to point to a substance, or to a device used to administer a medication.
 	RelatedEntry []CatalogEntryRelatedEntry
 }
+
+func (r CatalogEntry) ResourceType() string {
+	return "CatalogEntry"
+}
+
 type jsonCatalogEntry struct {
 	ResourceType                  string                     `json:"resourceType"`
 	Id                            *Id                        `json:"id,omitempty"`

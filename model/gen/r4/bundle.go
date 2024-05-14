@@ -30,6 +30,11 @@ type Bundle struct {
 	// Digital Signature - base64 encoded. XML-DSig or a JWT.
 	Signature *Signature
 }
+
+func (r Bundle) ResourceType() string {
+	return "Bundle"
+}
+
 type jsonBundle struct {
 	ResourceType                  string            `json:"resourceType"`
 	Id                            *Id               `json:"id,omitempty"`
@@ -267,7 +272,7 @@ func (r BundleEntry) marshalJSON() jsonBundleEntry {
 		m.FullUrlPrimitiveElement = &primitiveElement{Id: r.FullUrl.Id, Extension: r.FullUrl.Extension}
 	}
 	if r.Resource != nil {
-		m.Resource = &containedResource{resource: r.Resource}
+		m.Resource = &containedResource{resource: *r.Resource}
 	}
 	m.Search = r.Search
 	m.Request = r.Request
@@ -568,7 +573,7 @@ func (r BundleEntryResponse) marshalJSON() jsonBundleEntryResponse {
 		m.LastModifiedPrimitiveElement = &primitiveElement{Id: r.LastModified.Id, Extension: r.LastModified.Extension}
 	}
 	if r.Outcome != nil {
-		m.Outcome = &containedResource{resource: r.Outcome}
+		m.Outcome = &containedResource{resource: *r.Outcome}
 	}
 	return m
 }

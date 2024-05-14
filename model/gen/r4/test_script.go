@@ -74,6 +74,11 @@ type TestScript struct {
 	// A series of operations required to clean up after all the tests are executed (successfully or otherwise).
 	Teardown *TestScriptTeardown
 }
+
+func (r TestScript) ResourceType() string {
+	return "TestScript"
+}
+
 type jsonTestScript struct {
 	ResourceType                  string                  `json:"resourceType"`
 	Id                            *Id                     `json:"id,omitempty"`

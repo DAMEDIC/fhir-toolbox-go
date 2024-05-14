@@ -65,6 +65,11 @@ type DiagnosticReport struct {
 	// Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent.
 	PresentedForm []Attachment
 }
+
+func (r DiagnosticReport) ResourceType() string {
+	return "DiagnosticReport"
+}
+
 type isDiagnosticReportEffective interface {
 	isDiagnosticReportEffective()
 }

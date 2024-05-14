@@ -83,6 +83,11 @@ type Procedure struct {
 	// Identifies coded items that were used as part of the procedure.
 	UsedCode []CodeableConcept
 }
+
+func (r Procedure) ResourceType() string {
+	return "Procedure"
+}
+
 type isProcedurePerformed interface {
 	isProcedurePerformed()
 }

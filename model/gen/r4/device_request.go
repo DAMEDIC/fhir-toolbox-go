@@ -75,6 +75,11 @@ type DeviceRequest struct {
 	// Key events in the history of the request.
 	RelevantHistory []Reference
 }
+
+func (r DeviceRequest) ResourceType() string {
+	return "DeviceRequest"
+}
+
 type isDeviceRequestCode interface {
 	isDeviceRequestCode()
 }

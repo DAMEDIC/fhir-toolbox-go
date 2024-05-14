@@ -48,6 +48,11 @@ type Account struct {
 	// Reference to a parent Account.
 	PartOf *Reference
 }
+
+func (r Account) ResourceType() string {
+	return "Account"
+}
+
 type jsonAccount struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

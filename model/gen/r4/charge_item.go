@@ -79,6 +79,11 @@ type ChargeItem struct {
 	// Further information supporting this charge.
 	SupportingInformation []Reference
 }
+
+func (r ChargeItem) ResourceType() string {
+	return "ChargeItem"
+}
+
 type isChargeItemOccurrence interface {
 	isChargeItemOccurrence()
 }

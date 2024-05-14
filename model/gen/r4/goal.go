@@ -59,6 +59,11 @@ type Goal struct {
 	// Details of what's changed (or not changed).
 	OutcomeReference []Reference
 }
+
+func (r Goal) ResourceType() string {
+	return "Goal"
+}
+
 type isGoalStart interface {
 	isGoalStart()
 }

@@ -50,6 +50,11 @@ type PaymentNotice struct {
 	// A code indicating whether payment has been sent or cleared.
 	PaymentStatus *CodeableConcept
 }
+
+func (r PaymentNotice) ResourceType() string {
+	return "PaymentNotice"
+}
+
 type jsonPaymentNotice struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

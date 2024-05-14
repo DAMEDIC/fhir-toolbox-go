@@ -40,6 +40,11 @@ type MedicinalProductManufactured struct {
 	// Other codeable characteristics.
 	OtherCharacteristics []CodeableConcept
 }
+
+func (r MedicinalProductManufactured) ResourceType() string {
+	return "MedicinalProductManufactured"
+}
+
 type jsonMedicinalProductManufactured struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

@@ -38,6 +38,11 @@ type SubstancePolymer struct {
 	// Todo.
 	Repeat []SubstancePolymerRepeat
 }
+
+func (r SubstancePolymer) ResourceType() string {
+	return "SubstancePolymer"
+}
+
 type jsonSubstancePolymer struct {
 	ResourceType                  string                       `json:"resourceType"`
 	Id                            *Id                          `json:"id,omitempty"`

@@ -42,6 +42,11 @@ type Schedule struct {
 	// Comments on the availability to describe any extended information. Such as custom constraints on the slots that may be associated.
 	Comment *String
 }
+
+func (r Schedule) ResourceType() string {
+	return "Schedule"
+}
+
 type jsonSchedule struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

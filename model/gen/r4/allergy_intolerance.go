@@ -61,6 +61,11 @@ type AllergyIntolerance struct {
 	// Details about each adverse reaction event linked to exposure to the identified substance.
 	Reaction []AllergyIntoleranceReaction
 }
+
+func (r AllergyIntolerance) ResourceType() string {
+	return "AllergyIntolerance"
+}
+
 type isAllergyIntoleranceOnset interface {
 	isAllergyIntoleranceOnset()
 }

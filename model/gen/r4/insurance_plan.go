@@ -54,6 +54,11 @@ type InsurancePlan struct {
 	// Details about an insurance plan.
 	Plan []InsurancePlanPlan
 }
+
+func (r InsurancePlan) ResourceType() string {
+	return "InsurancePlan"
+}
+
 type jsonInsurancePlan struct {
 	ResourceType                  string                  `json:"resourceType"`
 	Id                            *Id                     `json:"id,omitempty"`

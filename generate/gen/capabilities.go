@@ -61,7 +61,7 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 				g.Id("SearchCapabilities" + r.Name).Params().Params(searchCapabilitiesReturn)
 			}
 
-			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Error())
+			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Qual("fhir-toolbox/capabilities", "FHIRError"))
 		})
 	}
 

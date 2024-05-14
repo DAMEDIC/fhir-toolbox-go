@@ -36,6 +36,11 @@ type SubstanceNucleicAcid struct {
 	// Subunits are listed in order of decreasing length; sequences of the same length will be ordered by molecular weight; subunits that have identical sequences will be repeated multiple times.
 	Subunit []SubstanceNucleicAcidSubunit
 }
+
+func (r SubstanceNucleicAcid) ResourceType() string {
+	return "SubstanceNucleicAcid"
+}
+
 type jsonSubstanceNucleicAcid struct {
 	ResourceType                        string                        `json:"resourceType"`
 	Id                                  *Id                           `json:"id,omitempty"`

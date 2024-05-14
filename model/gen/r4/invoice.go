@@ -59,6 +59,11 @@ type Invoice struct {
 	// Comments made about the invoice by the issuer, subject, or other participants.
 	Note []Annotation
 }
+
+func (r Invoice) ResourceType() string {
+	return "Invoice"
+}
+
 type jsonInvoice struct {
 	ResourceType                    string                          `json:"resourceType"`
 	Id                              *Id                             `json:"id,omitempty"`

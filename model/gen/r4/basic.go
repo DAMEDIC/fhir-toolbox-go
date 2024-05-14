@@ -38,6 +38,11 @@ type Basic struct {
 	// Indicates who was responsible for creating the resource instance.
 	Author *Reference
 }
+
+func (r Basic) ResourceType() string {
+	return "Basic"
+}
+
 type jsonBasic struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

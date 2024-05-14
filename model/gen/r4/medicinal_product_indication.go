@@ -45,6 +45,11 @@ type MedicinalProductIndication struct {
 	// The population group to which this applies.
 	Population []Population
 }
+
+func (r MedicinalProductIndication) ResourceType() string {
+	return "MedicinalProductIndication"
+}
+
 type jsonMedicinalProductIndication struct {
 	ResourceType                  string                                   `json:"resourceType"`
 	Id                            *Id                                      `json:"id,omitempty"`

@@ -52,6 +52,11 @@ type OrganizationAffiliation struct {
 	// Technical endpoints providing access to services operated for this role.
 	Endpoint []Reference
 }
+
+func (r OrganizationAffiliation) ResourceType() string {
+	return "OrganizationAffiliation"
+}
+
 type jsonOrganizationAffiliation struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

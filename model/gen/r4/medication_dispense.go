@@ -75,6 +75,11 @@ type MedicationDispense struct {
 	// A summary of the events of interest that have occurred, such as when the dispense was verified.
 	EventHistory []Reference
 }
+
+func (r MedicationDispense) ResourceType() string {
+	return "MedicationDispense"
+}
+
 type isMedicationDispenseStatusReason interface {
 	isMedicationDispenseStatusReason()
 }

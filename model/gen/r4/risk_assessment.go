@@ -61,6 +61,11 @@ type RiskAssessment struct {
 	// Additional comments about the risk assessment.
 	Note []Annotation
 }
+
+func (r RiskAssessment) ResourceType() string {
+	return "RiskAssessment"
+}
+
 type isRiskAssessmentOccurrence interface {
 	isRiskAssessmentOccurrence()
 }

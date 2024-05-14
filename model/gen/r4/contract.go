@@ -93,6 +93,11 @@ type Contract struct {
 	// Legally binding Contract: This is the signed and legally recognized representation of the Contract, which is considered the "source of truth" and which would be the basis for legal action related to enforcement of this Contract.
 	LegallyBinding isContractLegallyBinding
 }
+
+func (r Contract) ResourceType() string {
+	return "Contract"
+}
+
 type isContractTopic interface {
 	isContractTopic()
 }

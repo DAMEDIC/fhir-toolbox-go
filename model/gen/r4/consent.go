@@ -53,6 +53,11 @@ type Consent struct {
 	// An exception to the base policy of this consent. An exception can be an addition or removal of access permissions.
 	Provision *ConsentProvision
 }
+
+func (r Consent) ResourceType() string {
+	return "Consent"
+}
+
 type isConsentSource interface {
 	isConsentSource()
 }

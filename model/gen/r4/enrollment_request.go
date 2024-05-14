@@ -40,6 +40,11 @@ type EnrollmentRequest struct {
 	// Reference to the program or plan identification, underwriter or payor.
 	Coverage *Reference
 }
+
+func (r EnrollmentRequest) ResourceType() string {
+	return "EnrollmentRequest"
+}
+
 type jsonEnrollmentRequest struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

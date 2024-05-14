@@ -63,6 +63,11 @@ type StructureMap struct {
 	// Organizes the mapping into manageable chunks for human review/ease of maintenance.
 	Group []StructureMapGroup
 }
+
+func (r StructureMap) ResourceType() string {
+	return "StructureMap"
+}
+
 type jsonStructureMap struct {
 	ResourceType                  string                  `json:"resourceType"`
 	Id                            *Id                     `json:"id,omitempty"`

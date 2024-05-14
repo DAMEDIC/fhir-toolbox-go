@@ -54,6 +54,11 @@ type VerificationResult struct {
 	// Information about the entity validating information.
 	Validator []VerificationResultValidator
 }
+
+func (r VerificationResult) ResourceType() string {
+	return "VerificationResult"
+}
+
 type jsonVerificationResult struct {
 	ResourceType                   string                            `json:"resourceType"`
 	Id                             *Id                               `json:"id,omitempty"`

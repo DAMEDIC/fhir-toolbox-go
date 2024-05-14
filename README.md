@@ -17,6 +17,12 @@ go run ./cmd/example https://server.fire.ly/
 
 This starts a simple mock-facade that forwards all requests to the HAPI test-server.
 
+From another terminal, run
+
+```sh
+curl 'http://localhost/Patient/547'
+```
+
 ## Capabilities
 
 Everyting is archtectured around capabilities, represented by interfaces (e.g. `PatientSearch`).

@@ -47,6 +47,11 @@ type Provenance struct {
 	// A digital signature on the target Reference(s). The signer should match a Provenance.agent. The purpose of the signature is indicated.
 	Signature []Signature
 }
+
+func (r Provenance) ResourceType() string {
+	return "Provenance"
+}
+
 type isProvenanceOccurred interface {
 	isProvenanceOccurred()
 }

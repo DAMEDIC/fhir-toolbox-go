@@ -41,6 +41,11 @@ type MedicinalProductInteraction struct {
 	// Actions for managing the interaction.
 	Management *CodeableConcept
 }
+
+func (r MedicinalProductInteraction) ResourceType() string {
+	return "MedicinalProductInteraction"
+}
+
 type jsonMedicinalProductInteraction struct {
 	ResourceType                  string                                   `json:"resourceType"`
 	Id                            *Id                                      `json:"id,omitempty"`

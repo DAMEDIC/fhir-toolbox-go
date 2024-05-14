@@ -25,11 +25,11 @@ func GenerateServerDispatch(resources []ir.Struct, genTarget, release string) {
 }
 
 func anyReadReturn(_, _ string) Code {
-	return Any()
+	return Qual("fhir-toolbox/model", "Resource")
 }
 
 func anySearchReturn(_, _ string) Code {
-	return Index().Any()
+	return Index().Qual("fhir-toolbox/model", "Resource")
 }
 
 func generateDispatch(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
@@ -54,7 +54,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 
 	f.Func().Id(interactionName).
 		Params(allParams...).
-		Params(returnFunc("", ""), Error()).
+		Params(returnFunc("", ""), Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
@@ -65,7 +65,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 						if interaction == "search" {
 							g.List(Id("v"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
 							g.If(Id("err").Op("!=").Nil()).Block(Return(Nil(), Id("err")))
-							g.Id("r").Op(":=").Make(Index().Any(), Lit(0), Len(Id("v")))
+							g.Id("r").Op(":=").Make(Index().Qual("fhir-toolbox/model", "Resource"), Lit(0), Len(Id("v")))
 							g.For(List(Id("_"), Id("e")).Op(":=").Range().Id("v")).Block(
 								Id("r").Op("=").Append(Id("r"), Id("e")),
 							)
@@ -89,7 +89,7 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 func generateSearchCapabilities(interactionName, release string, resources []ir.Struct) Code {
 	return Func().Id("SearchCapabilities").
 		Params(Id("api").Id("any"), Id("resourceType").String()).
-		Params(searchCapabilitiesReturn, Error()).
+		Params(searchCapabilitiesReturn, Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {

@@ -43,6 +43,11 @@ type Medication struct {
 	// Information that only applies to packages (not products).
 	Batch *MedicationBatch
 }
+
+func (r Medication) ResourceType() string {
+	return "Medication"
+}
+
 type jsonMedication struct {
 	ResourceType                  string                 `json:"resourceType"`
 	Id                            *Id                    `json:"id,omitempty"`

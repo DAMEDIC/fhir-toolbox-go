@@ -53,6 +53,11 @@ type DeviceUseStatement struct {
 	// Details about the device statement that were not represented at all or sufficiently in one of the attributes provided in a class. These may include for example a comment, an instruction, or a note associated with the statement.
 	Note []Annotation
 }
+
+func (r DeviceUseStatement) ResourceType() string {
+	return "DeviceUseStatement"
+}
+
 type isDeviceUseStatementTiming interface {
 	isDeviceUseStatementTiming()
 }

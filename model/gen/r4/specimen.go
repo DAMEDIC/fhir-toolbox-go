@@ -53,6 +53,11 @@ type Specimen struct {
 	// To communicate any details or issues about the specimen or during the specimen collection. (for example: broken vial, sent with patient, frozen).
 	Note []Annotation
 }
+
+func (r Specimen) ResourceType() string {
+	return "Specimen"
+}
+
 type jsonSpecimen struct {
 	ResourceType                  string               `json:"resourceType"`
 	Id                            *Id                  `json:"id,omitempty"`

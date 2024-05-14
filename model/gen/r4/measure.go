@@ -109,6 +109,11 @@ type Measure struct {
 	// The supplemental data criteria for the measure report, specified as either the name of a valid CQL expression within a referenced library, or a valid FHIR Resource Path.
 	SupplementalData []MeasureSupplementalData
 }
+
+func (r Measure) ResourceType() string {
+	return "Measure"
+}
+
 type isMeasureSubject interface {
 	isMeasureSubject()
 }

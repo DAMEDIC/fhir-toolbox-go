@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"context"
 	"fhir-toolbox/backend"
 	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
@@ -37,18 +38,27 @@ func handleRead(
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		resource, err := dispatch.Read(r.Context(), backend, resourceType, resourceID)
-		if err != nil {
-			// TODO: return appropiate OperationOutcome
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		status, resource := read(r.Context(), dispatch, backend, resourceType, resourceID)
 
-		err = encodeJSON(w, http.StatusOK, resource)
+		err := encodeJSON(w, status, resource)
 		if err != nil {
-			// TODO: return appropiate OperationOutcome
+			// we were not able to return an application level error (OperationOutcome)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	})
+}
+
+func read(
+	context context.Context,
+	dispatch dispatch.Dispatcher,
+	backend backend.Backend,
+	resourceType string,
+	resourceID string,
+) (int, model.Resource) {
+	resource, err := dispatch.Read(context, backend, resourceType, resourceID)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+	return http.StatusOK, resource
 }

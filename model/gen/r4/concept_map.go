@@ -63,6 +63,11 @@ type ConceptMap struct {
 	// A group of mappings that all have the same source and target system.
 	Group []ConceptMapGroup
 }
+
+func (r ConceptMap) ResourceType() string {
+	return "ConceptMap"
+}
+
 type isConceptMapSource interface {
 	isConceptMapSource()
 }

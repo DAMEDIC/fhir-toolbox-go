@@ -69,6 +69,11 @@ type ImplementationGuide struct {
 	// Information about an assembled implementation guide, created by the publication tooling.
 	Manifest *ImplementationGuideManifest
 }
+
+func (r ImplementationGuide) ResourceType() string {
+	return "ImplementationGuide"
+}
+
 type jsonImplementationGuide struct {
 	ResourceType                  string                         `json:"resourceType"`
 	Id                            *Id                            `json:"id,omitempty"`

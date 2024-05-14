@@ -83,6 +83,11 @@ type EventDefinition struct {
 	// The trigger element defines when the event occurs. If more than one trigger condition is specified, the event fires whenever any one of the trigger conditions is met.
 	Trigger []TriggerDefinition
 }
+
+func (r EventDefinition) ResourceType() string {
+	return "EventDefinition"
+}
+
 type isEventDefinitionSubject interface {
 	isEventDefinitionSubject()
 }

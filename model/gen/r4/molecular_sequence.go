@@ -58,6 +58,11 @@ type MolecularSequence struct {
 	// Information about chromosome structure variation.
 	StructureVariant []MolecularSequenceStructureVariant
 }
+
+func (r MolecularSequence) ResourceType() string {
+	return "MolecularSequence"
+}
+
 type jsonMolecularSequence struct {
 	ResourceType                     string                              `json:"resourceType"`
 	Id                               *Id                                 `json:"id,omitempty"`

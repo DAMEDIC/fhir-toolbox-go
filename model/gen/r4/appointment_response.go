@@ -42,6 +42,11 @@ type AppointmentResponse struct {
 	// Additional comments about the appointment.
 	Comment *String
 }
+
+func (r AppointmentResponse) ResourceType() string {
+	return "AppointmentResponse"
+}
+
 type jsonAppointmentResponse struct {
 	ResourceType                      string              `json:"resourceType"`
 	Id                                *Id                 `json:"id,omitempty"`

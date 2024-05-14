@@ -77,6 +77,11 @@ type MessageDefinition struct {
 	// Canonical reference to a GraphDefinition. If a URL is provided, it is the canonical reference to a [GraphDefinition](graphdefinition.html) that it controls what resources are to be added to the bundle when building the document. The GraphDefinition can also specify profiles that apply to the various resources.
 	Graph []Canonical
 }
+
+func (r MessageDefinition) ResourceType() string {
+	return "MessageDefinition"
+}
+
 type isMessageDefinitionEvent interface {
 	isMessageDefinitionEvent()
 }

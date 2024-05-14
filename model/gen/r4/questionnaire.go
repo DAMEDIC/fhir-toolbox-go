@@ -73,6 +73,11 @@ type Questionnaire struct {
 	// A particular question, question grouping or display text that is part of the questionnaire.
 	Item []QuestionnaireItem
 }
+
+func (r Questionnaire) ResourceType() string {
+	return "Questionnaire"
+}
+
 type jsonQuestionnaire struct {
 	ResourceType                   string              `json:"resourceType"`
 	Id                             *Id                 `json:"id,omitempty"`

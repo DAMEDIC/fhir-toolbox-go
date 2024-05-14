@@ -79,6 +79,11 @@ type CodeSystem struct {
 	// Concepts that are in the code system. The concept definitions are inherently hierarchical, but the definitions must be consulted to determine what the meanings of the hierarchical relationships are.
 	Concept []CodeSystemConcept
 }
+
+func (r CodeSystem) ResourceType() string {
+	return "CodeSystem"
+}
+
 type jsonCodeSystem struct {
 	ResourceType                     string               `json:"resourceType"`
 	Id                               *Id                  `json:"id,omitempty"`

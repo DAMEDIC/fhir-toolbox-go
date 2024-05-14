@@ -71,6 +71,11 @@ type DeviceDefinition struct {
 	// A substance used to create the material(s) of which the device is made.
 	Material []DeviceDefinitionMaterial
 }
+
+func (r DeviceDefinition) ResourceType() string {
+	return "DeviceDefinition"
+}
+
 type isDeviceDefinitionManufacturer interface {
 	isDeviceDefinitionManufacturer()
 }

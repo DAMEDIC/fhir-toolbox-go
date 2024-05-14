@@ -54,6 +54,11 @@ type CompartmentDefinition struct {
 	// Information about how a resource is related to the compartment.
 	Resource []CompartmentDefinitionResource
 }
+
+func (r CompartmentDefinition) ResourceType() string {
+	return "CompartmentDefinition"
+}
+
 type jsonCompartmentDefinition struct {
 	ResourceType                  string                          `json:"resourceType"`
 	Id                            *Id                             `json:"id,omitempty"`

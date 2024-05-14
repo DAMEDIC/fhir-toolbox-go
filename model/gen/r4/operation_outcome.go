@@ -28,6 +28,11 @@ type OperationOutcome struct {
 	// An error, warning, or information message that results from a system action.
 	Issue []OperationOutcomeIssue
 }
+
+func (r OperationOutcome) ResourceType() string {
+	return "OperationOutcome"
+}
+
 type jsonOperationOutcome struct {
 	ResourceType                  string                  `json:"resourceType"`
 	Id                            *Id                     `json:"id,omitempty"`

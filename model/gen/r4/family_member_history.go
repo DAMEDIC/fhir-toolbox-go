@@ -63,6 +63,11 @@ type FamilyMemberHistory struct {
 	// The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition.
 	Condition []FamilyMemberHistoryCondition
 }
+
+func (r FamilyMemberHistory) ResourceType() string {
+	return "FamilyMemberHistory"
+}
+
 type isFamilyMemberHistoryBorn interface {
 	isFamilyMemberHistoryBorn()
 }

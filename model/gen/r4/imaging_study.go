@@ -66,6 +66,11 @@ type ImagingStudy struct {
 	// Each study has one or more series of images or other content.
 	Series []ImagingStudySeries
 }
+
+func (r ImagingStudy) ResourceType() string {
+	return "ImagingStudy"
+}
+
 type jsonImagingStudy struct {
 	ResourceType                      string               `json:"resourceType"`
 	Id                                *Id                  `json:"id,omitempty"`

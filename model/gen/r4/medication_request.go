@@ -91,6 +91,11 @@ type MedicationRequest struct {
 	// Links to Provenance records for past versions of this resource or fulfilling request or event resources that identify key state transitions or updates that are likely to be relevant to a user looking at the current version of the resource.
 	EventHistory []Reference
 }
+
+func (r MedicationRequest) ResourceType() string {
+	return "MedicationRequest"
+}
+
 type isMedicationRequestReported interface {
 	isMedicationRequestReported()
 }

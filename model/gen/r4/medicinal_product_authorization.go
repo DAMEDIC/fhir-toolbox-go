@@ -59,6 +59,11 @@ type MedicinalProductAuthorization struct {
 	// The regulatory procedure for granting or amending a marketing authorization.
 	Procedure *MedicinalProductAuthorizationProcedure
 }
+
+func (r MedicinalProductAuthorization) ResourceType() string {
+	return "MedicinalProductAuthorization"
+}
+
 type jsonMedicinalProductAuthorization struct {
 	ResourceType                             string                                                     `json:"resourceType"`
 	Id                                       *Id                                                        `json:"id,omitempty"`

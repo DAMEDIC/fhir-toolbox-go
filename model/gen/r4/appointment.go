@@ -72,6 +72,11 @@ type Appointment struct {
 	// The duration (usually in minutes) could also be provided to indicate the length of the appointment to fill and populate the start/end times for the actual allocated time. However, in other situations the duration may be calculated by the scheduling system.
 	RequestedPeriod []Period
 }
+
+func (r Appointment) ResourceType() string {
+	return "Appointment"
+}
+
 type jsonAppointment struct {
 	ResourceType                       string                   `json:"resourceType"`
 	Id                                 *Id                      `json:"id,omitempty"`

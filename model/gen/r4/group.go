@@ -47,6 +47,11 @@ type Group struct {
 	// Identifies the resource instances that are members of the group.
 	Member []GroupMember
 }
+
+func (r Group) ResourceType() string {
+	return "Group"
+}
+
 type jsonGroup struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

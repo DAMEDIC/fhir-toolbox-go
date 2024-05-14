@@ -67,6 +67,11 @@ type ClinicalImpression struct {
 	// Commentary about the impression, typically recorded after the impression itself was made, though supplemental notes by the original author could also appear.
 	Note []Annotation
 }
+
+func (r ClinicalImpression) ResourceType() string {
+	return "ClinicalImpression"
+}
+
 type isClinicalImpressionEffective interface {
 	isClinicalImpressionEffective()
 }

@@ -119,6 +119,11 @@ type ActivityDefinition struct {
 	// Dynamic values that will be evaluated to produce values for elements of the resulting resource. For example, if the dosage of a medication must be computed based on the patient's weight, a dynamic value would be used to specify an expression that calculated the weight, and the path on the request resource that would contain the result.
 	DynamicValue []ActivityDefinitionDynamicValue
 }
+
+func (r ActivityDefinition) ResourceType() string {
+	return "ActivityDefinition"
+}
+
 type isActivityDefinitionSubject interface {
 	isActivityDefinitionSubject()
 }

@@ -39,6 +39,7 @@ func generateTypes(files []ir.SourceFile, genTarget, release, pkg string) {
 
 		for _, s := range sf.Structs {
 			generateStruct(f, *s)
+			implementResource(f, *s)
 			generatePrimitiveEnums(f, *s)
 
 			generateMarshalJSONStruct(f, *s)
@@ -89,6 +90,14 @@ func generateStruct(f *File, s ir.Struct) {
 			}
 		}
 	})
+}
+
+func implementResource(f *File, s ir.Struct) {
+	if s.IsResource {
+		f.Func().Params(Id("r").Id(s.Name)).Id("ResourceType").Params().String().Block(
+			Return(Lit(s.Name)),
+		)
+	}
 }
 
 func generatePrimitiveEnums(f *File, s ir.Struct) {

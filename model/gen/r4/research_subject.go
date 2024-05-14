@@ -42,6 +42,11 @@ type ResearchSubject struct {
 	// A record of the patient's informed agreement to participate in the study.
 	Consent *Reference
 }
+
+func (r ResearchSubject) ResourceType() string {
+	return "ResearchSubject"
+}
+
 type jsonResearchSubject struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

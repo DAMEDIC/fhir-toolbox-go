@@ -65,6 +65,11 @@ type SubstanceSpecification struct {
 	// Material or taxonomic/anatomical source for the substance.
 	SourceMaterial *Reference
 }
+
+func (r SubstanceSpecification) ResourceType() string {
+	return "SubstanceSpecification"
+}
+
 type jsonSubstanceSpecification struct {
 	ResourceType                  string                                                  `json:"resourceType"`
 	Id                            *Id                                                     `json:"id,omitempty"`

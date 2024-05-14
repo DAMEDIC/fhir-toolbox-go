@@ -78,6 +78,11 @@ type OperationDefinition struct {
 	// Defines an appropriate combination of parameters to use when invoking this operation, to help code generators when generating overloaded parameter sets for this operation.
 	Overload []OperationDefinitionOverload
 }
+
+func (r OperationDefinition) ResourceType() string {
+	return "OperationDefinition"
+}
+
 type jsonOperationDefinition struct {
 	ResourceType                  string                         `json:"resourceType"`
 	Id                            *Id                            `json:"id,omitempty"`

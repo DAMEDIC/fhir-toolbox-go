@@ -44,6 +44,11 @@ type MedicinalProductPackaged struct {
 	// A packaging item, as a contained for medicine, possibly with other packaging items within.
 	PackageItem []MedicinalProductPackagedPackageItem
 }
+
+func (r MedicinalProductPackaged) ResourceType() string {
+	return "MedicinalProductPackaged"
+}
+
 type jsonMedicinalProductPackaged struct {
 	ResourceType                  string                                    `json:"resourceType"`
 	Id                            *Id                                       `json:"id,omitempty"`

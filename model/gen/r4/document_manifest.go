@@ -50,6 +50,11 @@ type DocumentManifest struct {
 	// Related identifiers or resources associated with the DocumentManifest.
 	Related []DocumentManifestRelated
 }
+
+func (r DocumentManifest) ResourceType() string {
+	return "DocumentManifest"
+}
+
 type jsonDocumentManifest struct {
 	ResourceType                  string                    `json:"resourceType"`
 	Id                            *Id                       `json:"id,omitempty"`

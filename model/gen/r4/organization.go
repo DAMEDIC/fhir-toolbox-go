@@ -46,6 +46,11 @@ type Organization struct {
 	// Technical endpoints providing access to services operated for the organization.
 	Endpoint []Reference
 }
+
+func (r Organization) ResourceType() string {
+	return "Organization"
+}
+
 type jsonOrganization struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

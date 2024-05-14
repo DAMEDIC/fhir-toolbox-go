@@ -81,6 +81,11 @@ type ClaimResponse struct {
 	// Errors encountered during the processing of the adjudication.
 	Error []ClaimResponseError
 }
+
+func (r ClaimResponse) ResourceType() string {
+	return "ClaimResponse"
+}
+
 type jsonClaimResponse struct {
 	ResourceType                  string                          `json:"resourceType"`
 	Id                            *Id                             `json:"id,omitempty"`

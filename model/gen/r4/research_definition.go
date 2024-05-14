@@ -95,6 +95,11 @@ type ResearchDefinition struct {
 	// A reference to a ResearchElementDefinition resomece that defines the outcome for the research.
 	Outcome *Reference
 }
+
+func (r ResearchDefinition) ResourceType() string {
+	return "ResearchDefinition"
+}
+
 type isResearchDefinitionSubject interface {
 	isResearchDefinitionSubject()
 }

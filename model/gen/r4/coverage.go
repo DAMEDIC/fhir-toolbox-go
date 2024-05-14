@@ -63,6 +63,11 @@ type Coverage struct {
 	// The policy(s) which constitute this insurance coverage.
 	Contract []Reference
 }
+
+func (r Coverage) ResourceType() string {
+	return "Coverage"
+}
+
 type jsonCoverage struct {
 	ResourceType                  string                      `json:"resourceType"`
 	Id                            *Id                         `json:"id,omitempty"`

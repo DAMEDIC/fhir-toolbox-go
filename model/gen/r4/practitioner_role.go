@@ -56,6 +56,11 @@ type PractitionerRole struct {
 	// Technical endpoints providing access to services operated for the practitioner with this role.
 	Endpoint []Reference
 }
+
+func (r PractitionerRole) ResourceType() string {
+	return "PractitionerRole"
+}
+
 type jsonPractitionerRole struct {
 	ResourceType                           string                          `json:"resourceType"`
 	Id                                     *Id                             `json:"id,omitempty"`

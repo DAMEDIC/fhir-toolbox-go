@@ -80,6 +80,11 @@ type Device struct {
 	// The parent device.
 	Parent *Reference
 }
+
+func (r Device) ResourceType() string {
+	return "Device"
+}
+
 type jsonDevice struct {
 	ResourceType                       string                 `json:"resourceType"`
 	Id                                 *Id                    `json:"id,omitempty"`

@@ -50,6 +50,11 @@ type EpisodeOfCare struct {
 	// The set of accounts that may be used for billing for this EpisodeOfCare.
 	Account []Reference
 }
+
+func (r EpisodeOfCare) ResourceType() string {
+	return "EpisodeOfCare"
+}
+
 type jsonEpisodeOfCare struct {
 	ResourceType                  string                       `json:"resourceType"`
 	Id                            *Id                          `json:"id,omitempty"`

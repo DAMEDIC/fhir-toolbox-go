@@ -57,6 +57,11 @@ type SupplyRequest struct {
 	// Where the supply is destined to go.
 	DeliverTo *Reference
 }
+
+func (r SupplyRequest) ResourceType() string {
+	return "SupplyRequest"
+}
+
 type isSupplyRequestItem interface {
 	isSupplyRequestItem()
 }

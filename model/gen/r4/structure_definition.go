@@ -80,6 +80,11 @@ type StructureDefinition struct {
 	// A differential view is expressed relative to the base StructureDefinition - a statement of differences that it applies.
 	Differential *StructureDefinitionDifferential
 }
+
+func (r StructureDefinition) ResourceType() string {
+	return "StructureDefinition"
+}
+
 type jsonStructureDefinition struct {
 	ResourceType                     string                           `json:"resourceType"`
 	Id                               *Id                              `json:"id,omitempty"`

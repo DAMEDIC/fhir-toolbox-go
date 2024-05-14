@@ -74,6 +74,11 @@ type ResearchStudy struct {
 	// A goal that the study is aiming to achieve in terms of a scientific question to be answered by the analysis of data collected during the study.
 	Objective []ResearchStudyObjective
 }
+
+func (r ResearchStudy) ResourceType() string {
+	return "ResearchStudy"
+}
+
 type jsonResearchStudy struct {
 	ResourceType                  string                   `json:"resourceType"`
 	Id                            *Id                      `json:"id,omitempty"`

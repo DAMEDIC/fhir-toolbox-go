@@ -48,6 +48,11 @@ type Practitioner struct {
 	// A language the practitioner can use in patient communication.
 	Communication []CodeableConcept
 }
+
+func (r Practitioner) ResourceType() string {
+	return "Practitioner"
+}
+
 type jsonPractitioner struct {
 	ResourceType                  string                      `json:"resourceType"`
 	Id                            *Id                         `json:"id,omitempty"`

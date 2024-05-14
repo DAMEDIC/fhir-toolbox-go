@@ -53,6 +53,11 @@ type ImmunizationEvaluation struct {
 	// The recommended number of doses to achieve immunity.
 	SeriesDoses isImmunizationEvaluationSeriesDoses
 }
+
+func (r ImmunizationEvaluation) ResourceType() string {
+	return "ImmunizationEvaluation"
+}
+
 type isImmunizationEvaluationDoseNumber interface {
 	isImmunizationEvaluationDoseNumber()
 }

@@ -83,6 +83,11 @@ type Immunization struct {
 	// The protocol (set of recommendations) being followed by the provider who administered the dose.
 	ProtocolApplied []ImmunizationProtocolApplied
 }
+
+func (r Immunization) ResourceType() string {
+	return "Immunization"
+}
+
 type isImmunizationOccurrence interface {
 	isImmunizationOccurrence()
 }

@@ -63,6 +63,11 @@ type RequestGroup struct {
 	// The actions, if any, produced by the evaluation of the artifact.
 	Action []RequestGroupAction
 }
+
+func (r RequestGroup) ResourceType() string {
+	return "RequestGroup"
+}
+
 type jsonRequestGroup struct {
 	ResourceType                          string               `json:"resourceType"`
 	Id                                    *Id                  `json:"id,omitempty"`

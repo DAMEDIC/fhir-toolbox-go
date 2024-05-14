@@ -60,6 +60,11 @@ type ExampleScenario struct {
 	// Another nested workflow.
 	Workflow []Canonical
 }
+
+func (r ExampleScenario) ResourceType() string {
+	return "ExampleScenario"
+}
+
 type jsonExampleScenario struct {
 	ResourceType                  string                    `json:"resourceType"`
 	Id                            *Id                       `json:"id,omitempty"`

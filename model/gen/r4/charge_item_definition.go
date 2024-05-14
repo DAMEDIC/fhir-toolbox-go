@@ -72,6 +72,11 @@ type ChargeItemDefinition struct {
 	// Group of properties which are applicable under the same conditions. If no applicability rules are established for the group, then all properties always apply.
 	PropertyGroup []ChargeItemDefinitionPropertyGroup
 }
+
+func (r ChargeItemDefinition) ResourceType() string {
+	return "ChargeItemDefinition"
+}
+
 type jsonChargeItemDefinition struct {
 	ResourceType                   string                              `json:"resourceType"`
 	Id                             *Id                                 `json:"id,omitempty"`

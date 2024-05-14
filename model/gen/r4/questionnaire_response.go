@@ -51,6 +51,11 @@ type QuestionnaireResponse struct {
 	// A group or question item from the original questionnaire for which answers are provided.
 	Item []QuestionnaireResponseItem
 }
+
+func (r QuestionnaireResponse) ResourceType() string {
+	return "QuestionnaireResponse"
+}
+
 type jsonQuestionnaireResponse struct {
 	ResourceType                  string                      `json:"resourceType"`
 	Id                            *Id                         `json:"id,omitempty"`

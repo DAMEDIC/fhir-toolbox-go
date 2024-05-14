@@ -59,6 +59,11 @@ type GuidanceResponse struct {
 	// If the evaluation could not be completed due to lack of information, or additional information would potentially result in a more accurate response, this element will a description of the data required in order to proceed with the evaluation. A subsequent request to the service should include this data.
 	DataRequirement []DataRequirement
 }
+
+func (r GuidanceResponse) ResourceType() string {
+	return "GuidanceResponse"
+}
+
 type isGuidanceResponseModule interface {
 	isGuidanceResponseModule()
 }

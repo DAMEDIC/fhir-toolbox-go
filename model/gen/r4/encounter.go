@@ -72,6 +72,11 @@ type Encounter struct {
 	// Another Encounter of which this encounter is a part of (administratively or in time).
 	PartOf *Reference
 }
+
+func (r Encounter) ResourceType() string {
+	return "Encounter"
+}
+
 type jsonEncounter struct {
 	ResourceType                  string                    `json:"resourceType"`
 	Id                            *Id                       `json:"id,omitempty"`

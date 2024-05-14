@@ -95,6 +95,11 @@ type ResearchElementDefinition struct {
 	// A characteristic that defines the members of the research element. Multiple characteristics are applied with "and" semantics.
 	Characteristic []ResearchElementDefinitionCharacteristic
 }
+
+func (r ResearchElementDefinition) ResourceType() string {
+	return "ResearchElementDefinition"
+}
+
 type isResearchElementDefinitionSubject interface {
 	isResearchElementDefinitionSubject()
 }

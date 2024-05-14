@@ -83,6 +83,11 @@ type Claim struct {
 	// The total value of the all the items in the claim.
 	Total *Money
 }
+
+func (r Claim) ResourceType() string {
+	return "Claim"
+}
+
 type jsonClaim struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`

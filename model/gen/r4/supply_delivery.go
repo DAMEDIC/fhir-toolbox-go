@@ -49,6 +49,11 @@ type SupplyDelivery struct {
 	// Identifies the person who picked up the Supply.
 	Receiver []Reference
 }
+
+func (r SupplyDelivery) ResourceType() string {
+	return "SupplyDelivery"
+}
+
 type isSupplyDeliveryOccurrence interface {
 	isSupplyDeliveryOccurrence()
 }

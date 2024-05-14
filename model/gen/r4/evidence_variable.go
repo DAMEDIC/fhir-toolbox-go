@@ -83,6 +83,11 @@ type EvidenceVariable struct {
 	// A characteristic that defines the members of the evidence element. Multiple characteristics are applied with "and" semantics.
 	Characteristic []EvidenceVariableCharacteristic
 }
+
+func (r EvidenceVariable) ResourceType() string {
+	return "EvidenceVariable"
+}
+
 type jsonEvidenceVariable struct {
 	ResourceType                   string                           `json:"resourceType"`
 	Id                             *Id                              `json:"id,omitempty"`

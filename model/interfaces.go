@@ -1,4 +1,6 @@
 package model
 
-type Resource interface{}
+type Resource interface {
+	ResourceType() string
+}
 type Element interface{}

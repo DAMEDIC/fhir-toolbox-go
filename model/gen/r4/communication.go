@@ -73,6 +73,11 @@ type Communication struct {
 	// Additional notes or commentary about the communication by the sender, receiver or other interested parties.
 	Note []Annotation
 }
+
+func (r Communication) ResourceType() string {
+	return "Communication"
+}
+
 type jsonCommunication struct {
 	ResourceType                          string                 `json:"resourceType"`
 	Id                                    *Id                    `json:"id,omitempty"`

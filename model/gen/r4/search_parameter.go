@@ -78,6 +78,11 @@ type SearchParameter struct {
 	// Used to define the parts of a composite search parameter.
 	Component []SearchParameterComponent
 }
+
+func (r SearchParameter) ResourceType() string {
+	return "SearchParameter"
+}
+
 type jsonSearchParameter struct {
 	ResourceType                  string                     `json:"resourceType"`
 	Id                            *Id                        `json:"id,omitempty"`

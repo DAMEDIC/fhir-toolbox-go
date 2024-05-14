@@ -60,6 +60,11 @@ type Location struct {
 	// Technical endpoints providing access to services operated for the location.
 	Endpoint []Reference
 }
+
+func (r Location) ResourceType() string {
+	return "Location"
+}
+
 type jsonLocation struct {
 	ResourceType                           string                     `json:"resourceType"`
 	Id                                     *Id                        `json:"id,omitempty"`

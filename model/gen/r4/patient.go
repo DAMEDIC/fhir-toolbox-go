@@ -66,6 +66,11 @@ type Patient struct {
 	// Link to another patient resource that concerns the same actual patient.
 	Link []PatientLink
 }
+
+func (r Patient) ResourceType() string {
+	return "Patient"
+}
+
 type isPatientDeceased interface {
 	isPatientDeceased()
 }

@@ -46,6 +46,11 @@ type DeviceMetric struct {
 	// Describes the calibrations that have been performed or that are required to be performed.
 	Calibration []DeviceMetricCalibration
 }
+
+func (r DeviceMetric) ResourceType() string {
+	return "DeviceMetric"
+}
+
 type jsonDeviceMetric struct {
 	ResourceType                      string                    `json:"resourceType"`
 	Id                                *Id                       `json:"id,omitempty"`

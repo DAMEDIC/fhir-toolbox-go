@@ -39,6 +39,11 @@ type SpecimenDefinition struct {
 	// Specimen conditioned in a container as expected by the testing laboratory.
 	TypeTested []SpecimenDefinitionTypeTested
 }
+
+func (r SpecimenDefinition) ResourceType() string {
+	return "SpecimenDefinition"
+}
+
 type jsonSpecimenDefinition struct {
 	ResourceType                  string                         `json:"resourceType"`
 	Id                            *Id                            `json:"id,omitempty"`

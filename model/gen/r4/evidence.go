@@ -82,6 +82,11 @@ type Evidence struct {
 	// A reference to a EvidenceVariable resomece that defines the outcome for the research.
 	Outcome []Reference
 }
+
+func (r Evidence) ResourceType() string {
+	return "Evidence"
+}
+
 type jsonEvidence struct {
 	ResourceType                   string              `json:"resourceType"`
 	Id                             *Id                 `json:"id,omitempty"`

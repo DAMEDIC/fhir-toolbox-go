@@ -49,6 +49,11 @@ type AuditEvent struct {
 	// Specific instances of data or objects that have been accessed.
 	Entity []AuditEventEntity
 }
+
+func (r AuditEvent) ResourceType() string {
+	return "AuditEvent"
+}
+
 type jsonAuditEvent struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

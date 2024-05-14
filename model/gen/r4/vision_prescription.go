@@ -42,6 +42,11 @@ type VisionPrescription struct {
 	// Contain the details of  the individual lens specifications and serves as the authorization for the fullfillment by certified professionals.
 	LensSpecification []VisionPrescriptionLensSpecification
 }
+
+func (r VisionPrescription) ResourceType() string {
+	return "VisionPrescription"
+}
+
 type jsonVisionPrescription struct {
 	ResourceType                  string                                `json:"resourceType"`
 	Id                            *Id                                   `json:"id,omitempty"`

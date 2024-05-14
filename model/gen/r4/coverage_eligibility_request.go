@@ -55,6 +55,11 @@ type CoverageEligibilityRequest struct {
 	// Service categories or billable services for which benefit details and/or an authorization prior to service delivery may be required by the payor.
 	Item []CoverageEligibilityRequestItem
 }
+
+func (r CoverageEligibilityRequest) ResourceType() string {
+	return "CoverageEligibilityRequest"
+}
+
 type isCoverageEligibilityRequestServiced interface {
 	isCoverageEligibilityRequestServiced()
 }

@@ -89,6 +89,11 @@ type Library struct {
 	// The content of the library as an Attachment. The content may be a reference to a url, or may be directly embedded as a base-64 string. Either way, the contentType of the attachment determines how to interpret the content.
 	Content []Attachment
 }
+
+func (r Library) ResourceType() string {
+	return "Library"
+}
+
 type isLibrarySubject interface {
 	isLibrarySubject()
 }

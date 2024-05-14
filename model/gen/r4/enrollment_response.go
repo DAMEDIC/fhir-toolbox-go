@@ -42,6 +42,11 @@ type EnrollmentResponse struct {
 	// The practitioner who is responsible for the services rendered to the patient.
 	RequestProvider *Reference
 }
+
+func (r EnrollmentResponse) ResourceType() string {
+	return "EnrollmentResponse"
+}
+
 type jsonEnrollmentResponse struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

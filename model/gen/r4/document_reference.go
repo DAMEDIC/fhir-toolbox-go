@@ -58,6 +58,11 @@ type DocumentReference struct {
 	// The clinical context in which the document was prepared.
 	Context *DocumentReferenceContext
 }
+
+func (r DocumentReference) ResourceType() string {
+	return "DocumentReference"
+}
+
 type jsonDocumentReference struct {
 	ResourceType                  string                       `json:"resourceType"`
 	Id                            *Id                          `json:"id,omitempty"`

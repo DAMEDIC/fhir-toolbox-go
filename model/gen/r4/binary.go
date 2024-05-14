@@ -21,6 +21,11 @@ type Binary struct {
 	// The actual content, base64 encoded.
 	Data *Base64Binary
 }
+
+func (r Binary) ResourceType() string {
+	return "Binary"
+}
+
 type jsonBinary struct {
 	ResourceType                  string            `json:"resourceType"`
 	Id                            *Id               `json:"id,omitempty"`

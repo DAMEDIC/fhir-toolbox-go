@@ -19,6 +19,11 @@ type Parameters struct {
 	// A parameter passed to or received from the operation.
 	Parameter []ParametersParameter
 }
+
+func (r Parameters) ResourceType() string {
+	return "Parameters"
+}
+
 type jsonParameters struct {
 	ResourceType                  string                `json:"resourceType"`
 	Id                            *Id                   `json:"id,omitempty"`
@@ -570,7 +575,7 @@ func (r ParametersParameter) marshalJSON() jsonParametersParameter {
 		m.ValueMeta = v
 	}
 	if r.Resource != nil {
-		m.Resource = &containedResource{resource: r.Resource}
+		m.Resource = &containedResource{resource: *r.Resource}
 	}
 	m.Part = r.Part
 	return m

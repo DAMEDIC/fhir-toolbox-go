@@ -37,6 +37,11 @@ type ImmunizationRecommendation struct {
 	// Vaccine administration recommendations.
 	Recommendation []ImmunizationRecommendationRecommendation
 }
+
+func (r ImmunizationRecommendation) ResourceType() string {
+	return "ImmunizationRecommendation"
+}
+
 type jsonImmunizationRecommendation struct {
 	ResourceType                  string                                     `json:"resourceType"`
 	Id                            *Id                                        `json:"id,omitempty"`

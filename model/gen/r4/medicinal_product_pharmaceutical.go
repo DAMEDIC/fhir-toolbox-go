@@ -40,6 +40,11 @@ type MedicinalProductPharmaceutical struct {
 	// The path by which the pharmaceutical product is taken into or makes contact with the body.
 	RouteOfAdministration []MedicinalProductPharmaceuticalRouteOfAdministration
 }
+
+func (r MedicinalProductPharmaceutical) ResourceType() string {
+	return "MedicinalProductPharmaceutical"
+}
+
 type jsonMedicinalProductPharmaceutical struct {
 	ResourceType                  string                                                `json:"resourceType"`
 	Id                            *Id                                                   `json:"id,omitempty"`

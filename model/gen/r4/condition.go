@@ -61,6 +61,11 @@ type Condition struct {
 	// Additional information about the Condition. This is a general notes/comments entry  for description of the Condition, its diagnosis and prognosis.
 	Note []Annotation
 }
+
+func (r Condition) ResourceType() string {
+	return "Condition"
+}
+
 type isConditionOnset interface {
 	isConditionOnset()
 }

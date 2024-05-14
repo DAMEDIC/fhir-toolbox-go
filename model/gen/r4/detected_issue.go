@@ -51,6 +51,11 @@ type DetectedIssue struct {
 	// Indicates an action that has been taken or is committed to reduce or eliminate the likelihood of the risk identified by the detected issue from manifesting.  Can also reflect an observation of known mitigating factors that may reduce/eliminate the need for any action.
 	Mitigation []DetectedIssueMitigation
 }
+
+func (r DetectedIssue) ResourceType() string {
+	return "DetectedIssue"
+}
+
 type isDetectedIssueIdentified interface {
 	isDetectedIssueIdentified()
 }

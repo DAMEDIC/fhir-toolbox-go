@@ -77,6 +77,11 @@ type Observation struct {
 	// Some observations have multiple component observations.  These component observations are expressed as separate code value pairs that share the same attributes.  Examples include systolic and diastolic component observations for blood pressure measurement and multiple component observations for genetics observations.
 	Component []ObservationComponent
 }
+
+func (r Observation) ResourceType() string {
+	return "Observation"
+}
+
 type isObservationEffective interface {
 	isObservationEffective()
 }

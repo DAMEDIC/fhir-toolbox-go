@@ -48,6 +48,11 @@ type MeasureReport struct {
 	// A reference to a Bundle containing the Resources that were used in the calculation of this measure.
 	EvaluatedResource []Reference
 }
+
+func (r MeasureReport) ResourceType() string {
+	return "MeasureReport"
+}
+
 type jsonMeasureReport struct {
 	ResourceType                  string               `json:"resourceType"`
 	Id                            *Id                  `json:"id,omitempty"`

@@ -51,6 +51,11 @@ type MessageHeader struct {
 	// Permanent link to the MessageDefinition for this message.
 	Definition *Canonical
 }
+
+func (r MessageHeader) ResourceType() string {
+	return "MessageHeader"
+}
+
 type isMessageHeaderEvent interface {
 	isMessageHeaderEvent()
 }

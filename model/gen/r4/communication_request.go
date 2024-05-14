@@ -71,6 +71,11 @@ type CommunicationRequest struct {
 	// Comments made about the request by the requester, sender, recipient, subject or other participants.
 	Note []Annotation
 }
+
+func (r CommunicationRequest) ResourceType() string {
+	return "CommunicationRequest"
+}
+
 type isCommunicationRequestOccurrence interface {
 	isCommunicationRequestOccurrence()
 }

@@ -2,11 +2,13 @@ package dispatchR4
 
 import (
 	"context"
+	capabilities "fhir-toolbox/capabilities"
 	r4 "fhir-toolbox/capabilities/gen/r4"
 	errors "fhir-toolbox/dispatch/errors"
+	model "fhir-toolbox/model"
 )
 
-func Read(ctx context.Context, api any, resourceType string, id string) (any, error) {
+func Read(ctx context.Context, api any, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
 	switch resourceType {
 	case "Account":
 		impl, ok := api.(r4.AccountRead)

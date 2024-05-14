@@ -78,6 +78,11 @@ type CapabilityStatement struct {
 	// A document definition.
 	Document []CapabilityStatementDocument
 }
+
+func (r CapabilityStatement) ResourceType() string {
+	return "CapabilityStatement"
+}
+
 type jsonCapabilityStatement struct {
 	ResourceType                        string                             `json:"resourceType"`
 	Id                                  *Id                                `json:"id,omitempty"`

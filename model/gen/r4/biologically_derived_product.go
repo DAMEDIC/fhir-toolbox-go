@@ -50,6 +50,11 @@ type BiologicallyDerivedProduct struct {
 	// Product storage.
 	Storage []BiologicallyDerivedProductStorage
 }
+
+func (r BiologicallyDerivedProduct) ResourceType() string {
+	return "BiologicallyDerivedProduct"
+}
+
 type jsonBiologicallyDerivedProduct struct {
 	ResourceType                    string                                  `json:"resourceType"`
 	Id                              *Id                                     `json:"id,omitempty"`

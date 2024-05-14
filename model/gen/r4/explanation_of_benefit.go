@@ -113,6 +113,11 @@ type ExplanationOfBenefit struct {
 	// Balance by Benefit Category.
 	BenefitBalance []ExplanationOfBenefitBenefitBalance
 }
+
+func (r ExplanationOfBenefit) ResourceType() string {
+	return "ExplanationOfBenefit"
+}
+
 type jsonExplanationOfBenefit struct {
 	ResourceType                  string                                 `json:"resourceType"`
 	Id                            *Id                                    `json:"id,omitempty"`

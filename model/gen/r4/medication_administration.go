@@ -65,6 +65,11 @@ type MedicationAdministration struct {
 	// A summary of the events of interest that have occurred, such as when the administration was verified.
 	EventHistory []Reference
 }
+
+func (r MedicationAdministration) ResourceType() string {
+	return "MedicationAdministration"
+}
+
 type isMedicationAdministrationMedication interface {
 	isMedicationAdministrationMedication()
 }

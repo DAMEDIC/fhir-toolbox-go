@@ -5,9 +5,10 @@ import (
 	capabilities "fhir-toolbox/capabilities"
 	r4 "fhir-toolbox/capabilities/gen/r4"
 	errors "fhir-toolbox/dispatch/errors"
+	model "fhir-toolbox/model"
 )
 
-func SearchCapabilities(api any, resourceType string) (capabilities.SearchCapabilities, error) {
+func SearchCapabilities(api any, resourceType string) (capabilities.SearchCapabilities, capabilities.FHIRError) {
 	switch resourceType {
 	case "Account":
 		impl, ok := api.(r4.AccountSearch)
@@ -1181,7 +1182,7 @@ func SearchCapabilities(api any, resourceType string) (capabilities.SearchCapabi
 		return capabilities.SearchCapabilities{}, errors.UnknownResourceError{ResourceType: resourceType}
 	}
 }
-func Search(ctx context.Context, api any, resourceType string, options capabilities.SearchOptions) ([]any, error) {
+func Search(ctx context.Context, api any, resourceType string, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
 	switch resourceType {
 	case "Account":
 		impl, ok := api.(r4.AccountSearch)
@@ -1192,7 +1193,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1206,7 +1207,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1220,7 +1221,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1234,7 +1235,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1248,7 +1249,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1262,7 +1263,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1276,7 +1277,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1290,7 +1291,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1304,7 +1305,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1318,7 +1319,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1332,7 +1333,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1346,7 +1347,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1360,7 +1361,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1374,7 +1375,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1388,7 +1389,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1402,7 +1403,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1416,7 +1417,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1430,7 +1431,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1444,7 +1445,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1458,7 +1459,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1472,7 +1473,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1486,7 +1487,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1500,7 +1501,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1514,7 +1515,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1528,7 +1529,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1542,7 +1543,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1556,7 +1557,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1570,7 +1571,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1584,7 +1585,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1598,7 +1599,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1612,7 +1613,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1626,7 +1627,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1640,7 +1641,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1654,7 +1655,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1668,7 +1669,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1682,7 +1683,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1696,7 +1697,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1710,7 +1711,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1724,7 +1725,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1738,7 +1739,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1752,7 +1753,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1766,7 +1767,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1780,7 +1781,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1794,7 +1795,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1808,7 +1809,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1822,7 +1823,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1836,7 +1837,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1850,7 +1851,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1864,7 +1865,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1878,7 +1879,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1892,7 +1893,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1906,7 +1907,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1920,7 +1921,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1934,7 +1935,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1948,7 +1949,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1962,7 +1963,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1976,7 +1977,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -1990,7 +1991,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2004,7 +2005,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2018,7 +2019,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2032,7 +2033,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2046,7 +2047,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2060,7 +2061,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2074,7 +2075,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2088,7 +2089,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2102,7 +2103,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2116,7 +2117,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2130,7 +2131,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2144,7 +2145,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2158,7 +2159,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2172,7 +2173,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2186,7 +2187,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2200,7 +2201,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2214,7 +2215,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2228,7 +2229,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2242,7 +2243,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2256,7 +2257,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2270,7 +2271,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2284,7 +2285,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2298,7 +2299,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2312,7 +2313,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2326,7 +2327,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2340,7 +2341,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2354,7 +2355,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2368,7 +2369,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2382,7 +2383,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2396,7 +2397,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2410,7 +2411,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2424,7 +2425,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2438,7 +2439,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2452,7 +2453,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2466,7 +2467,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2480,7 +2481,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2494,7 +2495,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2508,7 +2509,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2522,7 +2523,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2536,7 +2537,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2550,7 +2551,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2564,7 +2565,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2578,7 +2579,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2592,7 +2593,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2606,7 +2607,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2620,7 +2621,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2634,7 +2635,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2648,7 +2649,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2662,7 +2663,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2676,7 +2677,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2690,7 +2691,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2704,7 +2705,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2718,7 +2719,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2732,7 +2733,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2746,7 +2747,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2760,7 +2761,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2774,7 +2775,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2788,7 +2789,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2802,7 +2803,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2816,7 +2817,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2830,7 +2831,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2844,7 +2845,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2858,7 +2859,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2872,7 +2873,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2886,7 +2887,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2900,7 +2901,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2914,7 +2915,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2928,7 +2929,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2942,7 +2943,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2956,7 +2957,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2970,7 +2971,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2984,7 +2985,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -2998,7 +2999,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3012,7 +3013,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3026,7 +3027,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3040,7 +3041,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3054,7 +3055,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3068,7 +3069,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3082,7 +3083,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3096,7 +3097,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3110,7 +3111,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3124,7 +3125,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3138,7 +3139,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3152,7 +3153,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3166,7 +3167,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3180,7 +3181,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3194,7 +3195,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3208,7 +3209,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}
@@ -3222,7 +3223,7 @@ func Search(ctx context.Context, api any, resourceType string, options capabilit
 		if err != nil {
 			return nil, err
 		}
-		r := make([]any, 0, len(v))
+		r := make([]model.Resource, 0, len(v))
 		for _, e := range v {
 			r = append(r, e)
 		}

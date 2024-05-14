@@ -73,6 +73,11 @@ type CarePlan struct {
 	// General notes about the care plan not covered elsewhere.
 	Note []Annotation
 }
+
+func (r CarePlan) ResourceType() string {
+	return "CarePlan"
+}
+
 type jsonCarePlan struct {
 	ResourceType                          string              `json:"resourceType"`
 	Id                                    *Id                 `json:"id,omitempty"`

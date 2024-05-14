@@ -66,6 +66,11 @@ type AdverseEvent struct {
 	// AdverseEvent.study.
 	Study []Reference
 }
+
+func (r AdverseEvent) ResourceType() string {
+	return "AdverseEvent"
+}
+
 type jsonAdverseEvent struct {
 	ResourceType                  string                      `json:"resourceType"`
 	Id                            *Id                         `json:"id,omitempty"`

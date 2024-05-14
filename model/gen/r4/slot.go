@@ -48,6 +48,11 @@ type Slot struct {
 	// Comments on the slot to describe any extended information. Such as custom constraints on the slot.
 	Comment *String
 }
+
+func (r Slot) ResourceType() string {
+	return "Slot"
+}
+
 type jsonSlot struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

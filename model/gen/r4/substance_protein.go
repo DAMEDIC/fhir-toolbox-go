@@ -34,6 +34,11 @@ type SubstanceProtein struct {
 	// This subclause refers to the description of each subunit constituting the SubstanceProtein. A subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit information shall be provided when the finished SubstanceProtein is a complex of multiple sequences; subunits are not used to delineate domains within a single sequence. Subunits are listed in order of decreasing length; sequences of the same length will be ordered by decreasing molecular weight; subunits that have identical sequences will be repeated multiple times.
 	Subunit []SubstanceProteinSubunit
 }
+
+func (r SubstanceProtein) ResourceType() string {
+	return "SubstanceProtein"
+}
+
 type jsonSubstanceProtein struct {
 	ResourceType                     string                    `json:"resourceType"`
 	Id                               *Id                       `json:"id,omitempty"`

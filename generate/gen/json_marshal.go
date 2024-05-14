@@ -109,7 +109,7 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 						)
 					} else {
 						g.If(Id("r." + sf.Name).Op("!=").Nil()).Block(
-							Id("m." + sf.Name).Op("=").Id("&containedResource").Values(Id("resource").Op(":").Id("r." + sf.Name)),
+							Id("m." + sf.Name).Op("=").Id("&containedResource").Values(Id("resource").Op(":").Id("*r." + sf.Name)),
 						)
 					}
 				} else {

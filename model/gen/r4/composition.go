@@ -59,6 +59,11 @@ type Composition struct {
 	// The root of the sections that make up the composition.
 	Section []CompositionSection
 }
+
+func (r Composition) ResourceType() string {
+	return "Composition"
+}
+
 type jsonComposition struct {
 	ResourceType                    string                 `json:"resourceType"`
 	Id                              *Id                    `json:"id,omitempty"`

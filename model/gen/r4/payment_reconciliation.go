@@ -56,6 +56,11 @@ type PaymentReconciliation struct {
 	// A note that describes or explains the processing in a human readable form.
 	ProcessNote []PaymentReconciliationProcessNote
 }
+
+func (r PaymentReconciliation) ResourceType() string {
+	return "PaymentReconciliation"
+}
+
 type jsonPaymentReconciliation struct {
 	ResourceType                  string                             `json:"resourceType"`
 	Id                            *Id                                `json:"id,omitempty"`

@@ -40,6 +40,11 @@ type Subscription struct {
 	// Details where to send notifications when resources are received that meet the criteria.
 	Channel SubscriptionChannel
 }
+
+func (r Subscription) ResourceType() string {
+	return "Subscription"
+}
+
 type jsonSubscription struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

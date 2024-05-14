@@ -36,6 +36,11 @@ type MedicinalProductUndesirableEffect struct {
 	// The population group to which this applies.
 	Population []Population
 }
+
+func (r MedicinalProductUndesirableEffect) ResourceType() string {
+	return "MedicinalProductUndesirableEffect"
+}
+
 type jsonMedicinalProductUndesirableEffect struct {
 	ResourceType                  string              `json:"resourceType"`
 	Id                            *Id                 `json:"id,omitempty"`

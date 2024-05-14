@@ -74,6 +74,11 @@ type TerminologyCapabilities struct {
 	// Whether the $closure operation is supported.
 	Closure *TerminologyCapabilitiesClosure
 }
+
+func (r TerminologyCapabilities) ResourceType() string {
+	return "TerminologyCapabilities"
+}
+
 type jsonTerminologyCapabilities struct {
 	ResourceType                  string                                 `json:"resourceType"`
 	Id                            *Id                                    `json:"id,omitempty"`

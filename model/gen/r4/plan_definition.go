@@ -89,6 +89,11 @@ type PlanDefinition struct {
 	// An action or group of actions to be taken as part of the plan.
 	Action []PlanDefinitionAction
 }
+
+func (r PlanDefinition) ResourceType() string {
+	return "PlanDefinition"
+}
+
 type isPlanDefinitionSubject interface {
 	isPlanDefinitionSubject()
 }

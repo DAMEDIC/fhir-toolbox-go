@@ -71,6 +71,11 @@ type Media struct {
 	// Comments made about the media by the performer, subject or other participants.
 	Note []Annotation
 }
+
+func (r Media) ResourceType() string {
+	return "Media"
+}
+
 type isMediaCreated interface {
 	isMediaCreated()
 }

@@ -52,6 +52,11 @@ type NamingSystem struct {
 	// Indicates how the system may be identified when referenced in electronic exchange.
 	UniqueId []NamingSystemUniqueId
 }
+
+func (r NamingSystem) ResourceType() string {
+	return "NamingSystem"
+}
+
 type jsonNamingSystem struct {
 	ResourceType                  string                 `json:"resourceType"`
 	Id                            *Id                    `json:"id,omitempty"`
