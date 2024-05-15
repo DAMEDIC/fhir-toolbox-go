@@ -108,14 +108,14 @@ func generateSearchCapabilities(interactionName, release string, resources []ir.
 }
 
 func returnNotImplementedError(interaction, resourceType string, defaultReturn Code) Code {
-	return Return(defaultReturn, Qual("fhir-toolbox/dispatch/errors", "NotImplementedError").Values(
+	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "NotImplementedError").Values(
 		Id("Interaction").Op(":").Lit(interaction),
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }
 
 func returnUnknownError(resourceType string, defaultReturn Code) Code {
-	return Return(defaultReturn, Qual("fhir-toolbox/dispatch/errors", "UnknownResourceError").Values(
+	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "UnknownResourceError").Values(
 		Id("ResourceType").Op(":").Id(resourceType)),
 	)
 }

@@ -1,8 +1,8 @@
 package capabilities
 
 import (
-	"encoding/json"
 	"fhir-toolbox/model"
+	"fhir-toolbox/model/basic"
 	"fmt"
 )
 
@@ -12,25 +12,45 @@ type FHIRError interface {
 	OperationOutcome() model.Resource
 }
 
-type BasicOperationOutcome struct {
-	Issue []BasicOperationOutcomeIssue `json:"issue"`
+type NotImplementedError struct {
+	Interaction  string
+	ResourceType string
 }
 
-type BasicOperationOutcomeIssue struct {
-	Severity string `json:"severity"`
-	Code     string `json:"code"`
+func (e NotImplementedError) Error() string {
+	return fmt.Sprintf("%s%s not implemented for resource type %s", e.Interaction, e.ResourceType, e.ResourceType)
 }
 
-func (r BasicOperationOutcome) ResourceType() string {
-	return "OperationOutcome"
+func (e NotImplementedError) StatusCode() int {
+	return 404
 }
 
-func (r BasicOperationOutcome) MarshalJSON() ([]byte, error) {
-	type embedded BasicOperationOutcome
-	return json.Marshal(struct {
-		ResourceType string `json:"resourceType"`
-		embedded
-	}{r.ResourceType(), embedded(r)})
+func (e NotImplementedError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "not-supported"},
+		},
+	}
+}
+
+type UnknownResourceError struct {
+	ResourceType string
+}
+
+func (e UnknownResourceError) Error() string {
+	return fmt.Sprintf("unknown resource type %s", e.ResourceType)
+}
+
+func (e UnknownResourceError) StatusCode() int {
+	return 404
+}
+
+func (e UnknownResourceError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "not-supported"},
+		},
+	}
 }
 
 type NotFoundError struct {
@@ -47,8 +67,8 @@ func (e NotFoundError) StatusCode() int {
 }
 
 func (e NotFoundError) OperationOutcome() model.Resource {
-	return BasicOperationOutcome{
-		Issue: []BasicOperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{Severity: "error", Code: "not-found"},
 		},
 	}
