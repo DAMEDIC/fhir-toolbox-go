@@ -56,6 +56,15 @@ type OrganizationAffiliation struct {
 func (r OrganizationAffiliation) ResourceType() string {
 	return "OrganizationAffiliation"
 }
+func (r OrganizationAffiliation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonOrganizationAffiliation struct {
 	ResourceType                  string              `json:"resourceType"`

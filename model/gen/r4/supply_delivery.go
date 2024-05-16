@@ -53,6 +53,15 @@ type SupplyDelivery struct {
 func (r SupplyDelivery) ResourceType() string {
 	return "SupplyDelivery"
 }
+func (r SupplyDelivery) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isSupplyDeliveryOccurrence interface {
 	isSupplyDeliveryOccurrence()

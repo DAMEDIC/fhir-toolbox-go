@@ -56,6 +56,15 @@ type List struct {
 func (r List) ResourceType() string {
 	return "List"
 }
+func (r List) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonList struct {
 	ResourceType                  string              `json:"resourceType"`

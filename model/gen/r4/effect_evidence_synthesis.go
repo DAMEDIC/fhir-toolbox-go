@@ -96,6 +96,15 @@ type EffectEvidenceSynthesis struct {
 func (r EffectEvidenceSynthesis) ResourceType() string {
 	return "EffectEvidenceSynthesis"
 }
+func (r EffectEvidenceSynthesis) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonEffectEvidenceSynthesis struct {
 	ResourceType                   string                                     `json:"resourceType"`

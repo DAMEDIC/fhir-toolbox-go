@@ -43,6 +43,15 @@ type SpecimenDefinition struct {
 func (r SpecimenDefinition) ResourceType() string {
 	return "SpecimenDefinition"
 }
+func (r SpecimenDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSpecimenDefinition struct {
 	ResourceType                  string                         `json:"resourceType"`

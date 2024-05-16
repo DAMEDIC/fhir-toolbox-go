@@ -57,6 +57,15 @@ type Consent struct {
 func (r Consent) ResourceType() string {
 	return "Consent"
 }
+func (r Consent) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isConsentSource interface {
 	isConsentSource()

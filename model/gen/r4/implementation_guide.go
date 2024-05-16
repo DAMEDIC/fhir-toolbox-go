@@ -73,6 +73,15 @@ type ImplementationGuide struct {
 func (r ImplementationGuide) ResourceType() string {
 	return "ImplementationGuide"
 }
+func (r ImplementationGuide) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonImplementationGuide struct {
 	ResourceType                  string                         `json:"resourceType"`

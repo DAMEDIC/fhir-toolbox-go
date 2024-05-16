@@ -56,6 +56,15 @@ type RelatedPerson struct {
 func (r RelatedPerson) ResourceType() string {
 	return "RelatedPerson"
 }
+func (r RelatedPerson) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonRelatedPerson struct {
 	ResourceType                  string                       `json:"resourceType"`

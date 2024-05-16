@@ -51,6 +51,15 @@ type Group struct {
 func (r Group) ResourceType() string {
 	return "Group"
 }
+func (r Group) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonGroup struct {
 	ResourceType                  string                `json:"resourceType"`

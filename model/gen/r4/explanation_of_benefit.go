@@ -117,6 +117,15 @@ type ExplanationOfBenefit struct {
 func (r ExplanationOfBenefit) ResourceType() string {
 	return "ExplanationOfBenefit"
 }
+func (r ExplanationOfBenefit) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonExplanationOfBenefit struct {
 	ResourceType                  string                                 `json:"resourceType"`

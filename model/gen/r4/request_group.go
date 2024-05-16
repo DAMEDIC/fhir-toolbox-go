@@ -67,6 +67,15 @@ type RequestGroup struct {
 func (r RequestGroup) ResourceType() string {
 	return "RequestGroup"
 }
+func (r RequestGroup) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonRequestGroup struct {
 	ResourceType                          string               `json:"resourceType"`

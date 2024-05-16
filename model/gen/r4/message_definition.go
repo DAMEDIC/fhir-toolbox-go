@@ -81,6 +81,15 @@ type MessageDefinition struct {
 func (r MessageDefinition) ResourceType() string {
 	return "MessageDefinition"
 }
+func (r MessageDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isMessageDefinitionEvent interface {
 	isMessageDefinitionEvent()

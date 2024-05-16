@@ -32,6 +32,15 @@ type OperationOutcome struct {
 func (r OperationOutcome) ResourceType() string {
 	return "OperationOutcome"
 }
+func (r OperationOutcome) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonOperationOutcome struct {
 	ResourceType                  string                  `json:"resourceType"`

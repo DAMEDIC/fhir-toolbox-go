@@ -77,6 +77,15 @@ type CarePlan struct {
 func (r CarePlan) ResourceType() string {
 	return "CarePlan"
 }
+func (r CarePlan) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCarePlan struct {
 	ResourceType                          string              `json:"resourceType"`

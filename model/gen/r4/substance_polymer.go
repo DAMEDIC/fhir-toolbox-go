@@ -42,6 +42,15 @@ type SubstancePolymer struct {
 func (r SubstancePolymer) ResourceType() string {
 	return "SubstancePolymer"
 }
+func (r SubstancePolymer) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSubstancePolymer struct {
 	ResourceType                  string                       `json:"resourceType"`

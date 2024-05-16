@@ -70,6 +70,15 @@ type AdverseEvent struct {
 func (r AdverseEvent) ResourceType() string {
 	return "AdverseEvent"
 }
+func (r AdverseEvent) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonAdverseEvent struct {
 	ResourceType                  string                      `json:"resourceType"`

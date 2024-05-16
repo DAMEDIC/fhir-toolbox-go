@@ -84,6 +84,15 @@ type StructureDefinition struct {
 func (r StructureDefinition) ResourceType() string {
 	return "StructureDefinition"
 }
+func (r StructureDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonStructureDefinition struct {
 	ResourceType                     string                           `json:"resourceType"`

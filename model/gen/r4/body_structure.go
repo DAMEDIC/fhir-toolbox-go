@@ -46,6 +46,15 @@ type BodyStructure struct {
 func (r BodyStructure) ResourceType() string {
 	return "BodyStructure"
 }
+func (r BodyStructure) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonBodyStructure struct {
 	ResourceType                  string              `json:"resourceType"`

@@ -79,6 +79,15 @@ type MedicationDispense struct {
 func (r MedicationDispense) ResourceType() string {
 	return "MedicationDispense"
 }
+func (r MedicationDispense) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isMedicationDispenseStatusReason interface {
 	isMedicationDispenseStatusReason()

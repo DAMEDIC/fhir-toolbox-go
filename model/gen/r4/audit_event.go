@@ -53,6 +53,15 @@ type AuditEvent struct {
 func (r AuditEvent) ResourceType() string {
 	return "AuditEvent"
 }
+func (r AuditEvent) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonAuditEvent struct {
 	ResourceType                  string              `json:"resourceType"`

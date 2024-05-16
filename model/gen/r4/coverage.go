@@ -67,6 +67,15 @@ type Coverage struct {
 func (r Coverage) ResourceType() string {
 	return "Coverage"
 }
+func (r Coverage) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCoverage struct {
 	ResourceType                  string                      `json:"resourceType"`

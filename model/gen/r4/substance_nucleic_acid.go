@@ -40,6 +40,15 @@ type SubstanceNucleicAcid struct {
 func (r SubstanceNucleicAcid) ResourceType() string {
 	return "SubstanceNucleicAcid"
 }
+func (r SubstanceNucleicAcid) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSubstanceNucleicAcid struct {
 	ResourceType                        string                        `json:"resourceType"`

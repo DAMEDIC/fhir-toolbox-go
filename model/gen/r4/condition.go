@@ -65,6 +65,15 @@ type Condition struct {
 func (r Condition) ResourceType() string {
 	return "Condition"
 }
+func (r Condition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isConditionOnset interface {
 	isConditionOnset()

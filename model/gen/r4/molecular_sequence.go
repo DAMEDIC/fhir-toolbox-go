@@ -62,6 +62,15 @@ type MolecularSequence struct {
 func (r MolecularSequence) ResourceType() string {
 	return "MolecularSequence"
 }
+func (r MolecularSequence) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonMolecularSequence struct {
 	ResourceType                     string                              `json:"resourceType"`

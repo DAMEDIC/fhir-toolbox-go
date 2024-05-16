@@ -63,6 +63,15 @@ type MedicinalProductAuthorization struct {
 func (r MedicinalProductAuthorization) ResourceType() string {
 	return "MedicinalProductAuthorization"
 }
+func (r MedicinalProductAuthorization) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonMedicinalProductAuthorization struct {
 	ResourceType                             string                                                     `json:"resourceType"`

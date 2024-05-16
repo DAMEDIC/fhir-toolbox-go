@@ -60,6 +60,15 @@ type PaymentReconciliation struct {
 func (r PaymentReconciliation) ResourceType() string {
 	return "PaymentReconciliation"
 }
+func (r PaymentReconciliation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonPaymentReconciliation struct {
 	ResourceType                  string                             `json:"resourceType"`

@@ -58,6 +58,15 @@ type CompartmentDefinition struct {
 func (r CompartmentDefinition) ResourceType() string {
 	return "CompartmentDefinition"
 }
+func (r CompartmentDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCompartmentDefinition struct {
 	ResourceType                  string                          `json:"resourceType"`

@@ -79,6 +79,15 @@ type DeviceRequest struct {
 func (r DeviceRequest) ResourceType() string {
 	return "DeviceRequest"
 }
+func (r DeviceRequest) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isDeviceRequestCode interface {
 	isDeviceRequestCode()

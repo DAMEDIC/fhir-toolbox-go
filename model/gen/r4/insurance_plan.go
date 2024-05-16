@@ -58,6 +58,15 @@ type InsurancePlan struct {
 func (r InsurancePlan) ResourceType() string {
 	return "InsurancePlan"
 }
+func (r InsurancePlan) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonInsurancePlan struct {
 	ResourceType                  string                  `json:"resourceType"`

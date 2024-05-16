@@ -87,6 +87,15 @@ type EventDefinition struct {
 func (r EventDefinition) ResourceType() string {
 	return "EventDefinition"
 }
+func (r EventDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isEventDefinitionSubject interface {
 	isEventDefinitionSubject()

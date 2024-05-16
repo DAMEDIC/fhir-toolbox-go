@@ -6,13 +6,12 @@ type OperationOutcome struct {
 	Issue []OperationOutcomeIssue `json:"issue"`
 }
 
-type OperationOutcomeIssue struct {
-	Severity string `json:"severity"`
-	Code     string `json:"code"`
-}
-
 func (r OperationOutcome) ResourceType() string {
 	return "OperationOutcome"
+}
+
+func (r OperationOutcome) ResourceId() (string, bool) {
+	return "", false
 }
 
 func (r OperationOutcome) MarshalJSON() ([]byte, error) {
@@ -21,4 +20,10 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 		ResourceType string `json:"resourceType"`
 		embedded
 	}{r.ResourceType(), embedded(r)})
+}
+
+type OperationOutcomeIssue struct {
+	Severity    string `json:"severity"`
+	Code        string `json:"code"`
+	Diagnostics string `json:"diagnostics"`
 }

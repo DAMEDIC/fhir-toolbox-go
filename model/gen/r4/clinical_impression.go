@@ -71,6 +71,15 @@ type ClinicalImpression struct {
 func (r ClinicalImpression) ResourceType() string {
 	return "ClinicalImpression"
 }
+func (r ClinicalImpression) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isClinicalImpressionEffective interface {
 	isClinicalImpressionEffective()

@@ -87,6 +87,15 @@ type Procedure struct {
 func (r Procedure) ResourceType() string {
 	return "Procedure"
 }
+func (r Procedure) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isProcedurePerformed interface {
 	isProcedurePerformed()

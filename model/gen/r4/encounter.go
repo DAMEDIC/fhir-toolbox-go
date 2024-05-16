@@ -76,6 +76,15 @@ type Encounter struct {
 func (r Encounter) ResourceType() string {
 	return "Encounter"
 }
+func (r Encounter) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonEncounter struct {
 	ResourceType                  string                    `json:"resourceType"`

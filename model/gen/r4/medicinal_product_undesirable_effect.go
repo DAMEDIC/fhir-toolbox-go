@@ -40,6 +40,15 @@ type MedicinalProductUndesirableEffect struct {
 func (r MedicinalProductUndesirableEffect) ResourceType() string {
 	return "MedicinalProductUndesirableEffect"
 }
+func (r MedicinalProductUndesirableEffect) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonMedicinalProductUndesirableEffect struct {
 	ResourceType                  string              `json:"resourceType"`

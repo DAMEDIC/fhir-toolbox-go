@@ -77,6 +77,15 @@ type Communication struct {
 func (r Communication) ResourceType() string {
 	return "Communication"
 }
+func (r Communication) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCommunication struct {
 	ResourceType                          string                 `json:"resourceType"`

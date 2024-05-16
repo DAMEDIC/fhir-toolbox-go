@@ -70,6 +70,15 @@ type ImagingStudy struct {
 func (r ImagingStudy) ResourceType() string {
 	return "ImagingStudy"
 }
+func (r ImagingStudy) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonImagingStudy struct {
 	ResourceType                      string               `json:"resourceType"`

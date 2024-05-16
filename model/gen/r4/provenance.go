@@ -51,6 +51,15 @@ type Provenance struct {
 func (r Provenance) ResourceType() string {
 	return "Provenance"
 }
+func (r Provenance) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isProvenanceOccurred interface {
 	isProvenanceOccurred()

@@ -6,7 +6,7 @@ type SearchCapabilities struct {
 }
 
 type SearchOptions struct {
-	Parameters []SearchParameters
+	Parameters SearchParameters
 	Includes   []string
 }
 

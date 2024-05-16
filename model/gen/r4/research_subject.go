@@ -46,6 +46,15 @@ type ResearchSubject struct {
 func (r ResearchSubject) ResourceType() string {
 	return "ResearchSubject"
 }
+func (r ResearchSubject) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonResearchSubject struct {
 	ResourceType                  string              `json:"resourceType"`

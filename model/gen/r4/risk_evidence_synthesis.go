@@ -92,6 +92,15 @@ type RiskEvidenceSynthesis struct {
 func (r RiskEvidenceSynthesis) ResourceType() string {
 	return "RiskEvidenceSynthesis"
 }
+func (r RiskEvidenceSynthesis) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonRiskEvidenceSynthesis struct {
 	ResourceType                   string                             `json:"resourceType"`

@@ -59,6 +59,15 @@ type CoverageEligibilityRequest struct {
 func (r CoverageEligibilityRequest) ResourceType() string {
 	return "CoverageEligibilityRequest"
 }
+func (r CoverageEligibilityRequest) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isCoverageEligibilityRequestServiced interface {
 	isCoverageEligibilityRequestServiced()

@@ -58,6 +58,15 @@ type VerificationResult struct {
 func (r VerificationResult) ResourceType() string {
 	return "VerificationResult"
 }
+func (r VerificationResult) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonVerificationResult struct {
 	ResourceType                   string                            `json:"resourceType"`

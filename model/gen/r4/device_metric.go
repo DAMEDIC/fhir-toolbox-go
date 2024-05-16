@@ -50,6 +50,15 @@ type DeviceMetric struct {
 func (r DeviceMetric) ResourceType() string {
 	return "DeviceMetric"
 }
+func (r DeviceMetric) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonDeviceMetric struct {
 	ResourceType                      string                    `json:"resourceType"`

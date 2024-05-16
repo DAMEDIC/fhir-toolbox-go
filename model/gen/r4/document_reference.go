@@ -62,6 +62,15 @@ type DocumentReference struct {
 func (r DocumentReference) ResourceType() string {
 	return "DocumentReference"
 }
+func (r DocumentReference) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonDocumentReference struct {
 	ResourceType                  string                       `json:"resourceType"`

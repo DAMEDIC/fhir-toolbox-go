@@ -58,6 +58,15 @@ type ObservationDefinition struct {
 func (r ObservationDefinition) ResourceType() string {
 	return "ObservationDefinition"
 }
+func (r ObservationDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonObservationDefinition struct {
 	ResourceType                           string                                    `json:"resourceType"`

@@ -57,6 +57,15 @@ type DeviceUseStatement struct {
 func (r DeviceUseStatement) ResourceType() string {
 	return "DeviceUseStatement"
 }
+func (r DeviceUseStatement) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isDeviceUseStatementTiming interface {
 	isDeviceUseStatementTiming()

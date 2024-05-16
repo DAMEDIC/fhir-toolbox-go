@@ -52,6 +52,15 @@ type MeasureReport struct {
 func (r MeasureReport) ResourceType() string {
 	return "MeasureReport"
 }
+func (r MeasureReport) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonMeasureReport struct {
 	ResourceType                  string               `json:"resourceType"`

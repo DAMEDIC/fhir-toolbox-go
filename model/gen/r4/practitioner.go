@@ -52,6 +52,15 @@ type Practitioner struct {
 func (r Practitioner) ResourceType() string {
 	return "Practitioner"
 }
+func (r Practitioner) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonPractitioner struct {
 	ResourceType                  string                      `json:"resourceType"`

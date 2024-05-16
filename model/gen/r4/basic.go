@@ -42,6 +42,15 @@ type Basic struct {
 func (r Basic) ResourceType() string {
 	return "Basic"
 }
+func (r Basic) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonBasic struct {
 	ResourceType                  string              `json:"resourceType"`

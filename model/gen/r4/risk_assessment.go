@@ -65,6 +65,15 @@ type RiskAssessment struct {
 func (r RiskAssessment) ResourceType() string {
 	return "RiskAssessment"
 }
+func (r RiskAssessment) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isRiskAssessmentOccurrence interface {
 	isRiskAssessmentOccurrence()

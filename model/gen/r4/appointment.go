@@ -76,6 +76,15 @@ type Appointment struct {
 func (r Appointment) ResourceType() string {
 	return "Appointment"
 }
+func (r Appointment) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonAppointment struct {
 	ResourceType                       string                   `json:"resourceType"`

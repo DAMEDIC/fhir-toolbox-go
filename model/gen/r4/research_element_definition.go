@@ -99,6 +99,15 @@ type ResearchElementDefinition struct {
 func (r ResearchElementDefinition) ResourceType() string {
 	return "ResearchElementDefinition"
 }
+func (r ResearchElementDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isResearchElementDefinitionSubject interface {
 	isResearchElementDefinitionSubject()

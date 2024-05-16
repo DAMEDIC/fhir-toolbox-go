@@ -54,6 +54,15 @@ type BiologicallyDerivedProduct struct {
 func (r BiologicallyDerivedProduct) ResourceType() string {
 	return "BiologicallyDerivedProduct"
 }
+func (r BiologicallyDerivedProduct) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonBiologicallyDerivedProduct struct {
 	ResourceType                    string                                  `json:"resourceType"`

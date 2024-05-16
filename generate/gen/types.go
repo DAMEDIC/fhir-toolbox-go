@@ -97,6 +97,15 @@ func implementResource(f *File, s ir.Struct) {
 		f.Func().Params(Id("r").Id(s.Name)).Id("ResourceType").Params().String().Block(
 			Return(Lit(s.Name)),
 		)
+		f.Func().Params(Id("r").Id(s.Name)).Id("ResourceId").Params().Params(String(), Bool()).Block(
+			If(Id("r.Id").Op("==").Nil()).Block(
+				Return(Lit(""), False()),
+			),
+			If(Id("r.Id.Id").Op("==").Nil()).Block(
+				Return(Lit(""), False()),
+			),
+			Return(Id("*r.Id.Id"), True()),
+		)
 	}
 }
 

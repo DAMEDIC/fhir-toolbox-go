@@ -55,6 +55,15 @@ type MessageHeader struct {
 func (r MessageHeader) ResourceType() string {
 	return "MessageHeader"
 }
+func (r MessageHeader) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isMessageHeaderEvent interface {
 	isMessageHeaderEvent()

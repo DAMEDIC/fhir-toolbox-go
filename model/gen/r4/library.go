@@ -93,6 +93,15 @@ type Library struct {
 func (r Library) ResourceType() string {
 	return "Library"
 }
+func (r Library) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isLibrarySubject interface {
 	isLibrarySubject()

@@ -46,6 +46,15 @@ type Schedule struct {
 func (r Schedule) ResourceType() string {
 	return "Schedule"
 }
+func (r Schedule) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSchedule struct {
 	ResourceType                  string              `json:"resourceType"`

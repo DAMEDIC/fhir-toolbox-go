@@ -76,6 +76,15 @@ type ChargeItemDefinition struct {
 func (r ChargeItemDefinition) ResourceType() string {
 	return "ChargeItemDefinition"
 }
+func (r ChargeItemDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonChargeItemDefinition struct {
 	ResourceType                   string                              `json:"resourceType"`

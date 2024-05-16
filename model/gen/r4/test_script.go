@@ -78,6 +78,15 @@ type TestScript struct {
 func (r TestScript) ResourceType() string {
 	return "TestScript"
 }
+func (r TestScript) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonTestScript struct {
 	ResourceType                  string                  `json:"resourceType"`

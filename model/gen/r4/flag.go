@@ -46,6 +46,15 @@ type Flag struct {
 func (r Flag) ResourceType() string {
 	return "Flag"
 }
+func (r Flag) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonFlag struct {
 	ResourceType                  string              `json:"resourceType"`

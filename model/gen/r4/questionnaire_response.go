@@ -55,6 +55,15 @@ type QuestionnaireResponse struct {
 func (r QuestionnaireResponse) ResourceType() string {
 	return "QuestionnaireResponse"
 }
+func (r QuestionnaireResponse) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonQuestionnaireResponse struct {
 	ResourceType                  string                      `json:"resourceType"`

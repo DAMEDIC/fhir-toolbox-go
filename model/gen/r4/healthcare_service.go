@@ -78,6 +78,15 @@ type HealthcareService struct {
 func (r HealthcareService) ResourceType() string {
 	return "HealthcareService"
 }
+func (r HealthcareService) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonHealthcareService struct {
 	ResourceType                           string                           `json:"resourceType"`

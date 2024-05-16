@@ -63,6 +63,15 @@ type Invoice struct {
 func (r Invoice) ResourceType() string {
 	return "Invoice"
 }
+func (r Invoice) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonInvoice struct {
 	ResourceType                    string                          `json:"resourceType"`

@@ -56,6 +56,15 @@ type NamingSystem struct {
 func (r NamingSystem) ResourceType() string {
 	return "NamingSystem"
 }
+func (r NamingSystem) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonNamingSystem struct {
 	ResourceType                  string                 `json:"resourceType"`

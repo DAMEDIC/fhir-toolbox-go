@@ -70,6 +70,15 @@ type Patient struct {
 func (r Patient) ResourceType() string {
 	return "Patient"
 }
+func (r Patient) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isPatientDeceased interface {
 	isPatientDeceased()

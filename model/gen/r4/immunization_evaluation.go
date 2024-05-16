@@ -57,6 +57,15 @@ type ImmunizationEvaluation struct {
 func (r ImmunizationEvaluation) ResourceType() string {
 	return "ImmunizationEvaluation"
 }
+func (r ImmunizationEvaluation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isImmunizationEvaluationDoseNumber interface {
 	isImmunizationEvaluationDoseNumber()

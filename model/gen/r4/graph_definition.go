@@ -60,6 +60,15 @@ type GraphDefinition struct {
 func (r GraphDefinition) ResourceType() string {
 	return "GraphDefinition"
 }
+func (r GraphDefinition) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonGraphDefinition struct {
 	ResourceType                  string                `json:"resourceType"`

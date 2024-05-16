@@ -65,6 +65,15 @@ type NutritionOrder struct {
 func (r NutritionOrder) ResourceType() string {
 	return "NutritionOrder"
 }
+func (r NutritionOrder) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonNutritionOrder struct {
 	ResourceType                          string                        `json:"resourceType"`

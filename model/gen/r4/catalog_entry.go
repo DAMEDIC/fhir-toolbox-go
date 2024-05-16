@@ -56,6 +56,15 @@ type CatalogEntry struct {
 func (r CatalogEntry) ResourceType() string {
 	return "CatalogEntry"
 }
+func (r CatalogEntry) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCatalogEntry struct {
 	ResourceType                  string                     `json:"resourceType"`

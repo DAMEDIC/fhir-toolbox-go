@@ -56,6 +56,15 @@ type SubstanceSourceMaterial struct {
 func (r SubstanceSourceMaterial) ResourceType() string {
 	return "SubstanceSourceMaterial"
 }
+func (r SubstanceSourceMaterial) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSubstanceSourceMaterial struct {
 	ResourceType                         string                                       `json:"resourceType"`

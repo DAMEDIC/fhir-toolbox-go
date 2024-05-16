@@ -38,6 +38,15 @@ type SubstanceProtein struct {
 func (r SubstanceProtein) ResourceType() string {
 	return "SubstanceProtein"
 }
+func (r SubstanceProtein) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonSubstanceProtein struct {
 	ResourceType                     string                    `json:"resourceType"`

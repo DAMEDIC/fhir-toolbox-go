@@ -46,6 +46,15 @@ type EnrollmentResponse struct {
 func (r EnrollmentResponse) ResourceType() string {
 	return "EnrollmentResponse"
 }
+func (r EnrollmentResponse) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonEnrollmentResponse struct {
 	ResourceType                  string              `json:"resourceType"`

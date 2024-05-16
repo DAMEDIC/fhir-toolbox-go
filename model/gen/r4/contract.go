@@ -97,6 +97,15 @@ type Contract struct {
 func (r Contract) ResourceType() string {
 	return "Contract"
 }
+func (r Contract) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isContractTopic interface {
 	isContractTopic()

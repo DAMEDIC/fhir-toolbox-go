@@ -81,6 +81,15 @@ type Observation struct {
 func (r Observation) ResourceType() string {
 	return "Observation"
 }
+func (r Observation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isObservationEffective interface {
 	isObservationEffective()

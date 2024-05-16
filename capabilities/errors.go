@@ -28,7 +28,7 @@ func (e NotImplementedError) StatusCode() int {
 func (e NotImplementedError) OperationOutcome() model.Resource {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
-			{Severity: "fatal", Code: "not-supported"},
+			{Severity: "fatal", Code: "not-supported", Diagnostics: e.Error()},
 		},
 	}
 }
@@ -48,7 +48,7 @@ func (e UnknownResourceError) StatusCode() int {
 func (e UnknownResourceError) OperationOutcome() model.Resource {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
-			{Severity: "fatal", Code: "not-supported"},
+			{Severity: "fatal", Code: "not-supported", Diagnostics: e.Error()},
 		},
 	}
 }
@@ -69,7 +69,7 @@ func (e NotFoundError) StatusCode() int {
 func (e NotFoundError) OperationOutcome() model.Resource {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
-			{Severity: "error", Code: "not-found"},
+			{Severity: "error", Code: "not-found", Diagnostics: e.Error()},
 		},
 	}
 }

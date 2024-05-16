@@ -83,6 +83,15 @@ type CodeSystem struct {
 func (r CodeSystem) ResourceType() string {
 	return "CodeSystem"
 }
+func (r CodeSystem) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonCodeSystem struct {
 	ResourceType                     string               `json:"resourceType"`

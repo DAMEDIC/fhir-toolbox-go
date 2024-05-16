@@ -41,6 +41,15 @@ type ImmunizationRecommendation struct {
 func (r ImmunizationRecommendation) ResourceType() string {
 	return "ImmunizationRecommendation"
 }
+func (r ImmunizationRecommendation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonImmunizationRecommendation struct {
 	ResourceType                  string                                     `json:"resourceType"`

@@ -18,14 +18,14 @@ import (
 )
 
 type mockBackend struct {
-	mockPatient *r4.Patient
+	mockPatients []r4.Patient
 }
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {
-	if m.mockPatient == nil {
+	if len(m.mockPatients) == 0 {
 		return r4.Patient{}, capabilities.NotFoundError{ResourceType: "Patient", ID: id}
 	}
-	return *m.mockPatient, nil
+	return m.mockPatients[0], nil
 }
 
 func TestHandleRead(t *testing.T) {
@@ -37,9 +37,9 @@ func TestHandleRead(t *testing.T) {
 		expectedStatus int
 		expectedBody   string
 	}{
-		{"ValidResource", "Patient", "1", mockBackend{&r4.Patient{Id: &r4.Id{Value: utils.Ptr("1")}}}, http.StatusOK, `{"resourceType":"Patient","id":"1"}`},
-		{"InvalidResourceType", "UnknownType", "1", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"fatal","code":"not-supported"}]}`},
-		{"InvalidResourceID", "Patient", "unknown", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"error","code":"not-found"}]}`},
+		{"ValidResource", "Patient", "1", mockBackend{[]r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}}, http.StatusOK, `{"resourceType":"Patient","id":"1"}`},
+		{"InvalidResourceType", "UnknownType", "1", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"fatal","code":"not-supported","diagnostics":"unknown resource type UnknownType"}]}`},
+		{"InvalidResourceID", "Patient", "unknown", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"error","code":"not-found","diagnostics":"resource type Patient with ID unknown not found"}]}`},
 	}
 
 	for _, tt := range tests {

@@ -87,6 +87,15 @@ type Claim struct {
 func (r Claim) ResourceType() string {
 	return "Claim"
 }
+func (r Claim) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type jsonClaim struct {
 	ResourceType                  string                `json:"resourceType"`

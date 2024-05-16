@@ -67,6 +67,15 @@ type FamilyMemberHistory struct {
 func (r FamilyMemberHistory) ResourceType() string {
 	return "FamilyMemberHistory"
 }
+func (r FamilyMemberHistory) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isFamilyMemberHistoryBorn interface {
 	isFamilyMemberHistoryBorn()

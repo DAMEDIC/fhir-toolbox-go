@@ -113,6 +113,15 @@ type Measure struct {
 func (r Measure) ResourceType() string {
 	return "Measure"
 }
+func (r Measure) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isMeasureSubject interface {
 	isMeasureSubject()

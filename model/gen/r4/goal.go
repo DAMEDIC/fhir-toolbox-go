@@ -63,6 +63,15 @@ type Goal struct {
 func (r Goal) ResourceType() string {
 	return "Goal"
 }
+func (r Goal) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Id == nil {
+		return "", false
+	}
+	return *r.Id.Id, true
+}
 
 type isGoalStart interface {
 	isGoalStart()
