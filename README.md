@@ -8,7 +8,7 @@ This includes model types, as well as interfaces (and some implementations) mode
 - Extensible REST API with capabilties modeled as interfaces
   - FHIR model types
   - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (see [Capabilities](#capabilities))
-  - Interactions: `read`
+  - Interactions: `read`,  `search`
 
 ## Example
 
@@ -25,6 +25,11 @@ From another terminal, run
 ```sh
 curl 'http://localhost/Patient/547'
 ```
+or
+```sh
+curl 'http://localhost/Patient?_id=547'
+```
+to get a bundle.
 
 The client implementation in `./cmd/example` is only a proof-of-concept and does only implement the `read` interaction for a very limited set of resources.
 
