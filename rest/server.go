@@ -1,12 +1,12 @@
 package rest
 
 import (
-	"context"
 	"fhir-toolbox/backend"
 	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 func NewServer[R model.Release](backend backend.Backend, config Config) http.Handler {
@@ -28,7 +28,13 @@ func registerRoutes(
 	backend backend.Backend,
 	config Config,
 ) {
-	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", config.Base), handleRead(dispatch, backend))
+	base := strings.Trim(config.Base, "/ ")
+	if base != "" {
+		base = "/" + base
+	}
+
+	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", base), handleRead(dispatch, backend))
+	mux.Handle(fmt.Sprintf("GET %s/{type}", base), handleSearchType(dispatch, backend, base))
 }
 
 func handleRead(
@@ -50,16 +56,28 @@ func handleRead(
 	})
 }
 
-func read(
-	context context.Context,
+func handleSearchType(
 	dispatch dispatch.Dispatcher,
 	backend backend.Backend,
-	resourceType string,
-	resourceID string,
-) (int, model.Resource) {
-	resource, err := dispatch.Read(context, backend, resourceType, resourceID)
-	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+	base string,
+) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		resourceType := r.PathValue("type")
+
+		status, resource := searchType(r.Context(), dispatch, backend, resourceType, r.URL.Query(), baseURL(r.URL.Scheme, r.Host, base))
+
+		err := encodeJSON(w, status, resource)
+		if err != nil {
+			// we were not able to return an application level error (OperationOutcome)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	})
+}
+
+func baseURL(scheme, host, base string) string {
+	if scheme == "" {
+		scheme = "http"
 	}
-	return http.StatusOK, resource
+	return fmt.Sprintf("%s://%s%s", scheme, host, base)
 }

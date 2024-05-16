@@ -12,8 +12,8 @@ import (
 func NewSearchBundle(
 	matchResourceType string,
 	resources []model.Resource,
-	searchCapabilities capabilities.SearchCapabilities,
 	usedOptions capabilities.SearchOptions,
+	searchCapabilities capabilities.SearchCapabilities,
 	baseURL string,
 ) (basic.Bundle, capabilities.FHIRError) {
 	entries, err := entries(matchResourceType, resources, baseURL)
@@ -26,7 +26,7 @@ func NewSearchBundle(
 		Link: []basic.BundleLink{
 			{
 				Relation: "self",
-				Url:      selfRelationLink(matchResourceType, searchCapabilities, usedOptions, baseURL),
+				Url:      selfRelationLink(matchResourceType, usedOptions, searchCapabilities, baseURL),
 			},
 		},
 		Entry: entries,
@@ -68,7 +68,12 @@ func entry(resource model.Resource, searchMode, baseURL string) (basic.BundleEnt
 	}, nil
 }
 
-func selfRelationLink(resourceType string, searchCapabilities capabilities.SearchCapabilities, usedOptions capabilities.SearchOptions, baseURL string) string {
+func selfRelationLink(
+	resourceType string,
+	usedOptions capabilities.SearchOptions,
+	searchCapabilities capabilities.SearchCapabilities,
+	baseURL string,
+) string {
 	link := fmt.Sprintf("%s/%s?", strings.TrimRight(baseURL, "/"), resourceType)
 
 	// only include includes that were actually used

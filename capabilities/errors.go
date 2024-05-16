@@ -18,7 +18,7 @@ type NotImplementedError struct {
 }
 
 func (e NotImplementedError) Error() string {
-	return fmt.Sprintf("%s%s not implemented for resource type %s", e.Interaction, e.ResourceType, e.ResourceType)
+	return fmt.Sprintf("%s not implemented for resource type %s", e.Interaction, e.ResourceType)
 }
 
 func (e NotImplementedError) StatusCode() int {

@@ -8,6 +8,7 @@ import (
 	"log"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 
@@ -77,4 +78,60 @@ func (c *Client) ReadPatient(ctx context.Context, id string) (r4.Patient, capabi
 
 func (c *Client) ReadObservation(ctx context.Context, id string) (r4.Observation, capabilities.FHIRError) {
 	return Read[r4.Observation](ctx, c, id)
+}
+
+func Search[R model.Resource](ctx context.Context, client *Client, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+	resourceType := (*new(R)).ResourceType()
+
+	params := url.Values{}
+	for key, and := range options.Parameters {
+		for _, ors := range and {
+			params.Add(key, strings.Join(ors, ","))
+		}
+	}
+
+	url := fmt.Sprintf("%s/%s?%s", client.url, resourceType, params.Encode())
+	log.Printf("forwarding GET %s", url)
+
+	resp, err := http.Get(url)
+	if err != nil {
+		// TODO: retrun a proper error with operation outcome
+		panic(err)
+	}
+
+	var bundle r4.Bundle
+	err = json.NewDecoder(resp.Body).Decode(&bundle)
+	if err != nil {
+		// TODO: retrun a proper error with operation outcome
+		panic(err)
+	}
+
+	resources := make([]model.Resource, 0, len(bundle.Entry))
+	for _, entry := range bundle.Entry {
+		resources = append(resources, *entry.Resource)
+	}
+
+	return resources, nil
+}
+
+func (c *Client) SearchCapabilitiesPatient() capabilities.SearchCapabilities {
+	// These should be read from the remote servers CapabilityStatement.
+	return capabilities.SearchCapabilities{
+		Parameters: []string{"_id"},
+	}
+}
+
+func (c *Client) SearchPatient(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+	return Search[r4.Patient](ctx, c, options)
+}
+
+func (c *Client) SearchCapabilitiesObservation() capabilities.SearchCapabilities {
+	// These should be read from the remote servers CapabilityStatement.
+	return capabilities.SearchCapabilities{
+		Parameters: []string{"_id"},
+	}
+}
+
+func (c *Client) SearchObservation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+	return Search[r4.Observation](ctx, c, options)
 }

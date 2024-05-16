@@ -101,10 +101,10 @@ func implementResource(f *File, s ir.Struct) {
 			If(Id("r.Id").Op("==").Nil()).Block(
 				Return(Lit(""), False()),
 			),
-			If(Id("r.Id.Id").Op("==").Nil()).Block(
+			If(Id("r.Id.Value").Op("==").Nil()).Block(
 				Return(Lit(""), False()),
 			),
-			Return(Id("*r.Id.Id"), True()),
+			Return(Id("*r.Id.Value"), True()),
 		)
 	}
 }

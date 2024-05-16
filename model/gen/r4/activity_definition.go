@@ -127,10 +127,10 @@ func (r ActivityDefinition) ResourceId() (string, bool) {
 	if r.Id == nil {
 		return "", false
 	}
-	if r.Id.Id == nil {
+	if r.Id.Value == nil {
 		return "", false
 	}
-	return *r.Id.Id, true
+	return *r.Id.Value, true
 }
 
 type isActivityDefinitionSubject interface {

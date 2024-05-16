@@ -96,7 +96,7 @@ func generateSearchCapabilities(interactionName, release string, resources []ir.
 					g.Case(Lit(r.Name)).Block(
 						List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName)),
 						If(Op("!").Id("ok")).Block(
-							If(Op("!").Id("ok")).Block(returnNotImplementedError("SearchParams", r.Name, searchCapabilitiesReturn.Clone().Block())),
+							If(Op("!").Id("ok")).Block(returnNotImplementedError("search", r.Name, searchCapabilitiesReturn.Clone().Block())),
 						),
 						Return(Id("impl.SearchCapabilities"+r.Name).Call(), Nil()),
 					)
@@ -109,7 +109,7 @@ func generateSearchCapabilities(interactionName, release string, resources []ir.
 
 func returnNotImplementedError(interaction, resourceType string, defaultReturn Code) Code {
 	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "NotImplementedError").Values(
-		Id("Interaction").Op(":").Lit(interaction),
+		Id("Interaction").Op(":").Lit(strings.ToLower(interaction)),
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }
