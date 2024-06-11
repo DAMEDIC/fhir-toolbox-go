@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"fhir-toolbox/backend"
 	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
 	"fmt"
@@ -9,7 +8,9 @@ import (
 	"strings"
 )
 
-func NewServer[R model.Release](backend backend.Backend, config Config) http.Handler {
+type Backend any
+
+func NewServer[R model.Release](backend Backend, config Config) http.Handler {
 	dispatcher := dispatch.DispatcherFor[R]()
 	mux := http.NewServeMux()
 
@@ -25,7 +26,7 @@ func NewServer[R model.Release](backend backend.Backend, config Config) http.Han
 func registerRoutes(
 	mux *http.ServeMux,
 	dispatch dispatch.Dispatcher,
-	backend backend.Backend,
+	backend Backend,
 	config Config,
 ) {
 	base := strings.Trim(config.Base, "/ ")
@@ -39,7 +40,7 @@ func registerRoutes(
 
 func handleRead(
 	dispatch dispatch.Dispatcher,
-	backend backend.Backend,
+	backend Backend,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		resourceType := r.PathValue("type")
@@ -58,7 +59,7 @@ func handleRead(
 
 func handleSearchType(
 	dispatch dispatch.Dispatcher,
-	backend backend.Backend,
+	backend Backend,
 	base string,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

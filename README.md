@@ -15,7 +15,7 @@ This includes model types, as well as interfaces (and some implementations) mode
 Run the example in `./example` using the following command:
 
 ```sh
-go run ./cmd/example https://server.fire.ly/
+go run ./example https://server.fire.ly/
 ```
 
 This starts a simple mock-facade that forwards all requests to the HAPI test-server.
@@ -52,12 +52,6 @@ This flexible architecture allows different use cases, such as
 | `backend`    | Implementations of capabilities for different backends; database wrappers or the REST client go here                                         |
 | `generate`   | Code generation tools for generating FHIR model types, capabilites and dispatchers from the FHIR specification                               |
 
-## Roadmap
-
-- Extensible REST API
-  - Interactions: `search`
-- Read-only Orbis Backend (TODO)
-- Read-only M-KIS Backend (TODO)
 
 ### Scope
 

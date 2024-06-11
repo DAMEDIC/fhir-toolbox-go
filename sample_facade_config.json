@@ -1,7 +1,0 @@
-{
-  "logLevel": "DEBUG",
-  "server": {
-    "port": "123",
-    "base": "fhir"
-  }
-}

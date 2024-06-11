@@ -2,7 +2,6 @@ package rest
 
 import (
 	"context"
-	"fhir-toolbox/backend"
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
@@ -15,7 +14,7 @@ import (
 func searchType(
 	context context.Context,
 	dispatch dispatch.Dispatcher,
-	backend backend.Backend,
+	backend Backend,
 	resourceType string,
 	parameters url.Values,
 	baseURL string,

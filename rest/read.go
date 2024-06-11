@@ -2,7 +2,6 @@ package rest
 
 import (
 	"context"
-	"fhir-toolbox/backend"
 	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 func read(
 	context context.Context,
 	dispatch dispatch.Dispatcher,
-	backend backend.Backend,
+	backend Backend,
 	resourceType string,
 	resourceID string,
 ) (int, model.Resource) {
