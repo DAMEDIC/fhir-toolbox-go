@@ -59,7 +59,7 @@ type NotFoundError struct {
 }
 
 func (e NotFoundError) Error() string {
-	return fmt.Sprintf("resource type %s with ID %s not found", e.ResourceType, e.ID)
+	return fmt.Sprintf("%s resource with ID %s not found", e.ResourceType, e.ID)
 }
 
 func (e NotFoundError) StatusCode() int {

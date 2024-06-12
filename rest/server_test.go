@@ -2,7 +2,6 @@ package rest_test
 
 import (
 	"context"
-	"fhir-toolbox/backend"
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/gen/r4"
@@ -35,13 +34,13 @@ func TestHandleRead(t *testing.T) {
 		name           string
 		resourceType   string
 		resourceID     string
-		backend        backend.Backend
+		backend        any
 		expectedStatus int
 		expectedBody   string
 	}{
 		{"ValidResource", "Patient", "1", mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}}, http.StatusOK, `{"resourceType":"Patient","id":"1"}`},
 		{"InvalidResourceType", "UnknownType", "1", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"fatal","code":"not-supported","diagnostics":"unknown resource type UnknownType"}]}`},
-		{"InvalidResourceID", "Patient", "unknown", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"error","code":"not-found","diagnostics":"resource type Patient with ID unknown not found"}]}`},
+		{"InvalidResourceID", "Patient", "unknown", mockBackend{}, http.StatusNotFound, `{"resourceType":"OperationOutcome","issue":[{"severity":"error","code":"not-found","diagnostics":"Patient resource with ID unknown not found"}]}`},
 	}
 
 	for _, tt := range tests {
@@ -98,7 +97,7 @@ func TestHandleSearchType(t *testing.T) {
 		resourceType   string
 		QueryString    string
 		config         rest.Config
-		backend        backend.Backend
+		backend        any
 		expectedStatus int
 		expectedBody   string
 	}{
