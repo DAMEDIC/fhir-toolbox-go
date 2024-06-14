@@ -107,11 +107,11 @@ func selfRelationLink(
 		// this must be present because we just got the name form the map
 		ands := usedOptions.Parameters[name]
 
-		for _, ors := range ands {
+		for _, and := range ands {
 			link += fmt.Sprintf("%s=", name)
 
-			for _, or := range ors {
-				link += fmt.Sprintf("%s%s,", or.Prefix, or.Value)
+			for _, or := range and {
+				link += fmt.Sprintf("%s,", or)
 			}
 
 			link = link[:len(link)-1] + "&"

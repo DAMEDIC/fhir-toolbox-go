@@ -93,7 +93,8 @@ func TestHandleRead(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			server := rest.NewServer[model.R4](tt.backend, rest.DefaultConfig)
+			server, err := rest.NewServer[model.R4](tt.backend, rest.DefaultConfig)
+			assert.NoError(t, err)
 			requestURL := fmt.Sprintf("/%s/%s", tt.resourceType, tt.resourceID)
 			req := httptest.NewRequest("GET", requestURL, nil)
 
@@ -410,11 +411,114 @@ func TestHandleSearchType(t *testing.T) {
 				]
 			}`,
 		},
+		{
+			name:         "search date up to minute",
+			resourceType: "Patient",
+			queryString:  "date=ge2024-06-03T16:53Z",
+			config:       rest.DefaultConfig,
+			backend: mockBackend{
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53Z"
+					}
+				]
+			}`,
+		},
+		{
+			name:         "search date up to second",
+			resourceType: "Patient",
+			queryString:  "date=ge2024-06-03T16:53:23Z",
+			config:       rest.DefaultConfig,
+			backend: mockBackend{
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:23Z"
+					}
+				]
+			}`,
+		},
+		{
+			name:         "search date full precision and timezone",
+			resourceType: "Patient",
+			queryString:  "date=ge2024-06-03T16:53:24.444%2b02:00",
+			config:       rest.DefaultConfig,
+			backend: mockBackend{
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:24.444+02:00"
+					}
+				]
+			}`,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			server := rest.NewServer[model.R4](tt.backend, tt.config)
+			server, err := rest.NewServer[model.R4](tt.backend, tt.config)
+			assert.NoError(t, err)
 			base := strings.Trim(tt.config.Base, "/ ")
 			if base != "" {
 				base = "/" + base
@@ -447,7 +551,7 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, ca
 
 func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDesc{
+		Parameters: map[string]search.Desc{
 			"_id":  {Type: search.Token},
 			"date": {Type: search.Date},
 		},
@@ -474,7 +578,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 
 func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDesc{
+		Parameters: map[string]search.Desc{
 			"_id": {Type: search.Token},
 		},
 		Includes: []string{"Observation:patient"},

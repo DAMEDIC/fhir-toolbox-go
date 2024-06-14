@@ -40,7 +40,10 @@ func main() {
 
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	server := rest.NewServer[model.R4](&client, rest.DefaultConfig)
+	server, err := rest.NewServer[model.R4](&client, rest.DefaultConfig)
+	if err != nil {
+		log.Fatalf("unable to create server: %v", err)
+	}
 
 	// Start the server and listen on port 80.
 	log.Fatal(http.ListenAndServe(":80", server))
@@ -85,11 +88,11 @@ func Search[R model.Resource](ctx context.Context, client *Client, options searc
 	resourceType := (*new(R)).ResourceType()
 
 	params := url.Values{}
-	for key, and := range options.Parameters {
-		for _, ors := range and {
-			orStrings := make([]string, 0, len(ors))
-			for _, or := range ors {
-				orStrings = append(orStrings, or.Prefix+or.Value)
+	for key, ands := range options.Parameters {
+		for _, and := range ands {
+			orStrings := make([]string, 0, len(and))
+			for _, or := range and {
+				orStrings = append(orStrings, or.String())
 			}
 			params.Add(key, strings.Join(orStrings, ","))
 		}
@@ -122,7 +125,7 @@ func Search[R model.Resource](ctx context.Context, client *Client, options searc
 func (c *Client) SearchCapabilitiesPatient() search.Capabilities {
 	// These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDesc{
+		Parameters: map[string]search.Desc{
 			"_id": {Type: search.String},
 		},
 	}
@@ -135,7 +138,7 @@ func (c *Client) SearchPatient(ctx context.Context, options search.Options) ([]m
 func (c *Client) SearchCapabilitiesObservation() search.Capabilities {
 	// These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDesc{
+		Parameters: map[string]search.Desc{
 			"_id": {Type: search.String},
 		},
 	}
