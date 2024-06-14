@@ -3,6 +3,7 @@ package dispatch
 import (
 	"context"
 	"fhir-toolbox/capabilities"
+	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/model"
 
 	dispatchR4 "fhir-toolbox/dispatch/gen/r4"
@@ -10,8 +11,8 @@ import (
 
 type Dispatcher struct {
 	Read               func(ctx context.Context, api any, resourceType string, id string) (model.Resource, capabilities.FHIRError)
-	SearchCapabilities func(api any, resourceType string) (capabilities.SearchCapabilities, capabilities.FHIRError)
-	Search             func(ctx context.Context, api any, resourceType string, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError)
+	SearchCapabilities func(api any, resourceType string) (search.Capabilities, capabilities.FHIRError)
+	Search             func(ctx context.Context, api any, resourceType string, options search.Options) ([]model.Resource, capabilities.FHIRError)
 }
 
 func DispatcherFor[R model.Release]() Dispatcher {

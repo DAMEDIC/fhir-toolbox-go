@@ -88,7 +88,7 @@ func withLogging(h http.Handler) http.Handler {
 			"uri", r.RequestURI,
 			"method", r.Method,
 			"status", responseData.status,
-			"duration", duration,
+			"duration", duration.String(),
 			slog.Group("size",
 				"bytes", responseData.size,
 				"readable", humanize.Bytes(uint64(responseData.size)),

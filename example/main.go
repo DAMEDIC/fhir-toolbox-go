@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fhir-toolbox/capabilities/search"
 	"fmt"
 	"log"
 	"log/slog"
@@ -80,13 +81,17 @@ func (c *Client) ReadObservation(ctx context.Context, id string) (r4.Observation
 	return Read[r4.Observation](ctx, c, id)
 }
 
-func Search[R model.Resource](ctx context.Context, client *Client, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+func Search[R model.Resource](ctx context.Context, client *Client, options search.Options) ([]model.Resource, capabilities.FHIRError) {
 	resourceType := (*new(R)).ResourceType()
 
 	params := url.Values{}
 	for key, and := range options.Parameters {
 		for _, ors := range and {
-			params.Add(key, strings.Join(ors, ","))
+			orStrings := make([]string, 0, len(ors))
+			for _, or := range ors {
+				orStrings = append(orStrings, or.Prefix+or.Value)
+			}
+			params.Add(key, strings.Join(orStrings, ","))
 		}
 	}
 
@@ -114,24 +119,28 @@ func Search[R model.Resource](ctx context.Context, client *Client, options capab
 	return resources, nil
 }
 
-func (c *Client) SearchCapabilitiesPatient() capabilities.SearchCapabilities {
+func (c *Client) SearchCapabilitiesPatient() search.Capabilities {
 	// These should be read from the remote servers CapabilityStatement.
-	return capabilities.SearchCapabilities{
-		Parameters: []string{"_id"},
+	return search.Capabilities{
+		Parameters: map[string]search.ParameterDesc{
+			"_id": {Type: search.String},
+		},
 	}
 }
 
-func (c *Client) SearchPatient(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+func (c *Client) SearchPatient(ctx context.Context, options search.Options) ([]model.Resource, capabilities.FHIRError) {
 	return Search[r4.Patient](ctx, c, options)
 }
 
-func (c *Client) SearchCapabilitiesObservation() capabilities.SearchCapabilities {
+func (c *Client) SearchCapabilitiesObservation() search.Capabilities {
 	// These should be read from the remote servers CapabilityStatement.
-	return capabilities.SearchCapabilities{
-		Parameters: []string{"_id"},
+	return search.Capabilities{
+		Parameters: map[string]search.ParameterDesc{
+			"_id": {Type: search.String},
+		},
 	}
 }
 
-func (c *Client) SearchObservation(ctx context.Context, options capabilities.SearchOptions) ([]model.Resource, capabilities.FHIRError) {
+func (c *Client) SearchObservation(ctx context.Context, options search.Options) ([]model.Resource, capabilities.FHIRError) {
 	return Search[r4.Observation](ctx, c, options)
 }

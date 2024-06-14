@@ -23,7 +23,8 @@ func TestRoundtripJSONR4Integration(t *testing.T) {
 			t.Parallel()
 
 			var r model.Resource
-			json.Unmarshal(jsonIn, &r)
+			err := json.Unmarshal(jsonIn, &r)
+			assert.NoError(t, err)
 
 			jsonOut, err := json.Marshal(r)
 			assert.NoError(t, err)

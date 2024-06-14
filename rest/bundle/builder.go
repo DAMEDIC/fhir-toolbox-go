@@ -2,6 +2,7 @@ package bundle
 
 import (
 	"fhir-toolbox/capabilities"
+	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/basic"
 	"fmt"
@@ -9,11 +10,12 @@ import (
 	"strings"
 )
 
+// NewSearchBundle creates a new search bundle from the given resources and parameters.
 func NewSearchBundle(
 	matchResourceType string,
 	resources []model.Resource,
-	usedOptions capabilities.SearchOptions,
-	searchCapabilities capabilities.SearchCapabilities,
+	usedOptions search.Options,
+	searchCapabilities search.Capabilities,
 	baseURL string,
 ) (basic.Bundle, capabilities.FHIRError) {
 	entries, err := entries(matchResourceType, resources, baseURL)
@@ -26,7 +28,12 @@ func NewSearchBundle(
 		Link: []basic.BundleLink{
 			{
 				Relation: "self",
-				Url:      selfRelationLink(matchResourceType, usedOptions, searchCapabilities, baseURL),
+				Url: selfRelationLink(
+					matchResourceType,
+					usedOptions,
+					searchCapabilities,
+					baseURL,
+				),
 			},
 		},
 		Entry: entries,
@@ -70,8 +77,8 @@ func entry(resource model.Resource, searchMode, baseURL string) (basic.BundleEnt
 
 func selfRelationLink(
 	resourceType string,
-	usedOptions capabilities.SearchOptions,
-	searchCapabilities capabilities.SearchCapabilities,
+	usedOptions search.Options,
+	searchCapabilities search.Capabilities,
 	baseURL string,
 ) string {
 	link := fmt.Sprintf("%s/%s?", strings.TrimRight(baseURL, "/"), resourceType)
@@ -83,13 +90,33 @@ func selfRelationLink(
 		}
 	}
 
+	allParams := make([]string, 0, len(usedOptions.Parameters))
+	for param := range usedOptions.Parameters {
+		allParams = append(allParams, param)
+	}
+	// sort alphabetically to make the result deterministic
+	slices.Sort(allParams)
+
 	// only include parameters that were actually used
-	for param, ands := range usedOptions.Parameters {
-		if slices.Contains(searchCapabilities.Parameters, param) {
-			for _, ors := range ands {
-				link += fmt.Sprintf("%s=%s&", param, strings.Join(ors, ","))
-			}
+	for _, name := range allParams {
+		_, isSupportedParameter := searchCapabilities.Parameters[name]
+		if !isSupportedParameter {
+			continue
 		}
+
+		// this must be present because we just got the name form the map
+		ands := usedOptions.Parameters[name]
+
+		for _, ors := range ands {
+			link += fmt.Sprintf("%s=", name)
+
+			for _, or := range ors {
+				link += fmt.Sprintf("%s%s,", or.Prefix, or.Value)
+			}
+
+			link = link[:len(link)-1] + "&"
+		}
+
 	}
 
 	// strip the trailing "&" or "?"
