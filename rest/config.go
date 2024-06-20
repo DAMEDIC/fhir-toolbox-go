@@ -1,17 +1,18 @@
 package rest
 
 import (
-	"cmp"
-	"os"
 	"time"
 )
 
 type Config struct {
-	Base     string `json:"base"`
-	Timezone string `json:"timezone"`
+	Base         string `json:"base"`
+	Timezone     string `json:"timezone"`
+	MaxCount     int    `json:"maxCount"`
+	DefaultCount int    `json:"defaultCount"`
 }
 
 var DefaultConfig = Config{
-	Base:     cmp.Or(os.Getenv("SERVER_BASE"), ""),
-	Timezone: time.Now().Location().String(),
+	Timezone:     time.Now().Location().String(),
+	MaxCount:     500,
+	DefaultCount: 500,
 }

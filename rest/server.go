@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -35,7 +36,12 @@ func registerRoutes(
 	backend Backend,
 	config Config,
 ) error {
-	base := strings.Trim(config.Base, "/ ")
+	baseUrl, err := url.Parse(config.Base)
+	if err != nil {
+		return fmt.Errorf("unable to parse base URL: %w", err)
+	}
+
+	base := strings.Trim(baseUrl.Path, "/ ")
 	if base != "" {
 		base = "/" + base
 	}
@@ -46,7 +52,7 @@ func registerRoutes(
 	}
 
 	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", base), handleRead(dispatch, backend))
-	mux.Handle(fmt.Sprintf("GET %s/{type}", base), handleSearchType(dispatch, backend, base, tz))
+	mux.Handle(fmt.Sprintf("GET %s/{type}", base), handleSearchType(dispatch, backend, base, tz, config.MaxCount, config.DefaultCount))
 
 	return nil
 }
@@ -78,11 +84,23 @@ func handleSearchType(
 	backend Backend,
 	base string,
 	tz *time.Location,
+	maxCount,
+	defaultCount int,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		resourceType := r.PathValue("type")
 
-		status, resource := searchType(r.Context(), dispatch, backend, resourceType, r.URL.Query(), baseURL(r.URL.Scheme, r.Host, base), tz)
+		status, resource := searchType(
+			r.Context(),
+			dispatch,
+			backend,
+			resourceType,
+			r.URL.Query(),
+			baseURL(r.URL.Scheme, r.Host, base),
+			tz,
+			maxCount,
+			defaultCount,
+		)
 		if outcome, ok := resource.(basic.OperationOutcome); ok {
 			slog.Error("error searching resource", "resourceType", resourceType, "OperationOutcome", outcome)
 		}

@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -23,10 +24,12 @@ func searchType(
 	parameters url.Values,
 	baseURL string,
 	tz *time.Location,
+	maxCount,
+	defaultCount int,
 ) (int, model.Resource) {
 	searchCapabilities, err := dispatch.SearchCapabilities(backend, resourceType)
 
-	options, err := parseSearchOptions(searchCapabilities, parameters, tz)
+	options, err := parseSearchOptions(searchCapabilities, parameters, tz, maxCount, defaultCount)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
@@ -44,11 +47,29 @@ func searchType(
 	return http.StatusOK, bundle
 }
 
-func parseSearchOptions(searchCapabilities search.Capabilities, params url.Values, tz *time.Location) (search.Options, capabilities.FHIRError) {
+func parseSearchOptions(
+	searchCapabilities search.Capabilities,
+	params url.Values,
+	tz *time.Location,
+	maxCount,
+	defaultCount int,
+) (search.Options, capabilities.FHIRError) {
 	options := search.Options{
 		// need to initialize empty map
 		Parameters: make(search.Parameters),
 	}
+
+	count, err := parseCount(params, maxCount, defaultCount)
+	if err != nil {
+		return search.Options{}, err
+	}
+	options.Count = count
+
+	cursor, err := parseCursor(params)
+	if err != nil {
+		return search.Options{}, err
+	}
+	options.Cursor = cursor
 
 	for k, v := range params {
 		switch k {
@@ -89,6 +110,43 @@ func parseSearchOptions(searchCapabilities search.Capabilities, params url.Value
 	}
 
 	return options, nil
+}
+
+func parseCount(params url.Values, maxCount, defaultCount int) (int, capabilities.FHIRError) {
+	if count, ok := params["_count"]; ok {
+		if len(count) != 1 {
+			return 0, SearchError{
+				error: fmt.Errorf("multiple _count parameters"),
+			}
+		}
+		countInt, err := strconv.Atoi(count[0])
+		if err != nil {
+			return 0, SearchError{
+				error: fmt.Errorf("invalid _count parameter: %w", err),
+			}
+		}
+		countInt = min(countInt, maxCount)
+		return countInt, nil
+	}
+	return defaultCount, nil
+}
+
+func parseCursor(params url.Values) (search.Cursor, capabilities.FHIRError) {
+	if cursorList, ok := params["_cursor"]; ok {
+		if len(cursorList) != 1 {
+			return 0, SearchError{
+				error: fmt.Errorf("multiple _cursor parameters"),
+			}
+		}
+		cursor, err := strconv.Atoi(cursorList[0])
+		if err != nil {
+			return 0, SearchError{
+				error: fmt.Errorf("invalid _cursor parameter (expected integer): %w", err),
+			}
+		}
+		return search.Cursor(cursor), nil
+	}
+	return 0, nil
 }
 
 func parseSearchValue(typ search.Type, value string, tz *time.Location) (search.Value, error) {

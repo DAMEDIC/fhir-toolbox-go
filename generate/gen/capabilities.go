@@ -29,19 +29,19 @@ var (
 		Id("id"): String(),
 	}
 	searchParams = map[Code]Code{
-		Id("options"): Qual("fhir-toolbox/capabilities", "SearchOptions"),
+		Id("options"): Qual("fhir-toolbox/capabilities/search", "Options"),
 	}
-	searchCapabilitiesReturn = Qual("fhir-toolbox/capabilities", "SearchCapabilities")
+	searchCapabilitiesReturn = Qual("fhir-toolbox/capabilities/search", "Capabilities")
 )
 
-type returnTypeFunc = func(typeName, releaseLower string) Code
+type returnTypeFunc = func(typeName, releaseLower string) *Statement
 
-func readReturn(typeName, release string) Code {
+func readReturn(typeName, release string) *Statement {
 	return Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), typeName)
 }
 
-func searchReturn(typeName, release string) Code {
-	return Index().Qual("fhir-toolbox/model", "Resource")
+func searchReturn(_, _ string) *Statement {
+	return Qual("fhir-toolbox/capabilities/search", "Result")
 }
 
 func generateCapability(genDir string, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {

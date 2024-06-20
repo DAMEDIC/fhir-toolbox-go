@@ -147,7 +147,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=1"
+						"url":"http://example.com/Patient?_id=1&_count=500"
 					}
 				]
 			}`,
@@ -192,7 +192,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=1,2"
+						"url":"http://example.com/Patient?_id=1,2&_count=500"
 					}
 				]
 			}`,
@@ -237,7 +237,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=1&_id=2"
+						"url":"http://example.com/Patient?_id=1&_id=2&_count=500"
 					}
 				]
 			}`,
@@ -271,7 +271,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=1"
+						"url":"http://example.com/Patient?_id=1&_count=500"
 					}
 				]
 			}`,
@@ -320,7 +320,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Observation?_include=Observation:patient&_id=1"
+						"url":"http://example.com/Observation?_include=Observation:patient&_id=1&_count=500"
 					}
 				]
 			}`,
@@ -329,7 +329,7 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle with base path",
 			resourceType: "Patient",
 			queryString:  "_id=1",
-			config:       rest.Config{Base: "///fhir// / "},
+			config:       rest.Config{Base: "///fhir// / ", DefaultCount: 500},
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -354,7 +354,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/fhir/Patient?_id=1"
+						"url":"http://example.com/fhir/Patient?_id=1&_count=500"
 					}
 				]
 			}`,
@@ -406,7 +406,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=ge1&date=ge2024-06-03"
+						"url":"http://example.com/Patient?_id=ge1&date=ge2024-06-03&_count=500"
 					}
 				]
 			}`,
@@ -440,7 +440,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53Z"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53Z&_count=500"
 					}
 				]
 			}`,
@@ -474,7 +474,7 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:23Z"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:23Z&_count=500"
 					}
 				]
 			}`,
@@ -508,7 +508,80 @@ func TestHandleSearchType(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:24.444+02:00"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:24.444+02:00&_count=500"
+					}
+				]
+			}`,
+		},
+		{
+			name:         "search with count and cursor",
+			resourceType: "Patient",
+			queryString:  "_count=1&_cursor=2",
+			config:       rest.DefaultConfig,
+			backend: mockBackend{
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?_cursor=2&_count=1"
+					}
+				]
+			}`,
+		},
+		{
+			name:         "search with next link",
+			resourceType: "Patient",
+			queryString:  "_count=1",
+			config:       rest.DefaultConfig,
+			backend: mockBackend{
+				nextCursor: 2,
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?_count=1"
+					},
+					{
+						"relation":"next",
+						"url":"http://example.com/Patient?_cursor=2&_count=1"
 					}
 				]
 			}`,
@@ -538,6 +611,7 @@ func TestHandleSearchType(t *testing.T) {
 }
 
 type mockBackend struct {
+	nextCursor       search.Cursor
 	mockPatients     []r4.Patient
 	mockObservations []r4.Observation
 }
@@ -558,7 +632,7 @@ func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 	}
 }
 
-func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) ([]model.Resource, capabilities.FHIRError) {
+func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	t := ctx.Value("t").(*testing.T)
 
 	if options.Parameters["_id"] != nil {
@@ -569,11 +643,17 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 		}
 	}
 
-	var resouces []model.Resource
+	result := search.Result{}
+
 	for _, p := range m.mockPatients {
-		resouces = append(resouces, p)
+		result.Resources = append(result.Resources, p)
 	}
-	return resouces, nil
+
+	if m.nextCursor != 0 {
+		result.Next = m.nextCursor
+	}
+
+	return result, nil
 }
 
 func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
@@ -585,7 +665,7 @@ func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	}
 }
 
-func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) ([]model.Resource, capabilities.FHIRError) {
+func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	var resouces []model.Resource
 	for _, p := range m.mockPatients {
 		resouces = append(resouces, p)
@@ -593,5 +673,7 @@ func (m mockBackend) SearchObservation(ctx context.Context, options search.Optio
 	for _, p := range m.mockObservations {
 		resouces = append(resouces, p)
 	}
-	return resouces, nil
+	return search.Result{
+		Resources: resouces,
+	}, nil
 }

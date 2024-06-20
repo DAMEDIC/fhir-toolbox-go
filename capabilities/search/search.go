@@ -1,9 +1,17 @@
 package search
 
 import (
+	"fhir-toolbox/model"
 	"fmt"
 	"time"
 )
+
+type Cursor int
+
+type Result struct {
+	Resources []model.Resource
+	Next      Cursor
+}
 
 type Capabilities struct {
 	Parameters map[string]Desc
@@ -31,6 +39,8 @@ const (
 type Options struct {
 	Parameters Parameters
 	Includes   []string
+	Count      int
+	Cursor     Cursor
 }
 
 type Parameters = map[string]AndList

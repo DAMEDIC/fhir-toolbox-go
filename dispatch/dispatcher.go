@@ -12,7 +12,7 @@ import (
 type Dispatcher struct {
 	Read               func(ctx context.Context, api any, resourceType string, id string) (model.Resource, capabilities.FHIRError)
 	SearchCapabilities func(api any, resourceType string) (search.Capabilities, capabilities.FHIRError)
-	Search             func(ctx context.Context, api any, resourceType string, options search.Options) ([]model.Resource, capabilities.FHIRError)
+	Search             func(ctx context.Context, api any, resourceType string, options search.Options) (search.Result, capabilities.FHIRError)
 }
 
 func DispatcherFor[R model.Release]() Dispatcher {

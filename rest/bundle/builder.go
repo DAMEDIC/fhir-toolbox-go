@@ -13,31 +13,50 @@ import (
 // NewSearchBundle creates a new search bundle from the given resources and parameters.
 func NewSearchBundle(
 	matchResourceType string,
-	resources []model.Resource,
+	result search.Result,
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL string,
 ) (basic.Bundle, capabilities.FHIRError) {
-	entries, err := entries(matchResourceType, resources, baseURL)
+	entries, err := entries(matchResourceType, result.Resources, baseURL)
 	if err != nil {
 		return basic.Bundle{}, err
 	}
 
-	return basic.Bundle{
+	bundle := basic.Bundle{
 		Type: "searchset",
 		Link: []basic.BundleLink{
 			{
 				Relation: "self",
-				Url: selfRelationLink(
+				Url: relationLink(
 					matchResourceType,
 					usedOptions,
 					searchCapabilities,
 					baseURL,
+					usedOptions.Cursor,
+					usedOptions.Count,
 				),
 			},
 		},
 		Entry: entries,
-	}, nil
+	}
+
+	if result.Next != 0 {
+		bundle.Link = append(bundle.Link, basic.BundleLink{
+			Relation: "next",
+			Url: relationLink(
+				matchResourceType,
+				usedOptions,
+				searchCapabilities,
+				baseURL,
+				result.Next,
+				usedOptions.Count,
+			),
+		})
+
+	}
+
+	return bundle, nil
 }
 
 func entries(matchResourceType string, resources []model.Resource, baseURL string) ([]basic.BundleEntry, capabilities.FHIRError) {
@@ -75,11 +94,13 @@ func entry(resource model.Resource, searchMode, baseURL string) (basic.BundleEnt
 	}, nil
 }
 
-func selfRelationLink(
+func relationLink(
 	resourceType string,
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL string,
+	cursor search.Cursor,
+	count int,
 ) string {
 	link := fmt.Sprintf("%s/%s?", strings.TrimRight(baseURL, "/"), resourceType)
 
@@ -118,6 +139,12 @@ func selfRelationLink(
 		}
 
 	}
+
+	if cursor != 0 {
+		link += fmt.Sprintf("_cursor=%v&", cursor)
+	}
+
+	link += fmt.Sprintf("_count=%d&", count)
 
 	// strip the trailing "&" or "?"
 	return link[:len(link)-1]
