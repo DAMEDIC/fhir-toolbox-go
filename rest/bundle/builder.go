@@ -6,6 +6,7 @@ import (
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/basic"
 	"fmt"
+	"net/url"
 	"slices"
 	"strings"
 )
@@ -16,7 +17,7 @@ func NewSearchBundle(
 	result search.Result,
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
-	baseURL string,
+	baseURL *url.URL,
 ) (basic.Bundle, capabilities.FHIRError) {
 	entries, err := entries(matchResourceType, result.Resources, baseURL)
 	if err != nil {
@@ -59,7 +60,7 @@ func NewSearchBundle(
 	return bundle, nil
 }
 
-func entries(matchResourceType string, resources []model.Resource, baseURL string) ([]basic.BundleEntry, capabilities.FHIRError) {
+func entries(matchResourceType string, resources []model.Resource, baseURL *url.URL) ([]basic.BundleEntry, capabilities.FHIRError) {
 	entries := make([]basic.BundleEntry, 0, len(resources))
 
 	for _, r := range resources {
@@ -77,17 +78,23 @@ func entries(matchResourceType string, resources []model.Resource, baseURL strin
 	return entries, nil
 }
 
-func entry(resource model.Resource, searchMode, baseURL string) (basic.BundleEntry, capabilities.FHIRError) {
-	trimmedBaseURL := strings.TrimRight(baseURL, "/")
+func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.BundleEntry, capabilities.FHIRError) {
 	resourceType := resource.ResourceType()
 	resourceID, ok := resource.ResourceId()
 	if !ok {
 		return basic.BundleEntry{}, MissingIdError{ResourceType: resourceType}
 	}
 
+	path := strings.Trim(baseURL.Path, "/ ")
+	fullURL := url.URL{
+		Scheme: baseURL.Scheme,
+		Host:   baseURL.Host,
+		Path:   fmt.Sprintf("%s/%s/%s", path, resourceType, resourceID),
+	}
+
 	return basic.BundleEntry{
 		Resource: resource,
-		FullUrl:  fmt.Sprintf("%s/%s/%s", trimmedBaseURL, resourceType, resourceID),
+		FullUrl:  fullURL.String(),
 		Search: basic.BundleEntrySearch{
 			Mode: searchMode,
 		},
@@ -98,16 +105,21 @@ func relationLink(
 	resourceType string,
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
-	baseURL string,
+	baseURL *url.URL,
 	cursor search.Cursor,
 	count int,
 ) string {
-	link := fmt.Sprintf("%s/%s?", strings.TrimRight(baseURL, "/"), resourceType)
+	path := strings.Trim(baseURL.Path, "/ ")
+	link := url.URL{
+		Scheme: baseURL.Scheme,
+		Host:   baseURL.Host,
+		Path:   fmt.Sprintf("%s/%s", path, resourceType),
+	}
 
 	// only include includes that were actually used
 	for _, include := range usedOptions.Includes {
 		if slices.Contains(searchCapabilities.Includes, include) {
-			link += fmt.Sprintf("_include=%s&", include)
+			link.RawQuery += fmt.Sprintf("_include=%s&", include)
 		}
 	}
 
@@ -129,23 +141,25 @@ func relationLink(
 		ands := usedOptions.Parameters[name]
 
 		for _, and := range ands {
-			link += fmt.Sprintf("%s=", name)
+			link.RawQuery += fmt.Sprintf("%s=", name)
 
 			for _, or := range and {
-				link += fmt.Sprintf("%s,", or)
+				link.RawQuery += fmt.Sprintf("%s,", or)
 			}
 
-			link = link[:len(link)-1] + "&"
+			link.RawQuery = strings.TrimRight(link.RawQuery, ",")
+			link.RawQuery += "&"
 		}
 
 	}
 
 	if cursor != 0 {
-		link += fmt.Sprintf("_cursor=%v&", cursor)
+		link.RawQuery += fmt.Sprintf("_cursor=%v&", cursor)
 	}
 
-	link += fmt.Sprintf("_count=%d&", count)
+	link.RawQuery += fmt.Sprintf("_count=%d&", count)
 
 	// strip the trailing "&" or "?"
-	return link[:len(link)-1]
+	link.RawQuery = strings.TrimRight(link.RawQuery, "&?")
+	return link.String()
 }

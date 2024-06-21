@@ -36,14 +36,14 @@ func registerRoutes(
 	backend Backend,
 	config Config,
 ) error {
-	baseUrl, err := url.Parse(config.Base)
+	baseURL, err := url.Parse(config.Base)
 	if err != nil {
 		return fmt.Errorf("unable to parse base URL: %w", err)
 	}
 
-	base := strings.Trim(baseUrl.Path, "/ ")
-	if base != "" {
-		base = "/" + base
+	basePath := strings.Trim(baseURL.Path, "/ ")
+	if basePath != "" {
+		basePath = "/" + basePath
 	}
 
 	tz, err := time.LoadLocation(config.Timezone)
@@ -51,13 +51,13 @@ func registerRoutes(
 		return fmt.Errorf("unable to load timezone: %w", err)
 	}
 
-	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", base), handleRead(dispatch, backend))
-	mux.Handle(fmt.Sprintf("GET %s/{type}", base), handleSearchType(dispatch, backend, base, tz, config.MaxCount, config.DefaultCount))
+	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath), readHandler(dispatch, backend))
+	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath), searchHandler(dispatch, backend, baseURL, tz, config.MaxCount, config.DefaultCount))
 
 	return nil
 }
 
-func handleRead(
+func readHandler(
 	dispatch dispatch.Dispatcher,
 	backend Backend,
 ) http.Handler {
@@ -65,7 +65,7 @@ func handleRead(
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		status, resource := read(r.Context(), dispatch, backend, resourceType, resourceID)
+		status, resource := dispatchRead(r.Context(), dispatch, backend, resourceType, resourceID)
 		if outcome, ok := resource.(basic.OperationOutcome); ok {
 			slog.Error("error reading resource", "resourceType", resourceType, "OperationOutcome", outcome)
 		}
@@ -79,10 +79,10 @@ func handleRead(
 	})
 }
 
-func handleSearchType(
+func searchHandler(
 	dispatch dispatch.Dispatcher,
 	backend Backend,
-	base string,
+	baseURL *url.URL,
 	tz *time.Location,
 	maxCount,
 	defaultCount int,
@@ -90,13 +90,13 @@ func handleSearchType(
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		resourceType := r.PathValue("type")
 
-		status, resource := searchType(
+		status, resource := dispatchSearch(
 			r.Context(),
 			dispatch,
 			backend,
 			resourceType,
 			r.URL.Query(),
-			baseURL(r.URL.Scheme, r.Host, base),
+			baseURL,
 			tz,
 			maxCount,
 			defaultCount,
@@ -112,11 +112,4 @@ func handleSearchType(
 			return
 		}
 	})
-}
-
-func baseURL(scheme, host, base string) string {
-	if scheme == "" {
-		scheme = "http"
-	}
-	return fmt.Sprintf("%s://%s%s", scheme, host, base)
 }

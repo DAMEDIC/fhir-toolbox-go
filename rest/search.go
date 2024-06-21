@@ -16,13 +16,13 @@ import (
 	"time"
 )
 
-func searchType(
+func dispatchSearch(
 	context context.Context,
 	dispatch dispatch.Dispatcher,
 	backend Backend,
 	resourceType string,
 	parameters url.Values,
-	baseURL string,
+	baseURL *url.URL,
 	tz *time.Location,
 	maxCount,
 	defaultCount int,

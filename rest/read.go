@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func read(
+func dispatchRead(
 	context context.Context,
 	dispatch dispatch.Dispatcher,
 	backend Backend,

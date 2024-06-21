@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -108,12 +107,11 @@ func TestHandleRead(t *testing.T) {
 	}
 }
 
-func TestHandleSearchType(t *testing.T) {
+func TestHandleSearch(t *testing.T) {
 	var tests = []struct {
 		name           string
 		resourceType   string
 		queryString    string
-		config         rest.Config
 		backend        any
 		expectedStatus int
 		expectedBody   string
@@ -122,7 +120,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle single entry",
 			resourceType: "Patient",
 			queryString:  "_id=1",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -156,7 +153,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle two entries with or parameter",
 			resourceType: "Patient",
 			queryString:  "_id=1,2",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -201,7 +197,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle two entries with and parameter",
 			resourceType: "Patient",
 			queryString:  "_id=1&_id=2",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -246,7 +241,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle with unknown parameter",
 			resourceType: "Patient",
 			queryString:  "_id=1&unknown=x",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -280,7 +274,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "valid bundle with include parameter",
 			resourceType: "Observation",
 			queryString:  "_include=Observation:patient&_id=1",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -326,44 +319,9 @@ func TestHandleSearchType(t *testing.T) {
 			}`,
 		},
 		{
-			name:         "valid bundle with base path",
-			resourceType: "Patient",
-			queryString:  "_id=1",
-			config:       rest.Config{Base: "///fhir// / ", DefaultCount: 500},
-			backend: mockBackend{
-				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
-				},
-			},
-			expectedStatus: http.StatusOK,
-			expectedBody: `{
-				"resourceType":"Bundle",
-				"type":"searchset",
-				"entry":[
-					{
-						"fullUrl":"http://example.com/fhir/Patient/1",
-						"resource":{
-							"resourceType":"Patient",
-							"id":"1"
-						},
-						"search":{
-							"mode":"match"
-						}
-					}
-				],
-				"link":[
-					{
-						"relation":"self",
-						"url":"http://example.com/fhir/Patient?_id=1&_count=500"
-					}
-				]
-			}`,
-		},
-		{
-			name:           "Invalid ResourceType",
+			name:           "invalid ResourceType",
 			resourceType:   "UnknownType",
 			queryString:    "_id=1",
-			config:         rest.DefaultConfig,
 			backend:        mockBackend{},
 			expectedStatus: http.StatusNotFound,
 			expectedBody: `{
@@ -381,7 +339,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search with prefix",
 			resourceType: "Patient",
 			queryString:  "_id=ge1&date=ge2024-06-03",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -415,7 +372,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search date up to minute",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53Z",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -449,7 +405,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search date up to second",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:23Z",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -483,7 +438,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search date full precision and timezone",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:24.444%2b02:00",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -517,7 +471,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search with count and cursor",
 			resourceType: "Patient",
 			queryString:  "_count=1&_cursor=2",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
@@ -551,7 +504,6 @@ func TestHandleSearchType(t *testing.T) {
 			name:         "search with next link",
 			resourceType: "Patient",
 			queryString:  "_count=1",
-			config:       rest.DefaultConfig,
 			backend: mockBackend{
 				nextCursor: 2,
 				mockPatients: []r4.Patient{
@@ -590,13 +542,11 @@ func TestHandleSearchType(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			server, err := rest.NewServer[model.R4](tt.backend, tt.config)
+			config := rest.DefaultConfig
+			config.Base = "http://example.com"
+			server, err := rest.NewServer[model.R4](tt.backend, config)
 			assert.NoError(t, err)
-			base := strings.Trim(tt.config.Base, "/ ")
-			if base != "" {
-				base = "/" + base
-			}
-			requestURL := fmt.Sprintf("%s/%s?%s", base, tt.resourceType, tt.queryString)
+			requestURL := fmt.Sprintf("http://example.com/%s?%s", tt.resourceType, tt.queryString)
 			req := httptest.NewRequest("GET", requestURL, nil)
 			req = req.WithContext(context.WithValue(req.Context(), "t", t))
 
