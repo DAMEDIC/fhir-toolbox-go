@@ -42,7 +42,7 @@ func NewSearchBundle(
 		Entry: entries,
 	}
 
-	if result.Next != 0 {
+	if result.Next != "" {
 		bundle.Link = append(bundle.Link, basic.BundleLink{
 			Relation: "next",
 			Url: relationLink(
@@ -153,8 +153,8 @@ func relationLink(
 
 	}
 
-	if cursor != 0 {
-		link.RawQuery += fmt.Sprintf("_cursor=%v&", cursor)
+	if cursor != "" {
+		link.RawQuery += fmt.Sprintf("_cursor=%s&", cursor)
 	}
 
 	link.RawQuery += fmt.Sprintf("_count=%d&", count)

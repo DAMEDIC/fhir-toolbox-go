@@ -505,7 +505,7 @@ func TestHandleSearch(t *testing.T) {
 			resourceType: "Patient",
 			queryString:  "_count=1",
 			backend: mockBackend{
-				nextCursor: 2,
+				nextCursor: "2",
 				mockPatients: []r4.Patient{
 					{Id: &r4.Id{Value: utils.Ptr("1")}},
 				},
@@ -599,7 +599,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 		result.Resources = append(result.Resources, p)
 	}
 
-	if m.nextCursor != 0 {
+	if m.nextCursor != "" {
 		result.Next = m.nextCursor
 	}
 

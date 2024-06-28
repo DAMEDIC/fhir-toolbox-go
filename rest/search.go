@@ -134,19 +134,13 @@ func parseCount(params url.Values, maxCount, defaultCount int) (int, capabilitie
 func parseCursor(params url.Values) (search.Cursor, capabilities.FHIRError) {
 	if cursorList, ok := params["_cursor"]; ok {
 		if len(cursorList) != 1 {
-			return 0, SearchError{
+			return "", SearchError{
 				error: fmt.Errorf("multiple _cursor parameters"),
 			}
 		}
-		cursor, err := strconv.Atoi(cursorList[0])
-		if err != nil {
-			return 0, SearchError{
-				error: fmt.Errorf("invalid _cursor parameter (expected integer): %w", err),
-			}
-		}
-		return search.Cursor(cursor), nil
+		return search.Cursor(cursorList[0]), nil
 	}
-	return 0, nil
+	return "", nil
 }
 
 func parseSearchValue(typ search.Type, value string, tz *time.Location) (search.Value, error) {

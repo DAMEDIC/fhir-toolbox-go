@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Cursor int
+type Cursor string
 
 type Result struct {
 	Resources []model.Resource
