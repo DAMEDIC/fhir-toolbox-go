@@ -144,7 +144,7 @@ func relationLink(
 			link.RawQuery += fmt.Sprintf("%s=", name)
 
 			for _, or := range and {
-				link.RawQuery += fmt.Sprintf("%s,", or)
+				link.RawQuery += fmt.Sprintf("%s,", url.QueryEscape(or.String()))
 			}
 
 			link.RawQuery = strings.TrimRight(link.RawQuery, ",")

@@ -396,7 +396,7 @@ func TestHandleSearch(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53Z&_count=500"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16%3A53Z&_count=500"
 					}
 				]
 			}`,
@@ -429,7 +429,7 @@ func TestHandleSearch(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:23Z&_count=500"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16%3A53%3A23Z&_count=500"
 					}
 				]
 			}`,
@@ -462,7 +462,7 @@ func TestHandleSearch(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?date=ge2024-06-03T16:53:24.444+02:00&_count=500"
+						"url":"http://example.com/Patient?date=ge2024-06-03T16%3A53%3A24.444%2B02%3A00&_count=500"
 					}
 				]
 			}`,
