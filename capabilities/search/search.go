@@ -62,9 +62,11 @@ const (
 	LessThan       Prefix = "lt"
 	GreaterOrEqual Prefix = "ge"
 	LessOrEqual    Prefix = "le"
+	StartsAfter    Prefix = "sa"
+	EndsBefore     Prefix = "eb"
 )
 
-var KnownPrefixes = []Prefix{Equal, NotEqual, GreaterThan, LessThan, GreaterOrEqual, LessOrEqual}
+var KnownPrefixes = []Prefix{Equal, NotEqual, GreaterThan, LessThan, GreaterOrEqual, LessOrEqual, StartsAfter, EndsBefore}
 
 type DatePrecision string
 

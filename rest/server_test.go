@@ -369,6 +369,39 @@ func TestHandleSearch(t *testing.T) {
 			}`,
 		},
 		{
+			name:         "search with all supported prefixes",
+			resourceType: "Patient",
+			queryString:  "eq1=eq1&ne2=ne2&gt3=gt3&lt4=lt4&ge5=ge5&le6=le6&sa7=sa7&eb8=eb8",
+			backend: mockBackend{
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?eb8=eb8&eq1=eq1&ge5=ge5&gt3=gt3&le6=le6&lt4=lt4&ne2=ne2&sa7=sa7&_count=500"
+					}
+				]
+			}`,
+		},
+		{
 			name:         "search date up to minute",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53Z",
@@ -578,6 +611,14 @@ func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 		Parameters: map[string]search.Desc{
 			"_id":  {Type: search.Token},
 			"date": {Type: search.Date},
+			"eq1":  {Type: search.Token},
+			"ne2":  {Type: search.Token},
+			"gt3":  {Type: search.Token},
+			"lt4":  {Type: search.Token},
+			"ge5":  {Type: search.Token},
+			"le6":  {Type: search.Token},
+			"sa7":  {Type: search.Token},
+			"eb8":  {Type: search.Token},
 		},
 	}
 }
