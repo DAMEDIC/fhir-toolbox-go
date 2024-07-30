@@ -2,19 +2,18 @@ package rest
 
 import (
 	"context"
-	"fhir-toolbox/dispatch"
+	"fhir-toolbox/capabilities"
 	"fhir-toolbox/model"
 	"net/http"
 )
 
 func dispatchRead(
 	context context.Context,
-	dispatch dispatch.Dispatcher,
-	backend Backend,
+	backend capabilities.GenericAPI,
 	resourceType string,
 	resourceID string,
 ) (int, model.Resource) {
-	resource, err := dispatch.Read(context, backend, resourceType, resourceID)
+	resource, err := backend.Read(context, resourceType, resourceID)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

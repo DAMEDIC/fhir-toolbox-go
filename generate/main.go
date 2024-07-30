@@ -9,18 +9,18 @@ import (
 )
 
 var (
-	buildReleases           = []string{"R4"}
-	definitionsURLFmtStr    = "http://hl7.org/fhir/%s/definitions.json.zip"
-	modelGenTarget          = "model/gen"
-	capabilitiesGenTarget   = "capabilities/gen"
-	serverDispatchGenTarget = "dispatch/gen"
+	buildReleases         = []string{"R4"}
+	definitionsURLFmtStr  = "http://hl7.org/fhir/%s/definitions.json.zip"
+	modelGenTarget        = "model/gen"
+	capabilitiesGenTarget = "capabilities/gen"
+	genericGenTarget      = "generic/gen"
 )
 
 func main() {
 	fmt.Println("Running code generation...")
 	os.RemoveAll(modelGenTarget)
 	os.RemoveAll(capabilitiesGenTarget)
-	os.RemoveAll(serverDispatchGenTarget)
+	os.RemoveAll(genericGenTarget)
 
 	for _, r := range buildReleases {
 		log.Printf("Generating for FHIR %v ...\n", r)
@@ -37,7 +37,7 @@ func main() {
 		gen.GenerateMarshalHelpers(allResourcesStructs, modelGenTarget, r)
 
 		gen.GenerateCapabilityInterfaces(allResourcesStructs, capabilitiesGenTarget, r)
-		gen.GenerateServerDispatch(allResourcesStructs, serverDispatchGenTarget, r)
+		gen.GenerateGeneric(allResourcesStructs, genericGenTarget, r)
 	}
 
 	log.Println("Code generation done.")

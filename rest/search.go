@@ -4,7 +4,6 @@ import (
 	"context"
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/dispatch"
 	"fhir-toolbox/model"
 	"fhir-toolbox/rest/bundle"
 	"fmt"
@@ -18,8 +17,7 @@ import (
 
 func dispatchSearch(
 	context context.Context,
-	dispatch dispatch.Dispatcher,
-	backend Backend,
+	backend capabilities.GenericAPI,
 	resourceType string,
 	parameters url.Values,
 	baseURL *url.URL,
@@ -27,14 +25,14 @@ func dispatchSearch(
 	maxCount,
 	defaultCount int,
 ) (int, model.Resource) {
-	searchCapabilities, err := dispatch.SearchCapabilities(backend, resourceType)
+	searchCapabilities, err := backend.SearchCapabilities(resourceType)
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, maxCount, defaultCount)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	resources, err := dispatch.Search(context, backend, resourceType, options)
+	resources, err := backend.Search(context, resourceType, options)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

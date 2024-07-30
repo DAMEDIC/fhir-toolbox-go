@@ -11,7 +11,7 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func GenerateServerDispatch(resources []ir.Struct, genTarget, release string) {
+func GenerateGeneric(resources []ir.Struct, genTarget, release string) {
 	dir := filepath.Join(genTarget, strings.ToLower(release))
 
 	err := os.MkdirAll(dir, os.ModePerm)
@@ -19,20 +19,35 @@ func GenerateServerDispatch(resources []ir.Struct, genTarget, release string) {
 		log.Panic(err)
 	}
 
-	generateDispatch(dir, release, resources, "read", readParams, anyReadReturn)
-	generateDispatch(dir, release, resources, "search", searchParams, searchReturn)
+	generateGenericWrapperStruct(dir, release)
+	generateGeneric(dir, release, resources, "read", readParams, anyReadReturn)
+	generateGeneric(dir, release, resources, "search", searchParams, searchReturn)
+}
 
+func generateGenericWrapperStruct(genDir, release string) {
+	f := NewFilePathName(genDir, "generic"+strings.ToUpper(release))
+	f.Type().Id("wrapper").Struct(
+		Id("api").Any(),
+	)
+	f.Func().Id("Wrap").Params(Id("api").Any()).Params(Qual("fhir-toolbox/capabilities", "GenericAPI")).Block(
+		Return(Id("wrapper").Values(Id("api"))),
+	)
+
+	err := f.Save(filepath.Join(genDir, "wrapper.go"))
+	if err != nil {
+		log.Panic(err)
+	}
 }
 
 func anyReadReturn(_, _ string) *Statement {
 	return Qual("fhir-toolbox/model", "Resource")
 }
 
-func generateDispatch(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateGeneric(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
 	interactionName := strcase.ToCamel(interaction)
 	fileName := strings.ToLower(interaction) + ".go"
 
-	allParams := []Code{Id("ctx").Qual("context", "Context"), Id("api").Id("any"), Id("resourceType").String()}
+	allParams := []Code{Id("ctx").Qual("context", "Context"), Id("resourceType").String()}
 	for k, v := range params {
 		allParams = append(allParams, &Statement{k, v})
 	}
@@ -42,20 +57,20 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 		passParams = append(passParams, k)
 	}
 
-	f := NewFilePathName(genDir, "dispatch"+strings.ToUpper(release))
+	f := NewFilePathName(genDir, "generic"+strings.ToUpper(release))
 
 	if interaction == "search" {
 		f.Add(generateSearchCapabilities(interactionName, release, resources))
 	}
 
-	f.Func().Id(interactionName).
+	f.Func().Params(Id("w").Id("wrapper")).Id(interactionName).
 		Params(allParams...).
 		Params(returnFunc("", ""), Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
-						g.List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName))
+						g.List(Id("impl"), Id("ok")).Op(":=").Id("w.api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName))
 
 						if interaction == "search" {
 							g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, returnFunc("", "").Block()))
@@ -82,14 +97,14 @@ func generateDispatch(genDir, release string, resources []ir.Struct, interaction
 }
 
 func generateSearchCapabilities(interactionName, release string, resources []ir.Struct) Code {
-	return Func().Id("SearchCapabilities").
-		Params(Id("api").Id("any"), Id("resourceType").String()).
+	return Func().Params(Id("w").Id("wrapper")).Id("SearchCapabilities").
+		Params(Id("resourceType").String()).
 		Params(searchCapabilitiesReturn, Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).Block(
-						List(Id("impl"), Id("ok")).Op(":=").Id("api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName)),
+						List(Id("impl"), Id("ok")).Op(":=").Id("w.api").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName)),
 						If(Op("!").Id("ok")).Block(
 							returnNotImplementedError("search", r.Name, searchCapabilitiesReturn.Clone().Block()),
 						),

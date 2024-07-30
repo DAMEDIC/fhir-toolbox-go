@@ -10,12 +10,14 @@ This includes model types, as well as interfaces (and some implementations) mode
   - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (see [Capabilities](#capabilities))
   - Interactions: `read`,  `search`
 
-## Example
+## Examples
 
-Run the example in `./example` using the following command:
+You can find examples in `./examples`.
+The `facade` example shows how to build custom FHIR facades using the capabilities API.
+The `proxy` example uses the generic API to forward all requests to another FHIR server.
 
 ```sh
-go run ./example https://server.fire.ly/
+go run ./examples/proxy https://server.fire.ly/
 ```
 
 This starts a simple mock-facade that forwards all requests to the HAPI test-server.

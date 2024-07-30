@@ -1,7 +1,8 @@
 package rest
 
 import (
-	"fhir-toolbox/dispatch"
+	"fhir-toolbox/capabilities"
+	"fhir-toolbox/generic"
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/basic"
 	"fmt"
@@ -12,13 +13,10 @@ import (
 	"time"
 )
 
-type Backend any
-
-func NewServer[R model.Release](backend Backend, config Config) (http.Handler, error) {
-	dispatcher := dispatch.DispatcherFor[R]()
+func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	err := registerRoutes(mux, dispatcher, backend, config)
+	err := registerRoutes(mux, generic.Wrap[R](backend), config)
 	if err != nil {
 		return nil, err
 	}
@@ -32,8 +30,7 @@ func NewServer[R model.Release](backend Backend, config Config) (http.Handler, e
 
 func registerRoutes(
 	mux *http.ServeMux,
-	dispatch dispatch.Dispatcher,
-	backend Backend,
+	backend capabilities.GenericAPI,
 	config Config,
 ) error {
 	baseURL, err := url.Parse(config.Base)
@@ -51,21 +48,20 @@ func registerRoutes(
 		return fmt.Errorf("unable to load timezone: %w", err)
 	}
 
-	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath), readHandler(dispatch, backend))
-	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath), searchHandler(dispatch, backend, baseURL, tz, config.MaxCount, config.DefaultCount))
+	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath), readHandler(backend))
+	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath), searchHandler(backend, baseURL, tz, config.MaxCount, config.DefaultCount))
 
 	return nil
 }
 
 func readHandler(
-	dispatch dispatch.Dispatcher,
-	backend Backend,
+	backend capabilities.GenericAPI,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		status, resource := dispatchRead(r.Context(), dispatch, backend, resourceType, resourceID)
+		status, resource := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if outcome, ok := resource.(basic.OperationOutcome); ok {
 			slog.Error("error reading resource", "resourceType", resourceType, "OperationOutcome", outcome)
 		}
@@ -80,8 +76,7 @@ func readHandler(
 }
 
 func searchHandler(
-	dispatch dispatch.Dispatcher,
-	backend Backend,
+	backend capabilities.GenericAPI,
 	baseURL *url.URL,
 	tz *time.Location,
 	maxCount,
@@ -92,7 +87,6 @@ func searchHandler(
 
 		status, resource := dispatchSearch(
 			r.Context(),
-			dispatch,
 			backend,
 			resourceType,
 			r.URL.Query(),
