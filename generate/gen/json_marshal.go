@@ -35,7 +35,7 @@ func generateMarshalJSONStruct(f *File, s ir.Struct) {
 				t := sf.PossibleTypes[0]
 
 				if t.IsNestedResource {
-					stmt.Id("containedResource")
+					stmt.Id("ContainedResource")
 				} else {
 					stmt.Id(t.Name)
 				}
@@ -103,13 +103,13 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 
 				if t.IsNestedResource {
 					if sf.Multiple {
-						g.Id("m."+sf.Name).Op("=").Id("make").Params(Id("[]containedResource"), Lit(0), Len(Id("r."+sf.Name)))
+						g.Id("m."+sf.Name).Op("=").Id("make").Params(Id("[]ContainedResource"), Lit(0), Len(Id("r."+sf.Name)))
 						g.For(Id("_, c").Op(":=").Range().Id("r." + sf.Name)).Block(
-							Id("m."+sf.Name).Op("=").Append(Id("m."+sf.Name), Id("containedResource").Values(Id("resource").Op(":").Id("c"))),
+							Id("m."+sf.Name).Op("=").Append(Id("m."+sf.Name), Id("ContainedResource").Values(Id("c"))),
 						)
 					} else {
 						g.If(Id("r." + sf.Name).Op("!=").Nil()).Block(
-							Id("m." + sf.Name).Op("=").Id("&containedResource").Values(Id("resource").Op(":").Id("*r." + sf.Name)),
+							Id("m." + sf.Name).Op("=").Id("&ContainedResource").Values(Id("*r." + sf.Name)),
 						)
 					}
 				} else {

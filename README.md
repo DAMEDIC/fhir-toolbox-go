@@ -1,14 +1,16 @@
 # fhir-toolbox-go
 
 This projects aims to provide a set of packages for building FHIR services in Go.
-This includes model types, as well as interfaces (and some implementations) modeling capabilities that a server provides or a client can consume.
+This includes model types, as well as interfaces (and some implementations) modeling capabilities that a server provides
+or a client can consume.
 
 ## Features
 
 - Extensible REST API with capabilties modeled as interfaces
-  - FHIR model types
-  - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (see [Capabilities](#capabilities))
-  - Interactions: `read`,  `search`
+    - FHIR model types
+    - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (
+      see [Capabilities](#capabilities))
+    - Interactions: `read`,  `search`
 
 ## Examples
 
@@ -27,33 +29,71 @@ From another terminal, run
 ```sh
 curl 'http://localhost/Patient/547'
 ```
+
 or
+
 ```sh
 curl 'http://localhost/Patient?_id=547'
 ```
+
 to get a bundle.
 
-The client implementation in `./cmd/example` is only a proof-of-concept and does only implement the `read` interaction for a very limited set of resources.
+The client implementation in `./cmd/example` is only a proof-of-concept and does only implement the `read` interaction
+for a very limited set of resources.
 
 ## Capabilities
 
-Everyting is archtectured around capabilities, represented by interfaces (e.g. `PatientSearch`).
+Everything is architectured around capabilities, represented by interfaces (e.g. `PatientSearch`).
 This flexible architecture allows different use cases, such as
 
 - building FHIR facades to legacy systems by implementing a custom backend
 - using this library as a FHIR client (by leveraging a - still to be build - REST backend)
 
+### Concrete vs. Generic API
+
+The library provides two API *styles*.
+The **concrete** API:
+
+```Go
+func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {}
+
+func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {}
+```
+
+and the **generic** API:
+
+```Go
+func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
+
+func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {}
+```
+
+You can implement your custom backend or client either way.
+The **concrete** API is ideal for building custom FHIR facades where only a few resource types are used (see `example/mock`).
+The **generic** API is better suited for e.g. building FHIR clients (see `example/proxy`).
+
+#### Interoperability
+The `capabilities/wrap` package provides two wrapper functions to wrap a generic to a concrete API:
+```Go
+// at the moment, the wrapped generic API **only** implements the generic API,
+// this might change in the future
+genericAPI := wrap.Generic[model.R4](concreteAPI)
+```
+and vice versa:
+```Go
+// the returned concrete API implements both the generic and the concrete API
+concreteAPI := wrap.GenericR4(genericAPI)
+```
+
 ## Packages
 
-| Package      | Description                                                                                                                                  |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `model`      | Generated FHIR model types                                                                                                                   |
-| `capability` | Interfaces modeling capabilities a server provides or a client can consume                                                                   |
-| `dispatch`   | Dispatch from resource types to concrete implementations (e.g. `Read("Patient", 123) to ReadPatient(123)`). This is used by the REST server. |
-| `rest`       | FHIR REST server implementation                                                                                                              |
-| `backend`    | Implementations of capabilities for different backends; database wrappers or the REST client go here                                         |
-| `generate`   | Code generation tools for generating FHIR model types, capabilites and dispatchers from the FHIR specification                               |
-
+| Package            | Description                                                                   |
+|--------------------|-------------------------------------------------------------------------------|
+| `model`            | Generated FHIR model types                                                    |
+| `capabilities`     | Interfaces modeling capabilities a server can provide or a client can consume |
+| `capabilites/wrap` | Conversion between the concrete and generic capabilities API                  |
+| `rest`             | FHIR REST server implementation                                               |
+| `generate`         | internal code generation scripts                                              |
 
 ### Scope
 

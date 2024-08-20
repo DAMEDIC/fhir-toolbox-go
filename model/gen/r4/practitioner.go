@@ -72,7 +72,7 @@ type jsonPractitioner struct {
 	Language                      *Code                       `json:"language,omitempty"`
 	LanguagePrimitiveElement      *primitiveElement           `json:"_language,omitempty"`
 	Text                          *Narrative                  `json:"text,omitempty"`
-	Contained                     []containedResource         `json:"contained,omitempty"`
+	Contained                     []ContainedResource         `json:"contained,omitempty"`
 	Extension                     []Extension                 `json:"extension,omitempty"`
 	ModifierExtension             []Extension                 `json:"modifierExtension,omitempty"`
 	Identifier                    []Identifier                `json:"identifier,omitempty"`
@@ -110,9 +110,9 @@ func (r Practitioner) marshalJSON() jsonPractitioner {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
 	m.Text = r.Text
-	m.Contained = make([]containedResource, 0, len(r.Contained))
+	m.Contained = make([]ContainedResource, 0, len(r.Contained))
 	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, containedResource{resource: c})
+		m.Contained = append(m.Contained, ContainedResource{c})
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
@@ -164,7 +164,7 @@ func (r *Practitioner) unmarshalJSON(m jsonPractitioner) error {
 	r.Text = m.Text
 	r.Contained = make([]model.Resource, 0, len(m.Contained))
 	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.resource)
+		r.Contained = append(r.Contained, v.Resource)
 	}
 	r.Extension = m.Extension
 	r.ModifierExtension = m.ModifierExtension

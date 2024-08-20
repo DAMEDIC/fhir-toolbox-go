@@ -1,12 +1,12 @@
-package generic
+package wrap
 
 import (
 	"fhir-toolbox/capabilities"
-	genericR4 "fhir-toolbox/generic/gen/r4"
+	genericR4 "fhir-toolbox/capabilities/wrap/gen/r4/generic"
 	"fhir-toolbox/model"
 )
 
-func Wrap[R model.Release](api any) capabilities.GenericAPI {
+func Generic[R model.Release](api any) capabilities.GenericAPI {
 	generic, ok := api.(capabilities.GenericAPI)
 	if ok {
 		return generic
@@ -15,7 +15,7 @@ func Wrap[R model.Release](api any) capabilities.GenericAPI {
 	var r R
 	switch any(r).(type) {
 	case model.R4:
-		return genericR4.Wrap(api)
+		return genericR4.InternalWrapper{api}
 	default:
 		panic("unsupported release")
 	}

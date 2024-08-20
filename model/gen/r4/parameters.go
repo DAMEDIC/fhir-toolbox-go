@@ -251,7 +251,7 @@ type jsonParametersParameter struct {
 	ValueUsageContext                 *UsageContext         `json:"valueUsageContext,omitempty"`
 	ValueDosage                       *Dosage               `json:"valueDosage,omitempty"`
 	ValueMeta                         *Meta                 `json:"valueMeta,omitempty"`
-	Resource                          *containedResource    `json:"resource,omitempty"`
+	Resource                          *ContainedResource    `json:"resource,omitempty"`
 	Part                              []ParametersParameter `json:"part,omitempty"`
 }
 
@@ -584,7 +584,7 @@ func (r ParametersParameter) marshalJSON() jsonParametersParameter {
 		m.ValueMeta = v
 	}
 	if r.Resource != nil {
-		m.Resource = &containedResource{resource: *r.Resource}
+		m.Resource = &ContainedResource{*r.Resource}
 	}
 	m.Part = r.Part
 	return m
@@ -1089,7 +1089,7 @@ func (r *ParametersParameter) unmarshalJSON(m jsonParametersParameter) error {
 		r.Value = v
 	}
 	if &m.Resource != nil {
-		r.Resource = &m.Resource.resource
+		r.Resource = &m.Resource.Resource
 	}
 	r.Part = m.Part
 	return nil

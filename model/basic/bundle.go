@@ -3,7 +3,6 @@ package basic
 import (
 	"encoding/json"
 	"fhir-toolbox/model"
-	"fhir-toolbox/model/raw"
 )
 
 type Bundle struct {
@@ -41,24 +40,4 @@ type BundleEntry struct {
 
 type BundleEntrySearch struct {
 	Mode string `json:"mode"`
-}
-
-func (e *BundleEntry) UnmarshalJSON(b []byte) error {
-	var t struct {
-		FullUrl  string            `json:"fullUrl"`
-		Resource raw.Resource      `json:"resource"`
-		Search   BundleEntrySearch `json:"search"`
-	}
-
-	if err := json.Unmarshal(b, &t); err != nil {
-		return err
-	}
-
-	*e = BundleEntry{
-		FullUrl:  t.FullUrl,
-		Resource: t.Resource,
-		Search:   t.Search,
-	}
-
-	return nil
 }

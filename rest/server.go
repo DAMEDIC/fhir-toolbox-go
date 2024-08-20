@@ -2,7 +2,7 @@ package rest
 
 import (
 	"fhir-toolbox/capabilities"
-	"fhir-toolbox/generic"
+	"fhir-toolbox/capabilities/wrap"
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/basic"
 	"fmt"
@@ -16,7 +16,7 @@ import (
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	err := registerRoutes(mux, generic.Wrap[R](backend), config)
+	err := registerRoutes(mux, wrap.Generic[R](backend), config)
 	if err != nil {
 		return nil, err
 	}

@@ -5,8 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model/basic"
-	"fhir-toolbox/model/raw"
+	"fhir-toolbox/model/gen/r4"
 	"fmt"
 	"log"
 	"log/slog"
@@ -32,21 +31,34 @@ func main() {
 
 	log.Printf("FHIR Server: %s", backendUrl)
 
-	// Create the client to the backing server.
-	// The client is implemented below and is only an examples.
-	// It currently only supports the read and search operations.
-	client := Client{
+	// Create a client to the backing server.
+	//
+	// The client is implemented below and serves only as an example.
+	// A full-featured client should be in scope of this package and might be added eventually.
+	// The example client only supports the read and search operations and exposes them using the generic API.
+	genericClient := Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 
+	// You can provide the concrete API by wrapping the generic API
+	// (uncomment the following lines to try it out):
+	//concreteApi := wrap.ConcreteR4(&genericClient)
+	//somePatient, fhirErr := concreteApi.ReadPatient(context.Background(), "547")
+	//if fhirErr != nil {
+	//	log.Fatalf("error reading some Patient %v", fhirErr)
+	//}
+	//fmt.Printf("some Patient: %v\n", somePatient)
+
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	server, err := rest.NewServer[model.R4](&client, rest.DefaultConfig)
+	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
+	server, err := rest.NewServer[model.R4](&genericClient, rest.DefaultConfig)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
 
 	// Start the server and listen on port 80.
+	log.Println("listening on http://localhost")
 	log.Fatal(http.ListenAndServe(":80", server))
 }
 
@@ -55,7 +67,9 @@ type Client struct {
 }
 
 func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
-	var resource raw.Resource
+	// ContainedResource is a concrete representation of any resource
+	// internally this e.g. uses in bundles
+	var resource r4.ContainedResource
 
 	url := fmt.Sprintf("%s/%s/%s", c.url, resourceType, id)
 	log.Printf("forwarding GET %s", url)
@@ -105,7 +119,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		panic(err)
 	}
 
-	var bundle basic.Bundle
+	var bundle r4.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)
 	if err != nil {
 		// TODO: return a proper error with operation outcome
@@ -114,7 +128,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 
 	resources := make([]model.Resource, 0, len(bundle.Entry))
 	for _, entry := range bundle.Entry {
-		resources = append(resources, entry.Resource)
+		resources = append(resources, *entry.Resource)
 	}
 
 	return search.Result{

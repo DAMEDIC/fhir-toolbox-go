@@ -18,8 +18,8 @@ func GenerateMarshalHelpers(resources []ir.Struct, genTarget, release string) {
 		Id("Extension").Index().Id("Extension").Tag(map[string]string{"json": "extension,omitempty"}),
 	)
 
-	f.Type().Id("containedResource").Struct(
-		Id("resource").Qual("fhir-toolbox/model", "Resource"),
+	f.Type().Id("ContainedResource").Struct(
+		Qual("fhir-toolbox/model", "Resource"),
 	)
 	implementMarshalJSONContained(f)
 	implementUnmarshalJSONContained(resources, f)
@@ -31,13 +31,13 @@ func GenerateMarshalHelpers(resources []ir.Struct, genTarget, release string) {
 }
 
 func implementMarshalJSONContained(f *File) {
-	f.Func().Params(Id("r").Id("containedResource")).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).BlockFunc(func(g *Group) {
-		g.Return(Qual("encoding/json", "Marshal").Params(Id("r.resource")))
+	f.Func().Params(Id("r").Id("ContainedResource")).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).BlockFunc(func(g *Group) {
+		g.Return(Qual("encoding/json", "Marshal").Params(Id("r.Resource")))
 	})
 }
 
 func implementUnmarshalJSONContained(resources []ir.Struct, f *File) {
-	f.Func().Params(Id("cr").Op("*").Id("containedResource")).Id("UnmarshalJSON").Params(Id("b").Index().Byte()).Params(Error()).Block(
+	f.Func().Params(Id("cr").Op("*").Id("ContainedResource")).Id("UnmarshalJSON").Params(Id("b").Index().Byte()).Params(Error()).Block(
 		Var().Id("t").Struct(
 			Id("ResourceType").String().Tag(map[string]string{"json": "resourceType"}),
 		),
@@ -51,9 +51,7 @@ func implementUnmarshalJSONContained(resources []ir.Struct, f *File) {
 					If(Qual("encoding/json", "Unmarshal").Call(Id("b"), Op("&").Id("r")).Op("!=").Nil()).Block(
 						Return(Qual("encoding/json", "Unmarshal").Call(Id("b"), Op("&").Id("r"))),
 					),
-					Op("*").Id("cr").Op("=").Id("containedResource").Values(Dict{
-						Id("resource"): Id("r"),
-					}),
+					Op("*").Id("cr").Op("=").Id("ContainedResource").Values(Id("r")),
 				)
 			}
 

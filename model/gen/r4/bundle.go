@@ -261,7 +261,7 @@ type jsonBundleEntry struct {
 	Link                    []BundleLink         `json:"link,omitempty"`
 	FullUrl                 *Uri                 `json:"fullUrl,omitempty"`
 	FullUrlPrimitiveElement *primitiveElement    `json:"_fullUrl,omitempty"`
-	Resource                *containedResource   `json:"resource,omitempty"`
+	Resource                *ContainedResource   `json:"resource,omitempty"`
 	Search                  *BundleEntrySearch   `json:"search,omitempty"`
 	Request                 *BundleEntryRequest  `json:"request,omitempty"`
 	Response                *BundleEntryResponse `json:"response,omitempty"`
@@ -281,7 +281,7 @@ func (r BundleEntry) marshalJSON() jsonBundleEntry {
 		m.FullUrlPrimitiveElement = &primitiveElement{Id: r.FullUrl.Id, Extension: r.FullUrl.Extension}
 	}
 	if r.Resource != nil {
-		m.Resource = &containedResource{resource: *r.Resource}
+		m.Resource = &ContainedResource{*r.Resource}
 	}
 	m.Search = r.Search
 	m.Request = r.Request
@@ -306,7 +306,7 @@ func (r *BundleEntry) unmarshalJSON(m jsonBundleEntry) error {
 		r.FullUrl.Extension = m.FullUrlPrimitiveElement.Extension
 	}
 	if &m.Resource != nil {
-		r.Resource = &m.Resource.resource
+		r.Resource = &m.Resource.Resource
 	}
 	r.Search = m.Search
 	r.Request = m.Request
@@ -554,7 +554,7 @@ type jsonBundleEntryResponse struct {
 	EtagPrimitiveElement         *primitiveElement  `json:"_etag,omitempty"`
 	LastModified                 *Instant           `json:"lastModified,omitempty"`
 	LastModifiedPrimitiveElement *primitiveElement  `json:"_lastModified,omitempty"`
-	Outcome                      *containedResource `json:"outcome,omitempty"`
+	Outcome                      *ContainedResource `json:"outcome,omitempty"`
 }
 
 func (r BundleEntryResponse) MarshalJSON() ([]byte, error) {
@@ -582,7 +582,7 @@ func (r BundleEntryResponse) marshalJSON() jsonBundleEntryResponse {
 		m.LastModifiedPrimitiveElement = &primitiveElement{Id: r.LastModified.Id, Extension: r.LastModified.Extension}
 	}
 	if r.Outcome != nil {
-		m.Outcome = &containedResource{resource: *r.Outcome}
+		m.Outcome = &ContainedResource{*r.Outcome}
 	}
 	return m
 }
@@ -618,7 +618,7 @@ func (r *BundleEntryResponse) unmarshalJSON(m jsonBundleEntryResponse) error {
 		r.LastModified.Extension = m.LastModifiedPrimitiveElement.Extension
 	}
 	if &m.Outcome != nil {
-		r.Outcome = &m.Outcome.resource
+		r.Outcome = &m.Outcome.Resource
 	}
 	return nil
 }

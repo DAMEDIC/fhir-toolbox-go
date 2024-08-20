@@ -53,6 +53,26 @@ func (e UnknownResourceError) OperationOutcome() model.Resource {
 	}
 }
 
+type InvalidResourceError struct {
+	ResourceType string
+}
+
+func (e InvalidResourceError) Error() string {
+	return fmt.Sprintf("returned resource is not valid %s", e.ResourceType)
+}
+
+func (e InvalidResourceError) StatusCode() int {
+	return 404
+}
+
+func (e InvalidResourceError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "processing", Diagnostics: e.Error()},
+		},
+	}
+}
+
 type NotFoundError struct {
 	ResourceType string
 	ID           string

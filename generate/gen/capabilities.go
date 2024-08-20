@@ -21,7 +21,7 @@ func GenerateCapabilityInterfaces(resources []ir.Struct, genTarget, release stri
 
 	generateCapability(dir, release, resources, "read", readParams, readReturn)
 	generateCapability(dir, release, resources, "search", searchParams, searchReturn)
-
+	generateFull(dir, release, resources)
 }
 
 var (
@@ -66,6 +66,23 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 	}
 
 	err := f.Save(filepath.Join(genDir, fileName+".go"))
+	if err != nil {
+		log.Panic(err)
+	}
+}
+
+func generateFull(genDir string, release string, resources []ir.Struct) {
+	f := NewFilePathName(genDir, "capabilities"+strings.ToUpper(release))
+
+	f.Type().Id("FullAPI").InterfaceFunc(func(g *Group) {
+		g.Qual("fhir-toolbox/capabilities", "GenericAPI")
+		for _, r := range resources {
+			g.Id(r.Name + "Read")
+			g.Id(r.Name + "Search")
+		}
+	})
+
+	err := f.Save(filepath.Join(genDir, "full.go"))
 	if err != nil {
 		log.Panic(err)
 	}
