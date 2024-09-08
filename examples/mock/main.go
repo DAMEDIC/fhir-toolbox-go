@@ -18,16 +18,12 @@ import (
 )
 
 func main() {
-	var backendUrl = os.Args[1]
-
 	textHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	})
 	// Add some additional context to the log (like request id).
 	requestContextHandler := rest.NewRequestContextSlogHandler(textHandler)
 	slog.SetDefault(slog.New(requestContextHandler))
-
-	log.Printf("FHIR Server: %s", backendUrl)
 
 	// Create the mock backend that just returns some dummy data.
 	backend := mockBackend{}
@@ -40,6 +36,7 @@ func main() {
 	}
 
 	// Start the server and listen on port 80.
+	log.Println("listening on http://localhost")
 	log.Fatal(http.ListenAndServe(":80", server))
 }
 
