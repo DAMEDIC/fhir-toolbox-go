@@ -114,16 +114,22 @@ func (r MedicinalProductAuthorization) MarshalJSON() ([]byte, error) {
 func (r MedicinalProductAuthorization) marshalJSON() jsonMedicinalProductAuthorization {
 	m := jsonMedicinalProductAuthorization{}
 	m.ResourceType = "MedicinalProductAuthorization"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -139,21 +145,29 @@ func (r MedicinalProductAuthorization) marshalJSON() jsonMedicinalProductAuthori
 	m.Country = r.Country
 	m.Jurisdiction = r.Jurisdiction
 	m.Status = r.Status
-	m.StatusDate = r.StatusDate
+	if r.StatusDate != nil && r.StatusDate.Value != nil {
+		m.StatusDate = r.StatusDate
+	}
 	if r.StatusDate != nil && (r.StatusDate.Id != nil || r.StatusDate.Extension != nil) {
 		m.StatusDatePrimitiveElement = &primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
 	}
-	m.RestoreDate = r.RestoreDate
+	if r.RestoreDate != nil && r.RestoreDate.Value != nil {
+		m.RestoreDate = r.RestoreDate
+	}
 	if r.RestoreDate != nil && (r.RestoreDate.Id != nil || r.RestoreDate.Extension != nil) {
 		m.RestoreDatePrimitiveElement = &primitiveElement{Id: r.RestoreDate.Id, Extension: r.RestoreDate.Extension}
 	}
 	m.ValidityPeriod = r.ValidityPeriod
 	m.DataExclusivityPeriod = r.DataExclusivityPeriod
-	m.DateOfFirstAuthorization = r.DateOfFirstAuthorization
+	if r.DateOfFirstAuthorization != nil && r.DateOfFirstAuthorization.Value != nil {
+		m.DateOfFirstAuthorization = r.DateOfFirstAuthorization
+	}
 	if r.DateOfFirstAuthorization != nil && (r.DateOfFirstAuthorization.Id != nil || r.DateOfFirstAuthorization.Extension != nil) {
 		m.DateOfFirstAuthorizationPrimitiveElement = &primitiveElement{Id: r.DateOfFirstAuthorization.Id, Extension: r.DateOfFirstAuthorization.Extension}
 	}
-	m.InternationalBirthDate = r.InternationalBirthDate
+	if r.InternationalBirthDate != nil && r.InternationalBirthDate.Value != nil {
+		m.InternationalBirthDate = r.InternationalBirthDate
+	}
 	if r.InternationalBirthDate != nil && (r.InternationalBirthDate.Id != nil || r.InternationalBirthDate.Extension != nil) {
 		m.InternationalBirthDatePrimitiveElement = &primitiveElement{Id: r.InternationalBirthDate.Id, Extension: r.InternationalBirthDate.Extension}
 	}
@@ -174,17 +188,26 @@ func (r *MedicinalProductAuthorization) UnmarshalJSON(b []byte) error {
 func (r *MedicinalProductAuthorization) unmarshalJSON(m jsonMedicinalProductAuthorization) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -202,11 +225,17 @@ func (r *MedicinalProductAuthorization) unmarshalJSON(m jsonMedicinalProductAuth
 	r.Status = m.Status
 	r.StatusDate = m.StatusDate
 	if m.StatusDatePrimitiveElement != nil {
+		if r.StatusDate == nil {
+			r.StatusDate = &DateTime{}
+		}
 		r.StatusDate.Id = m.StatusDatePrimitiveElement.Id
 		r.StatusDate.Extension = m.StatusDatePrimitiveElement.Extension
 	}
 	r.RestoreDate = m.RestoreDate
 	if m.RestoreDatePrimitiveElement != nil {
+		if r.RestoreDate == nil {
+			r.RestoreDate = &DateTime{}
+		}
 		r.RestoreDate.Id = m.RestoreDatePrimitiveElement.Id
 		r.RestoreDate.Extension = m.RestoreDatePrimitiveElement.Extension
 	}
@@ -214,11 +243,17 @@ func (r *MedicinalProductAuthorization) unmarshalJSON(m jsonMedicinalProductAuth
 	r.DataExclusivityPeriod = m.DataExclusivityPeriod
 	r.DateOfFirstAuthorization = m.DateOfFirstAuthorization
 	if m.DateOfFirstAuthorizationPrimitiveElement != nil {
+		if r.DateOfFirstAuthorization == nil {
+			r.DateOfFirstAuthorization = &DateTime{}
+		}
 		r.DateOfFirstAuthorization.Id = m.DateOfFirstAuthorizationPrimitiveElement.Id
 		r.DateOfFirstAuthorization.Extension = m.DateOfFirstAuthorizationPrimitiveElement.Extension
 	}
 	r.InternationalBirthDate = m.InternationalBirthDate
 	if m.InternationalBirthDatePrimitiveElement != nil {
+		if r.InternationalBirthDate == nil {
+			r.InternationalBirthDate = &DateTime{}
+		}
 		r.InternationalBirthDate.Id = m.InternationalBirthDatePrimitiveElement.Id
 		r.InternationalBirthDate.Extension = m.InternationalBirthDatePrimitiveElement.Extension
 	}
@@ -364,12 +399,16 @@ func (r MedicinalProductAuthorizationProcedure) marshalJSON() jsonMedicinalProdu
 	case *Period:
 		m.DatePeriod = v
 	case DateTime:
-		m.DateDateTime = &v
+		if v.Value != nil {
+			m.DateDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DateDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.DateDateTime = v
+		if v.Value != nil {
+			m.DateDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DateDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

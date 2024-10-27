@@ -11,11 +11,6 @@ type Time struct {
 	// The actual value
 	Value *string
 }
-type jsonTime struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Time) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

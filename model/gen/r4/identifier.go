@@ -44,16 +44,22 @@ func (r Identifier) marshalJSON() jsonIdentifier {
 	m := jsonIdentifier{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Use = r.Use
+	if r.Use != nil && r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
 	m.Type = r.Type
-	m.System = r.System
+	if r.System != nil && r.System.Value != nil {
+		m.System = r.System
+	}
 	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
 		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
 	}
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
@@ -73,17 +79,26 @@ func (r *Identifier) unmarshalJSON(m jsonIdentifier) error {
 	r.Extension = m.Extension
 	r.Use = m.Use
 	if m.UsePrimitiveElement != nil {
+		if r.Use == nil {
+			r.Use = &Code{}
+		}
 		r.Use.Id = m.UsePrimitiveElement.Id
 		r.Use.Extension = m.UsePrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	r.System = m.System
 	if m.SystemPrimitiveElement != nil {
+		if r.System == nil {
+			r.System = &Uri{}
+		}
 		r.System.Id = m.SystemPrimitiveElement.Id
 		r.System.Extension = m.SystemPrimitiveElement.Extension
 	}
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &String{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}

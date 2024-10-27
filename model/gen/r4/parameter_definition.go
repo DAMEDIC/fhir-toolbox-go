@@ -49,31 +49,45 @@ func (r ParameterDefinition) marshalJSON() jsonParameterDefinition {
 	m := jsonParameterDefinition{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Use = r.Use
+	if r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use.Id != nil || r.Use.Extension != nil {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
-	m.Min = r.Min
+	if r.Min != nil && r.Min.Value != nil {
+		m.Min = r.Min
+	}
 	if r.Min != nil && (r.Min.Id != nil || r.Min.Extension != nil) {
 		m.MinPrimitiveElement = &primitiveElement{Id: r.Min.Id, Extension: r.Min.Extension}
 	}
-	m.Max = r.Max
+	if r.Max != nil && r.Max.Value != nil {
+		m.Max = r.Max
+	}
 	if r.Max != nil && (r.Max.Id != nil || r.Max.Extension != nil) {
 		m.MaxPrimitiveElement = &primitiveElement{Id: r.Max.Id, Extension: r.Max.Extension}
 	}
-	m.Documentation = r.Documentation
+	if r.Documentation != nil && r.Documentation.Value != nil {
+		m.Documentation = r.Documentation
+	}
 	if r.Documentation != nil && (r.Documentation.Id != nil || r.Documentation.Extension != nil) {
 		m.DocumentationPrimitiveElement = &primitiveElement{Id: r.Documentation.Id, Extension: r.Documentation.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Profile = r.Profile
+	if r.Profile != nil && r.Profile.Value != nil {
+		m.Profile = r.Profile
+	}
 	if r.Profile != nil && (r.Profile.Id != nil || r.Profile.Extension != nil) {
 		m.ProfilePrimitiveElement = &primitiveElement{Id: r.Profile.Id, Extension: r.Profile.Extension}
 	}
@@ -91,6 +105,9 @@ func (r *ParameterDefinition) unmarshalJSON(m jsonParameterDefinition) error {
 	r.Extension = m.Extension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &Code{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -101,16 +118,25 @@ func (r *ParameterDefinition) unmarshalJSON(m jsonParameterDefinition) error {
 	}
 	r.Min = m.Min
 	if m.MinPrimitiveElement != nil {
+		if r.Min == nil {
+			r.Min = &Integer{}
+		}
 		r.Min.Id = m.MinPrimitiveElement.Id
 		r.Min.Extension = m.MinPrimitiveElement.Extension
 	}
 	r.Max = m.Max
 	if m.MaxPrimitiveElement != nil {
+		if r.Max == nil {
+			r.Max = &String{}
+		}
 		r.Max.Id = m.MaxPrimitiveElement.Id
 		r.Max.Extension = m.MaxPrimitiveElement.Extension
 	}
 	r.Documentation = m.Documentation
 	if m.DocumentationPrimitiveElement != nil {
+		if r.Documentation == nil {
+			r.Documentation = &String{}
+		}
 		r.Documentation.Id = m.DocumentationPrimitiveElement.Id
 		r.Documentation.Extension = m.DocumentationPrimitiveElement.Extension
 	}
@@ -121,6 +147,9 @@ func (r *ParameterDefinition) unmarshalJSON(m jsonParameterDefinition) error {
 	}
 	r.Profile = m.Profile
 	if m.ProfilePrimitiveElement != nil {
+		if r.Profile == nil {
+			r.Profile = &Canonical{}
+		}
 		r.Profile.Id = m.ProfilePrimitiveElement.Id
 		r.Profile.Extension = m.ProfilePrimitiveElement.Extension
 	}

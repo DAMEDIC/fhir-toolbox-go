@@ -125,16 +125,22 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 func (r ImmunizationEvaluation) marshalJSON() jsonImmunizationEvaluation {
 	m := jsonImmunizationEvaluation{}
 	m.ResourceType = "ImmunizationEvaluation"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -146,12 +152,16 @@ func (r ImmunizationEvaluation) marshalJSON() jsonImmunizationEvaluation {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Patient = r.Patient
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -160,54 +170,74 @@ func (r ImmunizationEvaluation) marshalJSON() jsonImmunizationEvaluation {
 	m.ImmunizationEvent = r.ImmunizationEvent
 	m.DoseStatus = r.DoseStatus
 	m.DoseStatusReason = r.DoseStatusReason
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Series = r.Series
+	if r.Series != nil && r.Series.Value != nil {
+		m.Series = r.Series
+	}
 	if r.Series != nil && (r.Series.Id != nil || r.Series.Extension != nil) {
 		m.SeriesPrimitiveElement = &primitiveElement{Id: r.Series.Id, Extension: r.Series.Extension}
 	}
 	switch v := r.DoseNumber.(type) {
 	case PositiveInt:
-		m.DoseNumberPositiveInt = &v
+		if v.Value != nil {
+			m.DoseNumberPositiveInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DoseNumberPositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *PositiveInt:
-		m.DoseNumberPositiveInt = v
+		if v.Value != nil {
+			m.DoseNumberPositiveInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DoseNumberPositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.DoseNumberString = &v
+		if v.Value != nil {
+			m.DoseNumberString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DoseNumberStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.DoseNumberString = v
+		if v.Value != nil {
+			m.DoseNumberString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DoseNumberStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
 	switch v := r.SeriesDoses.(type) {
 	case PositiveInt:
-		m.SeriesDosesPositiveInt = &v
+		if v.Value != nil {
+			m.SeriesDosesPositiveInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SeriesDosesPositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *PositiveInt:
-		m.SeriesDosesPositiveInt = v
+		if v.Value != nil {
+			m.SeriesDosesPositiveInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SeriesDosesPositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.SeriesDosesString = &v
+		if v.Value != nil {
+			m.SeriesDosesString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SeriesDosesStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.SeriesDosesString = v
+		if v.Value != nil {
+			m.SeriesDosesString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SeriesDosesStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -224,17 +254,26 @@ func (r *ImmunizationEvaluation) UnmarshalJSON(b []byte) error {
 func (r *ImmunizationEvaluation) unmarshalJSON(m jsonImmunizationEvaluation) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -254,6 +293,9 @@ func (r *ImmunizationEvaluation) unmarshalJSON(m jsonImmunizationEvaluation) err
 	r.Patient = m.Patient
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -264,11 +306,17 @@ func (r *ImmunizationEvaluation) unmarshalJSON(m jsonImmunizationEvaluation) err
 	r.DoseStatusReason = m.DoseStatusReason
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Series = m.Series
 	if m.SeriesPrimitiveElement != nil {
+		if r.Series == nil {
+			r.Series = &String{}
+		}
 		r.Series.Id = m.SeriesPrimitiveElement.Id
 		r.Series.Extension = m.SeriesPrimitiveElement.Extension
 	}

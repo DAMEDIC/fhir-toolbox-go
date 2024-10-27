@@ -118,16 +118,22 @@ func (r Location) MarshalJSON() ([]byte, error) {
 func (r Location) marshalJSON() jsonLocation {
 	m := jsonLocation{}
 	m.ResourceType = "Location"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -139,16 +145,29 @@ func (r Location) marshalJSON() jsonLocation {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.OperationalStatus = r.OperationalStatus
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Alias = r.Alias
+	anyAliasValue := false
+	for _, e := range r.Alias {
+		if e.Value != nil {
+			anyAliasValue = true
+			break
+		}
+	}
+	if anyAliasValue {
+		m.Alias = r.Alias
+	}
 	anyAliasIdOrExtension := false
 	for _, e := range r.Alias {
 		if e.Id != nil || e.Extension != nil {
@@ -166,11 +185,15 @@ func (r Location) marshalJSON() jsonLocation {
 			}
 		}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Mode = r.Mode
+	if r.Mode != nil && r.Mode.Value != nil {
+		m.Mode = r.Mode
+	}
 	if r.Mode != nil && (r.Mode.Id != nil || r.Mode.Extension != nil) {
 		m.ModePrimitiveElement = &primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
 	}
@@ -182,7 +205,9 @@ func (r Location) marshalJSON() jsonLocation {
 	m.ManagingOrganization = r.ManagingOrganization
 	m.PartOf = r.PartOf
 	m.HoursOfOperation = r.HoursOfOperation
-	m.AvailabilityExceptions = r.AvailabilityExceptions
+	if r.AvailabilityExceptions != nil && r.AvailabilityExceptions.Value != nil {
+		m.AvailabilityExceptions = r.AvailabilityExceptions
+	}
 	if r.AvailabilityExceptions != nil && (r.AvailabilityExceptions.Id != nil || r.AvailabilityExceptions.Extension != nil) {
 		m.AvailabilityExceptionsPrimitiveElement = &primitiveElement{Id: r.AvailabilityExceptions.Id, Extension: r.AvailabilityExceptions.Extension}
 	}
@@ -199,17 +224,26 @@ func (r *Location) UnmarshalJSON(b []byte) error {
 func (r *Location) unmarshalJSON(m jsonLocation) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -223,31 +257,44 @@ func (r *Location) unmarshalJSON(m jsonLocation) error {
 	r.Identifier = m.Identifier
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
 	r.OperationalStatus = m.OperationalStatus
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Alias = m.Alias
 	for i, e := range m.AliasPrimitiveElement {
-		if len(r.Alias) > i {
+		if len(r.Alias) <= i {
+			r.Alias = append(r.Alias, String{})
+		}
+		if e != nil {
 			r.Alias[i].Id = e.Id
 			r.Alias[i].Extension = e.Extension
-		} else {
-			r.Alias = append(r.Alias, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Mode = m.Mode
 	if m.ModePrimitiveElement != nil {
+		if r.Mode == nil {
+			r.Mode = &Code{}
+		}
 		r.Mode.Id = m.ModePrimitiveElement.Id
 		r.Mode.Extension = m.ModePrimitiveElement.Extension
 	}
@@ -261,6 +308,9 @@ func (r *Location) unmarshalJSON(m jsonLocation) error {
 	r.HoursOfOperation = m.HoursOfOperation
 	r.AvailabilityExceptions = m.AvailabilityExceptions
 	if m.AvailabilityExceptionsPrimitiveElement != nil {
+		if r.AvailabilityExceptions == nil {
+			r.AvailabilityExceptions = &String{}
+		}
 		r.AvailabilityExceptions.Id = m.AvailabilityExceptionsPrimitiveElement.Id
 		r.AvailabilityExceptions.Extension = m.AvailabilityExceptionsPrimitiveElement.Extension
 	}
@@ -312,15 +362,21 @@ func (r LocationPosition) marshalJSON() jsonLocationPosition {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Longitude = r.Longitude
+	if r.Longitude.Value != nil {
+		m.Longitude = r.Longitude
+	}
 	if r.Longitude.Id != nil || r.Longitude.Extension != nil {
 		m.LongitudePrimitiveElement = &primitiveElement{Id: r.Longitude.Id, Extension: r.Longitude.Extension}
 	}
-	m.Latitude = r.Latitude
+	if r.Latitude.Value != nil {
+		m.Latitude = r.Latitude
+	}
 	if r.Latitude.Id != nil || r.Latitude.Extension != nil {
 		m.LatitudePrimitiveElement = &primitiveElement{Id: r.Latitude.Id, Extension: r.Latitude.Extension}
 	}
-	m.Altitude = r.Altitude
+	if r.Altitude != nil && r.Altitude.Value != nil {
+		m.Altitude = r.Altitude
+	}
 	if r.Altitude != nil && (r.Altitude.Id != nil || r.Altitude.Extension != nil) {
 		m.AltitudePrimitiveElement = &primitiveElement{Id: r.Altitude.Id, Extension: r.Altitude.Extension}
 	}
@@ -349,6 +405,9 @@ func (r *LocationPosition) unmarshalJSON(m jsonLocationPosition) error {
 	}
 	r.Altitude = m.Altitude
 	if m.AltitudePrimitiveElement != nil {
+		if r.Altitude == nil {
+			r.Altitude = &Decimal{}
+		}
 		r.Altitude.Id = m.AltitudePrimitiveElement.Id
 		r.Altitude.Extension = m.AltitudePrimitiveElement.Extension
 	}
@@ -403,7 +462,16 @@ func (r LocationHoursOfOperation) marshalJSON() jsonLocationHoursOfOperation {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.DaysOfWeek = r.DaysOfWeek
+	anyDaysOfWeekValue := false
+	for _, e := range r.DaysOfWeek {
+		if e.Value != nil {
+			anyDaysOfWeekValue = true
+			break
+		}
+	}
+	if anyDaysOfWeekValue {
+		m.DaysOfWeek = r.DaysOfWeek
+	}
 	anyDaysOfWeekIdOrExtension := false
 	for _, e := range r.DaysOfWeek {
 		if e.Id != nil || e.Extension != nil {
@@ -421,15 +489,21 @@ func (r LocationHoursOfOperation) marshalJSON() jsonLocationHoursOfOperation {
 			}
 		}
 	}
-	m.AllDay = r.AllDay
+	if r.AllDay != nil && r.AllDay.Value != nil {
+		m.AllDay = r.AllDay
+	}
 	if r.AllDay != nil && (r.AllDay.Id != nil || r.AllDay.Extension != nil) {
 		m.AllDayPrimitiveElement = &primitiveElement{Id: r.AllDay.Id, Extension: r.AllDay.Extension}
 	}
-	m.OpeningTime = r.OpeningTime
+	if r.OpeningTime != nil && r.OpeningTime.Value != nil {
+		m.OpeningTime = r.OpeningTime
+	}
 	if r.OpeningTime != nil && (r.OpeningTime.Id != nil || r.OpeningTime.Extension != nil) {
 		m.OpeningTimePrimitiveElement = &primitiveElement{Id: r.OpeningTime.Id, Extension: r.OpeningTime.Extension}
 	}
-	m.ClosingTime = r.ClosingTime
+	if r.ClosingTime != nil && r.ClosingTime.Value != nil {
+		m.ClosingTime = r.ClosingTime
+	}
 	if r.ClosingTime != nil && (r.ClosingTime.Id != nil || r.ClosingTime.Extension != nil) {
 		m.ClosingTimePrimitiveElement = &primitiveElement{Id: r.ClosingTime.Id, Extension: r.ClosingTime.Extension}
 	}
@@ -448,25 +522,35 @@ func (r *LocationHoursOfOperation) unmarshalJSON(m jsonLocationHoursOfOperation)
 	r.ModifierExtension = m.ModifierExtension
 	r.DaysOfWeek = m.DaysOfWeek
 	for i, e := range m.DaysOfWeekPrimitiveElement {
-		if len(r.DaysOfWeek) > i {
+		if len(r.DaysOfWeek) <= i {
+			r.DaysOfWeek = append(r.DaysOfWeek, Code{})
+		}
+		if e != nil {
 			r.DaysOfWeek[i].Id = e.Id
 			r.DaysOfWeek[i].Extension = e.Extension
-		} else {
-			r.DaysOfWeek = append(r.DaysOfWeek, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.AllDay = m.AllDay
 	if m.AllDayPrimitiveElement != nil {
+		if r.AllDay == nil {
+			r.AllDay = &Boolean{}
+		}
 		r.AllDay.Id = m.AllDayPrimitiveElement.Id
 		r.AllDay.Extension = m.AllDayPrimitiveElement.Extension
 	}
 	r.OpeningTime = m.OpeningTime
 	if m.OpeningTimePrimitiveElement != nil {
+		if r.OpeningTime == nil {
+			r.OpeningTime = &Time{}
+		}
 		r.OpeningTime.Id = m.OpeningTimePrimitiveElement.Id
 		r.OpeningTime.Extension = m.OpeningTimePrimitiveElement.Extension
 	}
 	r.ClosingTime = m.ClosingTime
 	if m.ClosingTimePrimitiveElement != nil {
+		if r.ClosingTime == nil {
+			r.ClosingTime = &Time{}
+		}
 		r.ClosingTime.Id = m.ClosingTimePrimitiveElement.Id
 		r.ClosingTime.Extension = m.ClosingTimePrimitiveElement.Extension
 	}

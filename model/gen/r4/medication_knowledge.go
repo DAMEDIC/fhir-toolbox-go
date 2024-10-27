@@ -131,16 +131,22 @@ func (r MedicationKnowledge) MarshalJSON() ([]byte, error) {
 func (r MedicationKnowledge) marshalJSON() jsonMedicationKnowledge {
 	m := jsonMedicationKnowledge{}
 	m.ResourceType = "MedicationKnowledge"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -152,14 +158,25 @@ func (r MedicationKnowledge) marshalJSON() jsonMedicationKnowledge {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Manufacturer = r.Manufacturer
 	m.DoseForm = r.DoseForm
 	m.Amount = r.Amount
-	m.Synonym = r.Synonym
+	anySynonymValue := false
+	for _, e := range r.Synonym {
+		if e.Value != nil {
+			anySynonymValue = true
+			break
+		}
+	}
+	if anySynonymValue {
+		m.Synonym = r.Synonym
+	}
 	anySynonymIdOrExtension := false
 	for _, e := range r.Synonym {
 		if e.Id != nil || e.Extension != nil {
@@ -182,7 +199,9 @@ func (r MedicationKnowledge) marshalJSON() jsonMedicationKnowledge {
 	m.ProductType = r.ProductType
 	m.Monograph = r.Monograph
 	m.Ingredient = r.Ingredient
-	m.PreparationInstruction = r.PreparationInstruction
+	if r.PreparationInstruction != nil && r.PreparationInstruction.Value != nil {
+		m.PreparationInstruction = r.PreparationInstruction
+	}
 	if r.PreparationInstruction != nil && (r.PreparationInstruction.Id != nil || r.PreparationInstruction.Extension != nil) {
 		m.PreparationInstructionPrimitiveElement = &primitiveElement{Id: r.PreparationInstruction.Id, Extension: r.PreparationInstruction.Extension}
 	}
@@ -208,17 +227,26 @@ func (r *MedicationKnowledge) UnmarshalJSON(b []byte) error {
 func (r *MedicationKnowledge) unmarshalJSON(m jsonMedicationKnowledge) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -232,6 +260,9 @@ func (r *MedicationKnowledge) unmarshalJSON(m jsonMedicationKnowledge) error {
 	r.Code = m.Code
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
@@ -240,11 +271,12 @@ func (r *MedicationKnowledge) unmarshalJSON(m jsonMedicationKnowledge) error {
 	r.Amount = m.Amount
 	r.Synonym = m.Synonym
 	for i, e := range m.SynonymPrimitiveElement {
-		if len(r.Synonym) > i {
+		if len(r.Synonym) <= i {
+			r.Synonym = append(r.Synonym, String{})
+		}
+		if e != nil {
 			r.Synonym[i].Id = e.Id
 			r.Synonym[i].Extension = e.Extension
-		} else {
-			r.Synonym = append(r.Synonym, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.RelatedMedicationKnowledge = m.RelatedMedicationKnowledge
@@ -254,6 +286,9 @@ func (r *MedicationKnowledge) unmarshalJSON(m jsonMedicationKnowledge) error {
 	r.Ingredient = m.Ingredient
 	r.PreparationInstruction = m.PreparationInstruction
 	if m.PreparationInstructionPrimitiveElement != nil {
+		if r.PreparationInstruction == nil {
+			r.PreparationInstruction = &Markdown{}
+		}
 		r.PreparationInstruction.Id = m.PreparationInstructionPrimitiveElement.Id
 		r.PreparationInstruction.Extension = m.PreparationInstructionPrimitiveElement.Extension
 	}
@@ -446,7 +481,9 @@ func (r MedicationKnowledgeIngredient) marshalJSON() jsonMedicationKnowledgeIngr
 	case *Reference:
 		m.ItemReference = v
 	}
-	m.IsActive = r.IsActive
+	if r.IsActive != nil && r.IsActive.Value != nil {
+		m.IsActive = r.IsActive
+	}
 	if r.IsActive != nil && (r.IsActive.Id != nil || r.IsActive.Extension != nil) {
 		m.IsActivePrimitiveElement = &primitiveElement{Id: r.IsActive.Id, Extension: r.IsActive.Extension}
 	}
@@ -480,6 +517,9 @@ func (r *MedicationKnowledgeIngredient) unmarshalJSON(m jsonMedicationKnowledgeI
 	}
 	r.IsActive = m.IsActive
 	if m.IsActivePrimitiveElement != nil {
+		if r.IsActive == nil {
+			r.IsActive = &Boolean{}
+		}
 		r.IsActive.Id = m.IsActivePrimitiveElement.Id
 		r.IsActive.Extension = m.IsActivePrimitiveElement.Extension
 	}
@@ -530,7 +570,9 @@ func (r MedicationKnowledgeCost) marshalJSON() jsonMedicationKnowledgeCost {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Source = r.Source
+	if r.Source != nil && r.Source.Value != nil {
+		m.Source = r.Source
+	}
 	if r.Source != nil && (r.Source.Id != nil || r.Source.Extension != nil) {
 		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
 	}
@@ -551,6 +593,9 @@ func (r *MedicationKnowledgeCost) unmarshalJSON(m jsonMedicationKnowledgeCost) e
 	r.Type = m.Type
 	r.Source = m.Source
 	if m.SourcePrimitiveElement != nil {
+		if r.Source == nil {
+			r.Source = &String{}
+		}
 		r.Source.Id = m.SourcePrimitiveElement.Id
 		r.Source.Extension = m.SourcePrimitiveElement.Extension
 	}
@@ -598,7 +643,9 @@ func (r MedicationKnowledgeMonitoringProgram) marshalJSON() jsonMedicationKnowle
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -618,6 +665,9 @@ func (r *MedicationKnowledgeMonitoringProgram) unmarshalJSON(m jsonMedicationKno
 	r.Type = m.Type
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -834,7 +884,16 @@ func (r MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics) marsh
 	case *Quantity:
 		m.CharacteristicQuantity = v
 	}
-	m.Value = r.Value
+	anyValueValue := false
+	for _, e := range r.Value {
+		if e.Value != nil {
+			anyValueValue = true
+			break
+		}
+	}
+	if anyValueValue {
+		m.Value = r.Value
+	}
 	anyValueIdOrExtension := false
 	for _, e := range r.Value {
 		if e.Id != nil || e.Extension != nil {
@@ -881,11 +940,12 @@ func (r *MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics) unma
 	}
 	r.Value = m.Value
 	for i, e := range m.ValuePrimitiveElement {
-		if len(r.Value) > i {
+		if len(r.Value) <= i {
+			r.Value = append(r.Value, String{})
+		}
+		if e != nil {
 			r.Value[i].Id = e.Id
 			r.Value[i].Extension = e.Extension
-		} else {
-			r.Value = append(r.Value, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1066,12 +1126,16 @@ func (r MedicationKnowledgeDrugCharacteristic) marshalJSON() jsonMedicationKnowl
 	case *CodeableConcept:
 		m.ValueCodeableConcept = v
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1080,12 +1144,16 @@ func (r MedicationKnowledgeDrugCharacteristic) marshalJSON() jsonMedicationKnowl
 	case *Quantity:
 		m.ValueQuantity = v
 	case Base64Binary:
-		m.ValueBase64Binary = &v
+		if v.Value != nil {
+			m.ValueBase64Binary = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Base64Binary:
-		m.ValueBase64Binary = v
+		if v.Value != nil {
+			m.ValueBase64Binary = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1257,7 +1325,9 @@ func (r MedicationKnowledgeRegulatorySubstitution) marshalJSON() jsonMedicationK
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Allowed = r.Allowed
+	if r.Allowed.Value != nil {
+		m.Allowed = r.Allowed
+	}
 	if r.Allowed.Id != nil || r.Allowed.Extension != nil {
 		m.AllowedPrimitiveElement = &primitiveElement{Id: r.Allowed.Id, Extension: r.Allowed.Extension}
 	}

@@ -114,16 +114,22 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 func (r DeviceUseStatement) marshalJSON() jsonDeviceUseStatement {
 	m := jsonDeviceUseStatement{}
 	m.ResourceType = "DeviceUseStatement"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -136,7 +142,9 @@ func (r DeviceUseStatement) marshalJSON() jsonDeviceUseStatement {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -152,17 +160,23 @@ func (r DeviceUseStatement) marshalJSON() jsonDeviceUseStatement {
 	case *Period:
 		m.TimingPeriod = v
 	case DateTime:
-		m.TimingDateTime = &v
+		if v.Value != nil {
+			m.TimingDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimingDateTime = v
+		if v.Value != nil {
+			m.TimingDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.RecordedOn = r.RecordedOn
+	if r.RecordedOn != nil && r.RecordedOn.Value != nil {
+		m.RecordedOn = r.RecordedOn
+	}
 	if r.RecordedOn != nil && (r.RecordedOn.Id != nil || r.RecordedOn.Extension != nil) {
 		m.RecordedOnPrimitiveElement = &primitiveElement{Id: r.RecordedOn.Id, Extension: r.RecordedOn.Extension}
 	}
@@ -184,17 +198,26 @@ func (r *DeviceUseStatement) UnmarshalJSON(b []byte) error {
 func (r *DeviceUseStatement) unmarshalJSON(m jsonDeviceUseStatement) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -244,6 +267,9 @@ func (r *DeviceUseStatement) unmarshalJSON(m jsonDeviceUseStatement) error {
 	}
 	r.RecordedOn = m.RecordedOn
 	if m.RecordedOnPrimitiveElement != nil {
+		if r.RecordedOn == nil {
+			r.RecordedOn = &DateTime{}
+		}
 		r.RecordedOn.Id = m.RecordedOnPrimitiveElement.Id
 		r.RecordedOn.Extension = m.RecordedOnPrimitiveElement.Extension
 	}

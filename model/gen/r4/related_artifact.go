@@ -50,28 +50,40 @@ func (r RelatedArtifact) marshalJSON() jsonRelatedArtifact {
 	m := jsonRelatedArtifact{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Label = r.Label
+	if r.Label != nil && r.Label.Value != nil {
+		m.Label = r.Label
+	}
 	if r.Label != nil && (r.Label.Id != nil || r.Label.Extension != nil) {
 		m.LabelPrimitiveElement = &primitiveElement{Id: r.Label.Id, Extension: r.Label.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
-	m.Citation = r.Citation
+	if r.Citation != nil && r.Citation.Value != nil {
+		m.Citation = r.Citation
+	}
 	if r.Citation != nil && (r.Citation.Id != nil || r.Citation.Extension != nil) {
 		m.CitationPrimitiveElement = &primitiveElement{Id: r.Citation.Id, Extension: r.Citation.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Document = r.Document
-	m.Resource = r.Resource
+	if r.Resource != nil && r.Resource.Value != nil {
+		m.Resource = r.Resource
+	}
 	if r.Resource != nil && (r.Resource.Id != nil || r.Resource.Extension != nil) {
 		m.ResourcePrimitiveElement = &primitiveElement{Id: r.Resource.Id, Extension: r.Resource.Extension}
 	}
@@ -94,27 +106,42 @@ func (r *RelatedArtifact) unmarshalJSON(m jsonRelatedArtifact) error {
 	}
 	r.Label = m.Label
 	if m.LabelPrimitiveElement != nil {
+		if r.Label == nil {
+			r.Label = &String{}
+		}
 		r.Label.Id = m.LabelPrimitiveElement.Id
 		r.Label.Extension = m.LabelPrimitiveElement.Extension
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
 	r.Citation = m.Citation
 	if m.CitationPrimitiveElement != nil {
+		if r.Citation == nil {
+			r.Citation = &Markdown{}
+		}
 		r.Citation.Id = m.CitationPrimitiveElement.Id
 		r.Citation.Extension = m.CitationPrimitiveElement.Extension
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Url{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Document = m.Document
 	r.Resource = m.Resource
 	if m.ResourcePrimitiveElement != nil {
+		if r.Resource == nil {
+			r.Resource = &Canonical{}
+		}
 		r.Resource.Id = m.ResourcePrimitiveElement.Id
 		r.Resource.Extension = m.ResourcePrimitiveElement.Extension
 	}

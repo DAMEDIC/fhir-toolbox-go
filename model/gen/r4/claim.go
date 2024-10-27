@@ -148,16 +148,22 @@ func (r Claim) MarshalJSON() ([]byte, error) {
 func (r Claim) marshalJSON() jsonClaim {
 	m := jsonClaim{}
 	m.ResourceType = "Claim"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -169,19 +175,25 @@ func (r Claim) marshalJSON() jsonClaim {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
 	m.SubType = r.SubType
-	m.Use = r.Use
+	if r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use.Id != nil || r.Use.Extension != nil {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
 	m.Patient = r.Patient
 	m.BillablePeriod = r.BillablePeriod
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
@@ -216,17 +228,26 @@ func (r *Claim) UnmarshalJSON(b []byte) error {
 func (r *Claim) unmarshalJSON(m jsonClaim) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -449,12 +470,16 @@ func (r ClaimCareTeam) marshalJSON() jsonClaimCareTeam {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
 	m.Provider = r.Provider
-	m.Responsible = r.Responsible
+	if r.Responsible != nil && r.Responsible.Value != nil {
+		m.Responsible = r.Responsible
+	}
 	if r.Responsible != nil && (r.Responsible.Id != nil || r.Responsible.Extension != nil) {
 		m.ResponsiblePrimitiveElement = &primitiveElement{Id: r.Responsible.Id, Extension: r.Responsible.Extension}
 	}
@@ -481,6 +506,9 @@ func (r *ClaimCareTeam) unmarshalJSON(m jsonClaimCareTeam) error {
 	r.Provider = m.Provider
 	r.Responsible = m.Responsible
 	if m.ResponsiblePrimitiveElement != nil {
+		if r.Responsible == nil {
+			r.Responsible = &Boolean{}
+		}
 		r.Responsible.Id = m.ResponsiblePrimitiveElement.Id
 		r.Responsible.Extension = m.ResponsiblePrimitiveElement.Extension
 	}
@@ -565,7 +593,9 @@ func (r ClaimSupportingInfo) marshalJSON() jsonClaimSupportingInfo {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -573,12 +603,16 @@ func (r ClaimSupportingInfo) marshalJSON() jsonClaimSupportingInfo {
 	m.Code = r.Code
 	switch v := r.Timing.(type) {
 	case Date:
-		m.TimingDate = &v
+		if v.Value != nil {
+			m.TimingDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.TimingDate = v
+		if v.Value != nil {
+			m.TimingDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -589,22 +623,30 @@ func (r ClaimSupportingInfo) marshalJSON() jsonClaimSupportingInfo {
 	}
 	switch v := r.Value.(type) {
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -772,7 +814,9 @@ func (r ClaimDiagnosis) marshalJSON() jsonClaimDiagnosis {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -884,12 +928,16 @@ func (r ClaimProcedure) marshalJSON() jsonClaimProcedure {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
 	m.Type = r.Type
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -925,6 +973,9 @@ func (r *ClaimProcedure) unmarshalJSON(m jsonClaimProcedure) error {
 	r.Type = m.Type
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -1003,21 +1054,36 @@ func (r ClaimInsurance) marshalJSON() jsonClaimInsurance {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.Focal = r.Focal
+	if r.Focal.Value != nil {
+		m.Focal = r.Focal
+	}
 	if r.Focal.Id != nil || r.Focal.Extension != nil {
 		m.FocalPrimitiveElement = &primitiveElement{Id: r.Focal.Id, Extension: r.Focal.Extension}
 	}
 	m.Identifier = r.Identifier
 	m.Coverage = r.Coverage
-	m.BusinessArrangement = r.BusinessArrangement
+	if r.BusinessArrangement != nil && r.BusinessArrangement.Value != nil {
+		m.BusinessArrangement = r.BusinessArrangement
+	}
 	if r.BusinessArrangement != nil && (r.BusinessArrangement.Id != nil || r.BusinessArrangement.Extension != nil) {
 		m.BusinessArrangementPrimitiveElement = &primitiveElement{Id: r.BusinessArrangement.Id, Extension: r.BusinessArrangement.Extension}
 	}
-	m.PreAuthRef = r.PreAuthRef
+	anyPreAuthRefValue := false
+	for _, e := range r.PreAuthRef {
+		if e.Value != nil {
+			anyPreAuthRefValue = true
+			break
+		}
+	}
+	if anyPreAuthRefValue {
+		m.PreAuthRef = r.PreAuthRef
+	}
 	anyPreAuthRefIdOrExtension := false
 	for _, e := range r.PreAuthRef {
 		if e.Id != nil || e.Extension != nil {
@@ -1063,16 +1129,20 @@ func (r *ClaimInsurance) unmarshalJSON(m jsonClaimInsurance) error {
 	r.Coverage = m.Coverage
 	r.BusinessArrangement = m.BusinessArrangement
 	if m.BusinessArrangementPrimitiveElement != nil {
+		if r.BusinessArrangement == nil {
+			r.BusinessArrangement = &String{}
+		}
 		r.BusinessArrangement.Id = m.BusinessArrangementPrimitiveElement.Id
 		r.BusinessArrangement.Extension = m.BusinessArrangementPrimitiveElement.Extension
 	}
 	r.PreAuthRef = m.PreAuthRef
 	for i, e := range m.PreAuthRefPrimitiveElement {
-		if len(r.PreAuthRef) > i {
+		if len(r.PreAuthRef) <= i {
+			r.PreAuthRef = append(r.PreAuthRef, String{})
+		}
+		if e != nil {
 			r.PreAuthRef[i].Id = e.Id
 			r.PreAuthRef[i].Extension = e.Extension
-		} else {
-			r.PreAuthRef = append(r.PreAuthRef, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ClaimResponse = m.ClaimResponse
@@ -1129,7 +1199,9 @@ func (r ClaimAccident) marshalJSON() jsonClaimAccident {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Date = r.Date
+	if r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date.Id != nil || r.Date.Extension != nil {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -1300,11 +1372,22 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.CareTeamSequence = r.CareTeamSequence
+	anyCareTeamSequenceValue := false
+	for _, e := range r.CareTeamSequence {
+		if e.Value != nil {
+			anyCareTeamSequenceValue = true
+			break
+		}
+	}
+	if anyCareTeamSequenceValue {
+		m.CareTeamSequence = r.CareTeamSequence
+	}
 	anyCareTeamSequenceIdOrExtension := false
 	for _, e := range r.CareTeamSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1322,7 +1405,16 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 			}
 		}
 	}
-	m.DiagnosisSequence = r.DiagnosisSequence
+	anyDiagnosisSequenceValue := false
+	for _, e := range r.DiagnosisSequence {
+		if e.Value != nil {
+			anyDiagnosisSequenceValue = true
+			break
+		}
+	}
+	if anyDiagnosisSequenceValue {
+		m.DiagnosisSequence = r.DiagnosisSequence
+	}
 	anyDiagnosisSequenceIdOrExtension := false
 	for _, e := range r.DiagnosisSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1340,7 +1432,16 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 			}
 		}
 	}
-	m.ProcedureSequence = r.ProcedureSequence
+	anyProcedureSequenceValue := false
+	for _, e := range r.ProcedureSequence {
+		if e.Value != nil {
+			anyProcedureSequenceValue = true
+			break
+		}
+	}
+	if anyProcedureSequenceValue {
+		m.ProcedureSequence = r.ProcedureSequence
+	}
 	anyProcedureSequenceIdOrExtension := false
 	for _, e := range r.ProcedureSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1358,7 +1459,16 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 			}
 		}
 	}
-	m.InformationSequence = r.InformationSequence
+	anyInformationSequenceValue := false
+	for _, e := range r.InformationSequence {
+		if e.Value != nil {
+			anyInformationSequenceValue = true
+			break
+		}
+	}
+	if anyInformationSequenceValue {
+		m.InformationSequence = r.InformationSequence
+	}
 	anyInformationSequenceIdOrExtension := false
 	for _, e := range r.InformationSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1383,12 +1493,16 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 	m.ProgramCode = r.ProgramCode
 	switch v := r.Serviced.(type) {
 	case Date:
-		m.ServicedDate = &v
+		if v.Value != nil {
+			m.ServicedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ServicedDate = v
+		if v.Value != nil {
+			m.ServicedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1413,7 +1527,9 @@ func (r ClaimItem) marshalJSON() jsonClaimItem {
 	}
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
@@ -1443,38 +1559,42 @@ func (r *ClaimItem) unmarshalJSON(m jsonClaimItem) error {
 	}
 	r.CareTeamSequence = m.CareTeamSequence
 	for i, e := range m.CareTeamSequencePrimitiveElement {
-		if len(r.CareTeamSequence) > i {
+		if len(r.CareTeamSequence) <= i {
+			r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.CareTeamSequence[i].Id = e.Id
 			r.CareTeamSequence[i].Extension = e.Extension
-		} else {
-			r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DiagnosisSequence = m.DiagnosisSequence
 	for i, e := range m.DiagnosisSequencePrimitiveElement {
-		if len(r.DiagnosisSequence) > i {
+		if len(r.DiagnosisSequence) <= i {
+			r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.DiagnosisSequence[i].Id = e.Id
 			r.DiagnosisSequence[i].Extension = e.Extension
-		} else {
-			r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ProcedureSequence = m.ProcedureSequence
 	for i, e := range m.ProcedureSequencePrimitiveElement {
-		if len(r.ProcedureSequence) > i {
+		if len(r.ProcedureSequence) <= i {
+			r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.ProcedureSequence[i].Id = e.Id
 			r.ProcedureSequence[i].Extension = e.Extension
-		} else {
-			r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InformationSequence = m.InformationSequence
 	for i, e := range m.InformationSequencePrimitiveElement {
-		if len(r.InformationSequence) > i {
+		if len(r.InformationSequence) <= i {
+			r.InformationSequence = append(r.InformationSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.InformationSequence[i].Id = e.Id
 			r.InformationSequence[i].Extension = e.Extension
-		} else {
-			r.InformationSequence = append(r.InformationSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Revenue = m.Revenue
@@ -1528,6 +1648,9 @@ func (r *ClaimItem) unmarshalJSON(m jsonClaimItem) error {
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -1610,7 +1733,9 @@ func (r ClaimItemDetail) marshalJSON() jsonClaimItemDetail {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -1621,7 +1746,9 @@ func (r ClaimItemDetail) marshalJSON() jsonClaimItemDetail {
 	m.ProgramCode = r.ProgramCode
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
@@ -1655,6 +1782,9 @@ func (r *ClaimItemDetail) unmarshalJSON(m jsonClaimItemDetail) error {
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -1731,7 +1861,9 @@ func (r ClaimItemDetailSubDetail) marshalJSON() jsonClaimItemDetailSubDetail {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -1742,7 +1874,9 @@ func (r ClaimItemDetailSubDetail) marshalJSON() jsonClaimItemDetailSubDetail {
 	m.ProgramCode = r.ProgramCode
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
@@ -1775,6 +1909,9 @@ func (r *ClaimItemDetailSubDetail) unmarshalJSON(m jsonClaimItemDetailSubDetail)
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}

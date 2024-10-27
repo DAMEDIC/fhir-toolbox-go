@@ -113,16 +113,22 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 func (r DocumentReference) marshalJSON() jsonDocumentReference {
 	m := jsonDocumentReference{}
 	m.ResourceType = "DocumentReference"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -135,18 +141,24 @@ func (r DocumentReference) marshalJSON() jsonDocumentReference {
 	m.ModifierExtension = r.ModifierExtension
 	m.MasterIdentifier = r.MasterIdentifier
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.DocStatus = r.DocStatus
+	if r.DocStatus != nil && r.DocStatus.Value != nil {
+		m.DocStatus = r.DocStatus
+	}
 	if r.DocStatus != nil && (r.DocStatus.Id != nil || r.DocStatus.Extension != nil) {
 		m.DocStatusPrimitiveElement = &primitiveElement{Id: r.DocStatus.Id, Extension: r.DocStatus.Extension}
 	}
 	m.Type = r.Type
 	m.Category = r.Category
 	m.Subject = r.Subject
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -154,7 +166,9 @@ func (r DocumentReference) marshalJSON() jsonDocumentReference {
 	m.Authenticator = r.Authenticator
 	m.Custodian = r.Custodian
 	m.RelatesTo = r.RelatesTo
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -173,17 +187,26 @@ func (r *DocumentReference) UnmarshalJSON(b []byte) error {
 func (r *DocumentReference) unmarshalJSON(m jsonDocumentReference) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -203,6 +226,9 @@ func (r *DocumentReference) unmarshalJSON(m jsonDocumentReference) error {
 	}
 	r.DocStatus = m.DocStatus
 	if m.DocStatusPrimitiveElement != nil {
+		if r.DocStatus == nil {
+			r.DocStatus = &Code{}
+		}
 		r.DocStatus.Id = m.DocStatusPrimitiveElement.Id
 		r.DocStatus.Extension = m.DocStatusPrimitiveElement.Extension
 	}
@@ -211,6 +237,9 @@ func (r *DocumentReference) unmarshalJSON(m jsonDocumentReference) error {
 	r.Subject = m.Subject
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &Instant{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -220,6 +249,9 @@ func (r *DocumentReference) unmarshalJSON(m jsonDocumentReference) error {
 	r.RelatesTo = m.RelatesTo
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -268,7 +300,9 @@ func (r DocumentReferenceRelatesTo) marshalJSON() jsonDocumentReferenceRelatesTo
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}

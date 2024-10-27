@@ -99,16 +99,22 @@ func (r AuditEvent) MarshalJSON() ([]byte, error) {
 func (r AuditEvent) marshalJSON() jsonAuditEvent {
 	m := jsonAuditEvent{}
 	m.ResourceType = "AuditEvent"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -121,20 +127,28 @@ func (r AuditEvent) marshalJSON() jsonAuditEvent {
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
 	m.Subtype = r.Subtype
-	m.Action = r.Action
+	if r.Action != nil && r.Action.Value != nil {
+		m.Action = r.Action
+	}
 	if r.Action != nil && (r.Action.Id != nil || r.Action.Extension != nil) {
 		m.ActionPrimitiveElement = &primitiveElement{Id: r.Action.Id, Extension: r.Action.Extension}
 	}
 	m.Period = r.Period
-	m.Recorded = r.Recorded
+	if r.Recorded.Value != nil {
+		m.Recorded = r.Recorded
+	}
 	if r.Recorded.Id != nil || r.Recorded.Extension != nil {
 		m.RecordedPrimitiveElement = &primitiveElement{Id: r.Recorded.Id, Extension: r.Recorded.Extension}
 	}
-	m.Outcome = r.Outcome
+	if r.Outcome != nil && r.Outcome.Value != nil {
+		m.Outcome = r.Outcome
+	}
 	if r.Outcome != nil && (r.Outcome.Id != nil || r.Outcome.Extension != nil) {
 		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
 	}
-	m.OutcomeDesc = r.OutcomeDesc
+	if r.OutcomeDesc != nil && r.OutcomeDesc.Value != nil {
+		m.OutcomeDesc = r.OutcomeDesc
+	}
 	if r.OutcomeDesc != nil && (r.OutcomeDesc.Id != nil || r.OutcomeDesc.Extension != nil) {
 		m.OutcomeDescPrimitiveElement = &primitiveElement{Id: r.OutcomeDesc.Id, Extension: r.OutcomeDesc.Extension}
 	}
@@ -154,17 +168,26 @@ func (r *AuditEvent) UnmarshalJSON(b []byte) error {
 func (r *AuditEvent) unmarshalJSON(m jsonAuditEvent) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -179,6 +202,9 @@ func (r *AuditEvent) unmarshalJSON(m jsonAuditEvent) error {
 	r.Subtype = m.Subtype
 	r.Action = m.Action
 	if m.ActionPrimitiveElement != nil {
+		if r.Action == nil {
+			r.Action = &Code{}
+		}
 		r.Action.Id = m.ActionPrimitiveElement.Id
 		r.Action.Extension = m.ActionPrimitiveElement.Extension
 	}
@@ -190,11 +216,17 @@ func (r *AuditEvent) unmarshalJSON(m jsonAuditEvent) error {
 	}
 	r.Outcome = m.Outcome
 	if m.OutcomePrimitiveElement != nil {
+		if r.Outcome == nil {
+			r.Outcome = &Code{}
+		}
 		r.Outcome.Id = m.OutcomePrimitiveElement.Id
 		r.Outcome.Extension = m.OutcomePrimitiveElement.Extension
 	}
 	r.OutcomeDesc = m.OutcomeDesc
 	if m.OutcomeDescPrimitiveElement != nil {
+		if r.OutcomeDesc == nil {
+			r.OutcomeDesc = &String{}
+		}
 		r.OutcomeDesc.Id = m.OutcomeDescPrimitiveElement.Id
 		r.OutcomeDesc.Extension = m.OutcomeDescPrimitiveElement.Extension
 	}
@@ -277,20 +309,35 @@ func (r AuditEventAgent) marshalJSON() jsonAuditEventAgent {
 	m.Type = r.Type
 	m.Role = r.Role
 	m.Who = r.Who
-	m.AltId = r.AltId
+	if r.AltId != nil && r.AltId.Value != nil {
+		m.AltId = r.AltId
+	}
 	if r.AltId != nil && (r.AltId.Id != nil || r.AltId.Extension != nil) {
 		m.AltIdPrimitiveElement = &primitiveElement{Id: r.AltId.Id, Extension: r.AltId.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Requestor = r.Requestor
+	if r.Requestor.Value != nil {
+		m.Requestor = r.Requestor
+	}
 	if r.Requestor.Id != nil || r.Requestor.Extension != nil {
 		m.RequestorPrimitiveElement = &primitiveElement{Id: r.Requestor.Id, Extension: r.Requestor.Extension}
 	}
 	m.Location = r.Location
-	m.Policy = r.Policy
+	anyPolicyValue := false
+	for _, e := range r.Policy {
+		if e.Value != nil {
+			anyPolicyValue = true
+			break
+		}
+	}
+	if anyPolicyValue {
+		m.Policy = r.Policy
+	}
 	anyPolicyIdOrExtension := false
 	for _, e := range r.Policy {
 		if e.Id != nil || e.Extension != nil {
@@ -329,11 +376,17 @@ func (r *AuditEventAgent) unmarshalJSON(m jsonAuditEventAgent) error {
 	r.Who = m.Who
 	r.AltId = m.AltId
 	if m.AltIdPrimitiveElement != nil {
+		if r.AltId == nil {
+			r.AltId = &String{}
+		}
 		r.AltId.Id = m.AltIdPrimitiveElement.Id
 		r.AltId.Extension = m.AltIdPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -345,11 +398,12 @@ func (r *AuditEventAgent) unmarshalJSON(m jsonAuditEventAgent) error {
 	r.Location = m.Location
 	r.Policy = m.Policy
 	for i, e := range m.PolicyPrimitiveElement {
-		if len(r.Policy) > i {
+		if len(r.Policy) <= i {
+			r.Policy = append(r.Policy, Uri{})
+		}
+		if e != nil {
 			r.Policy[i].Id = e.Id
 			r.Policy[i].Extension = e.Extension
-		} else {
-			r.Policy = append(r.Policy, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Media = m.Media
@@ -398,11 +452,15 @@ func (r AuditEventAgentNetwork) marshalJSON() jsonAuditEventAgentNetwork {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Address = r.Address
+	if r.Address != nil && r.Address.Value != nil {
+		m.Address = r.Address
+	}
 	if r.Address != nil && (r.Address.Id != nil || r.Address.Extension != nil) {
 		m.AddressPrimitiveElement = &primitiveElement{Id: r.Address.Id, Extension: r.Address.Extension}
 	}
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
@@ -421,11 +479,17 @@ func (r *AuditEventAgentNetwork) unmarshalJSON(m jsonAuditEventAgentNetwork) err
 	r.ModifierExtension = m.ModifierExtension
 	r.Address = m.Address
 	if m.AddressPrimitiveElement != nil {
+		if r.Address == nil {
+			r.Address = &String{}
+		}
 		r.Address.Id = m.AddressPrimitiveElement.Id
 		r.Address.Extension = m.AddressPrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
@@ -474,7 +538,9 @@ func (r AuditEventSource) marshalJSON() jsonAuditEventSource {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Site = r.Site
+	if r.Site != nil && r.Site.Value != nil {
+		m.Site = r.Site
+	}
 	if r.Site != nil && (r.Site.Id != nil || r.Site.Extension != nil) {
 		m.SitePrimitiveElement = &primitiveElement{Id: r.Site.Id, Extension: r.Site.Extension}
 	}
@@ -495,6 +561,9 @@ func (r *AuditEventSource) unmarshalJSON(m jsonAuditEventSource) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Site = m.Site
 	if m.SitePrimitiveElement != nil {
+		if r.Site == nil {
+			r.Site = &String{}
+		}
 		r.Site.Id = m.SitePrimitiveElement.Id
 		r.Site.Extension = m.SitePrimitiveElement.Extension
 	}
@@ -570,15 +639,21 @@ func (r AuditEventEntity) marshalJSON() jsonAuditEventEntity {
 	m.Role = r.Role
 	m.Lifecycle = r.Lifecycle
 	m.SecurityLabel = r.SecurityLabel
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Query = r.Query
+	if r.Query != nil && r.Query.Value != nil {
+		m.Query = r.Query
+	}
 	if r.Query != nil && (r.Query.Id != nil || r.Query.Extension != nil) {
 		m.QueryPrimitiveElement = &primitiveElement{Id: r.Query.Id, Extension: r.Query.Extension}
 	}
@@ -603,16 +678,25 @@ func (r *AuditEventEntity) unmarshalJSON(m jsonAuditEventEntity) error {
 	r.SecurityLabel = m.SecurityLabel
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Query = m.Query
 	if m.QueryPrimitiveElement != nil {
+		if r.Query == nil {
+			r.Query = &Base64Binary{}
+		}
 		r.Query.Id = m.QueryPrimitiveElement.Id
 		r.Query.Extension = m.QueryPrimitiveElement.Extension
 	}
@@ -669,28 +753,38 @@ func (r AuditEventEntityDetail) marshalJSON() jsonAuditEventEntityDetail {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
 	switch v := r.Value.(type) {
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Base64Binary:
-		m.ValueBase64Binary = &v
+		if v.Value != nil {
+			m.ValueBase64Binary = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Base64Binary:
-		m.ValueBase64Binary = v
+		if v.Value != nil {
+			m.ValueBase64Binary = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

@@ -11,11 +11,6 @@ type PositiveInt struct {
 	// Primitive value for positiveInt
 	Value *uint32
 }
-type jsonPositiveInt struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *uint32     `json:"value,omitempty"`
-}
 
 func (r PositiveInt) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

@@ -97,16 +97,22 @@ func (r Account) MarshalJSON() ([]byte, error) {
 func (r Account) marshalJSON() jsonAccount {
 	m := jsonAccount{}
 	m.ResourceType = "Account"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -118,12 +124,16 @@ func (r Account) marshalJSON() jsonAccount {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -131,7 +141,9 @@ func (r Account) marshalJSON() jsonAccount {
 	m.ServicePeriod = r.ServicePeriod
 	m.Coverage = r.Coverage
 	m.Owner = r.Owner
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -149,17 +161,26 @@ func (r *Account) UnmarshalJSON(b []byte) error {
 func (r *Account) unmarshalJSON(m jsonAccount) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -179,6 +200,9 @@ func (r *Account) unmarshalJSON(m jsonAccount) error {
 	r.Type = m.Type
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -188,6 +212,9 @@ func (r *Account) unmarshalJSON(m jsonAccount) error {
 	r.Owner = m.Owner
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -238,7 +265,9 @@ func (r AccountCoverage) marshalJSON() jsonAccountCoverage {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Coverage = r.Coverage
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
@@ -258,6 +287,9 @@ func (r *AccountCoverage) unmarshalJSON(m jsonAccountCoverage) error {
 	r.Coverage = m.Coverage
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &PositiveInt{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
@@ -307,7 +339,9 @@ func (r AccountGuarantor) marshalJSON() jsonAccountGuarantor {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Party = r.Party
-	m.OnHold = r.OnHold
+	if r.OnHold != nil && r.OnHold.Value != nil {
+		m.OnHold = r.OnHold
+	}
 	if r.OnHold != nil && (r.OnHold.Id != nil || r.OnHold.Extension != nil) {
 		m.OnHoldPrimitiveElement = &primitiveElement{Id: r.OnHold.Id, Extension: r.OnHold.Extension}
 	}
@@ -328,6 +362,9 @@ func (r *AccountGuarantor) unmarshalJSON(m jsonAccountGuarantor) error {
 	r.Party = m.Party
 	r.OnHold = m.OnHold
 	if m.OnHoldPrimitiveElement != nil {
+		if r.OnHold == nil {
+			r.OnHold = &Boolean{}
+		}
 		r.OnHold.Id = m.OnHoldPrimitiveElement.Id
 		r.OnHold.Extension = m.OnHoldPrimitiveElement.Extension
 	}

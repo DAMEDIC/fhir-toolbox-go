@@ -100,16 +100,22 @@ func (r PaymentNotice) MarshalJSON() ([]byte, error) {
 func (r PaymentNotice) marshalJSON() jsonPaymentNotice {
 	m := jsonPaymentNotice{}
 	m.ResourceType = "PaymentNotice"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -121,19 +127,25 @@ func (r PaymentNotice) marshalJSON() jsonPaymentNotice {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Request = r.Request
 	m.Response = r.Response
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
 	m.Provider = r.Provider
 	m.Payment = r.Payment
-	m.PaymentDate = r.PaymentDate
+	if r.PaymentDate != nil && r.PaymentDate.Value != nil {
+		m.PaymentDate = r.PaymentDate
+	}
 	if r.PaymentDate != nil && (r.PaymentDate.Id != nil || r.PaymentDate.Extension != nil) {
 		m.PaymentDatePrimitiveElement = &primitiveElement{Id: r.PaymentDate.Id, Extension: r.PaymentDate.Extension}
 	}
@@ -153,17 +165,26 @@ func (r *PaymentNotice) UnmarshalJSON(b []byte) error {
 func (r *PaymentNotice) unmarshalJSON(m jsonPaymentNotice) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -191,6 +212,9 @@ func (r *PaymentNotice) unmarshalJSON(m jsonPaymentNotice) error {
 	r.Payment = m.Payment
 	r.PaymentDate = m.PaymentDate
 	if m.PaymentDatePrimitiveElement != nil {
+		if r.PaymentDate == nil {
+			r.PaymentDate = &Date{}
+		}
 		r.PaymentDate.Id = m.PaymentDatePrimitiveElement.Id
 		r.PaymentDate.Extension = m.PaymentDatePrimitiveElement.Extension
 	}

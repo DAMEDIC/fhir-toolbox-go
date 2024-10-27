@@ -9,11 +9,6 @@ type Decimal struct {
 	// The actual value
 	Value *string
 }
-type jsonDecimal struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Decimal) MarshalJSON() ([]byte, error) {
 	return []byte(*r.Value), nil

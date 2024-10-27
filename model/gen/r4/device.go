@@ -151,16 +151,22 @@ func (r Device) MarshalJSON() ([]byte, error) {
 func (r Device) marshalJSON() jsonDevice {
 	m := jsonDevice{}
 	m.ResourceType = "Device"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -174,41 +180,59 @@ func (r Device) marshalJSON() jsonDevice {
 	m.Identifier = r.Identifier
 	m.Definition = r.Definition
 	m.UdiCarrier = r.UdiCarrier
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.StatusReason = r.StatusReason
-	m.DistinctIdentifier = r.DistinctIdentifier
+	if r.DistinctIdentifier != nil && r.DistinctIdentifier.Value != nil {
+		m.DistinctIdentifier = r.DistinctIdentifier
+	}
 	if r.DistinctIdentifier != nil && (r.DistinctIdentifier.Id != nil || r.DistinctIdentifier.Extension != nil) {
 		m.DistinctIdentifierPrimitiveElement = &primitiveElement{Id: r.DistinctIdentifier.Id, Extension: r.DistinctIdentifier.Extension}
 	}
-	m.Manufacturer = r.Manufacturer
+	if r.Manufacturer != nil && r.Manufacturer.Value != nil {
+		m.Manufacturer = r.Manufacturer
+	}
 	if r.Manufacturer != nil && (r.Manufacturer.Id != nil || r.Manufacturer.Extension != nil) {
 		m.ManufacturerPrimitiveElement = &primitiveElement{Id: r.Manufacturer.Id, Extension: r.Manufacturer.Extension}
 	}
-	m.ManufactureDate = r.ManufactureDate
+	if r.ManufactureDate != nil && r.ManufactureDate.Value != nil {
+		m.ManufactureDate = r.ManufactureDate
+	}
 	if r.ManufactureDate != nil && (r.ManufactureDate.Id != nil || r.ManufactureDate.Extension != nil) {
 		m.ManufactureDatePrimitiveElement = &primitiveElement{Id: r.ManufactureDate.Id, Extension: r.ManufactureDate.Extension}
 	}
-	m.ExpirationDate = r.ExpirationDate
+	if r.ExpirationDate != nil && r.ExpirationDate.Value != nil {
+		m.ExpirationDate = r.ExpirationDate
+	}
 	if r.ExpirationDate != nil && (r.ExpirationDate.Id != nil || r.ExpirationDate.Extension != nil) {
 		m.ExpirationDatePrimitiveElement = &primitiveElement{Id: r.ExpirationDate.Id, Extension: r.ExpirationDate.Extension}
 	}
-	m.LotNumber = r.LotNumber
+	if r.LotNumber != nil && r.LotNumber.Value != nil {
+		m.LotNumber = r.LotNumber
+	}
 	if r.LotNumber != nil && (r.LotNumber.Id != nil || r.LotNumber.Extension != nil) {
 		m.LotNumberPrimitiveElement = &primitiveElement{Id: r.LotNumber.Id, Extension: r.LotNumber.Extension}
 	}
-	m.SerialNumber = r.SerialNumber
+	if r.SerialNumber != nil && r.SerialNumber.Value != nil {
+		m.SerialNumber = r.SerialNumber
+	}
 	if r.SerialNumber != nil && (r.SerialNumber.Id != nil || r.SerialNumber.Extension != nil) {
 		m.SerialNumberPrimitiveElement = &primitiveElement{Id: r.SerialNumber.Id, Extension: r.SerialNumber.Extension}
 	}
 	m.DeviceName = r.DeviceName
-	m.ModelNumber = r.ModelNumber
+	if r.ModelNumber != nil && r.ModelNumber.Value != nil {
+		m.ModelNumber = r.ModelNumber
+	}
 	if r.ModelNumber != nil && (r.ModelNumber.Id != nil || r.ModelNumber.Extension != nil) {
 		m.ModelNumberPrimitiveElement = &primitiveElement{Id: r.ModelNumber.Id, Extension: r.ModelNumber.Extension}
 	}
-	m.PartNumber = r.PartNumber
+	if r.PartNumber != nil && r.PartNumber.Value != nil {
+		m.PartNumber = r.PartNumber
+	}
 	if r.PartNumber != nil && (r.PartNumber.Id != nil || r.PartNumber.Extension != nil) {
 		m.PartNumberPrimitiveElement = &primitiveElement{Id: r.PartNumber.Id, Extension: r.PartNumber.Extension}
 	}
@@ -220,7 +244,9 @@ func (r Device) marshalJSON() jsonDevice {
 	m.Owner = r.Owner
 	m.Contact = r.Contact
 	m.Location = r.Location
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
@@ -239,17 +265,26 @@ func (r *Device) UnmarshalJSON(b []byte) error {
 func (r *Device) unmarshalJSON(m jsonDevice) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -265,48 +300,75 @@ func (r *Device) unmarshalJSON(m jsonDevice) error {
 	r.UdiCarrier = m.UdiCarrier
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
 	r.StatusReason = m.StatusReason
 	r.DistinctIdentifier = m.DistinctIdentifier
 	if m.DistinctIdentifierPrimitiveElement != nil {
+		if r.DistinctIdentifier == nil {
+			r.DistinctIdentifier = &String{}
+		}
 		r.DistinctIdentifier.Id = m.DistinctIdentifierPrimitiveElement.Id
 		r.DistinctIdentifier.Extension = m.DistinctIdentifierPrimitiveElement.Extension
 	}
 	r.Manufacturer = m.Manufacturer
 	if m.ManufacturerPrimitiveElement != nil {
+		if r.Manufacturer == nil {
+			r.Manufacturer = &String{}
+		}
 		r.Manufacturer.Id = m.ManufacturerPrimitiveElement.Id
 		r.Manufacturer.Extension = m.ManufacturerPrimitiveElement.Extension
 	}
 	r.ManufactureDate = m.ManufactureDate
 	if m.ManufactureDatePrimitiveElement != nil {
+		if r.ManufactureDate == nil {
+			r.ManufactureDate = &DateTime{}
+		}
 		r.ManufactureDate.Id = m.ManufactureDatePrimitiveElement.Id
 		r.ManufactureDate.Extension = m.ManufactureDatePrimitiveElement.Extension
 	}
 	r.ExpirationDate = m.ExpirationDate
 	if m.ExpirationDatePrimitiveElement != nil {
+		if r.ExpirationDate == nil {
+			r.ExpirationDate = &DateTime{}
+		}
 		r.ExpirationDate.Id = m.ExpirationDatePrimitiveElement.Id
 		r.ExpirationDate.Extension = m.ExpirationDatePrimitiveElement.Extension
 	}
 	r.LotNumber = m.LotNumber
 	if m.LotNumberPrimitiveElement != nil {
+		if r.LotNumber == nil {
+			r.LotNumber = &String{}
+		}
 		r.LotNumber.Id = m.LotNumberPrimitiveElement.Id
 		r.LotNumber.Extension = m.LotNumberPrimitiveElement.Extension
 	}
 	r.SerialNumber = m.SerialNumber
 	if m.SerialNumberPrimitiveElement != nil {
+		if r.SerialNumber == nil {
+			r.SerialNumber = &String{}
+		}
 		r.SerialNumber.Id = m.SerialNumberPrimitiveElement.Id
 		r.SerialNumber.Extension = m.SerialNumberPrimitiveElement.Extension
 	}
 	r.DeviceName = m.DeviceName
 	r.ModelNumber = m.ModelNumber
 	if m.ModelNumberPrimitiveElement != nil {
+		if r.ModelNumber == nil {
+			r.ModelNumber = &String{}
+		}
 		r.ModelNumber.Id = m.ModelNumberPrimitiveElement.Id
 		r.ModelNumber.Extension = m.ModelNumberPrimitiveElement.Extension
 	}
 	r.PartNumber = m.PartNumber
 	if m.PartNumberPrimitiveElement != nil {
+		if r.PartNumber == nil {
+			r.PartNumber = &String{}
+		}
 		r.PartNumber.Id = m.PartNumberPrimitiveElement.Id
 		r.PartNumber.Extension = m.PartNumberPrimitiveElement.Extension
 	}
@@ -320,6 +382,9 @@ func (r *Device) unmarshalJSON(m jsonDevice) error {
 	r.Location = m.Location
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
@@ -393,27 +458,39 @@ func (r DeviceUdiCarrier) marshalJSON() jsonDeviceUdiCarrier {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.DeviceIdentifier = r.DeviceIdentifier
+	if r.DeviceIdentifier != nil && r.DeviceIdentifier.Value != nil {
+		m.DeviceIdentifier = r.DeviceIdentifier
+	}
 	if r.DeviceIdentifier != nil && (r.DeviceIdentifier.Id != nil || r.DeviceIdentifier.Extension != nil) {
 		m.DeviceIdentifierPrimitiveElement = &primitiveElement{Id: r.DeviceIdentifier.Id, Extension: r.DeviceIdentifier.Extension}
 	}
-	m.Issuer = r.Issuer
+	if r.Issuer != nil && r.Issuer.Value != nil {
+		m.Issuer = r.Issuer
+	}
 	if r.Issuer != nil && (r.Issuer.Id != nil || r.Issuer.Extension != nil) {
 		m.IssuerPrimitiveElement = &primitiveElement{Id: r.Issuer.Id, Extension: r.Issuer.Extension}
 	}
-	m.Jurisdiction = r.Jurisdiction
+	if r.Jurisdiction != nil && r.Jurisdiction.Value != nil {
+		m.Jurisdiction = r.Jurisdiction
+	}
 	if r.Jurisdiction != nil && (r.Jurisdiction.Id != nil || r.Jurisdiction.Extension != nil) {
 		m.JurisdictionPrimitiveElement = &primitiveElement{Id: r.Jurisdiction.Id, Extension: r.Jurisdiction.Extension}
 	}
-	m.CarrierAidc = r.CarrierAidc
+	if r.CarrierAidc != nil && r.CarrierAidc.Value != nil {
+		m.CarrierAidc = r.CarrierAidc
+	}
 	if r.CarrierAidc != nil && (r.CarrierAidc.Id != nil || r.CarrierAidc.Extension != nil) {
 		m.CarrierAidcPrimitiveElement = &primitiveElement{Id: r.CarrierAidc.Id, Extension: r.CarrierAidc.Extension}
 	}
-	m.CarrierHrf = r.CarrierHrf
+	if r.CarrierHrf != nil && r.CarrierHrf.Value != nil {
+		m.CarrierHrf = r.CarrierHrf
+	}
 	if r.CarrierHrf != nil && (r.CarrierHrf.Id != nil || r.CarrierHrf.Extension != nil) {
 		m.CarrierHrfPrimitiveElement = &primitiveElement{Id: r.CarrierHrf.Id, Extension: r.CarrierHrf.Extension}
 	}
-	m.EntryType = r.EntryType
+	if r.EntryType != nil && r.EntryType.Value != nil {
+		m.EntryType = r.EntryType
+	}
 	if r.EntryType != nil && (r.EntryType.Id != nil || r.EntryType.Extension != nil) {
 		m.EntryTypePrimitiveElement = &primitiveElement{Id: r.EntryType.Id, Extension: r.EntryType.Extension}
 	}
@@ -432,31 +509,49 @@ func (r *DeviceUdiCarrier) unmarshalJSON(m jsonDeviceUdiCarrier) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.DeviceIdentifier = m.DeviceIdentifier
 	if m.DeviceIdentifierPrimitiveElement != nil {
+		if r.DeviceIdentifier == nil {
+			r.DeviceIdentifier = &String{}
+		}
 		r.DeviceIdentifier.Id = m.DeviceIdentifierPrimitiveElement.Id
 		r.DeviceIdentifier.Extension = m.DeviceIdentifierPrimitiveElement.Extension
 	}
 	r.Issuer = m.Issuer
 	if m.IssuerPrimitiveElement != nil {
+		if r.Issuer == nil {
+			r.Issuer = &Uri{}
+		}
 		r.Issuer.Id = m.IssuerPrimitiveElement.Id
 		r.Issuer.Extension = m.IssuerPrimitiveElement.Extension
 	}
 	r.Jurisdiction = m.Jurisdiction
 	if m.JurisdictionPrimitiveElement != nil {
+		if r.Jurisdiction == nil {
+			r.Jurisdiction = &Uri{}
+		}
 		r.Jurisdiction.Id = m.JurisdictionPrimitiveElement.Id
 		r.Jurisdiction.Extension = m.JurisdictionPrimitiveElement.Extension
 	}
 	r.CarrierAidc = m.CarrierAidc
 	if m.CarrierAidcPrimitiveElement != nil {
+		if r.CarrierAidc == nil {
+			r.CarrierAidc = &Base64Binary{}
+		}
 		r.CarrierAidc.Id = m.CarrierAidcPrimitiveElement.Id
 		r.CarrierAidc.Extension = m.CarrierAidcPrimitiveElement.Extension
 	}
 	r.CarrierHrf = m.CarrierHrf
 	if m.CarrierHrfPrimitiveElement != nil {
+		if r.CarrierHrf == nil {
+			r.CarrierHrf = &String{}
+		}
 		r.CarrierHrf.Id = m.CarrierHrfPrimitiveElement.Id
 		r.CarrierHrf.Extension = m.CarrierHrfPrimitiveElement.Extension
 	}
 	r.EntryType = m.EntryType
 	if m.EntryTypePrimitiveElement != nil {
+		if r.EntryType == nil {
+			r.EntryType = &Code{}
+		}
 		r.EntryType.Id = m.EntryTypePrimitiveElement.Id
 		r.EntryType.Extension = m.EntryTypePrimitiveElement.Extension
 	}
@@ -504,11 +599,15 @@ func (r DeviceDeviceName) marshalJSON() jsonDeviceDeviceName {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
@@ -578,7 +677,9 @@ func (r DeviceSpecialization) marshalJSON() jsonDeviceSpecialization {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.SystemType = r.SystemType
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
@@ -598,6 +699,9 @@ func (r *DeviceSpecialization) unmarshalJSON(m jsonDeviceSpecialization) error {
 	r.SystemType = m.SystemType
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -648,7 +752,9 @@ func (r DeviceVersion) marshalJSON() jsonDeviceVersion {
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
 	m.Component = r.Component
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}

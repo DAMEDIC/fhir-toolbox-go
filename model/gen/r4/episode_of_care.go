@@ -98,16 +98,22 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 func (r EpisodeOfCare) marshalJSON() jsonEpisodeOfCare {
 	m := jsonEpisodeOfCare{}
 	m.ResourceType = "EpisodeOfCare"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -119,7 +125,9 @@ func (r EpisodeOfCare) marshalJSON() jsonEpisodeOfCare {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -145,17 +153,26 @@ func (r *EpisodeOfCare) UnmarshalJSON(b []byte) error {
 func (r *EpisodeOfCare) unmarshalJSON(m jsonEpisodeOfCare) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -224,7 +241,9 @@ func (r EpisodeOfCareStatusHistory) marshalJSON() jsonEpisodeOfCareStatusHistory
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -295,7 +314,9 @@ func (r EpisodeOfCareDiagnosis) marshalJSON() jsonEpisodeOfCareDiagnosis {
 	m.ModifierExtension = r.ModifierExtension
 	m.Condition = r.Condition
 	m.Role = r.Role
-	m.Rank = r.Rank
+	if r.Rank != nil && r.Rank.Value != nil {
+		m.Rank = r.Rank
+	}
 	if r.Rank != nil && (r.Rank.Id != nil || r.Rank.Extension != nil) {
 		m.RankPrimitiveElement = &primitiveElement{Id: r.Rank.Id, Extension: r.Rank.Extension}
 	}
@@ -316,6 +337,9 @@ func (r *EpisodeOfCareDiagnosis) unmarshalJSON(m jsonEpisodeOfCareDiagnosis) err
 	r.Role = m.Role
 	r.Rank = m.Rank
 	if m.RankPrimitiveElement != nil {
+		if r.Rank == nil {
+			r.Rank = &PositiveInt{}
+		}
 		r.Rank.Id = m.RankPrimitiveElement.Id
 		r.Rank.Extension = m.RankPrimitiveElement.Extension
 	}

@@ -114,16 +114,22 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 func (r Invoice) marshalJSON() jsonInvoice {
 	m := jsonInvoice{}
 	m.ResourceType = "Invoice"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -135,18 +141,24 @@ func (r Invoice) marshalJSON() jsonInvoice {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.CancelledReason = r.CancelledReason
+	if r.CancelledReason != nil && r.CancelledReason.Value != nil {
+		m.CancelledReason = r.CancelledReason
+	}
 	if r.CancelledReason != nil && (r.CancelledReason.Id != nil || r.CancelledReason.Extension != nil) {
 		m.CancelledReasonPrimitiveElement = &primitiveElement{Id: r.CancelledReason.Id, Extension: r.CancelledReason.Extension}
 	}
 	m.Type = r.Type
 	m.Subject = r.Subject
 	m.Recipient = r.Recipient
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -157,7 +169,9 @@ func (r Invoice) marshalJSON() jsonInvoice {
 	m.TotalPriceComponent = r.TotalPriceComponent
 	m.TotalNet = r.TotalNet
 	m.TotalGross = r.TotalGross
-	m.PaymentTerms = r.PaymentTerms
+	if r.PaymentTerms != nil && r.PaymentTerms.Value != nil {
+		m.PaymentTerms = r.PaymentTerms
+	}
 	if r.PaymentTerms != nil && (r.PaymentTerms.Id != nil || r.PaymentTerms.Extension != nil) {
 		m.PaymentTermsPrimitiveElement = &primitiveElement{Id: r.PaymentTerms.Id, Extension: r.PaymentTerms.Extension}
 	}
@@ -174,17 +188,26 @@ func (r *Invoice) UnmarshalJSON(b []byte) error {
 func (r *Invoice) unmarshalJSON(m jsonInvoice) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -203,6 +226,9 @@ func (r *Invoice) unmarshalJSON(m jsonInvoice) error {
 	}
 	r.CancelledReason = m.CancelledReason
 	if m.CancelledReasonPrimitiveElement != nil {
+		if r.CancelledReason == nil {
+			r.CancelledReason = &String{}
+		}
 		r.CancelledReason.Id = m.CancelledReasonPrimitiveElement.Id
 		r.CancelledReason.Extension = m.CancelledReasonPrimitiveElement.Extension
 	}
@@ -211,6 +237,9 @@ func (r *Invoice) unmarshalJSON(m jsonInvoice) error {
 	r.Recipient = m.Recipient
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -223,6 +252,9 @@ func (r *Invoice) unmarshalJSON(m jsonInvoice) error {
 	r.TotalGross = m.TotalGross
 	r.PaymentTerms = m.PaymentTerms
 	if m.PaymentTermsPrimitiveElement != nil {
+		if r.PaymentTerms == nil {
+			r.PaymentTerms = &Markdown{}
+		}
 		r.PaymentTerms.Id = m.PaymentTermsPrimitiveElement.Id
 		r.PaymentTerms.Extension = m.PaymentTermsPrimitiveElement.Extension
 	}
@@ -338,7 +370,9 @@ func (r InvoiceLineItem) marshalJSON() jsonInvoiceLineItem {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence != nil && r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -368,6 +402,9 @@ func (r *InvoiceLineItem) unmarshalJSON(m jsonInvoiceLineItem) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Sequence = m.Sequence
 	if m.SequencePrimitiveElement != nil {
+		if r.Sequence == nil {
+			r.Sequence = &PositiveInt{}
+		}
 		r.Sequence.Id = m.SequencePrimitiveElement.Id
 		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
 	}
@@ -435,12 +472,16 @@ func (r InvoiceLineItemPriceComponent) marshalJSON() jsonInvoiceLineItemPriceCom
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
 	m.Code = r.Code
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
@@ -466,6 +507,9 @@ func (r *InvoiceLineItemPriceComponent) unmarshalJSON(m jsonInvoiceLineItemPrice
 	r.Code = m.Code
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}

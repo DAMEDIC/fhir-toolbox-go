@@ -11,11 +11,6 @@ type Url struct {
 	// Primitive value for url
 	Value *string
 }
-type jsonUrl struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Url) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

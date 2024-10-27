@@ -80,16 +80,22 @@ func (r MedicinalProductIngredient) MarshalJSON() ([]byte, error) {
 func (r MedicinalProductIngredient) marshalJSON() jsonMedicinalProductIngredient {
 	m := jsonMedicinalProductIngredient{}
 	m.ResourceType = "MedicinalProductIngredient"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -102,7 +108,9 @@ func (r MedicinalProductIngredient) marshalJSON() jsonMedicinalProductIngredient
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.Role = r.Role
-	m.AllergenicIndicator = r.AllergenicIndicator
+	if r.AllergenicIndicator != nil && r.AllergenicIndicator.Value != nil {
+		m.AllergenicIndicator = r.AllergenicIndicator
+	}
 	if r.AllergenicIndicator != nil && (r.AllergenicIndicator.Id != nil || r.AllergenicIndicator.Extension != nil) {
 		m.AllergenicIndicatorPrimitiveElement = &primitiveElement{Id: r.AllergenicIndicator.Id, Extension: r.AllergenicIndicator.Extension}
 	}
@@ -121,17 +129,26 @@ func (r *MedicinalProductIngredient) UnmarshalJSON(b []byte) error {
 func (r *MedicinalProductIngredient) unmarshalJSON(m jsonMedicinalProductIngredient) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -146,6 +163,9 @@ func (r *MedicinalProductIngredient) unmarshalJSON(m jsonMedicinalProductIngredi
 	r.Role = m.Role
 	r.AllergenicIndicator = m.AllergenicIndicator
 	if m.AllergenicIndicatorPrimitiveElement != nil {
+		if r.AllergenicIndicator == nil {
+			r.AllergenicIndicator = &Boolean{}
+		}
 		r.AllergenicIndicator.Id = m.AllergenicIndicatorPrimitiveElement.Id
 		r.AllergenicIndicator.Extension = m.AllergenicIndicatorPrimitiveElement.Extension
 	}
@@ -281,7 +301,9 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrength) marshalJSON() json
 	m.PresentationLowLimit = r.PresentationLowLimit
 	m.Concentration = r.Concentration
 	m.ConcentrationLowLimit = r.ConcentrationLowLimit
-	m.MeasurementPoint = r.MeasurementPoint
+	if r.MeasurementPoint != nil && r.MeasurementPoint.Value != nil {
+		m.MeasurementPoint = r.MeasurementPoint
+	}
 	if r.MeasurementPoint != nil && (r.MeasurementPoint.Id != nil || r.MeasurementPoint.Extension != nil) {
 		m.MeasurementPointPrimitiveElement = &primitiveElement{Id: r.MeasurementPoint.Id, Extension: r.MeasurementPoint.Extension}
 	}
@@ -306,6 +328,9 @@ func (r *MedicinalProductIngredientSpecifiedSubstanceStrength) unmarshalJSON(m j
 	r.ConcentrationLowLimit = m.ConcentrationLowLimit
 	r.MeasurementPoint = m.MeasurementPoint
 	if m.MeasurementPointPrimitiveElement != nil {
+		if r.MeasurementPoint == nil {
+			r.MeasurementPoint = &String{}
+		}
 		r.MeasurementPoint.Id = m.MeasurementPointPrimitiveElement.Id
 		r.MeasurementPoint.Extension = m.MeasurementPointPrimitiveElement.Extension
 	}
@@ -365,7 +390,9 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) m
 	m.Substance = r.Substance
 	m.Strength = r.Strength
 	m.StrengthLowLimit = r.StrengthLowLimit
-	m.MeasurementPoint = r.MeasurementPoint
+	if r.MeasurementPoint != nil && r.MeasurementPoint.Value != nil {
+		m.MeasurementPoint = r.MeasurementPoint
+	}
 	if r.MeasurementPoint != nil && (r.MeasurementPoint.Id != nil || r.MeasurementPoint.Extension != nil) {
 		m.MeasurementPointPrimitiveElement = &primitiveElement{Id: r.MeasurementPoint.Id, Extension: r.MeasurementPoint.Extension}
 	}
@@ -388,6 +415,9 @@ func (r *MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) 
 	r.StrengthLowLimit = m.StrengthLowLimit
 	r.MeasurementPoint = m.MeasurementPoint
 	if m.MeasurementPointPrimitiveElement != nil {
+		if r.MeasurementPoint == nil {
+			r.MeasurementPoint = &String{}
+		}
 		r.MeasurementPoint.Id = m.MeasurementPointPrimitiveElement.Id
 		r.MeasurementPoint.Extension = m.MeasurementPointPrimitiveElement.Extension
 	}

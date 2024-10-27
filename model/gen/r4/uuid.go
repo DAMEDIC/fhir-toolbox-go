@@ -11,11 +11,6 @@ type Uuid struct {
 	// Primitive value for uuid
 	Value *string
 }
-type jsonUuid struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Uuid) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

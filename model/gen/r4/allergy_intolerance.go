@@ -133,16 +133,22 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 func (r AllergyIntolerance) marshalJSON() jsonAllergyIntolerance {
 	m := jsonAllergyIntolerance{}
 	m.ResourceType = "AllergyIntolerance"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -156,11 +162,22 @@ func (r AllergyIntolerance) marshalJSON() jsonAllergyIntolerance {
 	m.Identifier = r.Identifier
 	m.ClinicalStatus = r.ClinicalStatus
 	m.VerificationStatus = r.VerificationStatus
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Category = r.Category
+	anyCategoryValue := false
+	for _, e := range r.Category {
+		if e.Value != nil {
+			anyCategoryValue = true
+			break
+		}
+	}
+	if anyCategoryValue {
+		m.Category = r.Category
+	}
 	anyCategoryIdOrExtension := false
 	for _, e := range r.Category {
 		if e.Id != nil || e.Extension != nil {
@@ -178,7 +195,9 @@ func (r AllergyIntolerance) marshalJSON() jsonAllergyIntolerance {
 			}
 		}
 	}
-	m.Criticality = r.Criticality
+	if r.Criticality != nil && r.Criticality.Value != nil {
+		m.Criticality = r.Criticality
+	}
 	if r.Criticality != nil && (r.Criticality.Id != nil || r.Criticality.Extension != nil) {
 		m.CriticalityPrimitiveElement = &primitiveElement{Id: r.Criticality.Id, Extension: r.Criticality.Extension}
 	}
@@ -187,12 +206,16 @@ func (r AllergyIntolerance) marshalJSON() jsonAllergyIntolerance {
 	m.Encounter = r.Encounter
 	switch v := r.Onset.(type) {
 	case DateTime:
-		m.OnsetDateTime = &v
+		if v.Value != nil {
+			m.OnsetDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OnsetDateTime = v
+		if v.Value != nil {
+			m.OnsetDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -209,23 +232,31 @@ func (r AllergyIntolerance) marshalJSON() jsonAllergyIntolerance {
 	case *Range:
 		m.OnsetRange = v
 	case String:
-		m.OnsetString = &v
+		if v.Value != nil {
+			m.OnsetString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.OnsetString = v
+		if v.Value != nil {
+			m.OnsetString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.RecordedDate = r.RecordedDate
+	if r.RecordedDate != nil && r.RecordedDate.Value != nil {
+		m.RecordedDate = r.RecordedDate
+	}
 	if r.RecordedDate != nil && (r.RecordedDate.Id != nil || r.RecordedDate.Extension != nil) {
 		m.RecordedDatePrimitiveElement = &primitiveElement{Id: r.RecordedDate.Id, Extension: r.RecordedDate.Extension}
 	}
 	m.Recorder = r.Recorder
 	m.Asserter = r.Asserter
-	m.LastOccurrence = r.LastOccurrence
+	if r.LastOccurrence != nil && r.LastOccurrence.Value != nil {
+		m.LastOccurrence = r.LastOccurrence
+	}
 	if r.LastOccurrence != nil && (r.LastOccurrence.Id != nil || r.LastOccurrence.Extension != nil) {
 		m.LastOccurrencePrimitiveElement = &primitiveElement{Id: r.LastOccurrence.Id, Extension: r.LastOccurrence.Extension}
 	}
@@ -243,17 +274,26 @@ func (r *AllergyIntolerance) UnmarshalJSON(b []byte) error {
 func (r *AllergyIntolerance) unmarshalJSON(m jsonAllergyIntolerance) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -269,20 +309,27 @@ func (r *AllergyIntolerance) unmarshalJSON(m jsonAllergyIntolerance) error {
 	r.VerificationStatus = m.VerificationStatus
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Category = m.Category
 	for i, e := range m.CategoryPrimitiveElement {
-		if len(r.Category) > i {
+		if len(r.Category) <= i {
+			r.Category = append(r.Category, Code{})
+		}
+		if e != nil {
 			r.Category[i].Id = e.Id
 			r.Category[i].Extension = e.Extension
-		} else {
-			r.Category = append(r.Category, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Criticality = m.Criticality
 	if m.CriticalityPrimitiveElement != nil {
+		if r.Criticality == nil {
+			r.Criticality = &Code{}
+		}
 		r.Criticality.Id = m.CriticalityPrimitiveElement.Id
 		r.Criticality.Extension = m.CriticalityPrimitiveElement.Extension
 	}
@@ -340,6 +387,9 @@ func (r *AllergyIntolerance) unmarshalJSON(m jsonAllergyIntolerance) error {
 	}
 	r.RecordedDate = m.RecordedDate
 	if m.RecordedDatePrimitiveElement != nil {
+		if r.RecordedDate == nil {
+			r.RecordedDate = &DateTime{}
+		}
 		r.RecordedDate.Id = m.RecordedDatePrimitiveElement.Id
 		r.RecordedDate.Extension = m.RecordedDatePrimitiveElement.Extension
 	}
@@ -347,6 +397,9 @@ func (r *AllergyIntolerance) unmarshalJSON(m jsonAllergyIntolerance) error {
 	r.Asserter = m.Asserter
 	r.LastOccurrence = m.LastOccurrence
 	if m.LastOccurrencePrimitiveElement != nil {
+		if r.LastOccurrence == nil {
+			r.LastOccurrence = &DateTime{}
+		}
 		r.LastOccurrence.Id = m.LastOccurrencePrimitiveElement.Id
 		r.LastOccurrence.Extension = m.LastOccurrencePrimitiveElement.Extension
 	}
@@ -413,15 +466,21 @@ func (r AllergyIntoleranceReaction) marshalJSON() jsonAllergyIntoleranceReaction
 	m.ModifierExtension = r.ModifierExtension
 	m.Substance = r.Substance
 	m.Manifestation = r.Manifestation
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Onset = r.Onset
+	if r.Onset != nil && r.Onset.Value != nil {
+		m.Onset = r.Onset
+	}
 	if r.Onset != nil && (r.Onset.Id != nil || r.Onset.Extension != nil) {
 		m.OnsetPrimitiveElement = &primitiveElement{Id: r.Onset.Id, Extension: r.Onset.Extension}
 	}
-	m.Severity = r.Severity
+	if r.Severity != nil && r.Severity.Value != nil {
+		m.Severity = r.Severity
+	}
 	if r.Severity != nil && (r.Severity.Id != nil || r.Severity.Extension != nil) {
 		m.SeverityPrimitiveElement = &primitiveElement{Id: r.Severity.Id, Extension: r.Severity.Extension}
 	}
@@ -444,16 +503,25 @@ func (r *AllergyIntoleranceReaction) unmarshalJSON(m jsonAllergyIntoleranceReact
 	r.Manifestation = m.Manifestation
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Onset = m.Onset
 	if m.OnsetPrimitiveElement != nil {
+		if r.Onset == nil {
+			r.Onset = &DateTime{}
+		}
 		r.Onset.Id = m.OnsetPrimitiveElement.Id
 		r.Onset.Extension = m.OnsetPrimitiveElement.Extension
 	}
 	r.Severity = m.Severity
 	if m.SeverityPrimitiveElement != nil {
+		if r.Severity == nil {
+			r.Severity = &Code{}
+		}
 		r.Severity.Id = m.SeverityPrimitiveElement.Id
 		r.Severity.Extension = m.SeverityPrimitiveElement.Extension
 	}

@@ -50,21 +50,29 @@ func (r Annotation) marshalJSON() jsonAnnotation {
 	case *Reference:
 		m.AuthorReference = v
 	case String:
-		m.AuthorString = &v
+		if v.Value != nil {
+			m.AuthorString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AuthorStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AuthorString = v
+		if v.Value != nil {
+			m.AuthorString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AuthorStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.Time = r.Time
+	if r.Time != nil && r.Time.Value != nil {
+		m.Time = r.Time
+	}
 	if r.Time != nil && (r.Time.Id != nil || r.Time.Extension != nil) {
 		m.TimePrimitiveElement = &primitiveElement{Id: r.Time.Id, Extension: r.Time.Extension}
 	}
-	m.Text = r.Text
+	if r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text.Id != nil || r.Text.Extension != nil {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -103,6 +111,9 @@ func (r *Annotation) unmarshalJSON(m jsonAnnotation) error {
 	}
 	r.Time = m.Time
 	if m.TimePrimitiveElement != nil {
+		if r.Time == nil {
+			r.Time = &DateTime{}
+		}
 		r.Time.Id = m.TimePrimitiveElement.Id
 		r.Time.Extension = m.TimePrimitiveElement.Extension
 	}

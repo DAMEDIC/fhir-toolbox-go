@@ -34,11 +34,15 @@ func (r Contributor) marshalJSON() jsonContributor {
 	m := jsonContributor{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}

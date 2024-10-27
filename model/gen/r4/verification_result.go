@@ -108,16 +108,22 @@ func (r VerificationResult) MarshalJSON() ([]byte, error) {
 func (r VerificationResult) marshalJSON() jsonVerificationResult {
 	m := jsonVerificationResult{}
 	m.ResourceType = "VerificationResult"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -129,7 +135,16 @@ func (r VerificationResult) marshalJSON() jsonVerificationResult {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Target = r.Target
-	m.TargetLocation = r.TargetLocation
+	anyTargetLocationValue := false
+	for _, e := range r.TargetLocation {
+		if e.Value != nil {
+			anyTargetLocationValue = true
+			break
+		}
+	}
+	if anyTargetLocationValue {
+		m.TargetLocation = r.TargetLocation
+	}
 	anyTargetLocationIdOrExtension := false
 	for _, e := range r.TargetLocation {
 		if e.Id != nil || e.Extension != nil {
@@ -148,22 +163,30 @@ func (r VerificationResult) marshalJSON() jsonVerificationResult {
 		}
 	}
 	m.Need = r.Need
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.StatusDate = r.StatusDate
+	if r.StatusDate != nil && r.StatusDate.Value != nil {
+		m.StatusDate = r.StatusDate
+	}
 	if r.StatusDate != nil && (r.StatusDate.Id != nil || r.StatusDate.Extension != nil) {
 		m.StatusDatePrimitiveElement = &primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
 	}
 	m.ValidationType = r.ValidationType
 	m.ValidationProcess = r.ValidationProcess
 	m.Frequency = r.Frequency
-	m.LastPerformed = r.LastPerformed
+	if r.LastPerformed != nil && r.LastPerformed.Value != nil {
+		m.LastPerformed = r.LastPerformed
+	}
 	if r.LastPerformed != nil && (r.LastPerformed.Id != nil || r.LastPerformed.Extension != nil) {
 		m.LastPerformedPrimitiveElement = &primitiveElement{Id: r.LastPerformed.Id, Extension: r.LastPerformed.Extension}
 	}
-	m.NextScheduled = r.NextScheduled
+	if r.NextScheduled != nil && r.NextScheduled.Value != nil {
+		m.NextScheduled = r.NextScheduled
+	}
 	if r.NextScheduled != nil && (r.NextScheduled.Id != nil || r.NextScheduled.Extension != nil) {
 		m.NextScheduledPrimitiveElement = &primitiveElement{Id: r.NextScheduled.Id, Extension: r.NextScheduled.Extension}
 	}
@@ -183,17 +206,26 @@ func (r *VerificationResult) UnmarshalJSON(b []byte) error {
 func (r *VerificationResult) unmarshalJSON(m jsonVerificationResult) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -207,11 +239,12 @@ func (r *VerificationResult) unmarshalJSON(m jsonVerificationResult) error {
 	r.Target = m.Target
 	r.TargetLocation = m.TargetLocation
 	for i, e := range m.TargetLocationPrimitiveElement {
-		if len(r.TargetLocation) > i {
+		if len(r.TargetLocation) <= i {
+			r.TargetLocation = append(r.TargetLocation, String{})
+		}
+		if e != nil {
 			r.TargetLocation[i].Id = e.Id
 			r.TargetLocation[i].Extension = e.Extension
-		} else {
-			r.TargetLocation = append(r.TargetLocation, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Need = m.Need
@@ -222,6 +255,9 @@ func (r *VerificationResult) unmarshalJSON(m jsonVerificationResult) error {
 	}
 	r.StatusDate = m.StatusDate
 	if m.StatusDatePrimitiveElement != nil {
+		if r.StatusDate == nil {
+			r.StatusDate = &DateTime{}
+		}
 		r.StatusDate.Id = m.StatusDatePrimitiveElement.Id
 		r.StatusDate.Extension = m.StatusDatePrimitiveElement.Extension
 	}
@@ -230,11 +266,17 @@ func (r *VerificationResult) unmarshalJSON(m jsonVerificationResult) error {
 	r.Frequency = m.Frequency
 	r.LastPerformed = m.LastPerformed
 	if m.LastPerformedPrimitiveElement != nil {
+		if r.LastPerformed == nil {
+			r.LastPerformed = &DateTime{}
+		}
 		r.LastPerformed.Id = m.LastPerformedPrimitiveElement.Id
 		r.LastPerformed.Extension = m.LastPerformedPrimitiveElement.Extension
 	}
 	r.NextScheduled = m.NextScheduled
 	if m.NextScheduledPrimitiveElement != nil {
+		if r.NextScheduled == nil {
+			r.NextScheduled = &Date{}
+		}
 		r.NextScheduled.Id = m.NextScheduledPrimitiveElement.Id
 		r.NextScheduled.Extension = m.NextScheduledPrimitiveElement.Extension
 	}
@@ -303,7 +345,9 @@ func (r VerificationResultPrimarySource) marshalJSON() jsonVerificationResultPri
 	m.Type = r.Type
 	m.CommunicationMethod = r.CommunicationMethod
 	m.ValidationStatus = r.ValidationStatus
-	m.ValidationDate = r.ValidationDate
+	if r.ValidationDate != nil && r.ValidationDate.Value != nil {
+		m.ValidationDate = r.ValidationDate
+	}
 	if r.ValidationDate != nil && (r.ValidationDate.Id != nil || r.ValidationDate.Extension != nil) {
 		m.ValidationDatePrimitiveElement = &primitiveElement{Id: r.ValidationDate.Id, Extension: r.ValidationDate.Extension}
 	}
@@ -328,6 +372,9 @@ func (r *VerificationResultPrimarySource) unmarshalJSON(m jsonVerificationResult
 	r.ValidationStatus = m.ValidationStatus
 	r.ValidationDate = m.ValidationDate
 	if m.ValidationDatePrimitiveElement != nil {
+		if r.ValidationDate == nil {
+			r.ValidationDate = &DateTime{}
+		}
 		r.ValidationDate.Id = m.ValidationDatePrimitiveElement.Id
 		r.ValidationDate.Extension = m.ValidationDatePrimitiveElement.Extension
 	}
@@ -398,15 +445,21 @@ func (r VerificationResultAttestation) marshalJSON() jsonVerificationResultAttes
 	m.Who = r.Who
 	m.OnBehalfOf = r.OnBehalfOf
 	m.CommunicationMethod = r.CommunicationMethod
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.SourceIdentityCertificate = r.SourceIdentityCertificate
+	if r.SourceIdentityCertificate != nil && r.SourceIdentityCertificate.Value != nil {
+		m.SourceIdentityCertificate = r.SourceIdentityCertificate
+	}
 	if r.SourceIdentityCertificate != nil && (r.SourceIdentityCertificate.Id != nil || r.SourceIdentityCertificate.Extension != nil) {
 		m.SourceIdentityCertificatePrimitiveElement = &primitiveElement{Id: r.SourceIdentityCertificate.Id, Extension: r.SourceIdentityCertificate.Extension}
 	}
-	m.ProxyIdentityCertificate = r.ProxyIdentityCertificate
+	if r.ProxyIdentityCertificate != nil && r.ProxyIdentityCertificate.Value != nil {
+		m.ProxyIdentityCertificate = r.ProxyIdentityCertificate
+	}
 	if r.ProxyIdentityCertificate != nil && (r.ProxyIdentityCertificate.Id != nil || r.ProxyIdentityCertificate.Extension != nil) {
 		m.ProxyIdentityCertificatePrimitiveElement = &primitiveElement{Id: r.ProxyIdentityCertificate.Id, Extension: r.ProxyIdentityCertificate.Extension}
 	}
@@ -430,16 +483,25 @@ func (r *VerificationResultAttestation) unmarshalJSON(m jsonVerificationResultAt
 	r.CommunicationMethod = m.CommunicationMethod
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &Date{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.SourceIdentityCertificate = m.SourceIdentityCertificate
 	if m.SourceIdentityCertificatePrimitiveElement != nil {
+		if r.SourceIdentityCertificate == nil {
+			r.SourceIdentityCertificate = &String{}
+		}
 		r.SourceIdentityCertificate.Id = m.SourceIdentityCertificatePrimitiveElement.Id
 		r.SourceIdentityCertificate.Extension = m.SourceIdentityCertificatePrimitiveElement.Extension
 	}
 	r.ProxyIdentityCertificate = m.ProxyIdentityCertificate
 	if m.ProxyIdentityCertificatePrimitiveElement != nil {
+		if r.ProxyIdentityCertificate == nil {
+			r.ProxyIdentityCertificate = &String{}
+		}
 		r.ProxyIdentityCertificate.Id = m.ProxyIdentityCertificatePrimitiveElement.Id
 		r.ProxyIdentityCertificate.Extension = m.ProxyIdentityCertificatePrimitiveElement.Extension
 	}
@@ -491,7 +553,9 @@ func (r VerificationResultValidator) marshalJSON() jsonVerificationResultValidat
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Organization = r.Organization
-	m.IdentityCertificate = r.IdentityCertificate
+	if r.IdentityCertificate != nil && r.IdentityCertificate.Value != nil {
+		m.IdentityCertificate = r.IdentityCertificate
+	}
 	if r.IdentityCertificate != nil && (r.IdentityCertificate.Id != nil || r.IdentityCertificate.Extension != nil) {
 		m.IdentityCertificatePrimitiveElement = &primitiveElement{Id: r.IdentityCertificate.Id, Extension: r.IdentityCertificate.Extension}
 	}
@@ -512,6 +576,9 @@ func (r *VerificationResultValidator) unmarshalJSON(m jsonVerificationResultVali
 	r.Organization = m.Organization
 	r.IdentityCertificate = m.IdentityCertificate
 	if m.IdentityCertificatePrimitiveElement != nil {
+		if r.IdentityCertificate == nil {
+			r.IdentityCertificate = &String{}
+		}
 		r.IdentityCertificate.Id = m.IdentityCertificatePrimitiveElement.Id
 		r.IdentityCertificate.Extension = m.IdentityCertificatePrimitiveElement.Extension
 	}

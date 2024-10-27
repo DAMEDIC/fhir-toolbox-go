@@ -103,16 +103,22 @@ func (r Provenance) MarshalJSON() ([]byte, error) {
 func (r Provenance) marshalJSON() jsonProvenance {
 	m := jsonProvenance{}
 	m.ResourceType = "Provenance"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -130,21 +136,36 @@ func (r Provenance) marshalJSON() jsonProvenance {
 	case *Period:
 		m.OccurredPeriod = v
 	case DateTime:
-		m.OccurredDateTime = &v
+		if v.Value != nil {
+			m.OccurredDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurredDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurredDateTime = v
+		if v.Value != nil {
+			m.OccurredDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurredDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.Recorded = r.Recorded
+	if r.Recorded.Value != nil {
+		m.Recorded = r.Recorded
+	}
 	if r.Recorded.Id != nil || r.Recorded.Extension != nil {
 		m.RecordedPrimitiveElement = &primitiveElement{Id: r.Recorded.Id, Extension: r.Recorded.Extension}
 	}
-	m.Policy = r.Policy
+	anyPolicyValue := false
+	for _, e := range r.Policy {
+		if e.Value != nil {
+			anyPolicyValue = true
+			break
+		}
+	}
+	if anyPolicyValue {
+		m.Policy = r.Policy
+	}
 	anyPolicyIdOrExtension := false
 	for _, e := range r.Policy {
 		if e.Id != nil || e.Extension != nil {
@@ -180,17 +201,26 @@ func (r *Provenance) UnmarshalJSON(b []byte) error {
 func (r *Provenance) unmarshalJSON(m jsonProvenance) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -230,11 +260,12 @@ func (r *Provenance) unmarshalJSON(m jsonProvenance) error {
 	}
 	r.Policy = m.Policy
 	for i, e := range m.PolicyPrimitiveElement {
-		if len(r.Policy) > i {
+		if len(r.Policy) <= i {
+			r.Policy = append(r.Policy, Uri{})
+		}
+		if e != nil {
 			r.Policy[i].Id = e.Id
 			r.Policy[i].Extension = e.Extension
-		} else {
-			r.Policy = append(r.Policy, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Location = m.Location
@@ -356,7 +387,9 @@ func (r ProvenanceEntity) marshalJSON() jsonProvenanceEntity {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Role = r.Role
+	if r.Role.Value != nil {
+		m.Role = r.Role
+	}
 	if r.Role.Id != nil || r.Role.Extension != nil {
 		m.RolePrimitiveElement = &primitiveElement{Id: r.Role.Id, Extension: r.Role.Extension}
 	}

@@ -119,16 +119,22 @@ func (r NutritionOrder) MarshalJSON() ([]byte, error) {
 func (r NutritionOrder) marshalJSON() jsonNutritionOrder {
 	m := jsonNutritionOrder{}
 	m.ResourceType = "NutritionOrder"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -140,7 +146,16 @@ func (r NutritionOrder) marshalJSON() jsonNutritionOrder {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -158,7 +173,16 @@ func (r NutritionOrder) marshalJSON() jsonNutritionOrder {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -176,7 +200,16 @@ func (r NutritionOrder) marshalJSON() jsonNutritionOrder {
 			}
 		}
 	}
-	m.Instantiates = r.Instantiates
+	anyInstantiatesValue := false
+	for _, e := range r.Instantiates {
+		if e.Value != nil {
+			anyInstantiatesValue = true
+			break
+		}
+	}
+	if anyInstantiatesValue {
+		m.Instantiates = r.Instantiates
+	}
 	anyInstantiatesIdOrExtension := false
 	for _, e := range r.Instantiates {
 		if e.Id != nil || e.Extension != nil {
@@ -194,17 +227,23 @@ func (r NutritionOrder) marshalJSON() jsonNutritionOrder {
 			}
 		}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Intent = r.Intent
+	if r.Intent.Value != nil {
+		m.Intent = r.Intent
+	}
 	if r.Intent.Id != nil || r.Intent.Extension != nil {
 		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
 	}
 	m.Patient = r.Patient
 	m.Encounter = r.Encounter
-	m.DateTime = r.DateTime
+	if r.DateTime.Value != nil {
+		m.DateTime = r.DateTime
+	}
 	if r.DateTime.Id != nil || r.DateTime.Extension != nil {
 		m.DateTimePrimitiveElement = &primitiveElement{Id: r.DateTime.Id, Extension: r.DateTime.Extension}
 	}
@@ -228,17 +267,26 @@ func (r *NutritionOrder) UnmarshalJSON(b []byte) error {
 func (r *NutritionOrder) unmarshalJSON(m jsonNutritionOrder) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -252,29 +300,32 @@ func (r *NutritionOrder) unmarshalJSON(m jsonNutritionOrder) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Instantiates = m.Instantiates
 	for i, e := range m.InstantiatesPrimitiveElement {
-		if len(r.Instantiates) > i {
+		if len(r.Instantiates) <= i {
+			r.Instantiates = append(r.Instantiates, Uri{})
+		}
+		if e != nil {
 			r.Instantiates[i].Id = e.Id
 			r.Instantiates[i].Extension = e.Extension
-		} else {
-			r.Instantiates = append(r.Instantiates, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Status = m.Status
@@ -361,7 +412,9 @@ func (r NutritionOrderOralDiet) marshalJSON() jsonNutritionOrderOralDiet {
 	m.Nutrient = r.Nutrient
 	m.Texture = r.Texture
 	m.FluidConsistencyType = r.FluidConsistencyType
-	m.Instruction = r.Instruction
+	if r.Instruction != nil && r.Instruction.Value != nil {
+		m.Instruction = r.Instruction
+	}
 	if r.Instruction != nil && (r.Instruction.Id != nil || r.Instruction.Extension != nil) {
 		m.InstructionPrimitiveElement = &primitiveElement{Id: r.Instruction.Id, Extension: r.Instruction.Extension}
 	}
@@ -385,6 +438,9 @@ func (r *NutritionOrderOralDiet) unmarshalJSON(m jsonNutritionOrderOralDiet) err
 	r.FluidConsistencyType = m.FluidConsistencyType
 	r.Instruction = m.Instruction
 	if m.InstructionPrimitiveElement != nil {
+		if r.Instruction == nil {
+			r.Instruction = &String{}
+		}
 		r.Instruction.Id = m.InstructionPrimitiveElement.Id
 		r.Instruction.Extension = m.InstructionPrimitiveElement.Extension
 	}
@@ -557,13 +613,17 @@ func (r NutritionOrderSupplement) marshalJSON() jsonNutritionOrderSupplement {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.ProductName = r.ProductName
+	if r.ProductName != nil && r.ProductName.Value != nil {
+		m.ProductName = r.ProductName
+	}
 	if r.ProductName != nil && (r.ProductName.Id != nil || r.ProductName.Extension != nil) {
 		m.ProductNamePrimitiveElement = &primitiveElement{Id: r.ProductName.Id, Extension: r.ProductName.Extension}
 	}
 	m.Schedule = r.Schedule
 	m.Quantity = r.Quantity
-	m.Instruction = r.Instruction
+	if r.Instruction != nil && r.Instruction.Value != nil {
+		m.Instruction = r.Instruction
+	}
 	if r.Instruction != nil && (r.Instruction.Id != nil || r.Instruction.Extension != nil) {
 		m.InstructionPrimitiveElement = &primitiveElement{Id: r.Instruction.Id, Extension: r.Instruction.Extension}
 	}
@@ -583,6 +643,9 @@ func (r *NutritionOrderSupplement) unmarshalJSON(m jsonNutritionOrderSupplement)
 	r.Type = m.Type
 	r.ProductName = m.ProductName
 	if m.ProductNamePrimitiveElement != nil {
+		if r.ProductName == nil {
+			r.ProductName = &String{}
+		}
 		r.ProductName.Id = m.ProductNamePrimitiveElement.Id
 		r.ProductName.Extension = m.ProductNamePrimitiveElement.Extension
 	}
@@ -590,6 +653,9 @@ func (r *NutritionOrderSupplement) unmarshalJSON(m jsonNutritionOrderSupplement)
 	r.Quantity = m.Quantity
 	r.Instruction = m.Instruction
 	if m.InstructionPrimitiveElement != nil {
+		if r.Instruction == nil {
+			r.Instruction = &String{}
+		}
 		r.Instruction.Id = m.InstructionPrimitiveElement.Id
 		r.Instruction.Extension = m.InstructionPrimitiveElement.Extension
 	}
@@ -659,12 +725,16 @@ func (r NutritionOrderEnteralFormula) marshalJSON() jsonNutritionOrderEnteralFor
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.BaseFormulaType = r.BaseFormulaType
-	m.BaseFormulaProductName = r.BaseFormulaProductName
+	if r.BaseFormulaProductName != nil && r.BaseFormulaProductName.Value != nil {
+		m.BaseFormulaProductName = r.BaseFormulaProductName
+	}
 	if r.BaseFormulaProductName != nil && (r.BaseFormulaProductName.Id != nil || r.BaseFormulaProductName.Extension != nil) {
 		m.BaseFormulaProductNamePrimitiveElement = &primitiveElement{Id: r.BaseFormulaProductName.Id, Extension: r.BaseFormulaProductName.Extension}
 	}
 	m.AdditiveType = r.AdditiveType
-	m.AdditiveProductName = r.AdditiveProductName
+	if r.AdditiveProductName != nil && r.AdditiveProductName.Value != nil {
+		m.AdditiveProductName = r.AdditiveProductName
+	}
 	if r.AdditiveProductName != nil && (r.AdditiveProductName.Id != nil || r.AdditiveProductName.Extension != nil) {
 		m.AdditiveProductNamePrimitiveElement = &primitiveElement{Id: r.AdditiveProductName.Id, Extension: r.AdditiveProductName.Extension}
 	}
@@ -672,7 +742,9 @@ func (r NutritionOrderEnteralFormula) marshalJSON() jsonNutritionOrderEnteralFor
 	m.RouteofAdministration = r.RouteofAdministration
 	m.Administration = r.Administration
 	m.MaxVolumeToDeliver = r.MaxVolumeToDeliver
-	m.AdministrationInstruction = r.AdministrationInstruction
+	if r.AdministrationInstruction != nil && r.AdministrationInstruction.Value != nil {
+		m.AdministrationInstruction = r.AdministrationInstruction
+	}
 	if r.AdministrationInstruction != nil && (r.AdministrationInstruction.Id != nil || r.AdministrationInstruction.Extension != nil) {
 		m.AdministrationInstructionPrimitiveElement = &primitiveElement{Id: r.AdministrationInstruction.Id, Extension: r.AdministrationInstruction.Extension}
 	}
@@ -692,12 +764,18 @@ func (r *NutritionOrderEnteralFormula) unmarshalJSON(m jsonNutritionOrderEnteral
 	r.BaseFormulaType = m.BaseFormulaType
 	r.BaseFormulaProductName = m.BaseFormulaProductName
 	if m.BaseFormulaProductNamePrimitiveElement != nil {
+		if r.BaseFormulaProductName == nil {
+			r.BaseFormulaProductName = &String{}
+		}
 		r.BaseFormulaProductName.Id = m.BaseFormulaProductNamePrimitiveElement.Id
 		r.BaseFormulaProductName.Extension = m.BaseFormulaProductNamePrimitiveElement.Extension
 	}
 	r.AdditiveType = m.AdditiveType
 	r.AdditiveProductName = m.AdditiveProductName
 	if m.AdditiveProductNamePrimitiveElement != nil {
+		if r.AdditiveProductName == nil {
+			r.AdditiveProductName = &String{}
+		}
 		r.AdditiveProductName.Id = m.AdditiveProductNamePrimitiveElement.Id
 		r.AdditiveProductName.Extension = m.AdditiveProductNamePrimitiveElement.Extension
 	}
@@ -707,6 +785,9 @@ func (r *NutritionOrderEnteralFormula) unmarshalJSON(m jsonNutritionOrderEnteral
 	r.MaxVolumeToDeliver = m.MaxVolumeToDeliver
 	r.AdministrationInstruction = m.AdministrationInstruction
 	if m.AdministrationInstructionPrimitiveElement != nil {
+		if r.AdministrationInstruction == nil {
+			r.AdministrationInstruction = &String{}
+		}
 		r.AdministrationInstruction.Id = m.AdministrationInstructionPrimitiveElement.Id
 		r.AdministrationInstruction.Extension = m.AdministrationInstructionPrimitiveElement.Extension
 	}

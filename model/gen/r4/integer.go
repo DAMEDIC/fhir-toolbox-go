@@ -11,11 +11,6 @@ type Integer struct {
 	// The actual value
 	Value *int32
 }
-type jsonInteger struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *int32      `json:"value,omitempty"`
-}
 
 func (r Integer) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

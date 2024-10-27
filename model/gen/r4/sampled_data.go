@@ -51,27 +51,39 @@ func (r SampledData) marshalJSON() jsonSampledData {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.Origin = r.Origin
-	m.Period = r.Period
+	if r.Period.Value != nil {
+		m.Period = r.Period
+	}
 	if r.Period.Id != nil || r.Period.Extension != nil {
 		m.PeriodPrimitiveElement = &primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
 	}
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
-	m.LowerLimit = r.LowerLimit
+	if r.LowerLimit != nil && r.LowerLimit.Value != nil {
+		m.LowerLimit = r.LowerLimit
+	}
 	if r.LowerLimit != nil && (r.LowerLimit.Id != nil || r.LowerLimit.Extension != nil) {
 		m.LowerLimitPrimitiveElement = &primitiveElement{Id: r.LowerLimit.Id, Extension: r.LowerLimit.Extension}
 	}
-	m.UpperLimit = r.UpperLimit
+	if r.UpperLimit != nil && r.UpperLimit.Value != nil {
+		m.UpperLimit = r.UpperLimit
+	}
 	if r.UpperLimit != nil && (r.UpperLimit.Id != nil || r.UpperLimit.Extension != nil) {
 		m.UpperLimitPrimitiveElement = &primitiveElement{Id: r.UpperLimit.Id, Extension: r.UpperLimit.Extension}
 	}
-	m.Dimensions = r.Dimensions
+	if r.Dimensions.Value != nil {
+		m.Dimensions = r.Dimensions
+	}
 	if r.Dimensions.Id != nil || r.Dimensions.Extension != nil {
 		m.DimensionsPrimitiveElement = &primitiveElement{Id: r.Dimensions.Id, Extension: r.Dimensions.Extension}
 	}
-	m.Data = r.Data
+	if r.Data != nil && r.Data.Value != nil {
+		m.Data = r.Data
+	}
 	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
 		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
 	}
@@ -95,16 +107,25 @@ func (r *SampledData) unmarshalJSON(m jsonSampledData) error {
 	}
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
 	r.LowerLimit = m.LowerLimit
 	if m.LowerLimitPrimitiveElement != nil {
+		if r.LowerLimit == nil {
+			r.LowerLimit = &Decimal{}
+		}
 		r.LowerLimit.Id = m.LowerLimitPrimitiveElement.Id
 		r.LowerLimit.Extension = m.LowerLimitPrimitiveElement.Extension
 	}
 	r.UpperLimit = m.UpperLimit
 	if m.UpperLimitPrimitiveElement != nil {
+		if r.UpperLimit == nil {
+			r.UpperLimit = &Decimal{}
+		}
 		r.UpperLimit.Id = m.UpperLimitPrimitiveElement.Id
 		r.UpperLimit.Extension = m.UpperLimitPrimitiveElement.Extension
 	}
@@ -115,6 +136,9 @@ func (r *SampledData) unmarshalJSON(m jsonSampledData) error {
 	}
 	r.Data = m.Data
 	if m.DataPrimitiveElement != nil {
+		if r.Data == nil {
+			r.Data = &String{}
+		}
 		r.Data.Id = m.DataPrimitiveElement.Id
 		r.Data.Extension = m.DataPrimitiveElement.Extension
 	}

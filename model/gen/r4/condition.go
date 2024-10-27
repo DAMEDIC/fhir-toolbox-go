@@ -146,16 +146,22 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 func (r Condition) marshalJSON() jsonCondition {
 	m := jsonCondition{}
 	m.ResourceType = "Condition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -177,12 +183,16 @@ func (r Condition) marshalJSON() jsonCondition {
 	m.Encounter = r.Encounter
 	switch v := r.Onset.(type) {
 	case DateTime:
-		m.OnsetDateTime = &v
+		if v.Value != nil {
+			m.OnsetDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OnsetDateTime = v
+		if v.Value != nil {
+			m.OnsetDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -199,24 +209,32 @@ func (r Condition) marshalJSON() jsonCondition {
 	case *Range:
 		m.OnsetRange = v
 	case String:
-		m.OnsetString = &v
+		if v.Value != nil {
+			m.OnsetString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.OnsetString = v
+		if v.Value != nil {
+			m.OnsetString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
 	switch v := r.Abatement.(type) {
 	case DateTime:
-		m.AbatementDateTime = &v
+		if v.Value != nil {
+			m.AbatementDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AbatementDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.AbatementDateTime = v
+		if v.Value != nil {
+			m.AbatementDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AbatementDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -233,17 +251,23 @@ func (r Condition) marshalJSON() jsonCondition {
 	case *Range:
 		m.AbatementRange = v
 	case String:
-		m.AbatementString = &v
+		if v.Value != nil {
+			m.AbatementString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AbatementStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AbatementString = v
+		if v.Value != nil {
+			m.AbatementString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AbatementStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.RecordedDate = r.RecordedDate
+	if r.RecordedDate != nil && r.RecordedDate.Value != nil {
+		m.RecordedDate = r.RecordedDate
+	}
 	if r.RecordedDate != nil && (r.RecordedDate.Id != nil || r.RecordedDate.Extension != nil) {
 		m.RecordedDatePrimitiveElement = &primitiveElement{Id: r.RecordedDate.Id, Extension: r.RecordedDate.Extension}
 	}
@@ -264,17 +288,26 @@ func (r *Condition) UnmarshalJSON(b []byte) error {
 func (r *Condition) unmarshalJSON(m jsonCondition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -394,6 +427,9 @@ func (r *Condition) unmarshalJSON(m jsonCondition) error {
 	}
 	r.RecordedDate = m.RecordedDate
 	if m.RecordedDatePrimitiveElement != nil {
+		if r.RecordedDate == nil {
+			r.RecordedDate = &DateTime{}
+		}
 		r.RecordedDate.Id = m.RecordedDatePrimitiveElement.Id
 		r.RecordedDate.Extension = m.RecordedDatePrimitiveElement.Extension
 	}

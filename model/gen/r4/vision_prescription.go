@@ -88,16 +88,22 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 func (r VisionPrescription) marshalJSON() jsonVisionPrescription {
 	m := jsonVisionPrescription{}
 	m.ResourceType = "VisionPrescription"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -109,17 +115,23 @@ func (r VisionPrescription) marshalJSON() jsonVisionPrescription {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
 	m.Patient = r.Patient
 	m.Encounter = r.Encounter
-	m.DateWritten = r.DateWritten
+	if r.DateWritten.Value != nil {
+		m.DateWritten = r.DateWritten
+	}
 	if r.DateWritten.Id != nil || r.DateWritten.Extension != nil {
 		m.DateWrittenPrimitiveElement = &primitiveElement{Id: r.DateWritten.Id, Extension: r.DateWritten.Extension}
 	}
@@ -137,17 +149,26 @@ func (r *VisionPrescription) UnmarshalJSON(b []byte) error {
 func (r *VisionPrescription) unmarshalJSON(m jsonVisionPrescription) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -266,45 +287,65 @@ func (r VisionPrescriptionLensSpecification) marshalJSON() jsonVisionPrescriptio
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Product = r.Product
-	m.Eye = r.Eye
+	if r.Eye.Value != nil {
+		m.Eye = r.Eye
+	}
 	if r.Eye.Id != nil || r.Eye.Extension != nil {
 		m.EyePrimitiveElement = &primitiveElement{Id: r.Eye.Id, Extension: r.Eye.Extension}
 	}
-	m.Sphere = r.Sphere
+	if r.Sphere != nil && r.Sphere.Value != nil {
+		m.Sphere = r.Sphere
+	}
 	if r.Sphere != nil && (r.Sphere.Id != nil || r.Sphere.Extension != nil) {
 		m.SpherePrimitiveElement = &primitiveElement{Id: r.Sphere.Id, Extension: r.Sphere.Extension}
 	}
-	m.Cylinder = r.Cylinder
+	if r.Cylinder != nil && r.Cylinder.Value != nil {
+		m.Cylinder = r.Cylinder
+	}
 	if r.Cylinder != nil && (r.Cylinder.Id != nil || r.Cylinder.Extension != nil) {
 		m.CylinderPrimitiveElement = &primitiveElement{Id: r.Cylinder.Id, Extension: r.Cylinder.Extension}
 	}
-	m.Axis = r.Axis
+	if r.Axis != nil && r.Axis.Value != nil {
+		m.Axis = r.Axis
+	}
 	if r.Axis != nil && (r.Axis.Id != nil || r.Axis.Extension != nil) {
 		m.AxisPrimitiveElement = &primitiveElement{Id: r.Axis.Id, Extension: r.Axis.Extension}
 	}
 	m.Prism = r.Prism
-	m.Add = r.Add
+	if r.Add != nil && r.Add.Value != nil {
+		m.Add = r.Add
+	}
 	if r.Add != nil && (r.Add.Id != nil || r.Add.Extension != nil) {
 		m.AddPrimitiveElement = &primitiveElement{Id: r.Add.Id, Extension: r.Add.Extension}
 	}
-	m.Power = r.Power
+	if r.Power != nil && r.Power.Value != nil {
+		m.Power = r.Power
+	}
 	if r.Power != nil && (r.Power.Id != nil || r.Power.Extension != nil) {
 		m.PowerPrimitiveElement = &primitiveElement{Id: r.Power.Id, Extension: r.Power.Extension}
 	}
-	m.BackCurve = r.BackCurve
+	if r.BackCurve != nil && r.BackCurve.Value != nil {
+		m.BackCurve = r.BackCurve
+	}
 	if r.BackCurve != nil && (r.BackCurve.Id != nil || r.BackCurve.Extension != nil) {
 		m.BackCurvePrimitiveElement = &primitiveElement{Id: r.BackCurve.Id, Extension: r.BackCurve.Extension}
 	}
-	m.Diameter = r.Diameter
+	if r.Diameter != nil && r.Diameter.Value != nil {
+		m.Diameter = r.Diameter
+	}
 	if r.Diameter != nil && (r.Diameter.Id != nil || r.Diameter.Extension != nil) {
 		m.DiameterPrimitiveElement = &primitiveElement{Id: r.Diameter.Id, Extension: r.Diameter.Extension}
 	}
 	m.Duration = r.Duration
-	m.Color = r.Color
+	if r.Color != nil && r.Color.Value != nil {
+		m.Color = r.Color
+	}
 	if r.Color != nil && (r.Color.Id != nil || r.Color.Extension != nil) {
 		m.ColorPrimitiveElement = &primitiveElement{Id: r.Color.Id, Extension: r.Color.Extension}
 	}
-	m.Brand = r.Brand
+	if r.Brand != nil && r.Brand.Value != nil {
+		m.Brand = r.Brand
+	}
 	if r.Brand != nil && (r.Brand.Id != nil || r.Brand.Extension != nil) {
 		m.BrandPrimitiveElement = &primitiveElement{Id: r.Brand.Id, Extension: r.Brand.Extension}
 	}
@@ -330,48 +371,75 @@ func (r *VisionPrescriptionLensSpecification) unmarshalJSON(m jsonVisionPrescrip
 	}
 	r.Sphere = m.Sphere
 	if m.SpherePrimitiveElement != nil {
+		if r.Sphere == nil {
+			r.Sphere = &Decimal{}
+		}
 		r.Sphere.Id = m.SpherePrimitiveElement.Id
 		r.Sphere.Extension = m.SpherePrimitiveElement.Extension
 	}
 	r.Cylinder = m.Cylinder
 	if m.CylinderPrimitiveElement != nil {
+		if r.Cylinder == nil {
+			r.Cylinder = &Decimal{}
+		}
 		r.Cylinder.Id = m.CylinderPrimitiveElement.Id
 		r.Cylinder.Extension = m.CylinderPrimitiveElement.Extension
 	}
 	r.Axis = m.Axis
 	if m.AxisPrimitiveElement != nil {
+		if r.Axis == nil {
+			r.Axis = &Integer{}
+		}
 		r.Axis.Id = m.AxisPrimitiveElement.Id
 		r.Axis.Extension = m.AxisPrimitiveElement.Extension
 	}
 	r.Prism = m.Prism
 	r.Add = m.Add
 	if m.AddPrimitiveElement != nil {
+		if r.Add == nil {
+			r.Add = &Decimal{}
+		}
 		r.Add.Id = m.AddPrimitiveElement.Id
 		r.Add.Extension = m.AddPrimitiveElement.Extension
 	}
 	r.Power = m.Power
 	if m.PowerPrimitiveElement != nil {
+		if r.Power == nil {
+			r.Power = &Decimal{}
+		}
 		r.Power.Id = m.PowerPrimitiveElement.Id
 		r.Power.Extension = m.PowerPrimitiveElement.Extension
 	}
 	r.BackCurve = m.BackCurve
 	if m.BackCurvePrimitiveElement != nil {
+		if r.BackCurve == nil {
+			r.BackCurve = &Decimal{}
+		}
 		r.BackCurve.Id = m.BackCurvePrimitiveElement.Id
 		r.BackCurve.Extension = m.BackCurvePrimitiveElement.Extension
 	}
 	r.Diameter = m.Diameter
 	if m.DiameterPrimitiveElement != nil {
+		if r.Diameter == nil {
+			r.Diameter = &Decimal{}
+		}
 		r.Diameter.Id = m.DiameterPrimitiveElement.Id
 		r.Diameter.Extension = m.DiameterPrimitiveElement.Extension
 	}
 	r.Duration = m.Duration
 	r.Color = m.Color
 	if m.ColorPrimitiveElement != nil {
+		if r.Color == nil {
+			r.Color = &String{}
+		}
 		r.Color.Id = m.ColorPrimitiveElement.Id
 		r.Color.Extension = m.ColorPrimitiveElement.Extension
 	}
 	r.Brand = m.Brand
 	if m.BrandPrimitiveElement != nil {
+		if r.Brand == nil {
+			r.Brand = &String{}
+		}
 		r.Brand.Id = m.BrandPrimitiveElement.Id
 		r.Brand.Extension = m.BrandPrimitiveElement.Extension
 	}
@@ -419,11 +487,15 @@ func (r VisionPrescriptionLensSpecificationPrism) marshalJSON() jsonVisionPrescr
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Amount = r.Amount
+	if r.Amount.Value != nil {
+		m.Amount = r.Amount
+	}
 	if r.Amount.Id != nil || r.Amount.Extension != nil {
 		m.AmountPrimitiveElement = &primitiveElement{Id: r.Amount.Id, Extension: r.Amount.Extension}
 	}
-	m.Base = r.Base
+	if r.Base.Value != nil {
+		m.Base = r.Base
+	}
 	if r.Base.Id != nil || r.Base.Extension != nil {
 		m.BasePrimitiveElement = &primitiveElement{Id: r.Base.Id, Extension: r.Base.Extension}
 	}

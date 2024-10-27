@@ -31,7 +31,9 @@ func (r CodeableConcept) marshalJSON() jsonCodeableConcept {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.Coding = r.Coding
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -50,6 +52,9 @@ func (r *CodeableConcept) unmarshalJSON(m jsonCodeableConcept) error {
 	r.Coding = m.Coding
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}

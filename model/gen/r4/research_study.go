@@ -136,16 +136,22 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 func (r ResearchStudy) marshalJSON() jsonResearchStudy {
 	m := jsonResearchStudy{}
 	m.ResourceType = "ResearchStudy"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -157,13 +163,17 @@ func (r ResearchStudy) marshalJSON() jsonResearchStudy {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
 	m.Protocol = r.Protocol
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -176,7 +186,9 @@ func (r ResearchStudy) marshalJSON() jsonResearchStudy {
 	m.RelatedArtifact = r.RelatedArtifact
 	m.Keyword = r.Keyword
 	m.Location = r.Location
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -201,17 +213,26 @@ func (r *ResearchStudy) UnmarshalJSON(b []byte) error {
 func (r *ResearchStudy) unmarshalJSON(m jsonResearchStudy) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -225,6 +246,9 @@ func (r *ResearchStudy) unmarshalJSON(m jsonResearchStudy) error {
 	r.Identifier = m.Identifier
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -246,6 +270,9 @@ func (r *ResearchStudy) unmarshalJSON(m jsonResearchStudy) error {
 	r.Location = m.Location
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -304,12 +331,16 @@ func (r ResearchStudyArm) marshalJSON() jsonResearchStudyArm {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
 	m.Type = r.Type
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -334,6 +365,9 @@ func (r *ResearchStudyArm) unmarshalJSON(m jsonResearchStudyArm) error {
 	r.Type = m.Type
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -379,7 +413,9 @@ func (r ResearchStudyObjective) marshalJSON() jsonResearchStudyObjective {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -399,6 +435,9 @@ func (r *ResearchStudyObjective) unmarshalJSON(m jsonResearchStudyObjective) err
 	r.ModifierExtension = m.ModifierExtension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}

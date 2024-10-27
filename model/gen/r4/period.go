@@ -29,11 +29,15 @@ func (r Period) marshalJSON() jsonPeriod {
 	m := jsonPeriod{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
@@ -51,11 +55,17 @@ func (r *Period) unmarshalJSON(m jsonPeriod) error {
 	r.Extension = m.Extension
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &DateTime{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &DateTime{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}

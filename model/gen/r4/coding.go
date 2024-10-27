@@ -43,23 +43,33 @@ func (r Coding) marshalJSON() jsonCoding {
 	m := jsonCoding{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.System = r.System
+	if r.System != nil && r.System.Value != nil {
+		m.System = r.System
+	}
 	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
 		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
-	m.UserSelected = r.UserSelected
+	if r.UserSelected != nil && r.UserSelected.Value != nil {
+		m.UserSelected = r.UserSelected
+	}
 	if r.UserSelected != nil && (r.UserSelected.Id != nil || r.UserSelected.Extension != nil) {
 		m.UserSelectedPrimitiveElement = &primitiveElement{Id: r.UserSelected.Id, Extension: r.UserSelected.Extension}
 	}
@@ -77,26 +87,41 @@ func (r *Coding) unmarshalJSON(m jsonCoding) error {
 	r.Extension = m.Extension
 	r.System = m.System
 	if m.SystemPrimitiveElement != nil {
+		if r.System == nil {
+			r.System = &Uri{}
+		}
 		r.System.Id = m.SystemPrimitiveElement.Id
 		r.System.Extension = m.SystemPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &Code{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
 	r.UserSelected = m.UserSelected
 	if m.UserSelectedPrimitiveElement != nil {
+		if r.UserSelected == nil {
+			r.UserSelected = &Boolean{}
+		}
 		r.UserSelected.Id = m.UserSelectedPrimitiveElement.Id
 		r.UserSelected.Extension = m.UserSelectedPrimitiveElement.Extension
 	}

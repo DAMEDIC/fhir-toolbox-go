@@ -81,16 +81,22 @@ func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
 func (r SpecimenDefinition) marshalJSON() jsonSpecimenDefinition {
 	m := jsonSpecimenDefinition{}
 	m.ResourceType = "SpecimenDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -104,7 +110,9 @@ func (r SpecimenDefinition) marshalJSON() jsonSpecimenDefinition {
 	m.Identifier = r.Identifier
 	m.TypeCollected = r.TypeCollected
 	m.PatientPreparation = r.PatientPreparation
-	m.TimeAspect = r.TimeAspect
+	if r.TimeAspect != nil && r.TimeAspect.Value != nil {
+		m.TimeAspect = r.TimeAspect
+	}
 	if r.TimeAspect != nil && (r.TimeAspect.Id != nil || r.TimeAspect.Extension != nil) {
 		m.TimeAspectPrimitiveElement = &primitiveElement{Id: r.TimeAspect.Id, Extension: r.TimeAspect.Extension}
 	}
@@ -122,17 +130,26 @@ func (r *SpecimenDefinition) UnmarshalJSON(b []byte) error {
 func (r *SpecimenDefinition) unmarshalJSON(m jsonSpecimenDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -148,6 +165,9 @@ func (r *SpecimenDefinition) unmarshalJSON(m jsonSpecimenDefinition) error {
 	r.PatientPreparation = m.PatientPreparation
 	r.TimeAspect = m.TimeAspect
 	if m.TimeAspectPrimitiveElement != nil {
+		if r.TimeAspect == nil {
+			r.TimeAspect = &String{}
+		}
 		r.TimeAspect.Id = m.TimeAspectPrimitiveElement.Id
 		r.TimeAspect.Extension = m.TimeAspectPrimitiveElement.Extension
 	}
@@ -215,17 +235,23 @@ func (r SpecimenDefinitionTypeTested) marshalJSON() jsonSpecimenDefinitionTypeTe
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.IsDerived = r.IsDerived
+	if r.IsDerived != nil && r.IsDerived.Value != nil {
+		m.IsDerived = r.IsDerived
+	}
 	if r.IsDerived != nil && (r.IsDerived.Id != nil || r.IsDerived.Extension != nil) {
 		m.IsDerivedPrimitiveElement = &primitiveElement{Id: r.IsDerived.Id, Extension: r.IsDerived.Extension}
 	}
 	m.Type = r.Type
-	m.Preference = r.Preference
+	if r.Preference.Value != nil {
+		m.Preference = r.Preference
+	}
 	if r.Preference.Id != nil || r.Preference.Extension != nil {
 		m.PreferencePrimitiveElement = &primitiveElement{Id: r.Preference.Id, Extension: r.Preference.Extension}
 	}
 	m.Container = r.Container
-	m.Requirement = r.Requirement
+	if r.Requirement != nil && r.Requirement.Value != nil {
+		m.Requirement = r.Requirement
+	}
 	if r.Requirement != nil && (r.Requirement.Id != nil || r.Requirement.Extension != nil) {
 		m.RequirementPrimitiveElement = &primitiveElement{Id: r.Requirement.Id, Extension: r.Requirement.Extension}
 	}
@@ -247,6 +273,9 @@ func (r *SpecimenDefinitionTypeTested) unmarshalJSON(m jsonSpecimenDefinitionTyp
 	r.ModifierExtension = m.ModifierExtension
 	r.IsDerived = m.IsDerived
 	if m.IsDerivedPrimitiveElement != nil {
+		if r.IsDerived == nil {
+			r.IsDerived = &Boolean{}
+		}
 		r.IsDerived.Id = m.IsDerivedPrimitiveElement.Id
 		r.IsDerived.Extension = m.IsDerivedPrimitiveElement.Extension
 	}
@@ -259,6 +288,9 @@ func (r *SpecimenDefinitionTypeTested) unmarshalJSON(m jsonSpecimenDefinitionTyp
 	r.Container = m.Container
 	r.Requirement = m.Requirement
 	if m.RequirementPrimitiveElement != nil {
+		if r.Requirement == nil {
+			r.Requirement = &String{}
+		}
 		r.Requirement.Id = m.RequirementPrimitiveElement.Id
 		r.Requirement.Extension = m.RequirementPrimitiveElement.Extension
 	}
@@ -338,7 +370,9 @@ func (r SpecimenDefinitionTypeTestedContainer) marshalJSON() jsonSpecimenDefinit
 	m.Material = r.Material
 	m.Type = r.Type
 	m.Cap = r.Cap
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -349,18 +383,24 @@ func (r SpecimenDefinitionTypeTestedContainer) marshalJSON() jsonSpecimenDefinit
 	case *Quantity:
 		m.MinimumVolumeQuantity = v
 	case String:
-		m.MinimumVolumeString = &v
+		if v.Value != nil {
+			m.MinimumVolumeString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MinimumVolumeStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.MinimumVolumeString = v
+		if v.Value != nil {
+			m.MinimumVolumeString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MinimumVolumeStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
 	m.Additive = r.Additive
-	m.Preparation = r.Preparation
+	if r.Preparation != nil && r.Preparation.Value != nil {
+		m.Preparation = r.Preparation
+	}
 	if r.Preparation != nil && (r.Preparation.Id != nil || r.Preparation.Extension != nil) {
 		m.PreparationPrimitiveElement = &primitiveElement{Id: r.Preparation.Id, Extension: r.Preparation.Extension}
 	}
@@ -382,6 +422,9 @@ func (r *SpecimenDefinitionTypeTestedContainer) unmarshalJSON(m jsonSpecimenDefi
 	r.Cap = m.Cap
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -410,6 +453,9 @@ func (r *SpecimenDefinitionTypeTestedContainer) unmarshalJSON(m jsonSpecimenDefi
 	r.Additive = m.Additive
 	r.Preparation = m.Preparation
 	if m.PreparationPrimitiveElement != nil {
+		if r.Preparation == nil {
+			r.Preparation = &String{}
+		}
 		r.Preparation.Id = m.PreparationPrimitiveElement.Id
 		r.Preparation.Extension = m.PreparationPrimitiveElement.Extension
 	}
@@ -547,7 +593,9 @@ func (r SpecimenDefinitionTypeTestedHandling) marshalJSON() jsonSpecimenDefiniti
 	m.TemperatureQualifier = r.TemperatureQualifier
 	m.TemperatureRange = r.TemperatureRange
 	m.MaxDuration = r.MaxDuration
-	m.Instruction = r.Instruction
+	if r.Instruction != nil && r.Instruction.Value != nil {
+		m.Instruction = r.Instruction
+	}
 	if r.Instruction != nil && (r.Instruction.Id != nil || r.Instruction.Extension != nil) {
 		m.InstructionPrimitiveElement = &primitiveElement{Id: r.Instruction.Id, Extension: r.Instruction.Extension}
 	}
@@ -569,6 +617,9 @@ func (r *SpecimenDefinitionTypeTestedHandling) unmarshalJSON(m jsonSpecimenDefin
 	r.MaxDuration = m.MaxDuration
 	r.Instruction = m.Instruction
 	if m.InstructionPrimitiveElement != nil {
+		if r.Instruction == nil {
+			r.Instruction = &String{}
+		}
 		r.Instruction.Id = m.InstructionPrimitiveElement.Id
 		r.Instruction.Extension = m.InstructionPrimitiveElement.Extension
 	}

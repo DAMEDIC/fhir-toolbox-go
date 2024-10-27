@@ -8,6 +8,10 @@ import (
 )
 
 func generateMarshalJSONStruct(f *File, s ir.Struct) {
+	if s.IsPrimitive {
+		return
+	}
+
 	f.Type().Id("json" + s.Name).StructFunc(func(g *Group) {
 		if s.IsResource {
 			g.Id("ResourceType").Id("string").Tag(map[string]string{"json": "resourceType"})
@@ -112,12 +116,21 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 							Id("m." + sf.Name).Op("=").Id("&ContainedResource").Values(Id("*r." + sf.Name)),
 						)
 					}
-				} else {
-					g.Id("m." + sf.Name).Op("=").Id("r." + sf.Name)
-				}
-
-				if t.IsPrimitive {
+				} else if t.IsPrimitive {
 					if sf.Multiple {
+
+						g.Id("any" + sf.Name + "Value").Op(":=").False()
+						g.For(Id("_, e").Op(":=").Range().Id("r." + sf.Name)).Block(
+							If(Id("e.Value").Op("!=").Nil()).Block(
+								Id("any"+sf.Name+"Value").Op("=").True(),
+								Break(),
+							),
+						)
+
+						g.If(Id("any" + sf.Name + "Value")).Block(
+							Id("m." + sf.Name).Op("=").Id("r." + sf.Name),
+						)
+
 						g.Id("any" + sf.Name + "IdOrExtension").Op(":=").False()
 						g.For(Id("_, e").Op(":=").Range().Id("r." + sf.Name)).Block(
 							If(Id("e.Id").Op("!=").Nil().Op("||").Id("e.Extension").Op("!=").Nil()).Block(
@@ -139,6 +152,16 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 							),
 						)
 					} else {
+						if sf.Name == "Div" {
+							g.Id("m." + sf.Name).Op("=").Id("r." + sf.Name)
+						} else if sf.Optional {
+							g.If(Id("r." + sf.Name).Op("!=").Nil().Op("&&").Id("r." + sf.Name + ".Value").Op("!=").Nil()).Block(
+								Id("m." + sf.Name).Op("=").Id("r." + sf.Name))
+						} else {
+							g.If(Id("r." + sf.Name + ".Value").Op("!=").Nil()).Block(
+								Id("m." + sf.Name).Op("=").Id("r." + sf.Name))
+						}
+
 						g.IfFunc(func(g *Group) {
 							if sf.Optional {
 								g.Id("r." + sf.Name).Op("!=").Nil().Op("&&").Params(
@@ -159,6 +182,8 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 							}),
 						)
 					}
+				} else {
+					g.Id("m." + sf.Name).Op("=").Id("r." + sf.Name)
 				}
 			}
 		}
@@ -175,21 +200,27 @@ func implementMarshalCase(g *Group, sf ir.StructField, t ir.FieldType, pointer b
 		c = Id(t.Name)
 	}
 	g.Case(c).BlockFunc(func(g *Group) {
-		a := g.Id("m." + sf.Name + t.Name).Op("=")
-
-		if pointer {
-			a.Id("v")
-		} else {
-			a.Id("&v")
-		}
-
 		if t.IsPrimitive {
+			g.If(Id("v.Value").Op("!=").Nil()).BlockFunc(func(g *Group) {
+				if pointer {
+					g.Id("m." + sf.Name + t.Name).Op("=").Id("v")
+				} else {
+					g.Id("m." + sf.Name + t.Name).Op("=").Id("&v")
+				}
+			})
+
 			g.If(Id("v.Id").Op("!=").Nil().Op("||").Id("v.Extension").Op("!=").Nil()).Block(
 				Id("m."+sf.Name+t.Name+"PrimitiveElement").Op("=").Id("&primitiveElement").Values(
 					Id("Id").Op(":").Id("v.Id"),
 					Id("Extension").Op(":").Id("v.Extension"),
 				),
 			)
+		} else {
+			if pointer {
+				g.Id("m." + sf.Name + t.Name).Op("=").Id("v")
+			} else {
+				g.Id("m." + sf.Name + t.Name).Op("=").Id("&v")
+			}
 		}
 	})
 }

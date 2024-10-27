@@ -144,16 +144,22 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 func (r TestScript) marshalJSON() jsonTestScript {
 	m := jsonTestScript{}
 	m.ResourceType = "TestScript"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -164,51 +170,73 @@ func (r TestScript) marshalJSON() jsonTestScript {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
@@ -233,17 +261,26 @@ func (r *TestScript) UnmarshalJSON(b []byte) error {
 func (r *TestScript) unmarshalJSON(m jsonTestScript) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -262,6 +299,9 @@ func (r *TestScript) unmarshalJSON(m jsonTestScript) error {
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -272,6 +312,9 @@ func (r *TestScript) unmarshalJSON(m jsonTestScript) error {
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -282,22 +325,34 @@ func (r *TestScript) unmarshalJSON(m jsonTestScript) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -305,11 +360,17 @@ func (r *TestScript) unmarshalJSON(m jsonTestScript) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
@@ -364,7 +425,9 @@ func (r TestScriptOrigin) marshalJSON() jsonTestScriptOrigin {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Index = r.Index
+	if r.Index.Value != nil {
+		m.Index = r.Index
+	}
 	if r.Index.Id != nil || r.Index.Extension != nil {
 		m.IndexPrimitiveElement = &primitiveElement{Id: r.Index.Id, Extension: r.Index.Extension}
 	}
@@ -430,7 +493,9 @@ func (r TestScriptDestination) marshalJSON() jsonTestScriptDestination {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Index = r.Index
+	if r.Index.Value != nil {
+		m.Index = r.Index
+	}
 	if r.Index.Id != nil || r.Index.Extension != nil {
 		m.IndexPrimitiveElement = &primitiveElement{Id: r.Index.Id, Extension: r.Index.Extension}
 	}
@@ -555,11 +620,15 @@ func (r TestScriptMetadataLink) marshalJSON() jsonTestScriptMetadataLink {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -583,6 +652,9 @@ func (r *TestScriptMetadataLink) unmarshalJSON(m jsonTestScriptMetadataLink) err
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -649,19 +721,34 @@ func (r TestScriptMetadataCapability) marshalJSON() jsonTestScriptMetadataCapabi
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Required = r.Required
+	if r.Required.Value != nil {
+		m.Required = r.Required
+	}
 	if r.Required.Id != nil || r.Required.Extension != nil {
 		m.RequiredPrimitiveElement = &primitiveElement{Id: r.Required.Id, Extension: r.Required.Extension}
 	}
-	m.Validated = r.Validated
+	if r.Validated.Value != nil {
+		m.Validated = r.Validated
+	}
 	if r.Validated.Id != nil || r.Validated.Extension != nil {
 		m.ValidatedPrimitiveElement = &primitiveElement{Id: r.Validated.Id, Extension: r.Validated.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Origin = r.Origin
+	anyOriginValue := false
+	for _, e := range r.Origin {
+		if e.Value != nil {
+			anyOriginValue = true
+			break
+		}
+	}
+	if anyOriginValue {
+		m.Origin = r.Origin
+	}
 	anyOriginIdOrExtension := false
 	for _, e := range r.Origin {
 		if e.Id != nil || e.Extension != nil {
@@ -679,11 +766,22 @@ func (r TestScriptMetadataCapability) marshalJSON() jsonTestScriptMetadataCapabi
 			}
 		}
 	}
-	m.Destination = r.Destination
+	if r.Destination != nil && r.Destination.Value != nil {
+		m.Destination = r.Destination
+	}
 	if r.Destination != nil && (r.Destination.Id != nil || r.Destination.Extension != nil) {
 		m.DestinationPrimitiveElement = &primitiveElement{Id: r.Destination.Id, Extension: r.Destination.Extension}
 	}
-	m.Link = r.Link
+	anyLinkValue := false
+	for _, e := range r.Link {
+		if e.Value != nil {
+			anyLinkValue = true
+			break
+		}
+	}
+	if anyLinkValue {
+		m.Link = r.Link
+	}
 	anyLinkIdOrExtension := false
 	for _, e := range r.Link {
 		if e.Id != nil || e.Extension != nil {
@@ -701,7 +799,9 @@ func (r TestScriptMetadataCapability) marshalJSON() jsonTestScriptMetadataCapabi
 			}
 		}
 	}
-	m.Capabilities = r.Capabilities
+	if r.Capabilities.Value != nil {
+		m.Capabilities = r.Capabilities
+	}
 	if r.Capabilities.Id != nil || r.Capabilities.Extension != nil {
 		m.CapabilitiesPrimitiveElement = &primitiveElement{Id: r.Capabilities.Id, Extension: r.Capabilities.Extension}
 	}
@@ -730,30 +830,38 @@ func (r *TestScriptMetadataCapability) unmarshalJSON(m jsonTestScriptMetadataCap
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Origin = m.Origin
 	for i, e := range m.OriginPrimitiveElement {
-		if len(r.Origin) > i {
+		if len(r.Origin) <= i {
+			r.Origin = append(r.Origin, Integer{})
+		}
+		if e != nil {
 			r.Origin[i].Id = e.Id
 			r.Origin[i].Extension = e.Extension
-		} else {
-			r.Origin = append(r.Origin, Integer{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Destination = m.Destination
 	if m.DestinationPrimitiveElement != nil {
+		if r.Destination == nil {
+			r.Destination = &Integer{}
+		}
 		r.Destination.Id = m.DestinationPrimitiveElement.Id
 		r.Destination.Extension = m.DestinationPrimitiveElement.Extension
 	}
 	r.Link = m.Link
 	for i, e := range m.LinkPrimitiveElement {
-		if len(r.Link) > i {
+		if len(r.Link) <= i {
+			r.Link = append(r.Link, Uri{})
+		}
+		if e != nil {
 			r.Link[i].Id = e.Id
 			r.Link[i].Extension = e.Extension
-		} else {
-			r.Link = append(r.Link, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Capabilities = m.Capabilities
@@ -807,11 +915,15 @@ func (r TestScriptFixture) marshalJSON() jsonTestScriptFixture {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Autocreate = r.Autocreate
+	if r.Autocreate.Value != nil {
+		m.Autocreate = r.Autocreate
+	}
 	if r.Autocreate.Id != nil || r.Autocreate.Extension != nil {
 		m.AutocreatePrimitiveElement = &primitiveElement{Id: r.Autocreate.Id, Extension: r.Autocreate.Extension}
 	}
-	m.Autodelete = r.Autodelete
+	if r.Autodelete.Value != nil {
+		m.Autodelete = r.Autodelete
+	}
 	if r.Autodelete.Id != nil || r.Autodelete.Extension != nil {
 		m.AutodeletePrimitiveElement = &primitiveElement{Id: r.Autodelete.Id, Extension: r.Autodelete.Extension}
 	}
@@ -907,35 +1019,51 @@ func (r TestScriptVariable) marshalJSON() jsonTestScriptVariable {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.DefaultValue = r.DefaultValue
+	if r.DefaultValue != nil && r.DefaultValue.Value != nil {
+		m.DefaultValue = r.DefaultValue
+	}
 	if r.DefaultValue != nil && (r.DefaultValue.Id != nil || r.DefaultValue.Extension != nil) {
 		m.DefaultValuePrimitiveElement = &primitiveElement{Id: r.DefaultValue.Id, Extension: r.DefaultValue.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Expression = r.Expression
+	if r.Expression != nil && r.Expression.Value != nil {
+		m.Expression = r.Expression
+	}
 	if r.Expression != nil && (r.Expression.Id != nil || r.Expression.Extension != nil) {
 		m.ExpressionPrimitiveElement = &primitiveElement{Id: r.Expression.Id, Extension: r.Expression.Extension}
 	}
-	m.HeaderField = r.HeaderField
+	if r.HeaderField != nil && r.HeaderField.Value != nil {
+		m.HeaderField = r.HeaderField
+	}
 	if r.HeaderField != nil && (r.HeaderField.Id != nil || r.HeaderField.Extension != nil) {
 		m.HeaderFieldPrimitiveElement = &primitiveElement{Id: r.HeaderField.Id, Extension: r.HeaderField.Extension}
 	}
-	m.Hint = r.Hint
+	if r.Hint != nil && r.Hint.Value != nil {
+		m.Hint = r.Hint
+	}
 	if r.Hint != nil && (r.Hint.Id != nil || r.Hint.Extension != nil) {
 		m.HintPrimitiveElement = &primitiveElement{Id: r.Hint.Id, Extension: r.Hint.Extension}
 	}
-	m.Path = r.Path
+	if r.Path != nil && r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path != nil && (r.Path.Id != nil || r.Path.Extension != nil) {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.SourceId = r.SourceId
+	if r.SourceId != nil && r.SourceId.Value != nil {
+		m.SourceId = r.SourceId
+	}
 	if r.SourceId != nil && (r.SourceId.Id != nil || r.SourceId.Extension != nil) {
 		m.SourceIdPrimitiveElement = &primitiveElement{Id: r.SourceId.Id, Extension: r.SourceId.Extension}
 	}
@@ -959,36 +1087,57 @@ func (r *TestScriptVariable) unmarshalJSON(m jsonTestScriptVariable) error {
 	}
 	r.DefaultValue = m.DefaultValue
 	if m.DefaultValuePrimitiveElement != nil {
+		if r.DefaultValue == nil {
+			r.DefaultValue = &String{}
+		}
 		r.DefaultValue.Id = m.DefaultValuePrimitiveElement.Id
 		r.DefaultValue.Extension = m.DefaultValuePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Expression = m.Expression
 	if m.ExpressionPrimitiveElement != nil {
+		if r.Expression == nil {
+			r.Expression = &String{}
+		}
 		r.Expression.Id = m.ExpressionPrimitiveElement.Id
 		r.Expression.Extension = m.ExpressionPrimitiveElement.Extension
 	}
 	r.HeaderField = m.HeaderField
 	if m.HeaderFieldPrimitiveElement != nil {
+		if r.HeaderField == nil {
+			r.HeaderField = &String{}
+		}
 		r.HeaderField.Id = m.HeaderFieldPrimitiveElement.Id
 		r.HeaderField.Extension = m.HeaderFieldPrimitiveElement.Extension
 	}
 	r.Hint = m.Hint
 	if m.HintPrimitiveElement != nil {
+		if r.Hint == nil {
+			r.Hint = &String{}
+		}
 		r.Hint.Id = m.HintPrimitiveElement.Id
 		r.Hint.Extension = m.HintPrimitiveElement.Extension
 	}
 	r.Path = m.Path
 	if m.PathPrimitiveElement != nil {
+		if r.Path == nil {
+			r.Path = &String{}
+		}
 		r.Path.Id = m.PathPrimitiveElement.Id
 		r.Path.Extension = m.PathPrimitiveElement.Extension
 	}
 	r.SourceId = m.SourceId
 	if m.SourceIdPrimitiveElement != nil {
+		if r.SourceId == nil {
+			r.SourceId = &Id{}
+		}
 		r.SourceId.Id = m.SourceIdPrimitiveElement.Id
 		r.SourceId.Extension = m.SourceIdPrimitiveElement.Extension
 	}
@@ -1205,64 +1354,94 @@ func (r TestScriptSetupActionOperation) marshalJSON() jsonTestScriptSetupActionO
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Resource = r.Resource
+	if r.Resource != nil && r.Resource.Value != nil {
+		m.Resource = r.Resource
+	}
 	if r.Resource != nil && (r.Resource.Id != nil || r.Resource.Extension != nil) {
 		m.ResourcePrimitiveElement = &primitiveElement{Id: r.Resource.Id, Extension: r.Resource.Extension}
 	}
-	m.Label = r.Label
+	if r.Label != nil && r.Label.Value != nil {
+		m.Label = r.Label
+	}
 	if r.Label != nil && (r.Label.Id != nil || r.Label.Extension != nil) {
 		m.LabelPrimitiveElement = &primitiveElement{Id: r.Label.Id, Extension: r.Label.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Accept = r.Accept
+	if r.Accept != nil && r.Accept.Value != nil {
+		m.Accept = r.Accept
+	}
 	if r.Accept != nil && (r.Accept.Id != nil || r.Accept.Extension != nil) {
 		m.AcceptPrimitiveElement = &primitiveElement{Id: r.Accept.Id, Extension: r.Accept.Extension}
 	}
-	m.ContentType = r.ContentType
+	if r.ContentType != nil && r.ContentType.Value != nil {
+		m.ContentType = r.ContentType
+	}
 	if r.ContentType != nil && (r.ContentType.Id != nil || r.ContentType.Extension != nil) {
 		m.ContentTypePrimitiveElement = &primitiveElement{Id: r.ContentType.Id, Extension: r.ContentType.Extension}
 	}
-	m.Destination = r.Destination
+	if r.Destination != nil && r.Destination.Value != nil {
+		m.Destination = r.Destination
+	}
 	if r.Destination != nil && (r.Destination.Id != nil || r.Destination.Extension != nil) {
 		m.DestinationPrimitiveElement = &primitiveElement{Id: r.Destination.Id, Extension: r.Destination.Extension}
 	}
-	m.EncodeRequestUrl = r.EncodeRequestUrl
+	if r.EncodeRequestUrl.Value != nil {
+		m.EncodeRequestUrl = r.EncodeRequestUrl
+	}
 	if r.EncodeRequestUrl.Id != nil || r.EncodeRequestUrl.Extension != nil {
 		m.EncodeRequestUrlPrimitiveElement = &primitiveElement{Id: r.EncodeRequestUrl.Id, Extension: r.EncodeRequestUrl.Extension}
 	}
-	m.Method = r.Method
+	if r.Method != nil && r.Method.Value != nil {
+		m.Method = r.Method
+	}
 	if r.Method != nil && (r.Method.Id != nil || r.Method.Extension != nil) {
 		m.MethodPrimitiveElement = &primitiveElement{Id: r.Method.Id, Extension: r.Method.Extension}
 	}
-	m.Origin = r.Origin
+	if r.Origin != nil && r.Origin.Value != nil {
+		m.Origin = r.Origin
+	}
 	if r.Origin != nil && (r.Origin.Id != nil || r.Origin.Extension != nil) {
 		m.OriginPrimitiveElement = &primitiveElement{Id: r.Origin.Id, Extension: r.Origin.Extension}
 	}
-	m.Params = r.Params
+	if r.Params != nil && r.Params.Value != nil {
+		m.Params = r.Params
+	}
 	if r.Params != nil && (r.Params.Id != nil || r.Params.Extension != nil) {
 		m.ParamsPrimitiveElement = &primitiveElement{Id: r.Params.Id, Extension: r.Params.Extension}
 	}
 	m.RequestHeader = r.RequestHeader
-	m.RequestId = r.RequestId
+	if r.RequestId != nil && r.RequestId.Value != nil {
+		m.RequestId = r.RequestId
+	}
 	if r.RequestId != nil && (r.RequestId.Id != nil || r.RequestId.Extension != nil) {
 		m.RequestIdPrimitiveElement = &primitiveElement{Id: r.RequestId.Id, Extension: r.RequestId.Extension}
 	}
-	m.ResponseId = r.ResponseId
+	if r.ResponseId != nil && r.ResponseId.Value != nil {
+		m.ResponseId = r.ResponseId
+	}
 	if r.ResponseId != nil && (r.ResponseId.Id != nil || r.ResponseId.Extension != nil) {
 		m.ResponseIdPrimitiveElement = &primitiveElement{Id: r.ResponseId.Id, Extension: r.ResponseId.Extension}
 	}
-	m.SourceId = r.SourceId
+	if r.SourceId != nil && r.SourceId.Value != nil {
+		m.SourceId = r.SourceId
+	}
 	if r.SourceId != nil && (r.SourceId.Id != nil || r.SourceId.Extension != nil) {
 		m.SourceIdPrimitiveElement = &primitiveElement{Id: r.SourceId.Id, Extension: r.SourceId.Extension}
 	}
-	m.TargetId = r.TargetId
+	if r.TargetId != nil && r.TargetId.Value != nil {
+		m.TargetId = r.TargetId
+	}
 	if r.TargetId != nil && (r.TargetId.Id != nil || r.TargetId.Extension != nil) {
 		m.TargetIdPrimitiveElement = &primitiveElement{Id: r.TargetId.Id, Extension: r.TargetId.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
@@ -1282,31 +1461,49 @@ func (r *TestScriptSetupActionOperation) unmarshalJSON(m jsonTestScriptSetupActi
 	r.Type = m.Type
 	r.Resource = m.Resource
 	if m.ResourcePrimitiveElement != nil {
+		if r.Resource == nil {
+			r.Resource = &Code{}
+		}
 		r.Resource.Id = m.ResourcePrimitiveElement.Id
 		r.Resource.Extension = m.ResourcePrimitiveElement.Extension
 	}
 	r.Label = m.Label
 	if m.LabelPrimitiveElement != nil {
+		if r.Label == nil {
+			r.Label = &String{}
+		}
 		r.Label.Id = m.LabelPrimitiveElement.Id
 		r.Label.Extension = m.LabelPrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Accept = m.Accept
 	if m.AcceptPrimitiveElement != nil {
+		if r.Accept == nil {
+			r.Accept = &Code{}
+		}
 		r.Accept.Id = m.AcceptPrimitiveElement.Id
 		r.Accept.Extension = m.AcceptPrimitiveElement.Extension
 	}
 	r.ContentType = m.ContentType
 	if m.ContentTypePrimitiveElement != nil {
+		if r.ContentType == nil {
+			r.ContentType = &Code{}
+		}
 		r.ContentType.Id = m.ContentTypePrimitiveElement.Id
 		r.ContentType.Extension = m.ContentTypePrimitiveElement.Extension
 	}
 	r.Destination = m.Destination
 	if m.DestinationPrimitiveElement != nil {
+		if r.Destination == nil {
+			r.Destination = &Integer{}
+		}
 		r.Destination.Id = m.DestinationPrimitiveElement.Id
 		r.Destination.Extension = m.DestinationPrimitiveElement.Extension
 	}
@@ -1317,42 +1514,66 @@ func (r *TestScriptSetupActionOperation) unmarshalJSON(m jsonTestScriptSetupActi
 	}
 	r.Method = m.Method
 	if m.MethodPrimitiveElement != nil {
+		if r.Method == nil {
+			r.Method = &Code{}
+		}
 		r.Method.Id = m.MethodPrimitiveElement.Id
 		r.Method.Extension = m.MethodPrimitiveElement.Extension
 	}
 	r.Origin = m.Origin
 	if m.OriginPrimitiveElement != nil {
+		if r.Origin == nil {
+			r.Origin = &Integer{}
+		}
 		r.Origin.Id = m.OriginPrimitiveElement.Id
 		r.Origin.Extension = m.OriginPrimitiveElement.Extension
 	}
 	r.Params = m.Params
 	if m.ParamsPrimitiveElement != nil {
+		if r.Params == nil {
+			r.Params = &String{}
+		}
 		r.Params.Id = m.ParamsPrimitiveElement.Id
 		r.Params.Extension = m.ParamsPrimitiveElement.Extension
 	}
 	r.RequestHeader = m.RequestHeader
 	r.RequestId = m.RequestId
 	if m.RequestIdPrimitiveElement != nil {
+		if r.RequestId == nil {
+			r.RequestId = &Id{}
+		}
 		r.RequestId.Id = m.RequestIdPrimitiveElement.Id
 		r.RequestId.Extension = m.RequestIdPrimitiveElement.Extension
 	}
 	r.ResponseId = m.ResponseId
 	if m.ResponseIdPrimitiveElement != nil {
+		if r.ResponseId == nil {
+			r.ResponseId = &Id{}
+		}
 		r.ResponseId.Id = m.ResponseIdPrimitiveElement.Id
 		r.ResponseId.Extension = m.ResponseIdPrimitiveElement.Extension
 	}
 	r.SourceId = m.SourceId
 	if m.SourceIdPrimitiveElement != nil {
+		if r.SourceId == nil {
+			r.SourceId = &Id{}
+		}
 		r.SourceId.Id = m.SourceIdPrimitiveElement.Id
 		r.SourceId.Extension = m.SourceIdPrimitiveElement.Extension
 	}
 	r.TargetId = m.TargetId
 	if m.TargetIdPrimitiveElement != nil {
+		if r.TargetId == nil {
+			r.TargetId = &Id{}
+		}
 		r.TargetId.Id = m.TargetIdPrimitiveElement.Id
 		r.TargetId.Extension = m.TargetIdPrimitiveElement.Extension
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &String{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
@@ -1399,11 +1620,15 @@ func (r TestScriptSetupActionOperationRequestHeader) marshalJSON() jsonTestScrip
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Field = r.Field
+	if r.Field.Value != nil {
+		m.Field = r.Field
+	}
 	if r.Field.Id != nil || r.Field.Extension != nil {
 		m.FieldPrimitiveElement = &primitiveElement{Id: r.Field.Id, Extension: r.Field.Extension}
 	}
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
@@ -1553,91 +1778,135 @@ func (r TestScriptSetupActionAssert) marshalJSON() jsonTestScriptSetupActionAsse
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Label = r.Label
+	if r.Label != nil && r.Label.Value != nil {
+		m.Label = r.Label
+	}
 	if r.Label != nil && (r.Label.Id != nil || r.Label.Extension != nil) {
 		m.LabelPrimitiveElement = &primitiveElement{Id: r.Label.Id, Extension: r.Label.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Direction = r.Direction
+	if r.Direction != nil && r.Direction.Value != nil {
+		m.Direction = r.Direction
+	}
 	if r.Direction != nil && (r.Direction.Id != nil || r.Direction.Extension != nil) {
 		m.DirectionPrimitiveElement = &primitiveElement{Id: r.Direction.Id, Extension: r.Direction.Extension}
 	}
-	m.CompareToSourceId = r.CompareToSourceId
+	if r.CompareToSourceId != nil && r.CompareToSourceId.Value != nil {
+		m.CompareToSourceId = r.CompareToSourceId
+	}
 	if r.CompareToSourceId != nil && (r.CompareToSourceId.Id != nil || r.CompareToSourceId.Extension != nil) {
 		m.CompareToSourceIdPrimitiveElement = &primitiveElement{Id: r.CompareToSourceId.Id, Extension: r.CompareToSourceId.Extension}
 	}
-	m.CompareToSourceExpression = r.CompareToSourceExpression
+	if r.CompareToSourceExpression != nil && r.CompareToSourceExpression.Value != nil {
+		m.CompareToSourceExpression = r.CompareToSourceExpression
+	}
 	if r.CompareToSourceExpression != nil && (r.CompareToSourceExpression.Id != nil || r.CompareToSourceExpression.Extension != nil) {
 		m.CompareToSourceExpressionPrimitiveElement = &primitiveElement{Id: r.CompareToSourceExpression.Id, Extension: r.CompareToSourceExpression.Extension}
 	}
-	m.CompareToSourcePath = r.CompareToSourcePath
+	if r.CompareToSourcePath != nil && r.CompareToSourcePath.Value != nil {
+		m.CompareToSourcePath = r.CompareToSourcePath
+	}
 	if r.CompareToSourcePath != nil && (r.CompareToSourcePath.Id != nil || r.CompareToSourcePath.Extension != nil) {
 		m.CompareToSourcePathPrimitiveElement = &primitiveElement{Id: r.CompareToSourcePath.Id, Extension: r.CompareToSourcePath.Extension}
 	}
-	m.ContentType = r.ContentType
+	if r.ContentType != nil && r.ContentType.Value != nil {
+		m.ContentType = r.ContentType
+	}
 	if r.ContentType != nil && (r.ContentType.Id != nil || r.ContentType.Extension != nil) {
 		m.ContentTypePrimitiveElement = &primitiveElement{Id: r.ContentType.Id, Extension: r.ContentType.Extension}
 	}
-	m.Expression = r.Expression
+	if r.Expression != nil && r.Expression.Value != nil {
+		m.Expression = r.Expression
+	}
 	if r.Expression != nil && (r.Expression.Id != nil || r.Expression.Extension != nil) {
 		m.ExpressionPrimitiveElement = &primitiveElement{Id: r.Expression.Id, Extension: r.Expression.Extension}
 	}
-	m.HeaderField = r.HeaderField
+	if r.HeaderField != nil && r.HeaderField.Value != nil {
+		m.HeaderField = r.HeaderField
+	}
 	if r.HeaderField != nil && (r.HeaderField.Id != nil || r.HeaderField.Extension != nil) {
 		m.HeaderFieldPrimitiveElement = &primitiveElement{Id: r.HeaderField.Id, Extension: r.HeaderField.Extension}
 	}
-	m.MinimumId = r.MinimumId
+	if r.MinimumId != nil && r.MinimumId.Value != nil {
+		m.MinimumId = r.MinimumId
+	}
 	if r.MinimumId != nil && (r.MinimumId.Id != nil || r.MinimumId.Extension != nil) {
 		m.MinimumIdPrimitiveElement = &primitiveElement{Id: r.MinimumId.Id, Extension: r.MinimumId.Extension}
 	}
-	m.NavigationLinks = r.NavigationLinks
+	if r.NavigationLinks != nil && r.NavigationLinks.Value != nil {
+		m.NavigationLinks = r.NavigationLinks
+	}
 	if r.NavigationLinks != nil && (r.NavigationLinks.Id != nil || r.NavigationLinks.Extension != nil) {
 		m.NavigationLinksPrimitiveElement = &primitiveElement{Id: r.NavigationLinks.Id, Extension: r.NavigationLinks.Extension}
 	}
-	m.Operator = r.Operator
+	if r.Operator != nil && r.Operator.Value != nil {
+		m.Operator = r.Operator
+	}
 	if r.Operator != nil && (r.Operator.Id != nil || r.Operator.Extension != nil) {
 		m.OperatorPrimitiveElement = &primitiveElement{Id: r.Operator.Id, Extension: r.Operator.Extension}
 	}
-	m.Path = r.Path
+	if r.Path != nil && r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path != nil && (r.Path.Id != nil || r.Path.Extension != nil) {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.RequestMethod = r.RequestMethod
+	if r.RequestMethod != nil && r.RequestMethod.Value != nil {
+		m.RequestMethod = r.RequestMethod
+	}
 	if r.RequestMethod != nil && (r.RequestMethod.Id != nil || r.RequestMethod.Extension != nil) {
 		m.RequestMethodPrimitiveElement = &primitiveElement{Id: r.RequestMethod.Id, Extension: r.RequestMethod.Extension}
 	}
-	m.RequestUrl = r.RequestUrl
+	if r.RequestUrl != nil && r.RequestUrl.Value != nil {
+		m.RequestUrl = r.RequestUrl
+	}
 	if r.RequestUrl != nil && (r.RequestUrl.Id != nil || r.RequestUrl.Extension != nil) {
 		m.RequestUrlPrimitiveElement = &primitiveElement{Id: r.RequestUrl.Id, Extension: r.RequestUrl.Extension}
 	}
-	m.Resource = r.Resource
+	if r.Resource != nil && r.Resource.Value != nil {
+		m.Resource = r.Resource
+	}
 	if r.Resource != nil && (r.Resource.Id != nil || r.Resource.Extension != nil) {
 		m.ResourcePrimitiveElement = &primitiveElement{Id: r.Resource.Id, Extension: r.Resource.Extension}
 	}
-	m.Response = r.Response
+	if r.Response != nil && r.Response.Value != nil {
+		m.Response = r.Response
+	}
 	if r.Response != nil && (r.Response.Id != nil || r.Response.Extension != nil) {
 		m.ResponsePrimitiveElement = &primitiveElement{Id: r.Response.Id, Extension: r.Response.Extension}
 	}
-	m.ResponseCode = r.ResponseCode
+	if r.ResponseCode != nil && r.ResponseCode.Value != nil {
+		m.ResponseCode = r.ResponseCode
+	}
 	if r.ResponseCode != nil && (r.ResponseCode.Id != nil || r.ResponseCode.Extension != nil) {
 		m.ResponseCodePrimitiveElement = &primitiveElement{Id: r.ResponseCode.Id, Extension: r.ResponseCode.Extension}
 	}
-	m.SourceId = r.SourceId
+	if r.SourceId != nil && r.SourceId.Value != nil {
+		m.SourceId = r.SourceId
+	}
 	if r.SourceId != nil && (r.SourceId.Id != nil || r.SourceId.Extension != nil) {
 		m.SourceIdPrimitiveElement = &primitiveElement{Id: r.SourceId.Id, Extension: r.SourceId.Extension}
 	}
-	m.ValidateProfileId = r.ValidateProfileId
+	if r.ValidateProfileId != nil && r.ValidateProfileId.Value != nil {
+		m.ValidateProfileId = r.ValidateProfileId
+	}
 	if r.ValidateProfileId != nil && (r.ValidateProfileId.Id != nil || r.ValidateProfileId.Extension != nil) {
 		m.ValidateProfileIdPrimitiveElement = &primitiveElement{Id: r.ValidateProfileId.Id, Extension: r.ValidateProfileId.Extension}
 	}
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.WarningOnly = r.WarningOnly
+	if r.WarningOnly.Value != nil {
+		m.WarningOnly = r.WarningOnly
+	}
 	if r.WarningOnly.Id != nil || r.WarningOnly.Extension != nil {
 		m.WarningOnlyPrimitiveElement = &primitiveElement{Id: r.WarningOnly.Id, Extension: r.WarningOnly.Extension}
 	}
@@ -1656,106 +1925,169 @@ func (r *TestScriptSetupActionAssert) unmarshalJSON(m jsonTestScriptSetupActionA
 	r.ModifierExtension = m.ModifierExtension
 	r.Label = m.Label
 	if m.LabelPrimitiveElement != nil {
+		if r.Label == nil {
+			r.Label = &String{}
+		}
 		r.Label.Id = m.LabelPrimitiveElement.Id
 		r.Label.Extension = m.LabelPrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Direction = m.Direction
 	if m.DirectionPrimitiveElement != nil {
+		if r.Direction == nil {
+			r.Direction = &Code{}
+		}
 		r.Direction.Id = m.DirectionPrimitiveElement.Id
 		r.Direction.Extension = m.DirectionPrimitiveElement.Extension
 	}
 	r.CompareToSourceId = m.CompareToSourceId
 	if m.CompareToSourceIdPrimitiveElement != nil {
+		if r.CompareToSourceId == nil {
+			r.CompareToSourceId = &String{}
+		}
 		r.CompareToSourceId.Id = m.CompareToSourceIdPrimitiveElement.Id
 		r.CompareToSourceId.Extension = m.CompareToSourceIdPrimitiveElement.Extension
 	}
 	r.CompareToSourceExpression = m.CompareToSourceExpression
 	if m.CompareToSourceExpressionPrimitiveElement != nil {
+		if r.CompareToSourceExpression == nil {
+			r.CompareToSourceExpression = &String{}
+		}
 		r.CompareToSourceExpression.Id = m.CompareToSourceExpressionPrimitiveElement.Id
 		r.CompareToSourceExpression.Extension = m.CompareToSourceExpressionPrimitiveElement.Extension
 	}
 	r.CompareToSourcePath = m.CompareToSourcePath
 	if m.CompareToSourcePathPrimitiveElement != nil {
+		if r.CompareToSourcePath == nil {
+			r.CompareToSourcePath = &String{}
+		}
 		r.CompareToSourcePath.Id = m.CompareToSourcePathPrimitiveElement.Id
 		r.CompareToSourcePath.Extension = m.CompareToSourcePathPrimitiveElement.Extension
 	}
 	r.ContentType = m.ContentType
 	if m.ContentTypePrimitiveElement != nil {
+		if r.ContentType == nil {
+			r.ContentType = &Code{}
+		}
 		r.ContentType.Id = m.ContentTypePrimitiveElement.Id
 		r.ContentType.Extension = m.ContentTypePrimitiveElement.Extension
 	}
 	r.Expression = m.Expression
 	if m.ExpressionPrimitiveElement != nil {
+		if r.Expression == nil {
+			r.Expression = &String{}
+		}
 		r.Expression.Id = m.ExpressionPrimitiveElement.Id
 		r.Expression.Extension = m.ExpressionPrimitiveElement.Extension
 	}
 	r.HeaderField = m.HeaderField
 	if m.HeaderFieldPrimitiveElement != nil {
+		if r.HeaderField == nil {
+			r.HeaderField = &String{}
+		}
 		r.HeaderField.Id = m.HeaderFieldPrimitiveElement.Id
 		r.HeaderField.Extension = m.HeaderFieldPrimitiveElement.Extension
 	}
 	r.MinimumId = m.MinimumId
 	if m.MinimumIdPrimitiveElement != nil {
+		if r.MinimumId == nil {
+			r.MinimumId = &String{}
+		}
 		r.MinimumId.Id = m.MinimumIdPrimitiveElement.Id
 		r.MinimumId.Extension = m.MinimumIdPrimitiveElement.Extension
 	}
 	r.NavigationLinks = m.NavigationLinks
 	if m.NavigationLinksPrimitiveElement != nil {
+		if r.NavigationLinks == nil {
+			r.NavigationLinks = &Boolean{}
+		}
 		r.NavigationLinks.Id = m.NavigationLinksPrimitiveElement.Id
 		r.NavigationLinks.Extension = m.NavigationLinksPrimitiveElement.Extension
 	}
 	r.Operator = m.Operator
 	if m.OperatorPrimitiveElement != nil {
+		if r.Operator == nil {
+			r.Operator = &Code{}
+		}
 		r.Operator.Id = m.OperatorPrimitiveElement.Id
 		r.Operator.Extension = m.OperatorPrimitiveElement.Extension
 	}
 	r.Path = m.Path
 	if m.PathPrimitiveElement != nil {
+		if r.Path == nil {
+			r.Path = &String{}
+		}
 		r.Path.Id = m.PathPrimitiveElement.Id
 		r.Path.Extension = m.PathPrimitiveElement.Extension
 	}
 	r.RequestMethod = m.RequestMethod
 	if m.RequestMethodPrimitiveElement != nil {
+		if r.RequestMethod == nil {
+			r.RequestMethod = &Code{}
+		}
 		r.RequestMethod.Id = m.RequestMethodPrimitiveElement.Id
 		r.RequestMethod.Extension = m.RequestMethodPrimitiveElement.Extension
 	}
 	r.RequestUrl = m.RequestUrl
 	if m.RequestUrlPrimitiveElement != nil {
+		if r.RequestUrl == nil {
+			r.RequestUrl = &String{}
+		}
 		r.RequestUrl.Id = m.RequestUrlPrimitiveElement.Id
 		r.RequestUrl.Extension = m.RequestUrlPrimitiveElement.Extension
 	}
 	r.Resource = m.Resource
 	if m.ResourcePrimitiveElement != nil {
+		if r.Resource == nil {
+			r.Resource = &Code{}
+		}
 		r.Resource.Id = m.ResourcePrimitiveElement.Id
 		r.Resource.Extension = m.ResourcePrimitiveElement.Extension
 	}
 	r.Response = m.Response
 	if m.ResponsePrimitiveElement != nil {
+		if r.Response == nil {
+			r.Response = &Code{}
+		}
 		r.Response.Id = m.ResponsePrimitiveElement.Id
 		r.Response.Extension = m.ResponsePrimitiveElement.Extension
 	}
 	r.ResponseCode = m.ResponseCode
 	if m.ResponseCodePrimitiveElement != nil {
+		if r.ResponseCode == nil {
+			r.ResponseCode = &String{}
+		}
 		r.ResponseCode.Id = m.ResponseCodePrimitiveElement.Id
 		r.ResponseCode.Extension = m.ResponseCodePrimitiveElement.Extension
 	}
 	r.SourceId = m.SourceId
 	if m.SourceIdPrimitiveElement != nil {
+		if r.SourceId == nil {
+			r.SourceId = &Id{}
+		}
 		r.SourceId.Id = m.SourceIdPrimitiveElement.Id
 		r.SourceId.Extension = m.SourceIdPrimitiveElement.Extension
 	}
 	r.ValidateProfileId = m.ValidateProfileId
 	if m.ValidateProfileIdPrimitiveElement != nil {
+		if r.ValidateProfileId == nil {
+			r.ValidateProfileId = &Id{}
+		}
 		r.ValidateProfileId.Id = m.ValidateProfileIdPrimitiveElement.Id
 		r.ValidateProfileId.Extension = m.ValidateProfileIdPrimitiveElement.Extension
 	}
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &String{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
@@ -1810,11 +2142,15 @@ func (r TestScriptTest) marshalJSON() jsonTestScriptTest {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -1834,11 +2170,17 @@ func (r *TestScriptTest) unmarshalJSON(m jsonTestScriptTest) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

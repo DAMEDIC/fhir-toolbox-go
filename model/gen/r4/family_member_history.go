@@ -162,16 +162,22 @@ func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 	m := jsonFamilyMemberHistory{}
 	m.ResourceType = "FamilyMemberHistory"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -183,7 +189,16 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -201,7 +216,16 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -219,17 +243,23 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 			}
 		}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.DataAbsentReason = r.DataAbsentReason
 	m.Patient = r.Patient
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -241,22 +271,30 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 	case *Period:
 		m.BornPeriod = v
 	case Date:
-		m.BornDate = &v
+		if v.Value != nil {
+			m.BornDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.BornDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.BornDate = v
+		if v.Value != nil {
+			m.BornDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.BornDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.BornString = &v
+		if v.Value != nil {
+			m.BornString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.BornStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.BornString = v
+		if v.Value != nil {
+			m.BornString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.BornStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -271,28 +309,38 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 	case *Range:
 		m.AgeRange = v
 	case String:
-		m.AgeString = &v
+		if v.Value != nil {
+			m.AgeString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AgeStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AgeString = v
+		if v.Value != nil {
+			m.AgeString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AgeStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.EstimatedAge = r.EstimatedAge
+	if r.EstimatedAge != nil && r.EstimatedAge.Value != nil {
+		m.EstimatedAge = r.EstimatedAge
+	}
 	if r.EstimatedAge != nil && (r.EstimatedAge.Id != nil || r.EstimatedAge.Extension != nil) {
 		m.EstimatedAgePrimitiveElement = &primitiveElement{Id: r.EstimatedAge.Id, Extension: r.EstimatedAge.Extension}
 	}
 	switch v := r.Deceased.(type) {
 	case Boolean:
-		m.DeceasedBoolean = &v
+		if v.Value != nil {
+			m.DeceasedBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.DeceasedBoolean = v
+		if v.Value != nil {
+			m.DeceasedBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -305,22 +353,30 @@ func (r FamilyMemberHistory) marshalJSON() jsonFamilyMemberHistory {
 	case *Range:
 		m.DeceasedRange = v
 	case Date:
-		m.DeceasedDate = &v
+		if v.Value != nil {
+			m.DeceasedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.DeceasedDate = v
+		if v.Value != nil {
+			m.DeceasedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.DeceasedString = &v
+		if v.Value != nil {
+			m.DeceasedString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.DeceasedString = v
+		if v.Value != nil {
+			m.DeceasedString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -341,17 +397,26 @@ func (r *FamilyMemberHistory) UnmarshalJSON(b []byte) error {
 func (r *FamilyMemberHistory) unmarshalJSON(m jsonFamilyMemberHistory) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -365,20 +430,22 @@ func (r *FamilyMemberHistory) unmarshalJSON(m jsonFamilyMemberHistory) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Status = m.Status
@@ -390,11 +457,17 @@ func (r *FamilyMemberHistory) unmarshalJSON(m jsonFamilyMemberHistory) error {
 	r.Patient = m.Patient
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -465,6 +538,9 @@ func (r *FamilyMemberHistory) unmarshalJSON(m jsonFamilyMemberHistory) error {
 	}
 	r.EstimatedAge = m.EstimatedAge
 	if m.EstimatedAgePrimitiveElement != nil {
+		if r.EstimatedAge == nil {
+			r.EstimatedAge = &Boolean{}
+		}
 		r.EstimatedAge.Id = m.EstimatedAgePrimitiveElement.Id
 		r.EstimatedAge.Extension = m.EstimatedAgePrimitiveElement.Extension
 	}
@@ -594,7 +670,9 @@ func (r FamilyMemberHistoryCondition) marshalJSON() jsonFamilyMemberHistoryCondi
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
 	m.Outcome = r.Outcome
-	m.ContributedToDeath = r.ContributedToDeath
+	if r.ContributedToDeath != nil && r.ContributedToDeath.Value != nil {
+		m.ContributedToDeath = r.ContributedToDeath
+	}
 	if r.ContributedToDeath != nil && (r.ContributedToDeath.Id != nil || r.ContributedToDeath.Extension != nil) {
 		m.ContributedToDeathPrimitiveElement = &primitiveElement{Id: r.ContributedToDeath.Id, Extension: r.ContributedToDeath.Extension}
 	}
@@ -612,12 +690,16 @@ func (r FamilyMemberHistoryCondition) marshalJSON() jsonFamilyMemberHistoryCondi
 	case *Period:
 		m.OnsetPeriod = v
 	case String:
-		m.OnsetString = &v
+		if v.Value != nil {
+			m.OnsetString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.OnsetString = v
+		if v.Value != nil {
+			m.OnsetString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OnsetStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -640,6 +722,9 @@ func (r *FamilyMemberHistoryCondition) unmarshalJSON(m jsonFamilyMemberHistoryCo
 	r.Outcome = m.Outcome
 	r.ContributedToDeath = m.ContributedToDeath
 	if m.ContributedToDeathPrimitiveElement != nil {
+		if r.ContributedToDeath == nil {
+			r.ContributedToDeath = &Boolean{}
+		}
 		r.ContributedToDeath.Id = m.ContributedToDeathPrimitiveElement.Id
 		r.ContributedToDeath.Extension = m.ContributedToDeathPrimitiveElement.Extension
 	}

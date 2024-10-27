@@ -147,16 +147,22 @@ func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 func (r TerminologyCapabilities) marshalJSON() jsonTerminologyCapabilities {
 	m := jsonTerminologyCapabilities{}
 	m.ResourceType = "TerminologyCapabilities"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -167,66 +173,94 @@ func (r TerminologyCapabilities) marshalJSON() jsonTerminologyCapabilities {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date.Id != nil || r.Date.Extension != nil {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.Kind = r.Kind
+	if r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind.Id != nil || r.Kind.Extension != nil {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
 	m.Software = r.Software
 	m.Implementation = r.Implementation
-	m.LockedDate = r.LockedDate
+	if r.LockedDate != nil && r.LockedDate.Value != nil {
+		m.LockedDate = r.LockedDate
+	}
 	if r.LockedDate != nil && (r.LockedDate.Id != nil || r.LockedDate.Extension != nil) {
 		m.LockedDatePrimitiveElement = &primitiveElement{Id: r.LockedDate.Id, Extension: r.LockedDate.Extension}
 	}
 	m.CodeSystem = r.CodeSystem
 	m.Expansion = r.Expansion
-	m.CodeSearch = r.CodeSearch
+	if r.CodeSearch != nil && r.CodeSearch.Value != nil {
+		m.CodeSearch = r.CodeSearch
+	}
 	if r.CodeSearch != nil && (r.CodeSearch.Id != nil || r.CodeSearch.Extension != nil) {
 		m.CodeSearchPrimitiveElement = &primitiveElement{Id: r.CodeSearch.Id, Extension: r.CodeSearch.Extension}
 	}
@@ -245,17 +279,26 @@ func (r *TerminologyCapabilities) UnmarshalJSON(b []byte) error {
 func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -268,21 +311,33 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -293,6 +348,9 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
@@ -303,12 +361,18 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -316,11 +380,17 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
@@ -333,6 +403,9 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	r.Implementation = m.Implementation
 	r.LockedDate = m.LockedDate
 	if m.LockedDatePrimitiveElement != nil {
+		if r.LockedDate == nil {
+			r.LockedDate = &Boolean{}
+		}
 		r.LockedDate.Id = m.LockedDatePrimitiveElement.Id
 		r.LockedDate.Extension = m.LockedDatePrimitiveElement.Extension
 	}
@@ -340,6 +413,9 @@ func (r *TerminologyCapabilities) unmarshalJSON(m jsonTerminologyCapabilities) e
 	r.Expansion = m.Expansion
 	r.CodeSearch = m.CodeSearch
 	if m.CodeSearchPrimitiveElement != nil {
+		if r.CodeSearch == nil {
+			r.CodeSearch = &Code{}
+		}
 		r.CodeSearch.Id = m.CodeSearchPrimitiveElement.Id
 		r.CodeSearch.Extension = m.CodeSearchPrimitiveElement.Extension
 	}
@@ -389,11 +465,15 @@ func (r TerminologyCapabilitiesSoftware) marshalJSON() jsonTerminologyCapabiliti
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
@@ -417,6 +497,9 @@ func (r *TerminologyCapabilitiesSoftware) unmarshalJSON(m jsonTerminologyCapabil
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -463,11 +546,15 @@ func (r TerminologyCapabilitiesImplementation) marshalJSON() jsonTerminologyCapa
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description.Id != nil || r.Description.Extension != nil {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
@@ -491,6 +578,9 @@ func (r *TerminologyCapabilitiesImplementation) unmarshalJSON(m jsonTerminologyC
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Url{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
@@ -540,12 +630,16 @@ func (r TerminologyCapabilitiesCodeSystem) marshalJSON() jsonTerminologyCapabili
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Uri = r.Uri
+	if r.Uri != nil && r.Uri.Value != nil {
+		m.Uri = r.Uri
+	}
 	if r.Uri != nil && (r.Uri.Id != nil || r.Uri.Extension != nil) {
 		m.UriPrimitiveElement = &primitiveElement{Id: r.Uri.Id, Extension: r.Uri.Extension}
 	}
 	m.Version = r.Version
-	m.Subsumption = r.Subsumption
+	if r.Subsumption != nil && r.Subsumption.Value != nil {
+		m.Subsumption = r.Subsumption
+	}
 	if r.Subsumption != nil && (r.Subsumption.Id != nil || r.Subsumption.Extension != nil) {
 		m.SubsumptionPrimitiveElement = &primitiveElement{Id: r.Subsumption.Id, Extension: r.Subsumption.Extension}
 	}
@@ -564,12 +658,18 @@ func (r *TerminologyCapabilitiesCodeSystem) unmarshalJSON(m jsonTerminologyCapab
 	r.ModifierExtension = m.ModifierExtension
 	r.Uri = m.Uri
 	if m.UriPrimitiveElement != nil {
+		if r.Uri == nil {
+			r.Uri = &Canonical{}
+		}
 		r.Uri.Id = m.UriPrimitiveElement.Id
 		r.Uri.Extension = m.UriPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	r.Subsumption = m.Subsumption
 	if m.SubsumptionPrimitiveElement != nil {
+		if r.Subsumption == nil {
+			r.Subsumption = &Boolean{}
+		}
 		r.Subsumption.Id = m.SubsumptionPrimitiveElement.Id
 		r.Subsumption.Extension = m.SubsumptionPrimitiveElement.Extension
 	}
@@ -631,19 +731,34 @@ func (r TerminologyCapabilitiesCodeSystemVersion) marshalJSON() jsonTerminologyC
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.IsDefault = r.IsDefault
+	if r.IsDefault != nil && r.IsDefault.Value != nil {
+		m.IsDefault = r.IsDefault
+	}
 	if r.IsDefault != nil && (r.IsDefault.Id != nil || r.IsDefault.Extension != nil) {
 		m.IsDefaultPrimitiveElement = &primitiveElement{Id: r.IsDefault.Id, Extension: r.IsDefault.Extension}
 	}
-	m.Compositional = r.Compositional
+	if r.Compositional != nil && r.Compositional.Value != nil {
+		m.Compositional = r.Compositional
+	}
 	if r.Compositional != nil && (r.Compositional.Id != nil || r.Compositional.Extension != nil) {
 		m.CompositionalPrimitiveElement = &primitiveElement{Id: r.Compositional.Id, Extension: r.Compositional.Extension}
 	}
-	m.Language = r.Language
+	anyLanguageValue := false
+	for _, e := range r.Language {
+		if e.Value != nil {
+			anyLanguageValue = true
+			break
+		}
+	}
+	if anyLanguageValue {
+		m.Language = r.Language
+	}
 	anyLanguageIdOrExtension := false
 	for _, e := range r.Language {
 		if e.Id != nil || e.Extension != nil {
@@ -662,7 +777,16 @@ func (r TerminologyCapabilitiesCodeSystemVersion) marshalJSON() jsonTerminologyC
 		}
 	}
 	m.Filter = r.Filter
-	m.Property = r.Property
+	anyPropertyValue := false
+	for _, e := range r.Property {
+		if e.Value != nil {
+			anyPropertyValue = true
+			break
+		}
+	}
+	if anyPropertyValue {
+		m.Property = r.Property
+	}
 	anyPropertyIdOrExtension := false
 	for _, e := range r.Property {
 		if e.Id != nil || e.Extension != nil {
@@ -695,36 +819,47 @@ func (r *TerminologyCapabilitiesCodeSystemVersion) unmarshalJSON(m jsonTerminolo
 	r.ModifierExtension = m.ModifierExtension
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &String{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}
 	r.IsDefault = m.IsDefault
 	if m.IsDefaultPrimitiveElement != nil {
+		if r.IsDefault == nil {
+			r.IsDefault = &Boolean{}
+		}
 		r.IsDefault.Id = m.IsDefaultPrimitiveElement.Id
 		r.IsDefault.Extension = m.IsDefaultPrimitiveElement.Extension
 	}
 	r.Compositional = m.Compositional
 	if m.CompositionalPrimitiveElement != nil {
+		if r.Compositional == nil {
+			r.Compositional = &Boolean{}
+		}
 		r.Compositional.Id = m.CompositionalPrimitiveElement.Id
 		r.Compositional.Extension = m.CompositionalPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	for i, e := range m.LanguagePrimitiveElement {
-		if len(r.Language) > i {
+		if len(r.Language) <= i {
+			r.Language = append(r.Language, Code{})
+		}
+		if e != nil {
 			r.Language[i].Id = e.Id
 			r.Language[i].Extension = e.Extension
-		} else {
-			r.Language = append(r.Language, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Filter = m.Filter
 	r.Property = m.Property
 	for i, e := range m.PropertyPrimitiveElement {
-		if len(r.Property) > i {
+		if len(r.Property) <= i {
+			r.Property = append(r.Property, Code{})
+		}
+		if e != nil {
 			r.Property[i].Id = e.Id
 			r.Property[i].Extension = e.Extension
-		} else {
-			r.Property = append(r.Property, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -770,11 +905,22 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) marshalJSON() jsonTermin
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Op = r.Op
+	anyOpValue := false
+	for _, e := range r.Op {
+		if e.Value != nil {
+			anyOpValue = true
+			break
+		}
+	}
+	if anyOpValue {
+		m.Op = r.Op
+	}
 	anyOpIdOrExtension := false
 	for _, e := range r.Op {
 		if e.Id != nil || e.Extension != nil {
@@ -812,11 +958,12 @@ func (r *TerminologyCapabilitiesCodeSystemVersionFilter) unmarshalJSON(m jsonTer
 	}
 	r.Op = m.Op
 	for i, e := range m.OpPrimitiveElement {
-		if len(r.Op) > i {
+		if len(r.Op) <= i {
+			r.Op = append(r.Op, Code{})
+		}
+		if e != nil {
 			r.Op[i].Id = e.Id
 			r.Op[i].Extension = e.Extension
-		} else {
-			r.Op = append(r.Op, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -873,20 +1020,28 @@ func (r TerminologyCapabilitiesExpansion) marshalJSON() jsonTerminologyCapabilit
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Hierarchical = r.Hierarchical
+	if r.Hierarchical != nil && r.Hierarchical.Value != nil {
+		m.Hierarchical = r.Hierarchical
+	}
 	if r.Hierarchical != nil && (r.Hierarchical.Id != nil || r.Hierarchical.Extension != nil) {
 		m.HierarchicalPrimitiveElement = &primitiveElement{Id: r.Hierarchical.Id, Extension: r.Hierarchical.Extension}
 	}
-	m.Paging = r.Paging
+	if r.Paging != nil && r.Paging.Value != nil {
+		m.Paging = r.Paging
+	}
 	if r.Paging != nil && (r.Paging.Id != nil || r.Paging.Extension != nil) {
 		m.PagingPrimitiveElement = &primitiveElement{Id: r.Paging.Id, Extension: r.Paging.Extension}
 	}
-	m.Incomplete = r.Incomplete
+	if r.Incomplete != nil && r.Incomplete.Value != nil {
+		m.Incomplete = r.Incomplete
+	}
 	if r.Incomplete != nil && (r.Incomplete.Id != nil || r.Incomplete.Extension != nil) {
 		m.IncompletePrimitiveElement = &primitiveElement{Id: r.Incomplete.Id, Extension: r.Incomplete.Extension}
 	}
 	m.Parameter = r.Parameter
-	m.TextFilter = r.TextFilter
+	if r.TextFilter != nil && r.TextFilter.Value != nil {
+		m.TextFilter = r.TextFilter
+	}
 	if r.TextFilter != nil && (r.TextFilter.Id != nil || r.TextFilter.Extension != nil) {
 		m.TextFilterPrimitiveElement = &primitiveElement{Id: r.TextFilter.Id, Extension: r.TextFilter.Extension}
 	}
@@ -905,22 +1060,34 @@ func (r *TerminologyCapabilitiesExpansion) unmarshalJSON(m jsonTerminologyCapabi
 	r.ModifierExtension = m.ModifierExtension
 	r.Hierarchical = m.Hierarchical
 	if m.HierarchicalPrimitiveElement != nil {
+		if r.Hierarchical == nil {
+			r.Hierarchical = &Boolean{}
+		}
 		r.Hierarchical.Id = m.HierarchicalPrimitiveElement.Id
 		r.Hierarchical.Extension = m.HierarchicalPrimitiveElement.Extension
 	}
 	r.Paging = m.Paging
 	if m.PagingPrimitiveElement != nil {
+		if r.Paging == nil {
+			r.Paging = &Boolean{}
+		}
 		r.Paging.Id = m.PagingPrimitiveElement.Id
 		r.Paging.Extension = m.PagingPrimitiveElement.Extension
 	}
 	r.Incomplete = m.Incomplete
 	if m.IncompletePrimitiveElement != nil {
+		if r.Incomplete == nil {
+			r.Incomplete = &Boolean{}
+		}
 		r.Incomplete.Id = m.IncompletePrimitiveElement.Id
 		r.Incomplete.Extension = m.IncompletePrimitiveElement.Extension
 	}
 	r.Parameter = m.Parameter
 	r.TextFilter = m.TextFilter
 	if m.TextFilterPrimitiveElement != nil {
+		if r.TextFilter == nil {
+			r.TextFilter = &Markdown{}
+		}
 		r.TextFilter.Id = m.TextFilterPrimitiveElement.Id
 		r.TextFilter.Extension = m.TextFilterPrimitiveElement.Extension
 	}
@@ -967,11 +1134,15 @@ func (r TerminologyCapabilitiesExpansionParameter) marshalJSON() jsonTerminology
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Documentation = r.Documentation
+	if r.Documentation != nil && r.Documentation.Value != nil {
+		m.Documentation = r.Documentation
+	}
 	if r.Documentation != nil && (r.Documentation.Id != nil || r.Documentation.Extension != nil) {
 		m.DocumentationPrimitiveElement = &primitiveElement{Id: r.Documentation.Id, Extension: r.Documentation.Extension}
 	}
@@ -995,6 +1166,9 @@ func (r *TerminologyCapabilitiesExpansionParameter) unmarshalJSON(m jsonTerminol
 	}
 	r.Documentation = m.Documentation
 	if m.DocumentationPrimitiveElement != nil {
+		if r.Documentation == nil {
+			r.Documentation = &String{}
+		}
 		r.Documentation.Id = m.DocumentationPrimitiveElement.Id
 		r.Documentation.Extension = m.DocumentationPrimitiveElement.Extension
 	}
@@ -1037,7 +1211,9 @@ func (r TerminologyCapabilitiesValidateCode) marshalJSON() jsonTerminologyCapabi
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Translations = r.Translations
+	if r.Translations.Value != nil {
+		m.Translations = r.Translations
+	}
 	if r.Translations.Id != nil || r.Translations.Extension != nil {
 		m.TranslationsPrimitiveElement = &primitiveElement{Id: r.Translations.Id, Extension: r.Translations.Extension}
 	}
@@ -1098,7 +1274,9 @@ func (r TerminologyCapabilitiesTranslation) marshalJSON() jsonTerminologyCapabil
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.NeedsMap = r.NeedsMap
+	if r.NeedsMap.Value != nil {
+		m.NeedsMap = r.NeedsMap
+	}
 	if r.NeedsMap.Id != nil || r.NeedsMap.Extension != nil {
 		m.NeedsMapPrimitiveElement = &primitiveElement{Id: r.NeedsMap.Id, Extension: r.NeedsMap.Extension}
 	}
@@ -1159,7 +1337,9 @@ func (r TerminologyCapabilitiesClosure) marshalJSON() jsonTerminologyCapabilitie
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Translation = r.Translation
+	if r.Translation != nil && r.Translation.Value != nil {
+		m.Translation = r.Translation
+	}
 	if r.Translation != nil && (r.Translation.Id != nil || r.Translation.Extension != nil) {
 		m.TranslationPrimitiveElement = &primitiveElement{Id: r.Translation.Id, Extension: r.Translation.Extension}
 	}
@@ -1178,6 +1358,9 @@ func (r *TerminologyCapabilitiesClosure) unmarshalJSON(m jsonTerminologyCapabili
 	r.ModifierExtension = m.ModifierExtension
 	r.Translation = m.Translation
 	if m.TranslationPrimitiveElement != nil {
+		if r.Translation == nil {
+			r.Translation = &Boolean{}
+		}
 		r.Translation.Id = m.TranslationPrimitiveElement.Id
 		r.Translation.Extension = m.TranslationPrimitiveElement.Extension
 	}

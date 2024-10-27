@@ -107,16 +107,22 @@ func (r MessageHeader) MarshalJSON() ([]byte, error) {
 func (r MessageHeader) marshalJSON() jsonMessageHeader {
 	m := jsonMessageHeader{}
 	m.ResourceType = "MessageHeader"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -133,12 +139,16 @@ func (r MessageHeader) marshalJSON() jsonMessageHeader {
 	case *Coding:
 		m.EventCoding = v
 	case Uri:
-		m.EventUri = &v
+		if v.Value != nil {
+			m.EventUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EventUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.EventUri = v
+		if v.Value != nil {
+			m.EventUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EventUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -152,7 +162,9 @@ func (r MessageHeader) marshalJSON() jsonMessageHeader {
 	m.Reason = r.Reason
 	m.Response = r.Response
 	m.Focus = r.Focus
-	m.Definition = r.Definition
+	if r.Definition != nil && r.Definition.Value != nil {
+		m.Definition = r.Definition
+	}
 	if r.Definition != nil && (r.Definition.Id != nil || r.Definition.Extension != nil) {
 		m.DefinitionPrimitiveElement = &primitiveElement{Id: r.Definition.Id, Extension: r.Definition.Extension}
 	}
@@ -168,17 +180,26 @@ func (r *MessageHeader) UnmarshalJSON(b []byte) error {
 func (r *MessageHeader) unmarshalJSON(m jsonMessageHeader) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -221,6 +242,9 @@ func (r *MessageHeader) unmarshalJSON(m jsonMessageHeader) error {
 	r.Focus = m.Focus
 	r.Definition = m.Definition
 	if m.DefinitionPrimitiveElement != nil {
+		if r.Definition == nil {
+			r.Definition = &Canonical{}
+		}
 		r.Definition.Id = m.DefinitionPrimitiveElement.Id
 		r.Definition.Extension = m.DefinitionPrimitiveElement.Extension
 	}
@@ -273,12 +297,16 @@ func (r MessageHeaderDestination) marshalJSON() jsonMessageHeaderDestination {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
 	m.Target = r.Target
-	m.Endpoint = r.Endpoint
+	if r.Endpoint.Value != nil {
+		m.Endpoint = r.Endpoint
+	}
 	if r.Endpoint.Id != nil || r.Endpoint.Extension != nil {
 		m.EndpointPrimitiveElement = &primitiveElement{Id: r.Endpoint.Id, Extension: r.Endpoint.Extension}
 	}
@@ -298,6 +326,9 @@ func (r *MessageHeaderDestination) unmarshalJSON(m jsonMessageHeaderDestination)
 	r.ModifierExtension = m.ModifierExtension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -362,20 +393,28 @@ func (r MessageHeaderSource) marshalJSON() jsonMessageHeaderSource {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Software = r.Software
+	if r.Software != nil && r.Software.Value != nil {
+		m.Software = r.Software
+	}
 	if r.Software != nil && (r.Software.Id != nil || r.Software.Extension != nil) {
 		m.SoftwarePrimitiveElement = &primitiveElement{Id: r.Software.Id, Extension: r.Software.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
 	m.Contact = r.Contact
-	m.Endpoint = r.Endpoint
+	if r.Endpoint.Value != nil {
+		m.Endpoint = r.Endpoint
+	}
 	if r.Endpoint.Id != nil || r.Endpoint.Extension != nil {
 		m.EndpointPrimitiveElement = &primitiveElement{Id: r.Endpoint.Id, Extension: r.Endpoint.Extension}
 	}
@@ -394,16 +433,25 @@ func (r *MessageHeaderSource) unmarshalJSON(m jsonMessageHeaderSource) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Software = m.Software
 	if m.SoftwarePrimitiveElement != nil {
+		if r.Software == nil {
+			r.Software = &String{}
+		}
 		r.Software.Id = m.SoftwarePrimitiveElement.Id
 		r.Software.Extension = m.SoftwarePrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -459,11 +507,15 @@ func (r MessageHeaderResponse) marshalJSON() jsonMessageHeaderResponse {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
+	if r.Identifier.Value != nil {
+		m.Identifier = r.Identifier
+	}
 	if r.Identifier.Id != nil || r.Identifier.Extension != nil {
 		m.IdentifierPrimitiveElement = &primitiveElement{Id: r.Identifier.Id, Extension: r.Identifier.Extension}
 	}
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}

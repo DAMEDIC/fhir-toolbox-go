@@ -62,19 +62,34 @@ func (r Address) marshalJSON() jsonAddress {
 	m := jsonAddress{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Use = r.Use
+	if r.Use != nil && r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
-	m.Line = r.Line
+	anyLineValue := false
+	for _, e := range r.Line {
+		if e.Value != nil {
+			anyLineValue = true
+			break
+		}
+	}
+	if anyLineValue {
+		m.Line = r.Line
+	}
 	anyLineIdOrExtension := false
 	for _, e := range r.Line {
 		if e.Id != nil || e.Extension != nil {
@@ -92,23 +107,33 @@ func (r Address) marshalJSON() jsonAddress {
 			}
 		}
 	}
-	m.City = r.City
+	if r.City != nil && r.City.Value != nil {
+		m.City = r.City
+	}
 	if r.City != nil && (r.City.Id != nil || r.City.Extension != nil) {
 		m.CityPrimitiveElement = &primitiveElement{Id: r.City.Id, Extension: r.City.Extension}
 	}
-	m.District = r.District
+	if r.District != nil && r.District.Value != nil {
+		m.District = r.District
+	}
 	if r.District != nil && (r.District.Id != nil || r.District.Extension != nil) {
 		m.DistrictPrimitiveElement = &primitiveElement{Id: r.District.Id, Extension: r.District.Extension}
 	}
-	m.State = r.State
+	if r.State != nil && r.State.Value != nil {
+		m.State = r.State
+	}
 	if r.State != nil && (r.State.Id != nil || r.State.Extension != nil) {
 		m.StatePrimitiveElement = &primitiveElement{Id: r.State.Id, Extension: r.State.Extension}
 	}
-	m.PostalCode = r.PostalCode
+	if r.PostalCode != nil && r.PostalCode.Value != nil {
+		m.PostalCode = r.PostalCode
+	}
 	if r.PostalCode != nil && (r.PostalCode.Id != nil || r.PostalCode.Extension != nil) {
 		m.PostalCodePrimitiveElement = &primitiveElement{Id: r.PostalCode.Id, Extension: r.PostalCode.Extension}
 	}
-	m.Country = r.Country
+	if r.Country != nil && r.Country.Value != nil {
+		m.Country = r.Country
+	}
 	if r.Country != nil && (r.Country.Id != nil || r.Country.Extension != nil) {
 		m.CountryPrimitiveElement = &primitiveElement{Id: r.Country.Id, Extension: r.Country.Extension}
 	}
@@ -127,50 +152,75 @@ func (r *Address) unmarshalJSON(m jsonAddress) error {
 	r.Extension = m.Extension
 	r.Use = m.Use
 	if m.UsePrimitiveElement != nil {
+		if r.Use == nil {
+			r.Use = &Code{}
+		}
 		r.Use.Id = m.UsePrimitiveElement.Id
 		r.Use.Extension = m.UsePrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
 	r.Line = m.Line
 	for i, e := range m.LinePrimitiveElement {
-		if len(r.Line) > i {
+		if len(r.Line) <= i {
+			r.Line = append(r.Line, String{})
+		}
+		if e != nil {
 			r.Line[i].Id = e.Id
 			r.Line[i].Extension = e.Extension
-		} else {
-			r.Line = append(r.Line, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.City = m.City
 	if m.CityPrimitiveElement != nil {
+		if r.City == nil {
+			r.City = &String{}
+		}
 		r.City.Id = m.CityPrimitiveElement.Id
 		r.City.Extension = m.CityPrimitiveElement.Extension
 	}
 	r.District = m.District
 	if m.DistrictPrimitiveElement != nil {
+		if r.District == nil {
+			r.District = &String{}
+		}
 		r.District.Id = m.DistrictPrimitiveElement.Id
 		r.District.Extension = m.DistrictPrimitiveElement.Extension
 	}
 	r.State = m.State
 	if m.StatePrimitiveElement != nil {
+		if r.State == nil {
+			r.State = &String{}
+		}
 		r.State.Id = m.StatePrimitiveElement.Id
 		r.State.Extension = m.StatePrimitiveElement.Extension
 	}
 	r.PostalCode = m.PostalCode
 	if m.PostalCodePrimitiveElement != nil {
+		if r.PostalCode == nil {
+			r.PostalCode = &String{}
+		}
 		r.PostalCode.Id = m.PostalCodePrimitiveElement.Id
 		r.PostalCode.Extension = m.PostalCodePrimitiveElement.Extension
 	}
 	r.Country = m.Country
 	if m.CountryPrimitiveElement != nil {
+		if r.Country == nil {
+			r.Country = &String{}
+		}
 		r.Country.Id = m.CountryPrimitiveElement.Id
 		r.Country.Extension = m.CountryPrimitiveElement.Extension
 	}

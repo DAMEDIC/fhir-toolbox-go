@@ -98,16 +98,22 @@ func (r MeasureReport) MarshalJSON() ([]byte, error) {
 func (r MeasureReport) marshalJSON() jsonMeasureReport {
 	m := jsonMeasureReport{}
 	m.ResourceType = "MeasureReport"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -119,20 +125,28 @@ func (r MeasureReport) marshalJSON() jsonMeasureReport {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Measure = r.Measure
+	if r.Measure.Value != nil {
+		m.Measure = r.Measure
+	}
 	if r.Measure.Id != nil || r.Measure.Extension != nil {
 		m.MeasurePrimitiveElement = &primitiveElement{Id: r.Measure.Id, Extension: r.Measure.Extension}
 	}
 	m.Subject = r.Subject
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -153,17 +167,26 @@ func (r *MeasureReport) UnmarshalJSON(b []byte) error {
 func (r *MeasureReport) unmarshalJSON(m jsonMeasureReport) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -193,6 +216,9 @@ func (r *MeasureReport) unmarshalJSON(m jsonMeasureReport) error {
 	r.Subject = m.Subject
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -315,7 +341,9 @@ func (r MeasureReportGroupPopulation) marshalJSON() jsonMeasureReportGroupPopula
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
-	m.Count = r.Count
+	if r.Count != nil && r.Count.Value != nil {
+		m.Count = r.Count
+	}
 	if r.Count != nil && (r.Count.Id != nil || r.Count.Extension != nil) {
 		m.CountPrimitiveElement = &primitiveElement{Id: r.Count.Id, Extension: r.Count.Extension}
 	}
@@ -336,6 +364,9 @@ func (r *MeasureReportGroupPopulation) unmarshalJSON(m jsonMeasureReportGroupPop
 	r.Code = m.Code
 	r.Count = m.Count
 	if m.CountPrimitiveElement != nil {
+		if r.Count == nil {
+			r.Count = &Integer{}
+		}
 		r.Count.Id = m.CountPrimitiveElement.Id
 		r.Count.Extension = m.CountPrimitiveElement.Extension
 	}
@@ -570,7 +601,9 @@ func (r MeasureReportGroupStratifierStratumPopulation) marshalJSON() jsonMeasure
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
-	m.Count = r.Count
+	if r.Count != nil && r.Count.Value != nil {
+		m.Count = r.Count
+	}
 	if r.Count != nil && (r.Count.Id != nil || r.Count.Extension != nil) {
 		m.CountPrimitiveElement = &primitiveElement{Id: r.Count.Id, Extension: r.Count.Extension}
 	}
@@ -591,6 +624,9 @@ func (r *MeasureReportGroupStratifierStratumPopulation) unmarshalJSON(m jsonMeas
 	r.Code = m.Code
 	r.Count = m.Count
 	if m.CountPrimitiveElement != nil {
+		if r.Count == nil {
+			r.Count = &Integer{}
+		}
 		r.Count.Id = m.CountPrimitiveElement.Id
 		r.Count.Extension = m.CountPrimitiveElement.Extension
 	}

@@ -126,16 +126,22 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 func (r ImagingStudy) marshalJSON() jsonImagingStudy {
 	m := jsonImagingStudy{}
 	m.ResourceType = "ImagingStudy"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -147,14 +153,18 @@ func (r ImagingStudy) marshalJSON() jsonImagingStudy {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Modality = r.Modality
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
-	m.Started = r.Started
+	if r.Started != nil && r.Started.Value != nil {
+		m.Started = r.Started
+	}
 	if r.Started != nil && (r.Started.Id != nil || r.Started.Extension != nil) {
 		m.StartedPrimitiveElement = &primitiveElement{Id: r.Started.Id, Extension: r.Started.Extension}
 	}
@@ -162,11 +172,15 @@ func (r ImagingStudy) marshalJSON() jsonImagingStudy {
 	m.Referrer = r.Referrer
 	m.Interpreter = r.Interpreter
 	m.Endpoint = r.Endpoint
-	m.NumberOfSeries = r.NumberOfSeries
+	if r.NumberOfSeries != nil && r.NumberOfSeries.Value != nil {
+		m.NumberOfSeries = r.NumberOfSeries
+	}
 	if r.NumberOfSeries != nil && (r.NumberOfSeries.Id != nil || r.NumberOfSeries.Extension != nil) {
 		m.NumberOfSeriesPrimitiveElement = &primitiveElement{Id: r.NumberOfSeries.Id, Extension: r.NumberOfSeries.Extension}
 	}
-	m.NumberOfInstances = r.NumberOfInstances
+	if r.NumberOfInstances != nil && r.NumberOfInstances.Value != nil {
+		m.NumberOfInstances = r.NumberOfInstances
+	}
 	if r.NumberOfInstances != nil && (r.NumberOfInstances.Id != nil || r.NumberOfInstances.Extension != nil) {
 		m.NumberOfInstancesPrimitiveElement = &primitiveElement{Id: r.NumberOfInstances.Id, Extension: r.NumberOfInstances.Extension}
 	}
@@ -176,7 +190,9 @@ func (r ImagingStudy) marshalJSON() jsonImagingStudy {
 	m.ReasonCode = r.ReasonCode
 	m.ReasonReference = r.ReasonReference
 	m.Note = r.Note
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -193,17 +209,26 @@ func (r *ImagingStudy) UnmarshalJSON(b []byte) error {
 func (r *ImagingStudy) unmarshalJSON(m jsonImagingStudy) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -225,6 +250,9 @@ func (r *ImagingStudy) unmarshalJSON(m jsonImagingStudy) error {
 	r.Encounter = m.Encounter
 	r.Started = m.Started
 	if m.StartedPrimitiveElement != nil {
+		if r.Started == nil {
+			r.Started = &DateTime{}
+		}
 		r.Started.Id = m.StartedPrimitiveElement.Id
 		r.Started.Extension = m.StartedPrimitiveElement.Extension
 	}
@@ -234,11 +262,17 @@ func (r *ImagingStudy) unmarshalJSON(m jsonImagingStudy) error {
 	r.Endpoint = m.Endpoint
 	r.NumberOfSeries = m.NumberOfSeries
 	if m.NumberOfSeriesPrimitiveElement != nil {
+		if r.NumberOfSeries == nil {
+			r.NumberOfSeries = &UnsignedInt{}
+		}
 		r.NumberOfSeries.Id = m.NumberOfSeriesPrimitiveElement.Id
 		r.NumberOfSeries.Extension = m.NumberOfSeriesPrimitiveElement.Extension
 	}
 	r.NumberOfInstances = m.NumberOfInstances
 	if m.NumberOfInstancesPrimitiveElement != nil {
+		if r.NumberOfInstances == nil {
+			r.NumberOfInstances = &UnsignedInt{}
+		}
 		r.NumberOfInstances.Id = m.NumberOfInstancesPrimitiveElement.Id
 		r.NumberOfInstances.Extension = m.NumberOfInstancesPrimitiveElement.Extension
 	}
@@ -250,6 +284,9 @@ func (r *ImagingStudy) unmarshalJSON(m jsonImagingStudy) error {
 	r.Note = m.Note
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -330,20 +367,28 @@ func (r ImagingStudySeries) marshalJSON() jsonImagingStudySeries {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Uid = r.Uid
+	if r.Uid.Value != nil {
+		m.Uid = r.Uid
+	}
 	if r.Uid.Id != nil || r.Uid.Extension != nil {
 		m.UidPrimitiveElement = &primitiveElement{Id: r.Uid.Id, Extension: r.Uid.Extension}
 	}
-	m.Number = r.Number
+	if r.Number != nil && r.Number.Value != nil {
+		m.Number = r.Number
+	}
 	if r.Number != nil && (r.Number.Id != nil || r.Number.Extension != nil) {
 		m.NumberPrimitiveElement = &primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
 	}
 	m.Modality = r.Modality
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.NumberOfInstances = r.NumberOfInstances
+	if r.NumberOfInstances != nil && r.NumberOfInstances.Value != nil {
+		m.NumberOfInstances = r.NumberOfInstances
+	}
 	if r.NumberOfInstances != nil && (r.NumberOfInstances.Id != nil || r.NumberOfInstances.Extension != nil) {
 		m.NumberOfInstancesPrimitiveElement = &primitiveElement{Id: r.NumberOfInstances.Id, Extension: r.NumberOfInstances.Extension}
 	}
@@ -351,7 +396,9 @@ func (r ImagingStudySeries) marshalJSON() jsonImagingStudySeries {
 	m.BodySite = r.BodySite
 	m.Laterality = r.Laterality
 	m.Specimen = r.Specimen
-	m.Started = r.Started
+	if r.Started != nil && r.Started.Value != nil {
+		m.Started = r.Started
+	}
 	if r.Started != nil && (r.Started.Id != nil || r.Started.Extension != nil) {
 		m.StartedPrimitiveElement = &primitiveElement{Id: r.Started.Id, Extension: r.Started.Extension}
 	}
@@ -377,17 +424,26 @@ func (r *ImagingStudySeries) unmarshalJSON(m jsonImagingStudySeries) error {
 	}
 	r.Number = m.Number
 	if m.NumberPrimitiveElement != nil {
+		if r.Number == nil {
+			r.Number = &UnsignedInt{}
+		}
 		r.Number.Id = m.NumberPrimitiveElement.Id
 		r.Number.Extension = m.NumberPrimitiveElement.Extension
 	}
 	r.Modality = m.Modality
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.NumberOfInstances = m.NumberOfInstances
 	if m.NumberOfInstancesPrimitiveElement != nil {
+		if r.NumberOfInstances == nil {
+			r.NumberOfInstances = &UnsignedInt{}
+		}
 		r.NumberOfInstances.Id = m.NumberOfInstancesPrimitiveElement.Id
 		r.NumberOfInstances.Extension = m.NumberOfInstancesPrimitiveElement.Extension
 	}
@@ -397,6 +453,9 @@ func (r *ImagingStudySeries) unmarshalJSON(m jsonImagingStudySeries) error {
 	r.Specimen = m.Specimen
 	r.Started = m.Started
 	if m.StartedPrimitiveElement != nil {
+		if r.Started == nil {
+			r.Started = &DateTime{}
+		}
 		r.Started.Id = m.StartedPrimitiveElement.Id
 		r.Started.Extension = m.StartedPrimitiveElement.Extension
 	}
@@ -510,16 +569,22 @@ func (r ImagingStudySeriesInstance) marshalJSON() jsonImagingStudySeriesInstance
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Uid = r.Uid
+	if r.Uid.Value != nil {
+		m.Uid = r.Uid
+	}
 	if r.Uid.Id != nil || r.Uid.Extension != nil {
 		m.UidPrimitiveElement = &primitiveElement{Id: r.Uid.Id, Extension: r.Uid.Extension}
 	}
 	m.SopClass = r.SopClass
-	m.Number = r.Number
+	if r.Number != nil && r.Number.Value != nil {
+		m.Number = r.Number
+	}
 	if r.Number != nil && (r.Number.Id != nil || r.Number.Extension != nil) {
 		m.NumberPrimitiveElement = &primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
@@ -544,11 +609,17 @@ func (r *ImagingStudySeriesInstance) unmarshalJSON(m jsonImagingStudySeriesInsta
 	r.SopClass = m.SopClass
 	r.Number = m.Number
 	if m.NumberPrimitiveElement != nil {
+		if r.Number == nil {
+			r.Number = &UnsignedInt{}
+		}
 		r.Number.Id = m.NumberPrimitiveElement.Id
 		r.Number.Extension = m.NumberPrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}

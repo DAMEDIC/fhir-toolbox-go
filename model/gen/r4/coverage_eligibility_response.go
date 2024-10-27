@@ -122,16 +122,22 @@ func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
 func (r CoverageEligibilityResponse) marshalJSON() jsonCoverageEligibilityResponse {
 	m := jsonCoverageEligibilityResponse{}
 	m.ResourceType = "CoverageEligibilityResponse"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -143,11 +149,22 @@ func (r CoverageEligibilityResponse) marshalJSON() jsonCoverageEligibilityRespon
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Purpose = r.Purpose
+	anyPurposeValue := false
+	for _, e := range r.Purpose {
+		if e.Value != nil {
+			anyPurposeValue = true
+			break
+		}
+	}
+	if anyPurposeValue {
+		m.Purpose = r.Purpose
+	}
 	anyPurposeIdOrExtension := false
 	for _, e := range r.Purpose {
 		if e.Id != nil || e.Extension != nil {
@@ -168,12 +185,16 @@ func (r CoverageEligibilityResponse) marshalJSON() jsonCoverageEligibilityRespon
 	m.Patient = r.Patient
 	switch v := r.Serviced.(type) {
 	case Date:
-		m.ServicedDate = &v
+		if v.Value != nil {
+			m.ServicedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ServicedDate = v
+		if v.Value != nil {
+			m.ServicedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -182,23 +203,31 @@ func (r CoverageEligibilityResponse) marshalJSON() jsonCoverageEligibilityRespon
 	case *Period:
 		m.ServicedPeriod = v
 	}
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
 	m.Requestor = r.Requestor
 	m.Request = r.Request
-	m.Outcome = r.Outcome
+	if r.Outcome.Value != nil {
+		m.Outcome = r.Outcome
+	}
 	if r.Outcome.Id != nil || r.Outcome.Extension != nil {
 		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
 	}
-	m.Disposition = r.Disposition
+	if r.Disposition != nil && r.Disposition.Value != nil {
+		m.Disposition = r.Disposition
+	}
 	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
 		m.DispositionPrimitiveElement = &primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
 	}
 	m.Insurer = r.Insurer
 	m.Insurance = r.Insurance
-	m.PreAuthRef = r.PreAuthRef
+	if r.PreAuthRef != nil && r.PreAuthRef.Value != nil {
+		m.PreAuthRef = r.PreAuthRef
+	}
 	if r.PreAuthRef != nil && (r.PreAuthRef.Id != nil || r.PreAuthRef.Extension != nil) {
 		m.PreAuthRefPrimitiveElement = &primitiveElement{Id: r.PreAuthRef.Id, Extension: r.PreAuthRef.Extension}
 	}
@@ -216,17 +245,26 @@ func (r *CoverageEligibilityResponse) UnmarshalJSON(b []byte) error {
 func (r *CoverageEligibilityResponse) unmarshalJSON(m jsonCoverageEligibilityResponse) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -245,11 +283,12 @@ func (r *CoverageEligibilityResponse) unmarshalJSON(m jsonCoverageEligibilityRes
 	}
 	r.Purpose = m.Purpose
 	for i, e := range m.PurposePrimitiveElement {
-		if len(r.Purpose) > i {
+		if len(r.Purpose) <= i {
+			r.Purpose = append(r.Purpose, Code{})
+		}
+		if e != nil {
 			r.Purpose[i].Id = e.Id
 			r.Purpose[i].Extension = e.Extension
-		} else {
-			r.Purpose = append(r.Purpose, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Patient = m.Patient
@@ -288,6 +327,9 @@ func (r *CoverageEligibilityResponse) unmarshalJSON(m jsonCoverageEligibilityRes
 	}
 	r.Disposition = m.Disposition
 	if m.DispositionPrimitiveElement != nil {
+		if r.Disposition == nil {
+			r.Disposition = &String{}
+		}
 		r.Disposition.Id = m.DispositionPrimitiveElement.Id
 		r.Disposition.Extension = m.DispositionPrimitiveElement.Extension
 	}
@@ -295,6 +337,9 @@ func (r *CoverageEligibilityResponse) unmarshalJSON(m jsonCoverageEligibilityRes
 	r.Insurance = m.Insurance
 	r.PreAuthRef = m.PreAuthRef
 	if m.PreAuthRefPrimitiveElement != nil {
+		if r.PreAuthRef == nil {
+			r.PreAuthRef = &String{}
+		}
 		r.PreAuthRef.Id = m.PreAuthRefPrimitiveElement.Id
 		r.PreAuthRef.Extension = m.PreAuthRefPrimitiveElement.Extension
 	}
@@ -349,7 +394,9 @@ func (r CoverageEligibilityResponseInsurance) marshalJSON() jsonCoverageEligibil
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Coverage = r.Coverage
-	m.Inforce = r.Inforce
+	if r.Inforce != nil && r.Inforce.Value != nil {
+		m.Inforce = r.Inforce
+	}
 	if r.Inforce != nil && (r.Inforce.Id != nil || r.Inforce.Extension != nil) {
 		m.InforcePrimitiveElement = &primitiveElement{Id: r.Inforce.Id, Extension: r.Inforce.Extension}
 	}
@@ -371,6 +418,9 @@ func (r *CoverageEligibilityResponseInsurance) unmarshalJSON(m jsonCoverageEligi
 	r.Coverage = m.Coverage
 	r.Inforce = m.Inforce
 	if m.InforcePrimitiveElement != nil {
+		if r.Inforce == nil {
+			r.Inforce = &Boolean{}
+		}
 		r.Inforce.Id = m.InforcePrimitiveElement.Id
 		r.Inforce.Extension = m.InforcePrimitiveElement.Extension
 	}
@@ -462,15 +512,21 @@ func (r CoverageEligibilityResponseInsuranceItem) marshalJSON() jsonCoverageElig
 	m.ProductOrService = r.ProductOrService
 	m.Modifier = r.Modifier
 	m.Provider = r.Provider
-	m.Excluded = r.Excluded
+	if r.Excluded != nil && r.Excluded.Value != nil {
+		m.Excluded = r.Excluded
+	}
 	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
 		m.ExcludedPrimitiveElement = &primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -478,12 +534,16 @@ func (r CoverageEligibilityResponseInsuranceItem) marshalJSON() jsonCoverageElig
 	m.Unit = r.Unit
 	m.Term = r.Term
 	m.Benefit = r.Benefit
-	m.AuthorizationRequired = r.AuthorizationRequired
+	if r.AuthorizationRequired != nil && r.AuthorizationRequired.Value != nil {
+		m.AuthorizationRequired = r.AuthorizationRequired
+	}
 	if r.AuthorizationRequired != nil && (r.AuthorizationRequired.Id != nil || r.AuthorizationRequired.Extension != nil) {
 		m.AuthorizationRequiredPrimitiveElement = &primitiveElement{Id: r.AuthorizationRequired.Id, Extension: r.AuthorizationRequired.Extension}
 	}
 	m.AuthorizationSupporting = r.AuthorizationSupporting
-	m.AuthorizationUrl = r.AuthorizationUrl
+	if r.AuthorizationUrl != nil && r.AuthorizationUrl.Value != nil {
+		m.AuthorizationUrl = r.AuthorizationUrl
+	}
 	if r.AuthorizationUrl != nil && (r.AuthorizationUrl.Id != nil || r.AuthorizationUrl.Extension != nil) {
 		m.AuthorizationUrlPrimitiveElement = &primitiveElement{Id: r.AuthorizationUrl.Id, Extension: r.AuthorizationUrl.Extension}
 	}
@@ -506,16 +566,25 @@ func (r *CoverageEligibilityResponseInsuranceItem) unmarshalJSON(m jsonCoverageE
 	r.Provider = m.Provider
 	r.Excluded = m.Excluded
 	if m.ExcludedPrimitiveElement != nil {
+		if r.Excluded == nil {
+			r.Excluded = &Boolean{}
+		}
 		r.Excluded.Id = m.ExcludedPrimitiveElement.Id
 		r.Excluded.Extension = m.ExcludedPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -525,12 +594,18 @@ func (r *CoverageEligibilityResponseInsuranceItem) unmarshalJSON(m jsonCoverageE
 	r.Benefit = m.Benefit
 	r.AuthorizationRequired = m.AuthorizationRequired
 	if m.AuthorizationRequiredPrimitiveElement != nil {
+		if r.AuthorizationRequired == nil {
+			r.AuthorizationRequired = &Boolean{}
+		}
 		r.AuthorizationRequired.Id = m.AuthorizationRequiredPrimitiveElement.Id
 		r.AuthorizationRequired.Extension = m.AuthorizationRequiredPrimitiveElement.Extension
 	}
 	r.AuthorizationSupporting = m.AuthorizationSupporting
 	r.AuthorizationUrl = m.AuthorizationUrl
 	if m.AuthorizationUrlPrimitiveElement != nil {
+		if r.AuthorizationUrl == nil {
+			r.AuthorizationUrl = &Uri{}
+		}
 		r.AuthorizationUrl.Id = m.AuthorizationUrlPrimitiveElement.Id
 		r.AuthorizationUrl.Extension = m.AuthorizationUrlPrimitiveElement.Extension
 	}
@@ -605,22 +680,30 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) marshalJSON() jsonCover
 	m.Type = r.Type
 	switch v := r.Allowed.(type) {
 	case UnsignedInt:
-		m.AllowedUnsignedInt = &v
+		if v.Value != nil {
+			m.AllowedUnsignedInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *UnsignedInt:
-		m.AllowedUnsignedInt = v
+		if v.Value != nil {
+			m.AllowedUnsignedInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.AllowedString = &v
+		if v.Value != nil {
+			m.AllowedString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AllowedString = v
+		if v.Value != nil {
+			m.AllowedString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -631,22 +714,30 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) marshalJSON() jsonCover
 	}
 	switch v := r.Used.(type) {
 	case UnsignedInt:
-		m.UsedUnsignedInt = &v
+		if v.Value != nil {
+			m.UsedUnsignedInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *UnsignedInt:
-		m.UsedUnsignedInt = v
+		if v.Value != nil {
+			m.UsedUnsignedInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.UsedString = &v
+		if v.Value != nil {
+			m.UsedString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.UsedString = v
+		if v.Value != nil {
+			m.UsedString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

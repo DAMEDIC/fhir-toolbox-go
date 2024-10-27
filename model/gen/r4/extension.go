@@ -158,192 +158,268 @@ func (r Extension) marshalJSON() jsonExtension {
 	m.Url = r.Url
 	switch v := r.Value.(type) {
 	case Base64Binary:
-		m.ValueBase64Binary = &v
+		if v.Value != nil {
+			m.ValueBase64Binary = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Base64Binary:
-		m.ValueBase64Binary = v
+		if v.Value != nil {
+			m.ValueBase64Binary = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.ValueCanonical = &v
+		if v.Value != nil {
+			m.ValueCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.ValueCanonical = v
+		if v.Value != nil {
+			m.ValueCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Code:
-		m.ValueCode = &v
+		if v.Value != nil {
+			m.ValueCode = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Code:
-		m.ValueCode = v
+		if v.Value != nil {
+			m.ValueCode = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.ValueDate = &v
+		if v.Value != nil {
+			m.ValueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ValueDate = v
+		if v.Value != nil {
+			m.ValueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.ValueDateTime = &v
+		if v.Value != nil {
+			m.ValueDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.ValueDateTime = v
+		if v.Value != nil {
+			m.ValueDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Decimal:
-		m.ValueDecimal = &v
+		if v.Value != nil {
+			m.ValueDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.ValueDecimal = v
+		if v.Value != nil {
+			m.ValueDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Id:
-		m.ValueId = &v
+		if v.Value != nil {
+			m.ValueId = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Id:
-		m.ValueId = v
+		if v.Value != nil {
+			m.ValueId = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Instant:
-		m.ValueInstant = &v
+		if v.Value != nil {
+			m.ValueInstant = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Instant:
-		m.ValueInstant = v
+		if v.Value != nil {
+			m.ValueInstant = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.ValueInteger = &v
+		if v.Value != nil {
+			m.ValueInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.ValueInteger = v
+		if v.Value != nil {
+			m.ValueInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Markdown:
-		m.ValueMarkdown = &v
+		if v.Value != nil {
+			m.ValueMarkdown = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Markdown:
-		m.ValueMarkdown = v
+		if v.Value != nil {
+			m.ValueMarkdown = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Oid:
-		m.ValueOid = &v
+		if v.Value != nil {
+			m.ValueOid = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Oid:
-		m.ValueOid = v
+		if v.Value != nil {
+			m.ValueOid = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case PositiveInt:
-		m.ValuePositiveInt = &v
+		if v.Value != nil {
+			m.ValuePositiveInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *PositiveInt:
-		m.ValuePositiveInt = v
+		if v.Value != nil {
+			m.ValuePositiveInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.ValueTime = &v
+		if v.Value != nil {
+			m.ValueTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.ValueTime = v
+		if v.Value != nil {
+			m.ValueTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case UnsignedInt:
-		m.ValueUnsignedInt = &v
+		if v.Value != nil {
+			m.ValueUnsignedInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *UnsignedInt:
-		m.ValueUnsignedInt = v
+		if v.Value != nil {
+			m.ValueUnsignedInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Uri:
-		m.ValueUri = &v
+		if v.Value != nil {
+			m.ValueUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.ValueUri = v
+		if v.Value != nil {
+			m.ValueUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Url:
-		m.ValueUrl = &v
+		if v.Value != nil {
+			m.ValueUrl = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Url:
-		m.ValueUrl = v
+		if v.Value != nil {
+			m.ValueUrl = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Uuid:
-		m.ValueUuid = &v
+		if v.Value != nil {
+			m.ValueUuid = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uuid:
-		m.ValueUuid = v
+		if v.Value != nil {
+			m.ValueUuid = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

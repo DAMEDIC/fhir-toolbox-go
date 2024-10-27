@@ -107,16 +107,22 @@ func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 func (r SupplyDelivery) marshalJSON() jsonSupplyDelivery {
 	m := jsonSupplyDelivery{}
 	m.ResourceType = "SupplyDelivery"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -130,7 +136,9 @@ func (r SupplyDelivery) marshalJSON() jsonSupplyDelivery {
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -139,12 +147,16 @@ func (r SupplyDelivery) marshalJSON() jsonSupplyDelivery {
 	m.SuppliedItem = r.SuppliedItem
 	switch v := r.Occurrence.(type) {
 	case DateTime:
-		m.OccurrenceDateTime = &v
+		if v.Value != nil {
+			m.OccurrenceDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurrenceDateTime = v
+		if v.Value != nil {
+			m.OccurrenceDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -172,17 +184,26 @@ func (r *SupplyDelivery) UnmarshalJSON(b []byte) error {
 func (r *SupplyDelivery) unmarshalJSON(m jsonSupplyDelivery) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -198,6 +219,9 @@ func (r *SupplyDelivery) unmarshalJSON(m jsonSupplyDelivery) error {
 	r.PartOf = m.PartOf
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}

@@ -87,16 +87,22 @@ func (r Medication) MarshalJSON() ([]byte, error) {
 func (r Medication) marshalJSON() jsonMedication {
 	m := jsonMedication{}
 	m.ResourceType = "Medication"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -109,7 +115,9 @@ func (r Medication) marshalJSON() jsonMedication {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.Code = r.Code
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -130,17 +138,26 @@ func (r *Medication) UnmarshalJSON(b []byte) error {
 func (r *Medication) unmarshalJSON(m jsonMedication) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -155,6 +172,9 @@ func (r *Medication) unmarshalJSON(m jsonMedication) error {
 	r.Code = m.Code
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
@@ -226,7 +246,9 @@ func (r MedicationIngredient) marshalJSON() jsonMedicationIngredient {
 	case *Reference:
 		m.ItemReference = v
 	}
-	m.IsActive = r.IsActive
+	if r.IsActive != nil && r.IsActive.Value != nil {
+		m.IsActive = r.IsActive
+	}
 	if r.IsActive != nil && (r.IsActive.Id != nil || r.IsActive.Extension != nil) {
 		m.IsActivePrimitiveElement = &primitiveElement{Id: r.IsActive.Id, Extension: r.IsActive.Extension}
 	}
@@ -260,6 +282,9 @@ func (r *MedicationIngredient) unmarshalJSON(m jsonMedicationIngredient) error {
 	}
 	r.IsActive = m.IsActive
 	if m.IsActivePrimitiveElement != nil {
+		if r.IsActive == nil {
+			r.IsActive = &Boolean{}
+		}
 		r.IsActive.Id = m.IsActivePrimitiveElement.Id
 		r.IsActive.Extension = m.IsActivePrimitiveElement.Extension
 	}
@@ -307,11 +332,15 @@ func (r MedicationBatch) marshalJSON() jsonMedicationBatch {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.LotNumber = r.LotNumber
+	if r.LotNumber != nil && r.LotNumber.Value != nil {
+		m.LotNumber = r.LotNumber
+	}
 	if r.LotNumber != nil && (r.LotNumber.Id != nil || r.LotNumber.Extension != nil) {
 		m.LotNumberPrimitiveElement = &primitiveElement{Id: r.LotNumber.Id, Extension: r.LotNumber.Extension}
 	}
-	m.ExpirationDate = r.ExpirationDate
+	if r.ExpirationDate != nil && r.ExpirationDate.Value != nil {
+		m.ExpirationDate = r.ExpirationDate
+	}
 	if r.ExpirationDate != nil && (r.ExpirationDate.Id != nil || r.ExpirationDate.Extension != nil) {
 		m.ExpirationDatePrimitiveElement = &primitiveElement{Id: r.ExpirationDate.Id, Extension: r.ExpirationDate.Extension}
 	}
@@ -330,11 +359,17 @@ func (r *MedicationBatch) unmarshalJSON(m jsonMedicationBatch) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.LotNumber = m.LotNumber
 	if m.LotNumberPrimitiveElement != nil {
+		if r.LotNumber == nil {
+			r.LotNumber = &String{}
+		}
 		r.LotNumber.Id = m.LotNumberPrimitiveElement.Id
 		r.LotNumber.Extension = m.LotNumberPrimitiveElement.Extension
 	}
 	r.ExpirationDate = m.ExpirationDate
 	if m.ExpirationDatePrimitiveElement != nil {
+		if r.ExpirationDate == nil {
+			r.ExpirationDate = &DateTime{}
+		}
 		r.ExpirationDate.Id = m.ExpirationDatePrimitiveElement.Id
 		r.ExpirationDate.Extension = m.ExpirationDatePrimitiveElement.Extension
 	}

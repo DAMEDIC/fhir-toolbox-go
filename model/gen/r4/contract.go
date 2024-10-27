@@ -186,16 +186,22 @@ func (r Contract) MarshalJSON() ([]byte, error) {
 func (r Contract) marshalJSON() jsonContract {
 	m := jsonContract{}
 	m.ResourceType = "Contract"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -207,26 +213,36 @@ func (r Contract) marshalJSON() jsonContract {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.LegalState = r.LegalState
 	m.InstantiatesCanonical = r.InstantiatesCanonical
-	m.InstantiatesUri = r.InstantiatesUri
+	if r.InstantiatesUri != nil && r.InstantiatesUri.Value != nil {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	if r.InstantiatesUri != nil && (r.InstantiatesUri.Id != nil || r.InstantiatesUri.Extension != nil) {
 		m.InstantiatesUriPrimitiveElement = &primitiveElement{Id: r.InstantiatesUri.Id, Extension: r.InstantiatesUri.Extension}
 	}
 	m.ContentDerivative = r.ContentDerivative
-	m.Issued = r.Issued
+	if r.Issued != nil && r.Issued.Value != nil {
+		m.Issued = r.Issued
+	}
 	if r.Issued != nil && (r.Issued.Id != nil || r.Issued.Extension != nil) {
 		m.IssuedPrimitiveElement = &primitiveElement{Id: r.Issued.Id, Extension: r.Issued.Extension}
 	}
@@ -236,19 +252,34 @@ func (r Contract) marshalJSON() jsonContract {
 	m.Authority = r.Authority
 	m.Domain = r.Domain
 	m.Site = r.Site
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Subtitle = r.Subtitle
+	if r.Subtitle != nil && r.Subtitle.Value != nil {
+		m.Subtitle = r.Subtitle
+	}
 	if r.Subtitle != nil && (r.Subtitle.Id != nil || r.Subtitle.Extension != nil) {
 		m.SubtitlePrimitiveElement = &primitiveElement{Id: r.Subtitle.Id, Extension: r.Subtitle.Extension}
 	}
-	m.Alias = r.Alias
+	anyAliasValue := false
+	for _, e := range r.Alias {
+		if e.Value != nil {
+			anyAliasValue = true
+			break
+		}
+	}
+	if anyAliasValue {
+		m.Alias = r.Alias
+	}
 	anyAliasIdOrExtension := false
 	for _, e := range r.Alias {
 		if e.Id != nil || e.Extension != nil {
@@ -310,17 +341,26 @@ func (r *Contract) UnmarshalJSON(b []byte) error {
 func (r *Contract) unmarshalJSON(m jsonContract) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -334,16 +374,25 @@ func (r *Contract) unmarshalJSON(m jsonContract) error {
 	r.Identifier = m.Identifier
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
@@ -351,12 +400,18 @@ func (r *Contract) unmarshalJSON(m jsonContract) error {
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	r.InstantiatesUri = m.InstantiatesUri
 	if m.InstantiatesUriPrimitiveElement != nil {
+		if r.InstantiatesUri == nil {
+			r.InstantiatesUri = &Uri{}
+		}
 		r.InstantiatesUri.Id = m.InstantiatesUriPrimitiveElement.Id
 		r.InstantiatesUri.Extension = m.InstantiatesUriPrimitiveElement.Extension
 	}
 	r.ContentDerivative = m.ContentDerivative
 	r.Issued = m.Issued
 	if m.IssuedPrimitiveElement != nil {
+		if r.Issued == nil {
+			r.Issued = &DateTime{}
+		}
 		r.Issued.Id = m.IssuedPrimitiveElement.Id
 		r.Issued.Extension = m.IssuedPrimitiveElement.Extension
 	}
@@ -368,26 +423,36 @@ func (r *Contract) unmarshalJSON(m jsonContract) error {
 	r.Site = m.Site
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Subtitle = m.Subtitle
 	if m.SubtitlePrimitiveElement != nil {
+		if r.Subtitle == nil {
+			r.Subtitle = &String{}
+		}
 		r.Subtitle.Id = m.SubtitlePrimitiveElement.Id
 		r.Subtitle.Extension = m.SubtitlePrimitiveElement.Extension
 	}
 	r.Alias = m.Alias
 	for i, e := range m.AliasPrimitiveElement {
-		if len(r.Alias) > i {
+		if len(r.Alias) <= i {
+			r.Alias = append(r.Alias, String{})
+		}
+		if e != nil {
 			r.Alias[i].Id = e.Id
 			r.Alias[i].Extension = e.Extension
-		} else {
-			r.Alias = append(r.Alias, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Author = m.Author
@@ -489,15 +554,21 @@ func (r ContractContentDefinition) marshalJSON() jsonContractContentDefinition {
 	m.Type = r.Type
 	m.SubType = r.SubType
 	m.Publisher = r.Publisher
-	m.PublicationDate = r.PublicationDate
+	if r.PublicationDate != nil && r.PublicationDate.Value != nil {
+		m.PublicationDate = r.PublicationDate
+	}
 	if r.PublicationDate != nil && (r.PublicationDate.Id != nil || r.PublicationDate.Extension != nil) {
 		m.PublicationDatePrimitiveElement = &primitiveElement{Id: r.PublicationDate.Id, Extension: r.PublicationDate.Extension}
 	}
-	m.PublicationStatus = r.PublicationStatus
+	if r.PublicationStatus.Value != nil {
+		m.PublicationStatus = r.PublicationStatus
+	}
 	if r.PublicationStatus.Id != nil || r.PublicationStatus.Extension != nil {
 		m.PublicationStatusPrimitiveElement = &primitiveElement{Id: r.PublicationStatus.Id, Extension: r.PublicationStatus.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
@@ -519,6 +590,9 @@ func (r *ContractContentDefinition) unmarshalJSON(m jsonContractContentDefinitio
 	r.Publisher = m.Publisher
 	r.PublicationDate = m.PublicationDate
 	if m.PublicationDatePrimitiveElement != nil {
+		if r.PublicationDate == nil {
+			r.PublicationDate = &DateTime{}
+		}
 		r.PublicationDate.Id = m.PublicationDatePrimitiveElement.Id
 		r.PublicationDate.Extension = m.PublicationDatePrimitiveElement.Extension
 	}
@@ -529,6 +603,9 @@ func (r *ContractContentDefinition) unmarshalJSON(m jsonContractContentDefinitio
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
@@ -614,7 +691,9 @@ func (r ContractTerm) marshalJSON() jsonContractTerm {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Issued = r.Issued
+	if r.Issued != nil && r.Issued.Value != nil {
+		m.Issued = r.Issued
+	}
 	if r.Issued != nil && (r.Issued.Id != nil || r.Issued.Extension != nil) {
 		m.IssuedPrimitiveElement = &primitiveElement{Id: r.Issued.Id, Extension: r.Issued.Extension}
 	}
@@ -631,7 +710,9 @@ func (r ContractTerm) marshalJSON() jsonContractTerm {
 	}
 	m.Type = r.Type
 	m.SubType = r.SubType
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -656,6 +737,9 @@ func (r *ContractTerm) unmarshalJSON(m jsonContractTerm) error {
 	r.Identifier = m.Identifier
 	r.Issued = m.Issued
 	if m.IssuedPrimitiveElement != nil {
+		if r.Issued == nil {
+			r.Issued = &DateTime{}
+		}
 		r.Issued.Id = m.IssuedPrimitiveElement.Id
 		r.Issued.Extension = m.IssuedPrimitiveElement.Extension
 	}
@@ -678,6 +762,9 @@ func (r *ContractTerm) unmarshalJSON(m jsonContractTerm) error {
 	r.SubType = m.SubType
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
@@ -734,7 +821,16 @@ func (r ContractTermSecurityLabel) marshalJSON() jsonContractTermSecurityLabel {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Number = r.Number
+	anyNumberValue := false
+	for _, e := range r.Number {
+		if e.Value != nil {
+			anyNumberValue = true
+			break
+		}
+	}
+	if anyNumberValue {
+		m.Number = r.Number
+	}
 	anyNumberIdOrExtension := false
 	for _, e := range r.Number {
 		if e.Id != nil || e.Extension != nil {
@@ -770,11 +866,12 @@ func (r *ContractTermSecurityLabel) unmarshalJSON(m jsonContractTermSecurityLabe
 	r.ModifierExtension = m.ModifierExtension
 	r.Number = m.Number
 	for i, e := range m.NumberPrimitiveElement {
-		if len(r.Number) > i {
+		if len(r.Number) <= i {
+			r.Number = append(r.Number, UnsignedInt{})
+		}
+		if e != nil {
 			r.Number[i].Id = e.Id
 			r.Number[i].Extension = e.Extension
-		} else {
-			r.Number = append(r.Number, UnsignedInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Classification = m.Classification
@@ -855,11 +952,22 @@ func (r ContractTermOffer) marshalJSON() jsonContractTermOffer {
 	m.Decision = r.Decision
 	m.DecisionMode = r.DecisionMode
 	m.Answer = r.Answer
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
-	m.LinkId = r.LinkId
+	anyLinkIdValue := false
+	for _, e := range r.LinkId {
+		if e.Value != nil {
+			anyLinkIdValue = true
+			break
+		}
+	}
+	if anyLinkIdValue {
+		m.LinkId = r.LinkId
+	}
 	anyLinkIdIdOrExtension := false
 	for _, e := range r.LinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -877,7 +985,16 @@ func (r ContractTermOffer) marshalJSON() jsonContractTermOffer {
 			}
 		}
 	}
-	m.SecurityLabelNumber = r.SecurityLabelNumber
+	anySecurityLabelNumberValue := false
+	for _, e := range r.SecurityLabelNumber {
+		if e.Value != nil {
+			anySecurityLabelNumberValue = true
+			break
+		}
+	}
+	if anySecurityLabelNumberValue {
+		m.SecurityLabelNumber = r.SecurityLabelNumber
+	}
 	anySecurityLabelNumberIdOrExtension := false
 	for _, e := range r.SecurityLabelNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -917,25 +1034,30 @@ func (r *ContractTermOffer) unmarshalJSON(m jsonContractTermOffer) error {
 	r.Answer = m.Answer
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
 	r.LinkId = m.LinkId
 	for i, e := range m.LinkIdPrimitiveElement {
-		if len(r.LinkId) > i {
+		if len(r.LinkId) <= i {
+			r.LinkId = append(r.LinkId, String{})
+		}
+		if e != nil {
 			r.LinkId[i].Id = e.Id
 			r.LinkId[i].Extension = e.Extension
-		} else {
-			r.LinkId = append(r.LinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.SecurityLabelNumber = m.SecurityLabelNumber
 	for i, e := range m.SecurityLabelNumberPrimitiveElement {
-		if len(r.SecurityLabelNumber) > i {
+		if len(r.SecurityLabelNumber) <= i {
+			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{})
+		}
+		if e != nil {
 			r.SecurityLabelNumber[i].Id = e.Id
 			r.SecurityLabelNumber[i].Extension = e.Extension
-		} else {
-			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1072,82 +1194,114 @@ func (r ContractTermOfferAnswer) marshalJSON() jsonContractTermOfferAnswer {
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Value.(type) {
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Decimal:
-		m.ValueDecimal = &v
+		if v.Value != nil {
+			m.ValueDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.ValueDecimal = v
+		if v.Value != nil {
+			m.ValueDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.ValueInteger = &v
+		if v.Value != nil {
+			m.ValueInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.ValueInteger = v
+		if v.Value != nil {
+			m.ValueInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.ValueDate = &v
+		if v.Value != nil {
+			m.ValueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ValueDate = v
+		if v.Value != nil {
+			m.ValueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.ValueDateTime = &v
+		if v.Value != nil {
+			m.ValueDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.ValueDateTime = v
+		if v.Value != nil {
+			m.ValueDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.ValueTime = &v
+		if v.Value != nil {
+			m.ValueTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.ValueTime = v
+		if v.Value != nil {
+			m.ValueTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Uri:
-		m.ValueUri = &v
+		if v.Value != nil {
+			m.ValueUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.ValueUri = v
+		if v.Value != nil {
+			m.ValueUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1411,18 +1565,31 @@ func (r ContractTermAsset) marshalJSON() jsonContractTermAsset {
 	m.Subtype = r.Subtype
 	m.Relationship = r.Relationship
 	m.Context = r.Context
-	m.Condition = r.Condition
+	if r.Condition != nil && r.Condition.Value != nil {
+		m.Condition = r.Condition
+	}
 	if r.Condition != nil && (r.Condition.Id != nil || r.Condition.Extension != nil) {
 		m.ConditionPrimitiveElement = &primitiveElement{Id: r.Condition.Id, Extension: r.Condition.Extension}
 	}
 	m.PeriodType = r.PeriodType
 	m.Period = r.Period
 	m.UsePeriod = r.UsePeriod
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
-	m.LinkId = r.LinkId
+	anyLinkIdValue := false
+	for _, e := range r.LinkId {
+		if e.Value != nil {
+			anyLinkIdValue = true
+			break
+		}
+	}
+	if anyLinkIdValue {
+		m.LinkId = r.LinkId
+	}
 	anyLinkIdIdOrExtension := false
 	for _, e := range r.LinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -1441,7 +1608,16 @@ func (r ContractTermAsset) marshalJSON() jsonContractTermAsset {
 		}
 	}
 	m.Answer = r.Answer
-	m.SecurityLabelNumber = r.SecurityLabelNumber
+	anySecurityLabelNumberValue := false
+	for _, e := range r.SecurityLabelNumber {
+		if e.Value != nil {
+			anySecurityLabelNumberValue = true
+			break
+		}
+	}
+	if anySecurityLabelNumberValue {
+		m.SecurityLabelNumber = r.SecurityLabelNumber
+	}
 	anySecurityLabelNumberIdOrExtension := false
 	for _, e := range r.SecurityLabelNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -1481,6 +1657,9 @@ func (r *ContractTermAsset) unmarshalJSON(m jsonContractTermAsset) error {
 	r.Context = m.Context
 	r.Condition = m.Condition
 	if m.ConditionPrimitiveElement != nil {
+		if r.Condition == nil {
+			r.Condition = &String{}
+		}
 		r.Condition.Id = m.ConditionPrimitiveElement.Id
 		r.Condition.Extension = m.ConditionPrimitiveElement.Extension
 	}
@@ -1489,26 +1668,31 @@ func (r *ContractTermAsset) unmarshalJSON(m jsonContractTermAsset) error {
 	r.UsePeriod = m.UsePeriod
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
 	r.LinkId = m.LinkId
 	for i, e := range m.LinkIdPrimitiveElement {
-		if len(r.LinkId) > i {
+		if len(r.LinkId) <= i {
+			r.LinkId = append(r.LinkId, String{})
+		}
+		if e != nil {
 			r.LinkId[i].Id = e.Id
 			r.LinkId[i].Extension = e.Extension
-		} else {
-			r.LinkId = append(r.LinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Answer = m.Answer
 	r.SecurityLabelNumber = m.SecurityLabelNumber
 	for i, e := range m.SecurityLabelNumberPrimitiveElement {
-		if len(r.SecurityLabelNumber) > i {
+		if len(r.SecurityLabelNumber) <= i {
+			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{})
+		}
+		if e != nil {
 			r.SecurityLabelNumber[i].Id = e.Id
 			r.SecurityLabelNumber[i].Extension = e.Extension
-		} else {
-			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ValuedItem = m.ValuedItem
@@ -1559,7 +1743,9 @@ func (r ContractTermAssetContext) marshalJSON() jsonContractTermAssetContext {
 	m.ModifierExtension = r.ModifierExtension
 	m.Reference = r.Reference
 	m.Code = r.Code
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -1580,6 +1766,9 @@ func (r *ContractTermAssetContext) unmarshalJSON(m jsonContractTermAssetContext)
 	r.Code = m.Code
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
@@ -1686,32 +1875,51 @@ func (r ContractTermAssetValuedItem) marshalJSON() jsonContractTermAssetValuedIt
 		m.EntityReference = v
 	}
 	m.Identifier = r.Identifier
-	m.EffectiveTime = r.EffectiveTime
+	if r.EffectiveTime != nil && r.EffectiveTime.Value != nil {
+		m.EffectiveTime = r.EffectiveTime
+	}
 	if r.EffectiveTime != nil && (r.EffectiveTime.Id != nil || r.EffectiveTime.Extension != nil) {
 		m.EffectiveTimePrimitiveElement = &primitiveElement{Id: r.EffectiveTime.Id, Extension: r.EffectiveTime.Extension}
 	}
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
-	m.Points = r.Points
+	if r.Points != nil && r.Points.Value != nil {
+		m.Points = r.Points
+	}
 	if r.Points != nil && (r.Points.Id != nil || r.Points.Extension != nil) {
 		m.PointsPrimitiveElement = &primitiveElement{Id: r.Points.Id, Extension: r.Points.Extension}
 	}
 	m.Net = r.Net
-	m.Payment = r.Payment
+	if r.Payment != nil && r.Payment.Value != nil {
+		m.Payment = r.Payment
+	}
 	if r.Payment != nil && (r.Payment.Id != nil || r.Payment.Extension != nil) {
 		m.PaymentPrimitiveElement = &primitiveElement{Id: r.Payment.Id, Extension: r.Payment.Extension}
 	}
-	m.PaymentDate = r.PaymentDate
+	if r.PaymentDate != nil && r.PaymentDate.Value != nil {
+		m.PaymentDate = r.PaymentDate
+	}
 	if r.PaymentDate != nil && (r.PaymentDate.Id != nil || r.PaymentDate.Extension != nil) {
 		m.PaymentDatePrimitiveElement = &primitiveElement{Id: r.PaymentDate.Id, Extension: r.PaymentDate.Extension}
 	}
 	m.Responsible = r.Responsible
 	m.Recipient = r.Recipient
-	m.LinkId = r.LinkId
+	anyLinkIdValue := false
+	for _, e := range r.LinkId {
+		if e.Value != nil {
+			anyLinkIdValue = true
+			break
+		}
+	}
+	if anyLinkIdValue {
+		m.LinkId = r.LinkId
+	}
 	anyLinkIdIdOrExtension := false
 	for _, e := range r.LinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -1729,7 +1937,16 @@ func (r ContractTermAssetValuedItem) marshalJSON() jsonContractTermAssetValuedIt
 			}
 		}
 	}
-	m.SecurityLabelNumber = r.SecurityLabelNumber
+	anySecurityLabelNumberValue := false
+	for _, e := range r.SecurityLabelNumber {
+		if e.Value != nil {
+			anySecurityLabelNumberValue = true
+			break
+		}
+	}
+	if anySecurityLabelNumberValue {
+		m.SecurityLabelNumber = r.SecurityLabelNumber
+	}
 	anySecurityLabelNumberIdOrExtension := false
 	for _, e := range r.SecurityLabelNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -1777,6 +1994,9 @@ func (r *ContractTermAssetValuedItem) unmarshalJSON(m jsonContractTermAssetValue
 	r.Identifier = m.Identifier
 	r.EffectiveTime = m.EffectiveTime
 	if m.EffectiveTimePrimitiveElement != nil {
+		if r.EffectiveTime == nil {
+			r.EffectiveTime = &DateTime{}
+		}
 		r.EffectiveTime.Id = m.EffectiveTimePrimitiveElement.Id
 		r.EffectiveTime.Extension = m.EffectiveTimePrimitiveElement.Extension
 	}
@@ -1784,22 +2004,34 @@ func (r *ContractTermAssetValuedItem) unmarshalJSON(m jsonContractTermAssetValue
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
 	r.Points = m.Points
 	if m.PointsPrimitiveElement != nil {
+		if r.Points == nil {
+			r.Points = &Decimal{}
+		}
 		r.Points.Id = m.PointsPrimitiveElement.Id
 		r.Points.Extension = m.PointsPrimitiveElement.Extension
 	}
 	r.Net = m.Net
 	r.Payment = m.Payment
 	if m.PaymentPrimitiveElement != nil {
+		if r.Payment == nil {
+			r.Payment = &String{}
+		}
 		r.Payment.Id = m.PaymentPrimitiveElement.Id
 		r.Payment.Extension = m.PaymentPrimitiveElement.Extension
 	}
 	r.PaymentDate = m.PaymentDate
 	if m.PaymentDatePrimitiveElement != nil {
+		if r.PaymentDate == nil {
+			r.PaymentDate = &DateTime{}
+		}
 		r.PaymentDate.Id = m.PaymentDatePrimitiveElement.Id
 		r.PaymentDate.Extension = m.PaymentDatePrimitiveElement.Extension
 	}
@@ -1807,20 +2039,22 @@ func (r *ContractTermAssetValuedItem) unmarshalJSON(m jsonContractTermAssetValue
 	r.Recipient = m.Recipient
 	r.LinkId = m.LinkId
 	for i, e := range m.LinkIdPrimitiveElement {
-		if len(r.LinkId) > i {
+		if len(r.LinkId) <= i {
+			r.LinkId = append(r.LinkId, String{})
+		}
+		if e != nil {
 			r.LinkId[i].Id = e.Id
 			r.LinkId[i].Extension = e.Extension
-		} else {
-			r.LinkId = append(r.LinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.SecurityLabelNumber = m.SecurityLabelNumber
 	for i, e := range m.SecurityLabelNumberPrimitiveElement {
-		if len(r.SecurityLabelNumber) > i {
+		if len(r.SecurityLabelNumber) <= i {
+			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{})
+		}
+		if e != nil {
 			r.SecurityLabelNumber[i].Id = e.Id
 			r.SecurityLabelNumber[i].Extension = e.Extension
-		} else {
-			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1940,14 +2174,25 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.DoNotPerform = r.DoNotPerform
+	if r.DoNotPerform != nil && r.DoNotPerform.Value != nil {
+		m.DoNotPerform = r.DoNotPerform
+	}
 	if r.DoNotPerform != nil && (r.DoNotPerform.Id != nil || r.DoNotPerform.Extension != nil) {
 		m.DoNotPerformPrimitiveElement = &primitiveElement{Id: r.DoNotPerform.Id, Extension: r.DoNotPerform.Extension}
 	}
 	m.Type = r.Type
 	m.Subject = r.Subject
 	m.Intent = r.Intent
-	m.LinkId = r.LinkId
+	anyLinkIdValue := false
+	for _, e := range r.LinkId {
+		if e.Value != nil {
+			anyLinkIdValue = true
+			break
+		}
+	}
+	if anyLinkIdValue {
+		m.LinkId = r.LinkId
+	}
 	anyLinkIdIdOrExtension := false
 	for _, e := range r.LinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -1967,7 +2212,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 	}
 	m.Status = r.Status
 	m.Context = r.Context
-	m.ContextLinkId = r.ContextLinkId
+	anyContextLinkIdValue := false
+	for _, e := range r.ContextLinkId {
+		if e.Value != nil {
+			anyContextLinkIdValue = true
+			break
+		}
+	}
+	if anyContextLinkIdValue {
+		m.ContextLinkId = r.ContextLinkId
+	}
 	anyContextLinkIdIdOrExtension := false
 	for _, e := range r.ContextLinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -1987,12 +2241,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 	}
 	switch v := r.Occurrence.(type) {
 	case DateTime:
-		m.OccurrenceDateTime = &v
+		if v.Value != nil {
+			m.OccurrenceDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurrenceDateTime = v
+		if v.Value != nil {
+			m.OccurrenceDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -2006,7 +2264,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 		m.OccurrenceTiming = v
 	}
 	m.Requester = r.Requester
-	m.RequesterLinkId = r.RequesterLinkId
+	anyRequesterLinkIdValue := false
+	for _, e := range r.RequesterLinkId {
+		if e.Value != nil {
+			anyRequesterLinkIdValue = true
+			break
+		}
+	}
+	if anyRequesterLinkIdValue {
+		m.RequesterLinkId = r.RequesterLinkId
+	}
 	anyRequesterLinkIdIdOrExtension := false
 	for _, e := range r.RequesterLinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -2027,7 +2294,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 	m.PerformerType = r.PerformerType
 	m.PerformerRole = r.PerformerRole
 	m.Performer = r.Performer
-	m.PerformerLinkId = r.PerformerLinkId
+	anyPerformerLinkIdValue := false
+	for _, e := range r.PerformerLinkId {
+		if e.Value != nil {
+			anyPerformerLinkIdValue = true
+			break
+		}
+	}
+	if anyPerformerLinkIdValue {
+		m.PerformerLinkId = r.PerformerLinkId
+	}
 	anyPerformerLinkIdIdOrExtension := false
 	for _, e := range r.PerformerLinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -2047,7 +2323,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 	}
 	m.ReasonCode = r.ReasonCode
 	m.ReasonReference = r.ReasonReference
-	m.Reason = r.Reason
+	anyReasonValue := false
+	for _, e := range r.Reason {
+		if e.Value != nil {
+			anyReasonValue = true
+			break
+		}
+	}
+	if anyReasonValue {
+		m.Reason = r.Reason
+	}
 	anyReasonIdOrExtension := false
 	for _, e := range r.Reason {
 		if e.Id != nil || e.Extension != nil {
@@ -2065,7 +2350,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 			}
 		}
 	}
-	m.ReasonLinkId = r.ReasonLinkId
+	anyReasonLinkIdValue := false
+	for _, e := range r.ReasonLinkId {
+		if e.Value != nil {
+			anyReasonLinkIdValue = true
+			break
+		}
+	}
+	if anyReasonLinkIdValue {
+		m.ReasonLinkId = r.ReasonLinkId
+	}
 	anyReasonLinkIdIdOrExtension := false
 	for _, e := range r.ReasonLinkId {
 		if e.Id != nil || e.Extension != nil {
@@ -2084,7 +2378,16 @@ func (r ContractTermAction) marshalJSON() jsonContractTermAction {
 		}
 	}
 	m.Note = r.Note
-	m.SecurityLabelNumber = r.SecurityLabelNumber
+	anySecurityLabelNumberValue := false
+	for _, e := range r.SecurityLabelNumber {
+		if e.Value != nil {
+			anySecurityLabelNumberValue = true
+			break
+		}
+	}
+	if anySecurityLabelNumberValue {
+		m.SecurityLabelNumber = r.SecurityLabelNumber
+	}
 	anySecurityLabelNumberIdOrExtension := false
 	for _, e := range r.SecurityLabelNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -2117,6 +2420,9 @@ func (r *ContractTermAction) unmarshalJSON(m jsonContractTermAction) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.DoNotPerform = m.DoNotPerform
 	if m.DoNotPerformPrimitiveElement != nil {
+		if r.DoNotPerform == nil {
+			r.DoNotPerform = &Boolean{}
+		}
 		r.DoNotPerform.Id = m.DoNotPerformPrimitiveElement.Id
 		r.DoNotPerform.Extension = m.DoNotPerformPrimitiveElement.Extension
 	}
@@ -2125,22 +2431,24 @@ func (r *ContractTermAction) unmarshalJSON(m jsonContractTermAction) error {
 	r.Intent = m.Intent
 	r.LinkId = m.LinkId
 	for i, e := range m.LinkIdPrimitiveElement {
-		if len(r.LinkId) > i {
+		if len(r.LinkId) <= i {
+			r.LinkId = append(r.LinkId, String{})
+		}
+		if e != nil {
 			r.LinkId[i].Id = e.Id
 			r.LinkId[i].Extension = e.Extension
-		} else {
-			r.LinkId = append(r.LinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Status = m.Status
 	r.Context = m.Context
 	r.ContextLinkId = m.ContextLinkId
 	for i, e := range m.ContextLinkIdPrimitiveElement {
-		if len(r.ContextLinkId) > i {
+		if len(r.ContextLinkId) <= i {
+			r.ContextLinkId = append(r.ContextLinkId, String{})
+		}
+		if e != nil {
 			r.ContextLinkId[i].Id = e.Id
 			r.ContextLinkId[i].Extension = e.Extension
-		} else {
-			r.ContextLinkId = append(r.ContextLinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	if m.OccurrenceDateTime != nil || m.OccurrenceDateTimePrimitiveElement != nil {
@@ -2174,11 +2482,12 @@ func (r *ContractTermAction) unmarshalJSON(m jsonContractTermAction) error {
 	r.Requester = m.Requester
 	r.RequesterLinkId = m.RequesterLinkId
 	for i, e := range m.RequesterLinkIdPrimitiveElement {
-		if len(r.RequesterLinkId) > i {
+		if len(r.RequesterLinkId) <= i {
+			r.RequesterLinkId = append(r.RequesterLinkId, String{})
+		}
+		if e != nil {
 			r.RequesterLinkId[i].Id = e.Id
 			r.RequesterLinkId[i].Extension = e.Extension
-		} else {
-			r.RequesterLinkId = append(r.RequesterLinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.PerformerType = m.PerformerType
@@ -2186,41 +2495,45 @@ func (r *ContractTermAction) unmarshalJSON(m jsonContractTermAction) error {
 	r.Performer = m.Performer
 	r.PerformerLinkId = m.PerformerLinkId
 	for i, e := range m.PerformerLinkIdPrimitiveElement {
-		if len(r.PerformerLinkId) > i {
+		if len(r.PerformerLinkId) <= i {
+			r.PerformerLinkId = append(r.PerformerLinkId, String{})
+		}
+		if e != nil {
 			r.PerformerLinkId[i].Id = e.Id
 			r.PerformerLinkId[i].Extension = e.Extension
-		} else {
-			r.PerformerLinkId = append(r.PerformerLinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ReasonCode = m.ReasonCode
 	r.ReasonReference = m.ReasonReference
 	r.Reason = m.Reason
 	for i, e := range m.ReasonPrimitiveElement {
-		if len(r.Reason) > i {
+		if len(r.Reason) <= i {
+			r.Reason = append(r.Reason, String{})
+		}
+		if e != nil {
 			r.Reason[i].Id = e.Id
 			r.Reason[i].Extension = e.Extension
-		} else {
-			r.Reason = append(r.Reason, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ReasonLinkId = m.ReasonLinkId
 	for i, e := range m.ReasonLinkIdPrimitiveElement {
-		if len(r.ReasonLinkId) > i {
+		if len(r.ReasonLinkId) <= i {
+			r.ReasonLinkId = append(r.ReasonLinkId, String{})
+		}
+		if e != nil {
 			r.ReasonLinkId[i].Id = e.Id
 			r.ReasonLinkId[i].Extension = e.Extension
-		} else {
-			r.ReasonLinkId = append(r.ReasonLinkId, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Note = m.Note
 	r.SecurityLabelNumber = m.SecurityLabelNumber
 	for i, e := range m.SecurityLabelNumberPrimitiveElement {
-		if len(r.SecurityLabelNumber) > i {
+		if len(r.SecurityLabelNumber) <= i {
+			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{})
+		}
+		if e != nil {
 			r.SecurityLabelNumber[i].Id = e.Id
 			r.SecurityLabelNumber[i].Extension = e.Extension
-		} else {
-			r.SecurityLabelNumber = append(r.SecurityLabelNumber, UnsignedInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil

@@ -165,16 +165,22 @@ func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 func (r RiskEvidenceSynthesis) marshalJSON() jsonRiskEvidenceSynthesis {
 	m := jsonRiskEvidenceSynthesis{}
 	m.ResourceType = "RiskEvidenceSynthesis"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -185,52 +191,74 @@ func (r RiskEvidenceSynthesis) marshalJSON() jsonRiskEvidenceSynthesis {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.Note = r.Note
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.ApprovalDate = r.ApprovalDate
+	if r.ApprovalDate != nil && r.ApprovalDate.Value != nil {
+		m.ApprovalDate = r.ApprovalDate
+	}
 	if r.ApprovalDate != nil && (r.ApprovalDate.Id != nil || r.ApprovalDate.Extension != nil) {
 		m.ApprovalDatePrimitiveElement = &primitiveElement{Id: r.ApprovalDate.Id, Extension: r.ApprovalDate.Extension}
 	}
-	m.LastReviewDate = r.LastReviewDate
+	if r.LastReviewDate != nil && r.LastReviewDate.Value != nil {
+		m.LastReviewDate = r.LastReviewDate
+	}
 	if r.LastReviewDate != nil && (r.LastReviewDate.Id != nil || r.LastReviewDate.Extension != nil) {
 		m.LastReviewDatePrimitiveElement = &primitiveElement{Id: r.LastReviewDate.Id, Extension: r.LastReviewDate.Extension}
 	}
@@ -261,17 +289,26 @@ func (r *RiskEvidenceSynthesis) UnmarshalJSON(b []byte) error {
 func (r *RiskEvidenceSynthesis) unmarshalJSON(m jsonRiskEvidenceSynthesis) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -284,22 +321,34 @@ func (r *RiskEvidenceSynthesis) unmarshalJSON(m jsonRiskEvidenceSynthesis) error
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -310,17 +359,26 @@ func (r *RiskEvidenceSynthesis) unmarshalJSON(m jsonRiskEvidenceSynthesis) error
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -329,16 +387,25 @@ func (r *RiskEvidenceSynthesis) unmarshalJSON(m jsonRiskEvidenceSynthesis) error
 	r.Jurisdiction = m.Jurisdiction
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
 	r.ApprovalDate = m.ApprovalDate
 	if m.ApprovalDatePrimitiveElement != nil {
+		if r.ApprovalDate == nil {
+			r.ApprovalDate = &Date{}
+		}
 		r.ApprovalDate.Id = m.ApprovalDatePrimitiveElement.Id
 		r.ApprovalDate.Extension = m.ApprovalDatePrimitiveElement.Extension
 	}
 	r.LastReviewDate = m.LastReviewDate
 	if m.LastReviewDatePrimitiveElement != nil {
+		if r.LastReviewDate == nil {
+			r.LastReviewDate = &Date{}
+		}
 		r.LastReviewDate.Id = m.LastReviewDatePrimitiveElement.Id
 		r.LastReviewDate.Extension = m.LastReviewDatePrimitiveElement.Extension
 	}
@@ -404,15 +471,21 @@ func (r RiskEvidenceSynthesisSampleSize) marshalJSON() jsonRiskEvidenceSynthesis
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.NumberOfStudies = r.NumberOfStudies
+	if r.NumberOfStudies != nil && r.NumberOfStudies.Value != nil {
+		m.NumberOfStudies = r.NumberOfStudies
+	}
 	if r.NumberOfStudies != nil && (r.NumberOfStudies.Id != nil || r.NumberOfStudies.Extension != nil) {
 		m.NumberOfStudiesPrimitiveElement = &primitiveElement{Id: r.NumberOfStudies.Id, Extension: r.NumberOfStudies.Extension}
 	}
-	m.NumberOfParticipants = r.NumberOfParticipants
+	if r.NumberOfParticipants != nil && r.NumberOfParticipants.Value != nil {
+		m.NumberOfParticipants = r.NumberOfParticipants
+	}
 	if r.NumberOfParticipants != nil && (r.NumberOfParticipants.Id != nil || r.NumberOfParticipants.Extension != nil) {
 		m.NumberOfParticipantsPrimitiveElement = &primitiveElement{Id: r.NumberOfParticipants.Id, Extension: r.NumberOfParticipants.Extension}
 	}
@@ -431,16 +504,25 @@ func (r *RiskEvidenceSynthesisSampleSize) unmarshalJSON(m jsonRiskEvidenceSynthe
 	r.ModifierExtension = m.ModifierExtension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.NumberOfStudies = m.NumberOfStudies
 	if m.NumberOfStudiesPrimitiveElement != nil {
+		if r.NumberOfStudies == nil {
+			r.NumberOfStudies = &Integer{}
+		}
 		r.NumberOfStudies.Id = m.NumberOfStudiesPrimitiveElement.Id
 		r.NumberOfStudies.Extension = m.NumberOfStudiesPrimitiveElement.Extension
 	}
 	r.NumberOfParticipants = m.NumberOfParticipants
 	if m.NumberOfParticipantsPrimitiveElement != nil {
+		if r.NumberOfParticipants == nil {
+			r.NumberOfParticipants = &Integer{}
+		}
 		r.NumberOfParticipants.Id = m.NumberOfParticipantsPrimitiveElement.Id
 		r.NumberOfParticipants.Extension = m.NumberOfParticipantsPrimitiveElement.Extension
 	}
@@ -504,21 +586,29 @@ func (r RiskEvidenceSynthesisRiskEstimate) marshalJSON() jsonRiskEvidenceSynthes
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.Type = r.Type
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
 	m.UnitOfMeasure = r.UnitOfMeasure
-	m.DenominatorCount = r.DenominatorCount
+	if r.DenominatorCount != nil && r.DenominatorCount.Value != nil {
+		m.DenominatorCount = r.DenominatorCount
+	}
 	if r.DenominatorCount != nil && (r.DenominatorCount.Id != nil || r.DenominatorCount.Extension != nil) {
 		m.DenominatorCountPrimitiveElement = &primitiveElement{Id: r.DenominatorCount.Id, Extension: r.DenominatorCount.Extension}
 	}
-	m.NumeratorCount = r.NumeratorCount
+	if r.NumeratorCount != nil && r.NumeratorCount.Value != nil {
+		m.NumeratorCount = r.NumeratorCount
+	}
 	if r.NumeratorCount != nil && (r.NumeratorCount.Id != nil || r.NumeratorCount.Extension != nil) {
 		m.NumeratorCountPrimitiveElement = &primitiveElement{Id: r.NumeratorCount.Id, Extension: r.NumeratorCount.Extension}
 	}
@@ -538,23 +628,35 @@ func (r *RiskEvidenceSynthesisRiskEstimate) unmarshalJSON(m jsonRiskEvidenceSynt
 	r.ModifierExtension = m.ModifierExtension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &Decimal{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
 	r.UnitOfMeasure = m.UnitOfMeasure
 	r.DenominatorCount = m.DenominatorCount
 	if m.DenominatorCountPrimitiveElement != nil {
+		if r.DenominatorCount == nil {
+			r.DenominatorCount = &Integer{}
+		}
 		r.DenominatorCount.Id = m.DenominatorCountPrimitiveElement.Id
 		r.DenominatorCount.Extension = m.DenominatorCountPrimitiveElement.Extension
 	}
 	r.NumeratorCount = m.NumeratorCount
 	if m.NumeratorCountPrimitiveElement != nil {
+		if r.NumeratorCount == nil {
+			r.NumeratorCount = &Integer{}
+		}
 		r.NumeratorCount.Id = m.NumeratorCountPrimitiveElement.Id
 		r.NumeratorCount.Extension = m.NumeratorCountPrimitiveElement.Extension
 	}
@@ -610,15 +712,21 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) marshalJSON() jsonRi
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Level = r.Level
+	if r.Level != nil && r.Level.Value != nil {
+		m.Level = r.Level
+	}
 	if r.Level != nil && (r.Level.Id != nil || r.Level.Extension != nil) {
 		m.LevelPrimitiveElement = &primitiveElement{Id: r.Level.Id, Extension: r.Level.Extension}
 	}
-	m.From = r.From
+	if r.From != nil && r.From.Value != nil {
+		m.From = r.From
+	}
 	if r.From != nil && (r.From.Id != nil || r.From.Extension != nil) {
 		m.FromPrimitiveElement = &primitiveElement{Id: r.From.Id, Extension: r.From.Extension}
 	}
-	m.To = r.To
+	if r.To != nil && r.To.Value != nil {
+		m.To = r.To
+	}
 	if r.To != nil && (r.To.Id != nil || r.To.Extension != nil) {
 		m.ToPrimitiveElement = &primitiveElement{Id: r.To.Id, Extension: r.To.Extension}
 	}
@@ -638,16 +746,25 @@ func (r *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) unmarshalJSON(m jso
 	r.Type = m.Type
 	r.Level = m.Level
 	if m.LevelPrimitiveElement != nil {
+		if r.Level == nil {
+			r.Level = &Decimal{}
+		}
 		r.Level.Id = m.LevelPrimitiveElement.Id
 		r.Level.Extension = m.LevelPrimitiveElement.Extension
 	}
 	r.From = m.From
 	if m.FromPrimitiveElement != nil {
+		if r.From == nil {
+			r.From = &Decimal{}
+		}
 		r.From.Id = m.FromPrimitiveElement.Id
 		r.From.Extension = m.FromPrimitiveElement.Extension
 	}
 	r.To = m.To
 	if m.ToPrimitiveElement != nil {
+		if r.To == nil {
+			r.To = &Decimal{}
+		}
 		r.To.Id = m.ToPrimitiveElement.Id
 		r.To.Extension = m.ToPrimitiveElement.Extension
 	}

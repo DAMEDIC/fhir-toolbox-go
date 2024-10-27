@@ -122,16 +122,22 @@ func (r RequestGroup) MarshalJSON() ([]byte, error) {
 func (r RequestGroup) marshalJSON() jsonRequestGroup {
 	m := jsonRequestGroup{}
 	m.ResourceType = "RequestGroup"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -143,7 +149,16 @@ func (r RequestGroup) marshalJSON() jsonRequestGroup {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -161,7 +176,16 @@ func (r RequestGroup) marshalJSON() jsonRequestGroup {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -182,22 +206,30 @@ func (r RequestGroup) marshalJSON() jsonRequestGroup {
 	m.BasedOn = r.BasedOn
 	m.Replaces = r.Replaces
 	m.GroupIdentifier = r.GroupIdentifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Intent = r.Intent
+	if r.Intent.Value != nil {
+		m.Intent = r.Intent
+	}
 	if r.Intent.Id != nil || r.Intent.Extension != nil {
 		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
 	}
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
 	m.Code = r.Code
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
-	m.AuthoredOn = r.AuthoredOn
+	if r.AuthoredOn != nil && r.AuthoredOn.Value != nil {
+		m.AuthoredOn = r.AuthoredOn
+	}
 	if r.AuthoredOn != nil && (r.AuthoredOn.Id != nil || r.AuthoredOn.Extension != nil) {
 		m.AuthoredOnPrimitiveElement = &primitiveElement{Id: r.AuthoredOn.Id, Extension: r.AuthoredOn.Extension}
 	}
@@ -218,17 +250,26 @@ func (r *RequestGroup) UnmarshalJSON(b []byte) error {
 func (r *RequestGroup) unmarshalJSON(m jsonRequestGroup) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -242,20 +283,22 @@ func (r *RequestGroup) unmarshalJSON(m jsonRequestGroup) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.BasedOn = m.BasedOn
@@ -273,6 +316,9 @@ func (r *RequestGroup) unmarshalJSON(m jsonRequestGroup) error {
 	}
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &Code{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
@@ -281,6 +327,9 @@ func (r *RequestGroup) unmarshalJSON(m jsonRequestGroup) error {
 	r.Encounter = m.Encounter
 	r.AuthoredOn = m.AuthoredOn
 	if m.AuthoredOnPrimitiveElement != nil {
+		if r.AuthoredOn == nil {
+			r.AuthoredOn = &DateTime{}
+		}
 		r.AuthoredOn.Id = m.AuthoredOnPrimitiveElement.Id
 		r.AuthoredOn.Extension = m.AuthoredOnPrimitiveElement.Extension
 	}
@@ -408,23 +457,33 @@ func (r RequestGroupAction) marshalJSON() jsonRequestGroupAction {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Prefix = r.Prefix
+	if r.Prefix != nil && r.Prefix.Value != nil {
+		m.Prefix = r.Prefix
+	}
 	if r.Prefix != nil && (r.Prefix.Id != nil || r.Prefix.Extension != nil) {
 		m.PrefixPrimitiveElement = &primitiveElement{Id: r.Prefix.Id, Extension: r.Prefix.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.TextEquivalent = r.TextEquivalent
+	if r.TextEquivalent != nil && r.TextEquivalent.Value != nil {
+		m.TextEquivalent = r.TextEquivalent
+	}
 	if r.TextEquivalent != nil && (r.TextEquivalent.Id != nil || r.TextEquivalent.Extension != nil) {
 		m.TextEquivalentPrimitiveElement = &primitiveElement{Id: r.TextEquivalent.Id, Extension: r.TextEquivalent.Extension}
 	}
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
@@ -434,12 +493,16 @@ func (r RequestGroupAction) marshalJSON() jsonRequestGroupAction {
 	m.RelatedAction = r.RelatedAction
 	switch v := r.Timing.(type) {
 	case DateTime:
-		m.TimingDateTime = &v
+		if v.Value != nil {
+			m.TimingDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimingDateTime = v
+		if v.Value != nil {
+			m.TimingDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -466,23 +529,33 @@ func (r RequestGroupAction) marshalJSON() jsonRequestGroupAction {
 	}
 	m.Participant = r.Participant
 	m.Type = r.Type
-	m.GroupingBehavior = r.GroupingBehavior
+	if r.GroupingBehavior != nil && r.GroupingBehavior.Value != nil {
+		m.GroupingBehavior = r.GroupingBehavior
+	}
 	if r.GroupingBehavior != nil && (r.GroupingBehavior.Id != nil || r.GroupingBehavior.Extension != nil) {
 		m.GroupingBehaviorPrimitiveElement = &primitiveElement{Id: r.GroupingBehavior.Id, Extension: r.GroupingBehavior.Extension}
 	}
-	m.SelectionBehavior = r.SelectionBehavior
+	if r.SelectionBehavior != nil && r.SelectionBehavior.Value != nil {
+		m.SelectionBehavior = r.SelectionBehavior
+	}
 	if r.SelectionBehavior != nil && (r.SelectionBehavior.Id != nil || r.SelectionBehavior.Extension != nil) {
 		m.SelectionBehaviorPrimitiveElement = &primitiveElement{Id: r.SelectionBehavior.Id, Extension: r.SelectionBehavior.Extension}
 	}
-	m.RequiredBehavior = r.RequiredBehavior
+	if r.RequiredBehavior != nil && r.RequiredBehavior.Value != nil {
+		m.RequiredBehavior = r.RequiredBehavior
+	}
 	if r.RequiredBehavior != nil && (r.RequiredBehavior.Id != nil || r.RequiredBehavior.Extension != nil) {
 		m.RequiredBehaviorPrimitiveElement = &primitiveElement{Id: r.RequiredBehavior.Id, Extension: r.RequiredBehavior.Extension}
 	}
-	m.PrecheckBehavior = r.PrecheckBehavior
+	if r.PrecheckBehavior != nil && r.PrecheckBehavior.Value != nil {
+		m.PrecheckBehavior = r.PrecheckBehavior
+	}
 	if r.PrecheckBehavior != nil && (r.PrecheckBehavior.Id != nil || r.PrecheckBehavior.Extension != nil) {
 		m.PrecheckBehaviorPrimitiveElement = &primitiveElement{Id: r.PrecheckBehavior.Id, Extension: r.PrecheckBehavior.Extension}
 	}
-	m.CardinalityBehavior = r.CardinalityBehavior
+	if r.CardinalityBehavior != nil && r.CardinalityBehavior.Value != nil {
+		m.CardinalityBehavior = r.CardinalityBehavior
+	}
 	if r.CardinalityBehavior != nil && (r.CardinalityBehavior.Id != nil || r.CardinalityBehavior.Extension != nil) {
 		m.CardinalityBehaviorPrimitiveElement = &primitiveElement{Id: r.CardinalityBehavior.Id, Extension: r.CardinalityBehavior.Extension}
 	}
@@ -503,26 +576,41 @@ func (r *RequestGroupAction) unmarshalJSON(m jsonRequestGroupAction) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Prefix = m.Prefix
 	if m.PrefixPrimitiveElement != nil {
+		if r.Prefix == nil {
+			r.Prefix = &String{}
+		}
 		r.Prefix.Id = m.PrefixPrimitiveElement.Id
 		r.Prefix.Extension = m.PrefixPrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.TextEquivalent = m.TextEquivalent
 	if m.TextEquivalentPrimitiveElement != nil {
+		if r.TextEquivalent == nil {
+			r.TextEquivalent = &String{}
+		}
 		r.TextEquivalent.Id = m.TextEquivalentPrimitiveElement.Id
 		r.TextEquivalent.Extension = m.TextEquivalentPrimitiveElement.Extension
 	}
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &Code{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
@@ -583,26 +671,41 @@ func (r *RequestGroupAction) unmarshalJSON(m jsonRequestGroupAction) error {
 	r.Type = m.Type
 	r.GroupingBehavior = m.GroupingBehavior
 	if m.GroupingBehaviorPrimitiveElement != nil {
+		if r.GroupingBehavior == nil {
+			r.GroupingBehavior = &Code{}
+		}
 		r.GroupingBehavior.Id = m.GroupingBehaviorPrimitiveElement.Id
 		r.GroupingBehavior.Extension = m.GroupingBehaviorPrimitiveElement.Extension
 	}
 	r.SelectionBehavior = m.SelectionBehavior
 	if m.SelectionBehaviorPrimitiveElement != nil {
+		if r.SelectionBehavior == nil {
+			r.SelectionBehavior = &Code{}
+		}
 		r.SelectionBehavior.Id = m.SelectionBehaviorPrimitiveElement.Id
 		r.SelectionBehavior.Extension = m.SelectionBehaviorPrimitiveElement.Extension
 	}
 	r.RequiredBehavior = m.RequiredBehavior
 	if m.RequiredBehaviorPrimitiveElement != nil {
+		if r.RequiredBehavior == nil {
+			r.RequiredBehavior = &Code{}
+		}
 		r.RequiredBehavior.Id = m.RequiredBehaviorPrimitiveElement.Id
 		r.RequiredBehavior.Extension = m.RequiredBehaviorPrimitiveElement.Extension
 	}
 	r.PrecheckBehavior = m.PrecheckBehavior
 	if m.PrecheckBehaviorPrimitiveElement != nil {
+		if r.PrecheckBehavior == nil {
+			r.PrecheckBehavior = &Code{}
+		}
 		r.PrecheckBehavior.Id = m.PrecheckBehaviorPrimitiveElement.Id
 		r.PrecheckBehavior.Extension = m.PrecheckBehaviorPrimitiveElement.Extension
 	}
 	r.CardinalityBehavior = m.CardinalityBehavior
 	if m.CardinalityBehaviorPrimitiveElement != nil {
+		if r.CardinalityBehavior == nil {
+			r.CardinalityBehavior = &Code{}
+		}
 		r.CardinalityBehavior.Id = m.CardinalityBehaviorPrimitiveElement.Id
 		r.CardinalityBehavior.Extension = m.CardinalityBehaviorPrimitiveElement.Extension
 	}
@@ -650,7 +753,9 @@ func (r RequestGroupActionCondition) marshalJSON() jsonRequestGroupActionConditi
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Kind = r.Kind
+	if r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind.Id != nil || r.Kind.Extension != nil {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
@@ -728,11 +833,15 @@ func (r RequestGroupActionRelatedAction) marshalJSON() jsonRequestGroupActionRel
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ActionId = r.ActionId
+	if r.ActionId.Value != nil {
+		m.ActionId = r.ActionId
+	}
 	if r.ActionId.Id != nil || r.ActionId.Extension != nil {
 		m.ActionIdPrimitiveElement = &primitiveElement{Id: r.ActionId.Id, Extension: r.ActionId.Extension}
 	}
-	m.Relationship = r.Relationship
+	if r.Relationship.Value != nil {
+		m.Relationship = r.Relationship
+	}
 	if r.Relationship.Id != nil || r.Relationship.Extension != nil {
 		m.RelationshipPrimitiveElement = &primitiveElement{Id: r.Relationship.Id, Extension: r.Relationship.Extension}
 	}

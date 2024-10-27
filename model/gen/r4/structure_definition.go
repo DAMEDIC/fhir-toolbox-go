@@ -160,16 +160,22 @@ func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 func (r StructureDefinition) marshalJSON() jsonStructureDefinition {
 	m := jsonStructureDefinition{}
 	m.ResourceType = "StructureDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -180,70 +186,107 @@ func (r StructureDefinition) marshalJSON() jsonStructureDefinition {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
 	m.Keyword = r.Keyword
-	m.FhirVersion = r.FhirVersion
+	if r.FhirVersion != nil && r.FhirVersion.Value != nil {
+		m.FhirVersion = r.FhirVersion
+	}
 	if r.FhirVersion != nil && (r.FhirVersion.Id != nil || r.FhirVersion.Extension != nil) {
 		m.FhirVersionPrimitiveElement = &primitiveElement{Id: r.FhirVersion.Id, Extension: r.FhirVersion.Extension}
 	}
 	m.Mapping = r.Mapping
-	m.Kind = r.Kind
+	if r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind.Id != nil || r.Kind.Extension != nil {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
-	m.Abstract = r.Abstract
+	if r.Abstract.Value != nil {
+		m.Abstract = r.Abstract
+	}
 	if r.Abstract.Id != nil || r.Abstract.Extension != nil {
 		m.AbstractPrimitiveElement = &primitiveElement{Id: r.Abstract.Id, Extension: r.Abstract.Extension}
 	}
 	m.Context = r.Context
-	m.ContextInvariant = r.ContextInvariant
+	anyContextInvariantValue := false
+	for _, e := range r.ContextInvariant {
+		if e.Value != nil {
+			anyContextInvariantValue = true
+			break
+		}
+	}
+	if anyContextInvariantValue {
+		m.ContextInvariant = r.ContextInvariant
+	}
 	anyContextInvariantIdOrExtension := false
 	for _, e := range r.ContextInvariant {
 		if e.Id != nil || e.Extension != nil {
@@ -261,15 +304,21 @@ func (r StructureDefinition) marshalJSON() jsonStructureDefinition {
 			}
 		}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.BaseDefinition = r.BaseDefinition
+	if r.BaseDefinition != nil && r.BaseDefinition.Value != nil {
+		m.BaseDefinition = r.BaseDefinition
+	}
 	if r.BaseDefinition != nil && (r.BaseDefinition.Id != nil || r.BaseDefinition.Extension != nil) {
 		m.BaseDefinitionPrimitiveElement = &primitiveElement{Id: r.BaseDefinition.Id, Extension: r.BaseDefinition.Extension}
 	}
-	m.Derivation = r.Derivation
+	if r.Derivation != nil && r.Derivation.Value != nil {
+		m.Derivation = r.Derivation
+	}
 	if r.Derivation != nil && (r.Derivation.Id != nil || r.Derivation.Extension != nil) {
 		m.DerivationPrimitiveElement = &primitiveElement{Id: r.Derivation.Id, Extension: r.Derivation.Extension}
 	}
@@ -287,17 +336,26 @@ func (r *StructureDefinition) UnmarshalJSON(b []byte) error {
 func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -316,6 +374,9 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -326,6 +387,9 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -336,22 +400,34 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -359,17 +435,26 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
 	r.Keyword = m.Keyword
 	r.FhirVersion = m.FhirVersion
 	if m.FhirVersionPrimitiveElement != nil {
+		if r.FhirVersion == nil {
+			r.FhirVersion = &Code{}
+		}
 		r.FhirVersion.Id = m.FhirVersionPrimitiveElement.Id
 		r.FhirVersion.Extension = m.FhirVersionPrimitiveElement.Extension
 	}
@@ -387,11 +472,12 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	r.Context = m.Context
 	r.ContextInvariant = m.ContextInvariant
 	for i, e := range m.ContextInvariantPrimitiveElement {
-		if len(r.ContextInvariant) > i {
+		if len(r.ContextInvariant) <= i {
+			r.ContextInvariant = append(r.ContextInvariant, String{})
+		}
+		if e != nil {
 			r.ContextInvariant[i].Id = e.Id
 			r.ContextInvariant[i].Extension = e.Extension
-		} else {
-			r.ContextInvariant = append(r.ContextInvariant, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Type = m.Type
@@ -401,11 +487,17 @@ func (r *StructureDefinition) unmarshalJSON(m jsonStructureDefinition) error {
 	}
 	r.BaseDefinition = m.BaseDefinition
 	if m.BaseDefinitionPrimitiveElement != nil {
+		if r.BaseDefinition == nil {
+			r.BaseDefinition = &Canonical{}
+		}
 		r.BaseDefinition.Id = m.BaseDefinitionPrimitiveElement.Id
 		r.BaseDefinition.Extension = m.BaseDefinitionPrimitiveElement.Extension
 	}
 	r.Derivation = m.Derivation
 	if m.DerivationPrimitiveElement != nil {
+		if r.Derivation == nil {
+			r.Derivation = &Code{}
+		}
 		r.Derivation.Id = m.DerivationPrimitiveElement.Id
 		r.Derivation.Extension = m.DerivationPrimitiveElement.Extension
 	}
@@ -462,19 +554,27 @@ func (r StructureDefinitionMapping) marshalJSON() jsonStructureDefinitionMapping
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Identity = r.Identity
+	if r.Identity.Value != nil {
+		m.Identity = r.Identity
+	}
 	if r.Identity.Id != nil || r.Identity.Extension != nil {
 		m.IdentityPrimitiveElement = &primitiveElement{Id: r.Identity.Id, Extension: r.Identity.Extension}
 	}
-	m.Uri = r.Uri
+	if r.Uri != nil && r.Uri.Value != nil {
+		m.Uri = r.Uri
+	}
 	if r.Uri != nil && (r.Uri.Id != nil || r.Uri.Extension != nil) {
 		m.UriPrimitiveElement = &primitiveElement{Id: r.Uri.Id, Extension: r.Uri.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -498,16 +598,25 @@ func (r *StructureDefinitionMapping) unmarshalJSON(m jsonStructureDefinitionMapp
 	}
 	r.Uri = m.Uri
 	if m.UriPrimitiveElement != nil {
+		if r.Uri == nil {
+			r.Uri = &Uri{}
+		}
 		r.Uri.Id = m.UriPrimitiveElement.Id
 		r.Uri.Extension = m.UriPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -554,11 +663,15 @@ func (r StructureDefinitionContext) marshalJSON() jsonStructureDefinitionContext
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Expression = r.Expression
+	if r.Expression.Value != nil {
+		m.Expression = r.Expression
+	}
 	if r.Expression.Id != nil || r.Expression.Extension != nil {
 		m.ExpressionPrimitiveElement = &primitiveElement{Id: r.Expression.Id, Extension: r.Expression.Extension}
 	}

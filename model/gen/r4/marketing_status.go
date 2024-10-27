@@ -47,7 +47,9 @@ func (r MarketingStatus) marshalJSON() jsonMarketingStatus {
 	m.Jurisdiction = r.Jurisdiction
 	m.Status = r.Status
 	m.DateRange = r.DateRange
-	m.RestoreDate = r.RestoreDate
+	if r.RestoreDate != nil && r.RestoreDate.Value != nil {
+		m.RestoreDate = r.RestoreDate
+	}
 	if r.RestoreDate != nil && (r.RestoreDate.Id != nil || r.RestoreDate.Extension != nil) {
 		m.RestoreDatePrimitiveElement = &primitiveElement{Id: r.RestoreDate.Id, Extension: r.RestoreDate.Extension}
 	}
@@ -70,6 +72,9 @@ func (r *MarketingStatus) unmarshalJSON(m jsonMarketingStatus) error {
 	r.DateRange = m.DateRange
 	r.RestoreDate = m.RestoreDate
 	if m.RestoreDatePrimitiveElement != nil {
+		if r.RestoreDate == nil {
+			r.RestoreDate = &DateTime{}
+		}
 		r.RestoreDate.Id = m.RestoreDatePrimitiveElement.Id
 		r.RestoreDate.Extension = m.RestoreDatePrimitiveElement.Extension
 	}

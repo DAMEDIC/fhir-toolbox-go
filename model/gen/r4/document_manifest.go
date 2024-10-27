@@ -101,16 +101,22 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 func (r DocumentManifest) marshalJSON() jsonDocumentManifest {
 	m := jsonDocumentManifest{}
 	m.ResourceType = "DocumentManifest"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -123,23 +129,31 @@ func (r DocumentManifest) marshalJSON() jsonDocumentManifest {
 	m.ModifierExtension = r.ModifierExtension
 	m.MasterIdentifier = r.MasterIdentifier
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
 	m.Subject = r.Subject
-	m.Created = r.Created
+	if r.Created != nil && r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created != nil && (r.Created.Id != nil || r.Created.Extension != nil) {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
 	m.Author = r.Author
 	m.Recipient = r.Recipient
-	m.Source = r.Source
+	if r.Source != nil && r.Source.Value != nil {
+		m.Source = r.Source
+	}
 	if r.Source != nil && (r.Source.Id != nil || r.Source.Extension != nil) {
 		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -157,17 +171,26 @@ func (r *DocumentManifest) UnmarshalJSON(b []byte) error {
 func (r *DocumentManifest) unmarshalJSON(m jsonDocumentManifest) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -189,6 +212,9 @@ func (r *DocumentManifest) unmarshalJSON(m jsonDocumentManifest) error {
 	r.Subject = m.Subject
 	r.Created = m.Created
 	if m.CreatedPrimitiveElement != nil {
+		if r.Created == nil {
+			r.Created = &DateTime{}
+		}
 		r.Created.Id = m.CreatedPrimitiveElement.Id
 		r.Created.Extension = m.CreatedPrimitiveElement.Extension
 	}
@@ -196,11 +222,17 @@ func (r *DocumentManifest) unmarshalJSON(m jsonDocumentManifest) error {
 	r.Recipient = m.Recipient
 	r.Source = m.Source
 	if m.SourcePrimitiveElement != nil {
+		if r.Source == nil {
+			r.Source = &Uri{}
+		}
 		r.Source.Id = m.SourcePrimitiveElement.Id
 		r.Source.Extension = m.SourcePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

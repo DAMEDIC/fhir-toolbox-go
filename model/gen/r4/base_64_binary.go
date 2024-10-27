@@ -11,11 +11,6 @@ type Base64Binary struct {
 	// The actual value
 	Value *string
 }
-type jsonBase64Binary struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Base64Binary) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

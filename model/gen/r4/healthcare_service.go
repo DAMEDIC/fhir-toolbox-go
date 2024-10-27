@@ -139,16 +139,22 @@ func (r HealthcareService) MarshalJSON() ([]byte, error) {
 func (r HealthcareService) marshalJSON() jsonHealthcareService {
 	m := jsonHealthcareService{}
 	m.ResourceType = "HealthcareService"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -160,7 +166,9 @@ func (r HealthcareService) marshalJSON() jsonHealthcareService {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Active = r.Active
+	if r.Active != nil && r.Active.Value != nil {
+		m.Active = r.Active
+	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
 		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
 	}
@@ -169,15 +177,21 @@ func (r HealthcareService) marshalJSON() jsonHealthcareService {
 	m.Type = r.Type
 	m.Specialty = r.Specialty
 	m.Location = r.Location
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
-	m.ExtraDetails = r.ExtraDetails
+	if r.ExtraDetails != nil && r.ExtraDetails.Value != nil {
+		m.ExtraDetails = r.ExtraDetails
+	}
 	if r.ExtraDetails != nil && (r.ExtraDetails.Id != nil || r.ExtraDetails.Extension != nil) {
 		m.ExtraDetailsPrimitiveElement = &primitiveElement{Id: r.ExtraDetails.Id, Extension: r.ExtraDetails.Extension}
 	}
@@ -190,13 +204,17 @@ func (r HealthcareService) marshalJSON() jsonHealthcareService {
 	m.Characteristic = r.Characteristic
 	m.Communication = r.Communication
 	m.ReferralMethod = r.ReferralMethod
-	m.AppointmentRequired = r.AppointmentRequired
+	if r.AppointmentRequired != nil && r.AppointmentRequired.Value != nil {
+		m.AppointmentRequired = r.AppointmentRequired
+	}
 	if r.AppointmentRequired != nil && (r.AppointmentRequired.Id != nil || r.AppointmentRequired.Extension != nil) {
 		m.AppointmentRequiredPrimitiveElement = &primitiveElement{Id: r.AppointmentRequired.Id, Extension: r.AppointmentRequired.Extension}
 	}
 	m.AvailableTime = r.AvailableTime
 	m.NotAvailable = r.NotAvailable
-	m.AvailabilityExceptions = r.AvailabilityExceptions
+	if r.AvailabilityExceptions != nil && r.AvailabilityExceptions.Value != nil {
+		m.AvailabilityExceptions = r.AvailabilityExceptions
+	}
 	if r.AvailabilityExceptions != nil && (r.AvailabilityExceptions.Id != nil || r.AvailabilityExceptions.Extension != nil) {
 		m.AvailabilityExceptionsPrimitiveElement = &primitiveElement{Id: r.AvailabilityExceptions.Id, Extension: r.AvailabilityExceptions.Extension}
 	}
@@ -213,17 +231,26 @@ func (r *HealthcareService) UnmarshalJSON(b []byte) error {
 func (r *HealthcareService) unmarshalJSON(m jsonHealthcareService) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -237,6 +264,9 @@ func (r *HealthcareService) unmarshalJSON(m jsonHealthcareService) error {
 	r.Identifier = m.Identifier
 	r.Active = m.Active
 	if m.ActivePrimitiveElement != nil {
+		if r.Active == nil {
+			r.Active = &Boolean{}
+		}
 		r.Active.Id = m.ActivePrimitiveElement.Id
 		r.Active.Extension = m.ActivePrimitiveElement.Extension
 	}
@@ -247,16 +277,25 @@ func (r *HealthcareService) unmarshalJSON(m jsonHealthcareService) error {
 	r.Location = m.Location
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
 	r.ExtraDetails = m.ExtraDetails
 	if m.ExtraDetailsPrimitiveElement != nil {
+		if r.ExtraDetails == nil {
+			r.ExtraDetails = &Markdown{}
+		}
 		r.ExtraDetails.Id = m.ExtraDetailsPrimitiveElement.Id
 		r.ExtraDetails.Extension = m.ExtraDetailsPrimitiveElement.Extension
 	}
@@ -271,6 +310,9 @@ func (r *HealthcareService) unmarshalJSON(m jsonHealthcareService) error {
 	r.ReferralMethod = m.ReferralMethod
 	r.AppointmentRequired = m.AppointmentRequired
 	if m.AppointmentRequiredPrimitiveElement != nil {
+		if r.AppointmentRequired == nil {
+			r.AppointmentRequired = &Boolean{}
+		}
 		r.AppointmentRequired.Id = m.AppointmentRequiredPrimitiveElement.Id
 		r.AppointmentRequired.Extension = m.AppointmentRequiredPrimitiveElement.Extension
 	}
@@ -278,6 +320,9 @@ func (r *HealthcareService) unmarshalJSON(m jsonHealthcareService) error {
 	r.NotAvailable = m.NotAvailable
 	r.AvailabilityExceptions = m.AvailabilityExceptions
 	if m.AvailabilityExceptionsPrimitiveElement != nil {
+		if r.AvailabilityExceptions == nil {
+			r.AvailabilityExceptions = &String{}
+		}
 		r.AvailabilityExceptions.Id = m.AvailabilityExceptionsPrimitiveElement.Id
 		r.AvailabilityExceptions.Extension = m.AvailabilityExceptionsPrimitiveElement.Extension
 	}
@@ -325,7 +370,9 @@ func (r HealthcareServiceEligibility) marshalJSON() jsonHealthcareServiceEligibi
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -345,6 +392,9 @@ func (r *HealthcareServiceEligibility) unmarshalJSON(m jsonHealthcareServiceElig
 	r.Code = m.Code
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &Markdown{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -399,7 +449,16 @@ func (r HealthcareServiceAvailableTime) marshalJSON() jsonHealthcareServiceAvail
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.DaysOfWeek = r.DaysOfWeek
+	anyDaysOfWeekValue := false
+	for _, e := range r.DaysOfWeek {
+		if e.Value != nil {
+			anyDaysOfWeekValue = true
+			break
+		}
+	}
+	if anyDaysOfWeekValue {
+		m.DaysOfWeek = r.DaysOfWeek
+	}
 	anyDaysOfWeekIdOrExtension := false
 	for _, e := range r.DaysOfWeek {
 		if e.Id != nil || e.Extension != nil {
@@ -417,15 +476,21 @@ func (r HealthcareServiceAvailableTime) marshalJSON() jsonHealthcareServiceAvail
 			}
 		}
 	}
-	m.AllDay = r.AllDay
+	if r.AllDay != nil && r.AllDay.Value != nil {
+		m.AllDay = r.AllDay
+	}
 	if r.AllDay != nil && (r.AllDay.Id != nil || r.AllDay.Extension != nil) {
 		m.AllDayPrimitiveElement = &primitiveElement{Id: r.AllDay.Id, Extension: r.AllDay.Extension}
 	}
-	m.AvailableStartTime = r.AvailableStartTime
+	if r.AvailableStartTime != nil && r.AvailableStartTime.Value != nil {
+		m.AvailableStartTime = r.AvailableStartTime
+	}
 	if r.AvailableStartTime != nil && (r.AvailableStartTime.Id != nil || r.AvailableStartTime.Extension != nil) {
 		m.AvailableStartTimePrimitiveElement = &primitiveElement{Id: r.AvailableStartTime.Id, Extension: r.AvailableStartTime.Extension}
 	}
-	m.AvailableEndTime = r.AvailableEndTime
+	if r.AvailableEndTime != nil && r.AvailableEndTime.Value != nil {
+		m.AvailableEndTime = r.AvailableEndTime
+	}
 	if r.AvailableEndTime != nil && (r.AvailableEndTime.Id != nil || r.AvailableEndTime.Extension != nil) {
 		m.AvailableEndTimePrimitiveElement = &primitiveElement{Id: r.AvailableEndTime.Id, Extension: r.AvailableEndTime.Extension}
 	}
@@ -444,25 +509,35 @@ func (r *HealthcareServiceAvailableTime) unmarshalJSON(m jsonHealthcareServiceAv
 	r.ModifierExtension = m.ModifierExtension
 	r.DaysOfWeek = m.DaysOfWeek
 	for i, e := range m.DaysOfWeekPrimitiveElement {
-		if len(r.DaysOfWeek) > i {
+		if len(r.DaysOfWeek) <= i {
+			r.DaysOfWeek = append(r.DaysOfWeek, Code{})
+		}
+		if e != nil {
 			r.DaysOfWeek[i].Id = e.Id
 			r.DaysOfWeek[i].Extension = e.Extension
-		} else {
-			r.DaysOfWeek = append(r.DaysOfWeek, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.AllDay = m.AllDay
 	if m.AllDayPrimitiveElement != nil {
+		if r.AllDay == nil {
+			r.AllDay = &Boolean{}
+		}
 		r.AllDay.Id = m.AllDayPrimitiveElement.Id
 		r.AllDay.Extension = m.AllDayPrimitiveElement.Extension
 	}
 	r.AvailableStartTime = m.AvailableStartTime
 	if m.AvailableStartTimePrimitiveElement != nil {
+		if r.AvailableStartTime == nil {
+			r.AvailableStartTime = &Time{}
+		}
 		r.AvailableStartTime.Id = m.AvailableStartTimePrimitiveElement.Id
 		r.AvailableStartTime.Extension = m.AvailableStartTimePrimitiveElement.Extension
 	}
 	r.AvailableEndTime = m.AvailableEndTime
 	if m.AvailableEndTimePrimitiveElement != nil {
+		if r.AvailableEndTime == nil {
+			r.AvailableEndTime = &Time{}
+		}
 		r.AvailableEndTime.Id = m.AvailableEndTimePrimitiveElement.Id
 		r.AvailableEndTime.Extension = m.AvailableEndTimePrimitiveElement.Extension
 	}
@@ -508,7 +583,9 @@ func (r HealthcareServiceNotAvailable) marshalJSON() jsonHealthcareServiceNotAva
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description.Id != nil || r.Description.Extension != nil {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}

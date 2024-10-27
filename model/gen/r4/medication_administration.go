@@ -138,16 +138,22 @@ func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
 func (r MedicationAdministration) marshalJSON() jsonMedicationAdministration {
 	m := jsonMedicationAdministration{}
 	m.ResourceType = "MedicationAdministration"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -159,7 +165,16 @@ func (r MedicationAdministration) marshalJSON() jsonMedicationAdministration {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Instantiates = r.Instantiates
+	anyInstantiatesValue := false
+	for _, e := range r.Instantiates {
+		if e.Value != nil {
+			anyInstantiatesValue = true
+			break
+		}
+	}
+	if anyInstantiatesValue {
+		m.Instantiates = r.Instantiates
+	}
 	anyInstantiatesIdOrExtension := false
 	for _, e := range r.Instantiates {
 		if e.Id != nil || e.Extension != nil {
@@ -178,7 +193,9 @@ func (r MedicationAdministration) marshalJSON() jsonMedicationAdministration {
 		}
 	}
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -199,12 +216,16 @@ func (r MedicationAdministration) marshalJSON() jsonMedicationAdministration {
 	m.SupportingInformation = r.SupportingInformation
 	switch v := r.Effective.(type) {
 	case DateTime:
-		m.EffectiveDateTime = &v
+		if v.Value != nil {
+			m.EffectiveDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.EffectiveDateTime = v
+		if v.Value != nil {
+			m.EffectiveDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -233,17 +254,26 @@ func (r *MedicationAdministration) UnmarshalJSON(b []byte) error {
 func (r *MedicationAdministration) unmarshalJSON(m jsonMedicationAdministration) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -257,11 +287,12 @@ func (r *MedicationAdministration) unmarshalJSON(m jsonMedicationAdministration)
 	r.Identifier = m.Identifier
 	r.Instantiates = m.Instantiates
 	for i, e := range m.InstantiatesPrimitiveElement {
-		if len(r.Instantiates) > i {
+		if len(r.Instantiates) <= i {
+			r.Instantiates = append(r.Instantiates, Uri{})
+		}
+		if e != nil {
 			r.Instantiates[i].Id = e.Id
 			r.Instantiates[i].Extension = e.Extension
-		} else {
-			r.Instantiates = append(r.Instantiates, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.PartOf = m.PartOf
@@ -438,7 +469,9 @@ func (r MedicationAdministrationDosage) marshalJSON() jsonMedicationAdministrati
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -471,6 +504,9 @@ func (r *MedicationAdministrationDosage) unmarshalJSON(m jsonMedicationAdministr
 	r.ModifierExtension = m.ModifierExtension
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}

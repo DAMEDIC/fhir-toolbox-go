@@ -96,16 +96,22 @@ func (r Person) MarshalJSON() ([]byte, error) {
 func (r Person) marshalJSON() jsonPerson {
 	m := jsonPerson{}
 	m.ResourceType = "Person"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -119,18 +125,24 @@ func (r Person) marshalJSON() jsonPerson {
 	m.Identifier = r.Identifier
 	m.Name = r.Name
 	m.Telecom = r.Telecom
-	m.Gender = r.Gender
+	if r.Gender != nil && r.Gender.Value != nil {
+		m.Gender = r.Gender
+	}
 	if r.Gender != nil && (r.Gender.Id != nil || r.Gender.Extension != nil) {
 		m.GenderPrimitiveElement = &primitiveElement{Id: r.Gender.Id, Extension: r.Gender.Extension}
 	}
-	m.BirthDate = r.BirthDate
+	if r.BirthDate != nil && r.BirthDate.Value != nil {
+		m.BirthDate = r.BirthDate
+	}
 	if r.BirthDate != nil && (r.BirthDate.Id != nil || r.BirthDate.Extension != nil) {
 		m.BirthDatePrimitiveElement = &primitiveElement{Id: r.BirthDate.Id, Extension: r.BirthDate.Extension}
 	}
 	m.Address = r.Address
 	m.Photo = r.Photo
 	m.ManagingOrganization = r.ManagingOrganization
-	m.Active = r.Active
+	if r.Active != nil && r.Active.Value != nil {
+		m.Active = r.Active
+	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
 		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
 	}
@@ -147,17 +159,26 @@ func (r *Person) UnmarshalJSON(b []byte) error {
 func (r *Person) unmarshalJSON(m jsonPerson) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -173,11 +194,17 @@ func (r *Person) unmarshalJSON(m jsonPerson) error {
 	r.Telecom = m.Telecom
 	r.Gender = m.Gender
 	if m.GenderPrimitiveElement != nil {
+		if r.Gender == nil {
+			r.Gender = &Code{}
+		}
 		r.Gender.Id = m.GenderPrimitiveElement.Id
 		r.Gender.Extension = m.GenderPrimitiveElement.Extension
 	}
 	r.BirthDate = m.BirthDate
 	if m.BirthDatePrimitiveElement != nil {
+		if r.BirthDate == nil {
+			r.BirthDate = &Date{}
+		}
 		r.BirthDate.Id = m.BirthDatePrimitiveElement.Id
 		r.BirthDate.Extension = m.BirthDatePrimitiveElement.Extension
 	}
@@ -186,6 +213,9 @@ func (r *Person) unmarshalJSON(m jsonPerson) error {
 	r.ManagingOrganization = m.ManagingOrganization
 	r.Active = m.Active
 	if m.ActivePrimitiveElement != nil {
+		if r.Active == nil {
+			r.Active = &Boolean{}
+		}
 		r.Active.Id = m.ActivePrimitiveElement.Id
 		r.Active.Extension = m.ActivePrimitiveElement.Extension
 	}
@@ -233,7 +263,9 @@ func (r PersonLink) marshalJSON() jsonPersonLink {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Target = r.Target
-	m.Assurance = r.Assurance
+	if r.Assurance != nil && r.Assurance.Value != nil {
+		m.Assurance = r.Assurance
+	}
 	if r.Assurance != nil && (r.Assurance.Id != nil || r.Assurance.Extension != nil) {
 		m.AssurancePrimitiveElement = &primitiveElement{Id: r.Assurance.Id, Extension: r.Assurance.Extension}
 	}
@@ -253,6 +285,9 @@ func (r *PersonLink) unmarshalJSON(m jsonPersonLink) error {
 	r.Target = m.Target
 	r.Assurance = m.Assurance
 	if m.AssurancePrimitiveElement != nil {
+		if r.Assurance == nil {
+			r.Assurance = &Code{}
+		}
 		r.Assurance.Id = m.AssurancePrimitiveElement.Id
 		r.Assurance.Extension = m.AssurancePrimitiveElement.Extension
 	}

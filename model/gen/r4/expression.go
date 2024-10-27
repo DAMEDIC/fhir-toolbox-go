@@ -41,23 +41,33 @@ func (r Expression) marshalJSON() jsonExpression {
 	m := jsonExpression{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Language = r.Language
+	if r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language.Id != nil || r.Language.Extension != nil {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
-	m.Expression = r.Expression
+	if r.Expression != nil && r.Expression.Value != nil {
+		m.Expression = r.Expression
+	}
 	if r.Expression != nil && (r.Expression.Id != nil || r.Expression.Extension != nil) {
 		m.ExpressionPrimitiveElement = &primitiveElement{Id: r.Expression.Id, Extension: r.Expression.Extension}
 	}
-	m.Reference = r.Reference
+	if r.Reference != nil && r.Reference.Value != nil {
+		m.Reference = r.Reference
+	}
 	if r.Reference != nil && (r.Reference.Id != nil || r.Reference.Extension != nil) {
 		m.ReferencePrimitiveElement = &primitiveElement{Id: r.Reference.Id, Extension: r.Reference.Extension}
 	}
@@ -75,11 +85,17 @@ func (r *Expression) unmarshalJSON(m jsonExpression) error {
 	r.Extension = m.Extension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &Id{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -90,11 +106,17 @@ func (r *Expression) unmarshalJSON(m jsonExpression) error {
 	}
 	r.Expression = m.Expression
 	if m.ExpressionPrimitiveElement != nil {
+		if r.Expression == nil {
+			r.Expression = &String{}
+		}
 		r.Expression.Id = m.ExpressionPrimitiveElement.Id
 		r.Expression.Extension = m.ExpressionPrimitiveElement.Extension
 	}
 	r.Reference = m.Reference
 	if m.ReferencePrimitiveElement != nil {
+		if r.Reference == nil {
+			r.Reference = &Uri{}
+		}
 		r.Reference.Id = m.ReferencePrimitiveElement.Id
 		r.Reference.Extension = m.ReferencePrimitiveElement.Extension
 	}

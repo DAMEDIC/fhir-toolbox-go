@@ -9,10 +9,6 @@ type Xhtml struct {
 	// Actual xhtml
 	Value string
 }
-type jsonXhtml struct {
-	Id    *string `json:"id,omitempty"`
-	Value string  `json:"value,omitempty"`
-}
 
 func (r Xhtml) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

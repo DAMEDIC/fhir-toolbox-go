@@ -87,16 +87,22 @@ func (r Subscription) MarshalJSON() ([]byte, error) {
 func (r Subscription) marshalJSON() jsonSubscription {
 	m := jsonSubscription{}
 	m.ResourceType = "Subscription"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -107,24 +113,34 @@ func (r Subscription) marshalJSON() jsonSubscription {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Contact = r.Contact
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
-	m.Reason = r.Reason
+	if r.Reason.Value != nil {
+		m.Reason = r.Reason
+	}
 	if r.Reason.Id != nil || r.Reason.Extension != nil {
 		m.ReasonPrimitiveElement = &primitiveElement{Id: r.Reason.Id, Extension: r.Reason.Extension}
 	}
-	m.Criteria = r.Criteria
+	if r.Criteria.Value != nil {
+		m.Criteria = r.Criteria
+	}
 	if r.Criteria.Id != nil || r.Criteria.Extension != nil {
 		m.CriteriaPrimitiveElement = &primitiveElement{Id: r.Criteria.Id, Extension: r.Criteria.Extension}
 	}
-	m.Error = r.Error
+	if r.Error != nil && r.Error.Value != nil {
+		m.Error = r.Error
+	}
 	if r.Error != nil && (r.Error.Id != nil || r.Error.Extension != nil) {
 		m.ErrorPrimitiveElement = &primitiveElement{Id: r.Error.Id, Extension: r.Error.Extension}
 	}
@@ -141,17 +157,26 @@ func (r *Subscription) UnmarshalJSON(b []byte) error {
 func (r *Subscription) unmarshalJSON(m jsonSubscription) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -170,6 +195,9 @@ func (r *Subscription) unmarshalJSON(m jsonSubscription) error {
 	r.Contact = m.Contact
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Instant{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}
@@ -185,6 +213,9 @@ func (r *Subscription) unmarshalJSON(m jsonSubscription) error {
 	}
 	r.Error = m.Error
 	if m.ErrorPrimitiveElement != nil {
+		if r.Error == nil {
+			r.Error = &String{}
+		}
 		r.Error.Id = m.ErrorPrimitiveElement.Id
 		r.Error.Extension = m.ErrorPrimitiveElement.Extension
 	}
@@ -240,19 +271,34 @@ func (r SubscriptionChannel) marshalJSON() jsonSubscriptionChannel {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Endpoint = r.Endpoint
+	if r.Endpoint != nil && r.Endpoint.Value != nil {
+		m.Endpoint = r.Endpoint
+	}
 	if r.Endpoint != nil && (r.Endpoint.Id != nil || r.Endpoint.Extension != nil) {
 		m.EndpointPrimitiveElement = &primitiveElement{Id: r.Endpoint.Id, Extension: r.Endpoint.Extension}
 	}
-	m.Payload = r.Payload
+	if r.Payload != nil && r.Payload.Value != nil {
+		m.Payload = r.Payload
+	}
 	if r.Payload != nil && (r.Payload.Id != nil || r.Payload.Extension != nil) {
 		m.PayloadPrimitiveElement = &primitiveElement{Id: r.Payload.Id, Extension: r.Payload.Extension}
 	}
-	m.Header = r.Header
+	anyHeaderValue := false
+	for _, e := range r.Header {
+		if e.Value != nil {
+			anyHeaderValue = true
+			break
+		}
+	}
+	if anyHeaderValue {
+		m.Header = r.Header
+	}
 	anyHeaderIdOrExtension := false
 	for _, e := range r.Header {
 		if e.Id != nil || e.Extension != nil {
@@ -290,21 +336,28 @@ func (r *SubscriptionChannel) unmarshalJSON(m jsonSubscriptionChannel) error {
 	}
 	r.Endpoint = m.Endpoint
 	if m.EndpointPrimitiveElement != nil {
+		if r.Endpoint == nil {
+			r.Endpoint = &Url{}
+		}
 		r.Endpoint.Id = m.EndpointPrimitiveElement.Id
 		r.Endpoint.Extension = m.EndpointPrimitiveElement.Extension
 	}
 	r.Payload = m.Payload
 	if m.PayloadPrimitiveElement != nil {
+		if r.Payload == nil {
+			r.Payload = &Code{}
+		}
 		r.Payload.Id = m.PayloadPrimitiveElement.Id
 		r.Payload.Extension = m.PayloadPrimitiveElement.Extension
 	}
 	r.Header = m.Header
 	for i, e := range m.HeaderPrimitiveElement {
-		if len(r.Header) > i {
+		if len(r.Header) <= i {
+			r.Header = append(r.Header, String{})
+		}
+		if e != nil {
 			r.Header[i].Id = e.Id
 			r.Header[i].Extension = e.Extension
-		} else {
-			r.Header = append(r.Header, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil

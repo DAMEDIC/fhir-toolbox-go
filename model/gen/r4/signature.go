@@ -49,21 +49,29 @@ func (r Signature) marshalJSON() jsonSignature {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.Type = r.Type
-	m.When = r.When
+	if r.When.Value != nil {
+		m.When = r.When
+	}
 	if r.When.Id != nil || r.When.Extension != nil {
 		m.WhenPrimitiveElement = &primitiveElement{Id: r.When.Id, Extension: r.When.Extension}
 	}
 	m.Who = r.Who
 	m.OnBehalfOf = r.OnBehalfOf
-	m.TargetFormat = r.TargetFormat
+	if r.TargetFormat != nil && r.TargetFormat.Value != nil {
+		m.TargetFormat = r.TargetFormat
+	}
 	if r.TargetFormat != nil && (r.TargetFormat.Id != nil || r.TargetFormat.Extension != nil) {
 		m.TargetFormatPrimitiveElement = &primitiveElement{Id: r.TargetFormat.Id, Extension: r.TargetFormat.Extension}
 	}
-	m.SigFormat = r.SigFormat
+	if r.SigFormat != nil && r.SigFormat.Value != nil {
+		m.SigFormat = r.SigFormat
+	}
 	if r.SigFormat != nil && (r.SigFormat.Id != nil || r.SigFormat.Extension != nil) {
 		m.SigFormatPrimitiveElement = &primitiveElement{Id: r.SigFormat.Id, Extension: r.SigFormat.Extension}
 	}
-	m.Data = r.Data
+	if r.Data != nil && r.Data.Value != nil {
+		m.Data = r.Data
+	}
 	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
 		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
 	}
@@ -89,16 +97,25 @@ func (r *Signature) unmarshalJSON(m jsonSignature) error {
 	r.OnBehalfOf = m.OnBehalfOf
 	r.TargetFormat = m.TargetFormat
 	if m.TargetFormatPrimitiveElement != nil {
+		if r.TargetFormat == nil {
+			r.TargetFormat = &Code{}
+		}
 		r.TargetFormat.Id = m.TargetFormatPrimitiveElement.Id
 		r.TargetFormat.Extension = m.TargetFormatPrimitiveElement.Extension
 	}
 	r.SigFormat = m.SigFormat
 	if m.SigFormatPrimitiveElement != nil {
+		if r.SigFormat == nil {
+			r.SigFormat = &Code{}
+		}
 		r.SigFormat.Id = m.SigFormatPrimitiveElement.Id
 		r.SigFormat.Extension = m.SigFormatPrimitiveElement.Extension
 	}
 	r.Data = m.Data
 	if m.DataPrimitiveElement != nil {
+		if r.Data == nil {
+			r.Data = &Base64Binary{}
+		}
 		r.Data.Id = m.DataPrimitiveElement.Id
 		r.Data.Extension = m.DataPrimitiveElement.Extension
 	}

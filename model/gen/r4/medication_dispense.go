@@ -153,16 +153,22 @@ func (r MedicationDispense) MarshalJSON() ([]byte, error) {
 func (r MedicationDispense) marshalJSON() jsonMedicationDispense {
 	m := jsonMedicationDispense{}
 	m.ResourceType = "MedicationDispense"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -175,7 +181,9 @@ func (r MedicationDispense) marshalJSON() jsonMedicationDispense {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -209,11 +217,15 @@ func (r MedicationDispense) marshalJSON() jsonMedicationDispense {
 	m.Type = r.Type
 	m.Quantity = r.Quantity
 	m.DaysSupply = r.DaysSupply
-	m.WhenPrepared = r.WhenPrepared
+	if r.WhenPrepared != nil && r.WhenPrepared.Value != nil {
+		m.WhenPrepared = r.WhenPrepared
+	}
 	if r.WhenPrepared != nil && (r.WhenPrepared.Id != nil || r.WhenPrepared.Extension != nil) {
 		m.WhenPreparedPrimitiveElement = &primitiveElement{Id: r.WhenPrepared.Id, Extension: r.WhenPrepared.Extension}
 	}
-	m.WhenHandedOver = r.WhenHandedOver
+	if r.WhenHandedOver != nil && r.WhenHandedOver.Value != nil {
+		m.WhenHandedOver = r.WhenHandedOver
+	}
 	if r.WhenHandedOver != nil && (r.WhenHandedOver.Id != nil || r.WhenHandedOver.Extension != nil) {
 		m.WhenHandedOverPrimitiveElement = &primitiveElement{Id: r.WhenHandedOver.Id, Extension: r.WhenHandedOver.Extension}
 	}
@@ -236,17 +248,26 @@ func (r *MedicationDispense) UnmarshalJSON(b []byte) error {
 func (r *MedicationDispense) unmarshalJSON(m jsonMedicationDispense) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -304,11 +325,17 @@ func (r *MedicationDispense) unmarshalJSON(m jsonMedicationDispense) error {
 	r.DaysSupply = m.DaysSupply
 	r.WhenPrepared = m.WhenPrepared
 	if m.WhenPreparedPrimitiveElement != nil {
+		if r.WhenPrepared == nil {
+			r.WhenPrepared = &DateTime{}
+		}
 		r.WhenPrepared.Id = m.WhenPreparedPrimitiveElement.Id
 		r.WhenPrepared.Extension = m.WhenPreparedPrimitiveElement.Extension
 	}
 	r.WhenHandedOver = m.WhenHandedOver
 	if m.WhenHandedOverPrimitiveElement != nil {
+		if r.WhenHandedOver == nil {
+			r.WhenHandedOver = &DateTime{}
+		}
 		r.WhenHandedOver.Id = m.WhenHandedOverPrimitiveElement.Id
 		r.WhenHandedOver.Extension = m.WhenHandedOverPrimitiveElement.Extension
 	}
@@ -425,7 +452,9 @@ func (r MedicationDispenseSubstitution) marshalJSON() jsonMedicationDispenseSubs
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.WasSubstituted = r.WasSubstituted
+	if r.WasSubstituted.Value != nil {
+		m.WasSubstituted = r.WasSubstituted
+	}
 	if r.WasSubstituted.Id != nil || r.WasSubstituted.Extension != nil {
 		m.WasSubstitutedPrimitiveElement = &primitiveElement{Id: r.WasSubstituted.Id, Extension: r.WasSubstituted.Extension}
 	}

@@ -78,16 +78,22 @@ func (r SubstanceReferenceInformation) MarshalJSON() ([]byte, error) {
 func (r SubstanceReferenceInformation) marshalJSON() jsonSubstanceReferenceInformation {
 	m := jsonSubstanceReferenceInformation{}
 	m.ResourceType = "SubstanceReferenceInformation"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -98,7 +104,9 @@ func (r SubstanceReferenceInformation) marshalJSON() jsonSubstanceReferenceInfor
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -118,17 +126,26 @@ func (r *SubstanceReferenceInformation) UnmarshalJSON(b []byte) error {
 func (r *SubstanceReferenceInformation) unmarshalJSON(m jsonSubstanceReferenceInformation) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -141,6 +158,9 @@ func (r *SubstanceReferenceInformation) unmarshalJSON(m jsonSubstanceReferenceIn
 	r.ModifierExtension = m.ModifierExtension
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -427,12 +447,16 @@ func (r SubstanceReferenceInformationTarget) marshalJSON() jsonSubstanceReferenc
 	case *Range:
 		m.AmountRange = v
 	case String:
-		m.AmountString = &v
+		if v.Value != nil {
+			m.AmountString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AmountString = v
+		if v.Value != nil {
+			m.AmountString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

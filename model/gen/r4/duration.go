@@ -41,23 +41,33 @@ func (r Duration) marshalJSON() jsonDuration {
 	m := jsonDuration{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Comparator = r.Comparator
+	if r.Comparator != nil && r.Comparator.Value != nil {
+		m.Comparator = r.Comparator
+	}
 	if r.Comparator != nil && (r.Comparator.Id != nil || r.Comparator.Extension != nil) {
 		m.ComparatorPrimitiveElement = &primitiveElement{Id: r.Comparator.Id, Extension: r.Comparator.Extension}
 	}
-	m.Unit = r.Unit
+	if r.Unit != nil && r.Unit.Value != nil {
+		m.Unit = r.Unit
+	}
 	if r.Unit != nil && (r.Unit.Id != nil || r.Unit.Extension != nil) {
 		m.UnitPrimitiveElement = &primitiveElement{Id: r.Unit.Id, Extension: r.Unit.Extension}
 	}
-	m.System = r.System
+	if r.System != nil && r.System.Value != nil {
+		m.System = r.System
+	}
 	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
 		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
 	}
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
@@ -75,26 +85,41 @@ func (r *Duration) unmarshalJSON(m jsonDuration) error {
 	r.Extension = m.Extension
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &Decimal{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
 	r.Comparator = m.Comparator
 	if m.ComparatorPrimitiveElement != nil {
+		if r.Comparator == nil {
+			r.Comparator = &Code{}
+		}
 		r.Comparator.Id = m.ComparatorPrimitiveElement.Id
 		r.Comparator.Extension = m.ComparatorPrimitiveElement.Extension
 	}
 	r.Unit = m.Unit
 	if m.UnitPrimitiveElement != nil {
+		if r.Unit == nil {
+			r.Unit = &String{}
+		}
 		r.Unit.Id = m.UnitPrimitiveElement.Id
 		r.Unit.Extension = m.UnitPrimitiveElement.Extension
 	}
 	r.System = m.System
 	if m.SystemPrimitiveElement != nil {
+		if r.System == nil {
+			r.System = &Uri{}
+		}
 		r.System.Id = m.SystemPrimitiveElement.Id
 		r.System.Extension = m.SystemPrimitiveElement.Extension
 	}
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &Code{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}

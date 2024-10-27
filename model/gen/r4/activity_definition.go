@@ -255,16 +255,22 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	m := jsonActivityDefinition{}
 	m.ResourceType = "ActivityDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -275,32 +281,46 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Subtitle = r.Subtitle
+	if r.Subtitle != nil && r.Subtitle.Value != nil {
+		m.Subtitle = r.Subtitle
+	}
 	if r.Subtitle != nil && (r.Subtitle.Id != nil || r.Subtitle.Extension != nil) {
 		m.SubtitlePrimitiveElement = &primitiveElement{Id: r.Subtitle.Id, Extension: r.Subtitle.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
@@ -314,38 +334,54 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	case *Reference:
 		m.SubjectReference = v
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Usage = r.Usage
+	if r.Usage != nil && r.Usage.Value != nil {
+		m.Usage = r.Usage
+	}
 	if r.Usage != nil && (r.Usage.Id != nil || r.Usage.Extension != nil) {
 		m.UsagePrimitiveElement = &primitiveElement{Id: r.Usage.Id, Extension: r.Usage.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.ApprovalDate = r.ApprovalDate
+	if r.ApprovalDate != nil && r.ApprovalDate.Value != nil {
+		m.ApprovalDate = r.ApprovalDate
+	}
 	if r.ApprovalDate != nil && (r.ApprovalDate.Id != nil || r.ApprovalDate.Extension != nil) {
 		m.ApprovalDatePrimitiveElement = &primitiveElement{Id: r.ApprovalDate.Id, Extension: r.ApprovalDate.Extension}
 	}
-	m.LastReviewDate = r.LastReviewDate
+	if r.LastReviewDate != nil && r.LastReviewDate.Value != nil {
+		m.LastReviewDate = r.LastReviewDate
+	}
 	if r.LastReviewDate != nil && (r.LastReviewDate.Id != nil || r.LastReviewDate.Extension != nil) {
 		m.LastReviewDatePrimitiveElement = &primitiveElement{Id: r.LastReviewDate.Id, Extension: r.LastReviewDate.Extension}
 	}
@@ -356,7 +392,16 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	m.Reviewer = r.Reviewer
 	m.Endorser = r.Endorser
 	m.RelatedArtifact = r.RelatedArtifact
-	m.Library = r.Library
+	anyLibraryValue := false
+	for _, e := range r.Library {
+		if e.Value != nil {
+			anyLibraryValue = true
+			break
+		}
+	}
+	if anyLibraryValue {
+		m.Library = r.Library
+	}
 	anyLibraryIdOrExtension := false
 	for _, e := range r.Library {
 		if e.Id != nil || e.Extension != nil {
@@ -374,24 +419,34 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 			}
 		}
 	}
-	m.Kind = r.Kind
+	if r.Kind != nil && r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind != nil && (r.Kind.Id != nil || r.Kind.Extension != nil) {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
-	m.Profile = r.Profile
+	if r.Profile != nil && r.Profile.Value != nil {
+		m.Profile = r.Profile
+	}
 	if r.Profile != nil && (r.Profile.Id != nil || r.Profile.Extension != nil) {
 		m.ProfilePrimitiveElement = &primitiveElement{Id: r.Profile.Id, Extension: r.Profile.Extension}
 	}
 	m.Code = r.Code
-	m.Intent = r.Intent
+	if r.Intent != nil && r.Intent.Value != nil {
+		m.Intent = r.Intent
+	}
 	if r.Intent != nil && (r.Intent.Id != nil || r.Intent.Extension != nil) {
 		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
 	}
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
-	m.DoNotPerform = r.DoNotPerform
+	if r.DoNotPerform != nil && r.DoNotPerform.Value != nil {
+		m.DoNotPerform = r.DoNotPerform
+	}
 	if r.DoNotPerform != nil && (r.DoNotPerform.Id != nil || r.DoNotPerform.Extension != nil) {
 		m.DoNotPerformPrimitiveElement = &primitiveElement{Id: r.DoNotPerform.Id, Extension: r.DoNotPerform.Extension}
 	}
@@ -401,12 +456,16 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	case *Timing:
 		m.TimingTiming = v
 	case DateTime:
-		m.TimingDateTime = &v
+		if v.Value != nil {
+			m.TimingDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimingDateTime = v
+		if v.Value != nil {
+			m.TimingDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -445,7 +504,9 @@ func (r ActivityDefinition) marshalJSON() jsonActivityDefinition {
 	m.SpecimenRequirement = r.SpecimenRequirement
 	m.ObservationRequirement = r.ObservationRequirement
 	m.ObservationResultRequirement = r.ObservationResultRequirement
-	m.Transform = r.Transform
+	if r.Transform != nil && r.Transform.Value != nil {
+		m.Transform = r.Transform
+	}
 	if r.Transform != nil && (r.Transform.Id != nil || r.Transform.Extension != nil) {
 		m.TransformPrimitiveElement = &primitiveElement{Id: r.Transform.Id, Extension: r.Transform.Extension}
 	}
@@ -462,17 +523,26 @@ func (r *ActivityDefinition) UnmarshalJSON(b []byte) error {
 func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -485,27 +555,42 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Subtitle = m.Subtitle
 	if m.SubtitlePrimitiveElement != nil {
+		if r.Subtitle == nil {
+			r.Subtitle = &String{}
+		}
 		r.Subtitle.Id = m.SubtitlePrimitiveElement.Id
 		r.Subtitle.Extension = m.SubtitlePrimitiveElement.Extension
 	}
@@ -516,6 +601,9 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
@@ -535,17 +623,26 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -553,26 +650,41 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Usage = m.Usage
 	if m.UsagePrimitiveElement != nil {
+		if r.Usage == nil {
+			r.Usage = &String{}
+		}
 		r.Usage.Id = m.UsagePrimitiveElement.Id
 		r.Usage.Extension = m.UsagePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
 	r.ApprovalDate = m.ApprovalDate
 	if m.ApprovalDatePrimitiveElement != nil {
+		if r.ApprovalDate == nil {
+			r.ApprovalDate = &Date{}
+		}
 		r.ApprovalDate.Id = m.ApprovalDatePrimitiveElement.Id
 		r.ApprovalDate.Extension = m.ApprovalDatePrimitiveElement.Extension
 	}
 	r.LastReviewDate = m.LastReviewDate
 	if m.LastReviewDatePrimitiveElement != nil {
+		if r.LastReviewDate == nil {
+			r.LastReviewDate = &Date{}
+		}
 		r.LastReviewDate.Id = m.LastReviewDatePrimitiveElement.Id
 		r.LastReviewDate.Extension = m.LastReviewDatePrimitiveElement.Extension
 	}
@@ -585,36 +697,52 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	r.RelatedArtifact = m.RelatedArtifact
 	r.Library = m.Library
 	for i, e := range m.LibraryPrimitiveElement {
-		if len(r.Library) > i {
+		if len(r.Library) <= i {
+			r.Library = append(r.Library, Canonical{})
+		}
+		if e != nil {
 			r.Library[i].Id = e.Id
 			r.Library[i].Extension = e.Extension
-		} else {
-			r.Library = append(r.Library, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Kind = m.Kind
 	if m.KindPrimitiveElement != nil {
+		if r.Kind == nil {
+			r.Kind = &Code{}
+		}
 		r.Kind.Id = m.KindPrimitiveElement.Id
 		r.Kind.Extension = m.KindPrimitiveElement.Extension
 	}
 	r.Profile = m.Profile
 	if m.ProfilePrimitiveElement != nil {
+		if r.Profile == nil {
+			r.Profile = &Canonical{}
+		}
 		r.Profile.Id = m.ProfilePrimitiveElement.Id
 		r.Profile.Extension = m.ProfilePrimitiveElement.Extension
 	}
 	r.Code = m.Code
 	r.Intent = m.Intent
 	if m.IntentPrimitiveElement != nil {
+		if r.Intent == nil {
+			r.Intent = &Code{}
+		}
 		r.Intent.Id = m.IntentPrimitiveElement.Id
 		r.Intent.Extension = m.IntentPrimitiveElement.Extension
 	}
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &Code{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
 	r.DoNotPerform = m.DoNotPerform
 	if m.DoNotPerformPrimitiveElement != nil {
+		if r.DoNotPerform == nil {
+			r.DoNotPerform = &Boolean{}
+		}
 		r.DoNotPerform.Id = m.DoNotPerformPrimitiveElement.Id
 		r.DoNotPerform.Extension = m.DoNotPerformPrimitiveElement.Extension
 	}
@@ -691,6 +819,9 @@ func (r *ActivityDefinition) unmarshalJSON(m jsonActivityDefinition) error {
 	r.ObservationResultRequirement = m.ObservationResultRequirement
 	r.Transform = m.Transform
 	if m.TransformPrimitiveElement != nil {
+		if r.Transform == nil {
+			r.Transform = &Canonical{}
+		}
 		r.Transform.Id = m.TransformPrimitiveElement.Id
 		r.Transform.Extension = m.TransformPrimitiveElement.Extension
 	}
@@ -737,7 +868,9 @@ func (r ActivityDefinitionParticipant) marshalJSON() jsonActivityDefinitionParti
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
@@ -803,7 +936,9 @@ func (r ActivityDefinitionDynamicValue) marshalJSON() jsonActivityDefinitionDyna
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Path = r.Path
+	if r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path.Id != nil || r.Path.Extension != nil {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}

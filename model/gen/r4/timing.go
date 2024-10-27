@@ -42,7 +42,16 @@ func (r Timing) marshalJSON() jsonTiming {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Event = r.Event
+	anyEventValue := false
+	for _, e := range r.Event {
+		if e.Value != nil {
+			anyEventValue = true
+			break
+		}
+	}
+	if anyEventValue {
+		m.Event = r.Event
+	}
 	anyEventIdOrExtension := false
 	for _, e := range r.Event {
 		if e.Id != nil || e.Extension != nil {
@@ -77,11 +86,12 @@ func (r *Timing) unmarshalJSON(m jsonTiming) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Event = m.Event
 	for i, e := range m.EventPrimitiveElement {
-		if len(r.Event) > i {
+		if len(r.Event) <= i {
+			r.Event = append(r.Event, DateTime{})
+		}
+		if e != nil {
 			r.Event[i].Id = e.Id
 			r.Event[i].Extension = e.Extension
-		} else {
-			r.Event = append(r.Event, DateTime{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Repeat = m.Repeat
@@ -198,47 +208,76 @@ func (r TimingRepeat) marshalJSON() jsonTimingRepeat {
 	case *Period:
 		m.BoundsPeriod = v
 	}
-	m.Count = r.Count
+	if r.Count != nil && r.Count.Value != nil {
+		m.Count = r.Count
+	}
 	if r.Count != nil && (r.Count.Id != nil || r.Count.Extension != nil) {
 		m.CountPrimitiveElement = &primitiveElement{Id: r.Count.Id, Extension: r.Count.Extension}
 	}
-	m.CountMax = r.CountMax
+	if r.CountMax != nil && r.CountMax.Value != nil {
+		m.CountMax = r.CountMax
+	}
 	if r.CountMax != nil && (r.CountMax.Id != nil || r.CountMax.Extension != nil) {
 		m.CountMaxPrimitiveElement = &primitiveElement{Id: r.CountMax.Id, Extension: r.CountMax.Extension}
 	}
-	m.Duration = r.Duration
+	if r.Duration != nil && r.Duration.Value != nil {
+		m.Duration = r.Duration
+	}
 	if r.Duration != nil && (r.Duration.Id != nil || r.Duration.Extension != nil) {
 		m.DurationPrimitiveElement = &primitiveElement{Id: r.Duration.Id, Extension: r.Duration.Extension}
 	}
-	m.DurationMax = r.DurationMax
+	if r.DurationMax != nil && r.DurationMax.Value != nil {
+		m.DurationMax = r.DurationMax
+	}
 	if r.DurationMax != nil && (r.DurationMax.Id != nil || r.DurationMax.Extension != nil) {
 		m.DurationMaxPrimitiveElement = &primitiveElement{Id: r.DurationMax.Id, Extension: r.DurationMax.Extension}
 	}
-	m.DurationUnit = r.DurationUnit
+	if r.DurationUnit != nil && r.DurationUnit.Value != nil {
+		m.DurationUnit = r.DurationUnit
+	}
 	if r.DurationUnit != nil && (r.DurationUnit.Id != nil || r.DurationUnit.Extension != nil) {
 		m.DurationUnitPrimitiveElement = &primitiveElement{Id: r.DurationUnit.Id, Extension: r.DurationUnit.Extension}
 	}
-	m.Frequency = r.Frequency
+	if r.Frequency != nil && r.Frequency.Value != nil {
+		m.Frequency = r.Frequency
+	}
 	if r.Frequency != nil && (r.Frequency.Id != nil || r.Frequency.Extension != nil) {
 		m.FrequencyPrimitiveElement = &primitiveElement{Id: r.Frequency.Id, Extension: r.Frequency.Extension}
 	}
-	m.FrequencyMax = r.FrequencyMax
+	if r.FrequencyMax != nil && r.FrequencyMax.Value != nil {
+		m.FrequencyMax = r.FrequencyMax
+	}
 	if r.FrequencyMax != nil && (r.FrequencyMax.Id != nil || r.FrequencyMax.Extension != nil) {
 		m.FrequencyMaxPrimitiveElement = &primitiveElement{Id: r.FrequencyMax.Id, Extension: r.FrequencyMax.Extension}
 	}
-	m.Period = r.Period
+	if r.Period != nil && r.Period.Value != nil {
+		m.Period = r.Period
+	}
 	if r.Period != nil && (r.Period.Id != nil || r.Period.Extension != nil) {
 		m.PeriodPrimitiveElement = &primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
 	}
-	m.PeriodMax = r.PeriodMax
+	if r.PeriodMax != nil && r.PeriodMax.Value != nil {
+		m.PeriodMax = r.PeriodMax
+	}
 	if r.PeriodMax != nil && (r.PeriodMax.Id != nil || r.PeriodMax.Extension != nil) {
 		m.PeriodMaxPrimitiveElement = &primitiveElement{Id: r.PeriodMax.Id, Extension: r.PeriodMax.Extension}
 	}
-	m.PeriodUnit = r.PeriodUnit
+	if r.PeriodUnit != nil && r.PeriodUnit.Value != nil {
+		m.PeriodUnit = r.PeriodUnit
+	}
 	if r.PeriodUnit != nil && (r.PeriodUnit.Id != nil || r.PeriodUnit.Extension != nil) {
 		m.PeriodUnitPrimitiveElement = &primitiveElement{Id: r.PeriodUnit.Id, Extension: r.PeriodUnit.Extension}
 	}
-	m.DayOfWeek = r.DayOfWeek
+	anyDayOfWeekValue := false
+	for _, e := range r.DayOfWeek {
+		if e.Value != nil {
+			anyDayOfWeekValue = true
+			break
+		}
+	}
+	if anyDayOfWeekValue {
+		m.DayOfWeek = r.DayOfWeek
+	}
 	anyDayOfWeekIdOrExtension := false
 	for _, e := range r.DayOfWeek {
 		if e.Id != nil || e.Extension != nil {
@@ -256,7 +295,16 @@ func (r TimingRepeat) marshalJSON() jsonTimingRepeat {
 			}
 		}
 	}
-	m.TimeOfDay = r.TimeOfDay
+	anyTimeOfDayValue := false
+	for _, e := range r.TimeOfDay {
+		if e.Value != nil {
+			anyTimeOfDayValue = true
+			break
+		}
+	}
+	if anyTimeOfDayValue {
+		m.TimeOfDay = r.TimeOfDay
+	}
 	anyTimeOfDayIdOrExtension := false
 	for _, e := range r.TimeOfDay {
 		if e.Id != nil || e.Extension != nil {
@@ -274,7 +322,16 @@ func (r TimingRepeat) marshalJSON() jsonTimingRepeat {
 			}
 		}
 	}
-	m.When = r.When
+	anyWhenValue := false
+	for _, e := range r.When {
+		if e.Value != nil {
+			anyWhenValue = true
+			break
+		}
+	}
+	if anyWhenValue {
+		m.When = r.When
+	}
 	anyWhenIdOrExtension := false
 	for _, e := range r.When {
 		if e.Id != nil || e.Extension != nil {
@@ -292,7 +349,9 @@ func (r TimingRepeat) marshalJSON() jsonTimingRepeat {
 			}
 		}
 	}
-	m.Offset = r.Offset
+	if r.Offset != nil && r.Offset.Value != nil {
+		m.Offset = r.Offset
+	}
 	if r.Offset != nil && (r.Offset.Id != nil || r.Offset.Extension != nil) {
 		m.OffsetPrimitiveElement = &primitiveElement{Id: r.Offset.Id, Extension: r.Offset.Extension}
 	}
@@ -331,83 +390,119 @@ func (r *TimingRepeat) unmarshalJSON(m jsonTimingRepeat) error {
 	}
 	r.Count = m.Count
 	if m.CountPrimitiveElement != nil {
+		if r.Count == nil {
+			r.Count = &PositiveInt{}
+		}
 		r.Count.Id = m.CountPrimitiveElement.Id
 		r.Count.Extension = m.CountPrimitiveElement.Extension
 	}
 	r.CountMax = m.CountMax
 	if m.CountMaxPrimitiveElement != nil {
+		if r.CountMax == nil {
+			r.CountMax = &PositiveInt{}
+		}
 		r.CountMax.Id = m.CountMaxPrimitiveElement.Id
 		r.CountMax.Extension = m.CountMaxPrimitiveElement.Extension
 	}
 	r.Duration = m.Duration
 	if m.DurationPrimitiveElement != nil {
+		if r.Duration == nil {
+			r.Duration = &Decimal{}
+		}
 		r.Duration.Id = m.DurationPrimitiveElement.Id
 		r.Duration.Extension = m.DurationPrimitiveElement.Extension
 	}
 	r.DurationMax = m.DurationMax
 	if m.DurationMaxPrimitiveElement != nil {
+		if r.DurationMax == nil {
+			r.DurationMax = &Decimal{}
+		}
 		r.DurationMax.Id = m.DurationMaxPrimitiveElement.Id
 		r.DurationMax.Extension = m.DurationMaxPrimitiveElement.Extension
 	}
 	r.DurationUnit = m.DurationUnit
 	if m.DurationUnitPrimitiveElement != nil {
+		if r.DurationUnit == nil {
+			r.DurationUnit = &Code{}
+		}
 		r.DurationUnit.Id = m.DurationUnitPrimitiveElement.Id
 		r.DurationUnit.Extension = m.DurationUnitPrimitiveElement.Extension
 	}
 	r.Frequency = m.Frequency
 	if m.FrequencyPrimitiveElement != nil {
+		if r.Frequency == nil {
+			r.Frequency = &PositiveInt{}
+		}
 		r.Frequency.Id = m.FrequencyPrimitiveElement.Id
 		r.Frequency.Extension = m.FrequencyPrimitiveElement.Extension
 	}
 	r.FrequencyMax = m.FrequencyMax
 	if m.FrequencyMaxPrimitiveElement != nil {
+		if r.FrequencyMax == nil {
+			r.FrequencyMax = &PositiveInt{}
+		}
 		r.FrequencyMax.Id = m.FrequencyMaxPrimitiveElement.Id
 		r.FrequencyMax.Extension = m.FrequencyMaxPrimitiveElement.Extension
 	}
 	r.Period = m.Period
 	if m.PeriodPrimitiveElement != nil {
+		if r.Period == nil {
+			r.Period = &Decimal{}
+		}
 		r.Period.Id = m.PeriodPrimitiveElement.Id
 		r.Period.Extension = m.PeriodPrimitiveElement.Extension
 	}
 	r.PeriodMax = m.PeriodMax
 	if m.PeriodMaxPrimitiveElement != nil {
+		if r.PeriodMax == nil {
+			r.PeriodMax = &Decimal{}
+		}
 		r.PeriodMax.Id = m.PeriodMaxPrimitiveElement.Id
 		r.PeriodMax.Extension = m.PeriodMaxPrimitiveElement.Extension
 	}
 	r.PeriodUnit = m.PeriodUnit
 	if m.PeriodUnitPrimitiveElement != nil {
+		if r.PeriodUnit == nil {
+			r.PeriodUnit = &Code{}
+		}
 		r.PeriodUnit.Id = m.PeriodUnitPrimitiveElement.Id
 		r.PeriodUnit.Extension = m.PeriodUnitPrimitiveElement.Extension
 	}
 	r.DayOfWeek = m.DayOfWeek
 	for i, e := range m.DayOfWeekPrimitiveElement {
-		if len(r.DayOfWeek) > i {
+		if len(r.DayOfWeek) <= i {
+			r.DayOfWeek = append(r.DayOfWeek, Code{})
+		}
+		if e != nil {
 			r.DayOfWeek[i].Id = e.Id
 			r.DayOfWeek[i].Extension = e.Extension
-		} else {
-			r.DayOfWeek = append(r.DayOfWeek, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.TimeOfDay = m.TimeOfDay
 	for i, e := range m.TimeOfDayPrimitiveElement {
-		if len(r.TimeOfDay) > i {
+		if len(r.TimeOfDay) <= i {
+			r.TimeOfDay = append(r.TimeOfDay, Time{})
+		}
+		if e != nil {
 			r.TimeOfDay[i].Id = e.Id
 			r.TimeOfDay[i].Extension = e.Extension
-		} else {
-			r.TimeOfDay = append(r.TimeOfDay, Time{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.When = m.When
 	for i, e := range m.WhenPrimitiveElement {
-		if len(r.When) > i {
+		if len(r.When) <= i {
+			r.When = append(r.When, Code{})
+		}
+		if e != nil {
 			r.When[i].Id = e.Id
 			r.When[i].Extension = e.Extension
-		} else {
-			r.When = append(r.When, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Offset = m.Offset
 	if m.OffsetPrimitiveElement != nil {
+		if r.Offset == nil {
+			r.Offset = &UnsignedInt{}
+		}
 		r.Offset.Id = m.OffsetPrimitiveElement.Id
 		r.Offset.Extension = m.OffsetPrimitiveElement.Extension
 	}

@@ -104,16 +104,22 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 func (r CatalogEntry) marshalJSON() jsonCatalogEntry {
 	m := jsonCatalogEntry{}
 	m.ResourceType = "CatalogEntry"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -126,23 +132,31 @@ func (r CatalogEntry) marshalJSON() jsonCatalogEntry {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.Type = r.Type
-	m.Orderable = r.Orderable
+	if r.Orderable.Value != nil {
+		m.Orderable = r.Orderable
+	}
 	if r.Orderable.Id != nil || r.Orderable.Extension != nil {
 		m.OrderablePrimitiveElement = &primitiveElement{Id: r.Orderable.Id, Extension: r.Orderable.Extension}
 	}
 	m.ReferencedItem = r.ReferencedItem
 	m.AdditionalIdentifier = r.AdditionalIdentifier
 	m.Classification = r.Classification
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.ValidityPeriod = r.ValidityPeriod
-	m.ValidTo = r.ValidTo
+	if r.ValidTo != nil && r.ValidTo.Value != nil {
+		m.ValidTo = r.ValidTo
+	}
 	if r.ValidTo != nil && (r.ValidTo.Id != nil || r.ValidTo.Extension != nil) {
 		m.ValidToPrimitiveElement = &primitiveElement{Id: r.ValidTo.Id, Extension: r.ValidTo.Extension}
 	}
-	m.LastUpdated = r.LastUpdated
+	if r.LastUpdated != nil && r.LastUpdated.Value != nil {
+		m.LastUpdated = r.LastUpdated
+	}
 	if r.LastUpdated != nil && (r.LastUpdated.Id != nil || r.LastUpdated.Extension != nil) {
 		m.LastUpdatedPrimitiveElement = &primitiveElement{Id: r.LastUpdated.Id, Extension: r.LastUpdated.Extension}
 	}
@@ -161,17 +175,26 @@ func (r *CatalogEntry) UnmarshalJSON(b []byte) error {
 func (r *CatalogEntry) unmarshalJSON(m jsonCatalogEntry) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -194,17 +217,26 @@ func (r *CatalogEntry) unmarshalJSON(m jsonCatalogEntry) error {
 	r.Classification = m.Classification
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
 	r.ValidityPeriod = m.ValidityPeriod
 	r.ValidTo = m.ValidTo
 	if m.ValidToPrimitiveElement != nil {
+		if r.ValidTo == nil {
+			r.ValidTo = &DateTime{}
+		}
 		r.ValidTo.Id = m.ValidToPrimitiveElement.Id
 		r.ValidTo.Extension = m.ValidToPrimitiveElement.Extension
 	}
 	r.LastUpdated = m.LastUpdated
 	if m.LastUpdatedPrimitiveElement != nil {
+		if r.LastUpdated == nil {
+			r.LastUpdated = &DateTime{}
+		}
 		r.LastUpdated.Id = m.LastUpdatedPrimitiveElement.Id
 		r.LastUpdated.Extension = m.LastUpdatedPrimitiveElement.Extension
 	}
@@ -253,7 +285,9 @@ func (r CatalogEntryRelatedEntry) marshalJSON() jsonCatalogEntryRelatedEntry {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Relationtype = r.Relationtype
+	if r.Relationtype.Value != nil {
+		m.Relationtype = r.Relationtype
+	}
 	if r.Relationtype.Id != nil || r.Relationtype.Extension != nil {
 		m.RelationtypePrimitiveElement = &primitiveElement{Id: r.Relationtype.Id, Extension: r.Relationtype.Extension}
 	}

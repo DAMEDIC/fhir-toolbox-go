@@ -69,11 +69,22 @@ func (r ProdCharacteristic) marshalJSON() jsonProdCharacteristic {
 	m.Weight = r.Weight
 	m.NominalVolume = r.NominalVolume
 	m.ExternalDiameter = r.ExternalDiameter
-	m.Shape = r.Shape
+	if r.Shape != nil && r.Shape.Value != nil {
+		m.Shape = r.Shape
+	}
 	if r.Shape != nil && (r.Shape.Id != nil || r.Shape.Extension != nil) {
 		m.ShapePrimitiveElement = &primitiveElement{Id: r.Shape.Id, Extension: r.Shape.Extension}
 	}
-	m.Color = r.Color
+	anyColorValue := false
+	for _, e := range r.Color {
+		if e.Value != nil {
+			anyColorValue = true
+			break
+		}
+	}
+	if anyColorValue {
+		m.Color = r.Color
+	}
 	anyColorIdOrExtension := false
 	for _, e := range r.Color {
 		if e.Id != nil || e.Extension != nil {
@@ -91,7 +102,16 @@ func (r ProdCharacteristic) marshalJSON() jsonProdCharacteristic {
 			}
 		}
 	}
-	m.Imprint = r.Imprint
+	anyImprintValue := false
+	for _, e := range r.Imprint {
+		if e.Value != nil {
+			anyImprintValue = true
+			break
+		}
+	}
+	if anyImprintValue {
+		m.Imprint = r.Imprint
+	}
 	anyImprintIdOrExtension := false
 	for _, e := range r.Imprint {
 		if e.Id != nil || e.Extension != nil {
@@ -132,25 +152,30 @@ func (r *ProdCharacteristic) unmarshalJSON(m jsonProdCharacteristic) error {
 	r.ExternalDiameter = m.ExternalDiameter
 	r.Shape = m.Shape
 	if m.ShapePrimitiveElement != nil {
+		if r.Shape == nil {
+			r.Shape = &String{}
+		}
 		r.Shape.Id = m.ShapePrimitiveElement.Id
 		r.Shape.Extension = m.ShapePrimitiveElement.Extension
 	}
 	r.Color = m.Color
 	for i, e := range m.ColorPrimitiveElement {
-		if len(r.Color) > i {
+		if len(r.Color) <= i {
+			r.Color = append(r.Color, String{})
+		}
+		if e != nil {
 			r.Color[i].Id = e.Id
 			r.Color[i].Extension = e.Extension
-		} else {
-			r.Color = append(r.Color, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Imprint = m.Imprint
 	for i, e := range m.ImprintPrimitiveElement {
-		if len(r.Imprint) > i {
+		if len(r.Imprint) <= i {
+			r.Imprint = append(r.Imprint, String{})
+		}
+		if e != nil {
 			r.Imprint[i].Id = e.Id
 			r.Imprint[i].Extension = e.Extension
-		} else {
-			r.Imprint = append(r.Imprint, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Image = m.Image

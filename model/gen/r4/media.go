@@ -144,16 +144,22 @@ func (r Media) MarshalJSON() ([]byte, error) {
 func (r Media) marshalJSON() jsonMedia {
 	m := jsonMedia{}
 	m.ResourceType = "Media"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -167,7 +173,9 @@ func (r Media) marshalJSON() jsonMedia {
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -178,12 +186,16 @@ func (r Media) marshalJSON() jsonMedia {
 	m.Encounter = r.Encounter
 	switch v := r.Created.(type) {
 	case DateTime:
-		m.CreatedDateTime = &v
+		if v.Value != nil {
+			m.CreatedDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.CreatedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.CreatedDateTime = v
+		if v.Value != nil {
+			m.CreatedDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.CreatedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -192,31 +204,43 @@ func (r Media) marshalJSON() jsonMedia {
 	case *Period:
 		m.CreatedPeriod = v
 	}
-	m.Issued = r.Issued
+	if r.Issued != nil && r.Issued.Value != nil {
+		m.Issued = r.Issued
+	}
 	if r.Issued != nil && (r.Issued.Id != nil || r.Issued.Extension != nil) {
 		m.IssuedPrimitiveElement = &primitiveElement{Id: r.Issued.Id, Extension: r.Issued.Extension}
 	}
 	m.Operator = r.Operator
 	m.ReasonCode = r.ReasonCode
 	m.BodySite = r.BodySite
-	m.DeviceName = r.DeviceName
+	if r.DeviceName != nil && r.DeviceName.Value != nil {
+		m.DeviceName = r.DeviceName
+	}
 	if r.DeviceName != nil && (r.DeviceName.Id != nil || r.DeviceName.Extension != nil) {
 		m.DeviceNamePrimitiveElement = &primitiveElement{Id: r.DeviceName.Id, Extension: r.DeviceName.Extension}
 	}
 	m.Device = r.Device
-	m.Height = r.Height
+	if r.Height != nil && r.Height.Value != nil {
+		m.Height = r.Height
+	}
 	if r.Height != nil && (r.Height.Id != nil || r.Height.Extension != nil) {
 		m.HeightPrimitiveElement = &primitiveElement{Id: r.Height.Id, Extension: r.Height.Extension}
 	}
-	m.Width = r.Width
+	if r.Width != nil && r.Width.Value != nil {
+		m.Width = r.Width
+	}
 	if r.Width != nil && (r.Width.Id != nil || r.Width.Extension != nil) {
 		m.WidthPrimitiveElement = &primitiveElement{Id: r.Width.Id, Extension: r.Width.Extension}
 	}
-	m.Frames = r.Frames
+	if r.Frames != nil && r.Frames.Value != nil {
+		m.Frames = r.Frames
+	}
 	if r.Frames != nil && (r.Frames.Id != nil || r.Frames.Extension != nil) {
 		m.FramesPrimitiveElement = &primitiveElement{Id: r.Frames.Id, Extension: r.Frames.Extension}
 	}
-	m.Duration = r.Duration
+	if r.Duration != nil && r.Duration.Value != nil {
+		m.Duration = r.Duration
+	}
 	if r.Duration != nil && (r.Duration.Id != nil || r.Duration.Extension != nil) {
 		m.DurationPrimitiveElement = &primitiveElement{Id: r.Duration.Id, Extension: r.Duration.Extension}
 	}
@@ -234,17 +258,26 @@ func (r *Media) UnmarshalJSON(b []byte) error {
 func (r *Media) unmarshalJSON(m jsonMedia) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -291,6 +324,9 @@ func (r *Media) unmarshalJSON(m jsonMedia) error {
 	}
 	r.Issued = m.Issued
 	if m.IssuedPrimitiveElement != nil {
+		if r.Issued == nil {
+			r.Issued = &Instant{}
+		}
 		r.Issued.Id = m.IssuedPrimitiveElement.Id
 		r.Issued.Extension = m.IssuedPrimitiveElement.Extension
 	}
@@ -299,27 +335,42 @@ func (r *Media) unmarshalJSON(m jsonMedia) error {
 	r.BodySite = m.BodySite
 	r.DeviceName = m.DeviceName
 	if m.DeviceNamePrimitiveElement != nil {
+		if r.DeviceName == nil {
+			r.DeviceName = &String{}
+		}
 		r.DeviceName.Id = m.DeviceNamePrimitiveElement.Id
 		r.DeviceName.Extension = m.DeviceNamePrimitiveElement.Extension
 	}
 	r.Device = m.Device
 	r.Height = m.Height
 	if m.HeightPrimitiveElement != nil {
+		if r.Height == nil {
+			r.Height = &PositiveInt{}
+		}
 		r.Height.Id = m.HeightPrimitiveElement.Id
 		r.Height.Extension = m.HeightPrimitiveElement.Extension
 	}
 	r.Width = m.Width
 	if m.WidthPrimitiveElement != nil {
+		if r.Width == nil {
+			r.Width = &PositiveInt{}
+		}
 		r.Width.Id = m.WidthPrimitiveElement.Id
 		r.Width.Extension = m.WidthPrimitiveElement.Extension
 	}
 	r.Frames = m.Frames
 	if m.FramesPrimitiveElement != nil {
+		if r.Frames == nil {
+			r.Frames = &PositiveInt{}
+		}
 		r.Frames.Id = m.FramesPrimitiveElement.Id
 		r.Frames.Extension = m.FramesPrimitiveElement.Extension
 	}
 	r.Duration = m.Duration
 	if m.DurationPrimitiveElement != nil {
+		if r.Duration == nil {
+			r.Duration = &Decimal{}
+		}
 		r.Duration.Id = m.DurationPrimitiveElement.Id
 		r.Duration.Extension = m.DurationPrimitiveElement.Extension
 	}

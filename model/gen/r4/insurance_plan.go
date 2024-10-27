@@ -106,16 +106,22 @@ func (r InsurancePlan) MarshalJSON() ([]byte, error) {
 func (r InsurancePlan) marshalJSON() jsonInsurancePlan {
 	m := jsonInsurancePlan{}
 	m.ResourceType = "InsurancePlan"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -127,16 +133,29 @@ func (r InsurancePlan) marshalJSON() jsonInsurancePlan {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Alias = r.Alias
+	anyAliasValue := false
+	for _, e := range r.Alias {
+		if e.Value != nil {
+			anyAliasValue = true
+			break
+		}
+	}
+	if anyAliasValue {
+		m.Alias = r.Alias
+	}
 	anyAliasIdOrExtension := false
 	for _, e := range r.Alias {
 		if e.Id != nil || e.Extension != nil {
@@ -175,17 +194,26 @@ func (r *InsurancePlan) UnmarshalJSON(b []byte) error {
 func (r *InsurancePlan) unmarshalJSON(m jsonInsurancePlan) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -199,22 +227,29 @@ func (r *InsurancePlan) unmarshalJSON(m jsonInsurancePlan) error {
 	r.Identifier = m.Identifier
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Alias = m.Alias
 	for i, e := range m.AliasPrimitiveElement {
-		if len(r.Alias) > i {
+		if len(r.Alias) <= i {
+			r.Alias = append(r.Alias, String{})
+		}
+		if e != nil {
 			r.Alias[i].Id = e.Id
 			r.Alias[i].Extension = e.Extension
-		} else {
-			r.Alias = append(r.Alias, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Period = m.Period
@@ -403,7 +438,9 @@ func (r InsurancePlanCoverageBenefit) marshalJSON() jsonInsurancePlanCoverageBen
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Requirement = r.Requirement
+	if r.Requirement != nil && r.Requirement.Value != nil {
+		m.Requirement = r.Requirement
+	}
 	if r.Requirement != nil && (r.Requirement.Id != nil || r.Requirement.Extension != nil) {
 		m.RequirementPrimitiveElement = &primitiveElement{Id: r.Requirement.Id, Extension: r.Requirement.Extension}
 	}
@@ -424,6 +461,9 @@ func (r *InsurancePlanCoverageBenefit) unmarshalJSON(m jsonInsurancePlanCoverage
 	r.Type = m.Type
 	r.Requirement = m.Requirement
 	if m.RequirementPrimitiveElement != nil {
+		if r.Requirement == nil {
+			r.Requirement = &String{}
+		}
 		r.Requirement.Id = m.RequirementPrimitiveElement.Id
 		r.Requirement.Extension = m.RequirementPrimitiveElement.Extension
 	}
@@ -614,12 +654,16 @@ func (r InsurancePlanPlanGeneralCost) marshalJSON() jsonInsurancePlanPlanGeneral
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.GroupSize = r.GroupSize
+	if r.GroupSize != nil && r.GroupSize.Value != nil {
+		m.GroupSize = r.GroupSize
+	}
 	if r.GroupSize != nil && (r.GroupSize.Id != nil || r.GroupSize.Extension != nil) {
 		m.GroupSizePrimitiveElement = &primitiveElement{Id: r.GroupSize.Id, Extension: r.GroupSize.Extension}
 	}
 	m.Cost = r.Cost
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -639,12 +683,18 @@ func (r *InsurancePlanPlanGeneralCost) unmarshalJSON(m jsonInsurancePlanPlanGene
 	r.Type = m.Type
 	r.GroupSize = m.GroupSize
 	if m.GroupSizePrimitiveElement != nil {
+		if r.GroupSize == nil {
+			r.GroupSize = &PositiveInt{}
+		}
 		r.GroupSize.Id = m.GroupSizePrimitiveElement.Id
 		r.GroupSize.Extension = m.GroupSizePrimitiveElement.Extension
 	}
 	r.Cost = m.Cost
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}

@@ -43,19 +43,34 @@ func (r Meta) marshalJSON() jsonMeta {
 	m := jsonMeta{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.VersionId = r.VersionId
+	if r.VersionId != nil && r.VersionId.Value != nil {
+		m.VersionId = r.VersionId
+	}
 	if r.VersionId != nil && (r.VersionId.Id != nil || r.VersionId.Extension != nil) {
 		m.VersionIdPrimitiveElement = &primitiveElement{Id: r.VersionId.Id, Extension: r.VersionId.Extension}
 	}
-	m.LastUpdated = r.LastUpdated
+	if r.LastUpdated != nil && r.LastUpdated.Value != nil {
+		m.LastUpdated = r.LastUpdated
+	}
 	if r.LastUpdated != nil && (r.LastUpdated.Id != nil || r.LastUpdated.Extension != nil) {
 		m.LastUpdatedPrimitiveElement = &primitiveElement{Id: r.LastUpdated.Id, Extension: r.LastUpdated.Extension}
 	}
-	m.Source = r.Source
+	if r.Source != nil && r.Source.Value != nil {
+		m.Source = r.Source
+	}
 	if r.Source != nil && (r.Source.Id != nil || r.Source.Extension != nil) {
 		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
 	}
-	m.Profile = r.Profile
+	anyProfileValue := false
+	for _, e := range r.Profile {
+		if e.Value != nil {
+			anyProfileValue = true
+			break
+		}
+	}
+	if anyProfileValue {
+		m.Profile = r.Profile
+	}
 	anyProfileIdOrExtension := false
 	for _, e := range r.Profile {
 		if e.Id != nil || e.Extension != nil {
@@ -89,26 +104,36 @@ func (r *Meta) unmarshalJSON(m jsonMeta) error {
 	r.Extension = m.Extension
 	r.VersionId = m.VersionId
 	if m.VersionIdPrimitiveElement != nil {
+		if r.VersionId == nil {
+			r.VersionId = &Id{}
+		}
 		r.VersionId.Id = m.VersionIdPrimitiveElement.Id
 		r.VersionId.Extension = m.VersionIdPrimitiveElement.Extension
 	}
 	r.LastUpdated = m.LastUpdated
 	if m.LastUpdatedPrimitiveElement != nil {
+		if r.LastUpdated == nil {
+			r.LastUpdated = &Instant{}
+		}
 		r.LastUpdated.Id = m.LastUpdatedPrimitiveElement.Id
 		r.LastUpdated.Extension = m.LastUpdatedPrimitiveElement.Extension
 	}
 	r.Source = m.Source
 	if m.SourcePrimitiveElement != nil {
+		if r.Source == nil {
+			r.Source = &Uri{}
+		}
 		r.Source.Id = m.SourcePrimitiveElement.Id
 		r.Source.Extension = m.SourcePrimitiveElement.Extension
 	}
 	r.Profile = m.Profile
 	for i, e := range m.ProfilePrimitiveElement {
-		if len(r.Profile) > i {
+		if len(r.Profile) <= i {
+			r.Profile = append(r.Profile, Canonical{})
+		}
+		if e != nil {
 			r.Profile[i].Id = e.Id
 			r.Profile[i].Extension = e.Extension
-		} else {
-			r.Profile = append(r.Profile, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Security = m.Security

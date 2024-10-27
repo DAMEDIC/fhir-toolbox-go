@@ -79,16 +79,22 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 func (r Basic) marshalJSON() jsonBasic {
 	m := jsonBasic{}
 	m.ResourceType = "Basic"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -102,7 +108,9 @@ func (r Basic) marshalJSON() jsonBasic {
 	m.Identifier = r.Identifier
 	m.Code = r.Code
 	m.Subject = r.Subject
-	m.Created = r.Created
+	if r.Created != nil && r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created != nil && (r.Created.Id != nil || r.Created.Extension != nil) {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
@@ -119,17 +127,26 @@ func (r *Basic) UnmarshalJSON(b []byte) error {
 func (r *Basic) unmarshalJSON(m jsonBasic) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -145,6 +162,9 @@ func (r *Basic) unmarshalJSON(m jsonBasic) error {
 	r.Subject = m.Subject
 	r.Created = m.Created
 	if m.CreatedPrimitiveElement != nil {
+		if r.Created == nil {
+			r.Created = &Date{}
+		}
 		r.Created.Id = m.CreatedPrimitiveElement.Id
 		r.Created.Extension = m.CreatedPrimitiveElement.Extension
 	}

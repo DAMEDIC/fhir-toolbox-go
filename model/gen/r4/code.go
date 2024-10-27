@@ -11,11 +11,6 @@ type Code struct {
 	// Primitive value for code
 	Value *string
 }
-type jsonCode struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Code) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

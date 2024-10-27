@@ -55,11 +55,15 @@ func (r TriggerDefinition) marshalJSON() jsonTriggerDefinition {
 	m := jsonTriggerDefinition{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -73,22 +77,30 @@ func (r TriggerDefinition) marshalJSON() jsonTriggerDefinition {
 	case *Reference:
 		m.TimingReference = v
 	case Date:
-		m.TimingDate = &v
+		if v.Value != nil {
+			m.TimingDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.TimingDate = v
+		if v.Value != nil {
+			m.TimingDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.TimingDateTime = &v
+		if v.Value != nil {
+			m.TimingDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimingDateTime = v
+		if v.Value != nil {
+			m.TimingDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -114,6 +126,9 @@ func (r *TriggerDefinition) unmarshalJSON(m jsonTriggerDefinition) error {
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}

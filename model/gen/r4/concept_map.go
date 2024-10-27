@@ -147,16 +147,22 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 func (r ConceptMap) marshalJSON() jsonConceptMap {
 	m := jsonConceptMap{}
 	m.ResourceType = "ConceptMap"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -167,94 +173,132 @@ func (r ConceptMap) marshalJSON() jsonConceptMap {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
 	switch v := r.Source.(type) {
 	case Uri:
-		m.SourceUri = &v
+		if v.Value != nil {
+			m.SourceUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SourceUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.SourceUri = v
+		if v.Value != nil {
+			m.SourceUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SourceUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.SourceCanonical = &v
+		if v.Value != nil {
+			m.SourceCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SourceCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.SourceCanonical = v
+		if v.Value != nil {
+			m.SourceCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.SourceCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
 	switch v := r.Target.(type) {
 	case Uri:
-		m.TargetUri = &v
+		if v.Value != nil {
+			m.TargetUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TargetUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.TargetUri = v
+		if v.Value != nil {
+			m.TargetUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TargetUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.TargetCanonical = &v
+		if v.Value != nil {
+			m.TargetCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TargetCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.TargetCanonical = v
+		if v.Value != nil {
+			m.TargetCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TargetCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -272,17 +316,26 @@ func (r *ConceptMap) UnmarshalJSON(b []byte) error {
 func (r *ConceptMap) unmarshalJSON(m jsonConceptMap) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -295,22 +348,34 @@ func (r *ConceptMap) unmarshalJSON(m jsonConceptMap) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -321,22 +386,34 @@ func (r *ConceptMap) unmarshalJSON(m jsonConceptMap) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -344,11 +421,17 @@ func (r *ConceptMap) unmarshalJSON(m jsonConceptMap) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
@@ -466,19 +549,27 @@ func (r ConceptMapGroup) marshalJSON() jsonConceptMapGroup {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Source = r.Source
+	if r.Source != nil && r.Source.Value != nil {
+		m.Source = r.Source
+	}
 	if r.Source != nil && (r.Source.Id != nil || r.Source.Extension != nil) {
 		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
 	}
-	m.SourceVersion = r.SourceVersion
+	if r.SourceVersion != nil && r.SourceVersion.Value != nil {
+		m.SourceVersion = r.SourceVersion
+	}
 	if r.SourceVersion != nil && (r.SourceVersion.Id != nil || r.SourceVersion.Extension != nil) {
 		m.SourceVersionPrimitiveElement = &primitiveElement{Id: r.SourceVersion.Id, Extension: r.SourceVersion.Extension}
 	}
-	m.Target = r.Target
+	if r.Target != nil && r.Target.Value != nil {
+		m.Target = r.Target
+	}
 	if r.Target != nil && (r.Target.Id != nil || r.Target.Extension != nil) {
 		m.TargetPrimitiveElement = &primitiveElement{Id: r.Target.Id, Extension: r.Target.Extension}
 	}
-	m.TargetVersion = r.TargetVersion
+	if r.TargetVersion != nil && r.TargetVersion.Value != nil {
+		m.TargetVersion = r.TargetVersion
+	}
 	if r.TargetVersion != nil && (r.TargetVersion.Id != nil || r.TargetVersion.Extension != nil) {
 		m.TargetVersionPrimitiveElement = &primitiveElement{Id: r.TargetVersion.Id, Extension: r.TargetVersion.Extension}
 	}
@@ -499,21 +590,33 @@ func (r *ConceptMapGroup) unmarshalJSON(m jsonConceptMapGroup) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Source = m.Source
 	if m.SourcePrimitiveElement != nil {
+		if r.Source == nil {
+			r.Source = &Uri{}
+		}
 		r.Source.Id = m.SourcePrimitiveElement.Id
 		r.Source.Extension = m.SourcePrimitiveElement.Extension
 	}
 	r.SourceVersion = m.SourceVersion
 	if m.SourceVersionPrimitiveElement != nil {
+		if r.SourceVersion == nil {
+			r.SourceVersion = &String{}
+		}
 		r.SourceVersion.Id = m.SourceVersionPrimitiveElement.Id
 		r.SourceVersion.Extension = m.SourceVersionPrimitiveElement.Extension
 	}
 	r.Target = m.Target
 	if m.TargetPrimitiveElement != nil {
+		if r.Target == nil {
+			r.Target = &Uri{}
+		}
 		r.Target.Id = m.TargetPrimitiveElement.Id
 		r.Target.Extension = m.TargetPrimitiveElement.Extension
 	}
 	r.TargetVersion = m.TargetVersion
 	if m.TargetVersionPrimitiveElement != nil {
+		if r.TargetVersion == nil {
+			r.TargetVersion = &String{}
+		}
 		r.TargetVersion.Id = m.TargetVersionPrimitiveElement.Id
 		r.TargetVersion.Extension = m.TargetVersionPrimitiveElement.Extension
 	}
@@ -565,11 +668,15 @@ func (r ConceptMapGroupElement) marshalJSON() jsonConceptMapGroupElement {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
@@ -589,11 +696,17 @@ func (r *ConceptMapGroupElement) unmarshalJSON(m jsonConceptMapGroupElement) err
 	r.ModifierExtension = m.ModifierExtension
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &Code{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
@@ -655,19 +768,27 @@ func (r ConceptMapGroupElementTarget) marshalJSON() jsonConceptMapGroupElementTa
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
-	m.Equivalence = r.Equivalence
+	if r.Equivalence.Value != nil {
+		m.Equivalence = r.Equivalence
+	}
 	if r.Equivalence.Id != nil || r.Equivalence.Extension != nil {
 		m.EquivalencePrimitiveElement = &primitiveElement{Id: r.Equivalence.Id, Extension: r.Equivalence.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -688,11 +809,17 @@ func (r *ConceptMapGroupElementTarget) unmarshalJSON(m jsonConceptMapGroupElemen
 	r.ModifierExtension = m.ModifierExtension
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &Code{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
@@ -703,6 +830,9 @@ func (r *ConceptMapGroupElementTarget) unmarshalJSON(m jsonConceptMapGroupElemen
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -759,19 +889,27 @@ func (r ConceptMapGroupElementTargetDependsOn) marshalJSON() jsonConceptMapGroup
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Property = r.Property
+	if r.Property.Value != nil {
+		m.Property = r.Property
+	}
 	if r.Property.Id != nil || r.Property.Extension != nil {
 		m.PropertyPrimitiveElement = &primitiveElement{Id: r.Property.Id, Extension: r.Property.Extension}
 	}
-	m.System = r.System
+	if r.System != nil && r.System.Value != nil {
+		m.System = r.System
+	}
 	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
 		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
 	}
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
@@ -795,6 +933,9 @@ func (r *ConceptMapGroupElementTargetDependsOn) unmarshalJSON(m jsonConceptMapGr
 	}
 	r.System = m.System
 	if m.SystemPrimitiveElement != nil {
+		if r.System == nil {
+			r.System = &Canonical{}
+		}
 		r.System.Id = m.SystemPrimitiveElement.Id
 		r.System.Extension = m.SystemPrimitiveElement.Extension
 	}
@@ -805,6 +946,9 @@ func (r *ConceptMapGroupElementTargetDependsOn) unmarshalJSON(m jsonConceptMapGr
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
@@ -859,19 +1003,27 @@ func (r ConceptMapGroupUnmapped) marshalJSON() jsonConceptMapGroupUnmapped {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Mode = r.Mode
+	if r.Mode.Value != nil {
+		m.Mode = r.Mode
+	}
 	if r.Mode.Id != nil || r.Mode.Extension != nil {
 		m.ModePrimitiveElement = &primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
 	}
-	m.Code = r.Code
+	if r.Code != nil && r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
@@ -895,16 +1047,25 @@ func (r *ConceptMapGroupUnmapped) unmarshalJSON(m jsonConceptMapGroupUnmapped) e
 	}
 	r.Code = m.Code
 	if m.CodePrimitiveElement != nil {
+		if r.Code == nil {
+			r.Code = &Code{}
+		}
 		r.Code.Id = m.CodePrimitiveElement.Id
 		r.Code.Extension = m.CodePrimitiveElement.Extension
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Canonical{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}

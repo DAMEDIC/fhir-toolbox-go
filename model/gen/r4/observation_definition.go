@@ -105,16 +105,22 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 func (r ObservationDefinition) marshalJSON() jsonObservationDefinition {
 	m := jsonObservationDefinition{}
 	m.ResourceType = "ObservationDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -128,7 +134,16 @@ func (r ObservationDefinition) marshalJSON() jsonObservationDefinition {
 	m.Category = r.Category
 	m.Code = r.Code
 	m.Identifier = r.Identifier
-	m.PermittedDataType = r.PermittedDataType
+	anyPermittedDataTypeValue := false
+	for _, e := range r.PermittedDataType {
+		if e.Value != nil {
+			anyPermittedDataTypeValue = true
+			break
+		}
+	}
+	if anyPermittedDataTypeValue {
+		m.PermittedDataType = r.PermittedDataType
+	}
 	anyPermittedDataTypeIdOrExtension := false
 	for _, e := range r.PermittedDataType {
 		if e.Id != nil || e.Extension != nil {
@@ -146,12 +161,16 @@ func (r ObservationDefinition) marshalJSON() jsonObservationDefinition {
 			}
 		}
 	}
-	m.MultipleResultsAllowed = r.MultipleResultsAllowed
+	if r.MultipleResultsAllowed != nil && r.MultipleResultsAllowed.Value != nil {
+		m.MultipleResultsAllowed = r.MultipleResultsAllowed
+	}
 	if r.MultipleResultsAllowed != nil && (r.MultipleResultsAllowed.Id != nil || r.MultipleResultsAllowed.Extension != nil) {
 		m.MultipleResultsAllowedPrimitiveElement = &primitiveElement{Id: r.MultipleResultsAllowed.Id, Extension: r.MultipleResultsAllowed.Extension}
 	}
 	m.Method = r.Method
-	m.PreferredReportName = r.PreferredReportName
+	if r.PreferredReportName != nil && r.PreferredReportName.Value != nil {
+		m.PreferredReportName = r.PreferredReportName
+	}
 	if r.PreferredReportName != nil && (r.PreferredReportName.Id != nil || r.PreferredReportName.Extension != nil) {
 		m.PreferredReportNamePrimitiveElement = &primitiveElement{Id: r.PreferredReportName.Id, Extension: r.PreferredReportName.Extension}
 	}
@@ -173,17 +192,26 @@ func (r *ObservationDefinition) UnmarshalJSON(b []byte) error {
 func (r *ObservationDefinition) unmarshalJSON(m jsonObservationDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -199,21 +227,28 @@ func (r *ObservationDefinition) unmarshalJSON(m jsonObservationDefinition) error
 	r.Identifier = m.Identifier
 	r.PermittedDataType = m.PermittedDataType
 	for i, e := range m.PermittedDataTypePrimitiveElement {
-		if len(r.PermittedDataType) > i {
+		if len(r.PermittedDataType) <= i {
+			r.PermittedDataType = append(r.PermittedDataType, Code{})
+		}
+		if e != nil {
 			r.PermittedDataType[i].Id = e.Id
 			r.PermittedDataType[i].Extension = e.Extension
-		} else {
-			r.PermittedDataType = append(r.PermittedDataType, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.MultipleResultsAllowed = m.MultipleResultsAllowed
 	if m.MultipleResultsAllowedPrimitiveElement != nil {
+		if r.MultipleResultsAllowed == nil {
+			r.MultipleResultsAllowed = &Boolean{}
+		}
 		r.MultipleResultsAllowed.Id = m.MultipleResultsAllowedPrimitiveElement.Id
 		r.MultipleResultsAllowed.Extension = m.MultipleResultsAllowedPrimitiveElement.Extension
 	}
 	r.Method = m.Method
 	r.PreferredReportName = m.PreferredReportName
 	if m.PreferredReportNamePrimitiveElement != nil {
+		if r.PreferredReportName == nil {
+			r.PreferredReportName = &String{}
+		}
 		r.PreferredReportName.Id = m.PreferredReportNamePrimitiveElement.Id
 		r.PreferredReportName.Extension = m.PreferredReportNamePrimitiveElement.Extension
 	}
@@ -274,11 +309,15 @@ func (r ObservationDefinitionQuantitativeDetails) marshalJSON() jsonObservationD
 	m.ModifierExtension = r.ModifierExtension
 	m.CustomaryUnit = r.CustomaryUnit
 	m.Unit = r.Unit
-	m.ConversionFactor = r.ConversionFactor
+	if r.ConversionFactor != nil && r.ConversionFactor.Value != nil {
+		m.ConversionFactor = r.ConversionFactor
+	}
 	if r.ConversionFactor != nil && (r.ConversionFactor.Id != nil || r.ConversionFactor.Extension != nil) {
 		m.ConversionFactorPrimitiveElement = &primitiveElement{Id: r.ConversionFactor.Id, Extension: r.ConversionFactor.Extension}
 	}
-	m.DecimalPrecision = r.DecimalPrecision
+	if r.DecimalPrecision != nil && r.DecimalPrecision.Value != nil {
+		m.DecimalPrecision = r.DecimalPrecision
+	}
 	if r.DecimalPrecision != nil && (r.DecimalPrecision.Id != nil || r.DecimalPrecision.Extension != nil) {
 		m.DecimalPrecisionPrimitiveElement = &primitiveElement{Id: r.DecimalPrecision.Id, Extension: r.DecimalPrecision.Extension}
 	}
@@ -299,11 +338,17 @@ func (r *ObservationDefinitionQuantitativeDetails) unmarshalJSON(m jsonObservati
 	r.Unit = m.Unit
 	r.ConversionFactor = m.ConversionFactor
 	if m.ConversionFactorPrimitiveElement != nil {
+		if r.ConversionFactor == nil {
+			r.ConversionFactor = &Decimal{}
+		}
 		r.ConversionFactor.Id = m.ConversionFactorPrimitiveElement.Id
 		r.ConversionFactor.Extension = m.ConversionFactorPrimitiveElement.Extension
 	}
 	r.DecimalPrecision = m.DecimalPrecision
 	if m.DecimalPrecisionPrimitiveElement != nil {
+		if r.DecimalPrecision == nil {
+			r.DecimalPrecision = &Integer{}
+		}
 		r.DecimalPrecision.Id = m.DecimalPrecisionPrimitiveElement.Id
 		r.DecimalPrecision.Extension = m.DecimalPrecisionPrimitiveElement.Extension
 	}
@@ -369,20 +414,26 @@ func (r ObservationDefinitionQualifiedInterval) marshalJSON() jsonObservationDef
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Category = r.Category
+	if r.Category != nil && r.Category.Value != nil {
+		m.Category = r.Category
+	}
 	if r.Category != nil && (r.Category.Id != nil || r.Category.Extension != nil) {
 		m.CategoryPrimitiveElement = &primitiveElement{Id: r.Category.Id, Extension: r.Category.Extension}
 	}
 	m.Range = r.Range
 	m.Context = r.Context
 	m.AppliesTo = r.AppliesTo
-	m.Gender = r.Gender
+	if r.Gender != nil && r.Gender.Value != nil {
+		m.Gender = r.Gender
+	}
 	if r.Gender != nil && (r.Gender.Id != nil || r.Gender.Extension != nil) {
 		m.GenderPrimitiveElement = &primitiveElement{Id: r.Gender.Id, Extension: r.Gender.Extension}
 	}
 	m.Age = r.Age
 	m.GestationalAge = r.GestationalAge
-	m.Condition = r.Condition
+	if r.Condition != nil && r.Condition.Value != nil {
+		m.Condition = r.Condition
+	}
 	if r.Condition != nil && (r.Condition.Id != nil || r.Condition.Extension != nil) {
 		m.ConditionPrimitiveElement = &primitiveElement{Id: r.Condition.Id, Extension: r.Condition.Extension}
 	}
@@ -401,6 +452,9 @@ func (r *ObservationDefinitionQualifiedInterval) unmarshalJSON(m jsonObservation
 	r.ModifierExtension = m.ModifierExtension
 	r.Category = m.Category
 	if m.CategoryPrimitiveElement != nil {
+		if r.Category == nil {
+			r.Category = &Code{}
+		}
 		r.Category.Id = m.CategoryPrimitiveElement.Id
 		r.Category.Extension = m.CategoryPrimitiveElement.Extension
 	}
@@ -409,6 +463,9 @@ func (r *ObservationDefinitionQualifiedInterval) unmarshalJSON(m jsonObservation
 	r.AppliesTo = m.AppliesTo
 	r.Gender = m.Gender
 	if m.GenderPrimitiveElement != nil {
+		if r.Gender == nil {
+			r.Gender = &Code{}
+		}
 		r.Gender.Id = m.GenderPrimitiveElement.Id
 		r.Gender.Extension = m.GenderPrimitiveElement.Extension
 	}
@@ -416,6 +473,9 @@ func (r *ObservationDefinitionQualifiedInterval) unmarshalJSON(m jsonObservation
 	r.GestationalAge = m.GestationalAge
 	r.Condition = m.Condition
 	if m.ConditionPrimitiveElement != nil {
+		if r.Condition == nil {
+			r.Condition = &String{}
+		}
 		r.Condition.Id = m.ConditionPrimitiveElement.Id
 		r.Condition.Extension = m.ConditionPrimitiveElement.Extension
 	}

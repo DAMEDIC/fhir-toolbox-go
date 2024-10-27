@@ -140,16 +140,22 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 func (r Patient) marshalJSON() jsonPatient {
 	m := jsonPatient{}
 	m.ResourceType = "Patient"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -161,38 +167,52 @@ func (r Patient) marshalJSON() jsonPatient {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Active = r.Active
+	if r.Active != nil && r.Active.Value != nil {
+		m.Active = r.Active
+	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
 		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
 	}
 	m.Name = r.Name
 	m.Telecom = r.Telecom
-	m.Gender = r.Gender
+	if r.Gender != nil && r.Gender.Value != nil {
+		m.Gender = r.Gender
+	}
 	if r.Gender != nil && (r.Gender.Id != nil || r.Gender.Extension != nil) {
 		m.GenderPrimitiveElement = &primitiveElement{Id: r.Gender.Id, Extension: r.Gender.Extension}
 	}
-	m.BirthDate = r.BirthDate
+	if r.BirthDate != nil && r.BirthDate.Value != nil {
+		m.BirthDate = r.BirthDate
+	}
 	if r.BirthDate != nil && (r.BirthDate.Id != nil || r.BirthDate.Extension != nil) {
 		m.BirthDatePrimitiveElement = &primitiveElement{Id: r.BirthDate.Id, Extension: r.BirthDate.Extension}
 	}
 	switch v := r.Deceased.(type) {
 	case Boolean:
-		m.DeceasedBoolean = &v
+		if v.Value != nil {
+			m.DeceasedBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.DeceasedBoolean = v
+		if v.Value != nil {
+			m.DeceasedBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.DeceasedDateTime = &v
+		if v.Value != nil {
+			m.DeceasedDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.DeceasedDateTime = v
+		if v.Value != nil {
+			m.DeceasedDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DeceasedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -201,22 +221,30 @@ func (r Patient) marshalJSON() jsonPatient {
 	m.MaritalStatus = r.MaritalStatus
 	switch v := r.MultipleBirth.(type) {
 	case Boolean:
-		m.MultipleBirthBoolean = &v
+		if v.Value != nil {
+			m.MultipleBirthBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MultipleBirthBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.MultipleBirthBoolean = v
+		if v.Value != nil {
+			m.MultipleBirthBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MultipleBirthBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.MultipleBirthInteger = &v
+		if v.Value != nil {
+			m.MultipleBirthInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MultipleBirthIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.MultipleBirthInteger = v
+		if v.Value != nil {
+			m.MultipleBirthInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.MultipleBirthIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -239,17 +267,26 @@ func (r *Patient) UnmarshalJSON(b []byte) error {
 func (r *Patient) unmarshalJSON(m jsonPatient) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -263,6 +300,9 @@ func (r *Patient) unmarshalJSON(m jsonPatient) error {
 	r.Identifier = m.Identifier
 	r.Active = m.Active
 	if m.ActivePrimitiveElement != nil {
+		if r.Active == nil {
+			r.Active = &Boolean{}
+		}
 		r.Active.Id = m.ActivePrimitiveElement.Id
 		r.Active.Extension = m.ActivePrimitiveElement.Extension
 	}
@@ -270,11 +310,17 @@ func (r *Patient) unmarshalJSON(m jsonPatient) error {
 	r.Telecom = m.Telecom
 	r.Gender = m.Gender
 	if m.GenderPrimitiveElement != nil {
+		if r.Gender == nil {
+			r.Gender = &Code{}
+		}
 		r.Gender.Id = m.GenderPrimitiveElement.Id
 		r.Gender.Extension = m.GenderPrimitiveElement.Extension
 	}
 	r.BirthDate = m.BirthDate
 	if m.BirthDatePrimitiveElement != nil {
+		if r.BirthDate == nil {
+			r.BirthDate = &Date{}
+		}
 		r.BirthDate.Id = m.BirthDatePrimitiveElement.Id
 		r.BirthDate.Extension = m.BirthDatePrimitiveElement.Extension
 	}
@@ -403,7 +449,9 @@ func (r PatientContact) marshalJSON() jsonPatientContact {
 	m.Name = r.Name
 	m.Telecom = r.Telecom
 	m.Address = r.Address
-	m.Gender = r.Gender
+	if r.Gender != nil && r.Gender.Value != nil {
+		m.Gender = r.Gender
+	}
 	if r.Gender != nil && (r.Gender.Id != nil || r.Gender.Extension != nil) {
 		m.GenderPrimitiveElement = &primitiveElement{Id: r.Gender.Id, Extension: r.Gender.Extension}
 	}
@@ -428,6 +476,9 @@ func (r *PatientContact) unmarshalJSON(m jsonPatientContact) error {
 	r.Address = m.Address
 	r.Gender = m.Gender
 	if m.GenderPrimitiveElement != nil {
+		if r.Gender == nil {
+			r.Gender = &Code{}
+		}
 		r.Gender.Id = m.GenderPrimitiveElement.Id
 		r.Gender.Extension = m.GenderPrimitiveElement.Extension
 	}
@@ -476,7 +527,9 @@ func (r PatientCommunication) marshalJSON() jsonPatientCommunication {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Language = r.Language
-	m.Preferred = r.Preferred
+	if r.Preferred != nil && r.Preferred.Value != nil {
+		m.Preferred = r.Preferred
+	}
 	if r.Preferred != nil && (r.Preferred.Id != nil || r.Preferred.Extension != nil) {
 		m.PreferredPrimitiveElement = &primitiveElement{Id: r.Preferred.Id, Extension: r.Preferred.Extension}
 	}
@@ -496,6 +549,9 @@ func (r *PatientCommunication) unmarshalJSON(m jsonPatientCommunication) error {
 	r.Language = m.Language
 	r.Preferred = m.Preferred
 	if m.PreferredPrimitiveElement != nil {
+		if r.Preferred == nil {
+			r.Preferred = &Boolean{}
+		}
 		r.Preferred.Id = m.PreferredPrimitiveElement.Id
 		r.Preferred.Extension = m.PreferredPrimitiveElement.Extension
 	}
@@ -542,7 +598,9 @@ func (r PatientLink) marshalJSON() jsonPatientLink {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Other = r.Other
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}

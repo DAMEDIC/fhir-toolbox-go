@@ -11,11 +11,6 @@ type Boolean struct {
 	// The actual value
 	Value *bool
 }
-type jsonBoolean struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *bool       `json:"value,omitempty"`
-}
 
 func (r Boolean) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

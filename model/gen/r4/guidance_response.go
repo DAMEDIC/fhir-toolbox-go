@@ -123,16 +123,22 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 func (r GuidanceResponse) marshalJSON() jsonGuidanceResponse {
 	m := jsonGuidanceResponse{}
 	m.ResourceType = "GuidanceResponse"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -147,22 +153,30 @@ func (r GuidanceResponse) marshalJSON() jsonGuidanceResponse {
 	m.Identifier = r.Identifier
 	switch v := r.Module.(type) {
 	case Uri:
-		m.ModuleUri = &v
+		if v.Value != nil {
+			m.ModuleUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ModuleUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.ModuleUri = v
+		if v.Value != nil {
+			m.ModuleUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ModuleUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.ModuleCanonical = &v
+		if v.Value != nil {
+			m.ModuleCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ModuleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.ModuleCanonical = v
+		if v.Value != nil {
+			m.ModuleCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ModuleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -171,13 +185,17 @@ func (r GuidanceResponse) marshalJSON() jsonGuidanceResponse {
 	case *CodeableConcept:
 		m.ModuleCodeableConcept = v
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
-	m.OccurrenceDateTime = r.OccurrenceDateTime
+	if r.OccurrenceDateTime != nil && r.OccurrenceDateTime.Value != nil {
+		m.OccurrenceDateTime = r.OccurrenceDateTime
+	}
 	if r.OccurrenceDateTime != nil && (r.OccurrenceDateTime.Id != nil || r.OccurrenceDateTime.Extension != nil) {
 		m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: r.OccurrenceDateTime.Id, Extension: r.OccurrenceDateTime.Extension}
 	}
@@ -201,17 +219,26 @@ func (r *GuidanceResponse) UnmarshalJSON(b []byte) error {
 func (r *GuidanceResponse) unmarshalJSON(m jsonGuidanceResponse) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -268,6 +295,9 @@ func (r *GuidanceResponse) unmarshalJSON(m jsonGuidanceResponse) error {
 	r.Encounter = m.Encounter
 	r.OccurrenceDateTime = m.OccurrenceDateTime
 	if m.OccurrenceDateTimePrimitiveElement != nil {
+		if r.OccurrenceDateTime == nil {
+			r.OccurrenceDateTime = &DateTime{}
+		}
 		r.OccurrenceDateTime.Id = m.OccurrenceDateTimePrimitiveElement.Id
 		r.OccurrenceDateTime.Extension = m.OccurrenceDateTimePrimitiveElement.Extension
 	}

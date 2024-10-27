@@ -121,16 +121,22 @@ func (r Coverage) MarshalJSON() ([]byte, error) {
 func (r Coverage) marshalJSON() jsonCoverage {
 	m := jsonCoverage{}
 	m.ResourceType = "Coverage"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -142,19 +148,25 @@ func (r Coverage) marshalJSON() jsonCoverage {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
 	m.PolicyHolder = r.PolicyHolder
 	m.Subscriber = r.Subscriber
-	m.SubscriberId = r.SubscriberId
+	if r.SubscriberId != nil && r.SubscriberId.Value != nil {
+		m.SubscriberId = r.SubscriberId
+	}
 	if r.SubscriberId != nil && (r.SubscriberId.Id != nil || r.SubscriberId.Extension != nil) {
 		m.SubscriberIdPrimitiveElement = &primitiveElement{Id: r.SubscriberId.Id, Extension: r.SubscriberId.Extension}
 	}
 	m.Beneficiary = r.Beneficiary
-	m.Dependent = r.Dependent
+	if r.Dependent != nil && r.Dependent.Value != nil {
+		m.Dependent = r.Dependent
+	}
 	if r.Dependent != nil && (r.Dependent.Id != nil || r.Dependent.Extension != nil) {
 		m.DependentPrimitiveElement = &primitiveElement{Id: r.Dependent.Id, Extension: r.Dependent.Extension}
 	}
@@ -162,16 +174,22 @@ func (r Coverage) marshalJSON() jsonCoverage {
 	m.Period = r.Period
 	m.Payor = r.Payor
 	m.Class = r.Class
-	m.Order = r.Order
+	if r.Order != nil && r.Order.Value != nil {
+		m.Order = r.Order
+	}
 	if r.Order != nil && (r.Order.Id != nil || r.Order.Extension != nil) {
 		m.OrderPrimitiveElement = &primitiveElement{Id: r.Order.Id, Extension: r.Order.Extension}
 	}
-	m.Network = r.Network
+	if r.Network != nil && r.Network.Value != nil {
+		m.Network = r.Network
+	}
 	if r.Network != nil && (r.Network.Id != nil || r.Network.Extension != nil) {
 		m.NetworkPrimitiveElement = &primitiveElement{Id: r.Network.Id, Extension: r.Network.Extension}
 	}
 	m.CostToBeneficiary = r.CostToBeneficiary
-	m.Subrogation = r.Subrogation
+	if r.Subrogation != nil && r.Subrogation.Value != nil {
+		m.Subrogation = r.Subrogation
+	}
 	if r.Subrogation != nil && (r.Subrogation.Id != nil || r.Subrogation.Extension != nil) {
 		m.SubrogationPrimitiveElement = &primitiveElement{Id: r.Subrogation.Id, Extension: r.Subrogation.Extension}
 	}
@@ -188,17 +206,26 @@ func (r *Coverage) UnmarshalJSON(b []byte) error {
 func (r *Coverage) unmarshalJSON(m jsonCoverage) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -220,12 +247,18 @@ func (r *Coverage) unmarshalJSON(m jsonCoverage) error {
 	r.Subscriber = m.Subscriber
 	r.SubscriberId = m.SubscriberId
 	if m.SubscriberIdPrimitiveElement != nil {
+		if r.SubscriberId == nil {
+			r.SubscriberId = &String{}
+		}
 		r.SubscriberId.Id = m.SubscriberIdPrimitiveElement.Id
 		r.SubscriberId.Extension = m.SubscriberIdPrimitiveElement.Extension
 	}
 	r.Beneficiary = m.Beneficiary
 	r.Dependent = m.Dependent
 	if m.DependentPrimitiveElement != nil {
+		if r.Dependent == nil {
+			r.Dependent = &String{}
+		}
 		r.Dependent.Id = m.DependentPrimitiveElement.Id
 		r.Dependent.Extension = m.DependentPrimitiveElement.Extension
 	}
@@ -235,17 +268,26 @@ func (r *Coverage) unmarshalJSON(m jsonCoverage) error {
 	r.Class = m.Class
 	r.Order = m.Order
 	if m.OrderPrimitiveElement != nil {
+		if r.Order == nil {
+			r.Order = &PositiveInt{}
+		}
 		r.Order.Id = m.OrderPrimitiveElement.Id
 		r.Order.Extension = m.OrderPrimitiveElement.Extension
 	}
 	r.Network = m.Network
 	if m.NetworkPrimitiveElement != nil {
+		if r.Network == nil {
+			r.Network = &String{}
+		}
 		r.Network.Id = m.NetworkPrimitiveElement.Id
 		r.Network.Extension = m.NetworkPrimitiveElement.Extension
 	}
 	r.CostToBeneficiary = m.CostToBeneficiary
 	r.Subrogation = m.Subrogation
 	if m.SubrogationPrimitiveElement != nil {
+		if r.Subrogation == nil {
+			r.Subrogation = &Boolean{}
+		}
 		r.Subrogation.Id = m.SubrogationPrimitiveElement.Id
 		r.Subrogation.Extension = m.SubrogationPrimitiveElement.Extension
 	}
@@ -297,11 +339,15 @@ func (r CoverageClass) marshalJSON() jsonCoverageClass {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -326,6 +372,9 @@ func (r *CoverageClass) unmarshalJSON(m jsonCoverageClass) error {
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}

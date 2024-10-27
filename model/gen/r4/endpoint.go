@@ -99,16 +99,22 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 func (r Endpoint) marshalJSON() jsonEndpoint {
 	m := jsonEndpoint{}
 	m.ResourceType = "Endpoint"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -120,12 +126,16 @@ func (r Endpoint) marshalJSON() jsonEndpoint {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.ConnectionType = r.ConnectionType
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -133,7 +143,16 @@ func (r Endpoint) marshalJSON() jsonEndpoint {
 	m.Contact = r.Contact
 	m.Period = r.Period
 	m.PayloadType = r.PayloadType
-	m.PayloadMimeType = r.PayloadMimeType
+	anyPayloadMimeTypeValue := false
+	for _, e := range r.PayloadMimeType {
+		if e.Value != nil {
+			anyPayloadMimeTypeValue = true
+			break
+		}
+	}
+	if anyPayloadMimeTypeValue {
+		m.PayloadMimeType = r.PayloadMimeType
+	}
 	anyPayloadMimeTypeIdOrExtension := false
 	for _, e := range r.PayloadMimeType {
 		if e.Id != nil || e.Extension != nil {
@@ -151,11 +170,22 @@ func (r Endpoint) marshalJSON() jsonEndpoint {
 			}
 		}
 	}
-	m.Address = r.Address
+	if r.Address.Value != nil {
+		m.Address = r.Address
+	}
 	if r.Address.Id != nil || r.Address.Extension != nil {
 		m.AddressPrimitiveElement = &primitiveElement{Id: r.Address.Id, Extension: r.Address.Extension}
 	}
-	m.Header = r.Header
+	anyHeaderValue := false
+	for _, e := range r.Header {
+		if e.Value != nil {
+			anyHeaderValue = true
+			break
+		}
+	}
+	if anyHeaderValue {
+		m.Header = r.Header
+	}
 	anyHeaderIdOrExtension := false
 	for _, e := range r.Header {
 		if e.Id != nil || e.Extension != nil {
@@ -185,17 +215,26 @@ func (r *Endpoint) UnmarshalJSON(b []byte) error {
 func (r *Endpoint) unmarshalJSON(m jsonEndpoint) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -215,6 +254,9 @@ func (r *Endpoint) unmarshalJSON(m jsonEndpoint) error {
 	r.ConnectionType = m.ConnectionType
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -224,11 +266,12 @@ func (r *Endpoint) unmarshalJSON(m jsonEndpoint) error {
 	r.PayloadType = m.PayloadType
 	r.PayloadMimeType = m.PayloadMimeType
 	for i, e := range m.PayloadMimeTypePrimitiveElement {
-		if len(r.PayloadMimeType) > i {
+		if len(r.PayloadMimeType) <= i {
+			r.PayloadMimeType = append(r.PayloadMimeType, Code{})
+		}
+		if e != nil {
 			r.PayloadMimeType[i].Id = e.Id
 			r.PayloadMimeType[i].Extension = e.Extension
-		} else {
-			r.PayloadMimeType = append(r.PayloadMimeType, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Address = m.Address
@@ -238,11 +281,12 @@ func (r *Endpoint) unmarshalJSON(m jsonEndpoint) error {
 	}
 	r.Header = m.Header
 	for i, e := range m.HeaderPrimitiveElement {
-		if len(r.Header) > i {
+		if len(r.Header) <= i {
+			r.Header = append(r.Header, String{})
+		}
+		if e != nil {
 			r.Header[i].Id = e.Id
 			r.Header[i].Extension = e.Extension
-		} else {
-			r.Header = append(r.Header, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil

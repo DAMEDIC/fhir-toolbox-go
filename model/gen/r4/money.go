@@ -29,11 +29,15 @@ func (r Money) marshalJSON() jsonMoney {
 	m := jsonMoney{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Currency = r.Currency
+	if r.Currency != nil && r.Currency.Value != nil {
+		m.Currency = r.Currency
+	}
 	if r.Currency != nil && (r.Currency.Id != nil || r.Currency.Extension != nil) {
 		m.CurrencyPrimitiveElement = &primitiveElement{Id: r.Currency.Id, Extension: r.Currency.Extension}
 	}
@@ -51,11 +55,17 @@ func (r *Money) unmarshalJSON(m jsonMoney) error {
 	r.Extension = m.Extension
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &Decimal{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
 	r.Currency = m.Currency
 	if m.CurrencyPrimitiveElement != nil {
+		if r.Currency == nil {
+			r.Currency = &Code{}
+		}
 		r.Currency.Id = m.CurrencyPrimitiveElement.Id
 		r.Currency.Extension = m.CurrencyPrimitiveElement.Extension
 	}

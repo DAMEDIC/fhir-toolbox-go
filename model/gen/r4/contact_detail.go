@@ -30,7 +30,9 @@ func (r ContactDetail) marshalJSON() jsonContactDetail {
 	m := jsonContactDetail{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
@@ -49,6 +51,9 @@ func (r *ContactDetail) unmarshalJSON(m jsonContactDetail) error {
 	r.Extension = m.Extension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}

@@ -103,16 +103,22 @@ func (r TestReport) MarshalJSON() ([]byte, error) {
 func (r TestReport) marshalJSON() jsonTestReport {
 	m := jsonTestReport{}
 	m.ResourceType = "TestReport"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -124,28 +130,40 @@ func (r TestReport) marshalJSON() jsonTestReport {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.TestScript = r.TestScript
-	m.Result = r.Result
+	if r.Result.Value != nil {
+		m.Result = r.Result
+	}
 	if r.Result.Id != nil || r.Result.Extension != nil {
 		m.ResultPrimitiveElement = &primitiveElement{Id: r.Result.Id, Extension: r.Result.Extension}
 	}
-	m.Score = r.Score
+	if r.Score != nil && r.Score.Value != nil {
+		m.Score = r.Score
+	}
 	if r.Score != nil && (r.Score.Id != nil || r.Score.Extension != nil) {
 		m.ScorePrimitiveElement = &primitiveElement{Id: r.Score.Id, Extension: r.Score.Extension}
 	}
-	m.Tester = r.Tester
+	if r.Tester != nil && r.Tester.Value != nil {
+		m.Tester = r.Tester
+	}
 	if r.Tester != nil && (r.Tester.Id != nil || r.Tester.Extension != nil) {
 		m.TesterPrimitiveElement = &primitiveElement{Id: r.Tester.Id, Extension: r.Tester.Extension}
 	}
-	m.Issued = r.Issued
+	if r.Issued != nil && r.Issued.Value != nil {
+		m.Issued = r.Issued
+	}
 	if r.Issued != nil && (r.Issued.Id != nil || r.Issued.Extension != nil) {
 		m.IssuedPrimitiveElement = &primitiveElement{Id: r.Issued.Id, Extension: r.Issued.Extension}
 	}
@@ -165,17 +183,26 @@ func (r *TestReport) UnmarshalJSON(b []byte) error {
 func (r *TestReport) unmarshalJSON(m jsonTestReport) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -189,6 +216,9 @@ func (r *TestReport) unmarshalJSON(m jsonTestReport) error {
 	r.Identifier = m.Identifier
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -205,16 +235,25 @@ func (r *TestReport) unmarshalJSON(m jsonTestReport) error {
 	}
 	r.Score = m.Score
 	if m.ScorePrimitiveElement != nil {
+		if r.Score == nil {
+			r.Score = &Decimal{}
+		}
 		r.Score.Id = m.ScorePrimitiveElement.Id
 		r.Score.Extension = m.ScorePrimitiveElement.Extension
 	}
 	r.Tester = m.Tester
 	if m.TesterPrimitiveElement != nil {
+		if r.Tester == nil {
+			r.Tester = &String{}
+		}
 		r.Tester.Id = m.TesterPrimitiveElement.Id
 		r.Tester.Extension = m.TesterPrimitiveElement.Extension
 	}
 	r.Issued = m.Issued
 	if m.IssuedPrimitiveElement != nil {
+		if r.Issued == nil {
+			r.Issued = &DateTime{}
+		}
 		r.Issued.Id = m.IssuedPrimitiveElement.Id
 		r.Issued.Extension = m.IssuedPrimitiveElement.Extension
 	}
@@ -269,15 +308,21 @@ func (r TestReportParticipant) marshalJSON() jsonTestReportParticipant {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Uri = r.Uri
+	if r.Uri.Value != nil {
+		m.Uri = r.Uri
+	}
 	if r.Uri.Id != nil || r.Uri.Extension != nil {
 		m.UriPrimitiveElement = &primitiveElement{Id: r.Uri.Id, Extension: r.Uri.Extension}
 	}
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
@@ -306,6 +351,9 @@ func (r *TestReportParticipant) unmarshalJSON(m jsonTestReportParticipant) error
 	}
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}
@@ -467,15 +515,21 @@ func (r TestReportSetupActionOperation) marshalJSON() jsonTestReportSetupActionO
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Result = r.Result
+	if r.Result.Value != nil {
+		m.Result = r.Result
+	}
 	if r.Result.Id != nil || r.Result.Extension != nil {
 		m.ResultPrimitiveElement = &primitiveElement{Id: r.Result.Id, Extension: r.Result.Extension}
 	}
-	m.Message = r.Message
+	if r.Message != nil && r.Message.Value != nil {
+		m.Message = r.Message
+	}
 	if r.Message != nil && (r.Message.Id != nil || r.Message.Extension != nil) {
 		m.MessagePrimitiveElement = &primitiveElement{Id: r.Message.Id, Extension: r.Message.Extension}
 	}
-	m.Detail = r.Detail
+	if r.Detail != nil && r.Detail.Value != nil {
+		m.Detail = r.Detail
+	}
 	if r.Detail != nil && (r.Detail.Id != nil || r.Detail.Extension != nil) {
 		m.DetailPrimitiveElement = &primitiveElement{Id: r.Detail.Id, Extension: r.Detail.Extension}
 	}
@@ -499,11 +553,17 @@ func (r *TestReportSetupActionOperation) unmarshalJSON(m jsonTestReportSetupActi
 	}
 	r.Message = m.Message
 	if m.MessagePrimitiveElement != nil {
+		if r.Message == nil {
+			r.Message = &Markdown{}
+		}
 		r.Message.Id = m.MessagePrimitiveElement.Id
 		r.Message.Extension = m.MessagePrimitiveElement.Extension
 	}
 	r.Detail = m.Detail
 	if m.DetailPrimitiveElement != nil {
+		if r.Detail == nil {
+			r.Detail = &Uri{}
+		}
 		r.Detail.Id = m.DetailPrimitiveElement.Id
 		r.Detail.Extension = m.DetailPrimitiveElement.Extension
 	}
@@ -554,15 +614,21 @@ func (r TestReportSetupActionAssert) marshalJSON() jsonTestReportSetupActionAsse
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Result = r.Result
+	if r.Result.Value != nil {
+		m.Result = r.Result
+	}
 	if r.Result.Id != nil || r.Result.Extension != nil {
 		m.ResultPrimitiveElement = &primitiveElement{Id: r.Result.Id, Extension: r.Result.Extension}
 	}
-	m.Message = r.Message
+	if r.Message != nil && r.Message.Value != nil {
+		m.Message = r.Message
+	}
 	if r.Message != nil && (r.Message.Id != nil || r.Message.Extension != nil) {
 		m.MessagePrimitiveElement = &primitiveElement{Id: r.Message.Id, Extension: r.Message.Extension}
 	}
-	m.Detail = r.Detail
+	if r.Detail != nil && r.Detail.Value != nil {
+		m.Detail = r.Detail
+	}
 	if r.Detail != nil && (r.Detail.Id != nil || r.Detail.Extension != nil) {
 		m.DetailPrimitiveElement = &primitiveElement{Id: r.Detail.Id, Extension: r.Detail.Extension}
 	}
@@ -586,11 +652,17 @@ func (r *TestReportSetupActionAssert) unmarshalJSON(m jsonTestReportSetupActionA
 	}
 	r.Message = m.Message
 	if m.MessagePrimitiveElement != nil {
+		if r.Message == nil {
+			r.Message = &Markdown{}
+		}
 		r.Message.Id = m.MessagePrimitiveElement.Id
 		r.Message.Extension = m.MessagePrimitiveElement.Extension
 	}
 	r.Detail = m.Detail
 	if m.DetailPrimitiveElement != nil {
+		if r.Detail == nil {
+			r.Detail = &String{}
+		}
 		r.Detail.Id = m.DetailPrimitiveElement.Id
 		r.Detail.Extension = m.DetailPrimitiveElement.Extension
 	}
@@ -640,11 +712,15 @@ func (r TestReportTest) marshalJSON() jsonTestReportTest {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -664,11 +740,17 @@ func (r *TestReportTest) unmarshalJSON(m jsonTestReportTest) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

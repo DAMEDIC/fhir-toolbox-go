@@ -55,35 +55,51 @@ func (r Attachment) marshalJSON() jsonAttachment {
 	m := jsonAttachment{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.ContentType = r.ContentType
+	if r.ContentType != nil && r.ContentType.Value != nil {
+		m.ContentType = r.ContentType
+	}
 	if r.ContentType != nil && (r.ContentType.Id != nil || r.ContentType.Extension != nil) {
 		m.ContentTypePrimitiveElement = &primitiveElement{Id: r.ContentType.Id, Extension: r.ContentType.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
-	m.Data = r.Data
+	if r.Data != nil && r.Data.Value != nil {
+		m.Data = r.Data
+	}
 	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
 		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Size = r.Size
+	if r.Size != nil && r.Size.Value != nil {
+		m.Size = r.Size
+	}
 	if r.Size != nil && (r.Size.Id != nil || r.Size.Extension != nil) {
 		m.SizePrimitiveElement = &primitiveElement{Id: r.Size.Id, Extension: r.Size.Extension}
 	}
-	m.Hash = r.Hash
+	if r.Hash != nil && r.Hash.Value != nil {
+		m.Hash = r.Hash
+	}
 	if r.Hash != nil && (r.Hash.Id != nil || r.Hash.Extension != nil) {
 		m.HashPrimitiveElement = &primitiveElement{Id: r.Hash.Id, Extension: r.Hash.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Creation = r.Creation
+	if r.Creation != nil && r.Creation.Value != nil {
+		m.Creation = r.Creation
+	}
 	if r.Creation != nil && (r.Creation.Id != nil || r.Creation.Extension != nil) {
 		m.CreationPrimitiveElement = &primitiveElement{Id: r.Creation.Id, Extension: r.Creation.Extension}
 	}
@@ -101,41 +117,65 @@ func (r *Attachment) unmarshalJSON(m jsonAttachment) error {
 	r.Extension = m.Extension
 	r.ContentType = m.ContentType
 	if m.ContentTypePrimitiveElement != nil {
+		if r.ContentType == nil {
+			r.ContentType = &Code{}
+		}
 		r.ContentType.Id = m.ContentTypePrimitiveElement.Id
 		r.ContentType.Extension = m.ContentTypePrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
 	r.Data = m.Data
 	if m.DataPrimitiveElement != nil {
+		if r.Data == nil {
+			r.Data = &Base64Binary{}
+		}
 		r.Data.Id = m.DataPrimitiveElement.Id
 		r.Data.Extension = m.DataPrimitiveElement.Extension
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Url{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Size = m.Size
 	if m.SizePrimitiveElement != nil {
+		if r.Size == nil {
+			r.Size = &UnsignedInt{}
+		}
 		r.Size.Id = m.SizePrimitiveElement.Id
 		r.Size.Extension = m.SizePrimitiveElement.Extension
 	}
 	r.Hash = m.Hash
 	if m.HashPrimitiveElement != nil {
+		if r.Hash == nil {
+			r.Hash = &Base64Binary{}
+		}
 		r.Hash.Id = m.HashPrimitiveElement.Id
 		r.Hash.Extension = m.HashPrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Creation = m.Creation
 	if m.CreationPrimitiveElement != nil {
+		if r.Creation == nil {
+			r.Creation = &DateTime{}
+		}
 		r.Creation.Id = m.CreationPrimitiveElement.Id
 		r.Creation.Extension = m.CreationPrimitiveElement.Extension
 	}

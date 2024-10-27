@@ -11,11 +11,6 @@ type Markdown struct {
 	// Primitive value for markdown
 	Value *string
 }
-type jsonMarkdown struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Markdown) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

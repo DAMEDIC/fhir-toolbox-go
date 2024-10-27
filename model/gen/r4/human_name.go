@@ -50,19 +50,34 @@ func (r HumanName) marshalJSON() jsonHumanName {
 	m := jsonHumanName{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Use = r.Use
+	if r.Use != nil && r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
-	m.Family = r.Family
+	if r.Family != nil && r.Family.Value != nil {
+		m.Family = r.Family
+	}
 	if r.Family != nil && (r.Family.Id != nil || r.Family.Extension != nil) {
 		m.FamilyPrimitiveElement = &primitiveElement{Id: r.Family.Id, Extension: r.Family.Extension}
 	}
-	m.Given = r.Given
+	anyGivenValue := false
+	for _, e := range r.Given {
+		if e.Value != nil {
+			anyGivenValue = true
+			break
+		}
+	}
+	if anyGivenValue {
+		m.Given = r.Given
+	}
 	anyGivenIdOrExtension := false
 	for _, e := range r.Given {
 		if e.Id != nil || e.Extension != nil {
@@ -80,7 +95,16 @@ func (r HumanName) marshalJSON() jsonHumanName {
 			}
 		}
 	}
-	m.Prefix = r.Prefix
+	anyPrefixValue := false
+	for _, e := range r.Prefix {
+		if e.Value != nil {
+			anyPrefixValue = true
+			break
+		}
+	}
+	if anyPrefixValue {
+		m.Prefix = r.Prefix
+	}
 	anyPrefixIdOrExtension := false
 	for _, e := range r.Prefix {
 		if e.Id != nil || e.Extension != nil {
@@ -98,7 +122,16 @@ func (r HumanName) marshalJSON() jsonHumanName {
 			}
 		}
 	}
-	m.Suffix = r.Suffix
+	anySuffixValue := false
+	for _, e := range r.Suffix {
+		if e.Value != nil {
+			anySuffixValue = true
+			break
+		}
+	}
+	if anySuffixValue {
+		m.Suffix = r.Suffix
+	}
 	anySuffixIdOrExtension := false
 	for _, e := range r.Suffix {
 		if e.Id != nil || e.Extension != nil {
@@ -131,44 +164,56 @@ func (r *HumanName) unmarshalJSON(m jsonHumanName) error {
 	r.Extension = m.Extension
 	r.Use = m.Use
 	if m.UsePrimitiveElement != nil {
+		if r.Use == nil {
+			r.Use = &Code{}
+		}
 		r.Use.Id = m.UsePrimitiveElement.Id
 		r.Use.Extension = m.UsePrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
 	r.Family = m.Family
 	if m.FamilyPrimitiveElement != nil {
+		if r.Family == nil {
+			r.Family = &String{}
+		}
 		r.Family.Id = m.FamilyPrimitiveElement.Id
 		r.Family.Extension = m.FamilyPrimitiveElement.Extension
 	}
 	r.Given = m.Given
 	for i, e := range m.GivenPrimitiveElement {
-		if len(r.Given) > i {
+		if len(r.Given) <= i {
+			r.Given = append(r.Given, String{})
+		}
+		if e != nil {
 			r.Given[i].Id = e.Id
 			r.Given[i].Extension = e.Extension
-		} else {
-			r.Given = append(r.Given, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Prefix = m.Prefix
 	for i, e := range m.PrefixPrimitiveElement {
-		if len(r.Prefix) > i {
+		if len(r.Prefix) <= i {
+			r.Prefix = append(r.Prefix, String{})
+		}
+		if e != nil {
 			r.Prefix[i].Id = e.Id
 			r.Prefix[i].Extension = e.Extension
-		} else {
-			r.Prefix = append(r.Prefix, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Suffix = m.Suffix
 	for i, e := range m.SuffixPrimitiveElement {
-		if len(r.Suffix) > i {
+		if len(r.Suffix) <= i {
+			r.Suffix = append(r.Suffix, String{})
+		}
+		if e != nil {
 			r.Suffix[i].Id = e.Id
 			r.Suffix[i].Extension = e.Extension
-		} else {
-			r.Suffix = append(r.Suffix, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Period = m.Period

@@ -137,16 +137,22 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 func (r ImplementationGuide) marshalJSON() jsonImplementationGuide {
 	m := jsonImplementationGuide{}
 	m.ResourceType = "ImplementationGuide"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -157,58 +163,91 @@ func (r ImplementationGuide) marshalJSON() jsonImplementationGuide {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.PackageId = r.PackageId
+	if r.PackageId.Value != nil {
+		m.PackageId = r.PackageId
+	}
 	if r.PackageId.Id != nil || r.PackageId.Extension != nil {
 		m.PackageIdPrimitiveElement = &primitiveElement{Id: r.PackageId.Id, Extension: r.PackageId.Extension}
 	}
-	m.License = r.License
+	if r.License != nil && r.License.Value != nil {
+		m.License = r.License
+	}
 	if r.License != nil && (r.License.Id != nil || r.License.Extension != nil) {
 		m.LicensePrimitiveElement = &primitiveElement{Id: r.License.Id, Extension: r.License.Extension}
 	}
-	m.FhirVersion = r.FhirVersion
+	anyFhirVersionValue := false
+	for _, e := range r.FhirVersion {
+		if e.Value != nil {
+			anyFhirVersionValue = true
+			break
+		}
+	}
+	if anyFhirVersionValue {
+		m.FhirVersion = r.FhirVersion
+	}
 	anyFhirVersionIdOrExtension := false
 	for _, e := range r.FhirVersion {
 		if e.Id != nil || e.Extension != nil {
@@ -242,17 +281,26 @@ func (r *ImplementationGuide) UnmarshalJSON(b []byte) error {
 func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -270,6 +318,9 @@ func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -280,6 +331,9 @@ func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -290,22 +344,34 @@ func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -313,6 +379,9 @@ func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
@@ -323,16 +392,20 @@ func (r *ImplementationGuide) unmarshalJSON(m jsonImplementationGuide) error {
 	}
 	r.License = m.License
 	if m.LicensePrimitiveElement != nil {
+		if r.License == nil {
+			r.License = &Code{}
+		}
 		r.License.Id = m.LicensePrimitiveElement.Id
 		r.License.Extension = m.LicensePrimitiveElement.Extension
 	}
 	r.FhirVersion = m.FhirVersion
 	for i, e := range m.FhirVersionPrimitiveElement {
-		if len(r.FhirVersion) > i {
+		if len(r.FhirVersion) <= i {
+			r.FhirVersion = append(r.FhirVersion, Code{})
+		}
+		if e != nil {
 			r.FhirVersion[i].Id = e.Id
 			r.FhirVersion[i].Extension = e.Extension
-		} else {
-			r.FhirVersion = append(r.FhirVersion, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DependsOn = m.DependsOn
@@ -386,15 +459,21 @@ func (r ImplementationGuideDependsOn) marshalJSON() jsonImplementationGuideDepen
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Uri = r.Uri
+	if r.Uri.Value != nil {
+		m.Uri = r.Uri
+	}
 	if r.Uri.Id != nil || r.Uri.Extension != nil {
 		m.UriPrimitiveElement = &primitiveElement{Id: r.Uri.Id, Extension: r.Uri.Extension}
 	}
-	m.PackageId = r.PackageId
+	if r.PackageId != nil && r.PackageId.Value != nil {
+		m.PackageId = r.PackageId
+	}
 	if r.PackageId != nil && (r.PackageId.Id != nil || r.PackageId.Extension != nil) {
 		m.PackageIdPrimitiveElement = &primitiveElement{Id: r.PackageId.Id, Extension: r.PackageId.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
@@ -418,11 +497,17 @@ func (r *ImplementationGuideDependsOn) unmarshalJSON(m jsonImplementationGuideDe
 	}
 	r.PackageId = m.PackageId
 	if m.PackageIdPrimitiveElement != nil {
+		if r.PackageId == nil {
+			r.PackageId = &Id{}
+		}
 		r.PackageId.Id = m.PackageIdPrimitiveElement.Id
 		r.PackageId.Extension = m.PackageIdPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -469,11 +554,15 @@ func (r ImplementationGuideGlobal) marshalJSON() jsonImplementationGuideGlobal {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Profile = r.Profile
+	if r.Profile.Value != nil {
+		m.Profile = r.Profile
+	}
 	if r.Profile.Id != nil || r.Profile.Extension != nil {
 		m.ProfilePrimitiveElement = &primitiveElement{Id: r.Profile.Id, Extension: r.Profile.Extension}
 	}
@@ -616,11 +705,15 @@ func (r ImplementationGuideDefinitionGrouping) marshalJSON() jsonImplementationG
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -644,6 +737,9 @@ func (r *ImplementationGuideDefinitionGrouping) unmarshalJSON(m jsonImplementati
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -715,7 +811,16 @@ func (r ImplementationGuideDefinitionResource) marshalJSON() jsonImplementationG
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Reference = r.Reference
-	m.FhirVersion = r.FhirVersion
+	anyFhirVersionValue := false
+	for _, e := range r.FhirVersion {
+		if e.Value != nil {
+			anyFhirVersionValue = true
+			break
+		}
+	}
+	if anyFhirVersionValue {
+		m.FhirVersion = r.FhirVersion
+	}
 	anyFhirVersionIdOrExtension := false
 	for _, e := range r.FhirVersion {
 		if e.Id != nil || e.Extension != nil {
@@ -733,37 +838,51 @@ func (r ImplementationGuideDefinitionResource) marshalJSON() jsonImplementationG
 			}
 		}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	switch v := r.Example.(type) {
 	case Boolean:
-		m.ExampleBoolean = &v
+		if v.Value != nil {
+			m.ExampleBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ExampleBoolean = v
+		if v.Value != nil {
+			m.ExampleBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.ExampleCanonical = &v
+		if v.Value != nil {
+			m.ExampleCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.ExampleCanonical = v
+		if v.Value != nil {
+			m.ExampleCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.GroupingId = r.GroupingId
+	if r.GroupingId != nil && r.GroupingId.Value != nil {
+		m.GroupingId = r.GroupingId
+	}
 	if r.GroupingId != nil && (r.GroupingId.Id != nil || r.GroupingId.Extension != nil) {
 		m.GroupingIdPrimitiveElement = &primitiveElement{Id: r.GroupingId.Id, Extension: r.GroupingId.Extension}
 	}
@@ -783,20 +902,27 @@ func (r *ImplementationGuideDefinitionResource) unmarshalJSON(m jsonImplementati
 	r.Reference = m.Reference
 	r.FhirVersion = m.FhirVersion
 	for i, e := range m.FhirVersionPrimitiveElement {
-		if len(r.FhirVersion) > i {
+		if len(r.FhirVersion) <= i {
+			r.FhirVersion = append(r.FhirVersion, Code{})
+		}
+		if e != nil {
 			r.FhirVersion[i].Id = e.Id
 			r.FhirVersion[i].Extension = e.Extension
-		} else {
-			r.FhirVersion = append(r.FhirVersion, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -830,6 +956,9 @@ func (r *ImplementationGuideDefinitionResource) unmarshalJSON(m jsonImplementati
 	}
 	r.GroupingId = m.GroupingId
 	if m.GroupingIdPrimitiveElement != nil {
+		if r.GroupingId == nil {
+			r.GroupingId = &Id{}
+		}
 		r.GroupingId.Id = m.GroupingIdPrimitiveElement.Id
 		r.GroupingId.Extension = m.GroupingIdPrimitiveElement.Extension
 	}
@@ -893,12 +1022,16 @@ func (r ImplementationGuideDefinitionPage) marshalJSON() jsonImplementationGuide
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Name.(type) {
 	case Url:
-		m.NameUrl = &v
+		if v.Value != nil {
+			m.NameUrl = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.NameUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Url:
-		m.NameUrl = v
+		if v.Value != nil {
+			m.NameUrl = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.NameUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -907,11 +1040,15 @@ func (r ImplementationGuideDefinitionPage) marshalJSON() jsonImplementationGuide
 	case *Reference:
 		m.NameReference = v
 	}
-	m.Title = r.Title
+	if r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title.Id != nil || r.Title.Extension != nil {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Generation = r.Generation
+	if r.Generation.Value != nil {
+		m.Generation = r.Generation
+	}
 	if r.Generation.Id != nil || r.Generation.Extension != nil {
 		m.GenerationPrimitiveElement = &primitiveElement{Id: r.Generation.Id, Extension: r.Generation.Extension}
 	}
@@ -1004,11 +1141,15 @@ func (r ImplementationGuideDefinitionParameter) marshalJSON() jsonImplementation
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
@@ -1082,15 +1223,21 @@ func (r ImplementationGuideDefinitionTemplate) marshalJSON() jsonImplementationG
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Source = r.Source
+	if r.Source.Value != nil {
+		m.Source = r.Source
+	}
 	if r.Source.Id != nil || r.Source.Extension != nil {
 		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
 	}
-	m.Scope = r.Scope
+	if r.Scope != nil && r.Scope.Value != nil {
+		m.Scope = r.Scope
+	}
 	if r.Scope != nil && (r.Scope.Id != nil || r.Scope.Extension != nil) {
 		m.ScopePrimitiveElement = &primitiveElement{Id: r.Scope.Id, Extension: r.Scope.Extension}
 	}
@@ -1119,6 +1266,9 @@ func (r *ImplementationGuideDefinitionTemplate) unmarshalJSON(m jsonImplementati
 	}
 	r.Scope = m.Scope
 	if m.ScopePrimitiveElement != nil {
+		if r.Scope == nil {
+			r.Scope = &String{}
+		}
 		r.Scope.Id = m.ScopePrimitiveElement.Id
 		r.Scope.Extension = m.ScopePrimitiveElement.Extension
 	}
@@ -1175,13 +1325,24 @@ func (r ImplementationGuideManifest) marshalJSON() jsonImplementationGuideManife
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Rendering = r.Rendering
+	if r.Rendering != nil && r.Rendering.Value != nil {
+		m.Rendering = r.Rendering
+	}
 	if r.Rendering != nil && (r.Rendering.Id != nil || r.Rendering.Extension != nil) {
 		m.RenderingPrimitiveElement = &primitiveElement{Id: r.Rendering.Id, Extension: r.Rendering.Extension}
 	}
 	m.Resource = r.Resource
 	m.Page = r.Page
-	m.Image = r.Image
+	anyImageValue := false
+	for _, e := range r.Image {
+		if e.Value != nil {
+			anyImageValue = true
+			break
+		}
+	}
+	if anyImageValue {
+		m.Image = r.Image
+	}
 	anyImageIdOrExtension := false
 	for _, e := range r.Image {
 		if e.Id != nil || e.Extension != nil {
@@ -1199,7 +1360,16 @@ func (r ImplementationGuideManifest) marshalJSON() jsonImplementationGuideManife
 			}
 		}
 	}
-	m.Other = r.Other
+	anyOtherValue := false
+	for _, e := range r.Other {
+		if e.Value != nil {
+			anyOtherValue = true
+			break
+		}
+	}
+	if anyOtherValue {
+		m.Other = r.Other
+	}
 	anyOtherIdOrExtension := false
 	for _, e := range r.Other {
 		if e.Id != nil || e.Extension != nil {
@@ -1232,6 +1402,9 @@ func (r *ImplementationGuideManifest) unmarshalJSON(m jsonImplementationGuideMan
 	r.ModifierExtension = m.ModifierExtension
 	r.Rendering = m.Rendering
 	if m.RenderingPrimitiveElement != nil {
+		if r.Rendering == nil {
+			r.Rendering = &Url{}
+		}
 		r.Rendering.Id = m.RenderingPrimitiveElement.Id
 		r.Rendering.Extension = m.RenderingPrimitiveElement.Extension
 	}
@@ -1239,20 +1412,22 @@ func (r *ImplementationGuideManifest) unmarshalJSON(m jsonImplementationGuideMan
 	r.Page = m.Page
 	r.Image = m.Image
 	for i, e := range m.ImagePrimitiveElement {
-		if len(r.Image) > i {
+		if len(r.Image) <= i {
+			r.Image = append(r.Image, String{})
+		}
+		if e != nil {
 			r.Image[i].Id = e.Id
 			r.Image[i].Extension = e.Extension
-		} else {
-			r.Image = append(r.Image, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Other = m.Other
 	for i, e := range m.OtherPrimitiveElement {
-		if len(r.Other) > i {
+		if len(r.Other) <= i {
+			r.Other = append(r.Other, String{})
+		}
+		if e != nil {
 			r.Other[i].Id = e.Id
 			r.Other[i].Extension = e.Extension
-		} else {
-			r.Other = append(r.Other, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1313,27 +1488,37 @@ func (r ImplementationGuideManifestResource) marshalJSON() jsonImplementationGui
 	m.Reference = r.Reference
 	switch v := r.Example.(type) {
 	case Boolean:
-		m.ExampleBoolean = &v
+		if v.Value != nil {
+			m.ExampleBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ExampleBoolean = v
+		if v.Value != nil {
+			m.ExampleBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Canonical:
-		m.ExampleCanonical = &v
+		if v.Value != nil {
+			m.ExampleCanonical = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Canonical:
-		m.ExampleCanonical = v
+		if v.Value != nil {
+			m.ExampleCanonical = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ExampleCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
-	m.RelativePath = r.RelativePath
+	if r.RelativePath != nil && r.RelativePath.Value != nil {
+		m.RelativePath = r.RelativePath
+	}
 	if r.RelativePath != nil && (r.RelativePath.Id != nil || r.RelativePath.Extension != nil) {
 		m.RelativePathPrimitiveElement = &primitiveElement{Id: r.RelativePath.Id, Extension: r.RelativePath.Extension}
 	}
@@ -1381,6 +1566,9 @@ func (r *ImplementationGuideManifestResource) unmarshalJSON(m jsonImplementation
 	}
 	r.RelativePath = m.RelativePath
 	if m.RelativePathPrimitiveElement != nil {
+		if r.RelativePath == nil {
+			r.RelativePath = &Url{}
+		}
 		r.RelativePath.Id = m.RelativePathPrimitiveElement.Id
 		r.RelativePath.Extension = m.RelativePathPrimitiveElement.Extension
 	}
@@ -1431,15 +1619,28 @@ func (r ImplementationGuideManifestPage) marshalJSON() jsonImplementationGuideMa
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Anchor = r.Anchor
+	anyAnchorValue := false
+	for _, e := range r.Anchor {
+		if e.Value != nil {
+			anyAnchorValue = true
+			break
+		}
+	}
+	if anyAnchorValue {
+		m.Anchor = r.Anchor
+	}
 	anyAnchorIdOrExtension := false
 	for _, e := range r.Anchor {
 		if e.Id != nil || e.Extension != nil {
@@ -1477,16 +1678,20 @@ func (r *ImplementationGuideManifestPage) unmarshalJSON(m jsonImplementationGuid
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Anchor = m.Anchor
 	for i, e := range m.AnchorPrimitiveElement {
-		if len(r.Anchor) > i {
+		if len(r.Anchor) <= i {
+			r.Anchor = append(r.Anchor, String{})
+		}
+		if e != nil {
 			r.Anchor[i].Id = e.Id
 			r.Anchor[i].Extension = e.Extension
-		} else {
-			r.Anchor = append(r.Anchor, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil

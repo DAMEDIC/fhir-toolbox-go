@@ -108,16 +108,22 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 func (r NamingSystem) marshalJSON() jsonNamingSystem {
 	m := jsonNamingSystem{}
 	m.ResourceType = "NamingSystem"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -128,39 +134,55 @@ func (r NamingSystem) marshalJSON() jsonNamingSystem {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Kind = r.Kind
+	if r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind.Id != nil || r.Kind.Extension != nil {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
-	m.Date = r.Date
+	if r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date.Id != nil || r.Date.Extension != nil {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Responsible = r.Responsible
+	if r.Responsible != nil && r.Responsible.Value != nil {
+		m.Responsible = r.Responsible
+	}
 	if r.Responsible != nil && (r.Responsible.Id != nil || r.Responsible.Extension != nil) {
 		m.ResponsiblePrimitiveElement = &primitiveElement{Id: r.Responsible.Id, Extension: r.Responsible.Extension}
 	}
 	m.Type = r.Type
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Usage = r.Usage
+	if r.Usage != nil && r.Usage.Value != nil {
+		m.Usage = r.Usage
+	}
 	if r.Usage != nil && (r.Usage.Id != nil || r.Usage.Extension != nil) {
 		m.UsagePrimitiveElement = &primitiveElement{Id: r.Usage.Id, Extension: r.Usage.Extension}
 	}
@@ -177,17 +199,26 @@ func (r *NamingSystem) UnmarshalJSON(b []byte) error {
 func (r *NamingSystem) unmarshalJSON(m jsonNamingSystem) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -220,18 +251,27 @@ func (r *NamingSystem) unmarshalJSON(m jsonNamingSystem) error {
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Responsible = m.Responsible
 	if m.ResponsiblePrimitiveElement != nil {
+		if r.Responsible == nil {
+			r.Responsible = &String{}
+		}
 		r.Responsible.Id = m.ResponsiblePrimitiveElement.Id
 		r.Responsible.Extension = m.ResponsiblePrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -239,6 +279,9 @@ func (r *NamingSystem) unmarshalJSON(m jsonNamingSystem) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Usage = m.Usage
 	if m.UsagePrimitiveElement != nil {
+		if r.Usage == nil {
+			r.Usage = &String{}
+		}
 		r.Usage.Id = m.UsagePrimitiveElement.Id
 		r.Usage.Extension = m.UsagePrimitiveElement.Extension
 	}
@@ -297,19 +340,27 @@ func (r NamingSystemUniqueId) marshalJSON() jsonNamingSystemUniqueId {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Value = r.Value
+	if r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value.Id != nil || r.Value.Extension != nil {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Preferred = r.Preferred
+	if r.Preferred != nil && r.Preferred.Value != nil {
+		m.Preferred = r.Preferred
+	}
 	if r.Preferred != nil && (r.Preferred.Id != nil || r.Preferred.Extension != nil) {
 		m.PreferredPrimitiveElement = &primitiveElement{Id: r.Preferred.Id, Extension: r.Preferred.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -339,11 +390,17 @@ func (r *NamingSystemUniqueId) unmarshalJSON(m jsonNamingSystemUniqueId) error {
 	}
 	r.Preferred = m.Preferred
 	if m.PreferredPrimitiveElement != nil {
+		if r.Preferred == nil {
+			r.Preferred = &Boolean{}
+		}
 		r.Preferred.Id = m.PreferredPrimitiveElement.Id
 		r.Preferred.Extension = m.PreferredPrimitiveElement.Extension
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}

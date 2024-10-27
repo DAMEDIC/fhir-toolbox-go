@@ -94,16 +94,22 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 func (r DeviceMetric) marshalJSON() jsonDeviceMetric {
 	m := jsonDeviceMetric{}
 	m.ResourceType = "DeviceMetric"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -119,15 +125,21 @@ func (r DeviceMetric) marshalJSON() jsonDeviceMetric {
 	m.Unit = r.Unit
 	m.Source = r.Source
 	m.Parent = r.Parent
-	m.OperationalStatus = r.OperationalStatus
+	if r.OperationalStatus != nil && r.OperationalStatus.Value != nil {
+		m.OperationalStatus = r.OperationalStatus
+	}
 	if r.OperationalStatus != nil && (r.OperationalStatus.Id != nil || r.OperationalStatus.Extension != nil) {
 		m.OperationalStatusPrimitiveElement = &primitiveElement{Id: r.OperationalStatus.Id, Extension: r.OperationalStatus.Extension}
 	}
-	m.Color = r.Color
+	if r.Color != nil && r.Color.Value != nil {
+		m.Color = r.Color
+	}
 	if r.Color != nil && (r.Color.Id != nil || r.Color.Extension != nil) {
 		m.ColorPrimitiveElement = &primitiveElement{Id: r.Color.Id, Extension: r.Color.Extension}
 	}
-	m.Category = r.Category
+	if r.Category.Value != nil {
+		m.Category = r.Category
+	}
 	if r.Category.Id != nil || r.Category.Extension != nil {
 		m.CategoryPrimitiveElement = &primitiveElement{Id: r.Category.Id, Extension: r.Category.Extension}
 	}
@@ -145,17 +157,26 @@ func (r *DeviceMetric) UnmarshalJSON(b []byte) error {
 func (r *DeviceMetric) unmarshalJSON(m jsonDeviceMetric) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -173,11 +194,17 @@ func (r *DeviceMetric) unmarshalJSON(m jsonDeviceMetric) error {
 	r.Parent = m.Parent
 	r.OperationalStatus = m.OperationalStatus
 	if m.OperationalStatusPrimitiveElement != nil {
+		if r.OperationalStatus == nil {
+			r.OperationalStatus = &Code{}
+		}
 		r.OperationalStatus.Id = m.OperationalStatusPrimitiveElement.Id
 		r.OperationalStatus.Extension = m.OperationalStatusPrimitiveElement.Extension
 	}
 	r.Color = m.Color
 	if m.ColorPrimitiveElement != nil {
+		if r.Color == nil {
+			r.Color = &Code{}
+		}
 		r.Color.Id = m.ColorPrimitiveElement.Id
 		r.Color.Extension = m.ColorPrimitiveElement.Extension
 	}
@@ -235,15 +262,21 @@ func (r DeviceMetricCalibration) marshalJSON() jsonDeviceMetricCalibration {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.State = r.State
+	if r.State != nil && r.State.Value != nil {
+		m.State = r.State
+	}
 	if r.State != nil && (r.State.Id != nil || r.State.Extension != nil) {
 		m.StatePrimitiveElement = &primitiveElement{Id: r.State.Id, Extension: r.State.Extension}
 	}
-	m.Time = r.Time
+	if r.Time != nil && r.Time.Value != nil {
+		m.Time = r.Time
+	}
 	if r.Time != nil && (r.Time.Id != nil || r.Time.Extension != nil) {
 		m.TimePrimitiveElement = &primitiveElement{Id: r.Time.Id, Extension: r.Time.Extension}
 	}
@@ -262,16 +295,25 @@ func (r *DeviceMetricCalibration) unmarshalJSON(m jsonDeviceMetricCalibration) e
 	r.ModifierExtension = m.ModifierExtension
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.State = m.State
 	if m.StatePrimitiveElement != nil {
+		if r.State == nil {
+			r.State = &Code{}
+		}
 		r.State.Id = m.StatePrimitiveElement.Id
 		r.State.Extension = m.StatePrimitiveElement.Extension
 	}
 	r.Time = m.Time
 	if m.TimePrimitiveElement != nil {
+		if r.Time == nil {
+			r.Time = &Instant{}
+		}
 		r.Time.Id = m.TimePrimitiveElement.Id
 		r.Time.Extension = m.TimePrimitiveElement.Extension
 	}

@@ -165,16 +165,22 @@ func (r ChargeItem) MarshalJSON() ([]byte, error) {
 func (r ChargeItem) marshalJSON() jsonChargeItem {
 	m := jsonChargeItem{}
 	m.ResourceType = "ChargeItem"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -186,7 +192,16 @@ func (r ChargeItem) marshalJSON() jsonChargeItem {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.DefinitionUri = r.DefinitionUri
+	anyDefinitionUriValue := false
+	for _, e := range r.DefinitionUri {
+		if e.Value != nil {
+			anyDefinitionUriValue = true
+			break
+		}
+	}
+	if anyDefinitionUriValue {
+		m.DefinitionUri = r.DefinitionUri
+	}
 	anyDefinitionUriIdOrExtension := false
 	for _, e := range r.DefinitionUri {
 		if e.Id != nil || e.Extension != nil {
@@ -204,7 +219,16 @@ func (r ChargeItem) marshalJSON() jsonChargeItem {
 			}
 		}
 	}
-	m.DefinitionCanonical = r.DefinitionCanonical
+	anyDefinitionCanonicalValue := false
+	for _, e := range r.DefinitionCanonical {
+		if e.Value != nil {
+			anyDefinitionCanonicalValue = true
+			break
+		}
+	}
+	if anyDefinitionCanonicalValue {
+		m.DefinitionCanonical = r.DefinitionCanonical
+	}
 	anyDefinitionCanonicalIdOrExtension := false
 	for _, e := range r.DefinitionCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -222,7 +246,9 @@ func (r ChargeItem) marshalJSON() jsonChargeItem {
 			}
 		}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -232,12 +258,16 @@ func (r ChargeItem) marshalJSON() jsonChargeItem {
 	m.Context = r.Context
 	switch v := r.Occurrence.(type) {
 	case DateTime:
-		m.OccurrenceDateTime = &v
+		if v.Value != nil {
+			m.OccurrenceDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurrenceDateTime = v
+		if v.Value != nil {
+			m.OccurrenceDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -256,17 +286,23 @@ func (r ChargeItem) marshalJSON() jsonChargeItem {
 	m.CostCenter = r.CostCenter
 	m.Quantity = r.Quantity
 	m.Bodysite = r.Bodysite
-	m.FactorOverride = r.FactorOverride
+	if r.FactorOverride != nil && r.FactorOverride.Value != nil {
+		m.FactorOverride = r.FactorOverride
+	}
 	if r.FactorOverride != nil && (r.FactorOverride.Id != nil || r.FactorOverride.Extension != nil) {
 		m.FactorOverridePrimitiveElement = &primitiveElement{Id: r.FactorOverride.Id, Extension: r.FactorOverride.Extension}
 	}
 	m.PriceOverride = r.PriceOverride
-	m.OverrideReason = r.OverrideReason
+	if r.OverrideReason != nil && r.OverrideReason.Value != nil {
+		m.OverrideReason = r.OverrideReason
+	}
 	if r.OverrideReason != nil && (r.OverrideReason.Id != nil || r.OverrideReason.Extension != nil) {
 		m.OverrideReasonPrimitiveElement = &primitiveElement{Id: r.OverrideReason.Id, Extension: r.OverrideReason.Extension}
 	}
 	m.Enterer = r.Enterer
-	m.EnteredDate = r.EnteredDate
+	if r.EnteredDate != nil && r.EnteredDate.Value != nil {
+		m.EnteredDate = r.EnteredDate
+	}
 	if r.EnteredDate != nil && (r.EnteredDate.Id != nil || r.EnteredDate.Extension != nil) {
 		m.EnteredDatePrimitiveElement = &primitiveElement{Id: r.EnteredDate.Id, Extension: r.EnteredDate.Extension}
 	}
@@ -297,17 +333,26 @@ func (r *ChargeItem) UnmarshalJSON(b []byte) error {
 func (r *ChargeItem) unmarshalJSON(m jsonChargeItem) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -321,20 +366,22 @@ func (r *ChargeItem) unmarshalJSON(m jsonChargeItem) error {
 	r.Identifier = m.Identifier
 	r.DefinitionUri = m.DefinitionUri
 	for i, e := range m.DefinitionUriPrimitiveElement {
-		if len(r.DefinitionUri) > i {
+		if len(r.DefinitionUri) <= i {
+			r.DefinitionUri = append(r.DefinitionUri, Uri{})
+		}
+		if e != nil {
 			r.DefinitionUri[i].Id = e.Id
 			r.DefinitionUri[i].Extension = e.Extension
-		} else {
-			r.DefinitionUri = append(r.DefinitionUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DefinitionCanonical = m.DefinitionCanonical
 	for i, e := range m.DefinitionCanonicalPrimitiveElement {
-		if len(r.DefinitionCanonical) > i {
+		if len(r.DefinitionCanonical) <= i {
+			r.DefinitionCanonical = append(r.DefinitionCanonical, Canonical{})
+		}
+		if e != nil {
 			r.DefinitionCanonical[i].Id = e.Id
 			r.DefinitionCanonical[i].Extension = e.Extension
-		} else {
-			r.DefinitionCanonical = append(r.DefinitionCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Status = m.Status
@@ -382,18 +429,27 @@ func (r *ChargeItem) unmarshalJSON(m jsonChargeItem) error {
 	r.Bodysite = m.Bodysite
 	r.FactorOverride = m.FactorOverride
 	if m.FactorOverridePrimitiveElement != nil {
+		if r.FactorOverride == nil {
+			r.FactorOverride = &Decimal{}
+		}
 		r.FactorOverride.Id = m.FactorOverridePrimitiveElement.Id
 		r.FactorOverride.Extension = m.FactorOverridePrimitiveElement.Extension
 	}
 	r.PriceOverride = m.PriceOverride
 	r.OverrideReason = m.OverrideReason
 	if m.OverrideReasonPrimitiveElement != nil {
+		if r.OverrideReason == nil {
+			r.OverrideReason = &String{}
+		}
 		r.OverrideReason.Id = m.OverrideReasonPrimitiveElement.Id
 		r.OverrideReason.Extension = m.OverrideReasonPrimitiveElement.Extension
 	}
 	r.Enterer = m.Enterer
 	r.EnteredDate = m.EnteredDate
 	if m.EnteredDatePrimitiveElement != nil {
+		if r.EnteredDate == nil {
+			r.EnteredDate = &DateTime{}
+		}
 		r.EnteredDate.Id = m.EnteredDatePrimitiveElement.Id
 		r.EnteredDate.Extension = m.EnteredDatePrimitiveElement.Extension
 	}

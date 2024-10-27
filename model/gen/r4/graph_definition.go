@@ -117,16 +117,22 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 func (r GraphDefinition) marshalJSON() jsonGraphDefinition {
 	m := jsonGraphDefinition{}
 	m.ResourceType = "GraphDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -137,50 +143,72 @@ func (r GraphDefinition) marshalJSON() jsonGraphDefinition {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Start = r.Start
+	if r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start.Id != nil || r.Start.Extension != nil {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.Profile = r.Profile
+	if r.Profile != nil && r.Profile.Value != nil {
+		m.Profile = r.Profile
+	}
 	if r.Profile != nil && (r.Profile.Id != nil || r.Profile.Extension != nil) {
 		m.ProfilePrimitiveElement = &primitiveElement{Id: r.Profile.Id, Extension: r.Profile.Extension}
 	}
@@ -197,17 +225,26 @@ func (r *GraphDefinition) UnmarshalJSON(b []byte) error {
 func (r *GraphDefinition) unmarshalJSON(m jsonGraphDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -220,11 +257,17 @@ func (r *GraphDefinition) unmarshalJSON(m jsonGraphDefinition) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -240,22 +283,34 @@ func (r *GraphDefinition) unmarshalJSON(m jsonGraphDefinition) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -263,6 +318,9 @@ func (r *GraphDefinition) unmarshalJSON(m jsonGraphDefinition) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
@@ -273,6 +331,9 @@ func (r *GraphDefinition) unmarshalJSON(m jsonGraphDefinition) error {
 	}
 	r.Profile = m.Profile
 	if m.ProfilePrimitiveElement != nil {
+		if r.Profile == nil {
+			r.Profile = &Canonical{}
+		}
 		r.Profile.Id = m.ProfilePrimitiveElement.Id
 		r.Profile.Extension = m.ProfilePrimitiveElement.Extension
 	}
@@ -335,23 +396,33 @@ func (r GraphDefinitionLink) marshalJSON() jsonGraphDefinitionLink {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Path = r.Path
+	if r.Path != nil && r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path != nil && (r.Path.Id != nil || r.Path.Extension != nil) {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.SliceName = r.SliceName
+	if r.SliceName != nil && r.SliceName.Value != nil {
+		m.SliceName = r.SliceName
+	}
 	if r.SliceName != nil && (r.SliceName.Id != nil || r.SliceName.Extension != nil) {
 		m.SliceNamePrimitiveElement = &primitiveElement{Id: r.SliceName.Id, Extension: r.SliceName.Extension}
 	}
-	m.Min = r.Min
+	if r.Min != nil && r.Min.Value != nil {
+		m.Min = r.Min
+	}
 	if r.Min != nil && (r.Min.Id != nil || r.Min.Extension != nil) {
 		m.MinPrimitiveElement = &primitiveElement{Id: r.Min.Id, Extension: r.Min.Extension}
 	}
-	m.Max = r.Max
+	if r.Max != nil && r.Max.Value != nil {
+		m.Max = r.Max
+	}
 	if r.Max != nil && (r.Max.Id != nil || r.Max.Extension != nil) {
 		m.MaxPrimitiveElement = &primitiveElement{Id: r.Max.Id, Extension: r.Max.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -371,26 +442,41 @@ func (r *GraphDefinitionLink) unmarshalJSON(m jsonGraphDefinitionLink) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Path = m.Path
 	if m.PathPrimitiveElement != nil {
+		if r.Path == nil {
+			r.Path = &String{}
+		}
 		r.Path.Id = m.PathPrimitiveElement.Id
 		r.Path.Extension = m.PathPrimitiveElement.Extension
 	}
 	r.SliceName = m.SliceName
 	if m.SliceNamePrimitiveElement != nil {
+		if r.SliceName == nil {
+			r.SliceName = &String{}
+		}
 		r.SliceName.Id = m.SliceNamePrimitiveElement.Id
 		r.SliceName.Extension = m.SliceNamePrimitiveElement.Extension
 	}
 	r.Min = m.Min
 	if m.MinPrimitiveElement != nil {
+		if r.Min == nil {
+			r.Min = &Integer{}
+		}
 		r.Min.Id = m.MinPrimitiveElement.Id
 		r.Min.Extension = m.MinPrimitiveElement.Extension
 	}
 	r.Max = m.Max
 	if m.MaxPrimitiveElement != nil {
+		if r.Max == nil {
+			r.Max = &String{}
+		}
 		r.Max.Id = m.MaxPrimitiveElement.Id
 		r.Max.Extension = m.MaxPrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -448,15 +534,21 @@ func (r GraphDefinitionLinkTarget) marshalJSON() jsonGraphDefinitionLinkTarget {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Params = r.Params
+	if r.Params != nil && r.Params.Value != nil {
+		m.Params = r.Params
+	}
 	if r.Params != nil && (r.Params.Id != nil || r.Params.Extension != nil) {
 		m.ParamsPrimitiveElement = &primitiveElement{Id: r.Params.Id, Extension: r.Params.Extension}
 	}
-	m.Profile = r.Profile
+	if r.Profile != nil && r.Profile.Value != nil {
+		m.Profile = r.Profile
+	}
 	if r.Profile != nil && (r.Profile.Id != nil || r.Profile.Extension != nil) {
 		m.ProfilePrimitiveElement = &primitiveElement{Id: r.Profile.Id, Extension: r.Profile.Extension}
 	}
@@ -482,11 +574,17 @@ func (r *GraphDefinitionLinkTarget) unmarshalJSON(m jsonGraphDefinitionLinkTarge
 	}
 	r.Params = m.Params
 	if m.ParamsPrimitiveElement != nil {
+		if r.Params == nil {
+			r.Params = &String{}
+		}
 		r.Params.Id = m.ParamsPrimitiveElement.Id
 		r.Params.Extension = m.ParamsPrimitiveElement.Extension
 	}
 	r.Profile = m.Profile
 	if m.ProfilePrimitiveElement != nil {
+		if r.Profile == nil {
+			r.Profile = &Canonical{}
+		}
 		r.Profile.Id = m.ProfilePrimitiveElement.Id
 		r.Profile.Extension = m.ProfilePrimitiveElement.Extension
 	}
@@ -547,23 +645,33 @@ func (r GraphDefinitionLinkTargetCompartment) marshalJSON() jsonGraphDefinitionL
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Use = r.Use
+	if r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use.Id != nil || r.Use.Extension != nil {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
-	m.Rule = r.Rule
+	if r.Rule.Value != nil {
+		m.Rule = r.Rule
+	}
 	if r.Rule.Id != nil || r.Rule.Extension != nil {
 		m.RulePrimitiveElement = &primitiveElement{Id: r.Rule.Id, Extension: r.Rule.Extension}
 	}
-	m.Expression = r.Expression
+	if r.Expression != nil && r.Expression.Value != nil {
+		m.Expression = r.Expression
+	}
 	if r.Expression != nil && (r.Expression.Id != nil || r.Expression.Extension != nil) {
 		m.ExpressionPrimitiveElement = &primitiveElement{Id: r.Expression.Id, Extension: r.Expression.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -597,11 +705,17 @@ func (r *GraphDefinitionLinkTargetCompartment) unmarshalJSON(m jsonGraphDefiniti
 	}
 	r.Expression = m.Expression
 	if m.ExpressionPrimitiveElement != nil {
+		if r.Expression == nil {
+			r.Expression = &String{}
+		}
 		r.Expression.Id = m.ExpressionPrimitiveElement.Id
 		r.Expression.Extension = m.ExpressionPrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

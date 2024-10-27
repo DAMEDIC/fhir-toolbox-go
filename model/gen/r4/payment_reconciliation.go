@@ -111,16 +111,22 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 func (r PaymentReconciliation) marshalJSON() jsonPaymentReconciliation {
 	m := jsonPaymentReconciliation{}
 	m.ResourceType = "PaymentReconciliation"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -132,27 +138,37 @@ func (r PaymentReconciliation) marshalJSON() jsonPaymentReconciliation {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Period = r.Period
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
 	m.PaymentIssuer = r.PaymentIssuer
 	m.Request = r.Request
 	m.Requestor = r.Requestor
-	m.Outcome = r.Outcome
+	if r.Outcome != nil && r.Outcome.Value != nil {
+		m.Outcome = r.Outcome
+	}
 	if r.Outcome != nil && (r.Outcome.Id != nil || r.Outcome.Extension != nil) {
 		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
 	}
-	m.Disposition = r.Disposition
+	if r.Disposition != nil && r.Disposition.Value != nil {
+		m.Disposition = r.Disposition
+	}
 	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
 		m.DispositionPrimitiveElement = &primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
 	}
-	m.PaymentDate = r.PaymentDate
+	if r.PaymentDate.Value != nil {
+		m.PaymentDate = r.PaymentDate
+	}
 	if r.PaymentDate.Id != nil || r.PaymentDate.Extension != nil {
 		m.PaymentDatePrimitiveElement = &primitiveElement{Id: r.PaymentDate.Id, Extension: r.PaymentDate.Extension}
 	}
@@ -173,17 +189,26 @@ func (r *PaymentReconciliation) UnmarshalJSON(b []byte) error {
 func (r *PaymentReconciliation) unmarshalJSON(m jsonPaymentReconciliation) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -211,11 +236,17 @@ func (r *PaymentReconciliation) unmarshalJSON(m jsonPaymentReconciliation) error
 	r.Requestor = m.Requestor
 	r.Outcome = m.Outcome
 	if m.OutcomePrimitiveElement != nil {
+		if r.Outcome == nil {
+			r.Outcome = &Code{}
+		}
 		r.Outcome.Id = m.OutcomePrimitiveElement.Id
 		r.Outcome.Extension = m.OutcomePrimitiveElement.Extension
 	}
 	r.Disposition = m.Disposition
 	if m.DispositionPrimitiveElement != nil {
+		if r.Disposition == nil {
+			r.Disposition = &String{}
+		}
 		r.Disposition.Id = m.DispositionPrimitiveElement.Id
 		r.Disposition.Extension = m.DispositionPrimitiveElement.Extension
 	}
@@ -301,7 +332,9 @@ func (r PaymentReconciliationDetail) marshalJSON() jsonPaymentReconciliationDeta
 	m.Request = r.Request
 	m.Submitter = r.Submitter
 	m.Response = r.Response
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -329,6 +362,9 @@ func (r *PaymentReconciliationDetail) unmarshalJSON(m jsonPaymentReconciliationD
 	r.Response = m.Response
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &Date{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -378,11 +414,15 @@ func (r PaymentReconciliationProcessNote) marshalJSON() jsonPaymentReconciliatio
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -401,11 +441,17 @@ func (r *PaymentReconciliationProcessNote) unmarshalJSON(m jsonPaymentReconcilia
 	r.ModifierExtension = m.ModifierExtension
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}

@@ -103,16 +103,22 @@ func (r SubstanceSourceMaterial) MarshalJSON() ([]byte, error) {
 func (r SubstanceSourceMaterial) marshalJSON() jsonSubstanceSourceMaterial {
 	m := jsonSubstanceSourceMaterial{}
 	m.ResourceType = "SubstanceSourceMaterial"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -127,12 +133,23 @@ func (r SubstanceSourceMaterial) marshalJSON() jsonSubstanceSourceMaterial {
 	m.SourceMaterialType = r.SourceMaterialType
 	m.SourceMaterialState = r.SourceMaterialState
 	m.OrganismId = r.OrganismId
-	m.OrganismName = r.OrganismName
+	if r.OrganismName != nil && r.OrganismName.Value != nil {
+		m.OrganismName = r.OrganismName
+	}
 	if r.OrganismName != nil && (r.OrganismName.Id != nil || r.OrganismName.Extension != nil) {
 		m.OrganismNamePrimitiveElement = &primitiveElement{Id: r.OrganismName.Id, Extension: r.OrganismName.Extension}
 	}
 	m.ParentSubstanceId = r.ParentSubstanceId
-	m.ParentSubstanceName = r.ParentSubstanceName
+	anyParentSubstanceNameValue := false
+	for _, e := range r.ParentSubstanceName {
+		if e.Value != nil {
+			anyParentSubstanceNameValue = true
+			break
+		}
+	}
+	if anyParentSubstanceNameValue {
+		m.ParentSubstanceName = r.ParentSubstanceName
+	}
 	anyParentSubstanceNameIdOrExtension := false
 	for _, e := range r.ParentSubstanceName {
 		if e.Id != nil || e.Extension != nil {
@@ -151,7 +168,16 @@ func (r SubstanceSourceMaterial) marshalJSON() jsonSubstanceSourceMaterial {
 		}
 	}
 	m.CountryOfOrigin = r.CountryOfOrigin
-	m.GeographicalLocation = r.GeographicalLocation
+	anyGeographicalLocationValue := false
+	for _, e := range r.GeographicalLocation {
+		if e.Value != nil {
+			anyGeographicalLocationValue = true
+			break
+		}
+	}
+	if anyGeographicalLocationValue {
+		m.GeographicalLocation = r.GeographicalLocation
+	}
 	anyGeographicalLocationIdOrExtension := false
 	for _, e := range r.GeographicalLocation {
 		if e.Id != nil || e.Extension != nil {
@@ -185,17 +211,26 @@ func (r *SubstanceSourceMaterial) UnmarshalJSON(b []byte) error {
 func (r *SubstanceSourceMaterial) unmarshalJSON(m jsonSubstanceSourceMaterial) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -212,27 +247,32 @@ func (r *SubstanceSourceMaterial) unmarshalJSON(m jsonSubstanceSourceMaterial) e
 	r.OrganismId = m.OrganismId
 	r.OrganismName = m.OrganismName
 	if m.OrganismNamePrimitiveElement != nil {
+		if r.OrganismName == nil {
+			r.OrganismName = &String{}
+		}
 		r.OrganismName.Id = m.OrganismNamePrimitiveElement.Id
 		r.OrganismName.Extension = m.OrganismNamePrimitiveElement.Extension
 	}
 	r.ParentSubstanceId = m.ParentSubstanceId
 	r.ParentSubstanceName = m.ParentSubstanceName
 	for i, e := range m.ParentSubstanceNamePrimitiveElement {
-		if len(r.ParentSubstanceName) > i {
+		if len(r.ParentSubstanceName) <= i {
+			r.ParentSubstanceName = append(r.ParentSubstanceName, String{})
+		}
+		if e != nil {
 			r.ParentSubstanceName[i].Id = e.Id
 			r.ParentSubstanceName[i].Extension = e.Extension
-		} else {
-			r.ParentSubstanceName = append(r.ParentSubstanceName, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.CountryOfOrigin = m.CountryOfOrigin
 	r.GeographicalLocation = m.GeographicalLocation
 	for i, e := range m.GeographicalLocationPrimitiveElement {
-		if len(r.GeographicalLocation) > i {
+		if len(r.GeographicalLocation) <= i {
+			r.GeographicalLocation = append(r.GeographicalLocation, String{})
+		}
+		if e != nil {
 			r.GeographicalLocation[i].Id = e.Id
 			r.GeographicalLocation[i].Extension = e.Extension
-		} else {
-			r.GeographicalLocation = append(r.GeographicalLocation, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DevelopmentStage = m.DevelopmentStage
@@ -281,7 +321,9 @@ func (r SubstanceSourceMaterialFractionDescription) marshalJSON() jsonSubstanceS
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Fraction = r.Fraction
+	if r.Fraction != nil && r.Fraction.Value != nil {
+		m.Fraction = r.Fraction
+	}
 	if r.Fraction != nil && (r.Fraction.Id != nil || r.Fraction.Extension != nil) {
 		m.FractionPrimitiveElement = &primitiveElement{Id: r.Fraction.Id, Extension: r.Fraction.Extension}
 	}
@@ -301,6 +343,9 @@ func (r *SubstanceSourceMaterialFractionDescription) unmarshalJSON(m jsonSubstan
 	r.ModifierExtension = m.ModifierExtension
 	r.Fraction = m.Fraction
 	if m.FractionPrimitiveElement != nil {
+		if r.Fraction == nil {
+			r.Fraction = &String{}
+		}
 		r.Fraction.Id = m.FractionPrimitiveElement.Id
 		r.Fraction.Extension = m.FractionPrimitiveElement.Extension
 	}
@@ -369,7 +414,9 @@ func (r SubstanceSourceMaterialOrganism) marshalJSON() jsonSubstanceSourceMateri
 	m.Genus = r.Genus
 	m.Species = r.Species
 	m.IntraspecificType = r.IntraspecificType
-	m.IntraspecificDescription = r.IntraspecificDescription
+	if r.IntraspecificDescription != nil && r.IntraspecificDescription.Value != nil {
+		m.IntraspecificDescription = r.IntraspecificDescription
+	}
 	if r.IntraspecificDescription != nil && (r.IntraspecificDescription.Id != nil || r.IntraspecificDescription.Extension != nil) {
 		m.IntraspecificDescriptionPrimitiveElement = &primitiveElement{Id: r.IntraspecificDescription.Id, Extension: r.IntraspecificDescription.Extension}
 	}
@@ -395,6 +442,9 @@ func (r *SubstanceSourceMaterialOrganism) unmarshalJSON(m jsonSubstanceSourceMat
 	r.IntraspecificType = m.IntraspecificType
 	r.IntraspecificDescription = m.IntraspecificDescription
 	if m.IntraspecificDescriptionPrimitiveElement != nil {
+		if r.IntraspecificDescription == nil {
+			r.IntraspecificDescription = &String{}
+		}
 		r.IntraspecificDescription.Id = m.IntraspecificDescriptionPrimitiveElement.Id
 		r.IntraspecificDescription.Extension = m.IntraspecificDescriptionPrimitiveElement.Extension
 	}
@@ -444,7 +494,9 @@ func (r SubstanceSourceMaterialOrganismAuthor) marshalJSON() jsonSubstanceSource
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.AuthorType = r.AuthorType
-	m.AuthorDescription = r.AuthorDescription
+	if r.AuthorDescription != nil && r.AuthorDescription.Value != nil {
+		m.AuthorDescription = r.AuthorDescription
+	}
 	if r.AuthorDescription != nil && (r.AuthorDescription.Id != nil || r.AuthorDescription.Extension != nil) {
 		m.AuthorDescriptionPrimitiveElement = &primitiveElement{Id: r.AuthorDescription.Id, Extension: r.AuthorDescription.Extension}
 	}
@@ -464,6 +516,9 @@ func (r *SubstanceSourceMaterialOrganismAuthor) unmarshalJSON(m jsonSubstanceSou
 	r.AuthorType = m.AuthorType
 	r.AuthorDescription = m.AuthorDescription
 	if m.AuthorDescriptionPrimitiveElement != nil {
+		if r.AuthorDescription == nil {
+			r.AuthorDescription = &String{}
+		}
 		r.AuthorDescription.Id = m.AuthorDescriptionPrimitiveElement.Id
 		r.AuthorDescription.Extension = m.AuthorDescriptionPrimitiveElement.Extension
 	}
@@ -521,19 +576,27 @@ func (r SubstanceSourceMaterialOrganismHybrid) marshalJSON() jsonSubstanceSource
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.MaternalOrganismId = r.MaternalOrganismId
+	if r.MaternalOrganismId != nil && r.MaternalOrganismId.Value != nil {
+		m.MaternalOrganismId = r.MaternalOrganismId
+	}
 	if r.MaternalOrganismId != nil && (r.MaternalOrganismId.Id != nil || r.MaternalOrganismId.Extension != nil) {
 		m.MaternalOrganismIdPrimitiveElement = &primitiveElement{Id: r.MaternalOrganismId.Id, Extension: r.MaternalOrganismId.Extension}
 	}
-	m.MaternalOrganismName = r.MaternalOrganismName
+	if r.MaternalOrganismName != nil && r.MaternalOrganismName.Value != nil {
+		m.MaternalOrganismName = r.MaternalOrganismName
+	}
 	if r.MaternalOrganismName != nil && (r.MaternalOrganismName.Id != nil || r.MaternalOrganismName.Extension != nil) {
 		m.MaternalOrganismNamePrimitiveElement = &primitiveElement{Id: r.MaternalOrganismName.Id, Extension: r.MaternalOrganismName.Extension}
 	}
-	m.PaternalOrganismId = r.PaternalOrganismId
+	if r.PaternalOrganismId != nil && r.PaternalOrganismId.Value != nil {
+		m.PaternalOrganismId = r.PaternalOrganismId
+	}
 	if r.PaternalOrganismId != nil && (r.PaternalOrganismId.Id != nil || r.PaternalOrganismId.Extension != nil) {
 		m.PaternalOrganismIdPrimitiveElement = &primitiveElement{Id: r.PaternalOrganismId.Id, Extension: r.PaternalOrganismId.Extension}
 	}
-	m.PaternalOrganismName = r.PaternalOrganismName
+	if r.PaternalOrganismName != nil && r.PaternalOrganismName.Value != nil {
+		m.PaternalOrganismName = r.PaternalOrganismName
+	}
 	if r.PaternalOrganismName != nil && (r.PaternalOrganismName.Id != nil || r.PaternalOrganismName.Extension != nil) {
 		m.PaternalOrganismNamePrimitiveElement = &primitiveElement{Id: r.PaternalOrganismName.Id, Extension: r.PaternalOrganismName.Extension}
 	}
@@ -553,21 +616,33 @@ func (r *SubstanceSourceMaterialOrganismHybrid) unmarshalJSON(m jsonSubstanceSou
 	r.ModifierExtension = m.ModifierExtension
 	r.MaternalOrganismId = m.MaternalOrganismId
 	if m.MaternalOrganismIdPrimitiveElement != nil {
+		if r.MaternalOrganismId == nil {
+			r.MaternalOrganismId = &String{}
+		}
 		r.MaternalOrganismId.Id = m.MaternalOrganismIdPrimitiveElement.Id
 		r.MaternalOrganismId.Extension = m.MaternalOrganismIdPrimitiveElement.Extension
 	}
 	r.MaternalOrganismName = m.MaternalOrganismName
 	if m.MaternalOrganismNamePrimitiveElement != nil {
+		if r.MaternalOrganismName == nil {
+			r.MaternalOrganismName = &String{}
+		}
 		r.MaternalOrganismName.Id = m.MaternalOrganismNamePrimitiveElement.Id
 		r.MaternalOrganismName.Extension = m.MaternalOrganismNamePrimitiveElement.Extension
 	}
 	r.PaternalOrganismId = m.PaternalOrganismId
 	if m.PaternalOrganismIdPrimitiveElement != nil {
+		if r.PaternalOrganismId == nil {
+			r.PaternalOrganismId = &String{}
+		}
 		r.PaternalOrganismId.Id = m.PaternalOrganismIdPrimitiveElement.Id
 		r.PaternalOrganismId.Extension = m.PaternalOrganismIdPrimitiveElement.Extension
 	}
 	r.PaternalOrganismName = m.PaternalOrganismName
 	if m.PaternalOrganismNamePrimitiveElement != nil {
+		if r.PaternalOrganismName == nil {
+			r.PaternalOrganismName = &String{}
+		}
 		r.PaternalOrganismName.Id = m.PaternalOrganismNamePrimitiveElement.Id
 		r.PaternalOrganismName.Extension = m.PaternalOrganismNamePrimitiveElement.Extension
 	}

@@ -122,16 +122,22 @@ func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 func (r ExampleScenario) marshalJSON() jsonExampleScenario {
 	m := jsonExampleScenario{}
 	m.ResourceType = "ExampleScenario"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -142,50 +148,77 @@ func (r ExampleScenario) marshalJSON() jsonExampleScenario {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
 	m.Actor = r.Actor
 	m.Instance = r.Instance
 	m.Process = r.Process
-	m.Workflow = r.Workflow
+	anyWorkflowValue := false
+	for _, e := range r.Workflow {
+		if e.Value != nil {
+			anyWorkflowValue = true
+			break
+		}
+	}
+	if anyWorkflowValue {
+		m.Workflow = r.Workflow
+	}
 	anyWorkflowIdOrExtension := false
 	for _, e := range r.Workflow {
 		if e.Id != nil || e.Extension != nil {
@@ -215,17 +248,26 @@ func (r *ExampleScenario) UnmarshalJSON(b []byte) error {
 func (r *ExampleScenario) unmarshalJSON(m jsonExampleScenario) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -238,17 +280,26 @@ func (r *ExampleScenario) unmarshalJSON(m jsonExampleScenario) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -259,16 +310,25 @@ func (r *ExampleScenario) unmarshalJSON(m jsonExampleScenario) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
@@ -277,11 +337,17 @@ func (r *ExampleScenario) unmarshalJSON(m jsonExampleScenario) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
@@ -290,11 +356,12 @@ func (r *ExampleScenario) unmarshalJSON(m jsonExampleScenario) error {
 	r.Process = m.Process
 	r.Workflow = m.Workflow
 	for i, e := range m.WorkflowPrimitiveElement {
-		if len(r.Workflow) > i {
+		if len(r.Workflow) <= i {
+			r.Workflow = append(r.Workflow, Canonical{})
+		}
+		if e != nil {
 			r.Workflow[i].Id = e.Id
 			r.Workflow[i].Extension = e.Extension
-		} else {
-			r.Workflow = append(r.Workflow, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -348,19 +415,27 @@ func (r ExampleScenarioActor) marshalJSON() jsonExampleScenarioActor {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ActorId = r.ActorId
+	if r.ActorId.Value != nil {
+		m.ActorId = r.ActorId
+	}
 	if r.ActorId.Id != nil || r.ActorId.Extension != nil {
 		m.ActorIdPrimitiveElement = &primitiveElement{Id: r.ActorId.Id, Extension: r.ActorId.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -389,11 +464,17 @@ func (r *ExampleScenarioActor) unmarshalJSON(m jsonExampleScenarioActor) error {
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -454,19 +535,27 @@ func (r ExampleScenarioInstance) marshalJSON() jsonExampleScenarioInstance {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ResourceId = r.ResourceId
+	if r.ResourceId.Value != nil {
+		m.ResourceId = r.ResourceId
+	}
 	if r.ResourceId.Id != nil || r.ResourceId.Extension != nil {
 		m.ResourceIdPrimitiveElement = &primitiveElement{Id: r.ResourceId.Id, Extension: r.ResourceId.Extension}
 	}
-	m.ResourceType = r.ResourceType
+	if r.ResourceType.Value != nil {
+		m.ResourceType = r.ResourceType
+	}
 	if r.ResourceType.Id != nil || r.ResourceType.Extension != nil {
 		m.ResourceTypePrimitiveElement = &primitiveElement{Id: r.ResourceType.Id, Extension: r.ResourceType.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -497,11 +586,17 @@ func (r *ExampleScenarioInstance) unmarshalJSON(m jsonExampleScenarioInstance) e
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -550,11 +645,15 @@ func (r ExampleScenarioInstanceVersion) marshalJSON() jsonExampleScenarioInstanc
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.VersionId = r.VersionId
+	if r.VersionId.Value != nil {
+		m.VersionId = r.VersionId
+	}
 	if r.VersionId.Id != nil || r.VersionId.Extension != nil {
 		m.VersionIdPrimitiveElement = &primitiveElement{Id: r.VersionId.Id, Extension: r.VersionId.Extension}
 	}
-	m.Description = r.Description
+	if r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description.Id != nil || r.Description.Extension != nil {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -624,11 +723,15 @@ func (r ExampleScenarioInstanceContainedInstance) marshalJSON() jsonExampleScena
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ResourceId = r.ResourceId
+	if r.ResourceId.Value != nil {
+		m.ResourceId = r.ResourceId
+	}
 	if r.ResourceId.Id != nil || r.ResourceId.Extension != nil {
 		m.ResourceIdPrimitiveElement = &primitiveElement{Id: r.ResourceId.Id, Extension: r.ResourceId.Extension}
 	}
-	m.VersionId = r.VersionId
+	if r.VersionId != nil && r.VersionId.Value != nil {
+		m.VersionId = r.VersionId
+	}
 	if r.VersionId != nil && (r.VersionId.Id != nil || r.VersionId.Extension != nil) {
 		m.VersionIdPrimitiveElement = &primitiveElement{Id: r.VersionId.Id, Extension: r.VersionId.Extension}
 	}
@@ -652,6 +755,9 @@ func (r *ExampleScenarioInstanceContainedInstance) unmarshalJSON(m jsonExampleSc
 	}
 	r.VersionId = m.VersionId
 	if m.VersionIdPrimitiveElement != nil {
+		if r.VersionId == nil {
+			r.VersionId = &String{}
+		}
 		r.VersionId.Id = m.VersionIdPrimitiveElement.Id
 		r.VersionId.Extension = m.VersionIdPrimitiveElement.Extension
 	}
@@ -709,19 +815,27 @@ func (r ExampleScenarioProcess) marshalJSON() jsonExampleScenarioProcess {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Title = r.Title
+	if r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title.Id != nil || r.Title.Extension != nil {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.PreConditions = r.PreConditions
+	if r.PreConditions != nil && r.PreConditions.Value != nil {
+		m.PreConditions = r.PreConditions
+	}
 	if r.PreConditions != nil && (r.PreConditions.Id != nil || r.PreConditions.Extension != nil) {
 		m.PreConditionsPrimitiveElement = &primitiveElement{Id: r.PreConditions.Id, Extension: r.PreConditions.Extension}
 	}
-	m.PostConditions = r.PostConditions
+	if r.PostConditions != nil && r.PostConditions.Value != nil {
+		m.PostConditions = r.PostConditions
+	}
 	if r.PostConditions != nil && (r.PostConditions.Id != nil || r.PostConditions.Extension != nil) {
 		m.PostConditionsPrimitiveElement = &primitiveElement{Id: r.PostConditions.Id, Extension: r.PostConditions.Extension}
 	}
@@ -746,16 +860,25 @@ func (r *ExampleScenarioProcess) unmarshalJSON(m jsonExampleScenarioProcess) err
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.PreConditions = m.PreConditions
 	if m.PreConditionsPrimitiveElement != nil {
+		if r.PreConditions == nil {
+			r.PreConditions = &Markdown{}
+		}
 		r.PreConditions.Id = m.PreConditionsPrimitiveElement.Id
 		r.PreConditions.Extension = m.PreConditionsPrimitiveElement.Extension
 	}
 	r.PostConditions = m.PostConditions
 	if m.PostConditionsPrimitiveElement != nil {
+		if r.PostConditions == nil {
+			r.PostConditions = &Markdown{}
+		}
 		r.PostConditions.Id = m.PostConditionsPrimitiveElement.Id
 		r.PostConditions.Extension = m.PostConditionsPrimitiveElement.Extension
 	}
@@ -809,7 +932,9 @@ func (r ExampleScenarioProcessStep) marshalJSON() jsonExampleScenarioProcessStep
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Process = r.Process
-	m.Pause = r.Pause
+	if r.Pause != nil && r.Pause.Value != nil {
+		m.Pause = r.Pause
+	}
 	if r.Pause != nil && (r.Pause.Id != nil || r.Pause.Extension != nil) {
 		m.PausePrimitiveElement = &primitiveElement{Id: r.Pause.Id, Extension: r.Pause.Extension}
 	}
@@ -831,6 +956,9 @@ func (r *ExampleScenarioProcessStep) unmarshalJSON(m jsonExampleScenarioProcessS
 	r.Process = m.Process
 	r.Pause = m.Pause
 	if m.PausePrimitiveElement != nil {
+		if r.Pause == nil {
+			r.Pause = &Boolean{}
+		}
 		r.Pause.Id = m.PausePrimitiveElement.Id
 		r.Pause.Extension = m.PausePrimitiveElement.Extension
 	}
@@ -909,35 +1037,51 @@ func (r ExampleScenarioProcessStepOperation) marshalJSON() jsonExampleScenarioPr
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Number = r.Number
+	if r.Number.Value != nil {
+		m.Number = r.Number
+	}
 	if r.Number.Id != nil || r.Number.Extension != nil {
 		m.NumberPrimitiveElement = &primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
 	}
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Initiator = r.Initiator
+	if r.Initiator != nil && r.Initiator.Value != nil {
+		m.Initiator = r.Initiator
+	}
 	if r.Initiator != nil && (r.Initiator.Id != nil || r.Initiator.Extension != nil) {
 		m.InitiatorPrimitiveElement = &primitiveElement{Id: r.Initiator.Id, Extension: r.Initiator.Extension}
 	}
-	m.Receiver = r.Receiver
+	if r.Receiver != nil && r.Receiver.Value != nil {
+		m.Receiver = r.Receiver
+	}
 	if r.Receiver != nil && (r.Receiver.Id != nil || r.Receiver.Extension != nil) {
 		m.ReceiverPrimitiveElement = &primitiveElement{Id: r.Receiver.Id, Extension: r.Receiver.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.InitiatorActive = r.InitiatorActive
+	if r.InitiatorActive != nil && r.InitiatorActive.Value != nil {
+		m.InitiatorActive = r.InitiatorActive
+	}
 	if r.InitiatorActive != nil && (r.InitiatorActive.Id != nil || r.InitiatorActive.Extension != nil) {
 		m.InitiatorActivePrimitiveElement = &primitiveElement{Id: r.InitiatorActive.Id, Extension: r.InitiatorActive.Extension}
 	}
-	m.ReceiverActive = r.ReceiverActive
+	if r.ReceiverActive != nil && r.ReceiverActive.Value != nil {
+		m.ReceiverActive = r.ReceiverActive
+	}
 	if r.ReceiverActive != nil && (r.ReceiverActive.Id != nil || r.ReceiverActive.Extension != nil) {
 		m.ReceiverActivePrimitiveElement = &primitiveElement{Id: r.ReceiverActive.Id, Extension: r.ReceiverActive.Extension}
 	}
@@ -963,36 +1107,57 @@ func (r *ExampleScenarioProcessStepOperation) unmarshalJSON(m jsonExampleScenari
 	}
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &String{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Initiator = m.Initiator
 	if m.InitiatorPrimitiveElement != nil {
+		if r.Initiator == nil {
+			r.Initiator = &String{}
+		}
 		r.Initiator.Id = m.InitiatorPrimitiveElement.Id
 		r.Initiator.Extension = m.InitiatorPrimitiveElement.Extension
 	}
 	r.Receiver = m.Receiver
 	if m.ReceiverPrimitiveElement != nil {
+		if r.Receiver == nil {
+			r.Receiver = &String{}
+		}
 		r.Receiver.Id = m.ReceiverPrimitiveElement.Id
 		r.Receiver.Extension = m.ReceiverPrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.InitiatorActive = m.InitiatorActive
 	if m.InitiatorActivePrimitiveElement != nil {
+		if r.InitiatorActive == nil {
+			r.InitiatorActive = &Boolean{}
+		}
 		r.InitiatorActive.Id = m.InitiatorActivePrimitiveElement.Id
 		r.InitiatorActive.Extension = m.InitiatorActivePrimitiveElement.Extension
 	}
 	r.ReceiverActive = m.ReceiverActive
 	if m.ReceiverActivePrimitiveElement != nil {
+		if r.ReceiverActive == nil {
+			r.ReceiverActive = &Boolean{}
+		}
 		r.ReceiverActive.Id = m.ReceiverActivePrimitiveElement.Id
 		r.ReceiverActive.Extension = m.ReceiverActivePrimitiveElement.Extension
 	}
@@ -1044,11 +1209,15 @@ func (r ExampleScenarioProcessStepAlternative) marshalJSON() jsonExampleScenario
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Title = r.Title
+	if r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title.Id != nil || r.Title.Extension != nil {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -1073,6 +1242,9 @@ func (r *ExampleScenarioProcessStepAlternative) unmarshalJSON(m jsonExampleScena
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

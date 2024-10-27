@@ -11,11 +11,6 @@ type UnsignedInt struct {
 	// Primitive value for unsignedInt
 	Value *uint32
 }
-type jsonUnsignedInt struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *uint32     `json:"value,omitempty"`
-}
 
 func (r UnsignedInt) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

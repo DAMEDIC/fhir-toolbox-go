@@ -198,16 +198,22 @@ func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
 func (r ExplanationOfBenefit) marshalJSON() jsonExplanationOfBenefit {
 	m := jsonExplanationOfBenefit{}
 	m.ResourceType = "ExplanationOfBenefit"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -219,19 +225,25 @@ func (r ExplanationOfBenefit) marshalJSON() jsonExplanationOfBenefit {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Type = r.Type
 	m.SubType = r.SubType
-	m.Use = r.Use
+	if r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use.Id != nil || r.Use.Extension != nil {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
 	m.Patient = r.Patient
 	m.BillablePeriod = r.BillablePeriod
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
@@ -249,15 +261,28 @@ func (r ExplanationOfBenefit) marshalJSON() jsonExplanationOfBenefit {
 	m.Facility = r.Facility
 	m.Claim = r.Claim
 	m.ClaimResponse = r.ClaimResponse
-	m.Outcome = r.Outcome
+	if r.Outcome.Value != nil {
+		m.Outcome = r.Outcome
+	}
 	if r.Outcome.Id != nil || r.Outcome.Extension != nil {
 		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
 	}
-	m.Disposition = r.Disposition
+	if r.Disposition != nil && r.Disposition.Value != nil {
+		m.Disposition = r.Disposition
+	}
 	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
 		m.DispositionPrimitiveElement = &primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
 	}
-	m.PreAuthRef = r.PreAuthRef
+	anyPreAuthRefValue := false
+	for _, e := range r.PreAuthRef {
+		if e.Value != nil {
+			anyPreAuthRefValue = true
+			break
+		}
+	}
+	if anyPreAuthRefValue {
+		m.PreAuthRef = r.PreAuthRef
+	}
 	anyPreAuthRefIdOrExtension := false
 	for _, e := range r.PreAuthRef {
 		if e.Id != nil || e.Extension != nil {
@@ -280,7 +305,9 @@ func (r ExplanationOfBenefit) marshalJSON() jsonExplanationOfBenefit {
 	m.SupportingInfo = r.SupportingInfo
 	m.Diagnosis = r.Diagnosis
 	m.Procedure = r.Procedure
-	m.Precedence = r.Precedence
+	if r.Precedence != nil && r.Precedence.Value != nil {
+		m.Precedence = r.Precedence
+	}
 	if r.Precedence != nil && (r.Precedence.Id != nil || r.Precedence.Extension != nil) {
 		m.PrecedencePrimitiveElement = &primitiveElement{Id: r.Precedence.Id, Extension: r.Precedence.Extension}
 	}
@@ -308,17 +335,26 @@ func (r *ExplanationOfBenefit) UnmarshalJSON(b []byte) error {
 func (r *ExplanationOfBenefit) unmarshalJSON(m jsonExplanationOfBenefit) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -370,16 +406,20 @@ func (r *ExplanationOfBenefit) unmarshalJSON(m jsonExplanationOfBenefit) error {
 	}
 	r.Disposition = m.Disposition
 	if m.DispositionPrimitiveElement != nil {
+		if r.Disposition == nil {
+			r.Disposition = &String{}
+		}
 		r.Disposition.Id = m.DispositionPrimitiveElement.Id
 		r.Disposition.Extension = m.DispositionPrimitiveElement.Extension
 	}
 	r.PreAuthRef = m.PreAuthRef
 	for i, e := range m.PreAuthRefPrimitiveElement {
-		if len(r.PreAuthRef) > i {
+		if len(r.PreAuthRef) <= i {
+			r.PreAuthRef = append(r.PreAuthRef, String{})
+		}
+		if e != nil {
 			r.PreAuthRef[i].Id = e.Id
 			r.PreAuthRef[i].Extension = e.Extension
-		} else {
-			r.PreAuthRef = append(r.PreAuthRef, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.PreAuthRefPeriod = m.PreAuthRefPeriod
@@ -389,6 +429,9 @@ func (r *ExplanationOfBenefit) unmarshalJSON(m jsonExplanationOfBenefit) error {
 	r.Procedure = m.Procedure
 	r.Precedence = m.Precedence
 	if m.PrecedencePrimitiveElement != nil {
+		if r.Precedence == nil {
+			r.Precedence = &PositiveInt{}
+		}
 		r.Precedence.Id = m.PrecedencePrimitiveElement.Id
 		r.Precedence.Extension = m.PrecedencePrimitiveElement.Extension
 	}
@@ -577,12 +620,16 @@ func (r ExplanationOfBenefitCareTeam) marshalJSON() jsonExplanationOfBenefitCare
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
 	m.Provider = r.Provider
-	m.Responsible = r.Responsible
+	if r.Responsible != nil && r.Responsible.Value != nil {
+		m.Responsible = r.Responsible
+	}
 	if r.Responsible != nil && (r.Responsible.Id != nil || r.Responsible.Extension != nil) {
 		m.ResponsiblePrimitiveElement = &primitiveElement{Id: r.Responsible.Id, Extension: r.Responsible.Extension}
 	}
@@ -609,6 +656,9 @@ func (r *ExplanationOfBenefitCareTeam) unmarshalJSON(m jsonExplanationOfBenefitC
 	r.Provider = m.Provider
 	r.Responsible = m.Responsible
 	if m.ResponsiblePrimitiveElement != nil {
+		if r.Responsible == nil {
+			r.Responsible = &Boolean{}
+		}
 		r.Responsible.Id = m.ResponsiblePrimitiveElement.Id
 		r.Responsible.Extension = m.ResponsiblePrimitiveElement.Extension
 	}
@@ -693,7 +743,9 @@ func (r ExplanationOfBenefitSupportingInfo) marshalJSON() jsonExplanationOfBenef
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -701,12 +753,16 @@ func (r ExplanationOfBenefitSupportingInfo) marshalJSON() jsonExplanationOfBenef
 	m.Code = r.Code
 	switch v := r.Timing.(type) {
 	case Date:
-		m.TimingDate = &v
+		if v.Value != nil {
+			m.TimingDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.TimingDate = v
+		if v.Value != nil {
+			m.TimingDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -717,22 +773,30 @@ func (r ExplanationOfBenefitSupportingInfo) marshalJSON() jsonExplanationOfBenef
 	}
 	switch v := r.Value.(type) {
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -900,7 +964,9 @@ func (r ExplanationOfBenefitDiagnosis) marshalJSON() jsonExplanationOfBenefitDia
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -1012,12 +1078,16 @@ func (r ExplanationOfBenefitProcedure) marshalJSON() jsonExplanationOfBenefitPro
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
 	m.Type = r.Type
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -1053,6 +1123,9 @@ func (r *ExplanationOfBenefitProcedure) unmarshalJSON(m jsonExplanationOfBenefit
 	r.Type = m.Type
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -1117,12 +1190,23 @@ func (r ExplanationOfBenefitInsurance) marshalJSON() jsonExplanationOfBenefitIns
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Focal = r.Focal
+	if r.Focal.Value != nil {
+		m.Focal = r.Focal
+	}
 	if r.Focal.Id != nil || r.Focal.Extension != nil {
 		m.FocalPrimitiveElement = &primitiveElement{Id: r.Focal.Id, Extension: r.Focal.Extension}
 	}
 	m.Coverage = r.Coverage
-	m.PreAuthRef = r.PreAuthRef
+	anyPreAuthRefValue := false
+	for _, e := range r.PreAuthRef {
+		if e.Value != nil {
+			anyPreAuthRefValue = true
+			break
+		}
+	}
+	if anyPreAuthRefValue {
+		m.PreAuthRef = r.PreAuthRef
+	}
 	anyPreAuthRefIdOrExtension := false
 	for _, e := range r.PreAuthRef {
 		if e.Id != nil || e.Extension != nil {
@@ -1161,11 +1245,12 @@ func (r *ExplanationOfBenefitInsurance) unmarshalJSON(m jsonExplanationOfBenefit
 	r.Coverage = m.Coverage
 	r.PreAuthRef = m.PreAuthRef
 	for i, e := range m.PreAuthRefPrimitiveElement {
-		if len(r.PreAuthRef) > i {
+		if len(r.PreAuthRef) <= i {
+			r.PreAuthRef = append(r.PreAuthRef, String{})
+		}
+		if e != nil {
 			r.PreAuthRef[i].Id = e.Id
 			r.PreAuthRef[i].Extension = e.Extension
-		} else {
-			r.PreAuthRef = append(r.PreAuthRef, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1221,7 +1306,9 @@ func (r ExplanationOfBenefitAccident) marshalJSON() jsonExplanationOfBenefitAcci
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -1251,6 +1338,9 @@ func (r *ExplanationOfBenefitAccident) unmarshalJSON(m jsonExplanationOfBenefitA
 	r.ModifierExtension = m.ModifierExtension
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &Date{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -1399,11 +1489,22 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.CareTeamSequence = r.CareTeamSequence
+	anyCareTeamSequenceValue := false
+	for _, e := range r.CareTeamSequence {
+		if e.Value != nil {
+			anyCareTeamSequenceValue = true
+			break
+		}
+	}
+	if anyCareTeamSequenceValue {
+		m.CareTeamSequence = r.CareTeamSequence
+	}
 	anyCareTeamSequenceIdOrExtension := false
 	for _, e := range r.CareTeamSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1421,7 +1522,16 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 			}
 		}
 	}
-	m.DiagnosisSequence = r.DiagnosisSequence
+	anyDiagnosisSequenceValue := false
+	for _, e := range r.DiagnosisSequence {
+		if e.Value != nil {
+			anyDiagnosisSequenceValue = true
+			break
+		}
+	}
+	if anyDiagnosisSequenceValue {
+		m.DiagnosisSequence = r.DiagnosisSequence
+	}
 	anyDiagnosisSequenceIdOrExtension := false
 	for _, e := range r.DiagnosisSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1439,7 +1549,16 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 			}
 		}
 	}
-	m.ProcedureSequence = r.ProcedureSequence
+	anyProcedureSequenceValue := false
+	for _, e := range r.ProcedureSequence {
+		if e.Value != nil {
+			anyProcedureSequenceValue = true
+			break
+		}
+	}
+	if anyProcedureSequenceValue {
+		m.ProcedureSequence = r.ProcedureSequence
+	}
 	anyProcedureSequenceIdOrExtension := false
 	for _, e := range r.ProcedureSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1457,7 +1576,16 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 			}
 		}
 	}
-	m.InformationSequence = r.InformationSequence
+	anyInformationSequenceValue := false
+	for _, e := range r.InformationSequence {
+		if e.Value != nil {
+			anyInformationSequenceValue = true
+			break
+		}
+	}
+	if anyInformationSequenceValue {
+		m.InformationSequence = r.InformationSequence
+	}
 	anyInformationSequenceIdOrExtension := false
 	for _, e := range r.InformationSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -1482,12 +1610,16 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 	m.ProgramCode = r.ProgramCode
 	switch v := r.Serviced.(type) {
 	case Date:
-		m.ServicedDate = &v
+		if v.Value != nil {
+			m.ServicedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ServicedDate = v
+		if v.Value != nil {
+			m.ServicedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1512,7 +1644,9 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 	}
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
@@ -1521,7 +1655,16 @@ func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
 	m.BodySite = r.BodySite
 	m.SubSite = r.SubSite
 	m.Encounter = r.Encounter
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -1561,38 +1704,42 @@ func (r *ExplanationOfBenefitItem) unmarshalJSON(m jsonExplanationOfBenefitItem)
 	}
 	r.CareTeamSequence = m.CareTeamSequence
 	for i, e := range m.CareTeamSequencePrimitiveElement {
-		if len(r.CareTeamSequence) > i {
+		if len(r.CareTeamSequence) <= i {
+			r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.CareTeamSequence[i].Id = e.Id
 			r.CareTeamSequence[i].Extension = e.Extension
-		} else {
-			r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DiagnosisSequence = m.DiagnosisSequence
 	for i, e := range m.DiagnosisSequencePrimitiveElement {
-		if len(r.DiagnosisSequence) > i {
+		if len(r.DiagnosisSequence) <= i {
+			r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.DiagnosisSequence[i].Id = e.Id
 			r.DiagnosisSequence[i].Extension = e.Extension
-		} else {
-			r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.ProcedureSequence = m.ProcedureSequence
 	for i, e := range m.ProcedureSequencePrimitiveElement {
-		if len(r.ProcedureSequence) > i {
+		if len(r.ProcedureSequence) <= i {
+			r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.ProcedureSequence[i].Id = e.Id
 			r.ProcedureSequence[i].Extension = e.Extension
-		} else {
-			r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InformationSequence = m.InformationSequence
 	for i, e := range m.InformationSequencePrimitiveElement {
-		if len(r.InformationSequence) > i {
+		if len(r.InformationSequence) <= i {
+			r.InformationSequence = append(r.InformationSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.InformationSequence[i].Id = e.Id
 			r.InformationSequence[i].Extension = e.Extension
-		} else {
-			r.InformationSequence = append(r.InformationSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Revenue = m.Revenue
@@ -1646,6 +1793,9 @@ func (r *ExplanationOfBenefitItem) unmarshalJSON(m jsonExplanationOfBenefitItem)
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -1656,11 +1806,12 @@ func (r *ExplanationOfBenefitItem) unmarshalJSON(m jsonExplanationOfBenefitItem)
 	r.Encounter = m.Encounter
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -1716,7 +1867,9 @@ func (r ExplanationOfBenefitItemAdjudication) marshalJSON() jsonExplanationOfBen
 	m.Category = r.Category
 	m.Reason = r.Reason
 	m.Amount = r.Amount
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
@@ -1738,6 +1891,9 @@ func (r *ExplanationOfBenefitItemAdjudication) unmarshalJSON(m jsonExplanationOf
 	r.Amount = m.Amount
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &Decimal{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
@@ -1821,7 +1977,9 @@ func (r ExplanationOfBenefitItemDetail) marshalJSON() jsonExplanationOfBenefitIt
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -1832,13 +1990,24 @@ func (r ExplanationOfBenefitItemDetail) marshalJSON() jsonExplanationOfBenefitIt
 	m.ProgramCode = r.ProgramCode
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
 	m.Net = r.Net
 	m.Udi = r.Udi
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -1885,6 +2054,9 @@ func (r *ExplanationOfBenefitItemDetail) unmarshalJSON(m jsonExplanationOfBenefi
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -1892,11 +2064,12 @@ func (r *ExplanationOfBenefitItemDetail) unmarshalJSON(m jsonExplanationOfBenefi
 	r.Udi = m.Udi
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -1978,7 +2151,9 @@ func (r ExplanationOfBenefitItemDetailSubDetail) marshalJSON() jsonExplanationOf
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
@@ -1989,13 +2164,24 @@ func (r ExplanationOfBenefitItemDetailSubDetail) marshalJSON() jsonExplanationOf
 	m.ProgramCode = r.ProgramCode
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
 	m.Net = r.Net
 	m.Udi = r.Udi
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -2041,6 +2227,9 @@ func (r *ExplanationOfBenefitItemDetailSubDetail) unmarshalJSON(m jsonExplanatio
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -2048,11 +2237,12 @@ func (r *ExplanationOfBenefitItemDetailSubDetail) unmarshalJSON(m jsonExplanatio
 	r.Udi = m.Udi
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -2169,7 +2359,16 @@ func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddIt
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ItemSequence = r.ItemSequence
+	anyItemSequenceValue := false
+	for _, e := range r.ItemSequence {
+		if e.Value != nil {
+			anyItemSequenceValue = true
+			break
+		}
+	}
+	if anyItemSequenceValue {
+		m.ItemSequence = r.ItemSequence
+	}
 	anyItemSequenceIdOrExtension := false
 	for _, e := range r.ItemSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -2187,7 +2386,16 @@ func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddIt
 			}
 		}
 	}
-	m.DetailSequence = r.DetailSequence
+	anyDetailSequenceValue := false
+	for _, e := range r.DetailSequence {
+		if e.Value != nil {
+			anyDetailSequenceValue = true
+			break
+		}
+	}
+	if anyDetailSequenceValue {
+		m.DetailSequence = r.DetailSequence
+	}
 	anyDetailSequenceIdOrExtension := false
 	for _, e := range r.DetailSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -2205,7 +2413,16 @@ func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddIt
 			}
 		}
 	}
-	m.SubDetailSequence = r.SubDetailSequence
+	anySubDetailSequenceValue := false
+	for _, e := range r.SubDetailSequence {
+		if e.Value != nil {
+			anySubDetailSequenceValue = true
+			break
+		}
+	}
+	if anySubDetailSequenceValue {
+		m.SubDetailSequence = r.SubDetailSequence
+	}
 	anySubDetailSequenceIdOrExtension := false
 	for _, e := range r.SubDetailSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -2229,12 +2446,16 @@ func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddIt
 	m.ProgramCode = r.ProgramCode
 	switch v := r.Serviced.(type) {
 	case Date:
-		m.ServicedDate = &v
+		if v.Value != nil {
+			m.ServicedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ServicedDate = v
+		if v.Value != nil {
+			m.ServicedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -2259,14 +2480,25 @@ func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddIt
 	}
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
 	m.Net = r.Net
 	m.BodySite = r.BodySite
 	m.SubSite = r.SubSite
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -2301,29 +2533,32 @@ func (r *ExplanationOfBenefitAddItem) unmarshalJSON(m jsonExplanationOfBenefitAd
 	r.ModifierExtension = m.ModifierExtension
 	r.ItemSequence = m.ItemSequence
 	for i, e := range m.ItemSequencePrimitiveElement {
-		if len(r.ItemSequence) > i {
+		if len(r.ItemSequence) <= i {
+			r.ItemSequence = append(r.ItemSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.ItemSequence[i].Id = e.Id
 			r.ItemSequence[i].Extension = e.Extension
-		} else {
-			r.ItemSequence = append(r.ItemSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.DetailSequence = m.DetailSequence
 	for i, e := range m.DetailSequencePrimitiveElement {
-		if len(r.DetailSequence) > i {
+		if len(r.DetailSequence) <= i {
+			r.DetailSequence = append(r.DetailSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.DetailSequence[i].Id = e.Id
 			r.DetailSequence[i].Extension = e.Extension
-		} else {
-			r.DetailSequence = append(r.DetailSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.SubDetailSequence = m.SubDetailSequence
 	for i, e := range m.SubDetailSequencePrimitiveElement {
-		if len(r.SubDetailSequence) > i {
+		if len(r.SubDetailSequence) <= i {
+			r.SubDetailSequence = append(r.SubDetailSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.SubDetailSequence[i].Id = e.Id
 			r.SubDetailSequence[i].Extension = e.Extension
-		} else {
-			r.SubDetailSequence = append(r.SubDetailSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Provider = m.Provider
@@ -2376,6 +2611,9 @@ func (r *ExplanationOfBenefitAddItem) unmarshalJSON(m jsonExplanationOfBenefitAd
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
@@ -2384,11 +2622,12 @@ func (r *ExplanationOfBenefitAddItem) unmarshalJSON(m jsonExplanationOfBenefitAd
 	r.SubSite = m.SubSite
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -2461,12 +2700,23 @@ func (r ExplanationOfBenefitAddItemDetail) marshalJSON() jsonExplanationOfBenefi
 	m.Modifier = r.Modifier
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
 	m.Net = r.Net
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -2505,17 +2755,21 @@ func (r *ExplanationOfBenefitAddItemDetail) unmarshalJSON(m jsonExplanationOfBen
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
 	r.Net = m.Net
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -2585,12 +2839,23 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) marshalJSON() jsonExplanatio
 	m.Modifier = r.Modifier
 	m.Quantity = r.Quantity
 	m.UnitPrice = r.UnitPrice
-	m.Factor = r.Factor
+	if r.Factor != nil && r.Factor.Value != nil {
+		m.Factor = r.Factor
+	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
 		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
 	}
 	m.Net = r.Net
-	m.NoteNumber = r.NoteNumber
+	anyNoteNumberValue := false
+	for _, e := range r.NoteNumber {
+		if e.Value != nil {
+			anyNoteNumberValue = true
+			break
+		}
+	}
+	if anyNoteNumberValue {
+		m.NoteNumber = r.NoteNumber
+	}
 	anyNoteNumberIdOrExtension := false
 	for _, e := range r.NoteNumber {
 		if e.Id != nil || e.Extension != nil {
@@ -2628,17 +2893,21 @@ func (r *ExplanationOfBenefitAddItemDetailSubDetail) unmarshalJSON(m jsonExplana
 	r.UnitPrice = m.UnitPrice
 	r.Factor = m.Factor
 	if m.FactorPrimitiveElement != nil {
+		if r.Factor == nil {
+			r.Factor = &Decimal{}
+		}
 		r.Factor.Id = m.FactorPrimitiveElement.Id
 		r.Factor.Extension = m.FactorPrimitiveElement.Extension
 	}
 	r.Net = m.Net
 	r.NoteNumber = m.NoteNumber
 	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) > i {
+		if len(r.NoteNumber) <= i {
+			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+		}
+		if e != nil {
 			r.NoteNumber[i].Id = e.Id
 			r.NoteNumber[i].Extension = e.Extension
-		} else {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Adjudication = m.Adjudication
@@ -2757,7 +3026,9 @@ func (r ExplanationOfBenefitPayment) marshalJSON() jsonExplanationOfBenefitPayme
 	m.Type = r.Type
 	m.Adjustment = r.Adjustment
 	m.AdjustmentReason = r.AdjustmentReason
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -2781,6 +3052,9 @@ func (r *ExplanationOfBenefitPayment) unmarshalJSON(m jsonExplanationOfBenefitPa
 	r.AdjustmentReason = m.AdjustmentReason
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &Date{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -2836,15 +3110,21 @@ func (r ExplanationOfBenefitProcessNote) marshalJSON() jsonExplanationOfBenefitP
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Number = r.Number
+	if r.Number != nil && r.Number.Value != nil {
+		m.Number = r.Number
+	}
 	if r.Number != nil && (r.Number.Id != nil || r.Number.Extension != nil) {
 		m.NumberPrimitiveElement = &primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
 	}
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -2864,16 +3144,25 @@ func (r *ExplanationOfBenefitProcessNote) unmarshalJSON(m jsonExplanationOfBenef
 	r.ModifierExtension = m.ModifierExtension
 	r.Number = m.Number
 	if m.NumberPrimitiveElement != nil {
+		if r.Number == nil {
+			r.Number = &PositiveInt{}
+		}
 		r.Number.Id = m.NumberPrimitiveElement.Id
 		r.Number.Extension = m.NumberPrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
@@ -2941,15 +3230,21 @@ func (r ExplanationOfBenefitBenefitBalance) marshalJSON() jsonExplanationOfBenef
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Category = r.Category
-	m.Excluded = r.Excluded
+	if r.Excluded != nil && r.Excluded.Value != nil {
+		m.Excluded = r.Excluded
+	}
 	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
 		m.ExcludedPrimitiveElement = &primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -2973,16 +3268,25 @@ func (r *ExplanationOfBenefitBenefitBalance) unmarshalJSON(m jsonExplanationOfBe
 	r.Category = m.Category
 	r.Excluded = m.Excluded
 	if m.ExcludedPrimitiveElement != nil {
+		if r.Excluded == nil {
+			r.Excluded = &Boolean{}
+		}
 		r.Excluded.Id = m.ExcludedPrimitiveElement.Id
 		r.Excluded.Extension = m.ExcludedPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -3058,22 +3362,30 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) marshalJSON() jsonExplanati
 	m.Type = r.Type
 	switch v := r.Allowed.(type) {
 	case UnsignedInt:
-		m.AllowedUnsignedInt = &v
+		if v.Value != nil {
+			m.AllowedUnsignedInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *UnsignedInt:
-		m.AllowedUnsignedInt = v
+		if v.Value != nil {
+			m.AllowedUnsignedInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.AllowedString = &v
+		if v.Value != nil {
+			m.AllowedString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AllowedString = v
+		if v.Value != nil {
+			m.AllowedString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -3084,12 +3396,16 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) marshalJSON() jsonExplanati
 	}
 	switch v := r.Used.(type) {
 	case UnsignedInt:
-		m.UsedUnsignedInt = &v
+		if v.Value != nil {
+			m.UsedUnsignedInt = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *UnsignedInt:
-		m.UsedUnsignedInt = v
+		if v.Value != nil {
+			m.UsedUnsignedInt = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

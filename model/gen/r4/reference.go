@@ -38,16 +38,22 @@ func (r Reference) marshalJSON() jsonReference {
 	m := jsonReference{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Reference = r.Reference
+	if r.Reference != nil && r.Reference.Value != nil {
+		m.Reference = r.Reference
+	}
 	if r.Reference != nil && (r.Reference.Id != nil || r.Reference.Extension != nil) {
 		m.ReferencePrimitiveElement = &primitiveElement{Id: r.Reference.Id, Extension: r.Reference.Extension}
 	}
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Display = r.Display
+	if r.Display != nil && r.Display.Value != nil {
+		m.Display = r.Display
+	}
 	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
 		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
 	}
@@ -65,17 +71,26 @@ func (r *Reference) unmarshalJSON(m jsonReference) error {
 	r.Extension = m.Extension
 	r.Reference = m.Reference
 	if m.ReferencePrimitiveElement != nil {
+		if r.Reference == nil {
+			r.Reference = &String{}
+		}
 		r.Reference.Id = m.ReferencePrimitiveElement.Id
 		r.Reference.Extension = m.ReferencePrimitiveElement.Extension
 	}
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Uri{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Display = m.Display
 	if m.DisplayPrimitiveElement != nil {
+		if r.Display == nil {
+			r.Display = &String{}
+		}
 		r.Display.Id = m.DisplayPrimitiveElement.Id
 		r.Display.Extension = m.DisplayPrimitiveElement.Extension
 	}

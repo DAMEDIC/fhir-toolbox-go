@@ -111,16 +111,22 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 func (r Consent) marshalJSON() jsonConsent {
 	m := jsonConsent{}
 	m.ResourceType = "Consent"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -132,14 +138,18 @@ func (r Consent) marshalJSON() jsonConsent {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Scope = r.Scope
 	m.Category = r.Category
 	m.Patient = r.Patient
-	m.DateTime = r.DateTime
+	if r.DateTime != nil && r.DateTime.Value != nil {
+		m.DateTime = r.DateTime
+	}
 	if r.DateTime != nil && (r.DateTime.Id != nil || r.DateTime.Extension != nil) {
 		m.DateTimePrimitiveElement = &primitiveElement{Id: r.DateTime.Id, Extension: r.DateTime.Extension}
 	}
@@ -171,17 +181,26 @@ func (r *Consent) UnmarshalJSON(b []byte) error {
 func (r *Consent) unmarshalJSON(m jsonConsent) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -203,6 +222,9 @@ func (r *Consent) unmarshalJSON(m jsonConsent) error {
 	r.Patient = m.Patient
 	r.DateTime = m.DateTime
 	if m.DateTimePrimitiveElement != nil {
+		if r.DateTime == nil {
+			r.DateTime = &DateTime{}
+		}
 		r.DateTime.Id = m.DateTimePrimitiveElement.Id
 		r.DateTime.Extension = m.DateTimePrimitiveElement.Extension
 	}
@@ -269,11 +291,15 @@ func (r ConsentPolicy) marshalJSON() jsonConsentPolicy {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Authority = r.Authority
+	if r.Authority != nil && r.Authority.Value != nil {
+		m.Authority = r.Authority
+	}
 	if r.Authority != nil && (r.Authority.Id != nil || r.Authority.Extension != nil) {
 		m.AuthorityPrimitiveElement = &primitiveElement{Id: r.Authority.Id, Extension: r.Authority.Extension}
 	}
-	m.Uri = r.Uri
+	if r.Uri != nil && r.Uri.Value != nil {
+		m.Uri = r.Uri
+	}
 	if r.Uri != nil && (r.Uri.Id != nil || r.Uri.Extension != nil) {
 		m.UriPrimitiveElement = &primitiveElement{Id: r.Uri.Id, Extension: r.Uri.Extension}
 	}
@@ -292,11 +318,17 @@ func (r *ConsentPolicy) unmarshalJSON(m jsonConsentPolicy) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Authority = m.Authority
 	if m.AuthorityPrimitiveElement != nil {
+		if r.Authority == nil {
+			r.Authority = &Uri{}
+		}
 		r.Authority.Id = m.AuthorityPrimitiveElement.Id
 		r.Authority.Extension = m.AuthorityPrimitiveElement.Extension
 	}
 	r.Uri = m.Uri
 	if m.UriPrimitiveElement != nil {
+		if r.Uri == nil {
+			r.Uri = &Uri{}
+		}
 		r.Uri.Id = m.UriPrimitiveElement.Id
 		r.Uri.Extension = m.UriPrimitiveElement.Extension
 	}
@@ -346,12 +378,16 @@ func (r ConsentVerification) marshalJSON() jsonConsentVerification {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Verified = r.Verified
+	if r.Verified.Value != nil {
+		m.Verified = r.Verified
+	}
 	if r.Verified.Id != nil || r.Verified.Extension != nil {
 		m.VerifiedPrimitiveElement = &primitiveElement{Id: r.Verified.Id, Extension: r.Verified.Extension}
 	}
 	m.VerifiedWith = r.VerifiedWith
-	m.VerificationDate = r.VerificationDate
+	if r.VerificationDate != nil && r.VerificationDate.Value != nil {
+		m.VerificationDate = r.VerificationDate
+	}
 	if r.VerificationDate != nil && (r.VerificationDate.Id != nil || r.VerificationDate.Extension != nil) {
 		m.VerificationDatePrimitiveElement = &primitiveElement{Id: r.VerificationDate.Id, Extension: r.VerificationDate.Extension}
 	}
@@ -376,6 +412,9 @@ func (r *ConsentVerification) unmarshalJSON(m jsonConsentVerification) error {
 	r.VerifiedWith = m.VerifiedWith
 	r.VerificationDate = m.VerificationDate
 	if m.VerificationDatePrimitiveElement != nil {
+		if r.VerificationDate == nil {
+			r.VerificationDate = &DateTime{}
+		}
 		r.VerificationDate.Id = m.VerificationDatePrimitiveElement.Id
 		r.VerificationDate.Extension = m.VerificationDatePrimitiveElement.Extension
 	}
@@ -448,7 +487,9 @@ func (r ConsentProvision) marshalJSON() jsonConsentProvision {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
@@ -477,6 +518,9 @@ func (r *ConsentProvision) unmarshalJSON(m jsonConsentProvision) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
@@ -590,7 +634,9 @@ func (r ConsentProvisionData) marshalJSON() jsonConsentProvisionData {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Meaning = r.Meaning
+	if r.Meaning.Value != nil {
+		m.Meaning = r.Meaning
+	}
 	if r.Meaning.Id != nil || r.Meaning.Extension != nil {
 		m.MeaningPrimitiveElement = &primitiveElement{Id: r.Meaning.Id, Extension: r.Meaning.Extension}
 	}

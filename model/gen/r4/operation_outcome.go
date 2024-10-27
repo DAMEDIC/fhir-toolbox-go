@@ -64,16 +64,22 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 func (r OperationOutcome) marshalJSON() jsonOperationOutcome {
 	m := jsonOperationOutcome{}
 	m.ResourceType = "OperationOutcome"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -97,17 +103,26 @@ func (r *OperationOutcome) UnmarshalJSON(b []byte) error {
 func (r *OperationOutcome) unmarshalJSON(m jsonOperationOutcome) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -179,20 +194,35 @@ func (r OperationOutcomeIssue) marshalJSON() jsonOperationOutcomeIssue {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Severity = r.Severity
+	if r.Severity.Value != nil {
+		m.Severity = r.Severity
+	}
 	if r.Severity.Id != nil || r.Severity.Extension != nil {
 		m.SeverityPrimitiveElement = &primitiveElement{Id: r.Severity.Id, Extension: r.Severity.Extension}
 	}
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
 	m.Details = r.Details
-	m.Diagnostics = r.Diagnostics
+	if r.Diagnostics != nil && r.Diagnostics.Value != nil {
+		m.Diagnostics = r.Diagnostics
+	}
 	if r.Diagnostics != nil && (r.Diagnostics.Id != nil || r.Diagnostics.Extension != nil) {
 		m.DiagnosticsPrimitiveElement = &primitiveElement{Id: r.Diagnostics.Id, Extension: r.Diagnostics.Extension}
 	}
-	m.Location = r.Location
+	anyLocationValue := false
+	for _, e := range r.Location {
+		if e.Value != nil {
+			anyLocationValue = true
+			break
+		}
+	}
+	if anyLocationValue {
+		m.Location = r.Location
+	}
 	anyLocationIdOrExtension := false
 	for _, e := range r.Location {
 		if e.Id != nil || e.Extension != nil {
@@ -210,7 +240,16 @@ func (r OperationOutcomeIssue) marshalJSON() jsonOperationOutcomeIssue {
 			}
 		}
 	}
-	m.Expression = r.Expression
+	anyExpressionValue := false
+	for _, e := range r.Expression {
+		if e.Value != nil {
+			anyExpressionValue = true
+			break
+		}
+	}
+	if anyExpressionValue {
+		m.Expression = r.Expression
+	}
 	anyExpressionIdOrExtension := false
 	for _, e := range r.Expression {
 		if e.Id != nil || e.Extension != nil {
@@ -254,25 +293,30 @@ func (r *OperationOutcomeIssue) unmarshalJSON(m jsonOperationOutcomeIssue) error
 	r.Details = m.Details
 	r.Diagnostics = m.Diagnostics
 	if m.DiagnosticsPrimitiveElement != nil {
+		if r.Diagnostics == nil {
+			r.Diagnostics = &String{}
+		}
 		r.Diagnostics.Id = m.DiagnosticsPrimitiveElement.Id
 		r.Diagnostics.Extension = m.DiagnosticsPrimitiveElement.Extension
 	}
 	r.Location = m.Location
 	for i, e := range m.LocationPrimitiveElement {
-		if len(r.Location) > i {
+		if len(r.Location) <= i {
+			r.Location = append(r.Location, String{})
+		}
+		if e != nil {
 			r.Location[i].Id = e.Id
 			r.Location[i].Extension = e.Extension
-		} else {
-			r.Location = append(r.Location, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Expression = m.Expression
 	for i, e := range m.ExpressionPrimitiveElement {
-		if len(r.Expression) > i {
+		if len(r.Expression) <= i {
+			r.Expression = append(r.Expression, String{})
+		}
+		if e != nil {
 			r.Expression[i].Id = e.Id
 			r.Expression[i].Extension = e.Extension
-		} else {
-			r.Expression = append(r.Expression, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil

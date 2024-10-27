@@ -111,16 +111,22 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 func (r DetectedIssue) marshalJSON() jsonDetectedIssue {
 	m := jsonDetectedIssue{}
 	m.ResourceType = "DetectedIssue"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -132,24 +138,32 @@ func (r DetectedIssue) marshalJSON() jsonDetectedIssue {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Code = r.Code
-	m.Severity = r.Severity
+	if r.Severity != nil && r.Severity.Value != nil {
+		m.Severity = r.Severity
+	}
 	if r.Severity != nil && (r.Severity.Id != nil || r.Severity.Extension != nil) {
 		m.SeverityPrimitiveElement = &primitiveElement{Id: r.Severity.Id, Extension: r.Severity.Extension}
 	}
 	m.Patient = r.Patient
 	switch v := r.Identified.(type) {
 	case DateTime:
-		m.IdentifiedDateTime = &v
+		if v.Value != nil {
+			m.IdentifiedDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.IdentifiedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.IdentifiedDateTime = v
+		if v.Value != nil {
+			m.IdentifiedDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.IdentifiedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -161,11 +175,15 @@ func (r DetectedIssue) marshalJSON() jsonDetectedIssue {
 	m.Author = r.Author
 	m.Implicated = r.Implicated
 	m.Evidence = r.Evidence
-	m.Detail = r.Detail
+	if r.Detail != nil && r.Detail.Value != nil {
+		m.Detail = r.Detail
+	}
 	if r.Detail != nil && (r.Detail.Id != nil || r.Detail.Extension != nil) {
 		m.DetailPrimitiveElement = &primitiveElement{Id: r.Detail.Id, Extension: r.Detail.Extension}
 	}
-	m.Reference = r.Reference
+	if r.Reference != nil && r.Reference.Value != nil {
+		m.Reference = r.Reference
+	}
 	if r.Reference != nil && (r.Reference.Id != nil || r.Reference.Extension != nil) {
 		m.ReferencePrimitiveElement = &primitiveElement{Id: r.Reference.Id, Extension: r.Reference.Extension}
 	}
@@ -182,17 +200,26 @@ func (r *DetectedIssue) UnmarshalJSON(b []byte) error {
 func (r *DetectedIssue) unmarshalJSON(m jsonDetectedIssue) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -212,6 +239,9 @@ func (r *DetectedIssue) unmarshalJSON(m jsonDetectedIssue) error {
 	r.Code = m.Code
 	r.Severity = m.Severity
 	if m.SeverityPrimitiveElement != nil {
+		if r.Severity == nil {
+			r.Severity = &Code{}
+		}
 		r.Severity.Id = m.SeverityPrimitiveElement.Id
 		r.Severity.Extension = m.SeverityPrimitiveElement.Extension
 	}
@@ -242,11 +272,17 @@ func (r *DetectedIssue) unmarshalJSON(m jsonDetectedIssue) error {
 	r.Evidence = m.Evidence
 	r.Detail = m.Detail
 	if m.DetailPrimitiveElement != nil {
+		if r.Detail == nil {
+			r.Detail = &String{}
+		}
 		r.Detail.Id = m.DetailPrimitiveElement.Id
 		r.Detail.Extension = m.DetailPrimitiveElement.Extension
 	}
 	r.Reference = m.Reference
 	if m.ReferencePrimitiveElement != nil {
+		if r.Reference == nil {
+			r.Reference = &Uri{}
+		}
 		r.Reference.Id = m.ReferencePrimitiveElement.Id
 		r.Reference.Extension = m.ReferencePrimitiveElement.Extension
 	}
@@ -355,7 +391,9 @@ func (r DetectedIssueMitigation) marshalJSON() jsonDetectedIssueMitigation {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Action = r.Action
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -376,6 +414,9 @@ func (r *DetectedIssueMitigation) unmarshalJSON(m jsonDetectedIssueMitigation) e
 	r.Action = m.Action
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}

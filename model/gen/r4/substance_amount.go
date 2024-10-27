@@ -64,18 +64,24 @@ func (r SubstanceAmount) marshalJSON() jsonSubstanceAmount {
 	case *Range:
 		m.AmountRange = v
 	case String:
-		m.AmountString = &v
+		if v.Value != nil {
+			m.AmountString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AmountString = v
+		if v.Value != nil {
+			m.AmountString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	}
 	m.AmountType = r.AmountType
-	m.AmountText = r.AmountText
+	if r.AmountText != nil && r.AmountText.Value != nil {
+		m.AmountText = r.AmountText
+	}
 	if r.AmountText != nil && (r.AmountText.Id != nil || r.AmountText.Extension != nil) {
 		m.AmountTextPrimitiveElement = &primitiveElement{Id: r.AmountText.Id, Extension: r.AmountText.Extension}
 	}
@@ -124,6 +130,9 @@ func (r *SubstanceAmount) unmarshalJSON(m jsonSubstanceAmount) error {
 	r.AmountType = m.AmountType
 	r.AmountText = m.AmountText
 	if m.AmountTextPrimitiveElement != nil {
+		if r.AmountText == nil {
+			r.AmountText = &String{}
+		}
 		r.AmountText.Id = m.AmountTextPrimitiveElement.Id
 		r.AmountText.Extension = m.AmountTextPrimitiveElement.Extension
 	}

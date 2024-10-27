@@ -78,16 +78,22 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 func (r SubstanceNucleicAcid) marshalJSON() jsonSubstanceNucleicAcid {
 	m := jsonSubstanceNucleicAcid{}
 	m.ResourceType = "SubstanceNucleicAcid"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -99,11 +105,15 @@ func (r SubstanceNucleicAcid) marshalJSON() jsonSubstanceNucleicAcid {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.SequenceType = r.SequenceType
-	m.NumberOfSubunits = r.NumberOfSubunits
+	if r.NumberOfSubunits != nil && r.NumberOfSubunits.Value != nil {
+		m.NumberOfSubunits = r.NumberOfSubunits
+	}
 	if r.NumberOfSubunits != nil && (r.NumberOfSubunits.Id != nil || r.NumberOfSubunits.Extension != nil) {
 		m.NumberOfSubunitsPrimitiveElement = &primitiveElement{Id: r.NumberOfSubunits.Id, Extension: r.NumberOfSubunits.Extension}
 	}
-	m.AreaOfHybridisation = r.AreaOfHybridisation
+	if r.AreaOfHybridisation != nil && r.AreaOfHybridisation.Value != nil {
+		m.AreaOfHybridisation = r.AreaOfHybridisation
+	}
 	if r.AreaOfHybridisation != nil && (r.AreaOfHybridisation.Id != nil || r.AreaOfHybridisation.Extension != nil) {
 		m.AreaOfHybridisationPrimitiveElement = &primitiveElement{Id: r.AreaOfHybridisation.Id, Extension: r.AreaOfHybridisation.Extension}
 	}
@@ -121,17 +131,26 @@ func (r *SubstanceNucleicAcid) UnmarshalJSON(b []byte) error {
 func (r *SubstanceNucleicAcid) unmarshalJSON(m jsonSubstanceNucleicAcid) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -145,11 +164,17 @@ func (r *SubstanceNucleicAcid) unmarshalJSON(m jsonSubstanceNucleicAcid) error {
 	r.SequenceType = m.SequenceType
 	r.NumberOfSubunits = m.NumberOfSubunits
 	if m.NumberOfSubunitsPrimitiveElement != nil {
+		if r.NumberOfSubunits == nil {
+			r.NumberOfSubunits = &Integer{}
+		}
 		r.NumberOfSubunits.Id = m.NumberOfSubunitsPrimitiveElement.Id
 		r.NumberOfSubunits.Extension = m.NumberOfSubunitsPrimitiveElement.Extension
 	}
 	r.AreaOfHybridisation = m.AreaOfHybridisation
 	if m.AreaOfHybridisationPrimitiveElement != nil {
+		if r.AreaOfHybridisation == nil {
+			r.AreaOfHybridisation = &String{}
+		}
 		r.AreaOfHybridisation.Id = m.AreaOfHybridisationPrimitiveElement.Id
 		r.AreaOfHybridisation.Extension = m.AreaOfHybridisationPrimitiveElement.Extension
 	}
@@ -217,15 +242,21 @@ func (r SubstanceNucleicAcidSubunit) marshalJSON() jsonSubstanceNucleicAcidSubun
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Subunit = r.Subunit
+	if r.Subunit != nil && r.Subunit.Value != nil {
+		m.Subunit = r.Subunit
+	}
 	if r.Subunit != nil && (r.Subunit.Id != nil || r.Subunit.Extension != nil) {
 		m.SubunitPrimitiveElement = &primitiveElement{Id: r.Subunit.Id, Extension: r.Subunit.Extension}
 	}
-	m.Sequence = r.Sequence
+	if r.Sequence != nil && r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.Length = r.Length
+	if r.Length != nil && r.Length.Value != nil {
+		m.Length = r.Length
+	}
 	if r.Length != nil && (r.Length.Id != nil || r.Length.Extension != nil) {
 		m.LengthPrimitiveElement = &primitiveElement{Id: r.Length.Id, Extension: r.Length.Extension}
 	}
@@ -249,16 +280,25 @@ func (r *SubstanceNucleicAcidSubunit) unmarshalJSON(m jsonSubstanceNucleicAcidSu
 	r.ModifierExtension = m.ModifierExtension
 	r.Subunit = m.Subunit
 	if m.SubunitPrimitiveElement != nil {
+		if r.Subunit == nil {
+			r.Subunit = &Integer{}
+		}
 		r.Subunit.Id = m.SubunitPrimitiveElement.Id
 		r.Subunit.Extension = m.SubunitPrimitiveElement.Extension
 	}
 	r.Sequence = m.Sequence
 	if m.SequencePrimitiveElement != nil {
+		if r.Sequence == nil {
+			r.Sequence = &String{}
+		}
 		r.Sequence.Id = m.SequencePrimitiveElement.Id
 		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
 	}
 	r.Length = m.Length
 	if m.LengthPrimitiveElement != nil {
+		if r.Length == nil {
+			r.Length = &Integer{}
+		}
 		r.Length.Id = m.LengthPrimitiveElement.Id
 		r.Length.Extension = m.LengthPrimitiveElement.Extension
 	}
@@ -317,16 +357,22 @@ func (r SubstanceNucleicAcidSubunitLinkage) marshalJSON() jsonSubstanceNucleicAc
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Connectivity = r.Connectivity
+	if r.Connectivity != nil && r.Connectivity.Value != nil {
+		m.Connectivity = r.Connectivity
+	}
 	if r.Connectivity != nil && (r.Connectivity.Id != nil || r.Connectivity.Extension != nil) {
 		m.ConnectivityPrimitiveElement = &primitiveElement{Id: r.Connectivity.Id, Extension: r.Connectivity.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.ResidueSite = r.ResidueSite
+	if r.ResidueSite != nil && r.ResidueSite.Value != nil {
+		m.ResidueSite = r.ResidueSite
+	}
 	if r.ResidueSite != nil && (r.ResidueSite.Id != nil || r.ResidueSite.Extension != nil) {
 		m.ResidueSitePrimitiveElement = &primitiveElement{Id: r.ResidueSite.Id, Extension: r.ResidueSite.Extension}
 	}
@@ -345,17 +391,26 @@ func (r *SubstanceNucleicAcidSubunitLinkage) unmarshalJSON(m jsonSubstanceNuclei
 	r.ModifierExtension = m.ModifierExtension
 	r.Connectivity = m.Connectivity
 	if m.ConnectivityPrimitiveElement != nil {
+		if r.Connectivity == nil {
+			r.Connectivity = &String{}
+		}
 		r.Connectivity.Id = m.ConnectivityPrimitiveElement.Id
 		r.Connectivity.Extension = m.ConnectivityPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.ResidueSite = m.ResidueSite
 	if m.ResidueSitePrimitiveElement != nil {
+		if r.ResidueSite == nil {
+			r.ResidueSite = &String{}
+		}
 		r.ResidueSite.Id = m.ResidueSitePrimitiveElement.Id
 		r.ResidueSite.Extension = m.ResidueSitePrimitiveElement.Extension
 	}
@@ -406,11 +461,15 @@ func (r SubstanceNucleicAcidSubunitSugar) marshalJSON() jsonSubstanceNucleicAcid
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.ResidueSite = r.ResidueSite
+	if r.ResidueSite != nil && r.ResidueSite.Value != nil {
+		m.ResidueSite = r.ResidueSite
+	}
 	if r.ResidueSite != nil && (r.ResidueSite.Id != nil || r.ResidueSite.Extension != nil) {
 		m.ResidueSitePrimitiveElement = &primitiveElement{Id: r.ResidueSite.Id, Extension: r.ResidueSite.Extension}
 	}
@@ -430,11 +489,17 @@ func (r *SubstanceNucleicAcidSubunitSugar) unmarshalJSON(m jsonSubstanceNucleicA
 	r.Identifier = m.Identifier
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.ResidueSite = m.ResidueSite
 	if m.ResidueSitePrimitiveElement != nil {
+		if r.ResidueSite == nil {
+			r.ResidueSite = &String{}
+		}
 		r.ResidueSite.Id = m.ResidueSitePrimitiveElement.Id
 		r.ResidueSite.Extension = m.ResidueSitePrimitiveElement.Extension
 	}

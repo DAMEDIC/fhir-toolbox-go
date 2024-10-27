@@ -100,16 +100,22 @@ func (r QuestionnaireResponse) MarshalJSON() ([]byte, error) {
 func (r QuestionnaireResponse) marshalJSON() jsonQuestionnaireResponse {
 	m := jsonQuestionnaireResponse{}
 	m.ResourceType = "QuestionnaireResponse"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -123,17 +129,23 @@ func (r QuestionnaireResponse) marshalJSON() jsonQuestionnaireResponse {
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
 	m.PartOf = r.PartOf
-	m.Questionnaire = r.Questionnaire
+	if r.Questionnaire != nil && r.Questionnaire.Value != nil {
+		m.Questionnaire = r.Questionnaire
+	}
 	if r.Questionnaire != nil && (r.Questionnaire.Id != nil || r.Questionnaire.Extension != nil) {
 		m.QuestionnairePrimitiveElement = &primitiveElement{Id: r.Questionnaire.Id, Extension: r.Questionnaire.Extension}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
-	m.Authored = r.Authored
+	if r.Authored != nil && r.Authored.Value != nil {
+		m.Authored = r.Authored
+	}
 	if r.Authored != nil && (r.Authored.Id != nil || r.Authored.Extension != nil) {
 		m.AuthoredPrimitiveElement = &primitiveElement{Id: r.Authored.Id, Extension: r.Authored.Extension}
 	}
@@ -152,17 +164,26 @@ func (r *QuestionnaireResponse) UnmarshalJSON(b []byte) error {
 func (r *QuestionnaireResponse) unmarshalJSON(m jsonQuestionnaireResponse) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -178,6 +199,9 @@ func (r *QuestionnaireResponse) unmarshalJSON(m jsonQuestionnaireResponse) error
 	r.PartOf = m.PartOf
 	r.Questionnaire = m.Questionnaire
 	if m.QuestionnairePrimitiveElement != nil {
+		if r.Questionnaire == nil {
+			r.Questionnaire = &Canonical{}
+		}
 		r.Questionnaire.Id = m.QuestionnairePrimitiveElement.Id
 		r.Questionnaire.Extension = m.QuestionnairePrimitiveElement.Extension
 	}
@@ -190,6 +214,9 @@ func (r *QuestionnaireResponse) unmarshalJSON(m jsonQuestionnaireResponse) error
 	r.Encounter = m.Encounter
 	r.Authored = m.Authored
 	if m.AuthoredPrimitiveElement != nil {
+		if r.Authored == nil {
+			r.Authored = &DateTime{}
+		}
 		r.Authored.Id = m.AuthoredPrimitiveElement.Id
 		r.Authored.Extension = m.AuthoredPrimitiveElement.Extension
 	}
@@ -249,15 +276,21 @@ func (r QuestionnaireResponseItem) marshalJSON() jsonQuestionnaireResponseItem {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.LinkId = r.LinkId
+	if r.LinkId.Value != nil {
+		m.LinkId = r.LinkId
+	}
 	if r.LinkId.Id != nil || r.LinkId.Extension != nil {
 		m.LinkIdPrimitiveElement = &primitiveElement{Id: r.LinkId.Id, Extension: r.LinkId.Extension}
 	}
-	m.Definition = r.Definition
+	if r.Definition != nil && r.Definition.Value != nil {
+		m.Definition = r.Definition
+	}
 	if r.Definition != nil && (r.Definition.Id != nil || r.Definition.Extension != nil) {
 		m.DefinitionPrimitiveElement = &primitiveElement{Id: r.Definition.Id, Extension: r.Definition.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
@@ -283,11 +316,17 @@ func (r *QuestionnaireResponseItem) unmarshalJSON(m jsonQuestionnaireResponseIte
 	}
 	r.Definition = m.Definition
 	if m.DefinitionPrimitiveElement != nil {
+		if r.Definition == nil {
+			r.Definition = &Uri{}
+		}
 		r.Definition.Id = m.DefinitionPrimitiveElement.Id
 		r.Definition.Extension = m.DefinitionPrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
@@ -372,82 +411,114 @@ func (r QuestionnaireResponseItemAnswer) marshalJSON() jsonQuestionnaireResponse
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Value.(type) {
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Decimal:
-		m.ValueDecimal = &v
+		if v.Value != nil {
+			m.ValueDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.ValueDecimal = v
+		if v.Value != nil {
+			m.ValueDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.ValueInteger = &v
+		if v.Value != nil {
+			m.ValueInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.ValueInteger = v
+		if v.Value != nil {
+			m.ValueInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.ValueDate = &v
+		if v.Value != nil {
+			m.ValueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ValueDate = v
+		if v.Value != nil {
+			m.ValueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.ValueDateTime = &v
+		if v.Value != nil {
+			m.ValueDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.ValueDateTime = v
+		if v.Value != nil {
+			m.ValueDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.ValueTime = &v
+		if v.Value != nil {
+			m.ValueTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.ValueTime = v
+		if v.Value != nil {
+			m.ValueTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Uri:
-		m.ValueUri = &v
+		if v.Value != nil {
+			m.ValueUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.ValueUri = v
+		if v.Value != nil {
+			m.ValueUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

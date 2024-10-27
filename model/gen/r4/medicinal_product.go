@@ -123,16 +123,22 @@ func (r MedicinalProduct) MarshalJSON() ([]byte, error) {
 func (r MedicinalProduct) marshalJSON() jsonMedicinalProduct {
 	m := jsonMedicinalProduct{}
 	m.ResourceType = "MedicinalProduct"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -149,7 +155,16 @@ func (r MedicinalProduct) marshalJSON() jsonMedicinalProduct {
 	m.CombinedPharmaceuticalDoseForm = r.CombinedPharmaceuticalDoseForm
 	m.LegalStatusOfSupply = r.LegalStatusOfSupply
 	m.AdditionalMonitoringIndicator = r.AdditionalMonitoringIndicator
-	m.SpecialMeasures = r.SpecialMeasures
+	anySpecialMeasuresValue := false
+	for _, e := range r.SpecialMeasures {
+		if e.Value != nil {
+			anySpecialMeasuresValue = true
+			break
+		}
+	}
+	if anySpecialMeasuresValue {
+		m.SpecialMeasures = r.SpecialMeasures
+	}
 	anySpecialMeasuresIdOrExtension := false
 	for _, e := range r.SpecialMeasures {
 		if e.Id != nil || e.Extension != nil {
@@ -192,17 +207,26 @@ func (r *MedicinalProduct) UnmarshalJSON(b []byte) error {
 func (r *MedicinalProduct) unmarshalJSON(m jsonMedicinalProduct) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -221,11 +245,12 @@ func (r *MedicinalProduct) unmarshalJSON(m jsonMedicinalProduct) error {
 	r.AdditionalMonitoringIndicator = m.AdditionalMonitoringIndicator
 	r.SpecialMeasures = m.SpecialMeasures
 	for i, e := range m.SpecialMeasuresPrimitiveElement {
-		if len(r.SpecialMeasures) > i {
+		if len(r.SpecialMeasures) <= i {
+			r.SpecialMeasures = append(r.SpecialMeasures, String{})
+		}
+		if e != nil {
 			r.SpecialMeasures[i].Id = e.Id
 			r.SpecialMeasures[i].Extension = e.Extension
-		} else {
-			r.SpecialMeasures = append(r.SpecialMeasures, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.PaediatricUseIndicator = m.PaediatricUseIndicator
@@ -286,7 +311,9 @@ func (r MedicinalProductName) marshalJSON() jsonMedicinalProductName {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.ProductName = r.ProductName
+	if r.ProductName.Value != nil {
+		m.ProductName = r.ProductName
+	}
 	if r.ProductName.Id != nil || r.ProductName.Extension != nil {
 		m.ProductNamePrimitiveElement = &primitiveElement{Id: r.ProductName.Id, Extension: r.ProductName.Extension}
 	}
@@ -354,7 +381,9 @@ func (r MedicinalProductNameNamePart) marshalJSON() jsonMedicinalProductNameName
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Part = r.Part
+	if r.Part.Value != nil {
+		m.Part = r.Part
+	}
 	if r.Part.Id != nil || r.Part.Extension != nil {
 		m.PartPrimitiveElement = &primitiveElement{Id: r.Part.Id, Extension: r.Part.Extension}
 	}
@@ -497,7 +526,9 @@ func (r MedicinalProductManufacturingBusinessOperation) marshalJSON() jsonMedici
 	m.ModifierExtension = r.ModifierExtension
 	m.OperationType = r.OperationType
 	m.AuthorisationReferenceNumber = r.AuthorisationReferenceNumber
-	m.EffectiveDate = r.EffectiveDate
+	if r.EffectiveDate != nil && r.EffectiveDate.Value != nil {
+		m.EffectiveDate = r.EffectiveDate
+	}
 	if r.EffectiveDate != nil && (r.EffectiveDate.Id != nil || r.EffectiveDate.Extension != nil) {
 		m.EffectiveDatePrimitiveElement = &primitiveElement{Id: r.EffectiveDate.Id, Extension: r.EffectiveDate.Extension}
 	}
@@ -521,6 +552,9 @@ func (r *MedicinalProductManufacturingBusinessOperation) unmarshalJSON(m jsonMed
 	r.AuthorisationReferenceNumber = m.AuthorisationReferenceNumber
 	r.EffectiveDate = m.EffectiveDate
 	if m.EffectiveDatePrimitiveElement != nil {
+		if r.EffectiveDate == nil {
+			r.EffectiveDate = &DateTime{}
+		}
 		r.EffectiveDate.Id = m.EffectiveDatePrimitiveElement.Id
 		r.EffectiveDate.Extension = m.EffectiveDatePrimitiveElement.Extension
 	}
@@ -606,7 +640,9 @@ func (r MedicinalProductSpecialDesignation) marshalJSON() jsonMedicinalProductSp
 		m.IndicationReference = v
 	}
 	m.Status = r.Status
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -644,6 +680,9 @@ func (r *MedicinalProductSpecialDesignation) unmarshalJSON(m jsonMedicinalProduc
 	r.Status = m.Status
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}

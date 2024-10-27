@@ -75,16 +75,22 @@ func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 func (r SubstanceProtein) marshalJSON() jsonSubstanceProtein {
 	m := jsonSubstanceProtein{}
 	m.ResourceType = "SubstanceProtein"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -96,11 +102,22 @@ func (r SubstanceProtein) marshalJSON() jsonSubstanceProtein {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.SequenceType = r.SequenceType
-	m.NumberOfSubunits = r.NumberOfSubunits
+	if r.NumberOfSubunits != nil && r.NumberOfSubunits.Value != nil {
+		m.NumberOfSubunits = r.NumberOfSubunits
+	}
 	if r.NumberOfSubunits != nil && (r.NumberOfSubunits.Id != nil || r.NumberOfSubunits.Extension != nil) {
 		m.NumberOfSubunitsPrimitiveElement = &primitiveElement{Id: r.NumberOfSubunits.Id, Extension: r.NumberOfSubunits.Extension}
 	}
-	m.DisulfideLinkage = r.DisulfideLinkage
+	anyDisulfideLinkageValue := false
+	for _, e := range r.DisulfideLinkage {
+		if e.Value != nil {
+			anyDisulfideLinkageValue = true
+			break
+		}
+	}
+	if anyDisulfideLinkageValue {
+		m.DisulfideLinkage = r.DisulfideLinkage
+	}
 	anyDisulfideLinkageIdOrExtension := false
 	for _, e := range r.DisulfideLinkage {
 		if e.Id != nil || e.Extension != nil {
@@ -131,17 +148,26 @@ func (r *SubstanceProtein) UnmarshalJSON(b []byte) error {
 func (r *SubstanceProtein) unmarshalJSON(m jsonSubstanceProtein) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -155,16 +181,20 @@ func (r *SubstanceProtein) unmarshalJSON(m jsonSubstanceProtein) error {
 	r.SequenceType = m.SequenceType
 	r.NumberOfSubunits = m.NumberOfSubunits
 	if m.NumberOfSubunitsPrimitiveElement != nil {
+		if r.NumberOfSubunits == nil {
+			r.NumberOfSubunits = &Integer{}
+		}
 		r.NumberOfSubunits.Id = m.NumberOfSubunitsPrimitiveElement.Id
 		r.NumberOfSubunits.Extension = m.NumberOfSubunitsPrimitiveElement.Extension
 	}
 	r.DisulfideLinkage = m.DisulfideLinkage
 	for i, e := range m.DisulfideLinkagePrimitiveElement {
-		if len(r.DisulfideLinkage) > i {
+		if len(r.DisulfideLinkage) <= i {
+			r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+		}
+		if e != nil {
 			r.DisulfideLinkage[i].Id = e.Id
 			r.DisulfideLinkage[i].Extension = e.Extension
-		} else {
-			r.DisulfideLinkage = append(r.DisulfideLinkage, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Subunit = m.Subunit
@@ -232,26 +262,36 @@ func (r SubstanceProteinSubunit) marshalJSON() jsonSubstanceProteinSubunit {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Subunit = r.Subunit
+	if r.Subunit != nil && r.Subunit.Value != nil {
+		m.Subunit = r.Subunit
+	}
 	if r.Subunit != nil && (r.Subunit.Id != nil || r.Subunit.Extension != nil) {
 		m.SubunitPrimitiveElement = &primitiveElement{Id: r.Subunit.Id, Extension: r.Subunit.Extension}
 	}
-	m.Sequence = r.Sequence
+	if r.Sequence != nil && r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.Length = r.Length
+	if r.Length != nil && r.Length.Value != nil {
+		m.Length = r.Length
+	}
 	if r.Length != nil && (r.Length.Id != nil || r.Length.Extension != nil) {
 		m.LengthPrimitiveElement = &primitiveElement{Id: r.Length.Id, Extension: r.Length.Extension}
 	}
 	m.SequenceAttachment = r.SequenceAttachment
 	m.NTerminalModificationId = r.NTerminalModificationId
-	m.NTerminalModification = r.NTerminalModification
+	if r.NTerminalModification != nil && r.NTerminalModification.Value != nil {
+		m.NTerminalModification = r.NTerminalModification
+	}
 	if r.NTerminalModification != nil && (r.NTerminalModification.Id != nil || r.NTerminalModification.Extension != nil) {
 		m.NTerminalModificationPrimitiveElement = &primitiveElement{Id: r.NTerminalModification.Id, Extension: r.NTerminalModification.Extension}
 	}
 	m.CTerminalModificationId = r.CTerminalModificationId
-	m.CTerminalModification = r.CTerminalModification
+	if r.CTerminalModification != nil && r.CTerminalModification.Value != nil {
+		m.CTerminalModification = r.CTerminalModification
+	}
 	if r.CTerminalModification != nil && (r.CTerminalModification.Id != nil || r.CTerminalModification.Extension != nil) {
 		m.CTerminalModificationPrimitiveElement = &primitiveElement{Id: r.CTerminalModification.Id, Extension: r.CTerminalModification.Extension}
 	}
@@ -270,16 +310,25 @@ func (r *SubstanceProteinSubunit) unmarshalJSON(m jsonSubstanceProteinSubunit) e
 	r.ModifierExtension = m.ModifierExtension
 	r.Subunit = m.Subunit
 	if m.SubunitPrimitiveElement != nil {
+		if r.Subunit == nil {
+			r.Subunit = &Integer{}
+		}
 		r.Subunit.Id = m.SubunitPrimitiveElement.Id
 		r.Subunit.Extension = m.SubunitPrimitiveElement.Extension
 	}
 	r.Sequence = m.Sequence
 	if m.SequencePrimitiveElement != nil {
+		if r.Sequence == nil {
+			r.Sequence = &String{}
+		}
 		r.Sequence.Id = m.SequencePrimitiveElement.Id
 		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
 	}
 	r.Length = m.Length
 	if m.LengthPrimitiveElement != nil {
+		if r.Length == nil {
+			r.Length = &Integer{}
+		}
 		r.Length.Id = m.LengthPrimitiveElement.Id
 		r.Length.Extension = m.LengthPrimitiveElement.Extension
 	}
@@ -287,12 +336,18 @@ func (r *SubstanceProteinSubunit) unmarshalJSON(m jsonSubstanceProteinSubunit) e
 	r.NTerminalModificationId = m.NTerminalModificationId
 	r.NTerminalModification = m.NTerminalModification
 	if m.NTerminalModificationPrimitiveElement != nil {
+		if r.NTerminalModification == nil {
+			r.NTerminalModification = &String{}
+		}
 		r.NTerminalModification.Id = m.NTerminalModificationPrimitiveElement.Id
 		r.NTerminalModification.Extension = m.NTerminalModificationPrimitiveElement.Extension
 	}
 	r.CTerminalModificationId = m.CTerminalModificationId
 	r.CTerminalModification = m.CTerminalModification
 	if m.CTerminalModificationPrimitiveElement != nil {
+		if r.CTerminalModification == nil {
+			r.CTerminalModification = &String{}
+		}
 		r.CTerminalModification.Id = m.CTerminalModificationPrimitiveElement.Id
 		r.CTerminalModification.Extension = m.CTerminalModificationPrimitiveElement.Extension
 	}

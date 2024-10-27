@@ -113,16 +113,22 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 func (r MolecularSequence) marshalJSON() jsonMolecularSequence {
 	m := jsonMolecularSequence{}
 	m.ResourceType = "MolecularSequence"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -134,11 +140,15 @@ func (r MolecularSequence) marshalJSON() jsonMolecularSequence {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Type = r.Type
+	if r.Type != nil && r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.CoordinateSystem = r.CoordinateSystem
+	if r.CoordinateSystem.Value != nil {
+		m.CoordinateSystem = r.CoordinateSystem
+	}
 	if r.CoordinateSystem.Id != nil || r.CoordinateSystem.Extension != nil {
 		m.CoordinateSystemPrimitiveElement = &primitiveElement{Id: r.CoordinateSystem.Id, Extension: r.CoordinateSystem.Extension}
 	}
@@ -149,12 +159,16 @@ func (r MolecularSequence) marshalJSON() jsonMolecularSequence {
 	m.Quantity = r.Quantity
 	m.ReferenceSeq = r.ReferenceSeq
 	m.Variant = r.Variant
-	m.ObservedSeq = r.ObservedSeq
+	if r.ObservedSeq != nil && r.ObservedSeq.Value != nil {
+		m.ObservedSeq = r.ObservedSeq
+	}
 	if r.ObservedSeq != nil && (r.ObservedSeq.Id != nil || r.ObservedSeq.Extension != nil) {
 		m.ObservedSeqPrimitiveElement = &primitiveElement{Id: r.ObservedSeq.Id, Extension: r.ObservedSeq.Extension}
 	}
 	m.Quality = r.Quality
-	m.ReadCoverage = r.ReadCoverage
+	if r.ReadCoverage != nil && r.ReadCoverage.Value != nil {
+		m.ReadCoverage = r.ReadCoverage
+	}
 	if r.ReadCoverage != nil && (r.ReadCoverage.Id != nil || r.ReadCoverage.Extension != nil) {
 		m.ReadCoveragePrimitiveElement = &primitiveElement{Id: r.ReadCoverage.Id, Extension: r.ReadCoverage.Extension}
 	}
@@ -173,17 +187,26 @@ func (r *MolecularSequence) UnmarshalJSON(b []byte) error {
 func (r *MolecularSequence) unmarshalJSON(m jsonMolecularSequence) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -197,6 +220,9 @@ func (r *MolecularSequence) unmarshalJSON(m jsonMolecularSequence) error {
 	r.Identifier = m.Identifier
 	r.Type = m.Type
 	if m.TypePrimitiveElement != nil {
+		if r.Type == nil {
+			r.Type = &Code{}
+		}
 		r.Type.Id = m.TypePrimitiveElement.Id
 		r.Type.Extension = m.TypePrimitiveElement.Extension
 	}
@@ -214,12 +240,18 @@ func (r *MolecularSequence) unmarshalJSON(m jsonMolecularSequence) error {
 	r.Variant = m.Variant
 	r.ObservedSeq = m.ObservedSeq
 	if m.ObservedSeqPrimitiveElement != nil {
+		if r.ObservedSeq == nil {
+			r.ObservedSeq = &String{}
+		}
 		r.ObservedSeq.Id = m.ObservedSeqPrimitiveElement.Id
 		r.ObservedSeq.Extension = m.ObservedSeqPrimitiveElement.Extension
 	}
 	r.Quality = m.Quality
 	r.ReadCoverage = m.ReadCoverage
 	if m.ReadCoveragePrimitiveElement != nil {
+		if r.ReadCoverage == nil {
+			r.ReadCoverage = &Integer{}
+		}
 		r.ReadCoverage.Id = m.ReadCoveragePrimitiveElement.Id
 		r.ReadCoverage.Extension = m.ReadCoveragePrimitiveElement.Extension
 	}
@@ -295,29 +327,41 @@ func (r MolecularSequenceReferenceSeq) marshalJSON() jsonMolecularSequenceRefere
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Chromosome = r.Chromosome
-	m.GenomeBuild = r.GenomeBuild
+	if r.GenomeBuild != nil && r.GenomeBuild.Value != nil {
+		m.GenomeBuild = r.GenomeBuild
+	}
 	if r.GenomeBuild != nil && (r.GenomeBuild.Id != nil || r.GenomeBuild.Extension != nil) {
 		m.GenomeBuildPrimitiveElement = &primitiveElement{Id: r.GenomeBuild.Id, Extension: r.GenomeBuild.Extension}
 	}
-	m.Orientation = r.Orientation
+	if r.Orientation != nil && r.Orientation.Value != nil {
+		m.Orientation = r.Orientation
+	}
 	if r.Orientation != nil && (r.Orientation.Id != nil || r.Orientation.Extension != nil) {
 		m.OrientationPrimitiveElement = &primitiveElement{Id: r.Orientation.Id, Extension: r.Orientation.Extension}
 	}
 	m.ReferenceSeqId = r.ReferenceSeqId
 	m.ReferenceSeqPointer = r.ReferenceSeqPointer
-	m.ReferenceSeqString = r.ReferenceSeqString
+	if r.ReferenceSeqString != nil && r.ReferenceSeqString.Value != nil {
+		m.ReferenceSeqString = r.ReferenceSeqString
+	}
 	if r.ReferenceSeqString != nil && (r.ReferenceSeqString.Id != nil || r.ReferenceSeqString.Extension != nil) {
 		m.ReferenceSeqStringPrimitiveElement = &primitiveElement{Id: r.ReferenceSeqString.Id, Extension: r.ReferenceSeqString.Extension}
 	}
-	m.Strand = r.Strand
+	if r.Strand != nil && r.Strand.Value != nil {
+		m.Strand = r.Strand
+	}
 	if r.Strand != nil && (r.Strand.Id != nil || r.Strand.Extension != nil) {
 		m.StrandPrimitiveElement = &primitiveElement{Id: r.Strand.Id, Extension: r.Strand.Extension}
 	}
-	m.WindowStart = r.WindowStart
+	if r.WindowStart != nil && r.WindowStart.Value != nil {
+		m.WindowStart = r.WindowStart
+	}
 	if r.WindowStart != nil && (r.WindowStart.Id != nil || r.WindowStart.Extension != nil) {
 		m.WindowStartPrimitiveElement = &primitiveElement{Id: r.WindowStart.Id, Extension: r.WindowStart.Extension}
 	}
-	m.WindowEnd = r.WindowEnd
+	if r.WindowEnd != nil && r.WindowEnd.Value != nil {
+		m.WindowEnd = r.WindowEnd
+	}
 	if r.WindowEnd != nil && (r.WindowEnd.Id != nil || r.WindowEnd.Extension != nil) {
 		m.WindowEndPrimitiveElement = &primitiveElement{Id: r.WindowEnd.Id, Extension: r.WindowEnd.Extension}
 	}
@@ -337,11 +381,17 @@ func (r *MolecularSequenceReferenceSeq) unmarshalJSON(m jsonMolecularSequenceRef
 	r.Chromosome = m.Chromosome
 	r.GenomeBuild = m.GenomeBuild
 	if m.GenomeBuildPrimitiveElement != nil {
+		if r.GenomeBuild == nil {
+			r.GenomeBuild = &String{}
+		}
 		r.GenomeBuild.Id = m.GenomeBuildPrimitiveElement.Id
 		r.GenomeBuild.Extension = m.GenomeBuildPrimitiveElement.Extension
 	}
 	r.Orientation = m.Orientation
 	if m.OrientationPrimitiveElement != nil {
+		if r.Orientation == nil {
+			r.Orientation = &Code{}
+		}
 		r.Orientation.Id = m.OrientationPrimitiveElement.Id
 		r.Orientation.Extension = m.OrientationPrimitiveElement.Extension
 	}
@@ -349,21 +399,33 @@ func (r *MolecularSequenceReferenceSeq) unmarshalJSON(m jsonMolecularSequenceRef
 	r.ReferenceSeqPointer = m.ReferenceSeqPointer
 	r.ReferenceSeqString = m.ReferenceSeqString
 	if m.ReferenceSeqStringPrimitiveElement != nil {
+		if r.ReferenceSeqString == nil {
+			r.ReferenceSeqString = &String{}
+		}
 		r.ReferenceSeqString.Id = m.ReferenceSeqStringPrimitiveElement.Id
 		r.ReferenceSeqString.Extension = m.ReferenceSeqStringPrimitiveElement.Extension
 	}
 	r.Strand = m.Strand
 	if m.StrandPrimitiveElement != nil {
+		if r.Strand == nil {
+			r.Strand = &Code{}
+		}
 		r.Strand.Id = m.StrandPrimitiveElement.Id
 		r.Strand.Extension = m.StrandPrimitiveElement.Extension
 	}
 	r.WindowStart = m.WindowStart
 	if m.WindowStartPrimitiveElement != nil {
+		if r.WindowStart == nil {
+			r.WindowStart = &Integer{}
+		}
 		r.WindowStart.Id = m.WindowStartPrimitiveElement.Id
 		r.WindowStart.Extension = m.WindowStartPrimitiveElement.Extension
 	}
 	r.WindowEnd = m.WindowEnd
 	if m.WindowEndPrimitiveElement != nil {
+		if r.WindowEnd == nil {
+			r.WindowEnd = &Integer{}
+		}
 		r.WindowEnd.Id = m.WindowEndPrimitiveElement.Id
 		r.WindowEnd.Extension = m.WindowEndPrimitiveElement.Extension
 	}
@@ -425,23 +487,33 @@ func (r MolecularSequenceVariant) marshalJSON() jsonMolecularSequenceVariant {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
-	m.ObservedAllele = r.ObservedAllele
+	if r.ObservedAllele != nil && r.ObservedAllele.Value != nil {
+		m.ObservedAllele = r.ObservedAllele
+	}
 	if r.ObservedAllele != nil && (r.ObservedAllele.Id != nil || r.ObservedAllele.Extension != nil) {
 		m.ObservedAllelePrimitiveElement = &primitiveElement{Id: r.ObservedAllele.Id, Extension: r.ObservedAllele.Extension}
 	}
-	m.ReferenceAllele = r.ReferenceAllele
+	if r.ReferenceAllele != nil && r.ReferenceAllele.Value != nil {
+		m.ReferenceAllele = r.ReferenceAllele
+	}
 	if r.ReferenceAllele != nil && (r.ReferenceAllele.Id != nil || r.ReferenceAllele.Extension != nil) {
 		m.ReferenceAllelePrimitiveElement = &primitiveElement{Id: r.ReferenceAllele.Id, Extension: r.ReferenceAllele.Extension}
 	}
-	m.Cigar = r.Cigar
+	if r.Cigar != nil && r.Cigar.Value != nil {
+		m.Cigar = r.Cigar
+	}
 	if r.Cigar != nil && (r.Cigar.Id != nil || r.Cigar.Extension != nil) {
 		m.CigarPrimitiveElement = &primitiveElement{Id: r.Cigar.Id, Extension: r.Cigar.Extension}
 	}
@@ -461,26 +533,41 @@ func (r *MolecularSequenceVariant) unmarshalJSON(m jsonMolecularSequenceVariant)
 	r.ModifierExtension = m.ModifierExtension
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &Integer{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Integer{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}
 	r.ObservedAllele = m.ObservedAllele
 	if m.ObservedAllelePrimitiveElement != nil {
+		if r.ObservedAllele == nil {
+			r.ObservedAllele = &String{}
+		}
 		r.ObservedAllele.Id = m.ObservedAllelePrimitiveElement.Id
 		r.ObservedAllele.Extension = m.ObservedAllelePrimitiveElement.Extension
 	}
 	r.ReferenceAllele = m.ReferenceAllele
 	if m.ReferenceAllelePrimitiveElement != nil {
+		if r.ReferenceAllele == nil {
+			r.ReferenceAllele = &String{}
+		}
 		r.ReferenceAllele.Id = m.ReferenceAllelePrimitiveElement.Id
 		r.ReferenceAllele.Extension = m.ReferenceAllelePrimitiveElement.Extension
 	}
 	r.Cigar = m.Cigar
 	if m.CigarPrimitiveElement != nil {
+		if r.Cigar == nil {
+			r.Cigar = &String{}
+		}
 		r.Cigar.Id = m.CigarPrimitiveElement.Id
 		r.Cigar.Extension = m.CigarPrimitiveElement.Extension
 	}
@@ -576,50 +663,72 @@ func (r MolecularSequenceQuality) marshalJSON() jsonMolecularSequenceQuality {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
 	m.StandardSequence = r.StandardSequence
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
 	m.Score = r.Score
 	m.Method = r.Method
-	m.TruthTp = r.TruthTp
+	if r.TruthTp != nil && r.TruthTp.Value != nil {
+		m.TruthTp = r.TruthTp
+	}
 	if r.TruthTp != nil && (r.TruthTp.Id != nil || r.TruthTp.Extension != nil) {
 		m.TruthTpPrimitiveElement = &primitiveElement{Id: r.TruthTp.Id, Extension: r.TruthTp.Extension}
 	}
-	m.QueryTp = r.QueryTp
+	if r.QueryTp != nil && r.QueryTp.Value != nil {
+		m.QueryTp = r.QueryTp
+	}
 	if r.QueryTp != nil && (r.QueryTp.Id != nil || r.QueryTp.Extension != nil) {
 		m.QueryTpPrimitiveElement = &primitiveElement{Id: r.QueryTp.Id, Extension: r.QueryTp.Extension}
 	}
-	m.TruthFn = r.TruthFn
+	if r.TruthFn != nil && r.TruthFn.Value != nil {
+		m.TruthFn = r.TruthFn
+	}
 	if r.TruthFn != nil && (r.TruthFn.Id != nil || r.TruthFn.Extension != nil) {
 		m.TruthFnPrimitiveElement = &primitiveElement{Id: r.TruthFn.Id, Extension: r.TruthFn.Extension}
 	}
-	m.QueryFp = r.QueryFp
+	if r.QueryFp != nil && r.QueryFp.Value != nil {
+		m.QueryFp = r.QueryFp
+	}
 	if r.QueryFp != nil && (r.QueryFp.Id != nil || r.QueryFp.Extension != nil) {
 		m.QueryFpPrimitiveElement = &primitiveElement{Id: r.QueryFp.Id, Extension: r.QueryFp.Extension}
 	}
-	m.GtFp = r.GtFp
+	if r.GtFp != nil && r.GtFp.Value != nil {
+		m.GtFp = r.GtFp
+	}
 	if r.GtFp != nil && (r.GtFp.Id != nil || r.GtFp.Extension != nil) {
 		m.GtFpPrimitiveElement = &primitiveElement{Id: r.GtFp.Id, Extension: r.GtFp.Extension}
 	}
-	m.Precision = r.Precision
+	if r.Precision != nil && r.Precision.Value != nil {
+		m.Precision = r.Precision
+	}
 	if r.Precision != nil && (r.Precision.Id != nil || r.Precision.Extension != nil) {
 		m.PrecisionPrimitiveElement = &primitiveElement{Id: r.Precision.Id, Extension: r.Precision.Extension}
 	}
-	m.Recall = r.Recall
+	if r.Recall != nil && r.Recall.Value != nil {
+		m.Recall = r.Recall
+	}
 	if r.Recall != nil && (r.Recall.Id != nil || r.Recall.Extension != nil) {
 		m.RecallPrimitiveElement = &primitiveElement{Id: r.Recall.Id, Extension: r.Recall.Extension}
 	}
-	m.FScore = r.FScore
+	if r.FScore != nil && r.FScore.Value != nil {
+		m.FScore = r.FScore
+	}
 	if r.FScore != nil && (r.FScore.Id != nil || r.FScore.Extension != nil) {
 		m.FScorePrimitiveElement = &primitiveElement{Id: r.FScore.Id, Extension: r.FScore.Extension}
 	}
@@ -645,11 +754,17 @@ func (r *MolecularSequenceQuality) unmarshalJSON(m jsonMolecularSequenceQuality)
 	r.StandardSequence = m.StandardSequence
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &Integer{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Integer{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}
@@ -657,41 +772,65 @@ func (r *MolecularSequenceQuality) unmarshalJSON(m jsonMolecularSequenceQuality)
 	r.Method = m.Method
 	r.TruthTp = m.TruthTp
 	if m.TruthTpPrimitiveElement != nil {
+		if r.TruthTp == nil {
+			r.TruthTp = &Decimal{}
+		}
 		r.TruthTp.Id = m.TruthTpPrimitiveElement.Id
 		r.TruthTp.Extension = m.TruthTpPrimitiveElement.Extension
 	}
 	r.QueryTp = m.QueryTp
 	if m.QueryTpPrimitiveElement != nil {
+		if r.QueryTp == nil {
+			r.QueryTp = &Decimal{}
+		}
 		r.QueryTp.Id = m.QueryTpPrimitiveElement.Id
 		r.QueryTp.Extension = m.QueryTpPrimitiveElement.Extension
 	}
 	r.TruthFn = m.TruthFn
 	if m.TruthFnPrimitiveElement != nil {
+		if r.TruthFn == nil {
+			r.TruthFn = &Decimal{}
+		}
 		r.TruthFn.Id = m.TruthFnPrimitiveElement.Id
 		r.TruthFn.Extension = m.TruthFnPrimitiveElement.Extension
 	}
 	r.QueryFp = m.QueryFp
 	if m.QueryFpPrimitiveElement != nil {
+		if r.QueryFp == nil {
+			r.QueryFp = &Decimal{}
+		}
 		r.QueryFp.Id = m.QueryFpPrimitiveElement.Id
 		r.QueryFp.Extension = m.QueryFpPrimitiveElement.Extension
 	}
 	r.GtFp = m.GtFp
 	if m.GtFpPrimitiveElement != nil {
+		if r.GtFp == nil {
+			r.GtFp = &Decimal{}
+		}
 		r.GtFp.Id = m.GtFpPrimitiveElement.Id
 		r.GtFp.Extension = m.GtFpPrimitiveElement.Extension
 	}
 	r.Precision = m.Precision
 	if m.PrecisionPrimitiveElement != nil {
+		if r.Precision == nil {
+			r.Precision = &Decimal{}
+		}
 		r.Precision.Id = m.PrecisionPrimitiveElement.Id
 		r.Precision.Extension = m.PrecisionPrimitiveElement.Extension
 	}
 	r.Recall = m.Recall
 	if m.RecallPrimitiveElement != nil {
+		if r.Recall == nil {
+			r.Recall = &Decimal{}
+		}
 		r.Recall.Id = m.RecallPrimitiveElement.Id
 		r.Recall.Extension = m.RecallPrimitiveElement.Extension
 	}
 	r.FScore = m.FScore
 	if m.FScorePrimitiveElement != nil {
+		if r.FScore == nil {
+			r.FScore = &Decimal{}
+		}
 		r.FScore.Id = m.FScorePrimitiveElement.Id
 		r.FScore.Extension = m.FScorePrimitiveElement.Extension
 	}
@@ -759,7 +898,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Score = r.Score
+	anyScoreValue := false
+	for _, e := range r.Score {
+		if e.Value != nil {
+			anyScoreValue = true
+			break
+		}
+	}
+	if anyScoreValue {
+		m.Score = r.Score
+	}
 	anyScoreIdOrExtension := false
 	for _, e := range r.Score {
 		if e.Id != nil || e.Extension != nil {
@@ -777,7 +925,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.NumTp = r.NumTp
+	anyNumTpValue := false
+	for _, e := range r.NumTp {
+		if e.Value != nil {
+			anyNumTpValue = true
+			break
+		}
+	}
+	if anyNumTpValue {
+		m.NumTp = r.NumTp
+	}
 	anyNumTpIdOrExtension := false
 	for _, e := range r.NumTp {
 		if e.Id != nil || e.Extension != nil {
@@ -795,7 +952,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.NumFp = r.NumFp
+	anyNumFpValue := false
+	for _, e := range r.NumFp {
+		if e.Value != nil {
+			anyNumFpValue = true
+			break
+		}
+	}
+	if anyNumFpValue {
+		m.NumFp = r.NumFp
+	}
 	anyNumFpIdOrExtension := false
 	for _, e := range r.NumFp {
 		if e.Id != nil || e.Extension != nil {
@@ -813,7 +979,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.NumFn = r.NumFn
+	anyNumFnValue := false
+	for _, e := range r.NumFn {
+		if e.Value != nil {
+			anyNumFnValue = true
+			break
+		}
+	}
+	if anyNumFnValue {
+		m.NumFn = r.NumFn
+	}
 	anyNumFnIdOrExtension := false
 	for _, e := range r.NumFn {
 		if e.Id != nil || e.Extension != nil {
@@ -831,7 +1006,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.Precision = r.Precision
+	anyPrecisionValue := false
+	for _, e := range r.Precision {
+		if e.Value != nil {
+			anyPrecisionValue = true
+			break
+		}
+	}
+	if anyPrecisionValue {
+		m.Precision = r.Precision
+	}
 	anyPrecisionIdOrExtension := false
 	for _, e := range r.Precision {
 		if e.Id != nil || e.Extension != nil {
@@ -849,7 +1033,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.Sensitivity = r.Sensitivity
+	anySensitivityValue := false
+	for _, e := range r.Sensitivity {
+		if e.Value != nil {
+			anySensitivityValue = true
+			break
+		}
+	}
+	if anySensitivityValue {
+		m.Sensitivity = r.Sensitivity
+	}
 	anySensitivityIdOrExtension := false
 	for _, e := range r.Sensitivity {
 		if e.Id != nil || e.Extension != nil {
@@ -867,7 +1060,16 @@ func (r MolecularSequenceQualityRoc) marshalJSON() jsonMolecularSequenceQualityR
 			}
 		}
 	}
-	m.FMeasure = r.FMeasure
+	anyFMeasureValue := false
+	for _, e := range r.FMeasure {
+		if e.Value != nil {
+			anyFMeasureValue = true
+			break
+		}
+	}
+	if anyFMeasureValue {
+		m.FMeasure = r.FMeasure
+	}
 	anyFMeasureIdOrExtension := false
 	for _, e := range r.FMeasure {
 		if e.Id != nil || e.Extension != nil {
@@ -900,65 +1102,72 @@ func (r *MolecularSequenceQualityRoc) unmarshalJSON(m jsonMolecularSequenceQuali
 	r.ModifierExtension = m.ModifierExtension
 	r.Score = m.Score
 	for i, e := range m.ScorePrimitiveElement {
-		if len(r.Score) > i {
+		if len(r.Score) <= i {
+			r.Score = append(r.Score, Integer{})
+		}
+		if e != nil {
 			r.Score[i].Id = e.Id
 			r.Score[i].Extension = e.Extension
-		} else {
-			r.Score = append(r.Score, Integer{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.NumTp = m.NumTp
 	for i, e := range m.NumTpPrimitiveElement {
-		if len(r.NumTp) > i {
+		if len(r.NumTp) <= i {
+			r.NumTp = append(r.NumTp, Integer{})
+		}
+		if e != nil {
 			r.NumTp[i].Id = e.Id
 			r.NumTp[i].Extension = e.Extension
-		} else {
-			r.NumTp = append(r.NumTp, Integer{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.NumFp = m.NumFp
 	for i, e := range m.NumFpPrimitiveElement {
-		if len(r.NumFp) > i {
+		if len(r.NumFp) <= i {
+			r.NumFp = append(r.NumFp, Integer{})
+		}
+		if e != nil {
 			r.NumFp[i].Id = e.Id
 			r.NumFp[i].Extension = e.Extension
-		} else {
-			r.NumFp = append(r.NumFp, Integer{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.NumFn = m.NumFn
 	for i, e := range m.NumFnPrimitiveElement {
-		if len(r.NumFn) > i {
+		if len(r.NumFn) <= i {
+			r.NumFn = append(r.NumFn, Integer{})
+		}
+		if e != nil {
 			r.NumFn[i].Id = e.Id
 			r.NumFn[i].Extension = e.Extension
-		} else {
-			r.NumFn = append(r.NumFn, Integer{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Precision = m.Precision
 	for i, e := range m.PrecisionPrimitiveElement {
-		if len(r.Precision) > i {
+		if len(r.Precision) <= i {
+			r.Precision = append(r.Precision, Decimal{})
+		}
+		if e != nil {
 			r.Precision[i].Id = e.Id
 			r.Precision[i].Extension = e.Extension
-		} else {
-			r.Precision = append(r.Precision, Decimal{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Sensitivity = m.Sensitivity
 	for i, e := range m.SensitivityPrimitiveElement {
-		if len(r.Sensitivity) > i {
+		if len(r.Sensitivity) <= i {
+			r.Sensitivity = append(r.Sensitivity, Decimal{})
+		}
+		if e != nil {
 			r.Sensitivity[i].Id = e.Id
 			r.Sensitivity[i].Extension = e.Extension
-		} else {
-			r.Sensitivity = append(r.Sensitivity, Decimal{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.FMeasure = m.FMeasure
 	for i, e := range m.FMeasurePrimitiveElement {
-		if len(r.FMeasure) > i {
+		if len(r.FMeasure) <= i {
+			r.FMeasure = append(r.FMeasure, Decimal{})
+		}
+		if e != nil {
 			r.FMeasure[i].Id = e.Id
 			r.FMeasure[i].Extension = e.Extension
-		} else {
-			r.FMeasure = append(r.FMeasure, Decimal{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	return nil
@@ -1020,27 +1229,39 @@ func (r MolecularSequenceRepository) marshalJSON() jsonMolecularSequenceReposito
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.DatasetId = r.DatasetId
+	if r.DatasetId != nil && r.DatasetId.Value != nil {
+		m.DatasetId = r.DatasetId
+	}
 	if r.DatasetId != nil && (r.DatasetId.Id != nil || r.DatasetId.Extension != nil) {
 		m.DatasetIdPrimitiveElement = &primitiveElement{Id: r.DatasetId.Id, Extension: r.DatasetId.Extension}
 	}
-	m.VariantsetId = r.VariantsetId
+	if r.VariantsetId != nil && r.VariantsetId.Value != nil {
+		m.VariantsetId = r.VariantsetId
+	}
 	if r.VariantsetId != nil && (r.VariantsetId.Id != nil || r.VariantsetId.Extension != nil) {
 		m.VariantsetIdPrimitiveElement = &primitiveElement{Id: r.VariantsetId.Id, Extension: r.VariantsetId.Extension}
 	}
-	m.ReadsetId = r.ReadsetId
+	if r.ReadsetId != nil && r.ReadsetId.Value != nil {
+		m.ReadsetId = r.ReadsetId
+	}
 	if r.ReadsetId != nil && (r.ReadsetId.Id != nil || r.ReadsetId.Extension != nil) {
 		m.ReadsetIdPrimitiveElement = &primitiveElement{Id: r.ReadsetId.Id, Extension: r.ReadsetId.Extension}
 	}
@@ -1064,26 +1285,41 @@ func (r *MolecularSequenceRepository) unmarshalJSON(m jsonMolecularSequenceRepos
 	}
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.DatasetId = m.DatasetId
 	if m.DatasetIdPrimitiveElement != nil {
+		if r.DatasetId == nil {
+			r.DatasetId = &String{}
+		}
 		r.DatasetId.Id = m.DatasetIdPrimitiveElement.Id
 		r.DatasetId.Extension = m.DatasetIdPrimitiveElement.Extension
 	}
 	r.VariantsetId = m.VariantsetId
 	if m.VariantsetIdPrimitiveElement != nil {
+		if r.VariantsetId == nil {
+			r.VariantsetId = &String{}
+		}
 		r.VariantsetId.Id = m.VariantsetIdPrimitiveElement.Id
 		r.VariantsetId.Extension = m.VariantsetIdPrimitiveElement.Extension
 	}
 	r.ReadsetId = m.ReadsetId
 	if m.ReadsetIdPrimitiveElement != nil {
+		if r.ReadsetId == nil {
+			r.ReadsetId = &String{}
+		}
 		r.ReadsetId.Id = m.ReadsetIdPrimitiveElement.Id
 		r.ReadsetId.Extension = m.ReadsetIdPrimitiveElement.Extension
 	}
@@ -1140,11 +1376,15 @@ func (r MolecularSequenceStructureVariant) marshalJSON() jsonMolecularSequenceSt
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.VariantType = r.VariantType
-	m.Exact = r.Exact
+	if r.Exact != nil && r.Exact.Value != nil {
+		m.Exact = r.Exact
+	}
 	if r.Exact != nil && (r.Exact.Id != nil || r.Exact.Extension != nil) {
 		m.ExactPrimitiveElement = &primitiveElement{Id: r.Exact.Id, Extension: r.Exact.Extension}
 	}
-	m.Length = r.Length
+	if r.Length != nil && r.Length.Value != nil {
+		m.Length = r.Length
+	}
 	if r.Length != nil && (r.Length.Id != nil || r.Length.Extension != nil) {
 		m.LengthPrimitiveElement = &primitiveElement{Id: r.Length.Id, Extension: r.Length.Extension}
 	}
@@ -1166,11 +1406,17 @@ func (r *MolecularSequenceStructureVariant) unmarshalJSON(m jsonMolecularSequenc
 	r.VariantType = m.VariantType
 	r.Exact = m.Exact
 	if m.ExactPrimitiveElement != nil {
+		if r.Exact == nil {
+			r.Exact = &Boolean{}
+		}
 		r.Exact.Id = m.ExactPrimitiveElement.Id
 		r.Exact.Extension = m.ExactPrimitiveElement.Extension
 	}
 	r.Length = m.Length
 	if m.LengthPrimitiveElement != nil {
+		if r.Length == nil {
+			r.Length = &Integer{}
+		}
 		r.Length.Id = m.LengthPrimitiveElement.Id
 		r.Length.Extension = m.LengthPrimitiveElement.Extension
 	}
@@ -1219,11 +1465,15 @@ func (r MolecularSequenceStructureVariantOuter) marshalJSON() jsonMolecularSeque
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
@@ -1242,11 +1492,17 @@ func (r *MolecularSequenceStructureVariantOuter) unmarshalJSON(m jsonMolecularSe
 	r.ModifierExtension = m.ModifierExtension
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &Integer{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Integer{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}
@@ -1293,11 +1549,15 @@ func (r MolecularSequenceStructureVariantInner) marshalJSON() jsonMolecularSeque
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
@@ -1316,11 +1576,17 @@ func (r *MolecularSequenceStructureVariantInner) unmarshalJSON(m jsonMolecularSe
 	r.ModifierExtension = m.ModifierExtension
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &Integer{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Integer{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}

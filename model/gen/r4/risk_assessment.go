@@ -124,16 +124,22 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 func (r RiskAssessment) marshalJSON() jsonRiskAssessment {
 	m := jsonRiskAssessment{}
 	m.ResourceType = "RiskAssessment"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -147,7 +153,9 @@ func (r RiskAssessment) marshalJSON() jsonRiskAssessment {
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
 	m.Parent = r.Parent
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -157,12 +165,16 @@ func (r RiskAssessment) marshalJSON() jsonRiskAssessment {
 	m.Encounter = r.Encounter
 	switch v := r.Occurrence.(type) {
 	case DateTime:
-		m.OccurrenceDateTime = &v
+		if v.Value != nil {
+			m.OccurrenceDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurrenceDateTime = v
+		if v.Value != nil {
+			m.OccurrenceDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -177,7 +189,9 @@ func (r RiskAssessment) marshalJSON() jsonRiskAssessment {
 	m.ReasonReference = r.ReasonReference
 	m.Basis = r.Basis
 	m.Prediction = r.Prediction
-	m.Mitigation = r.Mitigation
+	if r.Mitigation != nil && r.Mitigation.Value != nil {
+		m.Mitigation = r.Mitigation
+	}
 	if r.Mitigation != nil && (r.Mitigation.Id != nil || r.Mitigation.Extension != nil) {
 		m.MitigationPrimitiveElement = &primitiveElement{Id: r.Mitigation.Id, Extension: r.Mitigation.Extension}
 	}
@@ -194,17 +208,26 @@ func (r *RiskAssessment) UnmarshalJSON(b []byte) error {
 func (r *RiskAssessment) unmarshalJSON(m jsonRiskAssessment) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -256,6 +279,9 @@ func (r *RiskAssessment) unmarshalJSON(m jsonRiskAssessment) error {
 	r.Prediction = m.Prediction
 	r.Mitigation = m.Mitigation
 	if m.MitigationPrimitiveElement != nil {
+		if r.Mitigation == nil {
+			r.Mitigation = &String{}
+		}
 		r.Mitigation.Id = m.MitigationPrimitiveElement.Id
 		r.Mitigation.Extension = m.MitigationPrimitiveElement.Extension
 	}
@@ -335,12 +361,16 @@ func (r RiskAssessmentPrediction) marshalJSON() jsonRiskAssessmentPrediction {
 	m.Outcome = r.Outcome
 	switch v := r.Probability.(type) {
 	case Decimal:
-		m.ProbabilityDecimal = &v
+		if v.Value != nil {
+			m.ProbabilityDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ProbabilityDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.ProbabilityDecimal = v
+		if v.Value != nil {
+			m.ProbabilityDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ProbabilityDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -350,7 +380,9 @@ func (r RiskAssessmentPrediction) marshalJSON() jsonRiskAssessmentPrediction {
 		m.ProbabilityRange = v
 	}
 	m.QualitativeRisk = r.QualitativeRisk
-	m.RelativeRisk = r.RelativeRisk
+	if r.RelativeRisk != nil && r.RelativeRisk.Value != nil {
+		m.RelativeRisk = r.RelativeRisk
+	}
 	if r.RelativeRisk != nil && (r.RelativeRisk.Id != nil || r.RelativeRisk.Extension != nil) {
 		m.RelativeRiskPrimitiveElement = &primitiveElement{Id: r.RelativeRisk.Id, Extension: r.RelativeRisk.Extension}
 	}
@@ -364,7 +396,9 @@ func (r RiskAssessmentPrediction) marshalJSON() jsonRiskAssessmentPrediction {
 	case *Range:
 		m.WhenRange = v
 	}
-	m.Rationale = r.Rationale
+	if r.Rationale != nil && r.Rationale.Value != nil {
+		m.Rationale = r.Rationale
+	}
 	if r.Rationale != nil && (r.Rationale.Id != nil || r.Rationale.Extension != nil) {
 		m.RationalePrimitiveElement = &primitiveElement{Id: r.Rationale.Id, Extension: r.Rationale.Extension}
 	}
@@ -406,6 +440,9 @@ func (r *RiskAssessmentPrediction) unmarshalJSON(m jsonRiskAssessmentPrediction)
 	r.QualitativeRisk = m.QualitativeRisk
 	r.RelativeRisk = m.RelativeRisk
 	if m.RelativeRiskPrimitiveElement != nil {
+		if r.RelativeRisk == nil {
+			r.RelativeRisk = &Decimal{}
+		}
 		r.RelativeRisk.Id = m.RelativeRiskPrimitiveElement.Id
 		r.RelativeRisk.Extension = m.RelativeRiskPrimitiveElement.Extension
 	}
@@ -425,6 +462,9 @@ func (r *RiskAssessmentPrediction) unmarshalJSON(m jsonRiskAssessmentPrediction)
 	}
 	r.Rationale = m.Rationale
 	if m.RationalePrimitiveElement != nil {
+		if r.Rationale == nil {
+			r.Rationale = &String{}
+		}
 		r.Rationale.Id = m.RationalePrimitiveElement.Id
 		r.Rationale.Extension = m.RationalePrimitiveElement.Extension
 	}

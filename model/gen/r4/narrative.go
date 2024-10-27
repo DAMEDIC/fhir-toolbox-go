@@ -29,7 +29,9 @@ func (r Narrative) marshalJSON() jsonNarrative {
 	m := jsonNarrative{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}

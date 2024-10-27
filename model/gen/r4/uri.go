@@ -11,11 +11,6 @@ type Uri struct {
 	// The actual value
 	Value *string
 }
-type jsonUri struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Value     *string     `json:"value,omitempty"`
-}
 
 func (r Uri) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Value)

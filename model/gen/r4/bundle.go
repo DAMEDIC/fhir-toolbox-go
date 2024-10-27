@@ -71,29 +71,41 @@ func (r Bundle) MarshalJSON() ([]byte, error) {
 func (r Bundle) marshalJSON() jsonBundle {
 	m := jsonBundle{}
 	m.ResourceType = "Bundle"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Timestamp = r.Timestamp
+	if r.Timestamp != nil && r.Timestamp.Value != nil {
+		m.Timestamp = r.Timestamp
+	}
 	if r.Timestamp != nil && (r.Timestamp.Id != nil || r.Timestamp.Extension != nil) {
 		m.TimestampPrimitiveElement = &primitiveElement{Id: r.Timestamp.Id, Extension: r.Timestamp.Extension}
 	}
-	m.Total = r.Total
+	if r.Total != nil && r.Total.Value != nil {
+		m.Total = r.Total
+	}
 	if r.Total != nil && (r.Total.Id != nil || r.Total.Extension != nil) {
 		m.TotalPrimitiveElement = &primitiveElement{Id: r.Total.Id, Extension: r.Total.Extension}
 	}
@@ -112,17 +124,26 @@ func (r *Bundle) UnmarshalJSON(b []byte) error {
 func (r *Bundle) unmarshalJSON(m jsonBundle) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -134,11 +155,17 @@ func (r *Bundle) unmarshalJSON(m jsonBundle) error {
 	}
 	r.Timestamp = m.Timestamp
 	if m.TimestampPrimitiveElement != nil {
+		if r.Timestamp == nil {
+			r.Timestamp = &Instant{}
+		}
 		r.Timestamp.Id = m.TimestampPrimitiveElement.Id
 		r.Timestamp.Extension = m.TimestampPrimitiveElement.Extension
 	}
 	r.Total = m.Total
 	if m.TotalPrimitiveElement != nil {
+		if r.Total == nil {
+			r.Total = &UnsignedInt{}
+		}
 		r.Total.Id = m.TotalPrimitiveElement.Id
 		r.Total.Extension = m.TotalPrimitiveElement.Extension
 	}
@@ -188,11 +215,15 @@ func (r BundleLink) marshalJSON() jsonBundleLink {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Relation = r.Relation
+	if r.Relation.Value != nil {
+		m.Relation = r.Relation
+	}
 	if r.Relation.Id != nil || r.Relation.Extension != nil {
 		m.RelationPrimitiveElement = &primitiveElement{Id: r.Relation.Id, Extension: r.Relation.Extension}
 	}
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
@@ -276,7 +307,9 @@ func (r BundleEntry) marshalJSON() jsonBundleEntry {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Link = r.Link
-	m.FullUrl = r.FullUrl
+	if r.FullUrl != nil && r.FullUrl.Value != nil {
+		m.FullUrl = r.FullUrl
+	}
 	if r.FullUrl != nil && (r.FullUrl.Id != nil || r.FullUrl.Extension != nil) {
 		m.FullUrlPrimitiveElement = &primitiveElement{Id: r.FullUrl.Id, Extension: r.FullUrl.Extension}
 	}
@@ -302,10 +335,13 @@ func (r *BundleEntry) unmarshalJSON(m jsonBundleEntry) error {
 	r.Link = m.Link
 	r.FullUrl = m.FullUrl
 	if m.FullUrlPrimitiveElement != nil {
+		if r.FullUrl == nil {
+			r.FullUrl = &Uri{}
+		}
 		r.FullUrl.Id = m.FullUrlPrimitiveElement.Id
 		r.FullUrl.Extension = m.FullUrlPrimitiveElement.Extension
 	}
-	if &m.Resource != nil {
+	if m.Resource != nil {
 		r.Resource = &m.Resource.Resource
 	}
 	r.Search = m.Search
@@ -354,11 +390,15 @@ func (r BundleEntrySearch) marshalJSON() jsonBundleEntrySearch {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Mode = r.Mode
+	if r.Mode != nil && r.Mode.Value != nil {
+		m.Mode = r.Mode
+	}
 	if r.Mode != nil && (r.Mode.Id != nil || r.Mode.Extension != nil) {
 		m.ModePrimitiveElement = &primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
 	}
-	m.Score = r.Score
+	if r.Score != nil && r.Score.Value != nil {
+		m.Score = r.Score
+	}
 	if r.Score != nil && (r.Score.Id != nil || r.Score.Extension != nil) {
 		m.ScorePrimitiveElement = &primitiveElement{Id: r.Score.Id, Extension: r.Score.Extension}
 	}
@@ -377,11 +417,17 @@ func (r *BundleEntrySearch) unmarshalJSON(m jsonBundleEntrySearch) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Mode = m.Mode
 	if m.ModePrimitiveElement != nil {
+		if r.Mode == nil {
+			r.Mode = &Code{}
+		}
 		r.Mode.Id = m.ModePrimitiveElement.Id
 		r.Mode.Extension = m.ModePrimitiveElement.Extension
 	}
 	r.Score = m.Score
 	if m.ScorePrimitiveElement != nil {
+		if r.Score == nil {
+			r.Score = &Decimal{}
+		}
 		r.Score.Id = m.ScorePrimitiveElement.Id
 		r.Score.Extension = m.ScorePrimitiveElement.Extension
 	}
@@ -444,27 +490,39 @@ func (r BundleEntryRequest) marshalJSON() jsonBundleEntryRequest {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Method = r.Method
+	if r.Method.Value != nil {
+		m.Method = r.Method
+	}
 	if r.Method.Id != nil || r.Method.Extension != nil {
 		m.MethodPrimitiveElement = &primitiveElement{Id: r.Method.Id, Extension: r.Method.Extension}
 	}
-	m.Url = r.Url
+	if r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url.Id != nil || r.Url.Extension != nil {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.IfNoneMatch = r.IfNoneMatch
+	if r.IfNoneMatch != nil && r.IfNoneMatch.Value != nil {
+		m.IfNoneMatch = r.IfNoneMatch
+	}
 	if r.IfNoneMatch != nil && (r.IfNoneMatch.Id != nil || r.IfNoneMatch.Extension != nil) {
 		m.IfNoneMatchPrimitiveElement = &primitiveElement{Id: r.IfNoneMatch.Id, Extension: r.IfNoneMatch.Extension}
 	}
-	m.IfModifiedSince = r.IfModifiedSince
+	if r.IfModifiedSince != nil && r.IfModifiedSince.Value != nil {
+		m.IfModifiedSince = r.IfModifiedSince
+	}
 	if r.IfModifiedSince != nil && (r.IfModifiedSince.Id != nil || r.IfModifiedSince.Extension != nil) {
 		m.IfModifiedSincePrimitiveElement = &primitiveElement{Id: r.IfModifiedSince.Id, Extension: r.IfModifiedSince.Extension}
 	}
-	m.IfMatch = r.IfMatch
+	if r.IfMatch != nil && r.IfMatch.Value != nil {
+		m.IfMatch = r.IfMatch
+	}
 	if r.IfMatch != nil && (r.IfMatch.Id != nil || r.IfMatch.Extension != nil) {
 		m.IfMatchPrimitiveElement = &primitiveElement{Id: r.IfMatch.Id, Extension: r.IfMatch.Extension}
 	}
-	m.IfNoneExist = r.IfNoneExist
+	if r.IfNoneExist != nil && r.IfNoneExist.Value != nil {
+		m.IfNoneExist = r.IfNoneExist
+	}
 	if r.IfNoneExist != nil && (r.IfNoneExist.Id != nil || r.IfNoneExist.Extension != nil) {
 		m.IfNoneExistPrimitiveElement = &primitiveElement{Id: r.IfNoneExist.Id, Extension: r.IfNoneExist.Extension}
 	}
@@ -493,21 +551,33 @@ func (r *BundleEntryRequest) unmarshalJSON(m jsonBundleEntryRequest) error {
 	}
 	r.IfNoneMatch = m.IfNoneMatch
 	if m.IfNoneMatchPrimitiveElement != nil {
+		if r.IfNoneMatch == nil {
+			r.IfNoneMatch = &String{}
+		}
 		r.IfNoneMatch.Id = m.IfNoneMatchPrimitiveElement.Id
 		r.IfNoneMatch.Extension = m.IfNoneMatchPrimitiveElement.Extension
 	}
 	r.IfModifiedSince = m.IfModifiedSince
 	if m.IfModifiedSincePrimitiveElement != nil {
+		if r.IfModifiedSince == nil {
+			r.IfModifiedSince = &Instant{}
+		}
 		r.IfModifiedSince.Id = m.IfModifiedSincePrimitiveElement.Id
 		r.IfModifiedSince.Extension = m.IfModifiedSincePrimitiveElement.Extension
 	}
 	r.IfMatch = m.IfMatch
 	if m.IfMatchPrimitiveElement != nil {
+		if r.IfMatch == nil {
+			r.IfMatch = &String{}
+		}
 		r.IfMatch.Id = m.IfMatchPrimitiveElement.Id
 		r.IfMatch.Extension = m.IfMatchPrimitiveElement.Extension
 	}
 	r.IfNoneExist = m.IfNoneExist
 	if m.IfNoneExistPrimitiveElement != nil {
+		if r.IfNoneExist == nil {
+			r.IfNoneExist = &String{}
+		}
 		r.IfNoneExist.Id = m.IfNoneExistPrimitiveElement.Id
 		r.IfNoneExist.Extension = m.IfNoneExistPrimitiveElement.Extension
 	}
@@ -565,19 +635,27 @@ func (r BundleEntryResponse) marshalJSON() jsonBundleEntryResponse {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Location = r.Location
+	if r.Location != nil && r.Location.Value != nil {
+		m.Location = r.Location
+	}
 	if r.Location != nil && (r.Location.Id != nil || r.Location.Extension != nil) {
 		m.LocationPrimitiveElement = &primitiveElement{Id: r.Location.Id, Extension: r.Location.Extension}
 	}
-	m.Etag = r.Etag
+	if r.Etag != nil && r.Etag.Value != nil {
+		m.Etag = r.Etag
+	}
 	if r.Etag != nil && (r.Etag.Id != nil || r.Etag.Extension != nil) {
 		m.EtagPrimitiveElement = &primitiveElement{Id: r.Etag.Id, Extension: r.Etag.Extension}
 	}
-	m.LastModified = r.LastModified
+	if r.LastModified != nil && r.LastModified.Value != nil {
+		m.LastModified = r.LastModified
+	}
 	if r.LastModified != nil && (r.LastModified.Id != nil || r.LastModified.Extension != nil) {
 		m.LastModifiedPrimitiveElement = &primitiveElement{Id: r.LastModified.Id, Extension: r.LastModified.Extension}
 	}
@@ -604,20 +682,29 @@ func (r *BundleEntryResponse) unmarshalJSON(m jsonBundleEntryResponse) error {
 	}
 	r.Location = m.Location
 	if m.LocationPrimitiveElement != nil {
+		if r.Location == nil {
+			r.Location = &Uri{}
+		}
 		r.Location.Id = m.LocationPrimitiveElement.Id
 		r.Location.Extension = m.LocationPrimitiveElement.Extension
 	}
 	r.Etag = m.Etag
 	if m.EtagPrimitiveElement != nil {
+		if r.Etag == nil {
+			r.Etag = &String{}
+		}
 		r.Etag.Id = m.EtagPrimitiveElement.Id
 		r.Etag.Extension = m.EtagPrimitiveElement.Extension
 	}
 	r.LastModified = m.LastModified
 	if m.LastModifiedPrimitiveElement != nil {
+		if r.LastModified == nil {
+			r.LastModified = &Instant{}
+		}
 		r.LastModified.Id = m.LastModifiedPrimitiveElement.Id
 		r.LastModified.Extension = m.LastModifiedPrimitiveElement.Extension
 	}
-	if &m.Outcome != nil {
+	if m.Outcome != nil {
 		r.Outcome = &m.Outcome.Resource
 	}
 	return nil

@@ -100,16 +100,22 @@ func (r OrganizationAffiliation) MarshalJSON() ([]byte, error) {
 func (r OrganizationAffiliation) marshalJSON() jsonOrganizationAffiliation {
 	m := jsonOrganizationAffiliation{}
 	m.ResourceType = "OrganizationAffiliation"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -121,7 +127,9 @@ func (r OrganizationAffiliation) marshalJSON() jsonOrganizationAffiliation {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Active = r.Active
+	if r.Active != nil && r.Active.Value != nil {
+		m.Active = r.Active
+	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
 		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
 	}
@@ -147,17 +155,26 @@ func (r *OrganizationAffiliation) UnmarshalJSON(b []byte) error {
 func (r *OrganizationAffiliation) unmarshalJSON(m jsonOrganizationAffiliation) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -171,6 +188,9 @@ func (r *OrganizationAffiliation) unmarshalJSON(m jsonOrganizationAffiliation) e
 	r.Identifier = m.Identifier
 	r.Active = m.Active
 	if m.ActivePrimitiveElement != nil {
+		if r.Active == nil {
+			r.Active = &Boolean{}
+		}
 		r.Active.Id = m.ActivePrimitiveElement.Id
 		r.Active.Extension = m.ActivePrimitiveElement.Extension
 	}

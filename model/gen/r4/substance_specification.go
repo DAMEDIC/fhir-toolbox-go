@@ -121,16 +121,22 @@ func (r SubstanceSpecification) MarshalJSON() ([]byte, error) {
 func (r SubstanceSpecification) marshalJSON() jsonSubstanceSpecification {
 	m := jsonSubstanceSpecification{}
 	m.ResourceType = "SubstanceSpecification"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -145,12 +151,16 @@ func (r SubstanceSpecification) marshalJSON() jsonSubstanceSpecification {
 	m.Type = r.Type
 	m.Status = r.Status
 	m.Domain = r.Domain
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.Source = r.Source
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -178,17 +188,26 @@ func (r *SubstanceSpecification) UnmarshalJSON(b []byte) error {
 func (r *SubstanceSpecification) unmarshalJSON(m jsonSubstanceSpecification) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -205,12 +224,18 @@ func (r *SubstanceSpecification) unmarshalJSON(m jsonSubstanceSpecification) err
 	r.Domain = m.Domain
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Source = m.Source
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -295,13 +320,17 @@ func (r SubstanceSpecificationMoiety) marshalJSON() jsonSubstanceSpecificationMo
 	m.ModifierExtension = r.ModifierExtension
 	m.Role = r.Role
 	m.Identifier = r.Identifier
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
 	m.Stereochemistry = r.Stereochemistry
 	m.OpticalActivity = r.OpticalActivity
-	m.MolecularFormula = r.MolecularFormula
+	if r.MolecularFormula != nil && r.MolecularFormula.Value != nil {
+		m.MolecularFormula = r.MolecularFormula
+	}
 	if r.MolecularFormula != nil && (r.MolecularFormula.Id != nil || r.MolecularFormula.Extension != nil) {
 		m.MolecularFormulaPrimitiveElement = &primitiveElement{Id: r.MolecularFormula.Id, Extension: r.MolecularFormula.Extension}
 	}
@@ -311,12 +340,16 @@ func (r SubstanceSpecificationMoiety) marshalJSON() jsonSubstanceSpecificationMo
 	case *Quantity:
 		m.AmountQuantity = v
 	case String:
-		m.AmountString = &v
+		if v.Value != nil {
+			m.AmountString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AmountString = v
+		if v.Value != nil {
+			m.AmountString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -338,6 +371,9 @@ func (r *SubstanceSpecificationMoiety) unmarshalJSON(m jsonSubstanceSpecificatio
 	r.Identifier = m.Identifier
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
@@ -345,6 +381,9 @@ func (r *SubstanceSpecificationMoiety) unmarshalJSON(m jsonSubstanceSpecificatio
 	r.OpticalActivity = m.OpticalActivity
 	r.MolecularFormula = m.MolecularFormula
 	if m.MolecularFormulaPrimitiveElement != nil {
+		if r.MolecularFormula == nil {
+			r.MolecularFormula = &String{}
+		}
 		r.MolecularFormula.Id = m.MolecularFormulaPrimitiveElement.Id
 		r.MolecularFormula.Extension = m.MolecularFormulaPrimitiveElement.Extension
 	}
@@ -439,7 +478,9 @@ func (r SubstanceSpecificationProperty) marshalJSON() jsonSubstanceSpecification
 	m.ModifierExtension = r.ModifierExtension
 	m.Category = r.Category
 	m.Code = r.Code
-	m.Parameters = r.Parameters
+	if r.Parameters != nil && r.Parameters.Value != nil {
+		m.Parameters = r.Parameters
+	}
 	if r.Parameters != nil && (r.Parameters.Id != nil || r.Parameters.Extension != nil) {
 		m.ParametersPrimitiveElement = &primitiveElement{Id: r.Parameters.Id, Extension: r.Parameters.Extension}
 	}
@@ -459,12 +500,16 @@ func (r SubstanceSpecificationProperty) marshalJSON() jsonSubstanceSpecification
 	case *Quantity:
 		m.AmountQuantity = v
 	case String:
-		m.AmountString = &v
+		if v.Value != nil {
+			m.AmountString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AmountString = v
+		if v.Value != nil {
+			m.AmountString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -486,6 +531,9 @@ func (r *SubstanceSpecificationProperty) unmarshalJSON(m jsonSubstanceSpecificat
 	r.Code = m.Code
 	r.Parameters = m.Parameters
 	if m.ParametersPrimitiveElement != nil {
+		if r.Parameters == nil {
+			r.Parameters = &String{}
+		}
 		r.Parameters.Id = m.ParametersPrimitiveElement.Id
 		r.Parameters.Extension = m.ParametersPrimitiveElement.Extension
 	}
@@ -587,11 +635,15 @@ func (r SubstanceSpecificationStructure) marshalJSON() jsonSubstanceSpecificatio
 	m.ModifierExtension = r.ModifierExtension
 	m.Stereochemistry = r.Stereochemistry
 	m.OpticalActivity = r.OpticalActivity
-	m.MolecularFormula = r.MolecularFormula
+	if r.MolecularFormula != nil && r.MolecularFormula.Value != nil {
+		m.MolecularFormula = r.MolecularFormula
+	}
 	if r.MolecularFormula != nil && (r.MolecularFormula.Id != nil || r.MolecularFormula.Extension != nil) {
 		m.MolecularFormulaPrimitiveElement = &primitiveElement{Id: r.MolecularFormula.Id, Extension: r.MolecularFormula.Extension}
 	}
-	m.MolecularFormulaByMoiety = r.MolecularFormulaByMoiety
+	if r.MolecularFormulaByMoiety != nil && r.MolecularFormulaByMoiety.Value != nil {
+		m.MolecularFormulaByMoiety = r.MolecularFormulaByMoiety
+	}
 	if r.MolecularFormulaByMoiety != nil && (r.MolecularFormulaByMoiety.Id != nil || r.MolecularFormulaByMoiety.Extension != nil) {
 		m.MolecularFormulaByMoietyPrimitiveElement = &primitiveElement{Id: r.MolecularFormulaByMoiety.Id, Extension: r.MolecularFormulaByMoiety.Extension}
 	}
@@ -616,11 +668,17 @@ func (r *SubstanceSpecificationStructure) unmarshalJSON(m jsonSubstanceSpecifica
 	r.OpticalActivity = m.OpticalActivity
 	r.MolecularFormula = m.MolecularFormula
 	if m.MolecularFormulaPrimitiveElement != nil {
+		if r.MolecularFormula == nil {
+			r.MolecularFormula = &String{}
+		}
 		r.MolecularFormula.Id = m.MolecularFormulaPrimitiveElement.Id
 		r.MolecularFormula.Extension = m.MolecularFormulaPrimitiveElement.Extension
 	}
 	r.MolecularFormulaByMoiety = m.MolecularFormulaByMoiety
 	if m.MolecularFormulaByMoietyPrimitiveElement != nil {
+		if r.MolecularFormulaByMoiety == nil {
+			r.MolecularFormulaByMoiety = &String{}
+		}
 		r.MolecularFormulaByMoiety.Id = m.MolecularFormulaByMoietyPrimitiveElement.Id
 		r.MolecularFormulaByMoiety.Extension = m.MolecularFormulaByMoietyPrimitiveElement.Extension
 	}
@@ -810,7 +868,9 @@ func (r SubstanceSpecificationStructureRepresentation) marshalJSON() jsonSubstan
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Representation = r.Representation
+	if r.Representation != nil && r.Representation.Value != nil {
+		m.Representation = r.Representation
+	}
 	if r.Representation != nil && (r.Representation.Id != nil || r.Representation.Extension != nil) {
 		m.RepresentationPrimitiveElement = &primitiveElement{Id: r.Representation.Id, Extension: r.Representation.Extension}
 	}
@@ -831,6 +891,9 @@ func (r *SubstanceSpecificationStructureRepresentation) unmarshalJSON(m jsonSubs
 	r.Type = m.Type
 	r.Representation = m.Representation
 	if m.RepresentationPrimitiveElement != nil {
+		if r.Representation == nil {
+			r.Representation = &String{}
+		}
 		r.Representation.Id = m.RepresentationPrimitiveElement.Id
 		r.Representation.Extension = m.RepresentationPrimitiveElement.Extension
 	}
@@ -889,11 +952,15 @@ func (r SubstanceSpecificationCode) marshalJSON() jsonSubstanceSpecificationCode
 	m.ModifierExtension = r.ModifierExtension
 	m.Code = r.Code
 	m.Status = r.Status
-	m.StatusDate = r.StatusDate
+	if r.StatusDate != nil && r.StatusDate.Value != nil {
+		m.StatusDate = r.StatusDate
+	}
 	if r.StatusDate != nil && (r.StatusDate.Id != nil || r.StatusDate.Extension != nil) {
 		m.StatusDatePrimitiveElement = &primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -915,11 +982,17 @@ func (r *SubstanceSpecificationCode) unmarshalJSON(m jsonSubstanceSpecificationC
 	r.Status = m.Status
 	r.StatusDate = m.StatusDate
 	if m.StatusDatePrimitiveElement != nil {
+		if r.StatusDate == nil {
+			r.StatusDate = &DateTime{}
+		}
 		r.StatusDate.Id = m.StatusDatePrimitiveElement.Id
 		r.StatusDate.Extension = m.StatusDatePrimitiveElement.Extension
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}
@@ -994,13 +1067,17 @@ func (r SubstanceSpecificationName) marshalJSON() jsonSubstanceSpecificationName
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
 	m.Type = r.Type
 	m.Status = r.Status
-	m.Preferred = r.Preferred
+	if r.Preferred != nil && r.Preferred.Value != nil {
+		m.Preferred = r.Preferred
+	}
 	if r.Preferred != nil && (r.Preferred.Id != nil || r.Preferred.Extension != nil) {
 		m.PreferredPrimitiveElement = &primitiveElement{Id: r.Preferred.Id, Extension: r.Preferred.Extension}
 	}
@@ -1033,6 +1110,9 @@ func (r *SubstanceSpecificationName) unmarshalJSON(m jsonSubstanceSpecificationN
 	r.Status = m.Status
 	r.Preferred = m.Preferred
 	if m.PreferredPrimitiveElement != nil {
+		if r.Preferred == nil {
+			r.Preferred = &Boolean{}
+		}
 		r.Preferred.Id = m.PreferredPrimitiveElement.Id
 		r.Preferred.Extension = m.PreferredPrimitiveElement.Extension
 	}
@@ -1090,7 +1170,9 @@ func (r SubstanceSpecificationNameOfficial) marshalJSON() jsonSubstanceSpecifica
 	m.ModifierExtension = r.ModifierExtension
 	m.Authority = r.Authority
 	m.Status = r.Status
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -1111,6 +1193,9 @@ func (r *SubstanceSpecificationNameOfficial) unmarshalJSON(m jsonSubstanceSpecif
 	r.Status = m.Status
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -1203,7 +1288,9 @@ func (r SubstanceSpecificationRelationship) marshalJSON() jsonSubstanceSpecifica
 		m.SubstanceCodeableConcept = v
 	}
 	m.Relationship = r.Relationship
-	m.IsDefining = r.IsDefining
+	if r.IsDefining != nil && r.IsDefining.Value != nil {
+		m.IsDefining = r.IsDefining
+	}
 	if r.IsDefining != nil && (r.IsDefining.Id != nil || r.IsDefining.Extension != nil) {
 		m.IsDefiningPrimitiveElement = &primitiveElement{Id: r.IsDefining.Id, Extension: r.IsDefining.Extension}
 	}
@@ -1221,12 +1308,16 @@ func (r SubstanceSpecificationRelationship) marshalJSON() jsonSubstanceSpecifica
 	case *Ratio:
 		m.AmountRatio = v
 	case String:
-		m.AmountString = &v
+		if v.Value != nil {
+			m.AmountString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AmountString = v
+		if v.Value != nil {
+			m.AmountString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AmountStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1264,6 +1355,9 @@ func (r *SubstanceSpecificationRelationship) unmarshalJSON(m jsonSubstanceSpecif
 	r.Relationship = m.Relationship
 	r.IsDefining = m.IsDefining
 	if m.IsDefiningPrimitiveElement != nil {
+		if r.IsDefining == nil {
+			r.IsDefining = &Boolean{}
+		}
 		r.IsDefining.Id = m.IsDefiningPrimitiveElement.Id
 		r.IsDefining.Extension = m.IsDefiningPrimitiveElement.Extension
 	}

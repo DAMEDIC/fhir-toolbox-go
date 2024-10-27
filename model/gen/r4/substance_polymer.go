@@ -80,16 +80,22 @@ func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 func (r SubstancePolymer) marshalJSON() jsonSubstancePolymer {
 	m := jsonSubstancePolymer{}
 	m.ResourceType = "SubstancePolymer"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -103,7 +109,16 @@ func (r SubstancePolymer) marshalJSON() jsonSubstancePolymer {
 	m.Class = r.Class
 	m.Geometry = r.Geometry
 	m.CopolymerConnectivity = r.CopolymerConnectivity
-	m.Modification = r.Modification
+	anyModificationValue := false
+	for _, e := range r.Modification {
+		if e.Value != nil {
+			anyModificationValue = true
+			break
+		}
+	}
+	if anyModificationValue {
+		m.Modification = r.Modification
+	}
 	anyModificationIdOrExtension := false
 	for _, e := range r.Modification {
 		if e.Id != nil || e.Extension != nil {
@@ -135,17 +150,26 @@ func (r *SubstancePolymer) UnmarshalJSON(b []byte) error {
 func (r *SubstancePolymer) unmarshalJSON(m jsonSubstancePolymer) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -161,11 +185,12 @@ func (r *SubstancePolymer) unmarshalJSON(m jsonSubstancePolymer) error {
 	r.CopolymerConnectivity = m.CopolymerConnectivity
 	r.Modification = m.Modification
 	for i, e := range m.ModificationPrimitiveElement {
-		if len(r.Modification) > i {
+		if len(r.Modification) <= i {
+			r.Modification = append(r.Modification, String{})
+		}
+		if e != nil {
 			r.Modification[i].Id = e.Id
 			r.Modification[i].Extension = e.Extension
-		} else {
-			r.Modification = append(r.Modification, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.MonomerSet = m.MonomerSet
@@ -278,7 +303,9 @@ func (r SubstancePolymerMonomerSetStartingMaterial) marshalJSON() jsonSubstanceP
 	m.ModifierExtension = r.ModifierExtension
 	m.Material = r.Material
 	m.Type = r.Type
-	m.IsDefining = r.IsDefining
+	if r.IsDefining != nil && r.IsDefining.Value != nil {
+		m.IsDefining = r.IsDefining
+	}
 	if r.IsDefining != nil && (r.IsDefining.Id != nil || r.IsDefining.Extension != nil) {
 		m.IsDefiningPrimitiveElement = &primitiveElement{Id: r.IsDefining.Id, Extension: r.IsDefining.Extension}
 	}
@@ -300,6 +327,9 @@ func (r *SubstancePolymerMonomerSetStartingMaterial) unmarshalJSON(m jsonSubstan
 	r.Type = m.Type
 	r.IsDefining = m.IsDefining
 	if m.IsDefiningPrimitiveElement != nil {
+		if r.IsDefining == nil {
+			r.IsDefining = &Boolean{}
+		}
 		r.IsDefining.Id = m.IsDefiningPrimitiveElement.Id
 		r.IsDefining.Extension = m.IsDefiningPrimitiveElement.Extension
 	}
@@ -353,11 +383,15 @@ func (r SubstancePolymerRepeat) marshalJSON() jsonSubstancePolymerRepeat {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.NumberOfUnits = r.NumberOfUnits
+	if r.NumberOfUnits != nil && r.NumberOfUnits.Value != nil {
+		m.NumberOfUnits = r.NumberOfUnits
+	}
 	if r.NumberOfUnits != nil && (r.NumberOfUnits.Id != nil || r.NumberOfUnits.Extension != nil) {
 		m.NumberOfUnitsPrimitiveElement = &primitiveElement{Id: r.NumberOfUnits.Id, Extension: r.NumberOfUnits.Extension}
 	}
-	m.AverageMolecularFormula = r.AverageMolecularFormula
+	if r.AverageMolecularFormula != nil && r.AverageMolecularFormula.Value != nil {
+		m.AverageMolecularFormula = r.AverageMolecularFormula
+	}
 	if r.AverageMolecularFormula != nil && (r.AverageMolecularFormula.Id != nil || r.AverageMolecularFormula.Extension != nil) {
 		m.AverageMolecularFormulaPrimitiveElement = &primitiveElement{Id: r.AverageMolecularFormula.Id, Extension: r.AverageMolecularFormula.Extension}
 	}
@@ -378,11 +412,17 @@ func (r *SubstancePolymerRepeat) unmarshalJSON(m jsonSubstancePolymerRepeat) err
 	r.ModifierExtension = m.ModifierExtension
 	r.NumberOfUnits = m.NumberOfUnits
 	if m.NumberOfUnitsPrimitiveElement != nil {
+		if r.NumberOfUnits == nil {
+			r.NumberOfUnits = &Integer{}
+		}
 		r.NumberOfUnits.Id = m.NumberOfUnitsPrimitiveElement.Id
 		r.NumberOfUnits.Extension = m.NumberOfUnitsPrimitiveElement.Extension
 	}
 	r.AverageMolecularFormula = m.AverageMolecularFormula
 	if m.AverageMolecularFormulaPrimitiveElement != nil {
+		if r.AverageMolecularFormula == nil {
+			r.AverageMolecularFormula = &String{}
+		}
 		r.AverageMolecularFormula.Id = m.AverageMolecularFormulaPrimitiveElement.Id
 		r.AverageMolecularFormula.Extension = m.AverageMolecularFormulaPrimitiveElement.Extension
 	}
@@ -440,7 +480,9 @@ func (r SubstancePolymerRepeatRepeatUnit) marshalJSON() jsonSubstancePolymerRepe
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.OrientationOfPolymerisation = r.OrientationOfPolymerisation
-	m.RepeatUnit = r.RepeatUnit
+	if r.RepeatUnit != nil && r.RepeatUnit.Value != nil {
+		m.RepeatUnit = r.RepeatUnit
+	}
 	if r.RepeatUnit != nil && (r.RepeatUnit.Id != nil || r.RepeatUnit.Extension != nil) {
 		m.RepeatUnitPrimitiveElement = &primitiveElement{Id: r.RepeatUnit.Id, Extension: r.RepeatUnit.Extension}
 	}
@@ -463,6 +505,9 @@ func (r *SubstancePolymerRepeatRepeatUnit) unmarshalJSON(m jsonSubstancePolymerR
 	r.OrientationOfPolymerisation = m.OrientationOfPolymerisation
 	r.RepeatUnit = m.RepeatUnit
 	if m.RepeatUnitPrimitiveElement != nil {
+		if r.RepeatUnit == nil {
+			r.RepeatUnit = &String{}
+		}
 		r.RepeatUnit.Id = m.RepeatUnitPrimitiveElement.Id
 		r.RepeatUnit.Extension = m.RepeatUnitPrimitiveElement.Extension
 	}
@@ -573,7 +618,9 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) marshalJSON() 
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Type = r.Type
-	m.Representation = r.Representation
+	if r.Representation != nil && r.Representation.Value != nil {
+		m.Representation = r.Representation
+	}
 	if r.Representation != nil && (r.Representation.Id != nil || r.Representation.Extension != nil) {
 		m.RepresentationPrimitiveElement = &primitiveElement{Id: r.Representation.Id, Extension: r.Representation.Extension}
 	}
@@ -594,6 +641,9 @@ func (r *SubstancePolymerRepeatRepeatUnitStructuralRepresentation) unmarshalJSON
 	r.Type = m.Type
 	r.Representation = m.Representation
 	if m.RepresentationPrimitiveElement != nil {
+		if r.Representation == nil {
+			r.Representation = &String{}
+		}
 		r.Representation.Id = m.RepresentationPrimitiveElement.Id
 		r.Representation.Extension = m.RepresentationPrimitiveElement.Extension
 	}

@@ -113,16 +113,22 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 func (r Composition) marshalJSON() jsonComposition {
 	m := jsonComposition{}
 	m.ResourceType = "Composition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -134,7 +140,9 @@ func (r Composition) marshalJSON() jsonComposition {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -142,16 +150,22 @@ func (r Composition) marshalJSON() jsonComposition {
 	m.Category = r.Category
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
-	m.Date = r.Date
+	if r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date.Id != nil || r.Date.Extension != nil {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
 	m.Author = r.Author
-	m.Title = r.Title
+	if r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title.Id != nil || r.Title.Extension != nil {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Confidentiality = r.Confidentiality
+	if r.Confidentiality != nil && r.Confidentiality.Value != nil {
+		m.Confidentiality = r.Confidentiality
+	}
 	if r.Confidentiality != nil && (r.Confidentiality.Id != nil || r.Confidentiality.Extension != nil) {
 		m.ConfidentialityPrimitiveElement = &primitiveElement{Id: r.Confidentiality.Id, Extension: r.Confidentiality.Extension}
 	}
@@ -172,17 +186,26 @@ func (r *Composition) UnmarshalJSON(b []byte) error {
 func (r *Composition) unmarshalJSON(m jsonComposition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -216,6 +239,9 @@ func (r *Composition) unmarshalJSON(m jsonComposition) error {
 	}
 	r.Confidentiality = m.Confidentiality
 	if m.ConfidentialityPrimitiveElement != nil {
+		if r.Confidentiality == nil {
+			r.Confidentiality = &Code{}
+		}
 		r.Confidentiality.Id = m.ConfidentialityPrimitiveElement.Id
 		r.Confidentiality.Extension = m.ConfidentialityPrimitiveElement.Extension
 	}
@@ -270,11 +296,15 @@ func (r CompositionAttester) marshalJSON() jsonCompositionAttester {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Mode = r.Mode
+	if r.Mode.Value != nil {
+		m.Mode = r.Mode
+	}
 	if r.Mode.Id != nil || r.Mode.Extension != nil {
 		m.ModePrimitiveElement = &primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
 	}
-	m.Time = r.Time
+	if r.Time != nil && r.Time.Value != nil {
+		m.Time = r.Time
+	}
 	if r.Time != nil && (r.Time.Id != nil || r.Time.Extension != nil) {
 		m.TimePrimitiveElement = &primitiveElement{Id: r.Time.Id, Extension: r.Time.Extension}
 	}
@@ -299,6 +329,9 @@ func (r *CompositionAttester) unmarshalJSON(m jsonCompositionAttester) error {
 	}
 	r.Time = m.Time
 	if m.TimePrimitiveElement != nil {
+		if r.Time == nil {
+			r.Time = &DateTime{}
+		}
 		r.Time.Id = m.TimePrimitiveElement.Id
 		r.Time.Extension = m.TimePrimitiveElement.Extension
 	}
@@ -353,7 +386,9 @@ func (r CompositionRelatesTo) marshalJSON() jsonCompositionRelatesTo {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
+	if r.Code.Value != nil {
+		m.Code = r.Code
+	}
 	if r.Code.Id != nil || r.Code.Extension != nil {
 		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
 	}
@@ -529,7 +564,9 @@ func (r CompositionSection) marshalJSON() jsonCompositionSection {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
@@ -537,7 +574,9 @@ func (r CompositionSection) marshalJSON() jsonCompositionSection {
 	m.Author = r.Author
 	m.Focus = r.Focus
 	m.Text = r.Text
-	m.Mode = r.Mode
+	if r.Mode != nil && r.Mode.Value != nil {
+		m.Mode = r.Mode
+	}
 	if r.Mode != nil && (r.Mode.Id != nil || r.Mode.Extension != nil) {
 		m.ModePrimitiveElement = &primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
 	}
@@ -560,6 +599,9 @@ func (r *CompositionSection) unmarshalJSON(m jsonCompositionSection) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
@@ -569,6 +611,9 @@ func (r *CompositionSection) unmarshalJSON(m jsonCompositionSection) error {
 	r.Text = m.Text
 	r.Mode = m.Mode
 	if m.ModePrimitiveElement != nil {
+		if r.Mode == nil {
+			r.Mode = &Code{}
+		}
 		r.Mode.Id = m.ModePrimitiveElement.Id
 		r.Mode.Extension = m.ModePrimitiveElement.Extension
 	}

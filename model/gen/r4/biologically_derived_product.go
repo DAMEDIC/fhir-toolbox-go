@@ -99,16 +99,22 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 func (r BiologicallyDerivedProduct) marshalJSON() jsonBiologicallyDerivedProduct {
 	m := jsonBiologicallyDerivedProduct{}
 	m.ResourceType = "BiologicallyDerivedProduct"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -120,17 +126,23 @@ func (r BiologicallyDerivedProduct) marshalJSON() jsonBiologicallyDerivedProduct
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.ProductCategory = r.ProductCategory
+	if r.ProductCategory != nil && r.ProductCategory.Value != nil {
+		m.ProductCategory = r.ProductCategory
+	}
 	if r.ProductCategory != nil && (r.ProductCategory.Id != nil || r.ProductCategory.Extension != nil) {
 		m.ProductCategoryPrimitiveElement = &primitiveElement{Id: r.ProductCategory.Id, Extension: r.ProductCategory.Extension}
 	}
 	m.ProductCode = r.ProductCode
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Request = r.Request
-	m.Quantity = r.Quantity
+	if r.Quantity != nil && r.Quantity.Value != nil {
+		m.Quantity = r.Quantity
+	}
 	if r.Quantity != nil && (r.Quantity.Id != nil || r.Quantity.Extension != nil) {
 		m.QuantityPrimitiveElement = &primitiveElement{Id: r.Quantity.Id, Extension: r.Quantity.Extension}
 	}
@@ -151,17 +163,26 @@ func (r *BiologicallyDerivedProduct) UnmarshalJSON(b []byte) error {
 func (r *BiologicallyDerivedProduct) unmarshalJSON(m jsonBiologicallyDerivedProduct) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -175,18 +196,27 @@ func (r *BiologicallyDerivedProduct) unmarshalJSON(m jsonBiologicallyDerivedProd
 	r.Identifier = m.Identifier
 	r.ProductCategory = m.ProductCategory
 	if m.ProductCategoryPrimitiveElement != nil {
+		if r.ProductCategory == nil {
+			r.ProductCategory = &Code{}
+		}
 		r.ProductCategory.Id = m.ProductCategoryPrimitiveElement.Id
 		r.ProductCategory.Extension = m.ProductCategoryPrimitiveElement.Extension
 	}
 	r.ProductCode = m.ProductCode
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
 	r.Request = m.Request
 	r.Quantity = m.Quantity
 	if m.QuantityPrimitiveElement != nil {
+		if r.Quantity == nil {
+			r.Quantity = &Integer{}
+		}
 		r.Quantity.Id = m.QuantityPrimitiveElement.Id
 		r.Quantity.Extension = m.QuantityPrimitiveElement.Extension
 	}
@@ -252,12 +282,16 @@ func (r BiologicallyDerivedProductCollection) marshalJSON() jsonBiologicallyDeri
 	m.Source = r.Source
 	switch v := r.Collected.(type) {
 	case DateTime:
-		m.CollectedDateTime = &v
+		if v.Value != nil {
+			m.CollectedDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.CollectedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.CollectedDateTime = v
+		if v.Value != nil {
+			m.CollectedDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.CollectedDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -359,7 +393,9 @@ func (r BiologicallyDerivedProductProcessing) marshalJSON() jsonBiologicallyDeri
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -367,12 +403,16 @@ func (r BiologicallyDerivedProductProcessing) marshalJSON() jsonBiologicallyDeri
 	m.Additive = r.Additive
 	switch v := r.Time.(type) {
 	case DateTime:
-		m.TimeDateTime = &v
+		if v.Value != nil {
+			m.TimeDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimeDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimeDateTime = v
+		if v.Value != nil {
+			m.TimeDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimeDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -396,6 +436,9 @@ func (r *BiologicallyDerivedProductProcessing) unmarshalJSON(m jsonBiologicallyD
 	r.ModifierExtension = m.ModifierExtension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -473,18 +516,24 @@ func (r BiologicallyDerivedProductManipulation) marshalJSON() jsonBiologicallyDe
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	switch v := r.Time.(type) {
 	case DateTime:
-		m.TimeDateTime = &v
+		if v.Value != nil {
+			m.TimeDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimeDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.TimeDateTime = v
+		if v.Value != nil {
+			m.TimeDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.TimeDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -508,6 +557,9 @@ func (r *BiologicallyDerivedProductManipulation) unmarshalJSON(m jsonBiologicall
 	r.ModifierExtension = m.ModifierExtension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -582,15 +634,21 @@ func (r BiologicallyDerivedProductStorage) marshalJSON() jsonBiologicallyDerived
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
-	m.Temperature = r.Temperature
+	if r.Temperature != nil && r.Temperature.Value != nil {
+		m.Temperature = r.Temperature
+	}
 	if r.Temperature != nil && (r.Temperature.Id != nil || r.Temperature.Extension != nil) {
 		m.TemperaturePrimitiveElement = &primitiveElement{Id: r.Temperature.Id, Extension: r.Temperature.Extension}
 	}
-	m.Scale = r.Scale
+	if r.Scale != nil && r.Scale.Value != nil {
+		m.Scale = r.Scale
+	}
 	if r.Scale != nil && (r.Scale.Id != nil || r.Scale.Extension != nil) {
 		m.ScalePrimitiveElement = &primitiveElement{Id: r.Scale.Id, Extension: r.Scale.Extension}
 	}
@@ -610,16 +668,25 @@ func (r *BiologicallyDerivedProductStorage) unmarshalJSON(m jsonBiologicallyDeri
 	r.ModifierExtension = m.ModifierExtension
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
 	r.Temperature = m.Temperature
 	if m.TemperaturePrimitiveElement != nil {
+		if r.Temperature == nil {
+			r.Temperature = &Decimal{}
+		}
 		r.Temperature.Id = m.TemperaturePrimitiveElement.Id
 		r.Temperature.Extension = m.TemperaturePrimitiveElement.Extension
 	}
 	r.Scale = m.Scale
 	if m.ScalePrimitiveElement != nil {
+		if r.Scale == nil {
+			r.Scale = &Code{}
+		}
 		r.Scale.Id = m.ScalePrimitiveElement.Id
 		r.Scale.Extension = m.ScalePrimitiveElement.Extension
 	}

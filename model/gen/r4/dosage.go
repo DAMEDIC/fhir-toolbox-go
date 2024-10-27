@@ -81,28 +81,38 @@ func (r Dosage) marshalJSON() jsonDosage {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence != nil && r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
 	m.AdditionalInstruction = r.AdditionalInstruction
-	m.PatientInstruction = r.PatientInstruction
+	if r.PatientInstruction != nil && r.PatientInstruction.Value != nil {
+		m.PatientInstruction = r.PatientInstruction
+	}
 	if r.PatientInstruction != nil && (r.PatientInstruction.Id != nil || r.PatientInstruction.Extension != nil) {
 		m.PatientInstructionPrimitiveElement = &primitiveElement{Id: r.PatientInstruction.Id, Extension: r.PatientInstruction.Extension}
 	}
 	m.Timing = r.Timing
 	switch v := r.AsNeeded.(type) {
 	case Boolean:
-		m.AsNeededBoolean = &v
+		if v.Value != nil {
+			m.AsNeededBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AsNeededBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.AsNeededBoolean = v
+		if v.Value != nil {
+			m.AsNeededBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AsNeededBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -133,17 +143,26 @@ func (r *Dosage) unmarshalJSON(m jsonDosage) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Sequence = m.Sequence
 	if m.SequencePrimitiveElement != nil {
+		if r.Sequence == nil {
+			r.Sequence = &Integer{}
+		}
 		r.Sequence.Id = m.SequencePrimitiveElement.Id
 		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
 	r.AdditionalInstruction = m.AdditionalInstruction
 	r.PatientInstruction = m.PatientInstruction
 	if m.PatientInstructionPrimitiveElement != nil {
+		if r.PatientInstruction == nil {
+			r.PatientInstruction = &String{}
+		}
 		r.PatientInstruction.Id = m.PatientInstructionPrimitiveElement.Id
 		r.PatientInstruction.Extension = m.PatientInstructionPrimitiveElement.Extension
 	}

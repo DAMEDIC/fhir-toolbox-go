@@ -130,16 +130,22 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 func (r DiagnosticReport) marshalJSON() jsonDiagnosticReport {
 	m := jsonDiagnosticReport{}
 	m.ResourceType = "DiagnosticReport"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -152,7 +158,9 @@ func (r DiagnosticReport) marshalJSON() jsonDiagnosticReport {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -162,12 +170,16 @@ func (r DiagnosticReport) marshalJSON() jsonDiagnosticReport {
 	m.Encounter = r.Encounter
 	switch v := r.Effective.(type) {
 	case DateTime:
-		m.EffectiveDateTime = &v
+		if v.Value != nil {
+			m.EffectiveDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.EffectiveDateTime = v
+		if v.Value != nil {
+			m.EffectiveDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -176,7 +188,9 @@ func (r DiagnosticReport) marshalJSON() jsonDiagnosticReport {
 	case *Period:
 		m.EffectivePeriod = v
 	}
-	m.Issued = r.Issued
+	if r.Issued != nil && r.Issued.Value != nil {
+		m.Issued = r.Issued
+	}
 	if r.Issued != nil && (r.Issued.Id != nil || r.Issued.Extension != nil) {
 		m.IssuedPrimitiveElement = &primitiveElement{Id: r.Issued.Id, Extension: r.Issued.Extension}
 	}
@@ -186,7 +200,9 @@ func (r DiagnosticReport) marshalJSON() jsonDiagnosticReport {
 	m.Result = r.Result
 	m.ImagingStudy = r.ImagingStudy
 	m.Media = r.Media
-	m.Conclusion = r.Conclusion
+	if r.Conclusion != nil && r.Conclusion.Value != nil {
+		m.Conclusion = r.Conclusion
+	}
 	if r.Conclusion != nil && (r.Conclusion.Id != nil || r.Conclusion.Extension != nil) {
 		m.ConclusionPrimitiveElement = &primitiveElement{Id: r.Conclusion.Id, Extension: r.Conclusion.Extension}
 	}
@@ -204,17 +220,26 @@ func (r *DiagnosticReport) UnmarshalJSON(b []byte) error {
 func (r *DiagnosticReport) unmarshalJSON(m jsonDiagnosticReport) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -259,6 +284,9 @@ func (r *DiagnosticReport) unmarshalJSON(m jsonDiagnosticReport) error {
 	}
 	r.Issued = m.Issued
 	if m.IssuedPrimitiveElement != nil {
+		if r.Issued == nil {
+			r.Issued = &Instant{}
+		}
 		r.Issued.Id = m.IssuedPrimitiveElement.Id
 		r.Issued.Extension = m.IssuedPrimitiveElement.Extension
 	}
@@ -270,6 +298,9 @@ func (r *DiagnosticReport) unmarshalJSON(m jsonDiagnosticReport) error {
 	r.Media = m.Media
 	r.Conclusion = m.Conclusion
 	if m.ConclusionPrimitiveElement != nil {
+		if r.Conclusion == nil {
+			r.Conclusion = &String{}
+		}
 		r.Conclusion.Id = m.ConclusionPrimitiveElement.Id
 		r.Conclusion.Extension = m.ConclusionPrimitiveElement.Extension
 	}
@@ -317,7 +348,9 @@ func (r DiagnosticReportMedia) marshalJSON() jsonDiagnosticReportMedia {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -337,6 +370,9 @@ func (r *DiagnosticReportMedia) unmarshalJSON(m jsonDiagnosticReportMedia) error
 	r.ModifierExtension = m.ModifierExtension
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}

@@ -98,7 +98,7 @@ func implementUnmarshalJSONStruct(f *File, s ir.Struct) {
 							Id("r."+sf.Name).Op("=").Append(Id("r."+sf.Name), Id("v.Resource")),
 						)
 					} else {
-						g.If(Id("&m." + sf.Name).Op("!=").Nil()).Block(
+						g.If(Id("m." + sf.Name).Op("!=").Nil()).Block(
 							Id("r." + sf.Name).Op("=").Id("&m." + sf.Name + ".Resource"),
 						)
 					}
@@ -108,19 +108,22 @@ func implementUnmarshalJSONStruct(f *File, s ir.Struct) {
 
 				if t.IsPrimitive {
 					if sf.Multiple {
-						g.For(List(Id("i"), Id("e")).Op(":=").Range().Id("m." + sf.Name + "PrimitiveElement")).Block(
-							If(Len(Id("r."+sf.Name)).Op(">").Id("i")).Block(
+						g.For(List(Id("i"), Id("e")).Op(":=").Range().Id("m."+sf.Name+"PrimitiveElement")).Block(
+							If(Len(Id("r."+sf.Name)).Op("<=").Id("i")).Block(
+								Id("r."+sf.Name).Op("=").Append(Id("r."+sf.Name), Id(t.Name).Values()),
+							),
+							If(Id("e").Op("!=").Nil()).Block(
 								Id("r."+sf.Name).Index(Id("i")).Id(".Id").Op("=").Id("e.Id"),
 								Id("r."+sf.Name).Index(Id("i")).Id(".Extension").Op("=").Id("e.Extension"),
-							).Else().Block(
-								Id("r."+sf.Name).Op("=").Append(Id("r."+sf.Name), Id(t.Name).Values(
-									Id("Id").Op(":").Id("e.Id"),
-									Id("Extension").Op(":").Id("e.Extension"),
-								)),
 							),
 						)
 					} else {
 						g.If(Id("m." + sf.Name + "PrimitiveElement").Op("!=").Nil()).BlockFunc(func(g *Group) {
+							if sf.Optional {
+								g.If(Id("r." + sf.Name).Op("==").Nil()).Block(
+									Id("r." + sf.Name).Op("=").Op("&").Id(t.Name).Values(),
+								)
+							}
 							g.Id("r." + sf.Name + ".Id").Op("=").Id("m." + sf.Name + "PrimitiveElement.Id")
 							if sf.Name != "Div" {
 								g.Id("r." + sf.Name + ".Extension").Op("=").Id("m." + sf.Name + "PrimitiveElement.Extension")

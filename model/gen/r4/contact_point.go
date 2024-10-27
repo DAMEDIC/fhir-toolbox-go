@@ -42,19 +42,27 @@ func (r ContactPoint) marshalJSON() jsonContactPoint {
 	m := jsonContactPoint{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.System = r.System
+	if r.System != nil && r.System.Value != nil {
+		m.System = r.System
+	}
 	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
 		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
 	}
-	m.Value = r.Value
+	if r.Value != nil && r.Value.Value != nil {
+		m.Value = r.Value
+	}
 	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
 		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
 	}
-	m.Use = r.Use
+	if r.Use != nil && r.Use.Value != nil {
+		m.Use = r.Use
+	}
 	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
 		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
 	}
-	m.Rank = r.Rank
+	if r.Rank != nil && r.Rank.Value != nil {
+		m.Rank = r.Rank
+	}
 	if r.Rank != nil && (r.Rank.Id != nil || r.Rank.Extension != nil) {
 		m.RankPrimitiveElement = &primitiveElement{Id: r.Rank.Id, Extension: r.Rank.Extension}
 	}
@@ -73,21 +81,33 @@ func (r *ContactPoint) unmarshalJSON(m jsonContactPoint) error {
 	r.Extension = m.Extension
 	r.System = m.System
 	if m.SystemPrimitiveElement != nil {
+		if r.System == nil {
+			r.System = &Code{}
+		}
 		r.System.Id = m.SystemPrimitiveElement.Id
 		r.System.Extension = m.SystemPrimitiveElement.Extension
 	}
 	r.Value = m.Value
 	if m.ValuePrimitiveElement != nil {
+		if r.Value == nil {
+			r.Value = &String{}
+		}
 		r.Value.Id = m.ValuePrimitiveElement.Id
 		r.Value.Extension = m.ValuePrimitiveElement.Extension
 	}
 	r.Use = m.Use
 	if m.UsePrimitiveElement != nil {
+		if r.Use == nil {
+			r.Use = &Code{}
+		}
 		r.Use.Id = m.UsePrimitiveElement.Id
 		r.Use.Extension = m.UsePrimitiveElement.Extension
 	}
 	r.Rank = m.Rank
 	if m.RankPrimitiveElement != nil {
+		if r.Rank == nil {
+			r.Rank = &PositiveInt{}
+		}
 		r.Rank.Id = m.RankPrimitiveElement.Id
 		r.Rank.Extension = m.RankPrimitiveElement.Extension
 	}

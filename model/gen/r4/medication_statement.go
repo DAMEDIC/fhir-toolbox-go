@@ -134,16 +134,22 @@ func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 func (r MedicationStatement) marshalJSON() jsonMedicationStatement {
 	m := jsonMedicationStatement{}
 	m.ResourceType = "MedicationStatement"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -157,7 +163,9 @@ func (r MedicationStatement) marshalJSON() jsonMedicationStatement {
 	m.Identifier = r.Identifier
 	m.BasedOn = r.BasedOn
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
@@ -177,12 +185,16 @@ func (r MedicationStatement) marshalJSON() jsonMedicationStatement {
 	m.Context = r.Context
 	switch v := r.Effective.(type) {
 	case DateTime:
-		m.EffectiveDateTime = &v
+		if v.Value != nil {
+			m.EffectiveDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.EffectiveDateTime = v
+		if v.Value != nil {
+			m.EffectiveDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -191,7 +203,9 @@ func (r MedicationStatement) marshalJSON() jsonMedicationStatement {
 	case *Period:
 		m.EffectivePeriod = v
 	}
-	m.DateAsserted = r.DateAsserted
+	if r.DateAsserted != nil && r.DateAsserted.Value != nil {
+		m.DateAsserted = r.DateAsserted
+	}
 	if r.DateAsserted != nil && (r.DateAsserted.Id != nil || r.DateAsserted.Extension != nil) {
 		m.DateAssertedPrimitiveElement = &primitiveElement{Id: r.DateAsserted.Id, Extension: r.DateAsserted.Extension}
 	}
@@ -213,17 +227,26 @@ func (r *MedicationStatement) UnmarshalJSON(b []byte) error {
 func (r *MedicationStatement) unmarshalJSON(m jsonMedicationStatement) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -283,6 +306,9 @@ func (r *MedicationStatement) unmarshalJSON(m jsonMedicationStatement) error {
 	}
 	r.DateAsserted = m.DateAsserted
 	if m.DateAssertedPrimitiveElement != nil {
+		if r.DateAsserted == nil {
+			r.DateAsserted = &DateTime{}
+		}
 		r.DateAsserted.Id = m.DateAssertedPrimitiveElement.Id
 		r.DateAsserted.Extension = m.DateAssertedPrimitiveElement.Extension
 	}

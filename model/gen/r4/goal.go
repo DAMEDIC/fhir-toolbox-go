@@ -122,16 +122,22 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 func (r Goal) marshalJSON() jsonGoal {
 	m := jsonGoal{}
 	m.ResourceType = "Goal"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -143,7 +149,9 @@ func (r Goal) marshalJSON() jsonGoal {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.LifecycleStatus = r.LifecycleStatus
+	if r.LifecycleStatus.Value != nil {
+		m.LifecycleStatus = r.LifecycleStatus
+	}
 	if r.LifecycleStatus.Id != nil || r.LifecycleStatus.Extension != nil {
 		m.LifecycleStatusPrimitiveElement = &primitiveElement{Id: r.LifecycleStatus.Id, Extension: r.LifecycleStatus.Extension}
 	}
@@ -154,12 +162,16 @@ func (r Goal) marshalJSON() jsonGoal {
 	m.Subject = r.Subject
 	switch v := r.Start.(type) {
 	case Date:
-		m.StartDate = &v
+		if v.Value != nil {
+			m.StartDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.StartDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.StartDate = v
+		if v.Value != nil {
+			m.StartDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.StartDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -169,11 +181,15 @@ func (r Goal) marshalJSON() jsonGoal {
 		m.StartCodeableConcept = v
 	}
 	m.Target = r.Target
-	m.StatusDate = r.StatusDate
+	if r.StatusDate != nil && r.StatusDate.Value != nil {
+		m.StatusDate = r.StatusDate
+	}
 	if r.StatusDate != nil && (r.StatusDate.Id != nil || r.StatusDate.Extension != nil) {
 		m.StatusDatePrimitiveElement = &primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
 	}
-	m.StatusReason = r.StatusReason
+	if r.StatusReason != nil && r.StatusReason.Value != nil {
+		m.StatusReason = r.StatusReason
+	}
 	if r.StatusReason != nil && (r.StatusReason.Id != nil || r.StatusReason.Extension != nil) {
 		m.StatusReasonPrimitiveElement = &primitiveElement{Id: r.StatusReason.Id, Extension: r.StatusReason.Extension}
 	}
@@ -194,17 +210,26 @@ func (r *Goal) UnmarshalJSON(b []byte) error {
 func (r *Goal) unmarshalJSON(m jsonGoal) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -250,11 +275,17 @@ func (r *Goal) unmarshalJSON(m jsonGoal) error {
 	r.Target = m.Target
 	r.StatusDate = m.StatusDate
 	if m.StatusDatePrimitiveElement != nil {
+		if r.StatusDate == nil {
+			r.StatusDate = &Date{}
+		}
 		r.StatusDate.Id = m.StatusDatePrimitiveElement.Id
 		r.StatusDate.Extension = m.StatusDatePrimitiveElement.Extension
 	}
 	r.StatusReason = m.StatusReason
 	if m.StatusReasonPrimitiveElement != nil {
+		if r.StatusReason == nil {
+			r.StatusReason = &String{}
+		}
 		r.StatusReason.Id = m.StatusReasonPrimitiveElement.Id
 		r.StatusReason.Extension = m.StatusReasonPrimitiveElement.Extension
 	}
@@ -352,32 +383,44 @@ func (r GoalTarget) marshalJSON() jsonGoalTarget {
 	case *CodeableConcept:
 		m.DetailCodeableConcept = v
 	case String:
-		m.DetailString = &v
+		if v.Value != nil {
+			m.DetailString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.DetailString = v
+		if v.Value != nil {
+			m.DetailString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Boolean:
-		m.DetailBoolean = &v
+		if v.Value != nil {
+			m.DetailBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.DetailBoolean = v
+		if v.Value != nil {
+			m.DetailBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.DetailInteger = &v
+		if v.Value != nil {
+			m.DetailInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.DetailInteger = v
+		if v.Value != nil {
+			m.DetailInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DetailIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -388,12 +431,16 @@ func (r GoalTarget) marshalJSON() jsonGoalTarget {
 	}
 	switch v := r.Due.(type) {
 	case Date:
-		m.DueDate = &v
+		if v.Value != nil {
+			m.DueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.DueDate = v
+		if v.Value != nil {
+			m.DueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.DueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

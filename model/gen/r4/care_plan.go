@@ -138,16 +138,22 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 func (r CarePlan) marshalJSON() jsonCarePlan {
 	m := jsonCarePlan{}
 	m.ResourceType = "CarePlan"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -159,7 +165,16 @@ func (r CarePlan) marshalJSON() jsonCarePlan {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -177,7 +192,16 @@ func (r CarePlan) marshalJSON() jsonCarePlan {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -198,27 +222,37 @@ func (r CarePlan) marshalJSON() jsonCarePlan {
 	m.BasedOn = r.BasedOn
 	m.Replaces = r.Replaces
 	m.PartOf = r.PartOf
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Intent = r.Intent
+	if r.Intent.Value != nil {
+		m.Intent = r.Intent
+	}
 	if r.Intent.Id != nil || r.Intent.Extension != nil {
 		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
 	}
 	m.Category = r.Category
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.Subject = r.Subject
 	m.Encounter = r.Encounter
 	m.Period = r.Period
-	m.Created = r.Created
+	if r.Created != nil && r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created != nil && (r.Created.Id != nil || r.Created.Extension != nil) {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
@@ -242,17 +276,26 @@ func (r *CarePlan) UnmarshalJSON(b []byte) error {
 func (r *CarePlan) unmarshalJSON(m jsonCarePlan) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -266,20 +309,22 @@ func (r *CarePlan) unmarshalJSON(m jsonCarePlan) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.BasedOn = m.BasedOn
@@ -298,11 +343,17 @@ func (r *CarePlan) unmarshalJSON(m jsonCarePlan) error {
 	r.Category = m.Category
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -311,6 +362,9 @@ func (r *CarePlan) unmarshalJSON(m jsonCarePlan) error {
 	r.Period = m.Period
 	r.Created = m.Created
 	if m.CreatedPrimitiveElement != nil {
+		if r.Created == nil {
+			r.Created = &DateTime{}
+		}
 		r.Created.Id = m.CreatedPrimitiveElement.Id
 		r.Created.Extension = m.CreatedPrimitiveElement.Extension
 	}
@@ -506,11 +560,22 @@ func (r CarePlanActivityDetail) marshalJSON() jsonCarePlanActivityDetail {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Kind = r.Kind
+	if r.Kind != nil && r.Kind.Value != nil {
+		m.Kind = r.Kind
+	}
 	if r.Kind != nil && (r.Kind.Id != nil || r.Kind.Extension != nil) {
 		m.KindPrimitiveElement = &primitiveElement{Id: r.Kind.Id, Extension: r.Kind.Extension}
 	}
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -528,7 +593,16 @@ func (r CarePlanActivityDetail) marshalJSON() jsonCarePlanActivityDetail {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -550,12 +624,16 @@ func (r CarePlanActivityDetail) marshalJSON() jsonCarePlanActivityDetail {
 	m.ReasonCode = r.ReasonCode
 	m.ReasonReference = r.ReasonReference
 	m.Goal = r.Goal
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.StatusReason = r.StatusReason
-	m.DoNotPerform = r.DoNotPerform
+	if r.DoNotPerform != nil && r.DoNotPerform.Value != nil {
+		m.DoNotPerform = r.DoNotPerform
+	}
 	if r.DoNotPerform != nil && (r.DoNotPerform.Id != nil || r.DoNotPerform.Extension != nil) {
 		m.DoNotPerformPrimitiveElement = &primitiveElement{Id: r.DoNotPerform.Id, Extension: r.DoNotPerform.Extension}
 	}
@@ -569,12 +647,16 @@ func (r CarePlanActivityDetail) marshalJSON() jsonCarePlanActivityDetail {
 	case *Period:
 		m.ScheduledPeriod = v
 	case String:
-		m.ScheduledString = &v
+		if v.Value != nil {
+			m.ScheduledString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ScheduledStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ScheduledString = v
+		if v.Value != nil {
+			m.ScheduledString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ScheduledStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -593,7 +675,9 @@ func (r CarePlanActivityDetail) marshalJSON() jsonCarePlanActivityDetail {
 	}
 	m.DailyAmount = r.DailyAmount
 	m.Quantity = r.Quantity
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -612,25 +696,30 @@ func (r *CarePlanActivityDetail) unmarshalJSON(m jsonCarePlanActivityDetail) err
 	r.ModifierExtension = m.ModifierExtension
 	r.Kind = m.Kind
 	if m.KindPrimitiveElement != nil {
+		if r.Kind == nil {
+			r.Kind = &Code{}
+		}
 		r.Kind.Id = m.KindPrimitiveElement.Id
 		r.Kind.Extension = m.KindPrimitiveElement.Extension
 	}
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Code = m.Code
@@ -645,6 +734,9 @@ func (r *CarePlanActivityDetail) unmarshalJSON(m jsonCarePlanActivityDetail) err
 	r.StatusReason = m.StatusReason
 	r.DoNotPerform = m.DoNotPerform
 	if m.DoNotPerformPrimitiveElement != nil {
+		if r.DoNotPerform == nil {
+			r.DoNotPerform = &Boolean{}
+		}
 		r.DoNotPerform.Id = m.DoNotPerformPrimitiveElement.Id
 		r.DoNotPerform.Extension = m.DoNotPerformPrimitiveElement.Extension
 	}
@@ -696,6 +788,9 @@ func (r *CarePlanActivityDetail) unmarshalJSON(m jsonCarePlanActivityDetail) err
 	r.Quantity = m.Quantity
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}

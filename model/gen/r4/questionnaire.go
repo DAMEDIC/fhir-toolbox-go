@@ -145,16 +145,22 @@ func (r Questionnaire) MarshalJSON() ([]byte, error) {
 func (r Questionnaire) marshalJSON() jsonQuestionnaire {
 	m := jsonQuestionnaire{}
 	m.ResourceType = "Questionnaire"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -165,24 +171,41 @@ func (r Questionnaire) marshalJSON() jsonQuestionnaire {
 	}
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
 	m.Identifier = r.Identifier
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Title = r.Title
+	if r.Title != nil && r.Title.Value != nil {
+		m.Title = r.Title
+	}
 	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
 		m.TitlePrimitiveElement = &primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
 	}
-	m.DerivedFrom = r.DerivedFrom
+	anyDerivedFromValue := false
+	for _, e := range r.DerivedFrom {
+		if e.Value != nil {
+			anyDerivedFromValue = true
+			break
+		}
+	}
+	if anyDerivedFromValue {
+		m.DerivedFrom = r.DerivedFrom
+	}
 	anyDerivedFromIdOrExtension := false
 	for _, e := range r.DerivedFrom {
 		if e.Id != nil || e.Extension != nil {
@@ -200,15 +223,28 @@ func (r Questionnaire) marshalJSON() jsonQuestionnaire {
 			}
 		}
 	}
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Experimental = r.Experimental
+	if r.Experimental != nil && r.Experimental.Value != nil {
+		m.Experimental = r.Experimental
+	}
 	if r.Experimental != nil && (r.Experimental.Id != nil || r.Experimental.Extension != nil) {
 		m.ExperimentalPrimitiveElement = &primitiveElement{Id: r.Experimental.Id, Extension: r.Experimental.Extension}
 	}
-	m.SubjectType = r.SubjectType
+	anySubjectTypeValue := false
+	for _, e := range r.SubjectType {
+		if e.Value != nil {
+			anySubjectTypeValue = true
+			break
+		}
+	}
+	if anySubjectTypeValue {
+		m.SubjectType = r.SubjectType
+	}
 	anySubjectTypeIdOrExtension := false
 	for _, e := range r.SubjectType {
 		if e.Id != nil || e.Extension != nil {
@@ -226,34 +262,48 @@ func (r Questionnaire) marshalJSON() jsonQuestionnaire {
 			}
 		}
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
-	m.Publisher = r.Publisher
+	if r.Publisher != nil && r.Publisher.Value != nil {
+		m.Publisher = r.Publisher
+	}
 	if r.Publisher != nil && (r.Publisher.Id != nil || r.Publisher.Extension != nil) {
 		m.PublisherPrimitiveElement = &primitiveElement{Id: r.Publisher.Id, Extension: r.Publisher.Extension}
 	}
 	m.Contact = r.Contact
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
 	m.UseContext = r.UseContext
 	m.Jurisdiction = r.Jurisdiction
-	m.Purpose = r.Purpose
+	if r.Purpose != nil && r.Purpose.Value != nil {
+		m.Purpose = r.Purpose
+	}
 	if r.Purpose != nil && (r.Purpose.Id != nil || r.Purpose.Extension != nil) {
 		m.PurposePrimitiveElement = &primitiveElement{Id: r.Purpose.Id, Extension: r.Purpose.Extension}
 	}
-	m.Copyright = r.Copyright
+	if r.Copyright != nil && r.Copyright.Value != nil {
+		m.Copyright = r.Copyright
+	}
 	if r.Copyright != nil && (r.Copyright.Id != nil || r.Copyright.Extension != nil) {
 		m.CopyrightPrimitiveElement = &primitiveElement{Id: r.Copyright.Id, Extension: r.Copyright.Extension}
 	}
-	m.ApprovalDate = r.ApprovalDate
+	if r.ApprovalDate != nil && r.ApprovalDate.Value != nil {
+		m.ApprovalDate = r.ApprovalDate
+	}
 	if r.ApprovalDate != nil && (r.ApprovalDate.Id != nil || r.ApprovalDate.Extension != nil) {
 		m.ApprovalDatePrimitiveElement = &primitiveElement{Id: r.ApprovalDate.Id, Extension: r.ApprovalDate.Extension}
 	}
-	m.LastReviewDate = r.LastReviewDate
+	if r.LastReviewDate != nil && r.LastReviewDate.Value != nil {
+		m.LastReviewDate = r.LastReviewDate
+	}
 	if r.LastReviewDate != nil && (r.LastReviewDate.Id != nil || r.LastReviewDate.Extension != nil) {
 		m.LastReviewDatePrimitiveElement = &primitiveElement{Id: r.LastReviewDate.Id, Extension: r.LastReviewDate.Extension}
 	}
@@ -272,17 +322,26 @@ func (r *Questionnaire) UnmarshalJSON(b []byte) error {
 func (r *Questionnaire) unmarshalJSON(m jsonQuestionnaire) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -295,32 +354,45 @@ func (r *Questionnaire) unmarshalJSON(m jsonQuestionnaire) error {
 	r.ModifierExtension = m.ModifierExtension
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.Identifier = m.Identifier
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Title = m.Title
 	if m.TitlePrimitiveElement != nil {
+		if r.Title == nil {
+			r.Title = &String{}
+		}
 		r.Title.Id = m.TitlePrimitiveElement.Id
 		r.Title.Extension = m.TitlePrimitiveElement.Extension
 	}
 	r.DerivedFrom = m.DerivedFrom
 	for i, e := range m.DerivedFromPrimitiveElement {
-		if len(r.DerivedFrom) > i {
+		if len(r.DerivedFrom) <= i {
+			r.DerivedFrom = append(r.DerivedFrom, Canonical{})
+		}
+		if e != nil {
 			r.DerivedFrom[i].Id = e.Id
 			r.DerivedFrom[i].Extension = e.Extension
-		} else {
-			r.DerivedFrom = append(r.DerivedFrom, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Status = m.Status
@@ -330,31 +402,44 @@ func (r *Questionnaire) unmarshalJSON(m jsonQuestionnaire) error {
 	}
 	r.Experimental = m.Experimental
 	if m.ExperimentalPrimitiveElement != nil {
+		if r.Experimental == nil {
+			r.Experimental = &Boolean{}
+		}
 		r.Experimental.Id = m.ExperimentalPrimitiveElement.Id
 		r.Experimental.Extension = m.ExperimentalPrimitiveElement.Extension
 	}
 	r.SubjectType = m.SubjectType
 	for i, e := range m.SubjectTypePrimitiveElement {
-		if len(r.SubjectType) > i {
+		if len(r.SubjectType) <= i {
+			r.SubjectType = append(r.SubjectType, Code{})
+		}
+		if e != nil {
 			r.SubjectType[i].Id = e.Id
 			r.SubjectType[i].Extension = e.Extension
-		} else {
-			r.SubjectType = append(r.SubjectType, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
 	r.Publisher = m.Publisher
 	if m.PublisherPrimitiveElement != nil {
+		if r.Publisher == nil {
+			r.Publisher = &String{}
+		}
 		r.Publisher.Id = m.PublisherPrimitiveElement.Id
 		r.Publisher.Extension = m.PublisherPrimitiveElement.Extension
 	}
 	r.Contact = m.Contact
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &Markdown{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -362,21 +447,33 @@ func (r *Questionnaire) unmarshalJSON(m jsonQuestionnaire) error {
 	r.Jurisdiction = m.Jurisdiction
 	r.Purpose = m.Purpose
 	if m.PurposePrimitiveElement != nil {
+		if r.Purpose == nil {
+			r.Purpose = &Markdown{}
+		}
 		r.Purpose.Id = m.PurposePrimitiveElement.Id
 		r.Purpose.Extension = m.PurposePrimitiveElement.Extension
 	}
 	r.Copyright = m.Copyright
 	if m.CopyrightPrimitiveElement != nil {
+		if r.Copyright == nil {
+			r.Copyright = &Markdown{}
+		}
 		r.Copyright.Id = m.CopyrightPrimitiveElement.Id
 		r.Copyright.Extension = m.CopyrightPrimitiveElement.Extension
 	}
 	r.ApprovalDate = m.ApprovalDate
 	if m.ApprovalDatePrimitiveElement != nil {
+		if r.ApprovalDate == nil {
+			r.ApprovalDate = &Date{}
+		}
 		r.ApprovalDate.Id = m.ApprovalDatePrimitiveElement.Id
 		r.ApprovalDate.Extension = m.ApprovalDatePrimitiveElement.Extension
 	}
 	r.LastReviewDate = m.LastReviewDate
 	if m.LastReviewDatePrimitiveElement != nil {
+		if r.LastReviewDate == nil {
+			r.LastReviewDate = &Date{}
+		}
 		r.LastReviewDate.Id = m.LastReviewDatePrimitiveElement.Id
 		r.LastReviewDate.Extension = m.LastReviewDatePrimitiveElement.Extension
 	}
@@ -485,49 +582,71 @@ func (r QuestionnaireItem) marshalJSON() jsonQuestionnaireItem {
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.LinkId = r.LinkId
+	if r.LinkId.Value != nil {
+		m.LinkId = r.LinkId
+	}
 	if r.LinkId.Id != nil || r.LinkId.Extension != nil {
 		m.LinkIdPrimitiveElement = &primitiveElement{Id: r.LinkId.Id, Extension: r.LinkId.Extension}
 	}
-	m.Definition = r.Definition
+	if r.Definition != nil && r.Definition.Value != nil {
+		m.Definition = r.Definition
+	}
 	if r.Definition != nil && (r.Definition.Id != nil || r.Definition.Extension != nil) {
 		m.DefinitionPrimitiveElement = &primitiveElement{Id: r.Definition.Id, Extension: r.Definition.Extension}
 	}
 	m.Code = r.Code
-	m.Prefix = r.Prefix
+	if r.Prefix != nil && r.Prefix.Value != nil {
+		m.Prefix = r.Prefix
+	}
 	if r.Prefix != nil && (r.Prefix.Id != nil || r.Prefix.Extension != nil) {
 		m.PrefixPrimitiveElement = &primitiveElement{Id: r.Prefix.Id, Extension: r.Prefix.Extension}
 	}
-	m.Text = r.Text
+	if r.Text != nil && r.Text.Value != nil {
+		m.Text = r.Text
+	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
 		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
 	m.EnableWhen = r.EnableWhen
-	m.EnableBehavior = r.EnableBehavior
+	if r.EnableBehavior != nil && r.EnableBehavior.Value != nil {
+		m.EnableBehavior = r.EnableBehavior
+	}
 	if r.EnableBehavior != nil && (r.EnableBehavior.Id != nil || r.EnableBehavior.Extension != nil) {
 		m.EnableBehaviorPrimitiveElement = &primitiveElement{Id: r.EnableBehavior.Id, Extension: r.EnableBehavior.Extension}
 	}
-	m.Required = r.Required
+	if r.Required != nil && r.Required.Value != nil {
+		m.Required = r.Required
+	}
 	if r.Required != nil && (r.Required.Id != nil || r.Required.Extension != nil) {
 		m.RequiredPrimitiveElement = &primitiveElement{Id: r.Required.Id, Extension: r.Required.Extension}
 	}
-	m.Repeats = r.Repeats
+	if r.Repeats != nil && r.Repeats.Value != nil {
+		m.Repeats = r.Repeats
+	}
 	if r.Repeats != nil && (r.Repeats.Id != nil || r.Repeats.Extension != nil) {
 		m.RepeatsPrimitiveElement = &primitiveElement{Id: r.Repeats.Id, Extension: r.Repeats.Extension}
 	}
-	m.ReadOnly = r.ReadOnly
+	if r.ReadOnly != nil && r.ReadOnly.Value != nil {
+		m.ReadOnly = r.ReadOnly
+	}
 	if r.ReadOnly != nil && (r.ReadOnly.Id != nil || r.ReadOnly.Extension != nil) {
 		m.ReadOnlyPrimitiveElement = &primitiveElement{Id: r.ReadOnly.Id, Extension: r.ReadOnly.Extension}
 	}
-	m.MaxLength = r.MaxLength
+	if r.MaxLength != nil && r.MaxLength.Value != nil {
+		m.MaxLength = r.MaxLength
+	}
 	if r.MaxLength != nil && (r.MaxLength.Id != nil || r.MaxLength.Extension != nil) {
 		m.MaxLengthPrimitiveElement = &primitiveElement{Id: r.MaxLength.Id, Extension: r.MaxLength.Extension}
 	}
-	m.AnswerValueSet = r.AnswerValueSet
+	if r.AnswerValueSet != nil && r.AnswerValueSet.Value != nil {
+		m.AnswerValueSet = r.AnswerValueSet
+	}
 	if r.AnswerValueSet != nil && (r.AnswerValueSet.Id != nil || r.AnswerValueSet.Extension != nil) {
 		m.AnswerValueSetPrimitiveElement = &primitiveElement{Id: r.AnswerValueSet.Id, Extension: r.AnswerValueSet.Extension}
 	}
@@ -554,17 +673,26 @@ func (r *QuestionnaireItem) unmarshalJSON(m jsonQuestionnaireItem) error {
 	}
 	r.Definition = m.Definition
 	if m.DefinitionPrimitiveElement != nil {
+		if r.Definition == nil {
+			r.Definition = &Uri{}
+		}
 		r.Definition.Id = m.DefinitionPrimitiveElement.Id
 		r.Definition.Extension = m.DefinitionPrimitiveElement.Extension
 	}
 	r.Code = m.Code
 	r.Prefix = m.Prefix
 	if m.PrefixPrimitiveElement != nil {
+		if r.Prefix == nil {
+			r.Prefix = &String{}
+		}
 		r.Prefix.Id = m.PrefixPrimitiveElement.Id
 		r.Prefix.Extension = m.PrefixPrimitiveElement.Extension
 	}
 	r.Text = m.Text
 	if m.TextPrimitiveElement != nil {
+		if r.Text == nil {
+			r.Text = &String{}
+		}
 		r.Text.Id = m.TextPrimitiveElement.Id
 		r.Text.Extension = m.TextPrimitiveElement.Extension
 	}
@@ -576,31 +704,49 @@ func (r *QuestionnaireItem) unmarshalJSON(m jsonQuestionnaireItem) error {
 	r.EnableWhen = m.EnableWhen
 	r.EnableBehavior = m.EnableBehavior
 	if m.EnableBehaviorPrimitiveElement != nil {
+		if r.EnableBehavior == nil {
+			r.EnableBehavior = &Code{}
+		}
 		r.EnableBehavior.Id = m.EnableBehaviorPrimitiveElement.Id
 		r.EnableBehavior.Extension = m.EnableBehaviorPrimitiveElement.Extension
 	}
 	r.Required = m.Required
 	if m.RequiredPrimitiveElement != nil {
+		if r.Required == nil {
+			r.Required = &Boolean{}
+		}
 		r.Required.Id = m.RequiredPrimitiveElement.Id
 		r.Required.Extension = m.RequiredPrimitiveElement.Extension
 	}
 	r.Repeats = m.Repeats
 	if m.RepeatsPrimitiveElement != nil {
+		if r.Repeats == nil {
+			r.Repeats = &Boolean{}
+		}
 		r.Repeats.Id = m.RepeatsPrimitiveElement.Id
 		r.Repeats.Extension = m.RepeatsPrimitiveElement.Extension
 	}
 	r.ReadOnly = m.ReadOnly
 	if m.ReadOnlyPrimitiveElement != nil {
+		if r.ReadOnly == nil {
+			r.ReadOnly = &Boolean{}
+		}
 		r.ReadOnly.Id = m.ReadOnlyPrimitiveElement.Id
 		r.ReadOnly.Extension = m.ReadOnlyPrimitiveElement.Extension
 	}
 	r.MaxLength = m.MaxLength
 	if m.MaxLengthPrimitiveElement != nil {
+		if r.MaxLength == nil {
+			r.MaxLength = &Integer{}
+		}
 		r.MaxLength.Id = m.MaxLengthPrimitiveElement.Id
 		r.MaxLength.Extension = m.MaxLengthPrimitiveElement.Extension
 	}
 	r.AnswerValueSet = m.AnswerValueSet
 	if m.AnswerValueSetPrimitiveElement != nil {
+		if r.AnswerValueSet == nil {
+			r.AnswerValueSet = &Canonical{}
+		}
 		r.AnswerValueSet.Id = m.AnswerValueSetPrimitiveElement.Id
 		r.AnswerValueSet.Extension = m.AnswerValueSetPrimitiveElement.Extension
 	}
@@ -684,82 +830,114 @@ func (r QuestionnaireItemEnableWhen) marshalJSON() jsonQuestionnaireItemEnableWh
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Question = r.Question
+	if r.Question.Value != nil {
+		m.Question = r.Question
+	}
 	if r.Question.Id != nil || r.Question.Extension != nil {
 		m.QuestionPrimitiveElement = &primitiveElement{Id: r.Question.Id, Extension: r.Question.Extension}
 	}
-	m.Operator = r.Operator
+	if r.Operator.Value != nil {
+		m.Operator = r.Operator
+	}
 	if r.Operator.Id != nil || r.Operator.Extension != nil {
 		m.OperatorPrimitiveElement = &primitiveElement{Id: r.Operator.Id, Extension: r.Operator.Extension}
 	}
 	switch v := r.Answer.(type) {
 	case Boolean:
-		m.AnswerBoolean = &v
+		if v.Value != nil {
+			m.AnswerBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.AnswerBoolean = v
+		if v.Value != nil {
+			m.AnswerBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Decimal:
-		m.AnswerDecimal = &v
+		if v.Value != nil {
+			m.AnswerDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.AnswerDecimal = v
+		if v.Value != nil {
+			m.AnswerDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.AnswerInteger = &v
+		if v.Value != nil {
+			m.AnswerInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.AnswerInteger = v
+		if v.Value != nil {
+			m.AnswerInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.AnswerDate = &v
+		if v.Value != nil {
+			m.AnswerDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.AnswerDate = v
+		if v.Value != nil {
+			m.AnswerDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.AnswerDateTime = &v
+		if v.Value != nil {
+			m.AnswerDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.AnswerDateTime = v
+		if v.Value != nil {
+			m.AnswerDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.AnswerTime = &v
+		if v.Value != nil {
+			m.AnswerTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.AnswerTime = v
+		if v.Value != nil {
+			m.AnswerTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.AnswerString = &v
+		if v.Value != nil {
+			m.AnswerString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.AnswerString = v
+		if v.Value != nil {
+			m.AnswerString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.AnswerStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -982,42 +1160,58 @@ func (r QuestionnaireItemAnswerOption) marshalJSON() jsonQuestionnaireItemAnswer
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Value.(type) {
 	case Integer:
-		m.ValueInteger = &v
+		if v.Value != nil {
+			m.ValueInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.ValueInteger = v
+		if v.Value != nil {
+			m.ValueInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.ValueDate = &v
+		if v.Value != nil {
+			m.ValueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ValueDate = v
+		if v.Value != nil {
+			m.ValueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.ValueTime = &v
+		if v.Value != nil {
+			m.ValueTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.ValueTime = v
+		if v.Value != nil {
+			m.ValueTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -1030,7 +1224,9 @@ func (r QuestionnaireItemAnswerOption) marshalJSON() jsonQuestionnaireItemAnswer
 	case *Reference:
 		m.ValueReference = v
 	}
-	m.InitialSelected = r.InitialSelected
+	if r.InitialSelected != nil && r.InitialSelected.Value != nil {
+		m.InitialSelected = r.InitialSelected
+	}
 	if r.InitialSelected != nil && (r.InitialSelected.Id != nil || r.InitialSelected.Extension != nil) {
 		m.InitialSelectedPrimitiveElement = &primitiveElement{Id: r.InitialSelected.Id, Extension: r.InitialSelected.Extension}
 	}
@@ -1119,6 +1315,9 @@ func (r *QuestionnaireItemAnswerOption) unmarshalJSON(m jsonQuestionnaireItemAns
 	}
 	r.InitialSelected = m.InitialSelected
 	if m.InitialSelectedPrimitiveElement != nil {
+		if r.InitialSelected == nil {
+			r.InitialSelected = &Boolean{}
+		}
 		r.InitialSelected.Id = m.InitialSelectedPrimitiveElement.Id
 		r.InitialSelected.Extension = m.InitialSelectedPrimitiveElement.Extension
 	}
@@ -1198,82 +1397,114 @@ func (r QuestionnaireItemInitial) marshalJSON() jsonQuestionnaireItemInitial {
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Value.(type) {
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Decimal:
-		m.ValueDecimal = &v
+		if v.Value != nil {
+			m.ValueDecimal = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Decimal:
-		m.ValueDecimal = v
+		if v.Value != nil {
+			m.ValueDecimal = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Integer:
-		m.ValueInteger = &v
+		if v.Value != nil {
+			m.ValueInteger = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Integer:
-		m.ValueInteger = v
+		if v.Value != nil {
+			m.ValueInteger = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Date:
-		m.ValueDate = &v
+		if v.Value != nil {
+			m.ValueDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ValueDate = v
+		if v.Value != nil {
+			m.ValueDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case DateTime:
-		m.ValueDateTime = &v
+		if v.Value != nil {
+			m.ValueDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.ValueDateTime = v
+		if v.Value != nil {
+			m.ValueDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Time:
-		m.ValueTime = &v
+		if v.Value != nil {
+			m.ValueTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Time:
-		m.ValueTime = v
+		if v.Value != nil {
+			m.ValueTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case String:
-		m.ValueString = &v
+		if v.Value != nil {
+			m.ValueString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ValueString = v
+		if v.Value != nil {
+			m.ValueString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case Uri:
-		m.ValueUri = &v
+		if v.Value != nil {
+			m.ValueUri = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Uri:
-		m.ValueUri = v
+		if v.Value != nil {
+			m.ValueUri = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

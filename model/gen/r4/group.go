@@ -97,16 +97,22 @@ func (r Group) MarshalJSON() ([]byte, error) {
 func (r Group) marshalJSON() jsonGroup {
 	m := jsonGroup{}
 	m.ResourceType = "Group"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -118,24 +124,34 @@ func (r Group) marshalJSON() jsonGroup {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Active = r.Active
+	if r.Active != nil && r.Active.Value != nil {
+		m.Active = r.Active
+	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
 		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Actual = r.Actual
+	if r.Actual.Value != nil {
+		m.Actual = r.Actual
+	}
 	if r.Actual.Id != nil || r.Actual.Extension != nil {
 		m.ActualPrimitiveElement = &primitiveElement{Id: r.Actual.Id, Extension: r.Actual.Extension}
 	}
 	m.Code = r.Code
-	m.Name = r.Name
+	if r.Name != nil && r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Quantity = r.Quantity
+	if r.Quantity != nil && r.Quantity.Value != nil {
+		m.Quantity = r.Quantity
+	}
 	if r.Quantity != nil && (r.Quantity.Id != nil || r.Quantity.Extension != nil) {
 		m.QuantityPrimitiveElement = &primitiveElement{Id: r.Quantity.Id, Extension: r.Quantity.Extension}
 	}
@@ -154,17 +170,26 @@ func (r *Group) UnmarshalJSON(b []byte) error {
 func (r *Group) unmarshalJSON(m jsonGroup) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -178,6 +203,9 @@ func (r *Group) unmarshalJSON(m jsonGroup) error {
 	r.Identifier = m.Identifier
 	r.Active = m.Active
 	if m.ActivePrimitiveElement != nil {
+		if r.Active == nil {
+			r.Active = &Boolean{}
+		}
 		r.Active.Id = m.ActivePrimitiveElement.Id
 		r.Active.Extension = m.ActivePrimitiveElement.Extension
 	}
@@ -194,11 +222,17 @@ func (r *Group) unmarshalJSON(m jsonGroup) error {
 	r.Code = m.Code
 	r.Name = m.Name
 	if m.NamePrimitiveElement != nil {
+		if r.Name == nil {
+			r.Name = &String{}
+		}
 		r.Name.Id = m.NamePrimitiveElement.Id
 		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
 	r.Quantity = m.Quantity
 	if m.QuantityPrimitiveElement != nil {
+		if r.Quantity == nil {
+			r.Quantity = &UnsignedInt{}
+		}
 		r.Quantity.Id = m.QuantityPrimitiveElement.Id
 		r.Quantity.Extension = m.QuantityPrimitiveElement.Extension
 	}
@@ -275,12 +309,16 @@ func (r GroupCharacteristic) marshalJSON() jsonGroupCharacteristic {
 	case *CodeableConcept:
 		m.ValueCodeableConcept = v
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -297,7 +335,9 @@ func (r GroupCharacteristic) marshalJSON() jsonGroupCharacteristic {
 	case *Reference:
 		m.ValueReference = v
 	}
-	m.Exclude = r.Exclude
+	if r.Exclude.Value != nil {
+		m.Exclude = r.Exclude
+	}
 	if r.Exclude.Id != nil || r.Exclude.Extension != nil {
 		m.ExcludePrimitiveElement = &primitiveElement{Id: r.Exclude.Id, Extension: r.Exclude.Extension}
 	}
@@ -411,7 +451,9 @@ func (r GroupMember) marshalJSON() jsonGroupMember {
 	m.ModifierExtension = r.ModifierExtension
 	m.Entity = r.Entity
 	m.Period = r.Period
-	m.Inactive = r.Inactive
+	if r.Inactive != nil && r.Inactive.Value != nil {
+		m.Inactive = r.Inactive
+	}
 	if r.Inactive != nil && (r.Inactive.Id != nil || r.Inactive.Extension != nil) {
 		m.InactivePrimitiveElement = &primitiveElement{Id: r.Inactive.Id, Extension: r.Inactive.Extension}
 	}
@@ -432,6 +474,9 @@ func (r *GroupMember) unmarshalJSON(m jsonGroupMember) error {
 	r.Period = m.Period
 	r.Inactive = m.Inactive
 	if m.InactivePrimitiveElement != nil {
+		if r.Inactive == nil {
+			r.Inactive = &Boolean{}
+		}
 		r.Inactive.Id = m.InactivePrimitiveElement.Id
 		r.Inactive.Extension = m.InactivePrimitiveElement.Extension
 	}

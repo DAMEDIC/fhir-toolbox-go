@@ -116,16 +116,22 @@ func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
 func (r CoverageEligibilityRequest) marshalJSON() jsonCoverageEligibilityRequest {
 	m := jsonCoverageEligibilityRequest{}
 	m.ResourceType = "CoverageEligibilityRequest"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -137,12 +143,23 @@ func (r CoverageEligibilityRequest) marshalJSON() jsonCoverageEligibilityRequest
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.Priority = r.Priority
-	m.Purpose = r.Purpose
+	anyPurposeValue := false
+	for _, e := range r.Purpose {
+		if e.Value != nil {
+			anyPurposeValue = true
+			break
+		}
+	}
+	if anyPurposeValue {
+		m.Purpose = r.Purpose
+	}
 	anyPurposeIdOrExtension := false
 	for _, e := range r.Purpose {
 		if e.Id != nil || e.Extension != nil {
@@ -163,12 +180,16 @@ func (r CoverageEligibilityRequest) marshalJSON() jsonCoverageEligibilityRequest
 	m.Patient = r.Patient
 	switch v := r.Serviced.(type) {
 	case Date:
-		m.ServicedDate = &v
+		if v.Value != nil {
+			m.ServicedDate = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Date:
-		m.ServicedDate = v
+		if v.Value != nil {
+			m.ServicedDate = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -177,7 +198,9 @@ func (r CoverageEligibilityRequest) marshalJSON() jsonCoverageEligibilityRequest
 	case *Period:
 		m.ServicedPeriod = v
 	}
-	m.Created = r.Created
+	if r.Created.Value != nil {
+		m.Created = r.Created
+	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
 		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
 	}
@@ -200,17 +223,26 @@ func (r *CoverageEligibilityRequest) UnmarshalJSON(b []byte) error {
 func (r *CoverageEligibilityRequest) unmarshalJSON(m jsonCoverageEligibilityRequest) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -230,11 +262,12 @@ func (r *CoverageEligibilityRequest) unmarshalJSON(m jsonCoverageEligibilityRequ
 	r.Priority = m.Priority
 	r.Purpose = m.Purpose
 	for i, e := range m.PurposePrimitiveElement {
-		if len(r.Purpose) > i {
+		if len(r.Purpose) <= i {
+			r.Purpose = append(r.Purpose, Code{})
+		}
+		if e != nil {
 			r.Purpose[i].Id = e.Id
 			r.Purpose[i].Extension = e.Extension
-		} else {
-			r.Purpose = append(r.Purpose, Code{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Patient = m.Patient
@@ -317,12 +350,16 @@ func (r CoverageEligibilityRequestSupportingInfo) marshalJSON() jsonCoverageElig
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Sequence = r.Sequence
+	if r.Sequence.Value != nil {
+		m.Sequence = r.Sequence
+	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
 		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
 	}
 	m.Information = r.Information
-	m.AppliesToAll = r.AppliesToAll
+	if r.AppliesToAll != nil && r.AppliesToAll.Value != nil {
+		m.AppliesToAll = r.AppliesToAll
+	}
 	if r.AppliesToAll != nil && (r.AppliesToAll.Id != nil || r.AppliesToAll.Extension != nil) {
 		m.AppliesToAllPrimitiveElement = &primitiveElement{Id: r.AppliesToAll.Id, Extension: r.AppliesToAll.Extension}
 	}
@@ -347,6 +384,9 @@ func (r *CoverageEligibilityRequestSupportingInfo) unmarshalJSON(m jsonCoverageE
 	r.Information = m.Information
 	r.AppliesToAll = m.AppliesToAll
 	if m.AppliesToAllPrimitiveElement != nil {
+		if r.AppliesToAll == nil {
+			r.AppliesToAll = &Boolean{}
+		}
 		r.AppliesToAll.Id = m.AppliesToAllPrimitiveElement.Id
 		r.AppliesToAll.Extension = m.AppliesToAllPrimitiveElement.Extension
 	}
@@ -396,12 +436,16 @@ func (r CoverageEligibilityRequestInsurance) marshalJSON() jsonCoverageEligibili
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Focal = r.Focal
+	if r.Focal != nil && r.Focal.Value != nil {
+		m.Focal = r.Focal
+	}
 	if r.Focal != nil && (r.Focal.Id != nil || r.Focal.Extension != nil) {
 		m.FocalPrimitiveElement = &primitiveElement{Id: r.Focal.Id, Extension: r.Focal.Extension}
 	}
 	m.Coverage = r.Coverage
-	m.BusinessArrangement = r.BusinessArrangement
+	if r.BusinessArrangement != nil && r.BusinessArrangement.Value != nil {
+		m.BusinessArrangement = r.BusinessArrangement
+	}
 	if r.BusinessArrangement != nil && (r.BusinessArrangement.Id != nil || r.BusinessArrangement.Extension != nil) {
 		m.BusinessArrangementPrimitiveElement = &primitiveElement{Id: r.BusinessArrangement.Id, Extension: r.BusinessArrangement.Extension}
 	}
@@ -420,12 +464,18 @@ func (r *CoverageEligibilityRequestInsurance) unmarshalJSON(m jsonCoverageEligib
 	r.ModifierExtension = m.ModifierExtension
 	r.Focal = m.Focal
 	if m.FocalPrimitiveElement != nil {
+		if r.Focal == nil {
+			r.Focal = &Boolean{}
+		}
 		r.Focal.Id = m.FocalPrimitiveElement.Id
 		r.Focal.Extension = m.FocalPrimitiveElement.Extension
 	}
 	r.Coverage = m.Coverage
 	r.BusinessArrangement = m.BusinessArrangement
 	if m.BusinessArrangementPrimitiveElement != nil {
+		if r.BusinessArrangement == nil {
+			r.BusinessArrangement = &String{}
+		}
 		r.BusinessArrangement.Id = m.BusinessArrangementPrimitiveElement.Id
 		r.BusinessArrangement.Extension = m.BusinessArrangementPrimitiveElement.Extension
 	}
@@ -495,7 +545,16 @@ func (r CoverageEligibilityRequestItem) marshalJSON() jsonCoverageEligibilityReq
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.SupportingInfoSequence = r.SupportingInfoSequence
+	anySupportingInfoSequenceValue := false
+	for _, e := range r.SupportingInfoSequence {
+		if e.Value != nil {
+			anySupportingInfoSequenceValue = true
+			break
+		}
+	}
+	if anySupportingInfoSequenceValue {
+		m.SupportingInfoSequence = r.SupportingInfoSequence
+	}
 	anySupportingInfoSequenceIdOrExtension := false
 	for _, e := range r.SupportingInfoSequence {
 		if e.Id != nil || e.Extension != nil {
@@ -537,11 +596,12 @@ func (r *CoverageEligibilityRequestItem) unmarshalJSON(m jsonCoverageEligibility
 	r.ModifierExtension = m.ModifierExtension
 	r.SupportingInfoSequence = m.SupportingInfoSequence
 	for i, e := range m.SupportingInfoSequencePrimitiveElement {
-		if len(r.SupportingInfoSequence) > i {
+		if len(r.SupportingInfoSequence) <= i {
+			r.SupportingInfoSequence = append(r.SupportingInfoSequence, PositiveInt{})
+		}
+		if e != nil {
 			r.SupportingInfoSequence[i].Id = e.Id
 			r.SupportingInfoSequence[i].Extension = e.Extension
-		} else {
-			r.SupportingInfoSequence = append(r.SupportingInfoSequence, PositiveInt{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Category = m.Category

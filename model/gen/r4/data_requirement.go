@@ -62,11 +62,22 @@ func (r DataRequirement) marshalJSON() jsonDataRequirement {
 	m := jsonDataRequirement{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
-	m.Profile = r.Profile
+	anyProfileValue := false
+	for _, e := range r.Profile {
+		if e.Value != nil {
+			anyProfileValue = true
+			break
+		}
+	}
+	if anyProfileValue {
+		m.Profile = r.Profile
+	}
 	anyProfileIdOrExtension := false
 	for _, e := range r.Profile {
 		if e.Id != nil || e.Extension != nil {
@@ -94,7 +105,16 @@ func (r DataRequirement) marshalJSON() jsonDataRequirement {
 	case *Reference:
 		m.SubjectReference = v
 	}
-	m.MustSupport = r.MustSupport
+	anyMustSupportValue := false
+	for _, e := range r.MustSupport {
+		if e.Value != nil {
+			anyMustSupportValue = true
+			break
+		}
+	}
+	if anyMustSupportValue {
+		m.MustSupport = r.MustSupport
+	}
 	anyMustSupportIdOrExtension := false
 	for _, e := range r.MustSupport {
 		if e.Id != nil || e.Extension != nil {
@@ -114,7 +134,9 @@ func (r DataRequirement) marshalJSON() jsonDataRequirement {
 	}
 	m.CodeFilter = r.CodeFilter
 	m.DateFilter = r.DateFilter
-	m.Limit = r.Limit
+	if r.Limit != nil && r.Limit.Value != nil {
+		m.Limit = r.Limit
+	}
 	if r.Limit != nil && (r.Limit.Id != nil || r.Limit.Extension != nil) {
 		m.LimitPrimitiveElement = &primitiveElement{Id: r.Limit.Id, Extension: r.Limit.Extension}
 	}
@@ -138,11 +160,12 @@ func (r *DataRequirement) unmarshalJSON(m jsonDataRequirement) error {
 	}
 	r.Profile = m.Profile
 	for i, e := range m.ProfilePrimitiveElement {
-		if len(r.Profile) > i {
+		if len(r.Profile) <= i {
+			r.Profile = append(r.Profile, Canonical{})
+		}
+		if e != nil {
 			r.Profile[i].Id = e.Id
 			r.Profile[i].Extension = e.Extension
-		} else {
-			r.Profile = append(r.Profile, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	if m.SubjectCodeableConcept != nil {
@@ -161,17 +184,21 @@ func (r *DataRequirement) unmarshalJSON(m jsonDataRequirement) error {
 	}
 	r.MustSupport = m.MustSupport
 	for i, e := range m.MustSupportPrimitiveElement {
-		if len(r.MustSupport) > i {
+		if len(r.MustSupport) <= i {
+			r.MustSupport = append(r.MustSupport, String{})
+		}
+		if e != nil {
 			r.MustSupport[i].Id = e.Id
 			r.MustSupport[i].Extension = e.Extension
-		} else {
-			r.MustSupport = append(r.MustSupport, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.CodeFilter = m.CodeFilter
 	r.DateFilter = m.DateFilter
 	r.Limit = m.Limit
 	if m.LimitPrimitiveElement != nil {
+		if r.Limit == nil {
+			r.Limit = &PositiveInt{}
+		}
 		r.Limit.Id = m.LimitPrimitiveElement.Id
 		r.Limit.Extension = m.LimitPrimitiveElement.Extension
 	}
@@ -220,15 +247,21 @@ func (r DataRequirementCodeFilter) marshalJSON() jsonDataRequirementCodeFilter {
 	m := jsonDataRequirementCodeFilter{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Path = r.Path
+	if r.Path != nil && r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path != nil && (r.Path.Id != nil || r.Path.Extension != nil) {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.SearchParam = r.SearchParam
+	if r.SearchParam != nil && r.SearchParam.Value != nil {
+		m.SearchParam = r.SearchParam
+	}
 	if r.SearchParam != nil && (r.SearchParam.Id != nil || r.SearchParam.Extension != nil) {
 		m.SearchParamPrimitiveElement = &primitiveElement{Id: r.SearchParam.Id, Extension: r.SearchParam.Extension}
 	}
-	m.ValueSet = r.ValueSet
+	if r.ValueSet != nil && r.ValueSet.Value != nil {
+		m.ValueSet = r.ValueSet
+	}
 	if r.ValueSet != nil && (r.ValueSet.Id != nil || r.ValueSet.Extension != nil) {
 		m.ValueSetPrimitiveElement = &primitiveElement{Id: r.ValueSet.Id, Extension: r.ValueSet.Extension}
 	}
@@ -247,16 +280,25 @@ func (r *DataRequirementCodeFilter) unmarshalJSON(m jsonDataRequirementCodeFilte
 	r.Extension = m.Extension
 	r.Path = m.Path
 	if m.PathPrimitiveElement != nil {
+		if r.Path == nil {
+			r.Path = &String{}
+		}
 		r.Path.Id = m.PathPrimitiveElement.Id
 		r.Path.Extension = m.PathPrimitiveElement.Extension
 	}
 	r.SearchParam = m.SearchParam
 	if m.SearchParamPrimitiveElement != nil {
+		if r.SearchParam == nil {
+			r.SearchParam = &String{}
+		}
 		r.SearchParam.Id = m.SearchParamPrimitiveElement.Id
 		r.SearchParam.Extension = m.SearchParamPrimitiveElement.Extension
 	}
 	r.ValueSet = m.ValueSet
 	if m.ValueSetPrimitiveElement != nil {
+		if r.ValueSet == nil {
+			r.ValueSet = &Canonical{}
+		}
 		r.ValueSet.Id = m.ValueSetPrimitiveElement.Id
 		r.ValueSet.Extension = m.ValueSetPrimitiveElement.Extension
 	}
@@ -312,22 +354,30 @@ func (r DataRequirementDateFilter) marshalJSON() jsonDataRequirementDateFilter {
 	m := jsonDataRequirementDateFilter{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Path = r.Path
+	if r.Path != nil && r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path != nil && (r.Path.Id != nil || r.Path.Extension != nil) {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.SearchParam = r.SearchParam
+	if r.SearchParam != nil && r.SearchParam.Value != nil {
+		m.SearchParam = r.SearchParam
+	}
 	if r.SearchParam != nil && (r.SearchParam.Id != nil || r.SearchParam.Extension != nil) {
 		m.SearchParamPrimitiveElement = &primitiveElement{Id: r.SearchParam.Id, Extension: r.SearchParam.Extension}
 	}
 	switch v := r.Value.(type) {
 	case DateTime:
-		m.ValueDateTime = &v
+		if v.Value != nil {
+			m.ValueDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.ValueDateTime = v
+		if v.Value != nil {
+			m.ValueDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -354,11 +404,17 @@ func (r *DataRequirementDateFilter) unmarshalJSON(m jsonDataRequirementDateFilte
 	r.Extension = m.Extension
 	r.Path = m.Path
 	if m.PathPrimitiveElement != nil {
+		if r.Path == nil {
+			r.Path = &String{}
+		}
 		r.Path.Id = m.PathPrimitiveElement.Id
 		r.Path.Extension = m.PathPrimitiveElement.Extension
 	}
 	r.SearchParam = m.SearchParam
 	if m.SearchParamPrimitiveElement != nil {
+		if r.SearchParam == nil {
+			r.SearchParam = &String{}
+		}
 		r.SearchParam.Id = m.SearchParamPrimitiveElement.Id
 		r.SearchParam.Extension = m.SearchParamPrimitiveElement.Extension
 	}
@@ -427,11 +483,15 @@ func (r DataRequirementSort) marshalJSON() jsonDataRequirementSort {
 	m := jsonDataRequirementSort{}
 	m.Id = r.Id
 	m.Extension = r.Extension
-	m.Path = r.Path
+	if r.Path.Value != nil {
+		m.Path = r.Path
+	}
 	if r.Path.Id != nil || r.Path.Extension != nil {
 		m.PathPrimitiveElement = &primitiveElement{Id: r.Path.Id, Extension: r.Path.Extension}
 	}
-	m.Direction = r.Direction
+	if r.Direction.Value != nil {
+		m.Direction = r.Direction
+	}
 	if r.Direction.Id != nil || r.Direction.Extension != nil {
 		m.DirectionPrimitiveElement = &primitiveElement{Id: r.Direction.Id, Extension: r.Direction.Extension}
 	}

@@ -141,16 +141,22 @@ func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 func (r DeviceDefinition) marshalJSON() jsonDeviceDefinition {
 	m := jsonDeviceDefinition{}
 	m.ResourceType = "DeviceDefinition"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -165,12 +171,16 @@ func (r DeviceDefinition) marshalJSON() jsonDeviceDefinition {
 	m.UdiDeviceIdentifier = r.UdiDeviceIdentifier
 	switch v := r.Manufacturer.(type) {
 	case String:
-		m.ManufacturerString = &v
+		if v.Value != nil {
+			m.ManufacturerString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ManufacturerStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ManufacturerString = v
+		if v.Value != nil {
+			m.ManufacturerString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ManufacturerStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -180,13 +190,24 @@ func (r DeviceDefinition) marshalJSON() jsonDeviceDefinition {
 		m.ManufacturerReference = v
 	}
 	m.DeviceName = r.DeviceName
-	m.ModelNumber = r.ModelNumber
+	if r.ModelNumber != nil && r.ModelNumber.Value != nil {
+		m.ModelNumber = r.ModelNumber
+	}
 	if r.ModelNumber != nil && (r.ModelNumber.Id != nil || r.ModelNumber.Extension != nil) {
 		m.ModelNumberPrimitiveElement = &primitiveElement{Id: r.ModelNumber.Id, Extension: r.ModelNumber.Extension}
 	}
 	m.Type = r.Type
 	m.Specialization = r.Specialization
-	m.Version = r.Version
+	anyVersionValue := false
+	for _, e := range r.Version {
+		if e.Value != nil {
+			anyVersionValue = true
+			break
+		}
+	}
+	if anyVersionValue {
+		m.Version = r.Version
+	}
 	anyVersionIdOrExtension := false
 	for _, e := range r.Version {
 		if e.Id != nil || e.Extension != nil {
@@ -212,11 +233,15 @@ func (r DeviceDefinition) marshalJSON() jsonDeviceDefinition {
 	m.Property = r.Property
 	m.Owner = r.Owner
 	m.Contact = r.Contact
-	m.Url = r.Url
+	if r.Url != nil && r.Url.Value != nil {
+		m.Url = r.Url
+	}
 	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
 		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
 	}
-	m.OnlineInformation = r.OnlineInformation
+	if r.OnlineInformation != nil && r.OnlineInformation.Value != nil {
+		m.OnlineInformation = r.OnlineInformation
+	}
 	if r.OnlineInformation != nil && (r.OnlineInformation.Id != nil || r.OnlineInformation.Extension != nil) {
 		m.OnlineInformationPrimitiveElement = &primitiveElement{Id: r.OnlineInformation.Id, Extension: r.OnlineInformation.Extension}
 	}
@@ -236,17 +261,26 @@ func (r *DeviceDefinition) UnmarshalJSON(b []byte) error {
 func (r *DeviceDefinition) unmarshalJSON(m jsonDeviceDefinition) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -283,6 +317,9 @@ func (r *DeviceDefinition) unmarshalJSON(m jsonDeviceDefinition) error {
 	r.DeviceName = m.DeviceName
 	r.ModelNumber = m.ModelNumber
 	if m.ModelNumberPrimitiveElement != nil {
+		if r.ModelNumber == nil {
+			r.ModelNumber = &String{}
+		}
 		r.ModelNumber.Id = m.ModelNumberPrimitiveElement.Id
 		r.ModelNumber.Extension = m.ModelNumberPrimitiveElement.Extension
 	}
@@ -290,11 +327,12 @@ func (r *DeviceDefinition) unmarshalJSON(m jsonDeviceDefinition) error {
 	r.Specialization = m.Specialization
 	r.Version = m.Version
 	for i, e := range m.VersionPrimitiveElement {
-		if len(r.Version) > i {
+		if len(r.Version) <= i {
+			r.Version = append(r.Version, String{})
+		}
+		if e != nil {
 			r.Version[i].Id = e.Id
 			r.Version[i].Extension = e.Extension
-		} else {
-			r.Version = append(r.Version, String{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Safety = m.Safety
@@ -307,11 +345,17 @@ func (r *DeviceDefinition) unmarshalJSON(m jsonDeviceDefinition) error {
 	r.Contact = m.Contact
 	r.Url = m.Url
 	if m.UrlPrimitiveElement != nil {
+		if r.Url == nil {
+			r.Url = &Uri{}
+		}
 		r.Url.Id = m.UrlPrimitiveElement.Id
 		r.Url.Extension = m.UrlPrimitiveElement.Extension
 	}
 	r.OnlineInformation = m.OnlineInformation
 	if m.OnlineInformationPrimitiveElement != nil {
+		if r.OnlineInformation == nil {
+			r.OnlineInformation = &Uri{}
+		}
 		r.OnlineInformation.Id = m.OnlineInformationPrimitiveElement.Id
 		r.OnlineInformation.Extension = m.OnlineInformationPrimitiveElement.Extension
 	}
@@ -366,15 +410,21 @@ func (r DeviceDefinitionUdiDeviceIdentifier) marshalJSON() jsonDeviceDefinitionU
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.DeviceIdentifier = r.DeviceIdentifier
+	if r.DeviceIdentifier.Value != nil {
+		m.DeviceIdentifier = r.DeviceIdentifier
+	}
 	if r.DeviceIdentifier.Id != nil || r.DeviceIdentifier.Extension != nil {
 		m.DeviceIdentifierPrimitiveElement = &primitiveElement{Id: r.DeviceIdentifier.Id, Extension: r.DeviceIdentifier.Extension}
 	}
-	m.Issuer = r.Issuer
+	if r.Issuer.Value != nil {
+		m.Issuer = r.Issuer
+	}
 	if r.Issuer.Id != nil || r.Issuer.Extension != nil {
 		m.IssuerPrimitiveElement = &primitiveElement{Id: r.Issuer.Id, Extension: r.Issuer.Extension}
 	}
-	m.Jurisdiction = r.Jurisdiction
+	if r.Jurisdiction.Value != nil {
+		m.Jurisdiction = r.Jurisdiction
+	}
 	if r.Jurisdiction.Id != nil || r.Jurisdiction.Extension != nil {
 		m.JurisdictionPrimitiveElement = &primitiveElement{Id: r.Jurisdiction.Id, Extension: r.Jurisdiction.Extension}
 	}
@@ -450,11 +500,15 @@ func (r DeviceDefinitionDeviceName) marshalJSON() jsonDeviceDefinitionDeviceName
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.Name = r.Name
+	if r.Name.Value != nil {
+		m.Name = r.Name
+	}
 	if r.Name.Id != nil || r.Name.Extension != nil {
 		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
 	}
-	m.Type = r.Type
+	if r.Type.Value != nil {
+		m.Type = r.Type
+	}
 	if r.Type.Id != nil || r.Type.Extension != nil {
 		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
 	}
@@ -524,11 +578,15 @@ func (r DeviceDefinitionSpecialization) marshalJSON() jsonDeviceDefinitionSpecia
 	m.Id = r.Id
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
-	m.SystemType = r.SystemType
+	if r.SystemType.Value != nil {
+		m.SystemType = r.SystemType
+	}
 	if r.SystemType.Id != nil || r.SystemType.Extension != nil {
 		m.SystemTypePrimitiveElement = &primitiveElement{Id: r.SystemType.Id, Extension: r.SystemType.Extension}
 	}
-	m.Version = r.Version
+	if r.Version != nil && r.Version.Value != nil {
+		m.Version = r.Version
+	}
 	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
 		m.VersionPrimitiveElement = &primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
 	}
@@ -552,6 +610,9 @@ func (r *DeviceDefinitionSpecialization) unmarshalJSON(m jsonDeviceDefinitionSpe
 	}
 	r.Version = m.Version
 	if m.VersionPrimitiveElement != nil {
+		if r.Version == nil {
+			r.Version = &String{}
+		}
 		r.Version.Id = m.VersionPrimitiveElement.Id
 		r.Version.Extension = m.VersionPrimitiveElement.Extension
 	}
@@ -723,11 +784,15 @@ func (r DeviceDefinitionMaterial) marshalJSON() jsonDeviceDefinitionMaterial {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Substance = r.Substance
-	m.Alternate = r.Alternate
+	if r.Alternate != nil && r.Alternate.Value != nil {
+		m.Alternate = r.Alternate
+	}
 	if r.Alternate != nil && (r.Alternate.Id != nil || r.Alternate.Extension != nil) {
 		m.AlternatePrimitiveElement = &primitiveElement{Id: r.Alternate.Id, Extension: r.Alternate.Extension}
 	}
-	m.AllergenicIndicator = r.AllergenicIndicator
+	if r.AllergenicIndicator != nil && r.AllergenicIndicator.Value != nil {
+		m.AllergenicIndicator = r.AllergenicIndicator
+	}
 	if r.AllergenicIndicator != nil && (r.AllergenicIndicator.Id != nil || r.AllergenicIndicator.Extension != nil) {
 		m.AllergenicIndicatorPrimitiveElement = &primitiveElement{Id: r.AllergenicIndicator.Id, Extension: r.AllergenicIndicator.Extension}
 	}
@@ -747,11 +812,17 @@ func (r *DeviceDefinitionMaterial) unmarshalJSON(m jsonDeviceDefinitionMaterial)
 	r.Substance = m.Substance
 	r.Alternate = m.Alternate
 	if m.AlternatePrimitiveElement != nil {
+		if r.Alternate == nil {
+			r.Alternate = &Boolean{}
+		}
 		r.Alternate.Id = m.AlternatePrimitiveElement.Id
 		r.Alternate.Extension = m.AlternatePrimitiveElement.Extension
 	}
 	r.AllergenicIndicator = m.AllergenicIndicator
 	if m.AllergenicIndicatorPrimitiveElement != nil {
+		if r.AllergenicIndicator == nil {
+			r.AllergenicIndicator = &Boolean{}
+		}
 		r.AllergenicIndicator.Id = m.AllergenicIndicatorPrimitiveElement.Id
 		r.AllergenicIndicator.Extension = m.AllergenicIndicatorPrimitiveElement.Extension
 	}

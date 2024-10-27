@@ -136,16 +136,22 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 	m := jsonClinicalImpression{}
 	m.ResourceType = "ClinicalImpression"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -157,13 +163,17 @@ func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.StatusReason = r.StatusReason
 	m.Code = r.Code
-	m.Description = r.Description
+	if r.Description != nil && r.Description.Value != nil {
+		m.Description = r.Description
+	}
 	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
 		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
 	}
@@ -171,12 +181,16 @@ func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 	m.Encounter = r.Encounter
 	switch v := r.Effective.(type) {
 	case DateTime:
-		m.EffectiveDateTime = &v
+		if v.Value != nil {
+			m.EffectiveDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.EffectiveDateTime = v
+		if v.Value != nil {
+			m.EffectiveDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.EffectiveDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -185,7 +199,9 @@ func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 	case *Period:
 		m.EffectivePeriod = v
 	}
-	m.Date = r.Date
+	if r.Date != nil && r.Date.Value != nil {
+		m.Date = r.Date
+	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
 		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
 	}
@@ -193,7 +209,16 @@ func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 	m.Previous = r.Previous
 	m.Problem = r.Problem
 	m.Investigation = r.Investigation
-	m.Protocol = r.Protocol
+	anyProtocolValue := false
+	for _, e := range r.Protocol {
+		if e.Value != nil {
+			anyProtocolValue = true
+			break
+		}
+	}
+	if anyProtocolValue {
+		m.Protocol = r.Protocol
+	}
 	anyProtocolIdOrExtension := false
 	for _, e := range r.Protocol {
 		if e.Id != nil || e.Extension != nil {
@@ -211,7 +236,9 @@ func (r ClinicalImpression) marshalJSON() jsonClinicalImpression {
 			}
 		}
 	}
-	m.Summary = r.Summary
+	if r.Summary != nil && r.Summary.Value != nil {
+		m.Summary = r.Summary
+	}
 	if r.Summary != nil && (r.Summary.Id != nil || r.Summary.Extension != nil) {
 		m.SummaryPrimitiveElement = &primitiveElement{Id: r.Summary.Id, Extension: r.Summary.Extension}
 	}
@@ -232,17 +259,26 @@ func (r *ClinicalImpression) UnmarshalJSON(b []byte) error {
 func (r *ClinicalImpression) unmarshalJSON(m jsonClinicalImpression) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -263,6 +299,9 @@ func (r *ClinicalImpression) unmarshalJSON(m jsonClinicalImpression) error {
 	r.Code = m.Code
 	r.Description = m.Description
 	if m.DescriptionPrimitiveElement != nil {
+		if r.Description == nil {
+			r.Description = &String{}
+		}
 		r.Description.Id = m.DescriptionPrimitiveElement.Id
 		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
 	}
@@ -291,6 +330,9 @@ func (r *ClinicalImpression) unmarshalJSON(m jsonClinicalImpression) error {
 	}
 	r.Date = m.Date
 	if m.DatePrimitiveElement != nil {
+		if r.Date == nil {
+			r.Date = &DateTime{}
+		}
 		r.Date.Id = m.DatePrimitiveElement.Id
 		r.Date.Extension = m.DatePrimitiveElement.Extension
 	}
@@ -300,15 +342,19 @@ func (r *ClinicalImpression) unmarshalJSON(m jsonClinicalImpression) error {
 	r.Investigation = m.Investigation
 	r.Protocol = m.Protocol
 	for i, e := range m.ProtocolPrimitiveElement {
-		if len(r.Protocol) > i {
+		if len(r.Protocol) <= i {
+			r.Protocol = append(r.Protocol, Uri{})
+		}
+		if e != nil {
 			r.Protocol[i].Id = e.Id
 			r.Protocol[i].Extension = e.Extension
-		} else {
-			r.Protocol = append(r.Protocol, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.Summary = m.Summary
 	if m.SummaryPrimitiveElement != nil {
+		if r.Summary == nil {
+			r.Summary = &String{}
+		}
 		r.Summary.Id = m.SummaryPrimitiveElement.Id
 		r.Summary.Extension = m.SummaryPrimitiveElement.Extension
 	}
@@ -422,7 +468,9 @@ func (r ClinicalImpressionFinding) marshalJSON() jsonClinicalImpressionFinding {
 	m.ModifierExtension = r.ModifierExtension
 	m.ItemCodeableConcept = r.ItemCodeableConcept
 	m.ItemReference = r.ItemReference
-	m.Basis = r.Basis
+	if r.Basis != nil && r.Basis.Value != nil {
+		m.Basis = r.Basis
+	}
 	if r.Basis != nil && (r.Basis.Id != nil || r.Basis.Extension != nil) {
 		m.BasisPrimitiveElement = &primitiveElement{Id: r.Basis.Id, Extension: r.Basis.Extension}
 	}
@@ -443,6 +491,9 @@ func (r *ClinicalImpressionFinding) unmarshalJSON(m jsonClinicalImpressionFindin
 	r.ItemReference = m.ItemReference
 	r.Basis = m.Basis
 	if m.BasisPrimitiveElement != nil {
+		if r.Basis == nil {
+			r.Basis = &String{}
+		}
 		r.Basis.Id = m.BasisPrimitiveElement.Id
 		r.Basis.Extension = m.BasisPrimitiveElement.Extension
 	}

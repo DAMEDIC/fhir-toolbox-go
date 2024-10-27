@@ -89,16 +89,22 @@ func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 func (r AppointmentResponse) marshalJSON() jsonAppointmentResponse {
 	m := jsonAppointmentResponse{}
 	m.ResourceType = "AppointmentResponse"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -111,21 +117,29 @@ func (r AppointmentResponse) marshalJSON() jsonAppointmentResponse {
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
 	m.Appointment = r.Appointment
-	m.Start = r.Start
+	if r.Start != nil && r.Start.Value != nil {
+		m.Start = r.Start
+	}
 	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
 		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
 	}
-	m.End = r.End
+	if r.End != nil && r.End.Value != nil {
+		m.End = r.End
+	}
 	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
 		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
 	}
 	m.ParticipantType = r.ParticipantType
 	m.Actor = r.Actor
-	m.ParticipantStatus = r.ParticipantStatus
+	if r.ParticipantStatus.Value != nil {
+		m.ParticipantStatus = r.ParticipantStatus
+	}
 	if r.ParticipantStatus.Id != nil || r.ParticipantStatus.Extension != nil {
 		m.ParticipantStatusPrimitiveElement = &primitiveElement{Id: r.ParticipantStatus.Id, Extension: r.ParticipantStatus.Extension}
 	}
-	m.Comment = r.Comment
+	if r.Comment != nil && r.Comment.Value != nil {
+		m.Comment = r.Comment
+	}
 	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
 		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
 	}
@@ -141,17 +155,26 @@ func (r *AppointmentResponse) UnmarshalJSON(b []byte) error {
 func (r *AppointmentResponse) unmarshalJSON(m jsonAppointmentResponse) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -166,11 +189,17 @@ func (r *AppointmentResponse) unmarshalJSON(m jsonAppointmentResponse) error {
 	r.Appointment = m.Appointment
 	r.Start = m.Start
 	if m.StartPrimitiveElement != nil {
+		if r.Start == nil {
+			r.Start = &Instant{}
+		}
 		r.Start.Id = m.StartPrimitiveElement.Id
 		r.Start.Extension = m.StartPrimitiveElement.Extension
 	}
 	r.End = m.End
 	if m.EndPrimitiveElement != nil {
+		if r.End == nil {
+			r.End = &Instant{}
+		}
 		r.End.Id = m.EndPrimitiveElement.Id
 		r.End.Extension = m.EndPrimitiveElement.Extension
 	}
@@ -183,6 +212,9 @@ func (r *AppointmentResponse) unmarshalJSON(m jsonAppointmentResponse) error {
 	}
 	r.Comment = m.Comment
 	if m.CommentPrimitiveElement != nil {
+		if r.Comment == nil {
+			r.Comment = &String{}
+		}
 		r.Comment.Id = m.CommentPrimitiveElement.Id
 		r.Comment.Extension = m.CommentPrimitiveElement.Extension
 	}

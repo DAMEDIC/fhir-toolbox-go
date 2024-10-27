@@ -159,16 +159,22 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 	m := jsonDeviceRequest{}
 	m.ResourceType = "DeviceRequest"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -180,7 +186,16 @@ func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -198,7 +213,16 @@ func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -219,15 +243,21 @@ func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 	m.BasedOn = r.BasedOn
 	m.PriorRequest = r.PriorRequest
 	m.GroupIdentifier = r.GroupIdentifier
-	m.Status = r.Status
+	if r.Status != nil && r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status != nil && (r.Status.Id != nil || r.Status.Extension != nil) {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
-	m.Intent = r.Intent
+	if r.Intent.Value != nil {
+		m.Intent = r.Intent
+	}
 	if r.Intent.Id != nil || r.Intent.Extension != nil {
 		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
 	}
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
@@ -246,12 +276,16 @@ func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 	m.Encounter = r.Encounter
 	switch v := r.Occurrence.(type) {
 	case DateTime:
-		m.OccurrenceDateTime = &v
+		if v.Value != nil {
+			m.OccurrenceDateTime = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *DateTime:
-		m.OccurrenceDateTime = v
+		if v.Value != nil {
+			m.OccurrenceDateTime = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.OccurrenceDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
@@ -264,7 +298,9 @@ func (r DeviceRequest) marshalJSON() jsonDeviceRequest {
 	case *Timing:
 		m.OccurrenceTiming = v
 	}
-	m.AuthoredOn = r.AuthoredOn
+	if r.AuthoredOn != nil && r.AuthoredOn.Value != nil {
+		m.AuthoredOn = r.AuthoredOn
+	}
 	if r.AuthoredOn != nil && (r.AuthoredOn.Id != nil || r.AuthoredOn.Extension != nil) {
 		m.AuthoredOnPrimitiveElement = &primitiveElement{Id: r.AuthoredOn.Id, Extension: r.AuthoredOn.Extension}
 	}
@@ -289,17 +325,26 @@ func (r *DeviceRequest) UnmarshalJSON(b []byte) error {
 func (r *DeviceRequest) unmarshalJSON(m jsonDeviceRequest) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -313,20 +358,22 @@ func (r *DeviceRequest) unmarshalJSON(m jsonDeviceRequest) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.BasedOn = m.BasedOn
@@ -334,6 +381,9 @@ func (r *DeviceRequest) unmarshalJSON(m jsonDeviceRequest) error {
 	r.GroupIdentifier = m.GroupIdentifier
 	r.Status = m.Status
 	if m.StatusPrimitiveElement != nil {
+		if r.Status == nil {
+			r.Status = &Code{}
+		}
 		r.Status.Id = m.StatusPrimitiveElement.Id
 		r.Status.Extension = m.StatusPrimitiveElement.Extension
 	}
@@ -344,6 +394,9 @@ func (r *DeviceRequest) unmarshalJSON(m jsonDeviceRequest) error {
 	}
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &Code{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
@@ -394,6 +447,9 @@ func (r *DeviceRequest) unmarshalJSON(m jsonDeviceRequest) error {
 	}
 	r.AuthoredOn = m.AuthoredOn
 	if m.AuthoredOnPrimitiveElement != nil {
+		if r.AuthoredOn == nil {
+			r.AuthoredOn = &DateTime{}
+		}
 		r.AuthoredOn.Id = m.AuthoredOnPrimitiveElement.Id
 		r.AuthoredOn.Extension = m.AuthoredOnPrimitiveElement.Extension
 	}
@@ -475,12 +531,16 @@ func (r DeviceRequestParameter) marshalJSON() jsonDeviceRequestParameter {
 	case *Range:
 		m.ValueRange = v
 	case Boolean:
-		m.ValueBoolean = &v
+		if v.Value != nil {
+			m.ValueBoolean = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *Boolean:
-		m.ValueBoolean = v
+		if v.Value != nil {
+			m.ValueBoolean = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}

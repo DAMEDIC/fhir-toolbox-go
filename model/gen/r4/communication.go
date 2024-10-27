@@ -137,16 +137,22 @@ func (r Communication) MarshalJSON() ([]byte, error) {
 func (r Communication) marshalJSON() jsonCommunication {
 	m := jsonCommunication{}
 	m.ResourceType = "Communication"
-	m.Id = r.Id
+	if r.Id != nil && r.Id.Value != nil {
+		m.Id = r.Id
+	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
 		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
 	}
 	m.Meta = r.Meta
-	m.ImplicitRules = r.ImplicitRules
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		m.ImplicitRules = r.ImplicitRules
+	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
 		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
 	}
-	m.Language = r.Language
+	if r.Language != nil && r.Language.Value != nil {
+		m.Language = r.Language
+	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
 		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
 	}
@@ -158,7 +164,16 @@ func (r Communication) marshalJSON() jsonCommunication {
 	m.Extension = r.Extension
 	m.ModifierExtension = r.ModifierExtension
 	m.Identifier = r.Identifier
-	m.InstantiatesCanonical = r.InstantiatesCanonical
+	anyInstantiatesCanonicalValue := false
+	for _, e := range r.InstantiatesCanonical {
+		if e.Value != nil {
+			anyInstantiatesCanonicalValue = true
+			break
+		}
+	}
+	if anyInstantiatesCanonicalValue {
+		m.InstantiatesCanonical = r.InstantiatesCanonical
+	}
 	anyInstantiatesCanonicalIdOrExtension := false
 	for _, e := range r.InstantiatesCanonical {
 		if e.Id != nil || e.Extension != nil {
@@ -176,7 +191,16 @@ func (r Communication) marshalJSON() jsonCommunication {
 			}
 		}
 	}
-	m.InstantiatesUri = r.InstantiatesUri
+	anyInstantiatesUriValue := false
+	for _, e := range r.InstantiatesUri {
+		if e.Value != nil {
+			anyInstantiatesUriValue = true
+			break
+		}
+	}
+	if anyInstantiatesUriValue {
+		m.InstantiatesUri = r.InstantiatesUri
+	}
 	anyInstantiatesUriIdOrExtension := false
 	for _, e := range r.InstantiatesUri {
 		if e.Id != nil || e.Extension != nil {
@@ -197,13 +221,17 @@ func (r Communication) marshalJSON() jsonCommunication {
 	m.BasedOn = r.BasedOn
 	m.PartOf = r.PartOf
 	m.InResponseTo = r.InResponseTo
-	m.Status = r.Status
+	if r.Status.Value != nil {
+		m.Status = r.Status
+	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
 		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
 	}
 	m.StatusReason = r.StatusReason
 	m.Category = r.Category
-	m.Priority = r.Priority
+	if r.Priority != nil && r.Priority.Value != nil {
+		m.Priority = r.Priority
+	}
 	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
 		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
 	}
@@ -212,11 +240,15 @@ func (r Communication) marshalJSON() jsonCommunication {
 	m.Topic = r.Topic
 	m.About = r.About
 	m.Encounter = r.Encounter
-	m.Sent = r.Sent
+	if r.Sent != nil && r.Sent.Value != nil {
+		m.Sent = r.Sent
+	}
 	if r.Sent != nil && (r.Sent.Id != nil || r.Sent.Extension != nil) {
 		m.SentPrimitiveElement = &primitiveElement{Id: r.Sent.Id, Extension: r.Sent.Extension}
 	}
-	m.Received = r.Received
+	if r.Received != nil && r.Received.Value != nil {
+		m.Received = r.Received
+	}
 	if r.Received != nil && (r.Received.Id != nil || r.Received.Extension != nil) {
 		m.ReceivedPrimitiveElement = &primitiveElement{Id: r.Received.Id, Extension: r.Received.Extension}
 	}
@@ -238,17 +270,26 @@ func (r *Communication) UnmarshalJSON(b []byte) error {
 func (r *Communication) unmarshalJSON(m jsonCommunication) error {
 	r.Id = m.Id
 	if m.IdPrimitiveElement != nil {
+		if r.Id == nil {
+			r.Id = &Id{}
+		}
 		r.Id.Id = m.IdPrimitiveElement.Id
 		r.Id.Extension = m.IdPrimitiveElement.Extension
 	}
 	r.Meta = m.Meta
 	r.ImplicitRules = m.ImplicitRules
 	if m.ImplicitRulesPrimitiveElement != nil {
+		if r.ImplicitRules == nil {
+			r.ImplicitRules = &Uri{}
+		}
 		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
 		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
 	}
 	r.Language = m.Language
 	if m.LanguagePrimitiveElement != nil {
+		if r.Language == nil {
+			r.Language = &Code{}
+		}
 		r.Language.Id = m.LanguagePrimitiveElement.Id
 		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
@@ -262,20 +303,22 @@ func (r *Communication) unmarshalJSON(m jsonCommunication) error {
 	r.Identifier = m.Identifier
 	r.InstantiatesCanonical = m.InstantiatesCanonical
 	for i, e := range m.InstantiatesCanonicalPrimitiveElement {
-		if len(r.InstantiatesCanonical) > i {
+		if len(r.InstantiatesCanonical) <= i {
+			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{})
+		}
+		if e != nil {
 			r.InstantiatesCanonical[i].Id = e.Id
 			r.InstantiatesCanonical[i].Extension = e.Extension
-		} else {
-			r.InstantiatesCanonical = append(r.InstantiatesCanonical, Canonical{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.InstantiatesUri = m.InstantiatesUri
 	for i, e := range m.InstantiatesUriPrimitiveElement {
-		if len(r.InstantiatesUri) > i {
+		if len(r.InstantiatesUri) <= i {
+			r.InstantiatesUri = append(r.InstantiatesUri, Uri{})
+		}
+		if e != nil {
 			r.InstantiatesUri[i].Id = e.Id
 			r.InstantiatesUri[i].Extension = e.Extension
-		} else {
-			r.InstantiatesUri = append(r.InstantiatesUri, Uri{Id: e.Id, Extension: e.Extension})
 		}
 	}
 	r.BasedOn = m.BasedOn
@@ -290,6 +333,9 @@ func (r *Communication) unmarshalJSON(m jsonCommunication) error {
 	r.Category = m.Category
 	r.Priority = m.Priority
 	if m.PriorityPrimitiveElement != nil {
+		if r.Priority == nil {
+			r.Priority = &Code{}
+		}
 		r.Priority.Id = m.PriorityPrimitiveElement.Id
 		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
 	}
@@ -300,11 +346,17 @@ func (r *Communication) unmarshalJSON(m jsonCommunication) error {
 	r.Encounter = m.Encounter
 	r.Sent = m.Sent
 	if m.SentPrimitiveElement != nil {
+		if r.Sent == nil {
+			r.Sent = &DateTime{}
+		}
 		r.Sent.Id = m.SentPrimitiveElement.Id
 		r.Sent.Extension = m.SentPrimitiveElement.Extension
 	}
 	r.Received = m.Received
 	if m.ReceivedPrimitiveElement != nil {
+		if r.Received == nil {
+			r.Received = &DateTime{}
+		}
 		r.Received.Id = m.ReceivedPrimitiveElement.Id
 		r.Received.Extension = m.ReceivedPrimitiveElement.Extension
 	}
@@ -365,12 +417,16 @@ func (r CommunicationPayload) marshalJSON() jsonCommunicationPayload {
 	m.ModifierExtension = r.ModifierExtension
 	switch v := r.Content.(type) {
 	case String:
-		m.ContentString = &v
+		if v.Value != nil {
+			m.ContentString = &v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ContentStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
 	case *String:
-		m.ContentString = v
+		if v.Value != nil {
+			m.ContentString = v
+		}
 		if v.Id != nil || v.Extension != nil {
 			m.ContentStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
 		}
