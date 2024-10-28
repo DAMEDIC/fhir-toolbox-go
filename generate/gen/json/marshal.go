@@ -1,4 +1,4 @@
-package gen
+package json
 
 import (
 	"fhir-toolbox/generate/ir"
@@ -7,7 +7,7 @@ import (
 	. "github.com/dave/jennifer/jen"
 )
 
-func generateMarshalJSONStruct(f *File, s ir.Struct) {
+func GenerateMarshalInternalHelperStruct(f *File, s ir.Struct) {
 	if s.IsPrimitive {
 		return
 	}
@@ -60,16 +60,16 @@ func generateMarshalJSONStruct(f *File, s ir.Struct) {
 	})
 }
 
-func implementMarshalJSON(f *File, s ir.Struct) {
+func ImplementMarshal(f *File, s ir.Struct) {
 	if s.IsPrimitive {
-		implementMarshalJSONPrimitive(f, s)
+		implementMarshalPrimitive(f, s)
 	} else {
-		implementMarshalJSONElement(f, s)
-		implementMarshalJSONStruct(f, s)
+		implementMarshalElement(f, s)
+		implementMarshalStruct(f, s)
 	}
 }
 
-func implementMarshalJSONPrimitive(f *File, s ir.Struct) {
+func implementMarshalPrimitive(f *File, s ir.Struct) {
 	var ret Code
 	if s.Name == "Decimal" {
 		ret = Return(Index().Byte().Params(Op("*").Id("r").Op(".").Id("Value")), Nil())
@@ -80,13 +80,13 @@ func implementMarshalJSONPrimitive(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).Block(ret)
 }
 
-func implementMarshalJSONElement(f *File, s ir.Struct) {
+func implementMarshalElement(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).BlockFunc(func(g *Group) {
 		g.Return(Qual("encoding/json", "Marshal").Params(Id("r.marshalJSON").Params()))
 	})
 }
 
-func implementMarshalJSONStruct(f *File, s ir.Struct) {
+func implementMarshalStruct(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("marshalJSON").Params().Params(Id("json" + s.Name)).BlockFunc(func(g *Group) {
 		g.Id("m").Op(":=").Id("json" + s.Name).Values()
 
@@ -118,7 +118,6 @@ func implementMarshalJSONStruct(f *File, s ir.Struct) {
 					}
 				} else if t.IsPrimitive {
 					if sf.Multiple {
-
 						g.Id("any" + sf.Name + "Value").Op(":=").False()
 						g.For(Id("_, e").Op(":=").Range().Id("r." + sf.Name)).Block(
 							If(Id("e.Value").Op("!=").Nil()).Block(

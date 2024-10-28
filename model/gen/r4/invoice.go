@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
 )
@@ -261,10 +262,319 @@ func (r *Invoice) unmarshalJSON(m jsonInvoice) error {
 	r.Note = m.Note
 	return nil
 }
+func (r Invoice) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "Invoice"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.CancelledReason, xml.StartElement{Name: xml.Name{Local: "cancelledReason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subject, xml.StartElement{Name: xml.Name{Local: "subject"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Recipient, xml.StartElement{Name: xml.Name{Local: "recipient"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Participant, xml.StartElement{Name: xml.Name{Local: "participant"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Issuer, xml.StartElement{Name: xml.Name{Local: "issuer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Account, xml.StartElement{Name: xml.Name{Local: "account"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.LineItem, xml.StartElement{Name: xml.Name{Local: "lineItem"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TotalPriceComponent, xml.StartElement{Name: xml.Name{Local: "totalPriceComponent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TotalNet, xml.StartElement{Name: xml.Name{Local: "totalNet"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TotalGross, xml.StartElement{Name: xml.Name{Local: "totalGross"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PaymentTerms, xml.StartElement{Name: xml.Name{Local: "paymentTerms"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Invoice) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "cancelledReason":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.CancelledReason = &v
+			case "type":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "subject":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = &v
+			case "recipient":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Recipient = &v
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = &v
+			case "participant":
+				var v InvoiceParticipant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Participant = append(r.Participant, v)
+			case "issuer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Issuer = &v
+			case "account":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Account = &v
+			case "lineItem":
+				var v InvoiceLineItem
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LineItem = append(r.LineItem, v)
+			case "totalPriceComponent":
+				var v InvoiceLineItemPriceComponent
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TotalPriceComponent = append(r.TotalPriceComponent, v)
+			case "totalNet":
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TotalNet = &v
+			case "totalGross":
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TotalGross = &v
+			case "paymentTerms":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PaymentTerms = &v
+			case "note":
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r Invoice) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -319,10 +629,102 @@ func (r *InvoiceParticipant) unmarshalJSON(m jsonInvoiceParticipant) error {
 	r.Actor = m.Actor
 	return nil
 }
+func (r InvoiceParticipant) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Role, xml.StartElement{Name: xml.Name{Local: "role"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Actor, xml.StartElement{Name: xml.Name{Local: "actor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *InvoiceParticipant) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "role":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Role = &v
+			case "actor":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Actor = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r InvoiceParticipant) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -425,10 +827,134 @@ func (r *InvoiceLineItem) unmarshalJSON(m jsonInvoiceLineItem) error {
 	r.PriceComponent = m.PriceComponent
 	return nil
 }
+func (r InvoiceLineItem) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Sequence, xml.StartElement{Name: xml.Name{Local: "sequence"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.ChargeItem.(type) {
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "chargeItemReference"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "chargeItemCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.PriceComponent, xml.StartElement{Name: xml.Name{Local: "priceComponent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *InvoiceLineItem) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "sequence":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Sequence = &v
+			case "chargeItemReference":
+				if r.ChargeItem != nil {
+					return fmt.Errorf("multiple values for field \"ChargeItem\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ChargeItem = v
+			case "chargeItemCodeableConcept":
+				if r.ChargeItem != nil {
+					return fmt.Errorf("multiple values for field \"ChargeItem\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ChargeItem = v
+			case "priceComponent":
+				var v InvoiceLineItemPriceComponent
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PriceComponent = append(r.PriceComponent, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r InvoiceLineItem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -516,10 +1042,124 @@ func (r *InvoiceLineItemPriceComponent) unmarshalJSON(m jsonInvoiceLineItemPrice
 	r.Amount = m.Amount
 	return nil
 }
+func (r InvoiceLineItemPriceComponent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Factor, xml.StartElement{Name: xml.Name{Local: "factor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Amount, xml.StartElement{Name: xml.Name{Local: "amount"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *InvoiceLineItemPriceComponent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			case "factor":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Factor = &v
+			case "amount":
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Amount = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r InvoiceLineItemPriceComponent) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

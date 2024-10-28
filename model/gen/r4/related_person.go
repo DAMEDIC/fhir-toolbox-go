@@ -2,7 +2,9 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
+	"fmt"
 )
 
 // Information about a person that is involved in the care for a patient, but who is not the target of healthcare, nor has a formal responsibility in the care process.
@@ -232,10 +234,275 @@ func (r *RelatedPerson) unmarshalJSON(m jsonRelatedPerson) error {
 	r.Communication = m.Communication
 	return nil
 }
+func (r RelatedPerson) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "RelatedPerson"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Active, xml.StartElement{Name: xml.Name{Local: "active"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Patient, xml.StartElement{Name: xml.Name{Local: "patient"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Relationship, xml.StartElement{Name: xml.Name{Local: "relationship"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Telecom, xml.StartElement{Name: xml.Name{Local: "telecom"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Gender, xml.StartElement{Name: xml.Name{Local: "gender"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.BirthDate, xml.StartElement{Name: xml.Name{Local: "birthDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Address, xml.StartElement{Name: xml.Name{Local: "address"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Photo, xml.StartElement{Name: xml.Name{Local: "photo"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Communication, xml.StartElement{Name: xml.Name{Local: "communication"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *RelatedPerson) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "active":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Active = &v
+			case "patient":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Patient = v
+			case "relationship":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Relationship = append(r.Relationship, v)
+			case "name":
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = append(r.Name, v)
+			case "telecom":
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Telecom = append(r.Telecom, v)
+			case "gender":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Gender = &v
+			case "birthDate":
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.BirthDate = &v
+			case "address":
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Address = append(r.Address, v)
+			case "photo":
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Photo = append(r.Photo, v)
+			case "period":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			case "communication":
+				var v RelatedPersonCommunication
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Communication = append(r.Communication, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r RelatedPerson) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -303,10 +570,102 @@ func (r *RelatedPersonCommunication) unmarshalJSON(m jsonRelatedPersonCommunicat
 	}
 	return nil
 }
+func (r RelatedPersonCommunication) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Preferred, xml.StartElement{Name: xml.Name{Local: "preferred"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *RelatedPersonCommunication) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "language":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = v
+			case "preferred":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Preferred = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r RelatedPersonCommunication) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

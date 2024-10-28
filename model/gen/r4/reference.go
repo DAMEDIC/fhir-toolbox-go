@@ -1,6 +1,10 @@
 package r4
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+)
 
 // Base StructureDefinition for Reference Type: A reference from one resource to another.
 type Reference struct {
@@ -96,10 +100,113 @@ func (r *Reference) unmarshalJSON(m jsonReference) error {
 	}
 	return nil
 }
+func (r Reference) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Reference, xml.StartElement{Name: xml.Name{Local: "reference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Display, xml.StartElement{Name: xml.Name{Local: "display"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Reference) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "reference":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Reference = &v
+			case "type":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = &v
+			case "display":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Display = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r Reference) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

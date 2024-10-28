@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
 )
@@ -482,10 +483,385 @@ func (r *Questionnaire) unmarshalJSON(m jsonQuestionnaire) error {
 	r.Item = m.Item
 	return nil
 }
+func (r Questionnaire) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "Questionnaire"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DerivedFrom, xml.StartElement{Name: xml.Name{Local: "derivedFrom"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Experimental, xml.StartElement{Name: xml.Name{Local: "experimental"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SubjectType, xml.StartElement{Name: xml.Name{Local: "subjectType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Publisher, xml.StartElement{Name: xml.Name{Local: "publisher"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Contact, xml.StartElement{Name: xml.Name{Local: "contact"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.UseContext, xml.StartElement{Name: xml.Name{Local: "useContext"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Purpose, xml.StartElement{Name: xml.Name{Local: "purpose"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Copyright, xml.StartElement{Name: xml.Name{Local: "copyright"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ApprovalDate, xml.StartElement{Name: xml.Name{Local: "approvalDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.LastReviewDate, xml.StartElement{Name: xml.Name{Local: "lastReviewDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.EffectivePeriod, xml.StartElement{Name: xml.Name{Local: "effectivePeriod"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Item, xml.StartElement{Name: xml.Name{Local: "item"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Questionnaire) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = &v
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "version":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Version = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "title":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Title = &v
+			case "derivedFrom":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DerivedFrom = append(r.DerivedFrom, v)
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "experimental":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Experimental = &v
+			case "subjectType":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SubjectType = append(r.SubjectType, v)
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = &v
+			case "publisher":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Publisher = &v
+			case "contact":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Contact = append(r.Contact, v)
+			case "description":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "useContext":
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.UseContext = append(r.UseContext, v)
+			case "jurisdiction":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Jurisdiction = append(r.Jurisdiction, v)
+			case "purpose":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Purpose = &v
+			case "copyright":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Copyright = &v
+			case "approvalDate":
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ApprovalDate = &v
+			case "lastReviewDate":
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LastReviewDate = &v
+			case "effectivePeriod":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.EffectivePeriod = &v
+			case "code":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			case "item":
+				var v QuestionnaireItem
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r Questionnaire) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -755,10 +1131,256 @@ func (r *QuestionnaireItem) unmarshalJSON(m jsonQuestionnaireItem) error {
 	r.Item = m.Item
 	return nil
 }
+func (r QuestionnaireItem) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.LinkId, xml.StartElement{Name: xml.Name{Local: "linkId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Definition, xml.StartElement{Name: xml.Name{Local: "definition"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Prefix, xml.StartElement{Name: xml.Name{Local: "prefix"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.EnableWhen, xml.StartElement{Name: xml.Name{Local: "enableWhen"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.EnableBehavior, xml.StartElement{Name: xml.Name{Local: "enableBehavior"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Required, xml.StartElement{Name: xml.Name{Local: "required"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Repeats, xml.StartElement{Name: xml.Name{Local: "repeats"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReadOnly, xml.StartElement{Name: xml.Name{Local: "readOnly"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.MaxLength, xml.StartElement{Name: xml.Name{Local: "maxLength"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AnswerValueSet, xml.StartElement{Name: xml.Name{Local: "answerValueSet"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AnswerOption, xml.StartElement{Name: xml.Name{Local: "answerOption"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Initial, xml.StartElement{Name: xml.Name{Local: "initial"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Item, xml.StartElement{Name: xml.Name{Local: "item"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *QuestionnaireItem) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "linkId":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LinkId = v
+			case "definition":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Definition = &v
+			case "code":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			case "prefix":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Prefix = &v
+			case "text":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "enableWhen":
+				var v QuestionnaireItemEnableWhen
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.EnableWhen = append(r.EnableWhen, v)
+			case "enableBehavior":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.EnableBehavior = &v
+			case "required":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Required = &v
+			case "repeats":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Repeats = &v
+			case "readOnly":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReadOnly = &v
+			case "maxLength":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxLength = &v
+			case "answerValueSet":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AnswerValueSet = &v
+			case "answerOption":
+				var v QuestionnaireItemAnswerOption
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AnswerOption = append(r.AnswerOption, v)
+			case "initial":
+				var v QuestionnaireItemInitial
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Initial = append(r.Initial, v)
+			case "item":
+				var v QuestionnaireItem
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r QuestionnaireItem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1098,10 +1720,254 @@ func (r *QuestionnaireItemEnableWhen) unmarshalJSON(m jsonQuestionnaireItemEnabl
 	}
 	return nil
 }
+func (r QuestionnaireItemEnableWhen) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Question, xml.StartElement{Name: xml.Name{Local: "question"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Operator, xml.StartElement{Name: xml.Name{Local: "operator"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Answer.(type) {
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerInteger"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerTime"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerString"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerCoding"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "answerReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *QuestionnaireItemEnableWhen) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "question":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Question = v
+			case "operator":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Operator = v
+			case "answerBoolean":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerDecimal":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerInteger":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerDate":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerDateTime":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerTime":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerString":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerCoding":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerQuantity":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			case "answerReference":
+				if r.Answer != nil {
+					return fmt.Errorf("multiple values for field \"Answer\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Answer = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r QuestionnaireItemEnableWhen) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1323,10 +2189,183 @@ func (r *QuestionnaireItemAnswerOption) unmarshalJSON(m jsonQuestionnaireItemAns
 	}
 	return nil
 }
+func (r QuestionnaireItemAnswerOption) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Value.(type) {
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDate"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueTime"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueString"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCoding"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.InitialSelected, xml.StartElement{Name: xml.Name{Local: "initialSelected"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *QuestionnaireItemAnswerOption) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "valueInteger":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDate":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueString":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCoding":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueReference":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "initialSelected":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.InitialSelected = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r QuestionnaireItemAnswerOption) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1680,10 +2719,262 @@ func (r *QuestionnaireItemInitial) unmarshalJSON(m jsonQuestionnaireItemInitial)
 	}
 	return nil
 }
+func (r QuestionnaireItemInitial) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Value.(type) {
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueTime"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueString"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUri"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueAttachment"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCoding"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *QuestionnaireItemInitial) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "valueBoolean":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDecimal":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInteger":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDate":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDateTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueString":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUri":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAttachment":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCoding":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueQuantity":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueReference":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r QuestionnaireItemInitial) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

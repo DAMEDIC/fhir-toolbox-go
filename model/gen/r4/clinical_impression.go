@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
 )
@@ -365,10 +366,384 @@ func (r *ClinicalImpression) unmarshalJSON(m jsonClinicalImpression) error {
 	r.Note = m.Note
 	return nil
 }
+func (r ClinicalImpression) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "ClinicalImpression"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.StatusReason, xml.StartElement{Name: xml.Name{Local: "statusReason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subject, xml.StartElement{Name: xml.Name{Local: "subject"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Encounter, xml.StartElement{Name: xml.Name{Local: "encounter"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Effective.(type) {
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "effectiveDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "effectivePeriod"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Assessor, xml.StartElement{Name: xml.Name{Local: "assessor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Previous, xml.StartElement{Name: xml.Name{Local: "previous"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Problem, xml.StartElement{Name: xml.Name{Local: "problem"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Investigation, xml.StartElement{Name: xml.Name{Local: "investigation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Protocol, xml.StartElement{Name: xml.Name{Local: "protocol"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Summary, xml.StartElement{Name: xml.Name{Local: "summary"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Finding, xml.StartElement{Name: xml.Name{Local: "finding"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PrognosisCodeableConcept, xml.StartElement{Name: xml.Name{Local: "prognosisCodeableConcept"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PrognosisReference, xml.StartElement{Name: xml.Name{Local: "prognosisReference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SupportingInfo, xml.StartElement{Name: xml.Name{Local: "supportingInfo"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ClinicalImpression) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "statusReason":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.StatusReason = &v
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "subject":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = v
+			case "encounter":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Encounter = &v
+			case "effectiveDateTime":
+				if r.Effective != nil {
+					return fmt.Errorf("multiple values for field \"Effective\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Effective = v
+			case "effectivePeriod":
+				if r.Effective != nil {
+					return fmt.Errorf("multiple values for field \"Effective\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Effective = v
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = &v
+			case "assessor":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Assessor = &v
+			case "previous":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Previous = &v
+			case "problem":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Problem = append(r.Problem, v)
+			case "investigation":
+				var v ClinicalImpressionInvestigation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Investigation = append(r.Investigation, v)
+			case "protocol":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Protocol = append(r.Protocol, v)
+			case "summary":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Summary = &v
+			case "finding":
+				var v ClinicalImpressionFinding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Finding = append(r.Finding, v)
+			case "prognosisCodeableConcept":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PrognosisCodeableConcept = append(r.PrognosisCodeableConcept, v)
+			case "prognosisReference":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PrognosisReference = append(r.PrognosisReference, v)
+			case "supportingInfo":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SupportingInfo = append(r.SupportingInfo, v)
+			case "note":
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ClinicalImpression) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -423,10 +798,102 @@ func (r *ClinicalImpressionInvestigation) unmarshalJSON(m jsonClinicalImpression
 	r.Item = m.Item
 	return nil
 }
+func (r ClinicalImpressionInvestigation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Item, xml.StartElement{Name: xml.Name{Local: "item"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ClinicalImpressionInvestigation) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = v
+			case "item":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ClinicalImpressionInvestigation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -499,10 +966,113 @@ func (r *ClinicalImpressionFinding) unmarshalJSON(m jsonClinicalImpressionFindin
 	}
 	return nil
 }
+func (r ClinicalImpressionFinding) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ItemCodeableConcept, xml.StartElement{Name: xml.Name{Local: "itemCodeableConcept"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ItemReference, xml.StartElement{Name: xml.Name{Local: "itemReference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Basis, xml.StartElement{Name: xml.Name{Local: "basis"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ClinicalImpressionFinding) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "itemCodeableConcept":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ItemCodeableConcept = &v
+			case "itemReference":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ItemReference = &v
+			case "basis":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Basis = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ClinicalImpressionFinding) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

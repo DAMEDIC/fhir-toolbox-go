@@ -2,7 +2,9 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
+	"fmt"
 )
 
 // Raw data describing a biological sequence.
@@ -260,10 +262,319 @@ func (r *MolecularSequence) unmarshalJSON(m jsonMolecularSequence) error {
 	r.StructureVariant = m.StructureVariant
 	return nil
 }
+func (r MolecularSequence) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "MolecularSequence"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.CoordinateSystem, xml.StartElement{Name: xml.Name{Local: "coordinateSystem"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Patient, xml.StartElement{Name: xml.Name{Local: "patient"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Specimen, xml.StartElement{Name: xml.Name{Local: "specimen"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Device, xml.StartElement{Name: xml.Name{Local: "device"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Performer, xml.StartElement{Name: xml.Name{Local: "performer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Quantity, xml.StartElement{Name: xml.Name{Local: "quantity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReferenceSeq, xml.StartElement{Name: xml.Name{Local: "referenceSeq"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Variant, xml.StartElement{Name: xml.Name{Local: "variant"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ObservedSeq, xml.StartElement{Name: xml.Name{Local: "observedSeq"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Quality, xml.StartElement{Name: xml.Name{Local: "quality"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReadCoverage, xml.StartElement{Name: xml.Name{Local: "readCoverage"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Repository, xml.StartElement{Name: xml.Name{Local: "repository"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Pointer, xml.StartElement{Name: xml.Name{Local: "pointer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.StructureVariant, xml.StartElement{Name: xml.Name{Local: "structureVariant"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequence) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "coordinateSystem":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.CoordinateSystem = v
+			case "patient":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Patient = &v
+			case "specimen":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Specimen = &v
+			case "device":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Device = &v
+			case "performer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Performer = &v
+			case "quantity":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Quantity = &v
+			case "referenceSeq":
+				var v MolecularSequenceReferenceSeq
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReferenceSeq = &v
+			case "variant":
+				var v MolecularSequenceVariant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Variant = append(r.Variant, v)
+			case "observedSeq":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ObservedSeq = &v
+			case "quality":
+				var v MolecularSequenceQuality
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Quality = append(r.Quality, v)
+			case "readCoverage":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReadCoverage = &v
+			case "repository":
+				var v MolecularSequenceRepository
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Repository = append(r.Repository, v)
+			case "pointer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pointer = append(r.Pointer, v)
+			case "structureVariant":
+				var v MolecularSequenceStructureVariant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.StructureVariant = append(r.StructureVariant, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequence) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -431,10 +742,179 @@ func (r *MolecularSequenceReferenceSeq) unmarshalJSON(m jsonMolecularSequenceRef
 	}
 	return nil
 }
+func (r MolecularSequenceReferenceSeq) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Chromosome, xml.StartElement{Name: xml.Name{Local: "chromosome"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.GenomeBuild, xml.StartElement{Name: xml.Name{Local: "genomeBuild"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Orientation, xml.StartElement{Name: xml.Name{Local: "orientation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReferenceSeqId, xml.StartElement{Name: xml.Name{Local: "referenceSeqId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReferenceSeqPointer, xml.StartElement{Name: xml.Name{Local: "referenceSeqPointer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReferenceSeqString, xml.StartElement{Name: xml.Name{Local: "referenceSeqString"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Strand, xml.StartElement{Name: xml.Name{Local: "strand"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.WindowStart, xml.StartElement{Name: xml.Name{Local: "windowStart"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.WindowEnd, xml.StartElement{Name: xml.Name{Local: "windowEnd"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceReferenceSeq) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "chromosome":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Chromosome = &v
+			case "genomeBuild":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.GenomeBuild = &v
+			case "orientation":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Orientation = &v
+			case "referenceSeqId":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReferenceSeqId = &v
+			case "referenceSeqPointer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReferenceSeqPointer = &v
+			case "referenceSeqString":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReferenceSeqString = &v
+			case "strand":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Strand = &v
+			case "windowStart":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.WindowStart = &v
+			case "windowEnd":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.WindowEnd = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceReferenceSeq) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -574,10 +1054,146 @@ func (r *MolecularSequenceVariant) unmarshalJSON(m jsonMolecularSequenceVariant)
 	r.VariantPointer = m.VariantPointer
 	return nil
 }
+func (r MolecularSequenceVariant) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Start, xml.StartElement{Name: xml.Name{Local: "start"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.End, xml.StartElement{Name: xml.Name{Local: "end"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ObservedAllele, xml.StartElement{Name: xml.Name{Local: "observedAllele"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReferenceAllele, xml.StartElement{Name: xml.Name{Local: "referenceAllele"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Cigar, xml.StartElement{Name: xml.Name{Local: "cigar"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.VariantPointer, xml.StartElement{Name: xml.Name{Local: "variantPointer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceVariant) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "start":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Start = &v
+			case "end":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.End = &v
+			case "observedAllele":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ObservedAllele = &v
+			case "referenceAllele":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReferenceAllele = &v
+			case "cigar":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Cigar = &v
+			case "variantPointer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.VariantPointer = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceVariant) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -837,10 +1453,245 @@ func (r *MolecularSequenceQuality) unmarshalJSON(m jsonMolecularSequenceQuality)
 	r.Roc = m.Roc
 	return nil
 }
+func (r MolecularSequenceQuality) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.StandardSequence, xml.StartElement{Name: xml.Name{Local: "standardSequence"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Start, xml.StartElement{Name: xml.Name{Local: "start"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.End, xml.StartElement{Name: xml.Name{Local: "end"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Score, xml.StartElement{Name: xml.Name{Local: "score"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Method, xml.StartElement{Name: xml.Name{Local: "method"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TruthTp, xml.StartElement{Name: xml.Name{Local: "truthTP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.QueryTp, xml.StartElement{Name: xml.Name{Local: "queryTP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TruthFn, xml.StartElement{Name: xml.Name{Local: "truthFN"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.QueryFp, xml.StartElement{Name: xml.Name{Local: "queryFP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.GtFp, xml.StartElement{Name: xml.Name{Local: "gtFP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Precision, xml.StartElement{Name: xml.Name{Local: "precision"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Recall, xml.StartElement{Name: xml.Name{Local: "recall"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.FScore, xml.StartElement{Name: xml.Name{Local: "fScore"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Roc, xml.StartElement{Name: xml.Name{Local: "roc"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceQuality) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "standardSequence":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.StandardSequence = &v
+			case "start":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Start = &v
+			case "end":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.End = &v
+			case "score":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Score = &v
+			case "method":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Method = &v
+			case "truthTP":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TruthTp = &v
+			case "queryTP":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.QueryTp = &v
+			case "truthFN":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TruthFn = &v
+			case "queryFP":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.QueryFp = &v
+			case "gtFP":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.GtFp = &v
+			case "precision":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Precision = &v
+			case "recall":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Recall = &v
+			case "fScore":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.FScore = &v
+			case "roc":
+				var v MolecularSequenceQualityRoc
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Roc = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceQuality) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1172,10 +2023,157 @@ func (r *MolecularSequenceQualityRoc) unmarshalJSON(m jsonMolecularSequenceQuali
 	}
 	return nil
 }
+func (r MolecularSequenceQualityRoc) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Score, xml.StartElement{Name: xml.Name{Local: "score"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NumTp, xml.StartElement{Name: xml.Name{Local: "numTP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NumFp, xml.StartElement{Name: xml.Name{Local: "numFP"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NumFn, xml.StartElement{Name: xml.Name{Local: "numFN"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Precision, xml.StartElement{Name: xml.Name{Local: "precision"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Sensitivity, xml.StartElement{Name: xml.Name{Local: "sensitivity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.FMeasure, xml.StartElement{Name: xml.Name{Local: "fMeasure"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceQualityRoc) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "score":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Score = append(r.Score, v)
+			case "numTP":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NumTp = append(r.NumTp, v)
+			case "numFP":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NumFp = append(r.NumFp, v)
+			case "numFN":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NumFn = append(r.NumFn, v)
+			case "precision":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Precision = append(r.Precision, v)
+			case "sensitivity":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Sensitivity = append(r.Sensitivity, v)
+			case "fMeasure":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.FMeasure = append(r.FMeasure, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceQualityRoc) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1325,10 +2323,146 @@ func (r *MolecularSequenceRepository) unmarshalJSON(m jsonMolecularSequenceRepos
 	}
 	return nil
 }
+func (r MolecularSequenceRepository) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DatasetId, xml.StartElement{Name: xml.Name{Local: "datasetId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.VariantsetId, xml.StartElement{Name: xml.Name{Local: "variantsetId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReadsetId, xml.StartElement{Name: xml.Name{Local: "readsetId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceRepository) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "datasetId":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DatasetId = &v
+			case "variantsetId":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.VariantsetId = &v
+			case "readsetId":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReadsetId = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceRepository) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1424,10 +2558,135 @@ func (r *MolecularSequenceStructureVariant) unmarshalJSON(m jsonMolecularSequenc
 	r.Inner = m.Inner
 	return nil
 }
+func (r MolecularSequenceStructureVariant) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.VariantType, xml.StartElement{Name: xml.Name{Local: "variantType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Exact, xml.StartElement{Name: xml.Name{Local: "exact"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Length, xml.StartElement{Name: xml.Name{Local: "length"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Outer, xml.StartElement{Name: xml.Name{Local: "outer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Inner, xml.StartElement{Name: xml.Name{Local: "inner"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceStructureVariant) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "variantType":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.VariantType = &v
+			case "exact":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Exact = &v
+			case "length":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Length = &v
+			case "outer":
+				var v MolecularSequenceStructureVariantOuter
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Outer = &v
+			case "inner":
+				var v MolecularSequenceStructureVariantInner
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Inner = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceStructureVariant) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1508,10 +2767,102 @@ func (r *MolecularSequenceStructureVariantOuter) unmarshalJSON(m jsonMolecularSe
 	}
 	return nil
 }
+func (r MolecularSequenceStructureVariantOuter) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Start, xml.StartElement{Name: xml.Name{Local: "start"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.End, xml.StartElement{Name: xml.Name{Local: "end"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceStructureVariantOuter) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "start":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Start = &v
+			case "end":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.End = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceStructureVariantOuter) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -1592,10 +2943,102 @@ func (r *MolecularSequenceStructureVariantInner) unmarshalJSON(m jsonMolecularSe
 	}
 	return nil
 }
+func (r MolecularSequenceStructureVariantInner) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Start, xml.StartElement{Name: xml.Name{Local: "start"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.End, xml.StartElement{Name: xml.Name{Local: "end"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MolecularSequenceStructureVariantInner) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "start":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Start = &v
+			case "end":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.End = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MolecularSequenceStructureVariantInner) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

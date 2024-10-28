@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
 )
@@ -501,10 +502,537 @@ func (r *MedicationRequest) unmarshalJSON(m jsonMedicationRequest) error {
 	r.EventHistory = m.EventHistory
 	return nil
 }
+func (r MedicationRequest) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "MedicationRequest"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.StatusReason, xml.StartElement{Name: xml.Name{Local: "statusReason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Intent, xml.StartElement{Name: xml.Name{Local: "intent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Category, xml.StartElement{Name: xml.Name{Local: "category"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Priority, xml.StartElement{Name: xml.Name{Local: "priority"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DoNotPerform, xml.StartElement{Name: xml.Name{Local: "doNotPerform"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Reported.(type) {
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "reportedBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "reportedReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.Medication.(type) {
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "medicationCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "medicationReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Subject, xml.StartElement{Name: xml.Name{Local: "subject"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Encounter, xml.StartElement{Name: xml.Name{Local: "encounter"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SupportingInformation, xml.StartElement{Name: xml.Name{Local: "supportingInformation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AuthoredOn, xml.StartElement{Name: xml.Name{Local: "authoredOn"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Requester, xml.StartElement{Name: xml.Name{Local: "requester"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Performer, xml.StartElement{Name: xml.Name{Local: "performer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PerformerType, xml.StartElement{Name: xml.Name{Local: "performerType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Recorder, xml.StartElement{Name: xml.Name{Local: "recorder"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReasonCode, xml.StartElement{Name: xml.Name{Local: "reasonCode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ReasonReference, xml.StartElement{Name: xml.Name{Local: "reasonReference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.InstantiatesCanonical, xml.StartElement{Name: xml.Name{Local: "instantiatesCanonical"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.InstantiatesUri, xml.StartElement{Name: xml.Name{Local: "instantiatesUri"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.BasedOn, xml.StartElement{Name: xml.Name{Local: "basedOn"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.GroupIdentifier, xml.StartElement{Name: xml.Name{Local: "groupIdentifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.CourseOfTherapyType, xml.StartElement{Name: xml.Name{Local: "courseOfTherapyType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Insurance, xml.StartElement{Name: xml.Name{Local: "insurance"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DosageInstruction, xml.StartElement{Name: xml.Name{Local: "dosageInstruction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DispenseRequest, xml.StartElement{Name: xml.Name{Local: "dispenseRequest"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Substitution, xml.StartElement{Name: xml.Name{Local: "substitution"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PriorPrescription, xml.StartElement{Name: xml.Name{Local: "priorPrescription"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DetectedIssue, xml.StartElement{Name: xml.Name{Local: "detectedIssue"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.EventHistory, xml.StartElement{Name: xml.Name{Local: "eventHistory"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MedicationRequest) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "statusReason":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.StatusReason = &v
+			case "intent":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Intent = v
+			case "category":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Category = append(r.Category, v)
+			case "priority":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Priority = &v
+			case "doNotPerform":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DoNotPerform = &v
+			case "reportedBoolean":
+				if r.Reported != nil {
+					return fmt.Errorf("multiple values for field \"Reported\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Reported = v
+			case "reportedReference":
+				if r.Reported != nil {
+					return fmt.Errorf("multiple values for field \"Reported\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Reported = v
+			case "medicationCodeableConcept":
+				if r.Medication != nil {
+					return fmt.Errorf("multiple values for field \"Medication\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Medication = v
+			case "medicationReference":
+				if r.Medication != nil {
+					return fmt.Errorf("multiple values for field \"Medication\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Medication = v
+			case "subject":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = v
+			case "encounter":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Encounter = &v
+			case "supportingInformation":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SupportingInformation = append(r.SupportingInformation, v)
+			case "authoredOn":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AuthoredOn = &v
+			case "requester":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requester = &v
+			case "performer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Performer = &v
+			case "performerType":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PerformerType = &v
+			case "recorder":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Recorder = &v
+			case "reasonCode":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReasonCode = append(r.ReasonCode, v)
+			case "reasonReference":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ReasonReference = append(r.ReasonReference, v)
+			case "instantiatesCanonical":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.InstantiatesCanonical = append(r.InstantiatesCanonical, v)
+			case "instantiatesUri":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.InstantiatesUri = append(r.InstantiatesUri, v)
+			case "basedOn":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.BasedOn = append(r.BasedOn, v)
+			case "groupIdentifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.GroupIdentifier = &v
+			case "courseOfTherapyType":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.CourseOfTherapyType = &v
+			case "insurance":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Insurance = append(r.Insurance, v)
+			case "note":
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			case "dosageInstruction":
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DosageInstruction = append(r.DosageInstruction, v)
+			case "dispenseRequest":
+				var v MedicationRequestDispenseRequest
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DispenseRequest = &v
+			case "substitution":
+				var v MedicationRequestSubstitution
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Substitution = &v
+			case "priorPrescription":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PriorPrescription = &v
+			case "detectedIssue":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DetectedIssue = append(r.DetectedIssue, v)
+			case "eventHistory":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.EventHistory = append(r.EventHistory, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MedicationRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -597,10 +1125,157 @@ func (r *MedicationRequestDispenseRequest) unmarshalJSON(m jsonMedicationRequest
 	r.Performer = m.Performer
 	return nil
 }
+func (r MedicationRequestDispenseRequest) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.InitialFill, xml.StartElement{Name: xml.Name{Local: "initialFill"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DispenseInterval, xml.StartElement{Name: xml.Name{Local: "dispenseInterval"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ValidityPeriod, xml.StartElement{Name: xml.Name{Local: "validityPeriod"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NumberOfRepeatsAllowed, xml.StartElement{Name: xml.Name{Local: "numberOfRepeatsAllowed"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Quantity, xml.StartElement{Name: xml.Name{Local: "quantity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ExpectedSupplyDuration, xml.StartElement{Name: xml.Name{Local: "expectedSupplyDuration"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Performer, xml.StartElement{Name: xml.Name{Local: "performer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MedicationRequestDispenseRequest) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "initialFill":
+				var v MedicationRequestDispenseRequestInitialFill
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.InitialFill = &v
+			case "dispenseInterval":
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DispenseInterval = &v
+			case "validityPeriod":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ValidityPeriod = &v
+			case "numberOfRepeatsAllowed":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NumberOfRepeatsAllowed = &v
+			case "quantity":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Quantity = &v
+			case "expectedSupplyDuration":
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ExpectedSupplyDuration = &v
+			case "performer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Performer = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MedicationRequestDispenseRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -655,10 +1330,102 @@ func (r *MedicationRequestDispenseRequestInitialFill) unmarshalJSON(m jsonMedica
 	r.Duration = m.Duration
 	return nil
 }
+func (r MedicationRequestDispenseRequestInitialFill) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Quantity, xml.StartElement{Name: xml.Name{Local: "quantity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Duration, xml.StartElement{Name: xml.Name{Local: "duration"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MedicationRequestDispenseRequestInitialFill) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "quantity":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Quantity = &v
+			case "duration":
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Duration = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MedicationRequestDispenseRequestInitialFill) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -761,10 +1528,123 @@ func (r *MedicationRequestSubstitution) unmarshalJSON(m jsonMedicationRequestSub
 	r.Reason = m.Reason
 	return nil
 }
+func (r MedicationRequestSubstitution) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Allowed.(type) {
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "allowedBoolean"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "allowedCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Reason, xml.StartElement{Name: xml.Name{Local: "reason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *MedicationRequestSubstitution) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "allowedBoolean":
+				if r.Allowed != nil {
+					return fmt.Errorf("multiple values for field \"Allowed\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Allowed = v
+			case "allowedCodeableConcept":
+				if r.Allowed != nil {
+					return fmt.Errorf("multiple values for field \"Allowed\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Allowed = v
+			case "reason":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Reason = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r MedicationRequestSubstitution) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

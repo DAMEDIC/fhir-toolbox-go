@@ -1,6 +1,10 @@
 package r4
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+)
 
 // Base StructureDefinition for ProdCharacteristic Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
 type ProdCharacteristic struct {
@@ -182,10 +186,201 @@ func (r *ProdCharacteristic) unmarshalJSON(m jsonProdCharacteristic) error {
 	r.Scoring = m.Scoring
 	return nil
 }
+func (r ProdCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Height, xml.StartElement{Name: xml.Name{Local: "height"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Width, xml.StartElement{Name: xml.Name{Local: "width"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Depth, xml.StartElement{Name: xml.Name{Local: "depth"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Weight, xml.StartElement{Name: xml.Name{Local: "weight"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NominalVolume, xml.StartElement{Name: xml.Name{Local: "nominalVolume"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ExternalDiameter, xml.StartElement{Name: xml.Name{Local: "externalDiameter"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Shape, xml.StartElement{Name: xml.Name{Local: "shape"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Color, xml.StartElement{Name: xml.Name{Local: "color"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Imprint, xml.StartElement{Name: xml.Name{Local: "imprint"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Image, xml.StartElement{Name: xml.Name{Local: "image"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Scoring, xml.StartElement{Name: xml.Name{Local: "scoring"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ProdCharacteristic) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "height":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Height = &v
+			case "width":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Width = &v
+			case "depth":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Depth = &v
+			case "weight":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Weight = &v
+			case "nominalVolume":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NominalVolume = &v
+			case "externalDiameter":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ExternalDiameter = &v
+			case "shape":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Shape = &v
+			case "color":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Color = append(r.Color, v)
+			case "imprint":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Imprint = append(r.Imprint, v)
+			case "image":
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Image = append(r.Image, v)
+			case "scoring":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Scoring = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ProdCharacteristic) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

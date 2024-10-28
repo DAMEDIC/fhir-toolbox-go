@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 )
 
@@ -98,10 +99,113 @@ func (r *Timing) unmarshalJSON(m jsonTiming) error {
 	r.Code = m.Code
 	return nil
 }
+func (r Timing) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Event, xml.StartElement{Name: xml.Name{Local: "event"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Repeat, xml.StartElement{Name: xml.Name{Local: "repeat"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Timing) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "event":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Event = append(r.Event, v)
+			case "repeat":
+				var v TimingRepeat
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Repeat = &v
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r Timing) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -508,10 +612,270 @@ func (r *TimingRepeat) unmarshalJSON(m jsonTimingRepeat) error {
 	}
 	return nil
 }
+func (r TimingRepeat) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Bounds.(type) {
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "boundsDuration"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "boundsRange"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "boundsPeriod"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Count, xml.StartElement{Name: xml.Name{Local: "count"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.CountMax, xml.StartElement{Name: xml.Name{Local: "countMax"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Duration, xml.StartElement{Name: xml.Name{Local: "duration"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DurationMax, xml.StartElement{Name: xml.Name{Local: "durationMax"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DurationUnit, xml.StartElement{Name: xml.Name{Local: "durationUnit"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Frequency, xml.StartElement{Name: xml.Name{Local: "frequency"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.FrequencyMax, xml.StartElement{Name: xml.Name{Local: "frequencyMax"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PeriodMax, xml.StartElement{Name: xml.Name{Local: "periodMax"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PeriodUnit, xml.StartElement{Name: xml.Name{Local: "periodUnit"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DayOfWeek, xml.StartElement{Name: xml.Name{Local: "dayOfWeek"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TimeOfDay, xml.StartElement{Name: xml.Name{Local: "timeOfDay"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.When, xml.StartElement{Name: xml.Name{Local: "when"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Offset, xml.StartElement{Name: xml.Name{Local: "offset"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *TimingRepeat) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "boundsDuration":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "boundsRange":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "boundsPeriod":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "count":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Count = &v
+			case "countMax":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.CountMax = &v
+			case "duration":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Duration = &v
+			case "durationMax":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DurationMax = &v
+			case "durationUnit":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DurationUnit = &v
+			case "frequency":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Frequency = &v
+			case "frequencyMax":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.FrequencyMax = &v
+			case "period":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			case "periodMax":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PeriodMax = &v
+			case "periodUnit":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PeriodUnit = &v
+			case "dayOfWeek":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DayOfWeek = append(r.DayOfWeek, v)
+			case "timeOfDay":
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TimeOfDay = append(r.TimeOfDay, v)
+			case "when":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.When = append(r.When, v)
+			case "offset":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Offset = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r TimingRepeat) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

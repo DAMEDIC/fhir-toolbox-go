@@ -2,7 +2,9 @@ package model_test
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/testdata/assertxml"
 	"strings"
 	"testing"
 
@@ -35,6 +37,29 @@ func TestRoundtripJSONR4Integration(t *testing.T) {
 			assert.NoError(t, err)
 
 			assertjson.Equal(t, jsonIn, jsonOut)
+		})
+	}
+}
+
+func TestRoundtripXMLR4Integration(t *testing.T) {
+	if testing.Short() {
+		t.Skip()
+	}
+
+	xmlR4Examples := testdata.GetExamples("r4", "xml")
+
+	for name, xmlIn := range xmlR4Examples {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			var r r4.ContainedResource
+			err := xml.Unmarshal(xmlIn, &r)
+			assert.NoError(t, err)
+
+			xmlOut, err := xml.Marshal(r)
+			assert.NoError(t, err)
+
+			assertxml.Equal(t, string(xmlIn), xml.Header+string(xmlOut))
 		})
 	}
 }

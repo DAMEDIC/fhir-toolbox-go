@@ -2,8 +2,10 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"unicode"
 )
 
 type primitiveElement struct {
@@ -14,6 +16,13 @@ type ContainedResource struct {
 	model.Resource
 }
 
+func (r ContainedResource) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ContainedResource) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.Resource)
 }
@@ -27,882 +36,2387 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 	switch t.ResourceType {
 	case "Account":
 		var r Account
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ActivityDefinition":
 		var r ActivityDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "AdverseEvent":
 		var r AdverseEvent
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "AllergyIntolerance":
 		var r AllergyIntolerance
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Appointment":
 		var r Appointment
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "AppointmentResponse":
 		var r AppointmentResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "AuditEvent":
 		var r AuditEvent
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Basic":
 		var r Basic
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Binary":
 		var r Binary
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "BiologicallyDerivedProduct":
 		var r BiologicallyDerivedProduct
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "BodyStructure":
 		var r BodyStructure
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Bundle":
 		var r Bundle
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CapabilityStatement":
 		var r CapabilityStatement
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CarePlan":
 		var r CarePlan
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CareTeam":
 		var r CareTeam
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CatalogEntry":
 		var r CatalogEntry
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ChargeItem":
 		var r ChargeItem
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ChargeItemDefinition":
 		var r ChargeItemDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Claim":
 		var r Claim
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ClaimResponse":
 		var r ClaimResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ClinicalImpression":
 		var r ClinicalImpression
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CodeSystem":
 		var r CodeSystem
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Communication":
 		var r Communication
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CommunicationRequest":
 		var r CommunicationRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CompartmentDefinition":
 		var r CompartmentDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Composition":
 		var r Composition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ConceptMap":
 		var r ConceptMap
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Condition":
 		var r Condition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Consent":
 		var r Consent
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Contract":
 		var r Contract
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Coverage":
 		var r Coverage
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CoverageEligibilityRequest":
 		var r CoverageEligibilityRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "CoverageEligibilityResponse":
 		var r CoverageEligibilityResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DetectedIssue":
 		var r DetectedIssue
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Device":
 		var r Device
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DeviceDefinition":
 		var r DeviceDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DeviceMetric":
 		var r DeviceMetric
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DeviceRequest":
 		var r DeviceRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DeviceUseStatement":
 		var r DeviceUseStatement
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DiagnosticReport":
 		var r DiagnosticReport
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DocumentManifest":
 		var r DocumentManifest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "DocumentReference":
 		var r DocumentReference
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EffectEvidenceSynthesis":
 		var r EffectEvidenceSynthesis
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Encounter":
 		var r Encounter
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Endpoint":
 		var r Endpoint
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EnrollmentRequest":
 		var r EnrollmentRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EnrollmentResponse":
 		var r EnrollmentResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EpisodeOfCare":
 		var r EpisodeOfCare
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EventDefinition":
 		var r EventDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Evidence":
 		var r Evidence
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "EvidenceVariable":
 		var r EvidenceVariable
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ExampleScenario":
 		var r ExampleScenario
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ExplanationOfBenefit":
 		var r ExplanationOfBenefit
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "FamilyMemberHistory":
 		var r FamilyMemberHistory
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Flag":
 		var r Flag
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Goal":
 		var r Goal
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "GraphDefinition":
 		var r GraphDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Group":
 		var r Group
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "GuidanceResponse":
 		var r GuidanceResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "HealthcareService":
 		var r HealthcareService
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ImagingStudy":
 		var r ImagingStudy
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Immunization":
 		var r Immunization
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ImmunizationEvaluation":
 		var r ImmunizationEvaluation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ImmunizationRecommendation":
 		var r ImmunizationRecommendation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ImplementationGuide":
 		var r ImplementationGuide
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "InsurancePlan":
 		var r InsurancePlan
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Invoice":
 		var r Invoice
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Library":
 		var r Library
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Linkage":
 		var r Linkage
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "List":
 		var r List
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Location":
 		var r Location
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Measure":
 		var r Measure
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MeasureReport":
 		var r MeasureReport
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Media":
 		var r Media
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Medication":
 		var r Medication
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicationAdministration":
 		var r MedicationAdministration
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicationDispense":
 		var r MedicationDispense
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicationKnowledge":
 		var r MedicationKnowledge
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicationRequest":
 		var r MedicationRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicationStatement":
 		var r MedicationStatement
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProduct":
 		var r MedicinalProduct
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductAuthorization":
 		var r MedicinalProductAuthorization
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductContraindication":
 		var r MedicinalProductContraindication
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductIndication":
 		var r MedicinalProductIndication
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductIngredient":
 		var r MedicinalProductIngredient
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductInteraction":
 		var r MedicinalProductInteraction
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductManufactured":
 		var r MedicinalProductManufactured
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductPackaged":
 		var r MedicinalProductPackaged
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductPharmaceutical":
 		var r MedicinalProductPharmaceutical
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MedicinalProductUndesirableEffect":
 		var r MedicinalProductUndesirableEffect
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MessageDefinition":
 		var r MessageDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MessageHeader":
 		var r MessageHeader
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "MolecularSequence":
 		var r MolecularSequence
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "NamingSystem":
 		var r NamingSystem
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "NutritionOrder":
 		var r NutritionOrder
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Observation":
 		var r Observation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ObservationDefinition":
 		var r ObservationDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "OperationDefinition":
 		var r OperationDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "OperationOutcome":
 		var r OperationOutcome
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Organization":
 		var r Organization
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "OrganizationAffiliation":
 		var r OrganizationAffiliation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Parameters":
 		var r Parameters
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Patient":
 		var r Patient
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "PaymentNotice":
 		var r PaymentNotice
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "PaymentReconciliation":
 		var r PaymentReconciliation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Person":
 		var r Person
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "PlanDefinition":
 		var r PlanDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Practitioner":
 		var r Practitioner
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "PractitionerRole":
 		var r PractitionerRole
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Procedure":
 		var r Procedure
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Provenance":
 		var r Provenance
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Questionnaire":
 		var r Questionnaire
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "QuestionnaireResponse":
 		var r QuestionnaireResponse
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "RelatedPerson":
 		var r RelatedPerson
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "RequestGroup":
 		var r RequestGroup
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ResearchDefinition":
 		var r ResearchDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ResearchElementDefinition":
 		var r ResearchElementDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ResearchStudy":
 		var r ResearchStudy
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ResearchSubject":
 		var r ResearchSubject
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "RiskAssessment":
 		var r RiskAssessment
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "RiskEvidenceSynthesis":
 		var r RiskEvidenceSynthesis
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Schedule":
 		var r Schedule
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SearchParameter":
 		var r SearchParameter
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ServiceRequest":
 		var r ServiceRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Slot":
 		var r Slot
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Specimen":
 		var r Specimen
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SpecimenDefinition":
 		var r SpecimenDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "StructureDefinition":
 		var r StructureDefinition
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "StructureMap":
 		var r StructureMap
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Subscription":
 		var r Subscription
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Substance":
 		var r Substance
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstanceNucleicAcid":
 		var r SubstanceNucleicAcid
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstancePolymer":
 		var r SubstancePolymer
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstanceProtein":
 		var r SubstanceProtein
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstanceReferenceInformation":
 		var r SubstanceReferenceInformation
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstanceSourceMaterial":
 		var r SubstanceSourceMaterial
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SubstanceSpecification":
 		var r SubstanceSpecification
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SupplyDelivery":
 		var r SupplyDelivery
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "SupplyRequest":
 		var r SupplyRequest
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "Task":
 		var r Task
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "TerminologyCapabilities":
 		var r TerminologyCapabilities
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "TestReport":
 		var r TestReport
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "TestScript":
 		var r TestScript
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "ValueSet":
 		var r ValueSet
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "VerificationResult":
 		var r VerificationResult
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	case "VisionPrescription":
 		var r VisionPrescription
-		if json.Unmarshal(b, &r) != nil {
-			return json.Unmarshal(b, &r)
+		err := json.Unmarshal(b, &r)
+		if err != nil {
+			return err
 		}
 		*cr = ContainedResource{r}
+		return nil
 	default:
 		return fmt.Errorf("unknown resource type: %s", t.ResourceType)
 	}
-	return nil
+}
+func (r ContainedResource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "ContainedResource" {
+		start.Name.Space = "http://hl7.org/fhir"
+		return e.EncodeElement(r.Resource, start)
+	} else {
+		err := e.EncodeToken(start)
+		if err != nil {
+			return err
+		}
+		err = e.Encode(r.Resource)
+		if err != nil {
+			return err
+		}
+		err = e.EncodeToken(start.End())
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+}
+func (cr *ContainedResource) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if unicode.IsLower(rune(start.Name.Local[0])) {
+		err := d.Decode(cr)
+		if err != nil {
+			return err
+		}
+		for {
+			t, err := d.Token()
+			if err != nil {
+				return err
+			}
+			_, ok := t.(xml.EndElement)
+			if ok {
+				break
+			}
+		}
+		return nil
+	}
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	switch start.Name.Local {
+	case "Account":
+		var r Account
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ActivityDefinition":
+		var r ActivityDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "AdverseEvent":
+		var r AdverseEvent
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "AllergyIntolerance":
+		var r AllergyIntolerance
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Appointment":
+		var r Appointment
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "AppointmentResponse":
+		var r AppointmentResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "AuditEvent":
+		var r AuditEvent
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Basic":
+		var r Basic
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Binary":
+		var r Binary
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "BiologicallyDerivedProduct":
+		var r BiologicallyDerivedProduct
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "BodyStructure":
+		var r BodyStructure
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Bundle":
+		var r Bundle
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CapabilityStatement":
+		var r CapabilityStatement
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CarePlan":
+		var r CarePlan
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CareTeam":
+		var r CareTeam
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CatalogEntry":
+		var r CatalogEntry
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ChargeItem":
+		var r ChargeItem
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ChargeItemDefinition":
+		var r ChargeItemDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Claim":
+		var r Claim
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ClaimResponse":
+		var r ClaimResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ClinicalImpression":
+		var r ClinicalImpression
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CodeSystem":
+		var r CodeSystem
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Communication":
+		var r Communication
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CommunicationRequest":
+		var r CommunicationRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CompartmentDefinition":
+		var r CompartmentDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Composition":
+		var r Composition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ConceptMap":
+		var r ConceptMap
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Condition":
+		var r Condition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Consent":
+		var r Consent
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Contract":
+		var r Contract
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Coverage":
+		var r Coverage
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CoverageEligibilityRequest":
+		var r CoverageEligibilityRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "CoverageEligibilityResponse":
+		var r CoverageEligibilityResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DetectedIssue":
+		var r DetectedIssue
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Device":
+		var r Device
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DeviceDefinition":
+		var r DeviceDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DeviceMetric":
+		var r DeviceMetric
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DeviceRequest":
+		var r DeviceRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DeviceUseStatement":
+		var r DeviceUseStatement
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DiagnosticReport":
+		var r DiagnosticReport
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DocumentManifest":
+		var r DocumentManifest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "DocumentReference":
+		var r DocumentReference
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EffectEvidenceSynthesis":
+		var r EffectEvidenceSynthesis
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Encounter":
+		var r Encounter
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Endpoint":
+		var r Endpoint
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EnrollmentRequest":
+		var r EnrollmentRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EnrollmentResponse":
+		var r EnrollmentResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EpisodeOfCare":
+		var r EpisodeOfCare
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EventDefinition":
+		var r EventDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Evidence":
+		var r Evidence
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "EvidenceVariable":
+		var r EvidenceVariable
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ExampleScenario":
+		var r ExampleScenario
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ExplanationOfBenefit":
+		var r ExplanationOfBenefit
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "FamilyMemberHistory":
+		var r FamilyMemberHistory
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Flag":
+		var r Flag
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Goal":
+		var r Goal
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "GraphDefinition":
+		var r GraphDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Group":
+		var r Group
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "GuidanceResponse":
+		var r GuidanceResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "HealthcareService":
+		var r HealthcareService
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ImagingStudy":
+		var r ImagingStudy
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Immunization":
+		var r Immunization
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ImmunizationEvaluation":
+		var r ImmunizationEvaluation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ImmunizationRecommendation":
+		var r ImmunizationRecommendation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ImplementationGuide":
+		var r ImplementationGuide
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "InsurancePlan":
+		var r InsurancePlan
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Invoice":
+		var r Invoice
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Library":
+		var r Library
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Linkage":
+		var r Linkage
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "List":
+		var r List
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Location":
+		var r Location
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Measure":
+		var r Measure
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MeasureReport":
+		var r MeasureReport
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Media":
+		var r Media
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Medication":
+		var r Medication
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicationAdministration":
+		var r MedicationAdministration
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicationDispense":
+		var r MedicationDispense
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicationKnowledge":
+		var r MedicationKnowledge
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicationRequest":
+		var r MedicationRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicationStatement":
+		var r MedicationStatement
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProduct":
+		var r MedicinalProduct
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductAuthorization":
+		var r MedicinalProductAuthorization
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductContraindication":
+		var r MedicinalProductContraindication
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductIndication":
+		var r MedicinalProductIndication
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductIngredient":
+		var r MedicinalProductIngredient
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductInteraction":
+		var r MedicinalProductInteraction
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductManufactured":
+		var r MedicinalProductManufactured
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductPackaged":
+		var r MedicinalProductPackaged
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductPharmaceutical":
+		var r MedicinalProductPharmaceutical
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MedicinalProductUndesirableEffect":
+		var r MedicinalProductUndesirableEffect
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MessageDefinition":
+		var r MessageDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MessageHeader":
+		var r MessageHeader
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "MolecularSequence":
+		var r MolecularSequence
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "NamingSystem":
+		var r NamingSystem
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "NutritionOrder":
+		var r NutritionOrder
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Observation":
+		var r Observation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ObservationDefinition":
+		var r ObservationDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "OperationDefinition":
+		var r OperationDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "OperationOutcome":
+		var r OperationOutcome
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Organization":
+		var r Organization
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "OrganizationAffiliation":
+		var r OrganizationAffiliation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Parameters":
+		var r Parameters
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Patient":
+		var r Patient
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "PaymentNotice":
+		var r PaymentNotice
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "PaymentReconciliation":
+		var r PaymentReconciliation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Person":
+		var r Person
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "PlanDefinition":
+		var r PlanDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Practitioner":
+		var r Practitioner
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "PractitionerRole":
+		var r PractitionerRole
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Procedure":
+		var r Procedure
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Provenance":
+		var r Provenance
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Questionnaire":
+		var r Questionnaire
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "QuestionnaireResponse":
+		var r QuestionnaireResponse
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "RelatedPerson":
+		var r RelatedPerson
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "RequestGroup":
+		var r RequestGroup
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ResearchDefinition":
+		var r ResearchDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ResearchElementDefinition":
+		var r ResearchElementDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ResearchStudy":
+		var r ResearchStudy
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ResearchSubject":
+		var r ResearchSubject
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "RiskAssessment":
+		var r RiskAssessment
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "RiskEvidenceSynthesis":
+		var r RiskEvidenceSynthesis
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Schedule":
+		var r Schedule
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SearchParameter":
+		var r SearchParameter
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ServiceRequest":
+		var r ServiceRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Slot":
+		var r Slot
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Specimen":
+		var r Specimen
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SpecimenDefinition":
+		var r SpecimenDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "StructureDefinition":
+		var r StructureDefinition
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "StructureMap":
+		var r StructureMap
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Subscription":
+		var r Subscription
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Substance":
+		var r Substance
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstanceNucleicAcid":
+		var r SubstanceNucleicAcid
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstancePolymer":
+		var r SubstancePolymer
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstanceProtein":
+		var r SubstanceProtein
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstanceReferenceInformation":
+		var r SubstanceReferenceInformation
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstanceSourceMaterial":
+		var r SubstanceSourceMaterial
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SubstanceSpecification":
+		var r SubstanceSpecification
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SupplyDelivery":
+		var r SupplyDelivery
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "SupplyRequest":
+		var r SupplyRequest
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "Task":
+		var r Task
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "TerminologyCapabilities":
+		var r TerminologyCapabilities
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "TestReport":
+		var r TestReport
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "TestScript":
+		var r TestScript
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "ValueSet":
+		var r ValueSet
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "VerificationResult":
+		var r VerificationResult
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	case "VisionPrescription":
+		var r VisionPrescription
+		err := d.DecodeElement(&r, &start)
+		if err != nil {
+			return err
+		}
+		*cr = ContainedResource{r}
+		return nil
+	default:
+		return fmt.Errorf("unknown resource type: %s", start.Name.Local)
+	}
 }

@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
 )
@@ -392,10 +393,341 @@ func (r *StructureMap) unmarshalJSON(m jsonStructureMap) error {
 	r.Group = m.Group
 	return nil
 }
+func (r StructureMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "StructureMap"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Experimental, xml.StartElement{Name: xml.Name{Local: "experimental"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Publisher, xml.StartElement{Name: xml.Name{Local: "publisher"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Contact, xml.StartElement{Name: xml.Name{Local: "contact"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.UseContext, xml.StartElement{Name: xml.Name{Local: "useContext"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Purpose, xml.StartElement{Name: xml.Name{Local: "purpose"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Copyright, xml.StartElement{Name: xml.Name{Local: "copyright"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Structure, xml.StartElement{Name: xml.Name{Local: "structure"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Import, xml.StartElement{Name: xml.Name{Local: "import"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Group, xml.StartElement{Name: xml.Name{Local: "group"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = v
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "version":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Version = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = v
+			case "title":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Title = &v
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "experimental":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Experimental = &v
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = &v
+			case "publisher":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Publisher = &v
+			case "contact":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Contact = append(r.Contact, v)
+			case "description":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "useContext":
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.UseContext = append(r.UseContext, v)
+			case "jurisdiction":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Jurisdiction = append(r.Jurisdiction, v)
+			case "purpose":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Purpose = &v
+			case "copyright":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Copyright = &v
+			case "structure":
+				var v StructureMapStructure
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Structure = append(r.Structure, v)
+			case "import":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Import = append(r.Import, v)
+			case "group":
+				var v StructureMapGroup
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Group = append(r.Group, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMap) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -506,10 +838,124 @@ func (r *StructureMapStructure) unmarshalJSON(m jsonStructureMapStructure) error
 	}
 	return nil
 }
+func (r StructureMapStructure) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Mode, xml.StartElement{Name: xml.Name{Local: "mode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Alias, xml.StartElement{Name: xml.Name{Local: "alias"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Documentation, xml.StartElement{Name: xml.Name{Local: "documentation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapStructure) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "url":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = v
+			case "mode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mode = v
+			case "alias":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Alias = &v
+			case "documentation":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Documentation = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapStructure) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -630,10 +1076,146 @@ func (r *StructureMapGroup) unmarshalJSON(m jsonStructureMapGroup) error {
 	r.Rule = m.Rule
 	return nil
 }
+func (r StructureMapGroup) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extends, xml.StartElement{Name: xml.Name{Local: "extends"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TypeMode, xml.StartElement{Name: xml.Name{Local: "typeMode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Documentation, xml.StartElement{Name: xml.Name{Local: "documentation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Input, xml.StartElement{Name: xml.Name{Local: "input"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Rule, xml.StartElement{Name: xml.Name{Local: "rule"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroup) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "name":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = v
+			case "extends":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extends = &v
+			case "typeMode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TypeMode = v
+			case "documentation":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Documentation = &v
+			case "input":
+				var v StructureMapGroupInput
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Input = append(r.Input, v)
+			case "rule":
+				var v StructureMapGroupRule
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Rule = append(r.Rule, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroup) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -744,10 +1326,124 @@ func (r *StructureMapGroupInput) unmarshalJSON(m jsonStructureMapGroupInput) err
 	}
 	return nil
 }
+func (r StructureMapGroupInput) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Mode, xml.StartElement{Name: xml.Name{Local: "mode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Documentation, xml.StartElement{Name: xml.Name{Local: "documentation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupInput) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "name":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = v
+			case "type":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "mode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mode = v
+			case "documentation":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Documentation = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupInput) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -845,10 +1541,146 @@ func (r *StructureMapGroupRule) unmarshalJSON(m jsonStructureMapGroupRule) error
 	}
 	return nil
 }
+func (r StructureMapGroupRule) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Source, xml.StartElement{Name: xml.Name{Local: "source"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Target, xml.StartElement{Name: xml.Name{Local: "target"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Rule, xml.StartElement{Name: xml.Name{Local: "rule"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Dependent, xml.StartElement{Name: xml.Name{Local: "dependent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Documentation, xml.StartElement{Name: xml.Name{Local: "documentation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupRule) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "name":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = v
+			case "source":
+				var v StructureMapGroupRuleSource
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Source = append(r.Source, v)
+			case "target":
+				var v StructureMapGroupRuleTarget
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Target = append(r.Target, v)
+			case "rule":
+				var v StructureMapGroupRule
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Rule = append(r.Rule, v)
+			case "dependent":
+				var v StructureMapGroupRuleDependent
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Dependent = append(r.Dependent, v)
+			case "documentation":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Documentation = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupRule) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -2071,10 +2903,942 @@ func (r *StructureMapGroupRuleSource) unmarshalJSON(m jsonStructureMapGroupRuleS
 	}
 	return nil
 }
+func (r StructureMapGroupRuleSource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Context, xml.StartElement{Name: xml.Name{Local: "context"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Min, xml.StartElement{Name: xml.Name{Local: "min"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Max, xml.StartElement{Name: xml.Name{Local: "max"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.DefaultValue.(type) {
+	case Base64Binary, *Base64Binary:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueBase64Binary"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Canonical, *Canonical:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCanonical"}})
+		if err != nil {
+			return err
+		}
+	case Code, *Code:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCode"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueId"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueInstant"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Markdown, *Markdown:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMarkdown"}})
+		if err != nil {
+			return err
+		}
+	case Oid, *Oid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueOid"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValuePositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueString"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTime"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUri"}})
+		if err != nil {
+			return err
+		}
+	case Url, *Url:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUrl"}})
+		if err != nil {
+			return err
+		}
+	case Uuid, *Uuid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUuid"}})
+		if err != nil {
+			return err
+		}
+	case Address, *Address:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAddress"}})
+		if err != nil {
+			return err
+		}
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAge"}})
+		if err != nil {
+			return err
+		}
+	case Annotation, *Annotation:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAnnotation"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAttachment"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCoding"}})
+		if err != nil {
+			return err
+		}
+	case ContactPoint, *ContactPoint:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContactPoint"}})
+		if err != nil {
+			return err
+		}
+	case Count, *Count:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCount"}})
+		if err != nil {
+			return err
+		}
+	case Distance, *Distance:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDistance"}})
+		if err != nil {
+			return err
+		}
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDuration"}})
+		if err != nil {
+			return err
+		}
+	case HumanName, *HumanName:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueHumanName"}})
+		if err != nil {
+			return err
+		}
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Money, *Money:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMoney"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValuePeriod"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRange"}})
+		if err != nil {
+			return err
+		}
+	case Ratio, *Ratio:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRatio"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueReference"}})
+		if err != nil {
+			return err
+		}
+	case SampledData, *SampledData:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueSampledData"}})
+		if err != nil {
+			return err
+		}
+	case Signature, *Signature:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueSignature"}})
+		if err != nil {
+			return err
+		}
+	case Timing, *Timing:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTiming"}})
+		if err != nil {
+			return err
+		}
+	case ContactDetail, *ContactDetail:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContactDetail"}})
+		if err != nil {
+			return err
+		}
+	case Contributor, *Contributor:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContributor"}})
+		if err != nil {
+			return err
+		}
+	case DataRequirement, *DataRequirement:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDataRequirement"}})
+		if err != nil {
+			return err
+		}
+	case Expression, *Expression:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueExpression"}})
+		if err != nil {
+			return err
+		}
+	case ParameterDefinition, *ParameterDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueParameterDefinition"}})
+		if err != nil {
+			return err
+		}
+	case RelatedArtifact, *RelatedArtifact:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRelatedArtifact"}})
+		if err != nil {
+			return err
+		}
+	case TriggerDefinition, *TriggerDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTriggerDefinition"}})
+		if err != nil {
+			return err
+		}
+	case UsageContext, *UsageContext:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUsageContext"}})
+		if err != nil {
+			return err
+		}
+	case Dosage, *Dosage:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDosage"}})
+		if err != nil {
+			return err
+		}
+	case Meta, *Meta:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMeta"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Element, xml.StartElement{Name: xml.Name{Local: "element"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ListMode, xml.StartElement{Name: xml.Name{Local: "listMode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Variable, xml.StartElement{Name: xml.Name{Local: "variable"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Condition, xml.StartElement{Name: xml.Name{Local: "condition"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Check, xml.StartElement{Name: xml.Name{Local: "check"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.LogMessage, xml.StartElement{Name: xml.Name{Local: "logMessage"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupRuleSource) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "context":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Context = v
+			case "min":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Min = &v
+			case "max":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Max = &v
+			case "type":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "defaultValueBase64Binary":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueBoolean":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCanonical":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCode":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDate":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDateTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDecimal":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueId":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInstant":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInteger":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMarkdown":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueOid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePositiveInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueString":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUnsignedInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUri":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUrl":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUuid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAddress":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAge":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAnnotation":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAttachment":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCodeableConcept":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCoding":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactPoint":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCount":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDistance":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDuration":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueHumanName":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueIdentifier":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMoney":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePeriod":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueQuantity":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRange":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRatio":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueReference":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSampledData":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSignature":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTiming":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactDetail":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContributor":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDataRequirement":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueExpression":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueParameterDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRelatedArtifact":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTriggerDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUsageContext":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDosage":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMeta":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "element":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Element = &v
+			case "listMode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ListMode = &v
+			case "variable":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Variable = &v
+			case "condition":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Condition = &v
+			case "check":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Check = &v
+			case "logMessage":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LogMessage = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupRuleSource) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -2273,10 +4037,168 @@ func (r *StructureMapGroupRuleTarget) unmarshalJSON(m jsonStructureMapGroupRuleT
 	r.Parameter = m.Parameter
 	return nil
 }
+func (r StructureMapGroupRuleTarget) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Context, xml.StartElement{Name: xml.Name{Local: "context"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ContextType, xml.StartElement{Name: xml.Name{Local: "contextType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Element, xml.StartElement{Name: xml.Name{Local: "element"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Variable, xml.StartElement{Name: xml.Name{Local: "variable"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ListMode, xml.StartElement{Name: xml.Name{Local: "listMode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ListRuleId, xml.StartElement{Name: xml.Name{Local: "listRuleId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Transform, xml.StartElement{Name: xml.Name{Local: "transform"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Parameter, xml.StartElement{Name: xml.Name{Local: "parameter"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupRuleTarget) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "context":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Context = &v
+			case "contextType":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ContextType = &v
+			case "element":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Element = &v
+			case "variable":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Variable = &v
+			case "listMode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ListMode = append(r.ListMode, v)
+			case "listRuleId":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ListRuleId = &v
+			case "transform":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Transform = &v
+			case "parameter":
+				var v StructureMapGroupRuleTargetParameter
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Parameter = append(r.Parameter, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupRuleTarget) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -2485,10 +4407,157 @@ func (r *StructureMapGroupRuleTargetParameter) unmarshalJSON(m jsonStructureMapG
 	}
 	return nil
 }
+func (r StructureMapGroupRuleTargetParameter) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Value.(type) {
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueId"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueString"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDecimal"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupRuleTargetParameter) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "valueId":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueString":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueBoolean":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInteger":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDecimal":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupRuleTargetParameter) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -2589,10 +4658,102 @@ func (r *StructureMapGroupRuleDependent) unmarshalJSON(m jsonStructureMapGroupRu
 	}
 	return nil
 }
+func (r StructureMapGroupRuleDependent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Variable, xml.StartElement{Name: xml.Name{Local: "variable"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *StructureMapGroupRuleDependent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "name":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = v
+			case "variable":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Variable = append(r.Variable, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r StructureMapGroupRuleDependent) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
