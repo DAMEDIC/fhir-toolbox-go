@@ -1,21 +1,30 @@
 # fhir-toolbox-go
 
-This projects aims to provide a set of packages for building FHIR services in Go.
-This includes model types, as well as interfaces (and some implementations) modeling capabilities that a server provides
-or a client can consume.
+This project provides a set of packages for building FHIR services in Go.
+
+This includes model types and interfaces modeling capabilities that you can use to build custom FHIR servers.
+
+> While used in production at DAMEDIC, this project is still in its early days
+> and the feature set is quite limit.
+> We will add features as we require them. We welcome external contributions.
 
 ## Features
 
-- Extensible REST API with capabilties modeled as interfaces
-    - FHIR model types
-    - Capability detection by runtime ~~reflecting~~ type asserting implemented interfaces (
-      see [Capabilities](#capabilities))
-    - Interactions: `read`,  `search`
+- FHIR model types with JSON and XML (un)marshalling
+- Extensible REST API with capabilities modeled as interfaces
+    - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
+      - alternatively: generic API for building wrappers
+    - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
+    - Cursor-based pagination
 
-## Examples
 
-You can find examples in `./examples`.
-The `facade` example shows how to build custom FHIR facades using the capabilities API.
+## Getting Started
+A quick "getting started" tutorial can be found in the [`./examples/demo`](./examples/demo/main.go) project.
+
+### Other Examples
+
+You can find more examples in `./examples`.
+The `facade` example shows how to build custom FHIR facades on top of legacy data sources using the capabilities API.
 The `proxy` example uses the generic API to forward all requests to another FHIR server.
 
 ```sh
@@ -37,9 +46,6 @@ curl 'http://localhost/Patient?_id=547'
 ```
 
 to get a bundle.
-
-The client implementation in `./cmd/example` is only a proof-of-concept and does only implement the `read` interaction
-for a very limited set of resources.
 
 ## Capabilities
 
@@ -69,11 +75,11 @@ func (a myAPI) Search(ctx context.Context, resourceType string, options search.O
 ```
 
 You can implement your custom backend or client either way.
-The **concrete** API is ideal for building custom FHIR facades where only a few resource types are used (see `example/mock`).
-The **generic** API is better suited for e.g. building FHIR clients (see `example/proxy`).
+The **concrete** API is ideal for building custom FHIR facades where a limited set of resources is used (see `example/mock`).
+The **generic** API is better suited for e.g. building full FHIR clients (see `example/proxy`) or standalone FHIR servers.
 
 #### Interoperability
-The `capabilities/wrap` package provides two wrapper functions to wrap a generic to a concrete API:
+The `capabilities/wrap` package provides two wrapper functions to wrap a concrete into the generic API:
 ```Go
 // at the moment, the wrapped generic API **only** implements the generic API,
 // this might change in the future
@@ -82,7 +88,7 @@ genericAPI := wrap.Generic[model.R4](concreteAPI)
 and vice versa:
 ```Go
 // the returned concrete API implements both the generic and the concrete API
-concreteAPI := wrap.GenericR4(genericAPI)
+concreteAPI := wrap.Concrete[model.R4](genericAPI)
 ```
 
 ## Packages
@@ -104,6 +110,7 @@ See [Contribution](#contribution) below.
 
 ## Contribution
 
-We are happy to accept contributions to this project.
+We are happy to accept contributions.
 Bugfixes are always welcomed.
-For more complex features we would like to see long-term commitment to maintain the contirbuted source codes.
+For more complex features we appreciate commitment to maintain the contributed sources
+as unmaintained/dead code eventually becomes a burden.
