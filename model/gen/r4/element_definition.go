@@ -2,6 +2,7 @@ package r4
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 )
 
@@ -4082,10 +4083,2929 @@ func (r *ElementDefinition) unmarshalJSON(m jsonElementDefinition) error {
 	r.Mapping = m.Mapping
 	return nil
 }
+func (r ElementDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Path, xml.StartElement{Name: xml.Name{Local: "path"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Representation, xml.StartElement{Name: xml.Name{Local: "representation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SliceName, xml.StartElement{Name: xml.Name{Local: "sliceName"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SliceIsConstraining, xml.StartElement{Name: xml.Name{Local: "sliceIsConstraining"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Label, xml.StartElement{Name: xml.Name{Local: "label"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Slicing, xml.StartElement{Name: xml.Name{Local: "slicing"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Short, xml.StartElement{Name: xml.Name{Local: "short"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Definition, xml.StartElement{Name: xml.Name{Local: "definition"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Comment, xml.StartElement{Name: xml.Name{Local: "comment"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Requirements, xml.StartElement{Name: xml.Name{Local: "requirements"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Alias, xml.StartElement{Name: xml.Name{Local: "alias"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Min, xml.StartElement{Name: xml.Name{Local: "min"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Max, xml.StartElement{Name: xml.Name{Local: "max"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Base, xml.StartElement{Name: xml.Name{Local: "base"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ContentReference, xml.StartElement{Name: xml.Name{Local: "contentReference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.DefaultValue.(type) {
+	case Base64Binary, *Base64Binary:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueBase64Binary"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Canonical, *Canonical:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCanonical"}})
+		if err != nil {
+			return err
+		}
+	case Code, *Code:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCode"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueId"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueInstant"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Markdown, *Markdown:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMarkdown"}})
+		if err != nil {
+			return err
+		}
+	case Oid, *Oid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueOid"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValuePositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueString"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTime"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUri"}})
+		if err != nil {
+			return err
+		}
+	case Url, *Url:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUrl"}})
+		if err != nil {
+			return err
+		}
+	case Uuid, *Uuid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUuid"}})
+		if err != nil {
+			return err
+		}
+	case Address, *Address:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAddress"}})
+		if err != nil {
+			return err
+		}
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAge"}})
+		if err != nil {
+			return err
+		}
+	case Annotation, *Annotation:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAnnotation"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueAttachment"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCoding"}})
+		if err != nil {
+			return err
+		}
+	case ContactPoint, *ContactPoint:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContactPoint"}})
+		if err != nil {
+			return err
+		}
+	case Count, *Count:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueCount"}})
+		if err != nil {
+			return err
+		}
+	case Distance, *Distance:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDistance"}})
+		if err != nil {
+			return err
+		}
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDuration"}})
+		if err != nil {
+			return err
+		}
+	case HumanName, *HumanName:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueHumanName"}})
+		if err != nil {
+			return err
+		}
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Money, *Money:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMoney"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValuePeriod"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRange"}})
+		if err != nil {
+			return err
+		}
+	case Ratio, *Ratio:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRatio"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueReference"}})
+		if err != nil {
+			return err
+		}
+	case SampledData, *SampledData:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueSampledData"}})
+		if err != nil {
+			return err
+		}
+	case Signature, *Signature:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueSignature"}})
+		if err != nil {
+			return err
+		}
+	case Timing, *Timing:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTiming"}})
+		if err != nil {
+			return err
+		}
+	case ContactDetail, *ContactDetail:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContactDetail"}})
+		if err != nil {
+			return err
+		}
+	case Contributor, *Contributor:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueContributor"}})
+		if err != nil {
+			return err
+		}
+	case DataRequirement, *DataRequirement:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDataRequirement"}})
+		if err != nil {
+			return err
+		}
+	case Expression, *Expression:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueExpression"}})
+		if err != nil {
+			return err
+		}
+	case ParameterDefinition, *ParameterDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueParameterDefinition"}})
+		if err != nil {
+			return err
+		}
+	case RelatedArtifact, *RelatedArtifact:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueRelatedArtifact"}})
+		if err != nil {
+			return err
+		}
+	case TriggerDefinition, *TriggerDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueTriggerDefinition"}})
+		if err != nil {
+			return err
+		}
+	case UsageContext, *UsageContext:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueUsageContext"}})
+		if err != nil {
+			return err
+		}
+	case Dosage, *Dosage:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueDosage"}})
+		if err != nil {
+			return err
+		}
+	case Meta, *Meta:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "defaultValueMeta"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.MeaningWhenMissing, xml.StartElement{Name: xml.Name{Local: "meaningWhenMissing"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.OrderMeaning, xml.StartElement{Name: xml.Name{Local: "orderMeaning"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Fixed.(type) {
+	case Base64Binary, *Base64Binary:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedBase64Binary"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Canonical, *Canonical:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedCanonical"}})
+		if err != nil {
+			return err
+		}
+	case Code, *Code:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedCode"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedId"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedInstant"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedInteger"}})
+		if err != nil {
+			return err
+		}
+	case Markdown, *Markdown:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedMarkdown"}})
+		if err != nil {
+			return err
+		}
+	case Oid, *Oid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedOid"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedPositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedString"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedTime"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedUri"}})
+		if err != nil {
+			return err
+		}
+	case Url, *Url:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedUrl"}})
+		if err != nil {
+			return err
+		}
+	case Uuid, *Uuid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedUuid"}})
+		if err != nil {
+			return err
+		}
+	case Address, *Address:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedAddress"}})
+		if err != nil {
+			return err
+		}
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedAge"}})
+		if err != nil {
+			return err
+		}
+	case Annotation, *Annotation:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedAnnotation"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedAttachment"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedCoding"}})
+		if err != nil {
+			return err
+		}
+	case ContactPoint, *ContactPoint:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedContactPoint"}})
+		if err != nil {
+			return err
+		}
+	case Count, *Count:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedCount"}})
+		if err != nil {
+			return err
+		}
+	case Distance, *Distance:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDistance"}})
+		if err != nil {
+			return err
+		}
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDuration"}})
+		if err != nil {
+			return err
+		}
+	case HumanName, *HumanName:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedHumanName"}})
+		if err != nil {
+			return err
+		}
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Money, *Money:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedMoney"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedPeriod"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedRange"}})
+		if err != nil {
+			return err
+		}
+	case Ratio, *Ratio:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedRatio"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedReference"}})
+		if err != nil {
+			return err
+		}
+	case SampledData, *SampledData:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedSampledData"}})
+		if err != nil {
+			return err
+		}
+	case Signature, *Signature:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedSignature"}})
+		if err != nil {
+			return err
+		}
+	case Timing, *Timing:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedTiming"}})
+		if err != nil {
+			return err
+		}
+	case ContactDetail, *ContactDetail:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedContactDetail"}})
+		if err != nil {
+			return err
+		}
+	case Contributor, *Contributor:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedContributor"}})
+		if err != nil {
+			return err
+		}
+	case DataRequirement, *DataRequirement:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDataRequirement"}})
+		if err != nil {
+			return err
+		}
+	case Expression, *Expression:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedExpression"}})
+		if err != nil {
+			return err
+		}
+	case ParameterDefinition, *ParameterDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedParameterDefinition"}})
+		if err != nil {
+			return err
+		}
+	case RelatedArtifact, *RelatedArtifact:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedRelatedArtifact"}})
+		if err != nil {
+			return err
+		}
+	case TriggerDefinition, *TriggerDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedTriggerDefinition"}})
+		if err != nil {
+			return err
+		}
+	case UsageContext, *UsageContext:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedUsageContext"}})
+		if err != nil {
+			return err
+		}
+	case Dosage, *Dosage:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedDosage"}})
+		if err != nil {
+			return err
+		}
+	case Meta, *Meta:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "fixedMeta"}})
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.Pattern.(type) {
+	case Base64Binary, *Base64Binary:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternBase64Binary"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Canonical, *Canonical:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternCanonical"}})
+		if err != nil {
+			return err
+		}
+	case Code, *Code:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternCode"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternId"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternInstant"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternInteger"}})
+		if err != nil {
+			return err
+		}
+	case Markdown, *Markdown:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternMarkdown"}})
+		if err != nil {
+			return err
+		}
+	case Oid, *Oid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternOid"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternPositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternString"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternTime"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternUri"}})
+		if err != nil {
+			return err
+		}
+	case Url, *Url:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternUrl"}})
+		if err != nil {
+			return err
+		}
+	case Uuid, *Uuid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternUuid"}})
+		if err != nil {
+			return err
+		}
+	case Address, *Address:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternAddress"}})
+		if err != nil {
+			return err
+		}
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternAge"}})
+		if err != nil {
+			return err
+		}
+	case Annotation, *Annotation:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternAnnotation"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternAttachment"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternCoding"}})
+		if err != nil {
+			return err
+		}
+	case ContactPoint, *ContactPoint:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternContactPoint"}})
+		if err != nil {
+			return err
+		}
+	case Count, *Count:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternCount"}})
+		if err != nil {
+			return err
+		}
+	case Distance, *Distance:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDistance"}})
+		if err != nil {
+			return err
+		}
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDuration"}})
+		if err != nil {
+			return err
+		}
+	case HumanName, *HumanName:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternHumanName"}})
+		if err != nil {
+			return err
+		}
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Money, *Money:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternMoney"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternPeriod"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternRange"}})
+		if err != nil {
+			return err
+		}
+	case Ratio, *Ratio:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternRatio"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternReference"}})
+		if err != nil {
+			return err
+		}
+	case SampledData, *SampledData:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternSampledData"}})
+		if err != nil {
+			return err
+		}
+	case Signature, *Signature:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternSignature"}})
+		if err != nil {
+			return err
+		}
+	case Timing, *Timing:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternTiming"}})
+		if err != nil {
+			return err
+		}
+	case ContactDetail, *ContactDetail:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternContactDetail"}})
+		if err != nil {
+			return err
+		}
+	case Contributor, *Contributor:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternContributor"}})
+		if err != nil {
+			return err
+		}
+	case DataRequirement, *DataRequirement:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDataRequirement"}})
+		if err != nil {
+			return err
+		}
+	case Expression, *Expression:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternExpression"}})
+		if err != nil {
+			return err
+		}
+	case ParameterDefinition, *ParameterDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternParameterDefinition"}})
+		if err != nil {
+			return err
+		}
+	case RelatedArtifact, *RelatedArtifact:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternRelatedArtifact"}})
+		if err != nil {
+			return err
+		}
+	case TriggerDefinition, *TriggerDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternTriggerDefinition"}})
+		if err != nil {
+			return err
+		}
+	case UsageContext, *UsageContext:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternUsageContext"}})
+		if err != nil {
+			return err
+		}
+	case Dosage, *Dosage:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternDosage"}})
+		if err != nil {
+			return err
+		}
+	case Meta, *Meta:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "patternMeta"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Example, xml.StartElement{Name: xml.Name{Local: "example"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.MinValue.(type) {
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueInstant"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueInteger"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValuePositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "minValueQuantity"}})
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.MaxValue.(type) {
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueInstant"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueInteger"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValuePositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "maxValueQuantity"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.MaxLength, xml.StartElement{Name: xml.Name{Local: "maxLength"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Condition, xml.StartElement{Name: xml.Name{Local: "condition"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Constraint, xml.StartElement{Name: xml.Name{Local: "constraint"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.MustSupport, xml.StartElement{Name: xml.Name{Local: "mustSupport"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.IsModifier, xml.StartElement{Name: xml.Name{Local: "isModifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.IsModifierReason, xml.StartElement{Name: xml.Name{Local: "isModifierReason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.IsSummary, xml.StartElement{Name: xml.Name{Local: "isSummary"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Binding, xml.StartElement{Name: xml.Name{Local: "binding"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Mapping, xml.StartElement{Name: xml.Name{Local: "mapping"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			case "representation":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Representation = append(r.Representation, v)
+			case "sliceName":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SliceName = &v
+			case "sliceIsConstraining":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SliceIsConstraining = &v
+			case "label":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Label = &v
+			case "code":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			case "slicing":
+				var v ElementDefinitionSlicing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Slicing = &v
+			case "short":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Short = &v
+			case "definition":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Definition = &v
+			case "comment":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comment = &v
+			case "requirements":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requirements = &v
+			case "alias":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Alias = append(r.Alias, v)
+			case "min":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Min = &v
+			case "max":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Max = &v
+			case "base":
+				var v ElementDefinitionBase
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Base = &v
+			case "contentReference":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ContentReference = &v
+			case "type":
+				var v ElementDefinitionType
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			case "defaultValueBase64Binary":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueBoolean":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCanonical":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCode":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDate":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDateTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDecimal":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueId":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInstant":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInteger":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMarkdown":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueOid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePositiveInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueString":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUnsignedInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUri":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUrl":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUuid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAddress":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAge":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAnnotation":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAttachment":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCodeableConcept":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCoding":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactPoint":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCount":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDistance":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDuration":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueHumanName":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueIdentifier":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMoney":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePeriod":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueQuantity":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRange":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRatio":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueReference":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSampledData":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSignature":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTiming":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactDetail":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContributor":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDataRequirement":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueExpression":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueParameterDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRelatedArtifact":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTriggerDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUsageContext":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDosage":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMeta":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "meaningWhenMissing":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MeaningWhenMissing = &v
+			case "orderMeaning":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.OrderMeaning = &v
+			case "fixedBase64Binary":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedBoolean":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCanonical":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCode":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDate":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDateTime":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDecimal":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedId":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedInstant":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedInteger":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMarkdown":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedOid":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedPositiveInt":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedString":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTime":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUnsignedInt":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUri":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUrl":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUuid":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAddress":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAge":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAnnotation":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAttachment":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCodeableConcept":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCoding":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContactPoint":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCount":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDistance":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDuration":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedHumanName":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedIdentifier":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMoney":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedPeriod":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedQuantity":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRange":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRatio":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedReference":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedSampledData":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedSignature":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTiming":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContactDetail":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContributor":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDataRequirement":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedExpression":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedParameterDefinition":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRelatedArtifact":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTriggerDefinition":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUsageContext":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDosage":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMeta":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "patternBase64Binary":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternBoolean":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCanonical":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCode":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDate":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDateTime":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDecimal":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternId":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternInstant":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternInteger":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMarkdown":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternOid":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternPositiveInt":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternString":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTime":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUnsignedInt":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUri":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUrl":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUuid":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAddress":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAge":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAnnotation":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAttachment":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCodeableConcept":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCoding":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContactPoint":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCount":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDistance":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDuration":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternHumanName":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternIdentifier":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMoney":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternPeriod":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternQuantity":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRange":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRatio":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternReference":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternSampledData":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternSignature":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTiming":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContactDetail":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContributor":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDataRequirement":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternExpression":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternParameterDefinition":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRelatedArtifact":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTriggerDefinition":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUsageContext":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDosage":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMeta":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "example":
+				var v ElementDefinitionExample
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Example = append(r.Example, v)
+			case "minValueDate":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueDateTime":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueInstant":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueTime":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueDecimal":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueInteger":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValuePositiveInt":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueUnsignedInt":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueQuantity":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "maxValueDate":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueDateTime":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueInstant":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueTime":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueDecimal":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueInteger":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValuePositiveInt":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueUnsignedInt":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueQuantity":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxLength":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxLength = &v
+			case "condition":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Condition = append(r.Condition, v)
+			case "constraint":
+				var v ElementDefinitionConstraint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Constraint = append(r.Constraint, v)
+			case "mustSupport":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MustSupport = &v
+			case "isModifier":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsModifier = &v
+			case "isModifierReason":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsModifierReason = &v
+			case "isSummary":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsSummary = &v
+			case "binding":
+				var v ElementDefinitionBinding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Binding = &v
+			case "mapping":
+				var v ElementDefinitionMapping
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mapping = append(r.Mapping, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -4179,10 +7099,113 @@ func (r *ElementDefinitionSlicing) unmarshalJSON(m jsonElementDefinitionSlicing)
 	}
 	return nil
 }
+func (r ElementDefinitionSlicing) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Discriminator, xml.StartElement{Name: xml.Name{Local: "discriminator"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Ordered, xml.StartElement{Name: xml.Name{Local: "ordered"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Rules, xml.StartElement{Name: xml.Name{Local: "rules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionSlicing) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "discriminator":
+				var v ElementDefinitionSlicingDiscriminator
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Discriminator = append(r.Discriminator, v)
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "ordered":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Ordered = &v
+			case "rules":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Rules = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionSlicing) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -4250,10 +7273,91 @@ func (r *ElementDefinitionSlicingDiscriminator) unmarshalJSON(m jsonElementDefin
 	}
 	return nil
 }
+func (r ElementDefinitionSlicingDiscriminator) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Path, xml.StartElement{Name: xml.Name{Local: "path"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionSlicingDiscriminator) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionSlicingDiscriminator) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -4336,10 +7440,102 @@ func (r *ElementDefinitionBase) unmarshalJSON(m jsonElementDefinitionBase) error
 	}
 	return nil
 }
+func (r ElementDefinitionBase) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Path, xml.StartElement{Name: xml.Name{Local: "path"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Min, xml.StartElement{Name: xml.Name{Local: "min"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Max, xml.StartElement{Name: xml.Name{Local: "max"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionBase) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			case "min":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Min = v
+			case "max":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Max = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionBase) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -4533,10 +7729,124 @@ func (r *ElementDefinitionType) unmarshalJSON(m jsonElementDefinitionType) error
 	}
 	return nil
 }
+func (r ElementDefinitionType) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Profile, xml.StartElement{Name: xml.Name{Local: "profile"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TargetProfile, xml.StartElement{Name: xml.Name{Local: "targetProfile"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Aggregation, xml.StartElement{Name: xml.Name{Local: "aggregation"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Versioning, xml.StartElement{Name: xml.Name{Local: "versioning"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionType) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "code":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = v
+			case "profile":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Profile = append(r.Profile, v)
+			case "targetProfile":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TargetProfile = append(r.TargetProfile, v)
+			case "aggregation":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Aggregation = append(r.Aggregation, v)
+			case "versioning":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Versioning = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionType) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -5590,10 +8900,832 @@ func (r *ElementDefinitionExample) unmarshalJSON(m jsonElementDefinitionExample)
 	}
 	return nil
 }
+func (r ElementDefinitionExample) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Label, xml.StartElement{Name: xml.Name{Local: "label"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Value.(type) {
+	case Base64Binary, *Base64Binary:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBase64Binary"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Canonical, *Canonical:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCanonical"}})
+		if err != nil {
+			return err
+		}
+	case Code, *Code:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCode"}})
+		if err != nil {
+			return err
+		}
+	case Date, *Date:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDate"}})
+		if err != nil {
+			return err
+		}
+	case DateTime, *DateTime:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDateTime"}})
+		if err != nil {
+			return err
+		}
+	case Decimal, *Decimal:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDecimal"}})
+		if err != nil {
+			return err
+		}
+	case Id, *Id:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueId"}})
+		if err != nil {
+			return err
+		}
+	case Instant, *Instant:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueInstant"}})
+		if err != nil {
+			return err
+		}
+	case Integer, *Integer:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueInteger"}})
+		if err != nil {
+			return err
+		}
+	case Markdown, *Markdown:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueMarkdown"}})
+		if err != nil {
+			return err
+		}
+	case Oid, *Oid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueOid"}})
+		if err != nil {
+			return err
+		}
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valuePositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueString"}})
+		if err != nil {
+			return err
+		}
+	case Time, *Time:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueTime"}})
+		if err != nil {
+			return err
+		}
+	case UnsignedInt, *UnsignedInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUnsignedInt"}})
+		if err != nil {
+			return err
+		}
+	case Uri, *Uri:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUri"}})
+		if err != nil {
+			return err
+		}
+	case Url, *Url:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUrl"}})
+		if err != nil {
+			return err
+		}
+	case Uuid, *Uuid:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUuid"}})
+		if err != nil {
+			return err
+		}
+	case Address, *Address:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueAddress"}})
+		if err != nil {
+			return err
+		}
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueAge"}})
+		if err != nil {
+			return err
+		}
+	case Annotation, *Annotation:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueAnnotation"}})
+		if err != nil {
+			return err
+		}
+	case Attachment, *Attachment:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueAttachment"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Coding, *Coding:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCoding"}})
+		if err != nil {
+			return err
+		}
+	case ContactPoint, *ContactPoint:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueContactPoint"}})
+		if err != nil {
+			return err
+		}
+	case Count, *Count:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCount"}})
+		if err != nil {
+			return err
+		}
+	case Distance, *Distance:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDistance"}})
+		if err != nil {
+			return err
+		}
+	case Duration, *Duration:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDuration"}})
+		if err != nil {
+			return err
+		}
+	case HumanName, *HumanName:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueHumanName"}})
+		if err != nil {
+			return err
+		}
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Money, *Money:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueMoney"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valuePeriod"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueRange"}})
+		if err != nil {
+			return err
+		}
+	case Ratio, *Ratio:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueRatio"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueReference"}})
+		if err != nil {
+			return err
+		}
+	case SampledData, *SampledData:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueSampledData"}})
+		if err != nil {
+			return err
+		}
+	case Signature, *Signature:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueSignature"}})
+		if err != nil {
+			return err
+		}
+	case Timing, *Timing:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueTiming"}})
+		if err != nil {
+			return err
+		}
+	case ContactDetail, *ContactDetail:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueContactDetail"}})
+		if err != nil {
+			return err
+		}
+	case Contributor, *Contributor:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueContributor"}})
+		if err != nil {
+			return err
+		}
+	case DataRequirement, *DataRequirement:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDataRequirement"}})
+		if err != nil {
+			return err
+		}
+	case Expression, *Expression:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueExpression"}})
+		if err != nil {
+			return err
+		}
+	case ParameterDefinition, *ParameterDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueParameterDefinition"}})
+		if err != nil {
+			return err
+		}
+	case RelatedArtifact, *RelatedArtifact:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueRelatedArtifact"}})
+		if err != nil {
+			return err
+		}
+	case TriggerDefinition, *TriggerDefinition:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueTriggerDefinition"}})
+		if err != nil {
+			return err
+		}
+	case UsageContext, *UsageContext:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueUsageContext"}})
+		if err != nil {
+			return err
+		}
+	case Dosage, *Dosage:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueDosage"}})
+		if err != nil {
+			return err
+		}
+	case Meta, *Meta:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueMeta"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionExample) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "label":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Label = v
+			case "valueBase64Binary":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueBoolean":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCanonical":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCode":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDate":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDateTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDecimal":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueId":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInstant":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInteger":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMarkdown":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueOid":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valuePositiveInt":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueString":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUnsignedInt":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUri":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUrl":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUuid":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAddress":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAge":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAnnotation":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAttachment":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCodeableConcept":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCoding":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContactPoint":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCount":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDistance":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDuration":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueHumanName":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueIdentifier":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMoney":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valuePeriod":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueQuantity":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRange":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRatio":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueReference":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueSampledData":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueSignature":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTiming":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContactDetail":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContributor":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDataRequirement":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueExpression":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueParameterDefinition":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRelatedArtifact":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTriggerDefinition":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUsageContext":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDosage":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMeta":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionExample) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -5748,10 +9880,146 @@ func (r *ElementDefinitionConstraint) unmarshalJSON(m jsonElementDefinitionConst
 	}
 	return nil
 }
+func (r ElementDefinitionConstraint) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Key, xml.StartElement{Name: xml.Name{Local: "key"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Requirements, xml.StartElement{Name: xml.Name{Local: "requirements"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Severity, xml.StartElement{Name: xml.Name{Local: "severity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Human, xml.StartElement{Name: xml.Name{Local: "human"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Expression, xml.StartElement{Name: xml.Name{Local: "expression"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Xpath, xml.StartElement{Name: xml.Name{Local: "xpath"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Source, xml.StartElement{Name: xml.Name{Local: "source"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionConstraint) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "key":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Key = v
+			case "requirements":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requirements = &v
+			case "severity":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Severity = v
+			case "human":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Human = v
+			case "expression":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Expression = &v
+			case "xpath":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Xpath = &v
+			case "source":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Source = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionConstraint) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -5840,10 +10108,102 @@ func (r *ElementDefinitionBinding) unmarshalJSON(m jsonElementDefinitionBinding)
 	}
 	return nil
 }
+func (r ElementDefinitionBinding) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Strength, xml.StartElement{Name: xml.Name{Local: "strength"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ValueSet, xml.StartElement{Name: xml.Name{Local: "valueSet"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionBinding) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "strength":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Strength = v
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "valueSet":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ValueSet = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionBinding) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }
@@ -5947,10 +10307,113 @@ func (r *ElementDefinitionMapping) unmarshalJSON(m jsonElementDefinitionMapping)
 	}
 	return nil
 }
+func (r ElementDefinitionMapping) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identity, xml.StartElement{Name: xml.Name{Local: "identity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Map, xml.StartElement{Name: xml.Name{Local: "map"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Comment, xml.StartElement{Name: xml.Name{Local: "comment"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ElementDefinitionMapping) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "identity":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identity = v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "map":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Map = v
+			case "comment":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comment = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
 func (r ElementDefinitionMapping) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		panic(err)
+		return "null"
 	}
 	return string(buf)
 }

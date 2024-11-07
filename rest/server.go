@@ -48,16 +48,20 @@ func registerRoutes(
 		return fmt.Errorf("unable to load timezone: %w", err)
 	}
 
-	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath), readHandler(backend))
-	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath), searchHandler(backend, baseURL, tz, config.MaxCount, config.DefaultCount))
+	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath),
+		readHandler(backend, config.DefaultFormat))
+	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath),
+		searchHandler(backend, config.DefaultFormat, baseURL, tz, config.MaxCount, config.DefaultCount))
 
 	return nil
 }
 
 func readHandler(
 	backend capabilities.GenericAPI,
+	defaultFormat Format,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		format := detectFormat(r, defaultFormat)
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
@@ -66,23 +70,20 @@ func readHandler(
 			slog.Error("error reading resource", "resourceType", resourceType, "OperationOutcome", outcome)
 		}
 
-		err := encodeJSON(w, status, resource)
-		if err != nil {
-			// we were not able to return an application level error (OperationOutcome)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		returnResult(w, format, status, resource)
 	})
 }
 
 func searchHandler(
 	backend capabilities.GenericAPI,
+	defaultFormat Format,
 	baseURL *url.URL,
 	tz *time.Location,
 	maxCount,
 	defaultCount int,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		format := detectFormat(r, defaultFormat)
 		resourceType := r.PathValue("type")
 
 		status, resource := dispatchSearch(
@@ -99,11 +100,20 @@ func searchHandler(
 			slog.Error("error searching resource", "resourceType", resourceType, "OperationOutcome", outcome)
 		}
 
-		err := encodeJSON(w, status, resource)
-		if err != nil {
-			// we were not able to return an application level error (OperationOutcome)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		returnResult(w, format, status, resource)
 	})
+}
+
+func returnResult[T any](w http.ResponseWriter, format Format, status int, r T) {
+	var err error
+	switch format {
+	case FormatJSON:
+		err = encodeJSON(w, status, r)
+	case FormatXML:
+		err = encodeXML(w, status, r)
+	}
+	if err != nil {
+		// we were not able to return an application level error (OperationOutcome)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }

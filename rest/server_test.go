@@ -7,10 +7,12 @@ import (
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/gen/r4"
 	"fhir-toolbox/rest"
+	"fhir-toolbox/testdata/assertxml"
 	"fhir-toolbox/utils"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -20,6 +22,7 @@ import (
 func TestHandleRead(t *testing.T) {
 	var tests = []struct {
 		name           string
+		format         string
 		resourceType   string
 		resourceID     string
 		backend        any
@@ -27,7 +30,8 @@ func TestHandleRead(t *testing.T) {
 		expectedBody   string
 	}{
 		{
-			name:           "valid resource",
+			name:           "valid JSON resource",
+			format:         "application/fhir+json",
 			resourceType:   "Patient",
 			resourceID:     "1",
 			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
@@ -38,7 +42,92 @@ func TestHandleRead(t *testing.T) {
 			}`,
 		},
 		{
+			name:           "valid JSON resource (incomplete format I)",
+			format:         "application/json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "1"
+			}`,
+		},
+		{
+			name:           "valid JSON resource (incomplete format II)",
+			format:         "text/json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "1"
+			}`,
+		},
+		{
+			name:           "valid JSON resource (incomplete format III)",
+			format:         "json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "1"
+			}`,
+		},
+		{
+			name:           "valid XML resource",
+			format:         "application/fhir+xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient>
+					<id value="1"/>
+            	</Patient>`,
+		},
+		{
+			name:           "valid XML resource (incomplete format I)",
+			format:         "application/xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient>
+					<id value="1"/>
+            	</Patient>`,
+		},
+		{
+			name:           "valid XML resource (incomplete format II)",
+			format:         "text/xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient>
+					<id value="1"/>
+            	</Patient>`,
+		},
+		{
+			name:           "valid XML resource (incomplete format III)",
+			format:         "xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			expectedStatus: http.StatusOK,
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient>
+					<id value="1"/>
+            	</Patient>`,
+		},
+		{
 			name:           "invalid resource type",
+			format:         "application/fhir+json",
 			resourceType:   "UnknownType",
 			resourceID:     "1",
 			backend:        mockBackend{},
@@ -56,6 +145,7 @@ func TestHandleRead(t *testing.T) {
 		},
 		{
 			name:           "invalid resource id",
+			format:         "application/fhir+json",
 			resourceType:   "Patient",
 			resourceID:     "unknown",
 			backend:        mockBackend{},
@@ -73,6 +163,7 @@ func TestHandleRead(t *testing.T) {
 		},
 		{
 			name:           "invalid resource id",
+			format:         "application/fhir+json",
 			resourceType:   "Patient",
 			resourceID:     "unknown",
 			backend:        mockBackend{},
@@ -96,13 +187,20 @@ func TestHandleRead(t *testing.T) {
 			assert.NoError(t, err)
 			requestURL := fmt.Sprintf("/%s/%s", tt.resourceType, tt.resourceID)
 			req := httptest.NewRequest("GET", requestURL, nil)
+			req.Header.Set("Accept", tt.format)
 
 			rr := httptest.NewRecorder()
 			server.ServeHTTP(rr, req)
 
 			assert.Equal(t, tt.expectedStatus, rr.Code)
-			assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
-			assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+
+			if strings.Contains(tt.format, "json") {
+				assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+				assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
+			} else {
+				assert.Equal(t, "application/fhir+xml", rr.Header().Get("Content-Type"))
+				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
+			}
 		})
 	}
 }
@@ -587,8 +685,8 @@ func TestHandleSearch(t *testing.T) {
 			server.ServeHTTP(rr, req)
 
 			assert.Equal(t, tt.expectedStatus, rr.Code)
-			assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
 			assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+			assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
 		})
 	}
 }

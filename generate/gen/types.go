@@ -1,6 +1,8 @@
 package gen
 
 import (
+	"fhir-toolbox/generate/gen/json"
+	"fhir-toolbox/generate/gen/xml"
 	"fhir-toolbox/generate/ir"
 	"log"
 	"os"
@@ -42,10 +44,13 @@ func generateTypes(files []ir.SourceFile, genTarget, release, pkg string) {
 			implementResource(f, *s)
 			generatePrimitiveEnums(f, *s)
 
-			generateMarshalJSONStruct(f, *s)
+			json.GenerateMarshalInternalHelperStruct(f, *s)
 
-			implementMarshalJSON(f, *s)
-			implementUnmarshalJSON(f, *s)
+			json.ImplementMarshal(f, *s)
+			json.ImplementUnmarshal(f, *s)
+
+			xml.ImplementMarshal(f, *s)
+			xml.ImplementUnmarshal(f, *s)
 
 			if !s.IsPrimitive {
 				implementString(f, *s)
@@ -129,7 +134,7 @@ func implementString(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("String").Params().String().Block(
 		List(Id("buf"), Id("err")).Op(":=").Qual("encoding/json", "MarshalIndent").Params(Id("r"), Lit(""), Lit("  ")),
 		If(Id("err").Op("!=").Nil()).Block(
-			Panic(Id("err")),
+			Return(Lit("null")),
 		),
 		Return(Id("string").Params(Id("buf"))),
 	)

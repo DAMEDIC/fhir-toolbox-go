@@ -1,4 +1,4 @@
-package gen
+package json
 
 import (
 	"fhir-toolbox/generate/ir"
@@ -6,16 +6,16 @@ import (
 	. "github.com/dave/jennifer/jen"
 )
 
-func implementUnmarshalJSON(f *File, s ir.Struct) {
+func ImplementUnmarshal(f *File, s ir.Struct) {
 	if s.IsPrimitive {
-		implementUnmarshalJSONPrimitive(f, s)
+		implementUnmarshalPrimitive(f, s)
 	} else {
-		implementUnmarshalJSONElement(f, s)
-		implementUnmarshalJSONStruct(f, s)
+		implementUnmarshalElement(f, s)
+		implementUnmarshalStruct(f, s)
 	}
 }
 
-func implementUnmarshalJSONPrimitive(f *File, s ir.Struct) {
+func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 	var ty string
 	for _, field := range s.Fields {
 		if field.Name == "Value" {
@@ -48,7 +48,7 @@ func implementUnmarshalJSONPrimitive(f *File, s ir.Struct) {
 	)
 }
 
-func implementUnmarshalJSONElement(f *File, s ir.Struct) {
+func implementUnmarshalElement(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Op("*").Id(s.Name)).Id("UnmarshalJSON").Params(Id("b").Index().Byte()).Params(Error()).Block(
 		Var().Id("m").Id("json"+s.Name),
 		If().Id("err").Op(":=").Qual("encoding/json", "Unmarshal").Params(Id("b"), Op("&").Id("m")).Op(";").Id("err").Op("!=").Nil().Block(
@@ -58,7 +58,7 @@ func implementUnmarshalJSONElement(f *File, s ir.Struct) {
 	)
 }
 
-func implementUnmarshalJSONStruct(f *File, s ir.Struct) {
+func implementUnmarshalStruct(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Op("*").Id(s.Name)).Id("unmarshalJSON").Params(Id("m").Id("json" + s.Name)).Params(Error()).BlockFunc(func(g *Group) {
 		for _, sf := range s.Fields {
 			if sf.Polymorph {
