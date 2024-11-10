@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // A container for slots of time that may be available for booking appointments.
@@ -57,145 +59,919 @@ func (r Schedule) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonSchedule struct {
-	ResourceType                  string              `json:"resourceType"`
-	Id                            *Id                 `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement   `json:"_id,omitempty"`
-	Meta                          *Meta               `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement   `json:"_implicitRules,omitempty"`
-	Language                      *Code               `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement   `json:"_language,omitempty"`
-	Text                          *Narrative          `json:"text,omitempty"`
-	Contained                     []ContainedResource `json:"contained,omitempty"`
-	Extension                     []Extension         `json:"extension,omitempty"`
-	ModifierExtension             []Extension         `json:"modifierExtension,omitempty"`
-	Identifier                    []Identifier        `json:"identifier,omitempty"`
-	Active                        *Boolean            `json:"active,omitempty"`
-	ActivePrimitiveElement        *primitiveElement   `json:"_active,omitempty"`
-	ServiceCategory               []CodeableConcept   `json:"serviceCategory,omitempty"`
-	ServiceType                   []CodeableConcept   `json:"serviceType,omitempty"`
-	Specialty                     []CodeableConcept   `json:"specialty,omitempty"`
-	Actor                         []Reference         `json:"actor,omitempty"`
-	PlanningHorizon               *Period             `json:"planningHorizon,omitempty"`
-	Comment                       *String             `json:"comment,omitempty"`
-	CommentPrimitiveElement       *primitiveElement   `json:"_comment,omitempty"`
-}
-
 func (r Schedule) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Schedule) marshalJSON() jsonSchedule {
-	m := jsonSchedule{}
-	m.ResourceType = "Schedule"
-	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
-	}
-	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
-	}
-	m.Meta = r.Meta
-	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
-	}
-	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
-	}
-	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
-	}
-	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
-	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
-	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
-	if r.Active != nil && r.Active.Value != nil {
-		m.Active = r.Active
-	}
-	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
-		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
-	}
-	m.ServiceCategory = r.ServiceCategory
-	m.ServiceType = r.ServiceType
-	m.Specialty = r.Specialty
-	m.Actor = r.Actor
-	m.PlanningHorizon = r.PlanningHorizon
-	if r.Comment != nil && r.Comment.Value != nil {
-		m.Comment = r.Comment
-	}
-	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
-		m.CommentPrimitiveElement = &primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
-	}
-	return m
-}
-func (r *Schedule) UnmarshalJSON(b []byte) error {
-	var m jsonSchedule
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Schedule) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	_, err = w.Write([]byte("\"resourceType\":\"Schedule\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
+	if r.Id != nil && r.Id.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && r.Language.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Active != nil && r.Active.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"active\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Active)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
+		p := primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_active\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ServiceCategory) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"serviceCategory\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ServiceCategory {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ServiceType) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"serviceType\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ServiceType {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Specialty) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"specialty\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Specialty {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Actor) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"actor\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Actor {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.PlanningHorizon != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"planningHorizon\":"))
+		if err != nil {
+			return err
+		}
+		err = r.PlanningHorizon.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Comment != nil && r.Comment.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"comment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Comment)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Comment != nil && (r.Comment.Id != nil || r.Comment.Extension != nil) {
+		p := primitiveElement{Id: r.Comment.Id, Extension: r.Comment.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_comment\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *Schedule) unmarshalJSON(m jsonSchedule) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
-		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
+func (r *Schedule) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Schedule) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
-		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Schedule element", t)
 	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
-	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
-	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.Active = m.Active
-	if m.ActivePrimitiveElement != nil {
-		if r.Active == nil {
-			r.Active = &Boolean{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Schedule element", t)
 		}
-		r.Active.Id = m.ActivePrimitiveElement.Id
-		r.Active.Extension = m.ActivePrimitiveElement.Extension
-	}
-	r.ServiceCategory = m.ServiceCategory
-	r.ServiceType = m.ServiceType
-	r.Specialty = m.Specialty
-	r.Actor = m.Actor
-	r.PlanningHorizon = m.PlanningHorizon
-	r.Comment = m.Comment
-	if m.CommentPrimitiveElement != nil {
-		if r.Comment == nil {
-			r.Comment = &String{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "active":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Value = v.Value
+		case "_active":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Id = v.Id
+			r.Active.Extension = v.Extension
+		case "serviceCategory":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ServiceCategory = append(r.ServiceCategory, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "serviceType":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ServiceType = append(r.ServiceType, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "specialty":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Specialty = append(r.Specialty, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "actor":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Schedule element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Actor = append(r.Actor, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Schedule element", t)
+			}
+		case "planningHorizon":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.PlanningHorizon = &v
+		case "comment":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &String{}
+			}
+			r.Comment.Value = v.Value
+		case "_comment":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &String{}
+			}
+			r.Comment.Id = v.Id
+			r.Comment.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in Schedule", f)
 		}
-		r.Comment.Id = m.CommentPrimitiveElement.Id
-		r.Comment.Extension = m.CommentPrimitiveElement.Extension
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Schedule element", t)
 	}
 	return nil
 }

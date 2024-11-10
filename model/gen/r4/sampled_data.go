@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for SampledData Type: A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data.
@@ -29,122 +31,533 @@ type SampledData struct {
 	// A series of data points which are decimal values separated by a single space (character u20). The special values "E" (error), "L" (below detection limit) and "U" (above detection limit) can also be used in place of a decimal value.
 	Data *String
 }
-type jsonSampledData struct {
-	Id                         *string           `json:"id,omitempty"`
-	Extension                  []Extension       `json:"extension,omitempty"`
-	Origin                     Quantity          `json:"origin,omitempty"`
-	Period                     Decimal           `json:"period,omitempty"`
-	PeriodPrimitiveElement     *primitiveElement `json:"_period,omitempty"`
-	Factor                     *Decimal          `json:"factor,omitempty"`
-	FactorPrimitiveElement     *primitiveElement `json:"_factor,omitempty"`
-	LowerLimit                 *Decimal          `json:"lowerLimit,omitempty"`
-	LowerLimitPrimitiveElement *primitiveElement `json:"_lowerLimit,omitempty"`
-	UpperLimit                 *Decimal          `json:"upperLimit,omitempty"`
-	UpperLimitPrimitiveElement *primitiveElement `json:"_upperLimit,omitempty"`
-	Dimensions                 PositiveInt       `json:"dimensions,omitempty"`
-	DimensionsPrimitiveElement *primitiveElement `json:"_dimensions,omitempty"`
-	Data                       *String           `json:"data,omitempty"`
-	DataPrimitiveElement       *primitiveElement `json:"_data,omitempty"`
-}
 
 func (r SampledData) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SampledData) marshalJSON() jsonSampledData {
-	m := jsonSampledData{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.Origin = r.Origin
-	if r.Period.Value != nil {
-		m.Period = r.Period
-	}
-	if r.Period.Id != nil || r.Period.Extension != nil {
-		m.PeriodPrimitiveElement = &primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
-	}
-	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
-	}
-	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	if r.LowerLimit != nil && r.LowerLimit.Value != nil {
-		m.LowerLimit = r.LowerLimit
-	}
-	if r.LowerLimit != nil && (r.LowerLimit.Id != nil || r.LowerLimit.Extension != nil) {
-		m.LowerLimitPrimitiveElement = &primitiveElement{Id: r.LowerLimit.Id, Extension: r.LowerLimit.Extension}
-	}
-	if r.UpperLimit != nil && r.UpperLimit.Value != nil {
-		m.UpperLimit = r.UpperLimit
-	}
-	if r.UpperLimit != nil && (r.UpperLimit.Id != nil || r.UpperLimit.Extension != nil) {
-		m.UpperLimitPrimitiveElement = &primitiveElement{Id: r.UpperLimit.Id, Extension: r.UpperLimit.Extension}
-	}
-	if r.Dimensions.Value != nil {
-		m.Dimensions = r.Dimensions
-	}
-	if r.Dimensions.Id != nil || r.Dimensions.Extension != nil {
-		m.DimensionsPrimitiveElement = &primitiveElement{Id: r.Dimensions.Id, Extension: r.Dimensions.Extension}
-	}
-	if r.Data != nil && r.Data.Value != nil {
-		m.Data = r.Data
-	}
-	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
-		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
-	}
-	return m
-}
-func (r *SampledData) UnmarshalJSON(b []byte) error {
-	var m jsonSampledData
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SampledData) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"origin\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Origin.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Period)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Period.Id != nil || r.Period.Extension != nil {
+		p := primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_period\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Factor != nil && r.Factor.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.LowerLimit != nil && r.LowerLimit.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"lowerLimit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.LowerLimit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.LowerLimit != nil && (r.LowerLimit.Id != nil || r.LowerLimit.Extension != nil) {
+		p := primitiveElement{Id: r.LowerLimit.Id, Extension: r.LowerLimit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_lowerLimit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UpperLimit != nil && r.UpperLimit.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"upperLimit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.UpperLimit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.UpperLimit != nil && (r.UpperLimit.Id != nil || r.UpperLimit.Extension != nil) {
+		p := primitiveElement{Id: r.UpperLimit.Id, Extension: r.UpperLimit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_upperLimit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"dimensions\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Dimensions)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Dimensions.Id != nil || r.Dimensions.Extension != nil {
+		p := primitiveElement{Id: r.Dimensions.Id, Extension: r.Dimensions.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_dimensions\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Data != nil && r.Data.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"data\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Data)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
+		p := primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_data\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *SampledData) unmarshalJSON(m jsonSampledData) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Origin = m.Origin
-	r.Period = m.Period
-	if m.PeriodPrimitiveElement != nil {
-		r.Period.Id = m.PeriodPrimitiveElement.Id
-		r.Period.Extension = m.PeriodPrimitiveElement.Extension
+func (r *SampledData) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SampledData element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
-	}
-	r.LowerLimit = m.LowerLimit
-	if m.LowerLimitPrimitiveElement != nil {
-		if r.LowerLimit == nil {
-			r.LowerLimit = &Decimal{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SampledData element", t)
 		}
-		r.LowerLimit.Id = m.LowerLimitPrimitiveElement.Id
-		r.LowerLimit.Extension = m.LowerLimitPrimitiveElement.Extension
-	}
-	r.UpperLimit = m.UpperLimit
-	if m.UpperLimitPrimitiveElement != nil {
-		if r.UpperLimit == nil {
-			r.UpperLimit = &Decimal{}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SampledData element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SampledData element", t)
+			}
+		case "origin":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Origin = v
+		case "period":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Period.Value = v.Value
+		case "_period":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period.Id = v.Id
+			r.Period.Extension = v.Extension
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "lowerLimit":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LowerLimit == nil {
+				r.LowerLimit = &Decimal{}
+			}
+			r.LowerLimit.Value = v.Value
+		case "_lowerLimit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LowerLimit == nil {
+				r.LowerLimit = &Decimal{}
+			}
+			r.LowerLimit.Id = v.Id
+			r.LowerLimit.Extension = v.Extension
+		case "upperLimit":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.UpperLimit == nil {
+				r.UpperLimit = &Decimal{}
+			}
+			r.UpperLimit.Value = v.Value
+		case "_upperLimit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.UpperLimit == nil {
+				r.UpperLimit = &Decimal{}
+			}
+			r.UpperLimit.Id = v.Id
+			r.UpperLimit.Extension = v.Extension
+		case "dimensions":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Dimensions.Value = v.Value
+		case "_dimensions":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Dimensions.Id = v.Id
+			r.Dimensions.Extension = v.Extension
+		case "data":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Data == nil {
+				r.Data = &String{}
+			}
+			r.Data.Value = v.Value
+		case "_data":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Data == nil {
+				r.Data = &String{}
+			}
+			r.Data.Id = v.Id
+			r.Data.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in SampledData", f)
 		}
-		r.UpperLimit.Id = m.UpperLimitPrimitiveElement.Id
-		r.UpperLimit.Extension = m.UpperLimitPrimitiveElement.Extension
 	}
-	r.Dimensions = m.Dimensions
-	if m.DimensionsPrimitiveElement != nil {
-		r.Dimensions.Id = m.DimensionsPrimitiveElement.Id
-		r.Dimensions.Extension = m.DimensionsPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Data = m.Data
-	if m.DataPrimitiveElement != nil {
-		if r.Data == nil {
-			r.Data = &String{}
-		}
-		r.Data.Id = m.DataPrimitiveElement.Id
-		r.Data.Extension = m.DataPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SampledData element", t)
 	}
 	return nil
 }

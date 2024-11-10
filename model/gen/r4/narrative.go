@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Narrative Type: A human-readable summary of the resource conveying the essential clinical and business information for the resource.
@@ -17,52 +19,258 @@ type Narrative struct {
 	// The actual narrative content, a stripped down version of XHTML.
 	Div Xhtml
 }
-type jsonNarrative struct {
-	Id                     *string           `json:"id,omitempty"`
-	Extension              []Extension       `json:"extension,omitempty"`
-	Status                 Code              `json:"status,omitempty"`
-	StatusPrimitiveElement *primitiveElement `json:"_status,omitempty"`
-	Div                    Xhtml             `json:"div,omitempty"`
-	DivPrimitiveElement    *primitiveElement `json:"_div,omitempty"`
-}
 
 func (r Narrative) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Narrative) marshalJSON() jsonNarrative {
-	m := jsonNarrative{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Status.Value != nil {
-		m.Status = r.Status
-	}
-	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
-	}
-	m.Div = r.Div
-	if r.Div.Id != nil {
-		m.DivPrimitiveElement = &primitiveElement{Id: r.Div.Id}
-	}
-	return m
-}
-func (r *Narrative) UnmarshalJSON(b []byte) error {
-	var m jsonNarrative
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Narrative) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *Narrative) unmarshalJSON(m jsonNarrative) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Div = m.Div
-	if m.DivPrimitiveElement != nil {
-		r.Div.Id = m.DivPrimitiveElement.Id
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Status.Id != nil || r.Status.Extension != nil {
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"div\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Div)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Div.Id != nil {
+		p := primitiveElement{Id: r.Div.Id}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_div\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Narrative) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Narrative element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Narrative element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Narrative element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Narrative element", t)
+			}
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "div":
+			var v Xhtml
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Div.Value = v.Value
+		case "_div":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Div.Id = v.Id
+		default:
+			return fmt.Errorf("invalid field: %s in Narrative", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Narrative element", t)
 	}
 	return nil
 }

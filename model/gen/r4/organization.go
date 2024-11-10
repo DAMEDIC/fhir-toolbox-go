@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, payer/insurer, etc.
@@ -61,188 +63,1121 @@ func (r Organization) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonOrganization struct {
-	ResourceType                  string                `json:"resourceType"`
-	Id                            *Id                   `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement     `json:"_id,omitempty"`
-	Meta                          *Meta                 `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                  `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement     `json:"_implicitRules,omitempty"`
-	Language                      *Code                 `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement     `json:"_language,omitempty"`
-	Text                          *Narrative            `json:"text,omitempty"`
-	Contained                     []ContainedResource   `json:"contained,omitempty"`
-	Extension                     []Extension           `json:"extension,omitempty"`
-	ModifierExtension             []Extension           `json:"modifierExtension,omitempty"`
-	Identifier                    []Identifier          `json:"identifier,omitempty"`
-	Active                        *Boolean              `json:"active,omitempty"`
-	ActivePrimitiveElement        *primitiveElement     `json:"_active,omitempty"`
-	Type                          []CodeableConcept     `json:"type,omitempty"`
-	Name                          *String               `json:"name,omitempty"`
-	NamePrimitiveElement          *primitiveElement     `json:"_name,omitempty"`
-	Alias                         []String              `json:"alias,omitempty"`
-	AliasPrimitiveElement         []*primitiveElement   `json:"_alias,omitempty"`
-	Telecom                       []ContactPoint        `json:"telecom,omitempty"`
-	Address                       []Address             `json:"address,omitempty"`
-	PartOf                        *Reference            `json:"partOf,omitempty"`
-	Contact                       []OrganizationContact `json:"contact,omitempty"`
-	Endpoint                      []Reference           `json:"endpoint,omitempty"`
-}
-
 func (r Organization) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Organization) marshalJSON() jsonOrganization {
-	m := jsonOrganization{}
-	m.ResourceType = "Organization"
+func (r Organization) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"Organization\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.Active != nil && r.Active.Value != nil {
-		m.Active = r.Active
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"active\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Active)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Active != nil && (r.Active.Id != nil || r.Active.Extension != nil) {
-		m.ActivePrimitiveElement = &primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
+		p := primitiveElement{Id: r.Active.Id, Extension: r.Active.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_active\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Type = r.Type
+	if len(r.Type) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Type {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.Name != nil && r.Name.Value != nil {
-		m.Name = r.Name
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
-		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-	}
-	anyAliasValue := false
-	for _, e := range r.Alias {
-		if e.Value != nil {
-			anyAliasValue = true
-			break
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyAliasValue {
-		m.Alias = r.Alias
-	}
-	anyAliasIdOrExtension := false
-	for _, e := range r.Alias {
-		if e.Id != nil || e.Extension != nil {
-			anyAliasIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.Alias {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyAliasIdOrExtension {
-		m.AliasPrimitiveElement = make([]*primitiveElement, 0, len(r.Alias))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"alias\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Alias)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Alias {
 			if e.Id != nil || e.Extension != nil {
-				m.AliasPrimitiveElement = append(m.AliasPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.AliasPrimitiveElement = append(m.AliasPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_alias\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Alias {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Telecom = r.Telecom
-	m.Address = r.Address
-	m.PartOf = r.PartOf
-	m.Contact = r.Contact
-	m.Endpoint = r.Endpoint
-	return m
-}
-func (r *Organization) UnmarshalJSON(b []byte) error {
-	var m jsonOrganization
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Telecom) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"telecom\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Telecom {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Address) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"address\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Address {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.PartOf != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"partOf\":"))
+		if err != nil {
+			return err
+		}
+		err = r.PartOf.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Contact) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contact\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Contact {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Endpoint) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"endpoint\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Endpoint {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *Organization) unmarshalJSON(m jsonOrganization) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
-		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
+func (r *Organization) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Organization) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
-		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Organization element", t)
 	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
-	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
-	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.Active = m.Active
-	if m.ActivePrimitiveElement != nil {
-		if r.Active == nil {
-			r.Active = &Boolean{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Organization element", t)
 		}
-		r.Active.Id = m.ActivePrimitiveElement.Id
-		r.Active.Extension = m.ActivePrimitiveElement.Extension
-	}
-	r.Type = m.Type
-	r.Name = m.Name
-	if m.NamePrimitiveElement != nil {
-		if r.Name == nil {
-			r.Name = &String{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "active":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Value = v.Value
+		case "_active":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Id = v.Id
+			r.Active.Extension = v.Extension
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "alias":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Alias) <= i {
+					r.Alias = append(r.Alias, String{})
+				}
+				r.Alias[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "_alias":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Alias) <= i {
+					r.Alias = append(r.Alias, String{})
+				}
+				r.Alias[i].Id = v.Id
+				r.Alias[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "telecom":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v ContactPoint
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Telecom = append(r.Telecom, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "address":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v Address
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Address = append(r.Address, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "partOf":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.PartOf = &v
+		case "contact":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v OrganizationContact
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contact = append(r.Contact, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		case "endpoint":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Organization element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Endpoint = append(r.Endpoint, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Organization element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in Organization", f)
 		}
-		r.Name.Id = m.NamePrimitiveElement.Id
-		r.Name.Extension = m.NamePrimitiveElement.Extension
 	}
-	r.Alias = m.Alias
-	for i, e := range m.AliasPrimitiveElement {
-		if len(r.Alias) <= i {
-			r.Alias = append(r.Alias, String{})
-		}
-		if e != nil {
-			r.Alias[i].Id = e.Id
-			r.Alias[i].Extension = e.Extension
-		}
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Telecom = m.Telecom
-	r.Address = m.Address
-	r.PartOf = m.PartOf
-	r.Contact = m.Contact
-	r.Endpoint = m.Endpoint
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Organization element", t)
+	}
 	return nil
 }
 func (r Organization) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -515,45 +1450,334 @@ type OrganizationContact struct {
 	// Visiting or postal addresses for the contact.
 	Address *Address
 }
-type jsonOrganizationContact struct {
-	Id                *string          `json:"id,omitempty"`
-	Extension         []Extension      `json:"extension,omitempty"`
-	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Purpose           *CodeableConcept `json:"purpose,omitempty"`
-	Name              *HumanName       `json:"name,omitempty"`
-	Telecom           []ContactPoint   `json:"telecom,omitempty"`
-	Address           *Address         `json:"address,omitempty"`
-}
 
 func (r OrganizationContact) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r OrganizationContact) marshalJSON() jsonOrganizationContact {
-	m := jsonOrganizationContact{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Purpose = r.Purpose
-	m.Name = r.Name
-	m.Telecom = r.Telecom
-	m.Address = r.Address
-	return m
-}
-func (r *OrganizationContact) UnmarshalJSON(b []byte) error {
-	var m jsonOrganizationContact
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r OrganizationContact) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Purpose != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"purpose\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Purpose.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Name.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Telecom) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"telecom\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Telecom {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Address != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"address\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Address.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *OrganizationContact) unmarshalJSON(m jsonOrganizationContact) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Purpose = m.Purpose
-	r.Name = m.Name
-	r.Telecom = m.Telecom
-	r.Address = m.Address
+func (r *OrganizationContact) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in OrganizationContact element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in OrganizationContact element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in OrganizationContact element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in OrganizationContact element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in OrganizationContact element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in OrganizationContact element", t)
+			}
+		case "purpose":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Purpose = &v
+		case "name":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Name = &v
+		case "telecom":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in OrganizationContact element", t)
+			}
+			for d.More() {
+				var v ContactPoint
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Telecom = append(r.Telecom, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in OrganizationContact element", t)
+			}
+		case "address":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Address = &v
+		default:
+			return fmt.Errorf("invalid field: %s in OrganizationContact", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in OrganizationContact element", t)
+	}
 	return nil
 }
 func (r OrganizationContact) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

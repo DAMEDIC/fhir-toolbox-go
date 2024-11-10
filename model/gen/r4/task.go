@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // A task to be performed.
@@ -103,287 +105,1830 @@ func (r Task) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonTask struct {
-	ResourceType                          string              `json:"resourceType"`
-	Id                                    *Id                 `json:"id,omitempty"`
-	IdPrimitiveElement                    *primitiveElement   `json:"_id,omitempty"`
-	Meta                                  *Meta               `json:"meta,omitempty"`
-	ImplicitRules                         *Uri                `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement         *primitiveElement   `json:"_implicitRules,omitempty"`
-	Language                              *Code               `json:"language,omitempty"`
-	LanguagePrimitiveElement              *primitiveElement   `json:"_language,omitempty"`
-	Text                                  *Narrative          `json:"text,omitempty"`
-	Contained                             []ContainedResource `json:"contained,omitempty"`
-	Extension                             []Extension         `json:"extension,omitempty"`
-	ModifierExtension                     []Extension         `json:"modifierExtension,omitempty"`
-	Identifier                            []Identifier        `json:"identifier,omitempty"`
-	InstantiatesCanonical                 *Canonical          `json:"instantiatesCanonical,omitempty"`
-	InstantiatesCanonicalPrimitiveElement *primitiveElement   `json:"_instantiatesCanonical,omitempty"`
-	InstantiatesUri                       *Uri                `json:"instantiatesUri,omitempty"`
-	InstantiatesUriPrimitiveElement       *primitiveElement   `json:"_instantiatesUri,omitempty"`
-	BasedOn                               []Reference         `json:"basedOn,omitempty"`
-	GroupIdentifier                       *Identifier         `json:"groupIdentifier,omitempty"`
-	PartOf                                []Reference         `json:"partOf,omitempty"`
-	Status                                Code                `json:"status,omitempty"`
-	StatusPrimitiveElement                *primitiveElement   `json:"_status,omitempty"`
-	StatusReason                          *CodeableConcept    `json:"statusReason,omitempty"`
-	BusinessStatus                        *CodeableConcept    `json:"businessStatus,omitempty"`
-	Intent                                Code                `json:"intent,omitempty"`
-	IntentPrimitiveElement                *primitiveElement   `json:"_intent,omitempty"`
-	Priority                              *Code               `json:"priority,omitempty"`
-	PriorityPrimitiveElement              *primitiveElement   `json:"_priority,omitempty"`
-	Code                                  *CodeableConcept    `json:"code,omitempty"`
-	Description                           *String             `json:"description,omitempty"`
-	DescriptionPrimitiveElement           *primitiveElement   `json:"_description,omitempty"`
-	Focus                                 *Reference          `json:"focus,omitempty"`
-	For                                   *Reference          `json:"for,omitempty"`
-	Encounter                             *Reference          `json:"encounter,omitempty"`
-	ExecutionPeriod                       *Period             `json:"executionPeriod,omitempty"`
-	AuthoredOn                            *DateTime           `json:"authoredOn,omitempty"`
-	AuthoredOnPrimitiveElement            *primitiveElement   `json:"_authoredOn,omitempty"`
-	LastModified                          *DateTime           `json:"lastModified,omitempty"`
-	LastModifiedPrimitiveElement          *primitiveElement   `json:"_lastModified,omitempty"`
-	Requester                             *Reference          `json:"requester,omitempty"`
-	PerformerType                         []CodeableConcept   `json:"performerType,omitempty"`
-	Owner                                 *Reference          `json:"owner,omitempty"`
-	Location                              *Reference          `json:"location,omitempty"`
-	ReasonCode                            *CodeableConcept    `json:"reasonCode,omitempty"`
-	ReasonReference                       *Reference          `json:"reasonReference,omitempty"`
-	Insurance                             []Reference         `json:"insurance,omitempty"`
-	Note                                  []Annotation        `json:"note,omitempty"`
-	RelevantHistory                       []Reference         `json:"relevantHistory,omitempty"`
-	Restriction                           *TaskRestriction    `json:"restriction,omitempty"`
-	Input                                 []TaskInput         `json:"input,omitempty"`
-	Output                                []TaskOutput        `json:"output,omitempty"`
-}
-
 func (r Task) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Task) marshalJSON() jsonTask {
-	m := jsonTask{}
-	m.ResourceType = "Task"
-	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
-	}
-	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
-	}
-	m.Meta = r.Meta
-	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
-	}
-	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
-	}
-	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
-	}
-	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
-	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
-	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
-	if r.InstantiatesCanonical != nil && r.InstantiatesCanonical.Value != nil {
-		m.InstantiatesCanonical = r.InstantiatesCanonical
-	}
-	if r.InstantiatesCanonical != nil && (r.InstantiatesCanonical.Id != nil || r.InstantiatesCanonical.Extension != nil) {
-		m.InstantiatesCanonicalPrimitiveElement = &primitiveElement{Id: r.InstantiatesCanonical.Id, Extension: r.InstantiatesCanonical.Extension}
-	}
-	if r.InstantiatesUri != nil && r.InstantiatesUri.Value != nil {
-		m.InstantiatesUri = r.InstantiatesUri
-	}
-	if r.InstantiatesUri != nil && (r.InstantiatesUri.Id != nil || r.InstantiatesUri.Extension != nil) {
-		m.InstantiatesUriPrimitiveElement = &primitiveElement{Id: r.InstantiatesUri.Id, Extension: r.InstantiatesUri.Extension}
-	}
-	m.BasedOn = r.BasedOn
-	m.GroupIdentifier = r.GroupIdentifier
-	m.PartOf = r.PartOf
-	if r.Status.Value != nil {
-		m.Status = r.Status
-	}
-	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
-	}
-	m.StatusReason = r.StatusReason
-	m.BusinessStatus = r.BusinessStatus
-	if r.Intent.Value != nil {
-		m.Intent = r.Intent
-	}
-	if r.Intent.Id != nil || r.Intent.Extension != nil {
-		m.IntentPrimitiveElement = &primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
-	}
-	if r.Priority != nil && r.Priority.Value != nil {
-		m.Priority = r.Priority
-	}
-	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
-		m.PriorityPrimitiveElement = &primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
-	}
-	m.Code = r.Code
-	if r.Description != nil && r.Description.Value != nil {
-		m.Description = r.Description
-	}
-	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
-		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
-	}
-	m.Focus = r.Focus
-	m.For = r.For
-	m.Encounter = r.Encounter
-	m.ExecutionPeriod = r.ExecutionPeriod
-	if r.AuthoredOn != nil && r.AuthoredOn.Value != nil {
-		m.AuthoredOn = r.AuthoredOn
-	}
-	if r.AuthoredOn != nil && (r.AuthoredOn.Id != nil || r.AuthoredOn.Extension != nil) {
-		m.AuthoredOnPrimitiveElement = &primitiveElement{Id: r.AuthoredOn.Id, Extension: r.AuthoredOn.Extension}
-	}
-	if r.LastModified != nil && r.LastModified.Value != nil {
-		m.LastModified = r.LastModified
-	}
-	if r.LastModified != nil && (r.LastModified.Id != nil || r.LastModified.Extension != nil) {
-		m.LastModifiedPrimitiveElement = &primitiveElement{Id: r.LastModified.Id, Extension: r.LastModified.Extension}
-	}
-	m.Requester = r.Requester
-	m.PerformerType = r.PerformerType
-	m.Owner = r.Owner
-	m.Location = r.Location
-	m.ReasonCode = r.ReasonCode
-	m.ReasonReference = r.ReasonReference
-	m.Insurance = r.Insurance
-	m.Note = r.Note
-	m.RelevantHistory = r.RelevantHistory
-	m.Restriction = r.Restriction
-	m.Input = r.Input
-	m.Output = r.Output
-	return m
-}
-func (r *Task) UnmarshalJSON(b []byte) error {
-	var m jsonTask
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Task) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	_, err = w.Write([]byte("\"resourceType\":\"Task\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
+	if r.Id != nil && r.Id.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && r.Language.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.InstantiatesCanonical != nil && r.InstantiatesCanonical.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"instantiatesCanonical\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.InstantiatesCanonical)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.InstantiatesCanonical != nil && (r.InstantiatesCanonical.Id != nil || r.InstantiatesCanonical.Extension != nil) {
+		p := primitiveElement{Id: r.InstantiatesCanonical.Id, Extension: r.InstantiatesCanonical.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_instantiatesCanonical\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.InstantiatesUri != nil && r.InstantiatesUri.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"instantiatesUri\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.InstantiatesUri)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.InstantiatesUri != nil && (r.InstantiatesUri.Id != nil || r.InstantiatesUri.Extension != nil) {
+		p := primitiveElement{Id: r.InstantiatesUri.Id, Extension: r.InstantiatesUri.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_instantiatesUri\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.BasedOn) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"basedOn\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.BasedOn {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.GroupIdentifier != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"groupIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		err = r.GroupIdentifier.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.PartOf) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"partOf\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.PartOf {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Status.Id != nil || r.Status.Extension != nil {
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.StatusReason != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"statusReason\":"))
+		if err != nil {
+			return err
+		}
+		err = r.StatusReason.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.BusinessStatus != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"businessStatus\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BusinessStatus.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"intent\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Intent)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Intent.Id != nil || r.Intent.Extension != nil {
+		p := primitiveElement{Id: r.Intent.Id, Extension: r.Intent.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_intent\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Priority != nil && r.Priority.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"priority\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Priority)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Priority != nil && (r.Priority.Id != nil || r.Priority.Extension != nil) {
+		p := primitiveElement{Id: r.Priority.Id, Extension: r.Priority.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_priority\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Code.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && r.Description.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"description\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Description)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
+		p := primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_description\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Focus != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"focus\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Focus.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.For != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"for\":"))
+		if err != nil {
+			return err
+		}
+		err = r.For.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Encounter != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"encounter\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Encounter.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ExecutionPeriod != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"executionPeriod\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ExecutionPeriod.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthoredOn != nil && r.AuthoredOn.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"authoredOn\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.AuthoredOn)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthoredOn != nil && (r.AuthoredOn.Id != nil || r.AuthoredOn.Extension != nil) {
+		p := primitiveElement{Id: r.AuthoredOn.Id, Extension: r.AuthoredOn.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_authoredOn\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.LastModified != nil && r.LastModified.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"lastModified\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.LastModified)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.LastModified != nil && (r.LastModified.Id != nil || r.LastModified.Extension != nil) {
+		p := primitiveElement{Id: r.LastModified.Id, Extension: r.LastModified.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_lastModified\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Requester != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"requester\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Requester.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.PerformerType) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"performerType\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.PerformerType {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Owner != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"owner\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Owner.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Location != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"location\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Location.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ReasonCode != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reasonCode\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ReasonCode.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ReasonReference != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reasonReference\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ReasonReference.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Insurance) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"insurance\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Insurance {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Note) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"note\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Note {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.RelevantHistory) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"relevantHistory\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.RelevantHistory {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Restriction != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"restriction\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Restriction.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Input) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"input\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Input {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Output) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"output\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Output {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *Task) unmarshalJSON(m jsonTask) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
+func (r *Task) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Task) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Task element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
-	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Task element", t)
 		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
-	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "instantiatesCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.InstantiatesCanonical == nil {
+				r.InstantiatesCanonical = &Canonical{}
+			}
+			r.InstantiatesCanonical.Value = v.Value
+		case "_instantiatesCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.InstantiatesCanonical == nil {
+				r.InstantiatesCanonical = &Canonical{}
+			}
+			r.InstantiatesCanonical.Id = v.Id
+			r.InstantiatesCanonical.Extension = v.Extension
+		case "instantiatesUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.InstantiatesUri == nil {
+				r.InstantiatesUri = &Uri{}
+			}
+			r.InstantiatesUri.Value = v.Value
+		case "_instantiatesUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.InstantiatesUri == nil {
+				r.InstantiatesUri = &Uri{}
+			}
+			r.InstantiatesUri.Id = v.Id
+			r.InstantiatesUri.Extension = v.Extension
+		case "basedOn":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.BasedOn = append(r.BasedOn, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "groupIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.GroupIdentifier = &v
+		case "partOf":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PartOf = append(r.PartOf, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "statusReason":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.StatusReason = &v
+		case "businessStatus":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BusinessStatus = &v
+		case "intent":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Intent.Value = v.Value
+		case "_intent":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Intent.Id = v.Id
+			r.Intent.Extension = v.Extension
+		case "priority":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Priority == nil {
+				r.Priority = &Code{}
+			}
+			r.Priority.Value = v.Value
+		case "_priority":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Priority == nil {
+				r.Priority = &Code{}
+			}
+			r.Priority.Id = v.Id
+			r.Priority.Extension = v.Extension
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = &v
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "focus":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Focus = &v
+		case "for":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.For = &v
+		case "encounter":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Encounter = &v
+		case "executionPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ExecutionPeriod = &v
+		case "authoredOn":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AuthoredOn == nil {
+				r.AuthoredOn = &DateTime{}
+			}
+			r.AuthoredOn.Value = v.Value
+		case "_authoredOn":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AuthoredOn == nil {
+				r.AuthoredOn = &DateTime{}
+			}
+			r.AuthoredOn.Id = v.Id
+			r.AuthoredOn.Extension = v.Extension
+		case "lastModified":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LastModified == nil {
+				r.LastModified = &DateTime{}
+			}
+			r.LastModified.Value = v.Value
+		case "_lastModified":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LastModified == nil {
+				r.LastModified = &DateTime{}
+			}
+			r.LastModified.Id = v.Id
+			r.LastModified.Extension = v.Extension
+		case "requester":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Requester = &v
+		case "performerType":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PerformerType = append(r.PerformerType, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "owner":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Owner = &v
+		case "location":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = &v
+		case "reasonCode":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ReasonCode = &v
+		case "reasonReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ReasonReference = &v
+		case "insurance":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Insurance = append(r.Insurance, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "note":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Annotation
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "relevantHistory":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.RelevantHistory = append(r.RelevantHistory, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "restriction":
+			var v TaskRestriction
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Restriction = &v
+		case "input":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v TaskInput
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Input = append(r.Input, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		case "output":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Task element", t)
+			}
+			for d.More() {
+				var v TaskOutput
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Output = append(r.Output, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Task element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in Task", f)
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.InstantiatesCanonical = m.InstantiatesCanonical
-	if m.InstantiatesCanonicalPrimitiveElement != nil {
-		if r.InstantiatesCanonical == nil {
-			r.InstantiatesCanonical = &Canonical{}
-		}
-		r.InstantiatesCanonical.Id = m.InstantiatesCanonicalPrimitiveElement.Id
-		r.InstantiatesCanonical.Extension = m.InstantiatesCanonicalPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Task element", t)
 	}
-	r.InstantiatesUri = m.InstantiatesUri
-	if m.InstantiatesUriPrimitiveElement != nil {
-		if r.InstantiatesUri == nil {
-			r.InstantiatesUri = &Uri{}
-		}
-		r.InstantiatesUri.Id = m.InstantiatesUriPrimitiveElement.Id
-		r.InstantiatesUri.Extension = m.InstantiatesUriPrimitiveElement.Extension
-	}
-	r.BasedOn = m.BasedOn
-	r.GroupIdentifier = m.GroupIdentifier
-	r.PartOf = m.PartOf
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
-	}
-	r.StatusReason = m.StatusReason
-	r.BusinessStatus = m.BusinessStatus
-	r.Intent = m.Intent
-	if m.IntentPrimitiveElement != nil {
-		r.Intent.Id = m.IntentPrimitiveElement.Id
-		r.Intent.Extension = m.IntentPrimitiveElement.Extension
-	}
-	r.Priority = m.Priority
-	if m.PriorityPrimitiveElement != nil {
-		if r.Priority == nil {
-			r.Priority = &Code{}
-		}
-		r.Priority.Id = m.PriorityPrimitiveElement.Id
-		r.Priority.Extension = m.PriorityPrimitiveElement.Extension
-	}
-	r.Code = m.Code
-	r.Description = m.Description
-	if m.DescriptionPrimitiveElement != nil {
-		if r.Description == nil {
-			r.Description = &String{}
-		}
-		r.Description.Id = m.DescriptionPrimitiveElement.Id
-		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
-	}
-	r.Focus = m.Focus
-	r.For = m.For
-	r.Encounter = m.Encounter
-	r.ExecutionPeriod = m.ExecutionPeriod
-	r.AuthoredOn = m.AuthoredOn
-	if m.AuthoredOnPrimitiveElement != nil {
-		if r.AuthoredOn == nil {
-			r.AuthoredOn = &DateTime{}
-		}
-		r.AuthoredOn.Id = m.AuthoredOnPrimitiveElement.Id
-		r.AuthoredOn.Extension = m.AuthoredOnPrimitiveElement.Extension
-	}
-	r.LastModified = m.LastModified
-	if m.LastModifiedPrimitiveElement != nil {
-		if r.LastModified == nil {
-			r.LastModified = &DateTime{}
-		}
-		r.LastModified.Id = m.LastModifiedPrimitiveElement.Id
-		r.LastModified.Extension = m.LastModifiedPrimitiveElement.Extension
-	}
-	r.Requester = m.Requester
-	r.PerformerType = m.PerformerType
-	r.Owner = m.Owner
-	r.Location = m.Location
-	r.ReasonCode = m.ReasonCode
-	r.ReasonReference = m.ReasonReference
-	r.Insurance = m.Insurance
-	r.Note = m.Note
-	r.RelevantHistory = m.RelevantHistory
-	r.Restriction = m.Restriction
-	r.Input = m.Input
-	r.Output = m.Output
 	return nil
 }
 func (r Task) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -885,55 +2430,349 @@ type TaskRestriction struct {
 	// For requests that are targeted to more than on potential recipient/target, for whom is fulfillment sought?
 	Recipient []Reference
 }
-type jsonTaskRestriction struct {
-	Id                          *string           `json:"id,omitempty"`
-	Extension                   []Extension       `json:"extension,omitempty"`
-	ModifierExtension           []Extension       `json:"modifierExtension,omitempty"`
-	Repetitions                 *PositiveInt      `json:"repetitions,omitempty"`
-	RepetitionsPrimitiveElement *primitiveElement `json:"_repetitions,omitempty"`
-	Period                      *Period           `json:"period,omitempty"`
-	Recipient                   []Reference       `json:"recipient,omitempty"`
-}
 
 func (r TaskRestriction) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r TaskRestriction) marshalJSON() jsonTaskRestriction {
-	m := jsonTaskRestriction{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Repetitions != nil && r.Repetitions.Value != nil {
-		m.Repetitions = r.Repetitions
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.Repetitions != nil && (r.Repetitions.Id != nil || r.Repetitions.Extension != nil) {
-		m.RepetitionsPrimitiveElement = &primitiveElement{Id: r.Repetitions.Id, Extension: r.Repetitions.Extension}
-	}
-	m.Period = r.Period
-	m.Recipient = r.Recipient
-	return m
+	return b.Bytes(), nil
 }
-func (r *TaskRestriction) UnmarshalJSON(b []byte) error {
-	var m jsonTaskRestriction
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r TaskRestriction) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *TaskRestriction) unmarshalJSON(m jsonTaskRestriction) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Repetitions = m.Repetitions
-	if m.RepetitionsPrimitiveElement != nil {
-		if r.Repetitions == nil {
-			r.Repetitions = &PositiveInt{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Repetitions.Id = m.RepetitionsPrimitiveElement.Id
-		r.Repetitions.Extension = m.RepetitionsPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Period = m.Period
-	r.Recipient = m.Recipient
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Repetitions != nil && r.Repetitions.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repetitions\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Repetitions)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Repetitions != nil && (r.Repetitions.Id != nil || r.Repetitions.Extension != nil) {
+		p := primitiveElement{Id: r.Repetitions.Id, Extension: r.Repetitions.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_repetitions\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Period != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Period.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Recipient) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"recipient\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Recipient {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *TaskRestriction) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TaskRestriction element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TaskRestriction element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskRestriction element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskRestriction element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskRestriction element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskRestriction element", t)
+			}
+		case "repetitions":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Repetitions == nil {
+				r.Repetitions = &PositiveInt{}
+			}
+			r.Repetitions.Value = v.Value
+		case "_repetitions":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Repetitions == nil {
+				r.Repetitions = &PositiveInt{}
+			}
+			r.Repetitions.Id = v.Id
+			r.Repetitions.Extension = v.Extension
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		case "recipient":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskRestriction element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Recipient = append(r.Recipient, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskRestriction element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in TaskRestriction", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TaskRestriction element", t)
+	}
 	return nil
 }
 func (r TaskRestriction) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1116,980 +2955,4130 @@ func (r TriggerDefinition) isTaskInputValue()   {}
 func (r UsageContext) isTaskInputValue()        {}
 func (r Dosage) isTaskInputValue()              {}
 func (r Meta) isTaskInputValue()                {}
-
-type jsonTaskInput struct {
-	Id                                *string              `json:"id,omitempty"`
-	Extension                         []Extension          `json:"extension,omitempty"`
-	ModifierExtension                 []Extension          `json:"modifierExtension,omitempty"`
-	Type                              CodeableConcept      `json:"type,omitempty"`
-	ValueBase64Binary                 *Base64Binary        `json:"valueBase64Binary,omitempty"`
-	ValueBase64BinaryPrimitiveElement *primitiveElement    `json:"_valueBase64Binary,omitempty"`
-	ValueBoolean                      *Boolean             `json:"valueBoolean,omitempty"`
-	ValueBooleanPrimitiveElement      *primitiveElement    `json:"_valueBoolean,omitempty"`
-	ValueCanonical                    *Canonical           `json:"valueCanonical,omitempty"`
-	ValueCanonicalPrimitiveElement    *primitiveElement    `json:"_valueCanonical,omitempty"`
-	ValueCode                         *Code                `json:"valueCode,omitempty"`
-	ValueCodePrimitiveElement         *primitiveElement    `json:"_valueCode,omitempty"`
-	ValueDate                         *Date                `json:"valueDate,omitempty"`
-	ValueDatePrimitiveElement         *primitiveElement    `json:"_valueDate,omitempty"`
-	ValueDateTime                     *DateTime            `json:"valueDateTime,omitempty"`
-	ValueDateTimePrimitiveElement     *primitiveElement    `json:"_valueDateTime,omitempty"`
-	ValueDecimal                      *Decimal             `json:"valueDecimal,omitempty"`
-	ValueDecimalPrimitiveElement      *primitiveElement    `json:"_valueDecimal,omitempty"`
-	ValueId                           *Id                  `json:"valueId,omitempty"`
-	ValueIdPrimitiveElement           *primitiveElement    `json:"_valueId,omitempty"`
-	ValueInstant                      *Instant             `json:"valueInstant,omitempty"`
-	ValueInstantPrimitiveElement      *primitiveElement    `json:"_valueInstant,omitempty"`
-	ValueInteger                      *Integer             `json:"valueInteger,omitempty"`
-	ValueIntegerPrimitiveElement      *primitiveElement    `json:"_valueInteger,omitempty"`
-	ValueMarkdown                     *Markdown            `json:"valueMarkdown,omitempty"`
-	ValueMarkdownPrimitiveElement     *primitiveElement    `json:"_valueMarkdown,omitempty"`
-	ValueOid                          *Oid                 `json:"valueOid,omitempty"`
-	ValueOidPrimitiveElement          *primitiveElement    `json:"_valueOid,omitempty"`
-	ValuePositiveInt                  *PositiveInt         `json:"valuePositiveInt,omitempty"`
-	ValuePositiveIntPrimitiveElement  *primitiveElement    `json:"_valuePositiveInt,omitempty"`
-	ValueString                       *String              `json:"valueString,omitempty"`
-	ValueStringPrimitiveElement       *primitiveElement    `json:"_valueString,omitempty"`
-	ValueTime                         *Time                `json:"valueTime,omitempty"`
-	ValueTimePrimitiveElement         *primitiveElement    `json:"_valueTime,omitempty"`
-	ValueUnsignedInt                  *UnsignedInt         `json:"valueUnsignedInt,omitempty"`
-	ValueUnsignedIntPrimitiveElement  *primitiveElement    `json:"_valueUnsignedInt,omitempty"`
-	ValueUri                          *Uri                 `json:"valueUri,omitempty"`
-	ValueUriPrimitiveElement          *primitiveElement    `json:"_valueUri,omitempty"`
-	ValueUrl                          *Url                 `json:"valueUrl,omitempty"`
-	ValueUrlPrimitiveElement          *primitiveElement    `json:"_valueUrl,omitempty"`
-	ValueUuid                         *Uuid                `json:"valueUuid,omitempty"`
-	ValueUuidPrimitiveElement         *primitiveElement    `json:"_valueUuid,omitempty"`
-	ValueAddress                      *Address             `json:"valueAddress,omitempty"`
-	ValueAge                          *Age                 `json:"valueAge,omitempty"`
-	ValueAnnotation                   *Annotation          `json:"valueAnnotation,omitempty"`
-	ValueAttachment                   *Attachment          `json:"valueAttachment,omitempty"`
-	ValueCodeableConcept              *CodeableConcept     `json:"valueCodeableConcept,omitempty"`
-	ValueCoding                       *Coding              `json:"valueCoding,omitempty"`
-	ValueContactPoint                 *ContactPoint        `json:"valueContactPoint,omitempty"`
-	ValueCount                        *Count               `json:"valueCount,omitempty"`
-	ValueDistance                     *Distance            `json:"valueDistance,omitempty"`
-	ValueDuration                     *Duration            `json:"valueDuration,omitempty"`
-	ValueHumanName                    *HumanName           `json:"valueHumanName,omitempty"`
-	ValueIdentifier                   *Identifier          `json:"valueIdentifier,omitempty"`
-	ValueMoney                        *Money               `json:"valueMoney,omitempty"`
-	ValuePeriod                       *Period              `json:"valuePeriod,omitempty"`
-	ValueQuantity                     *Quantity            `json:"valueQuantity,omitempty"`
-	ValueRange                        *Range               `json:"valueRange,omitempty"`
-	ValueRatio                        *Ratio               `json:"valueRatio,omitempty"`
-	ValueReference                    *Reference           `json:"valueReference,omitempty"`
-	ValueSampledData                  *SampledData         `json:"valueSampledData,omitempty"`
-	ValueSignature                    *Signature           `json:"valueSignature,omitempty"`
-	ValueTiming                       *Timing              `json:"valueTiming,omitempty"`
-	ValueContactDetail                *ContactDetail       `json:"valueContactDetail,omitempty"`
-	ValueContributor                  *Contributor         `json:"valueContributor,omitempty"`
-	ValueDataRequirement              *DataRequirement     `json:"valueDataRequirement,omitempty"`
-	ValueExpression                   *Expression          `json:"valueExpression,omitempty"`
-	ValueParameterDefinition          *ParameterDefinition `json:"valueParameterDefinition,omitempty"`
-	ValueRelatedArtifact              *RelatedArtifact     `json:"valueRelatedArtifact,omitempty"`
-	ValueTriggerDefinition            *TriggerDefinition   `json:"valueTriggerDefinition,omitempty"`
-	ValueUsageContext                 *UsageContext        `json:"valueUsageContext,omitempty"`
-	ValueDosage                       *Dosage              `json:"valueDosage,omitempty"`
-	ValueMeta                         *Meta                `json:"valueMeta,omitempty"`
-}
-
 func (r TaskInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r TaskInput) marshalJSON() jsonTaskInput {
-	m := jsonTaskInput{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+func (r TaskInput) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
 	switch v := r.Value.(type) {
 	case Base64Binary:
 		if v.Value != nil {
-			m.ValueBase64Binary = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Base64Binary:
 		if v.Value != nil {
-			m.ValueBase64Binary = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Canonical:
 		if v.Value != nil {
-			m.ValueCanonical = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Canonical:
 		if v.Value != nil {
-			m.ValueCanonical = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Code:
 		if v.Value != nil {
-			m.ValueCode = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCode\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCode\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Code:
 		if v.Value != nil {
-			m.ValueCode = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCode\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCode\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Date:
 		if v.Value != nil {
-			m.ValueDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.ValueDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case DateTime:
 		if v.Value != nil {
-			m.ValueDateTime = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *DateTime:
 		if v.Value != nil {
-			m.ValueDateTime = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Decimal:
 		if v.Value != nil {
-			m.ValueDecimal = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Decimal:
 		if v.Value != nil {
-			m.ValueDecimal = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Id:
 		if v.Value != nil {
-			m.ValueId = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueId\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueId\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Id:
 		if v.Value != nil {
-			m.ValueId = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueId\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueId\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Instant:
 		if v.Value != nil {
-			m.ValueInstant = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Instant:
 		if v.Value != nil {
-			m.ValueInstant = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Integer:
 		if v.Value != nil {
-			m.ValueInteger = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Integer:
 		if v.Value != nil {
-			m.ValueInteger = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Markdown:
 		if v.Value != nil {
-			m.ValueMarkdown = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Markdown:
 		if v.Value != nil {
-			m.ValueMarkdown = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Oid:
 		if v.Value != nil {
-			m.ValueOid = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueOid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueOid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Oid:
 		if v.Value != nil {
-			m.ValueOid = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueOid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueOid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case PositiveInt:
 		if v.Value != nil {
-			m.ValuePositiveInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *PositiveInt:
 		if v.Value != nil {
-			m.ValuePositiveInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.ValueString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.ValueString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Time:
 		if v.Value != nil {
-			m.ValueTime = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Time:
 		if v.Value != nil {
-			m.ValueTime = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case UnsignedInt:
 		if v.Value != nil {
-			m.ValueUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.ValueUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Uri:
 		if v.Value != nil {
-			m.ValueUri = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUri\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUri\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Uri:
 		if v.Value != nil {
-			m.ValueUri = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUri\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUri\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Url:
 		if v.Value != nil {
-			m.ValueUrl = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Url:
 		if v.Value != nil {
-			m.ValueUrl = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Uuid:
 		if v.Value != nil {
-			m.ValueUuid = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Uuid:
 		if v.Value != nil {
-			m.ValueUuid = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Address:
-		m.ValueAddress = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Address:
-		m.ValueAddress = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Age:
-		m.ValueAge = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Age:
-		m.ValueAge = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Annotation:
-		m.ValueAnnotation = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAnnotation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Annotation:
-		m.ValueAnnotation = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAnnotation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Attachment:
-		m.ValueAttachment = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Attachment:
-		m.ValueAttachment = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case CodeableConcept:
-		m.ValueCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.ValueCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Coding:
-		m.ValueCoding = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCoding\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Coding:
-		m.ValueCoding = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCoding\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ContactPoint:
-		m.ValueContactPoint = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactPoint\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ContactPoint:
-		m.ValueContactPoint = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactPoint\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Count:
-		m.ValueCount = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCount\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Count:
-		m.ValueCount = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCount\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Distance:
-		m.ValueDistance = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDistance\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Distance:
-		m.ValueDistance = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDistance\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Duration:
-		m.ValueDuration = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Duration:
-		m.ValueDuration = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case HumanName:
-		m.ValueHumanName = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueHumanName\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *HumanName:
-		m.ValueHumanName = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueHumanName\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Identifier:
-		m.ValueIdentifier = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Identifier:
-		m.ValueIdentifier = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Money:
-		m.ValueMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.ValueMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Period:
-		m.ValuePeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valuePeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.ValuePeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valuePeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Quantity:
-		m.ValueQuantity = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Quantity:
-		m.ValueQuantity = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Range:
-		m.ValueRange = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Range:
-		m.ValueRange = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Ratio:
-		m.ValueRatio = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRatio\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Ratio:
-		m.ValueRatio = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRatio\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.ValueReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.ValueReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case SampledData:
-		m.ValueSampledData = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSampledData\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *SampledData:
-		m.ValueSampledData = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSampledData\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Signature:
-		m.ValueSignature = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSignature\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Signature:
-		m.ValueSignature = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSignature\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Timing:
-		m.ValueTiming = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTiming\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Timing:
-		m.ValueTiming = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTiming\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ContactDetail:
-		m.ValueContactDetail = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactDetail\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ContactDetail:
-		m.ValueContactDetail = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactDetail\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Contributor:
-		m.ValueContributor = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContributor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Contributor:
-		m.ValueContributor = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContributor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case DataRequirement:
-		m.ValueDataRequirement = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDataRequirement\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *DataRequirement:
-		m.ValueDataRequirement = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDataRequirement\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Expression:
-		m.ValueExpression = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueExpression\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Expression:
-		m.ValueExpression = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueExpression\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ParameterDefinition:
-		m.ValueParameterDefinition = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueParameterDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ParameterDefinition:
-		m.ValueParameterDefinition = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueParameterDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case RelatedArtifact:
-		m.ValueRelatedArtifact = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRelatedArtifact\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *RelatedArtifact:
-		m.ValueRelatedArtifact = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRelatedArtifact\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case TriggerDefinition:
-		m.ValueTriggerDefinition = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTriggerDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *TriggerDefinition:
-		m.ValueTriggerDefinition = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTriggerDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case UsageContext:
-		m.ValueUsageContext = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueUsageContext\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *UsageContext:
-		m.ValueUsageContext = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueUsageContext\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Dosage:
-		m.ValueDosage = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDosage\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Dosage:
-		m.ValueDosage = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDosage\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Meta:
-		m.ValueMeta = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMeta\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Meta:
-		m.ValueMeta = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMeta\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	return m
-}
-func (r *TaskInput) UnmarshalJSON(b []byte) error {
-	var m jsonTaskInput
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *TaskInput) unmarshalJSON(m jsonTaskInput) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	if m.ValueBase64Binary != nil || m.ValueBase64BinaryPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
+func (r *TaskInput) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TaskInput element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.ValueBase64Binary
-		if m.ValueBase64BinaryPrimitiveElement != nil {
-			if v == nil {
-				v = &Base64Binary{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TaskInput element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueBase64BinaryPrimitiveElement.Id
-			v.Extension = m.ValueBase64BinaryPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueBoolean != nil || m.ValueBooleanPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueBoolean
-		if m.ValueBooleanPrimitiveElement != nil {
-			if v == nil {
-				v = &Boolean{}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueBooleanPrimitiveElement.Id
-			v.Extension = m.ValueBooleanPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueCanonical != nil || m.ValueCanonicalPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCanonical
-		if m.ValueCanonicalPrimitiveElement != nil {
-			if v == nil {
-				v = &Canonical{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskInput element", t)
 			}
-			v.Id = m.ValueCanonicalPrimitiveElement.Id
-			v.Extension = m.ValueCanonicalPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueCode != nil || m.ValueCodePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCode
-		if m.ValueCodePrimitiveElement != nil {
-			if v == nil {
-				v = &Code{}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
 			}
-			v.Id = m.ValueCodePrimitiveElement.Id
-			v.Extension = m.ValueCodePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDate != nil || m.ValueDatePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDate
-		if m.ValueDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueDatePrimitiveElement.Id
-			v.Extension = m.ValueDatePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDateTime != nil || m.ValueDateTimePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDateTime
-		if m.ValueDateTimePrimitiveElement != nil {
-			if v == nil {
-				v = &DateTime{}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskInput element", t)
 			}
-			v.Id = m.ValueDateTimePrimitiveElement.Id
-			v.Extension = m.ValueDateTimePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDecimal != nil || m.ValueDecimalPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDecimal
-		if m.ValueDecimalPrimitiveElement != nil {
-			if v == nil {
-				v = &Decimal{}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueDecimalPrimitiveElement.Id
-			v.Extension = m.ValueDecimalPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueId != nil || m.ValueIdPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueId
-		if m.ValueIdPrimitiveElement != nil {
-			if v == nil {
-				v = &Id{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskInput element", t)
 			}
-			v.Id = m.ValueIdPrimitiveElement.Id
-			v.Extension = m.ValueIdPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueInstant != nil || m.ValueInstantPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueInstant
-		if m.ValueInstantPrimitiveElement != nil {
-			if v == nil {
-				v = &Instant{}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
 			}
-			v.Id = m.ValueInstantPrimitiveElement.Id
-			v.Extension = m.ValueInstantPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueInteger != nil || m.ValueIntegerPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueInteger
-		if m.ValueIntegerPrimitiveElement != nil {
-			if v == nil {
-				v = &Integer{}
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueIntegerPrimitiveElement.Id
-			v.Extension = m.ValueIntegerPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueMarkdown != nil || m.ValueMarkdownPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMarkdown
-		if m.ValueMarkdownPrimitiveElement != nil {
-			if v == nil {
-				v = &Markdown{}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskInput element", t)
 			}
-			v.Id = m.ValueMarkdownPrimitiveElement.Id
-			v.Extension = m.ValueMarkdownPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueOid != nil || m.ValueOidPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueOid
-		if m.ValueOidPrimitiveElement != nil {
-			if v == nil {
-				v = &Oid{}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueOidPrimitiveElement.Id
-			v.Extension = m.ValueOidPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValuePositiveInt != nil || m.ValuePositiveIntPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValuePositiveInt
-		if m.ValuePositiveIntPrimitiveElement != nil {
-			if v == nil {
-				v = &PositiveInt{}
+			r.Type = v
+		case "valueBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValuePositiveIntPrimitiveElement.Id
-			v.Extension = m.ValuePositiveIntPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueString != nil || m.ValueStringPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueString
-		if m.ValueStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: r.Value.(Base64Binary).Extension,
+					Id:        r.Value.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
 			}
-			v.Id = m.ValueStringPrimitiveElement.Id
-			v.Extension = m.ValueStringPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueTime != nil || m.ValueTimePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTime
-		if m.ValueTimePrimitiveElement != nil {
-			if v == nil {
-				v = &Time{}
+		case "_valueBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueTimePrimitiveElement.Id
-			v.Extension = m.ValueTimePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUnsignedInt != nil || m.ValueUnsignedIntPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUnsignedInt
-		if m.ValueUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Base64Binary).Value,
+				}
+			} else {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
 			}
-			v.Id = m.ValueUnsignedIntPrimitiveElement.Id
-			v.Extension = m.ValueUnsignedIntPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUri != nil || m.ValueUriPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUri
-		if m.ValueUriPrimitiveElement != nil {
-			if v == nil {
-				v = &Uri{}
+		case "valueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueUriPrimitiveElement.Id
-			v.Extension = m.ValueUriPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUrl != nil || m.ValueUrlPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUrl
-		if m.ValueUrlPrimitiveElement != nil {
-			if v == nil {
-				v = &Url{}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: r.Value.(Boolean).Extension,
+					Id:        r.Value.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
 			}
-			v.Id = m.ValueUrlPrimitiveElement.Id
-			v.Extension = m.ValueUrlPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUuid != nil || m.ValueUuidPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUuid
-		if m.ValueUuidPrimitiveElement != nil {
-			if v == nil {
-				v = &Uuid{}
+		case "_valueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueUuidPrimitiveElement.Id
-			v.Extension = m.ValueUuidPrimitiveElement.Extension
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Boolean).Value,
+				}
+			} else {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: r.Value.(Canonical).Extension,
+					Id:        r.Value.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Canonical).Value,
+				}
+			} else {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: r.Value.(Code).Extension,
+					Id:        r.Value.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Code).Value,
+				}
+			} else {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: r.Value.(Date).Extension,
+					Id:        r.Value.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Date).Value,
+				}
+			} else {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: r.Value.(DateTime).Extension,
+					Id:        r.Value.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(DateTime).Value,
+				}
+			} else {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: r.Value.(Decimal).Extension,
+					Id:        r.Value.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Decimal).Value,
+				}
+			} else {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: r.Value.(Id).Extension,
+					Id:        r.Value.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Id).Value,
+				}
+			} else {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: r.Value.(Instant).Extension,
+					Id:        r.Value.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Instant).Value,
+				}
+			} else {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: r.Value.(Integer).Extension,
+					Id:        r.Value.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Integer).Value,
+				}
+			} else {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: r.Value.(Markdown).Extension,
+					Id:        r.Value.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Markdown).Value,
+				}
+			} else {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: r.Value.(Oid).Extension,
+					Id:        r.Value.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Oid).Value,
+				}
+			} else {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: r.Value.(PositiveInt).Extension,
+					Id:        r.Value.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(PositiveInt).Value,
+				}
+			} else {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: r.Value.(String).Extension,
+					Id:        r.Value.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(String).Value,
+				}
+			} else {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: r.Value.(Time).Extension,
+					Id:        r.Value.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Time).Value,
+				}
+			} else {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: r.Value.(UnsignedInt).Extension,
+					Id:        r.Value.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(UnsignedInt).Value,
+				}
+			} else {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: r.Value.(Uri).Extension,
+					Id:        r.Value.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uri).Value,
+				}
+			} else {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: r.Value.(Url).Extension,
+					Id:        r.Value.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Url).Value,
+				}
+			} else {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: r.Value.(Uuid).Extension,
+					Id:        r.Value.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uuid).Value,
+				}
+			} else {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valuePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		default:
+			return fmt.Errorf("invalid field: %s in TaskInput", f)
 		}
-		r.Value = v
 	}
-	if m.ValueAddress != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAddress
-		r.Value = v
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	if m.ValueAge != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAge
-		r.Value = v
-	}
-	if m.ValueAnnotation != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAnnotation
-		r.Value = v
-	}
-	if m.ValueAttachment != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAttachment
-		r.Value = v
-	}
-	if m.ValueCodeableConcept != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCodeableConcept
-		r.Value = v
-	}
-	if m.ValueCoding != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCoding
-		r.Value = v
-	}
-	if m.ValueContactPoint != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContactPoint
-		r.Value = v
-	}
-	if m.ValueCount != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCount
-		r.Value = v
-	}
-	if m.ValueDistance != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDistance
-		r.Value = v
-	}
-	if m.ValueDuration != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDuration
-		r.Value = v
-	}
-	if m.ValueHumanName != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueHumanName
-		r.Value = v
-	}
-	if m.ValueIdentifier != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueIdentifier
-		r.Value = v
-	}
-	if m.ValueMoney != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMoney
-		r.Value = v
-	}
-	if m.ValuePeriod != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValuePeriod
-		r.Value = v
-	}
-	if m.ValueQuantity != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueQuantity
-		r.Value = v
-	}
-	if m.ValueRange != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRange
-		r.Value = v
-	}
-	if m.ValueRatio != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRatio
-		r.Value = v
-	}
-	if m.ValueReference != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueReference
-		r.Value = v
-	}
-	if m.ValueSampledData != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueSampledData
-		r.Value = v
-	}
-	if m.ValueSignature != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueSignature
-		r.Value = v
-	}
-	if m.ValueTiming != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTiming
-		r.Value = v
-	}
-	if m.ValueContactDetail != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContactDetail
-		r.Value = v
-	}
-	if m.ValueContributor != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContributor
-		r.Value = v
-	}
-	if m.ValueDataRequirement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDataRequirement
-		r.Value = v
-	}
-	if m.ValueExpression != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueExpression
-		r.Value = v
-	}
-	if m.ValueParameterDefinition != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueParameterDefinition
-		r.Value = v
-	}
-	if m.ValueRelatedArtifact != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRelatedArtifact
-		r.Value = v
-	}
-	if m.ValueTriggerDefinition != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTriggerDefinition
-		r.Value = v
-	}
-	if m.ValueUsageContext != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUsageContext
-		r.Value = v
-	}
-	if m.ValueDosage != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDosage
-		r.Value = v
-	}
-	if m.ValueMeta != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMeta
-		r.Value = v
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TaskInput element", t)
 	}
 	return nil
 }
@@ -3003,980 +7992,4130 @@ func (r TriggerDefinition) isTaskOutputValue()   {}
 func (r UsageContext) isTaskOutputValue()        {}
 func (r Dosage) isTaskOutputValue()              {}
 func (r Meta) isTaskOutputValue()                {}
-
-type jsonTaskOutput struct {
-	Id                                *string              `json:"id,omitempty"`
-	Extension                         []Extension          `json:"extension,omitempty"`
-	ModifierExtension                 []Extension          `json:"modifierExtension,omitempty"`
-	Type                              CodeableConcept      `json:"type,omitempty"`
-	ValueBase64Binary                 *Base64Binary        `json:"valueBase64Binary,omitempty"`
-	ValueBase64BinaryPrimitiveElement *primitiveElement    `json:"_valueBase64Binary,omitempty"`
-	ValueBoolean                      *Boolean             `json:"valueBoolean,omitempty"`
-	ValueBooleanPrimitiveElement      *primitiveElement    `json:"_valueBoolean,omitempty"`
-	ValueCanonical                    *Canonical           `json:"valueCanonical,omitempty"`
-	ValueCanonicalPrimitiveElement    *primitiveElement    `json:"_valueCanonical,omitempty"`
-	ValueCode                         *Code                `json:"valueCode,omitempty"`
-	ValueCodePrimitiveElement         *primitiveElement    `json:"_valueCode,omitempty"`
-	ValueDate                         *Date                `json:"valueDate,omitempty"`
-	ValueDatePrimitiveElement         *primitiveElement    `json:"_valueDate,omitempty"`
-	ValueDateTime                     *DateTime            `json:"valueDateTime,omitempty"`
-	ValueDateTimePrimitiveElement     *primitiveElement    `json:"_valueDateTime,omitempty"`
-	ValueDecimal                      *Decimal             `json:"valueDecimal,omitempty"`
-	ValueDecimalPrimitiveElement      *primitiveElement    `json:"_valueDecimal,omitempty"`
-	ValueId                           *Id                  `json:"valueId,omitempty"`
-	ValueIdPrimitiveElement           *primitiveElement    `json:"_valueId,omitempty"`
-	ValueInstant                      *Instant             `json:"valueInstant,omitempty"`
-	ValueInstantPrimitiveElement      *primitiveElement    `json:"_valueInstant,omitempty"`
-	ValueInteger                      *Integer             `json:"valueInteger,omitempty"`
-	ValueIntegerPrimitiveElement      *primitiveElement    `json:"_valueInteger,omitempty"`
-	ValueMarkdown                     *Markdown            `json:"valueMarkdown,omitempty"`
-	ValueMarkdownPrimitiveElement     *primitiveElement    `json:"_valueMarkdown,omitempty"`
-	ValueOid                          *Oid                 `json:"valueOid,omitempty"`
-	ValueOidPrimitiveElement          *primitiveElement    `json:"_valueOid,omitempty"`
-	ValuePositiveInt                  *PositiveInt         `json:"valuePositiveInt,omitempty"`
-	ValuePositiveIntPrimitiveElement  *primitiveElement    `json:"_valuePositiveInt,omitempty"`
-	ValueString                       *String              `json:"valueString,omitempty"`
-	ValueStringPrimitiveElement       *primitiveElement    `json:"_valueString,omitempty"`
-	ValueTime                         *Time                `json:"valueTime,omitempty"`
-	ValueTimePrimitiveElement         *primitiveElement    `json:"_valueTime,omitempty"`
-	ValueUnsignedInt                  *UnsignedInt         `json:"valueUnsignedInt,omitempty"`
-	ValueUnsignedIntPrimitiveElement  *primitiveElement    `json:"_valueUnsignedInt,omitempty"`
-	ValueUri                          *Uri                 `json:"valueUri,omitempty"`
-	ValueUriPrimitiveElement          *primitiveElement    `json:"_valueUri,omitempty"`
-	ValueUrl                          *Url                 `json:"valueUrl,omitempty"`
-	ValueUrlPrimitiveElement          *primitiveElement    `json:"_valueUrl,omitempty"`
-	ValueUuid                         *Uuid                `json:"valueUuid,omitempty"`
-	ValueUuidPrimitiveElement         *primitiveElement    `json:"_valueUuid,omitempty"`
-	ValueAddress                      *Address             `json:"valueAddress,omitempty"`
-	ValueAge                          *Age                 `json:"valueAge,omitempty"`
-	ValueAnnotation                   *Annotation          `json:"valueAnnotation,omitempty"`
-	ValueAttachment                   *Attachment          `json:"valueAttachment,omitempty"`
-	ValueCodeableConcept              *CodeableConcept     `json:"valueCodeableConcept,omitempty"`
-	ValueCoding                       *Coding              `json:"valueCoding,omitempty"`
-	ValueContactPoint                 *ContactPoint        `json:"valueContactPoint,omitempty"`
-	ValueCount                        *Count               `json:"valueCount,omitempty"`
-	ValueDistance                     *Distance            `json:"valueDistance,omitempty"`
-	ValueDuration                     *Duration            `json:"valueDuration,omitempty"`
-	ValueHumanName                    *HumanName           `json:"valueHumanName,omitempty"`
-	ValueIdentifier                   *Identifier          `json:"valueIdentifier,omitempty"`
-	ValueMoney                        *Money               `json:"valueMoney,omitempty"`
-	ValuePeriod                       *Period              `json:"valuePeriod,omitempty"`
-	ValueQuantity                     *Quantity            `json:"valueQuantity,omitempty"`
-	ValueRange                        *Range               `json:"valueRange,omitempty"`
-	ValueRatio                        *Ratio               `json:"valueRatio,omitempty"`
-	ValueReference                    *Reference           `json:"valueReference,omitempty"`
-	ValueSampledData                  *SampledData         `json:"valueSampledData,omitempty"`
-	ValueSignature                    *Signature           `json:"valueSignature,omitempty"`
-	ValueTiming                       *Timing              `json:"valueTiming,omitempty"`
-	ValueContactDetail                *ContactDetail       `json:"valueContactDetail,omitempty"`
-	ValueContributor                  *Contributor         `json:"valueContributor,omitempty"`
-	ValueDataRequirement              *DataRequirement     `json:"valueDataRequirement,omitempty"`
-	ValueExpression                   *Expression          `json:"valueExpression,omitempty"`
-	ValueParameterDefinition          *ParameterDefinition `json:"valueParameterDefinition,omitempty"`
-	ValueRelatedArtifact              *RelatedArtifact     `json:"valueRelatedArtifact,omitempty"`
-	ValueTriggerDefinition            *TriggerDefinition   `json:"valueTriggerDefinition,omitempty"`
-	ValueUsageContext                 *UsageContext        `json:"valueUsageContext,omitempty"`
-	ValueDosage                       *Dosage              `json:"valueDosage,omitempty"`
-	ValueMeta                         *Meta                `json:"valueMeta,omitempty"`
-}
-
 func (r TaskOutput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r TaskOutput) marshalJSON() jsonTaskOutput {
-	m := jsonTaskOutput{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+func (r TaskOutput) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
 	switch v := r.Value.(type) {
 	case Base64Binary:
 		if v.Value != nil {
-			m.ValueBase64Binary = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Base64Binary:
 		if v.Value != nil {
-			m.ValueBase64Binary = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBase64BinaryPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBase64Binary\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Canonical:
 		if v.Value != nil {
-			m.ValueCanonical = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Canonical:
 		if v.Value != nil {
-			m.ValueCanonical = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCanonicalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCanonical\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Code:
 		if v.Value != nil {
-			m.ValueCode = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCode\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCode\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Code:
 		if v.Value != nil {
-			m.ValueCode = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueCode\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueCodePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueCode\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Date:
 		if v.Value != nil {
-			m.ValueDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.ValueDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case DateTime:
 		if v.Value != nil {
-			m.ValueDateTime = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *DateTime:
 		if v.Value != nil {
-			m.ValueDateTime = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDateTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDateTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Decimal:
 		if v.Value != nil {
-			m.ValueDecimal = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Decimal:
 		if v.Value != nil {
-			m.ValueDecimal = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueDecimalPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueDecimal\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Id:
 		if v.Value != nil {
-			m.ValueId = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueId\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueId\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Id:
 		if v.Value != nil {
-			m.ValueId = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueId\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIdPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueId\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Instant:
 		if v.Value != nil {
-			m.ValueInstant = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Instant:
 		if v.Value != nil {
-			m.ValueInstant = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueInstantPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInstant\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Integer:
 		if v.Value != nil {
-			m.ValueInteger = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Integer:
 		if v.Value != nil {
-			m.ValueInteger = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueIntegerPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueInteger\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Markdown:
 		if v.Value != nil {
-			m.ValueMarkdown = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Markdown:
 		if v.Value != nil {
-			m.ValueMarkdown = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueMarkdownPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueMarkdown\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Oid:
 		if v.Value != nil {
-			m.ValueOid = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueOid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueOid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Oid:
 		if v.Value != nil {
-			m.ValueOid = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueOid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueOidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueOid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case PositiveInt:
 		if v.Value != nil {
-			m.ValuePositiveInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *PositiveInt:
 		if v.Value != nil {
-			m.ValuePositiveInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValuePositiveIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valuePositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.ValueString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.ValueString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Time:
 		if v.Value != nil {
-			m.ValueTime = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Time:
 		if v.Value != nil {
-			m.ValueTime = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueTime\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueTimePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueTime\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case UnsignedInt:
 		if v.Value != nil {
-			m.ValueUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.ValueUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Uri:
 		if v.Value != nil {
-			m.ValueUri = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUri\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUri\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Uri:
 		if v.Value != nil {
-			m.ValueUri = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUri\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUriPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUri\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Url:
 		if v.Value != nil {
-			m.ValueUrl = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Url:
 		if v.Value != nil {
-			m.ValueUrl = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUrlPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUrl\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Uuid:
 		if v.Value != nil {
-			m.ValueUuid = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Uuid:
 		if v.Value != nil {
-			m.ValueUuid = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueUuidPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueUuid\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Address:
-		m.ValueAddress = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Address:
-		m.ValueAddress = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Age:
-		m.ValueAge = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Age:
-		m.ValueAge = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Annotation:
-		m.ValueAnnotation = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAnnotation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Annotation:
-		m.ValueAnnotation = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAnnotation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Attachment:
-		m.ValueAttachment = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Attachment:
-		m.ValueAttachment = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case CodeableConcept:
-		m.ValueCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.ValueCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Coding:
-		m.ValueCoding = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCoding\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Coding:
-		m.ValueCoding = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCoding\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ContactPoint:
-		m.ValueContactPoint = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactPoint\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ContactPoint:
-		m.ValueContactPoint = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactPoint\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Count:
-		m.ValueCount = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCount\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Count:
-		m.ValueCount = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCount\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Distance:
-		m.ValueDistance = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDistance\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Distance:
-		m.ValueDistance = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDistance\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Duration:
-		m.ValueDuration = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Duration:
-		m.ValueDuration = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case HumanName:
-		m.ValueHumanName = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueHumanName\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *HumanName:
-		m.ValueHumanName = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueHumanName\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Identifier:
-		m.ValueIdentifier = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Identifier:
-		m.ValueIdentifier = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Money:
-		m.ValueMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.ValueMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Period:
-		m.ValuePeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valuePeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.ValuePeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valuePeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Quantity:
-		m.ValueQuantity = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Quantity:
-		m.ValueQuantity = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Range:
-		m.ValueRange = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Range:
-		m.ValueRange = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Ratio:
-		m.ValueRatio = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRatio\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Ratio:
-		m.ValueRatio = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRatio\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.ValueReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.ValueReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case SampledData:
-		m.ValueSampledData = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSampledData\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *SampledData:
-		m.ValueSampledData = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSampledData\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Signature:
-		m.ValueSignature = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSignature\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Signature:
-		m.ValueSignature = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueSignature\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Timing:
-		m.ValueTiming = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTiming\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Timing:
-		m.ValueTiming = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTiming\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ContactDetail:
-		m.ValueContactDetail = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactDetail\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ContactDetail:
-		m.ValueContactDetail = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContactDetail\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Contributor:
-		m.ValueContributor = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContributor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Contributor:
-		m.ValueContributor = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueContributor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case DataRequirement:
-		m.ValueDataRequirement = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDataRequirement\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *DataRequirement:
-		m.ValueDataRequirement = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDataRequirement\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Expression:
-		m.ValueExpression = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueExpression\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Expression:
-		m.ValueExpression = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueExpression\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case ParameterDefinition:
-		m.ValueParameterDefinition = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueParameterDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *ParameterDefinition:
-		m.ValueParameterDefinition = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueParameterDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case RelatedArtifact:
-		m.ValueRelatedArtifact = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRelatedArtifact\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *RelatedArtifact:
-		m.ValueRelatedArtifact = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueRelatedArtifact\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case TriggerDefinition:
-		m.ValueTriggerDefinition = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTriggerDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *TriggerDefinition:
-		m.ValueTriggerDefinition = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueTriggerDefinition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case UsageContext:
-		m.ValueUsageContext = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueUsageContext\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *UsageContext:
-		m.ValueUsageContext = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueUsageContext\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Dosage:
-		m.ValueDosage = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDosage\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Dosage:
-		m.ValueDosage = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueDosage\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Meta:
-		m.ValueMeta = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMeta\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Meta:
-		m.ValueMeta = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueMeta\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	return m
-}
-func (r *TaskOutput) UnmarshalJSON(b []byte) error {
-	var m jsonTaskOutput
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *TaskOutput) unmarshalJSON(m jsonTaskOutput) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	if m.ValueBase64Binary != nil || m.ValueBase64BinaryPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
+func (r *TaskOutput) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TaskOutput element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.ValueBase64Binary
-		if m.ValueBase64BinaryPrimitiveElement != nil {
-			if v == nil {
-				v = &Base64Binary{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TaskOutput element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueBase64BinaryPrimitiveElement.Id
-			v.Extension = m.ValueBase64BinaryPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueBoolean != nil || m.ValueBooleanPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueBoolean
-		if m.ValueBooleanPrimitiveElement != nil {
-			if v == nil {
-				v = &Boolean{}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueBooleanPrimitiveElement.Id
-			v.Extension = m.ValueBooleanPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueCanonical != nil || m.ValueCanonicalPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCanonical
-		if m.ValueCanonicalPrimitiveElement != nil {
-			if v == nil {
-				v = &Canonical{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskOutput element", t)
 			}
-			v.Id = m.ValueCanonicalPrimitiveElement.Id
-			v.Extension = m.ValueCanonicalPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueCode != nil || m.ValueCodePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCode
-		if m.ValueCodePrimitiveElement != nil {
-			if v == nil {
-				v = &Code{}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
 			}
-			v.Id = m.ValueCodePrimitiveElement.Id
-			v.Extension = m.ValueCodePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDate != nil || m.ValueDatePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDate
-		if m.ValueDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueDatePrimitiveElement.Id
-			v.Extension = m.ValueDatePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDateTime != nil || m.ValueDateTimePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDateTime
-		if m.ValueDateTimePrimitiveElement != nil {
-			if v == nil {
-				v = &DateTime{}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskOutput element", t)
 			}
-			v.Id = m.ValueDateTimePrimitiveElement.Id
-			v.Extension = m.ValueDateTimePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueDecimal != nil || m.ValueDecimalPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDecimal
-		if m.ValueDecimalPrimitiveElement != nil {
-			if v == nil {
-				v = &Decimal{}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueDecimalPrimitiveElement.Id
-			v.Extension = m.ValueDecimalPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueId != nil || m.ValueIdPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueId
-		if m.ValueIdPrimitiveElement != nil {
-			if v == nil {
-				v = &Id{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TaskOutput element", t)
 			}
-			v.Id = m.ValueIdPrimitiveElement.Id
-			v.Extension = m.ValueIdPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueInstant != nil || m.ValueInstantPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueInstant
-		if m.ValueInstantPrimitiveElement != nil {
-			if v == nil {
-				v = &Instant{}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
 			}
-			v.Id = m.ValueInstantPrimitiveElement.Id
-			v.Extension = m.ValueInstantPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueInteger != nil || m.ValueIntegerPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueInteger
-		if m.ValueIntegerPrimitiveElement != nil {
-			if v == nil {
-				v = &Integer{}
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueIntegerPrimitiveElement.Id
-			v.Extension = m.ValueIntegerPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueMarkdown != nil || m.ValueMarkdownPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMarkdown
-		if m.ValueMarkdownPrimitiveElement != nil {
-			if v == nil {
-				v = &Markdown{}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TaskOutput element", t)
 			}
-			v.Id = m.ValueMarkdownPrimitiveElement.Id
-			v.Extension = m.ValueMarkdownPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueOid != nil || m.ValueOidPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueOid
-		if m.ValueOidPrimitiveElement != nil {
-			if v == nil {
-				v = &Oid{}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueOidPrimitiveElement.Id
-			v.Extension = m.ValueOidPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValuePositiveInt != nil || m.ValuePositiveIntPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValuePositiveInt
-		if m.ValuePositiveIntPrimitiveElement != nil {
-			if v == nil {
-				v = &PositiveInt{}
+			r.Type = v
+		case "valueBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValuePositiveIntPrimitiveElement.Id
-			v.Extension = m.ValuePositiveIntPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueString != nil || m.ValueStringPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueString
-		if m.ValueStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: r.Value.(Base64Binary).Extension,
+					Id:        r.Value.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
 			}
-			v.Id = m.ValueStringPrimitiveElement.Id
-			v.Extension = m.ValueStringPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueTime != nil || m.ValueTimePrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTime
-		if m.ValueTimePrimitiveElement != nil {
-			if v == nil {
-				v = &Time{}
+		case "_valueBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueTimePrimitiveElement.Id
-			v.Extension = m.ValueTimePrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUnsignedInt != nil || m.ValueUnsignedIntPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUnsignedInt
-		if m.ValueUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Base64Binary).Value,
+				}
+			} else {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
 			}
-			v.Id = m.ValueUnsignedIntPrimitiveElement.Id
-			v.Extension = m.ValueUnsignedIntPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUri != nil || m.ValueUriPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUri
-		if m.ValueUriPrimitiveElement != nil {
-			if v == nil {
-				v = &Uri{}
+		case "valueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueUriPrimitiveElement.Id
-			v.Extension = m.ValueUriPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUrl != nil || m.ValueUrlPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUrl
-		if m.ValueUrlPrimitiveElement != nil {
-			if v == nil {
-				v = &Url{}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: r.Value.(Boolean).Extension,
+					Id:        r.Value.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
 			}
-			v.Id = m.ValueUrlPrimitiveElement.Id
-			v.Extension = m.ValueUrlPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueUuid != nil || m.ValueUuidPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUuid
-		if m.ValueUuidPrimitiveElement != nil {
-			if v == nil {
-				v = &Uuid{}
+		case "_valueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueUuidPrimitiveElement.Id
-			v.Extension = m.ValueUuidPrimitiveElement.Extension
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Boolean).Value,
+				}
+			} else {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: r.Value.(Canonical).Extension,
+					Id:        r.Value.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Canonical).Value,
+				}
+			} else {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: r.Value.(Code).Extension,
+					Id:        r.Value.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Code).Value,
+				}
+			} else {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: r.Value.(Date).Extension,
+					Id:        r.Value.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Date).Value,
+				}
+			} else {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: r.Value.(DateTime).Extension,
+					Id:        r.Value.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(DateTime).Value,
+				}
+			} else {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: r.Value.(Decimal).Extension,
+					Id:        r.Value.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Decimal).Value,
+				}
+			} else {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: r.Value.(Id).Extension,
+					Id:        r.Value.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Id).Value,
+				}
+			} else {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: r.Value.(Instant).Extension,
+					Id:        r.Value.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Instant).Value,
+				}
+			} else {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: r.Value.(Integer).Extension,
+					Id:        r.Value.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Integer).Value,
+				}
+			} else {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: r.Value.(Markdown).Extension,
+					Id:        r.Value.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Markdown).Value,
+				}
+			} else {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: r.Value.(Oid).Extension,
+					Id:        r.Value.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Oid).Value,
+				}
+			} else {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: r.Value.(PositiveInt).Extension,
+					Id:        r.Value.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(PositiveInt).Value,
+				}
+			} else {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: r.Value.(String).Extension,
+					Id:        r.Value.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(String).Value,
+				}
+			} else {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: r.Value.(Time).Extension,
+					Id:        r.Value.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Time).Value,
+				}
+			} else {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: r.Value.(UnsignedInt).Extension,
+					Id:        r.Value.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(UnsignedInt).Value,
+				}
+			} else {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: r.Value.(Uri).Extension,
+					Id:        r.Value.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uri).Value,
+				}
+			} else {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: r.Value.(Url).Extension,
+					Id:        r.Value.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Url).Value,
+				}
+			} else {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: r.Value.(Uuid).Extension,
+					Id:        r.Value.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uuid).Value,
+				}
+			} else {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valuePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		default:
+			return fmt.Errorf("invalid field: %s in TaskOutput", f)
 		}
-		r.Value = v
 	}
-	if m.ValueAddress != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAddress
-		r.Value = v
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	if m.ValueAge != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAge
-		r.Value = v
-	}
-	if m.ValueAnnotation != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAnnotation
-		r.Value = v
-	}
-	if m.ValueAttachment != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAttachment
-		r.Value = v
-	}
-	if m.ValueCodeableConcept != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCodeableConcept
-		r.Value = v
-	}
-	if m.ValueCoding != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCoding
-		r.Value = v
-	}
-	if m.ValueContactPoint != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContactPoint
-		r.Value = v
-	}
-	if m.ValueCount != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueCount
-		r.Value = v
-	}
-	if m.ValueDistance != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDistance
-		r.Value = v
-	}
-	if m.ValueDuration != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDuration
-		r.Value = v
-	}
-	if m.ValueHumanName != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueHumanName
-		r.Value = v
-	}
-	if m.ValueIdentifier != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueIdentifier
-		r.Value = v
-	}
-	if m.ValueMoney != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMoney
-		r.Value = v
-	}
-	if m.ValuePeriod != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValuePeriod
-		r.Value = v
-	}
-	if m.ValueQuantity != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueQuantity
-		r.Value = v
-	}
-	if m.ValueRange != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRange
-		r.Value = v
-	}
-	if m.ValueRatio != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRatio
-		r.Value = v
-	}
-	if m.ValueReference != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueReference
-		r.Value = v
-	}
-	if m.ValueSampledData != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueSampledData
-		r.Value = v
-	}
-	if m.ValueSignature != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueSignature
-		r.Value = v
-	}
-	if m.ValueTiming != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTiming
-		r.Value = v
-	}
-	if m.ValueContactDetail != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContactDetail
-		r.Value = v
-	}
-	if m.ValueContributor != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueContributor
-		r.Value = v
-	}
-	if m.ValueDataRequirement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDataRequirement
-		r.Value = v
-	}
-	if m.ValueExpression != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueExpression
-		r.Value = v
-	}
-	if m.ValueParameterDefinition != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueParameterDefinition
-		r.Value = v
-	}
-	if m.ValueRelatedArtifact != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueRelatedArtifact
-		r.Value = v
-	}
-	if m.ValueTriggerDefinition != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueTriggerDefinition
-		r.Value = v
-	}
-	if m.ValueUsageContext != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueUsageContext
-		r.Value = v
-	}
-	if m.ValueDosage != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueDosage
-		r.Value = v
-	}
-	if m.ValueMeta != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueMeta
-		r.Value = v
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TaskOutput element", t)
 	}
 	return nil
 }

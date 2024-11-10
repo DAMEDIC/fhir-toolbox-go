@@ -44,8 +44,6 @@ func generateTypes(files []ir.SourceFile, genTarget, release, pkg string) {
 			implementResource(f, *s)
 			generatePrimitiveEnums(f, *s)
 
-			json.GenerateMarshalInternalHelperStruct(f, *s)
-
 			json.ImplementMarshal(f, *s)
 			json.ImplementUnmarshal(f, *s)
 

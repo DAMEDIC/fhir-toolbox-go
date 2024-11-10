@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // This resource provides: the claim details; adjudication details from the processing of a Claim; and optionally account balance information, for informing the subscriber of the benefits provided.
@@ -127,327 +129,2309 @@ func (r ExplanationOfBenefit) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonExplanationOfBenefit struct {
-	ResourceType                  string                                 `json:"resourceType"`
-	Id                            *Id                                    `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement                      `json:"_id,omitempty"`
-	Meta                          *Meta                                  `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                                   `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement                      `json:"_implicitRules,omitempty"`
-	Language                      *Code                                  `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement                      `json:"_language,omitempty"`
-	Text                          *Narrative                             `json:"text,omitempty"`
-	Contained                     []ContainedResource                    `json:"contained,omitempty"`
-	Extension                     []Extension                            `json:"extension,omitempty"`
-	ModifierExtension             []Extension                            `json:"modifierExtension,omitempty"`
-	Identifier                    []Identifier                           `json:"identifier,omitempty"`
-	Status                        Code                                   `json:"status,omitempty"`
-	StatusPrimitiveElement        *primitiveElement                      `json:"_status,omitempty"`
-	Type                          CodeableConcept                        `json:"type,omitempty"`
-	SubType                       *CodeableConcept                       `json:"subType,omitempty"`
-	Use                           Code                                   `json:"use,omitempty"`
-	UsePrimitiveElement           *primitiveElement                      `json:"_use,omitempty"`
-	Patient                       Reference                              `json:"patient,omitempty"`
-	BillablePeriod                *Period                                `json:"billablePeriod,omitempty"`
-	Created                       DateTime                               `json:"created,omitempty"`
-	CreatedPrimitiveElement       *primitiveElement                      `json:"_created,omitempty"`
-	Enterer                       *Reference                             `json:"enterer,omitempty"`
-	Insurer                       Reference                              `json:"insurer,omitempty"`
-	Provider                      Reference                              `json:"provider,omitempty"`
-	Priority                      *CodeableConcept                       `json:"priority,omitempty"`
-	FundsReserveRequested         *CodeableConcept                       `json:"fundsReserveRequested,omitempty"`
-	FundsReserve                  *CodeableConcept                       `json:"fundsReserve,omitempty"`
-	Related                       []ExplanationOfBenefitRelated          `json:"related,omitempty"`
-	Prescription                  *Reference                             `json:"prescription,omitempty"`
-	OriginalPrescription          *Reference                             `json:"originalPrescription,omitempty"`
-	Payee                         *ExplanationOfBenefitPayee             `json:"payee,omitempty"`
-	Referral                      *Reference                             `json:"referral,omitempty"`
-	Facility                      *Reference                             `json:"facility,omitempty"`
-	Claim                         *Reference                             `json:"claim,omitempty"`
-	ClaimResponse                 *Reference                             `json:"claimResponse,omitempty"`
-	Outcome                       Code                                   `json:"outcome,omitempty"`
-	OutcomePrimitiveElement       *primitiveElement                      `json:"_outcome,omitempty"`
-	Disposition                   *String                                `json:"disposition,omitempty"`
-	DispositionPrimitiveElement   *primitiveElement                      `json:"_disposition,omitempty"`
-	PreAuthRef                    []String                               `json:"preAuthRef,omitempty"`
-	PreAuthRefPrimitiveElement    []*primitiveElement                    `json:"_preAuthRef,omitempty"`
-	PreAuthRefPeriod              []Period                               `json:"preAuthRefPeriod,omitempty"`
-	CareTeam                      []ExplanationOfBenefitCareTeam         `json:"careTeam,omitempty"`
-	SupportingInfo                []ExplanationOfBenefitSupportingInfo   `json:"supportingInfo,omitempty"`
-	Diagnosis                     []ExplanationOfBenefitDiagnosis        `json:"diagnosis,omitempty"`
-	Procedure                     []ExplanationOfBenefitProcedure        `json:"procedure,omitempty"`
-	Precedence                    *PositiveInt                           `json:"precedence,omitempty"`
-	PrecedencePrimitiveElement    *primitiveElement                      `json:"_precedence,omitempty"`
-	Insurance                     []ExplanationOfBenefitInsurance        `json:"insurance,omitempty"`
-	Accident                      *ExplanationOfBenefitAccident          `json:"accident,omitempty"`
-	Item                          []ExplanationOfBenefitItem             `json:"item,omitempty"`
-	AddItem                       []ExplanationOfBenefitAddItem          `json:"addItem,omitempty"`
-	Adjudication                  []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
-	Total                         []ExplanationOfBenefitTotal            `json:"total,omitempty"`
-	Payment                       *ExplanationOfBenefitPayment           `json:"payment,omitempty"`
-	FormCode                      *CodeableConcept                       `json:"formCode,omitempty"`
-	Form                          *Attachment                            `json:"form,omitempty"`
-	ProcessNote                   []ExplanationOfBenefitProcessNote      `json:"processNote,omitempty"`
-	BenefitPeriod                 *Period                                `json:"benefitPeriod,omitempty"`
-	BenefitBalance                []ExplanationOfBenefitBenefitBalance   `json:"benefitBalance,omitempty"`
-}
-
 func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefit) marshalJSON() jsonExplanationOfBenefit {
-	m := jsonExplanationOfBenefit{}
-	m.ResourceType = "ExplanationOfBenefit"
+func (r ExplanationOfBenefit) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"ExplanationOfBenefit\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
-	if r.Status.Value != nil {
-		m.Status = r.Status
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Type = r.Type
-	m.SubType = r.SubType
-	if r.Use.Value != nil {
-		m.Use = r.Use
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.SubType != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subType\":"))
+		if err != nil {
+			return err
+		}
+		err = r.SubType.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"use\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Use)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Use.Id != nil || r.Use.Extension != nil {
-		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		p := primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_use\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Patient = r.Patient
-	m.BillablePeriod = r.BillablePeriod
-	if r.Created.Value != nil {
-		m.Created = r.Created
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"patient\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Patient.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.BillablePeriod != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"billablePeriod\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BillablePeriod.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"created\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Created)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
-		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
+		p := primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_created\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Enterer = r.Enterer
-	m.Insurer = r.Insurer
-	m.Provider = r.Provider
-	m.Priority = r.Priority
-	m.FundsReserveRequested = r.FundsReserveRequested
-	m.FundsReserve = r.FundsReserve
-	m.Related = r.Related
-	m.Prescription = r.Prescription
-	m.OriginalPrescription = r.OriginalPrescription
-	m.Payee = r.Payee
-	m.Referral = r.Referral
-	m.Facility = r.Facility
-	m.Claim = r.Claim
-	m.ClaimResponse = r.ClaimResponse
-	if r.Outcome.Value != nil {
-		m.Outcome = r.Outcome
+	if r.Enterer != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"enterer\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Enterer.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"insurer\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Insurer.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"provider\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Provider.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Priority != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"priority\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Priority.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.FundsReserveRequested != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"fundsReserveRequested\":"))
+		if err != nil {
+			return err
+		}
+		err = r.FundsReserveRequested.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.FundsReserve != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"fundsReserve\":"))
+		if err != nil {
+			return err
+		}
+		err = r.FundsReserve.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Related) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"related\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Related {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Prescription != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"prescription\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Prescription.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.OriginalPrescription != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"originalPrescription\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OriginalPrescription.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Payee != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"payee\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Payee.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Referral != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"referral\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Referral.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Facility != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"facility\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Facility.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Claim != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"claim\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Claim.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ClaimResponse != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"claimResponse\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ClaimResponse.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"outcome\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Outcome)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Outcome.Id != nil || r.Outcome.Extension != nil {
-		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
+		p := primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_outcome\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Disposition != nil && r.Disposition.Value != nil {
-		m.Disposition = r.Disposition
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"disposition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Disposition)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
-		m.DispositionPrimitiveElement = &primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
-	}
-	anyPreAuthRefValue := false
-	for _, e := range r.PreAuthRef {
-		if e.Value != nil {
-			anyPreAuthRefValue = true
-			break
+		p := primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_disposition\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyPreAuthRefValue {
-		m.PreAuthRef = r.PreAuthRef
-	}
-	anyPreAuthRefIdOrExtension := false
-	for _, e := range r.PreAuthRef {
-		if e.Id != nil || e.Extension != nil {
-			anyPreAuthRefIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.PreAuthRef {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyPreAuthRefIdOrExtension {
-		m.PreAuthRefPrimitiveElement = make([]*primitiveElement, 0, len(r.PreAuthRef))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"preAuthRef\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.PreAuthRef)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.PreAuthRef {
 			if e.Id != nil || e.Extension != nil {
-				m.PreAuthRefPrimitiveElement = append(m.PreAuthRefPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.PreAuthRefPrimitiveElement = append(m.PreAuthRefPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_preAuthRef\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.PreAuthRef {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.PreAuthRefPeriod = r.PreAuthRefPeriod
-	m.CareTeam = r.CareTeam
-	m.SupportingInfo = r.SupportingInfo
-	m.Diagnosis = r.Diagnosis
-	m.Procedure = r.Procedure
+	if len(r.PreAuthRefPeriod) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"preAuthRefPeriod\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.PreAuthRefPeriod {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.CareTeam) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"careTeam\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.CareTeam {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.SupportingInfo) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"supportingInfo\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.SupportingInfo {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Diagnosis) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diagnosis\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Diagnosis {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Procedure) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"procedure\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Procedure {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.Precedence != nil && r.Precedence.Value != nil {
-		m.Precedence = r.Precedence
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"precedence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Precedence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Precedence != nil && (r.Precedence.Id != nil || r.Precedence.Extension != nil) {
-		m.PrecedencePrimitiveElement = &primitiveElement{Id: r.Precedence.Id, Extension: r.Precedence.Extension}
+		p := primitiveElement{Id: r.Precedence.Id, Extension: r.Precedence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_precedence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Insurance = r.Insurance
-	m.Accident = r.Accident
-	m.Item = r.Item
-	m.AddItem = r.AddItem
-	m.Adjudication = r.Adjudication
-	m.Total = r.Total
-	m.Payment = r.Payment
-	m.FormCode = r.FormCode
-	m.Form = r.Form
-	m.ProcessNote = r.ProcessNote
-	m.BenefitPeriod = r.BenefitPeriod
-	m.BenefitBalance = r.BenefitBalance
-	return m
-}
-func (r *ExplanationOfBenefit) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefit
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Insurance) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"insurance\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Insurance {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Accident != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"accident\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Accident.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Item) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"item\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Item {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.AddItem) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"addItem\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.AddItem {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Total) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"total\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Total {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Payment != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"payment\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Payment.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.FormCode != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"formCode\":"))
+		if err != nil {
+			return err
+		}
+		err = r.FormCode.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Form != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"form\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Form.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ProcessNote) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"processNote\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ProcessNote {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.BenefitPeriod != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"benefitPeriod\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BenefitPeriod.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.BenefitBalance) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"benefitBalance\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.BenefitBalance {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefit) unmarshalJSON(m jsonExplanationOfBenefit) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
+func (r *ExplanationOfBenefit) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *ExplanationOfBenefit) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefit element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
-	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefit element", t)
 		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
-	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "subType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SubType = &v
+		case "use":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Use.Value = v.Value
+		case "_use":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Use.Id = v.Id
+			r.Use.Extension = v.Extension
+		case "patient":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Patient = v
+		case "billablePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BillablePeriod = &v
+		case "created":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Created.Value = v.Value
+		case "_created":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Created.Id = v.Id
+			r.Created.Extension = v.Extension
+		case "enterer":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Enterer = &v
+		case "insurer":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Insurer = v
+		case "provider":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Provider = v
+		case "priority":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Priority = &v
+		case "fundsReserveRequested":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.FundsReserveRequested = &v
+		case "fundsReserve":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.FundsReserve = &v
+		case "related":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitRelated
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Related = append(r.Related, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "prescription":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Prescription = &v
+		case "originalPrescription":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.OriginalPrescription = &v
+		case "payee":
+			var v ExplanationOfBenefitPayee
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Payee = &v
+		case "referral":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Referral = &v
+		case "facility":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Facility = &v
+		case "claim":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Claim = &v
+		case "claimResponse":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ClaimResponse = &v
+		case "outcome":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Outcome.Value = v.Value
+		case "_outcome":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Outcome.Id = v.Id
+			r.Outcome.Extension = v.Extension
+		case "disposition":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Disposition == nil {
+				r.Disposition = &String{}
+			}
+			r.Disposition.Value = v.Value
+		case "_disposition":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Disposition == nil {
+				r.Disposition = &String{}
+			}
+			r.Disposition.Id = v.Id
+			r.Disposition.Extension = v.Extension
+		case "preAuthRef":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.PreAuthRef) <= i {
+					r.PreAuthRef = append(r.PreAuthRef, String{})
+				}
+				r.PreAuthRef[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "_preAuthRef":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.PreAuthRef) <= i {
+					r.PreAuthRef = append(r.PreAuthRef, String{})
+				}
+				r.PreAuthRef[i].Id = v.Id
+				r.PreAuthRef[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "preAuthRefPeriod":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v Period
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PreAuthRefPeriod = append(r.PreAuthRefPeriod, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "careTeam":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitCareTeam
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.CareTeam = append(r.CareTeam, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "supportingInfo":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitSupportingInfo
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SupportingInfo = append(r.SupportingInfo, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "diagnosis":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitDiagnosis
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Diagnosis = append(r.Diagnosis, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "procedure":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitProcedure
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Procedure = append(r.Procedure, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "precedence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Precedence == nil {
+				r.Precedence = &PositiveInt{}
+			}
+			r.Precedence.Value = v.Value
+		case "_precedence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Precedence == nil {
+				r.Precedence = &PositiveInt{}
+			}
+			r.Precedence.Id = v.Id
+			r.Precedence.Extension = v.Extension
+		case "insurance":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitInsurance
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Insurance = append(r.Insurance, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "accident":
+			var v ExplanationOfBenefitAccident
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Accident = &v
+		case "item":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItem
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "addItem":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitAddItem
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.AddItem = append(r.AddItem, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "total":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitTotal
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Total = append(r.Total, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "payment":
+			var v ExplanationOfBenefitPayment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Payment = &v
+		case "formCode":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.FormCode = &v
+		case "form":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Form = &v
+		case "processNote":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitProcessNote
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ProcessNote = append(r.ProcessNote, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		case "benefitPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BenefitPeriod = &v
+		case "benefitBalance":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefit element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitBenefitBalance
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.BenefitBalance = append(r.BenefitBalance, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefit element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefit", f)
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefit element", t)
 	}
-	r.Type = m.Type
-	r.SubType = m.SubType
-	r.Use = m.Use
-	if m.UsePrimitiveElement != nil {
-		r.Use.Id = m.UsePrimitiveElement.Id
-		r.Use.Extension = m.UsePrimitiveElement.Extension
-	}
-	r.Patient = m.Patient
-	r.BillablePeriod = m.BillablePeriod
-	r.Created = m.Created
-	if m.CreatedPrimitiveElement != nil {
-		r.Created.Id = m.CreatedPrimitiveElement.Id
-		r.Created.Extension = m.CreatedPrimitiveElement.Extension
-	}
-	r.Enterer = m.Enterer
-	r.Insurer = m.Insurer
-	r.Provider = m.Provider
-	r.Priority = m.Priority
-	r.FundsReserveRequested = m.FundsReserveRequested
-	r.FundsReserve = m.FundsReserve
-	r.Related = m.Related
-	r.Prescription = m.Prescription
-	r.OriginalPrescription = m.OriginalPrescription
-	r.Payee = m.Payee
-	r.Referral = m.Referral
-	r.Facility = m.Facility
-	r.Claim = m.Claim
-	r.ClaimResponse = m.ClaimResponse
-	r.Outcome = m.Outcome
-	if m.OutcomePrimitiveElement != nil {
-		r.Outcome.Id = m.OutcomePrimitiveElement.Id
-		r.Outcome.Extension = m.OutcomePrimitiveElement.Extension
-	}
-	r.Disposition = m.Disposition
-	if m.DispositionPrimitiveElement != nil {
-		if r.Disposition == nil {
-			r.Disposition = &String{}
-		}
-		r.Disposition.Id = m.DispositionPrimitiveElement.Id
-		r.Disposition.Extension = m.DispositionPrimitiveElement.Extension
-	}
-	r.PreAuthRef = m.PreAuthRef
-	for i, e := range m.PreAuthRefPrimitiveElement {
-		if len(r.PreAuthRef) <= i {
-			r.PreAuthRef = append(r.PreAuthRef, String{})
-		}
-		if e != nil {
-			r.PreAuthRef[i].Id = e.Id
-			r.PreAuthRef[i].Extension = e.Extension
-		}
-	}
-	r.PreAuthRefPeriod = m.PreAuthRefPeriod
-	r.CareTeam = m.CareTeam
-	r.SupportingInfo = m.SupportingInfo
-	r.Diagnosis = m.Diagnosis
-	r.Procedure = m.Procedure
-	r.Precedence = m.Precedence
-	if m.PrecedencePrimitiveElement != nil {
-		if r.Precedence == nil {
-			r.Precedence = &PositiveInt{}
-		}
-		r.Precedence.Id = m.PrecedencePrimitiveElement.Id
-		r.Precedence.Extension = m.PrecedencePrimitiveElement.Extension
-	}
-	r.Insurance = m.Insurance
-	r.Accident = m.Accident
-	r.Item = m.Item
-	r.AddItem = m.AddItem
-	r.Adjudication = m.Adjudication
-	r.Total = m.Total
-	r.Payment = m.Payment
-	r.FormCode = m.FormCode
-	r.Form = m.Form
-	r.ProcessNote = m.ProcessNote
-	r.BenefitPeriod = m.BenefitPeriod
-	r.BenefitBalance = m.BenefitBalance
 	return nil
 }
 func (r ExplanationOfBenefit) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1081,42 +3065,276 @@ type ExplanationOfBenefitRelated struct {
 	// An alternate organizational reference to the case or file to which this particular claim pertains.
 	Reference *Identifier
 }
-type jsonExplanationOfBenefitRelated struct {
-	Id                *string          `json:"id,omitempty"`
-	Extension         []Extension      `json:"extension,omitempty"`
-	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Claim             *Reference       `json:"claim,omitempty"`
-	Relationship      *CodeableConcept `json:"relationship,omitempty"`
-	Reference         *Identifier      `json:"reference,omitempty"`
-}
 
 func (r ExplanationOfBenefitRelated) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitRelated) marshalJSON() jsonExplanationOfBenefitRelated {
-	m := jsonExplanationOfBenefitRelated{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Claim = r.Claim
-	m.Relationship = r.Relationship
-	m.Reference = r.Reference
-	return m
-}
-func (r *ExplanationOfBenefitRelated) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitRelated
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitRelated) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Claim != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"claim\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Claim.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Relationship != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"relationship\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Relationship.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Reference != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reference\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Reference.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitRelated) unmarshalJSON(m jsonExplanationOfBenefitRelated) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Claim = m.Claim
-	r.Relationship = m.Relationship
-	r.Reference = m.Reference
+func (r *ExplanationOfBenefitRelated) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitRelated element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitRelated element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitRelated element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitRelated element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitRelated element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitRelated element", t)
+			}
+		case "claim":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Claim = &v
+		case "relationship":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Relationship = &v
+		case "reference":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Reference = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitRelated", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitRelated element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitRelated) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1245,39 +3463,252 @@ type ExplanationOfBenefitPayee struct {
 	// Reference to the individual or organization to whom any payment will be made.
 	Party *Reference
 }
-type jsonExplanationOfBenefitPayee struct {
-	Id                *string          `json:"id,omitempty"`
-	Extension         []Extension      `json:"extension,omitempty"`
-	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Type              *CodeableConcept `json:"type,omitempty"`
-	Party             *Reference       `json:"party,omitempty"`
-}
 
 func (r ExplanationOfBenefitPayee) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitPayee) marshalJSON() jsonExplanationOfBenefitPayee {
-	m := jsonExplanationOfBenefitPayee{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
-	m.Party = r.Party
-	return m
-}
-func (r *ExplanationOfBenefitPayee) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitPayee
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitPayee) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Party != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"party\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Party.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitPayee) unmarshalJSON(m jsonExplanationOfBenefitPayee) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	r.Party = m.Party
+func (r *ExplanationOfBenefitPayee) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitPayee element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitPayee element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitPayee element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitPayee element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitPayee element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitPayee element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "party":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Party = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitPayee", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitPayee element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitPayee) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1401,71 +3832,394 @@ type ExplanationOfBenefitCareTeam struct {
 	// The qualification of the practitioner which is applicable for this service.
 	Qualification *CodeableConcept
 }
-type jsonExplanationOfBenefitCareTeam struct {
-	Id                          *string           `json:"id,omitempty"`
-	Extension                   []Extension       `json:"extension,omitempty"`
-	ModifierExtension           []Extension       `json:"modifierExtension,omitempty"`
-	Sequence                    PositiveInt       `json:"sequence,omitempty"`
-	SequencePrimitiveElement    *primitiveElement `json:"_sequence,omitempty"`
-	Provider                    Reference         `json:"provider,omitempty"`
-	Responsible                 *Boolean          `json:"responsible,omitempty"`
-	ResponsiblePrimitiveElement *primitiveElement `json:"_responsible,omitempty"`
-	Role                        *CodeableConcept  `json:"role,omitempty"`
-	Qualification               *CodeableConcept  `json:"qualification,omitempty"`
-}
 
 func (r ExplanationOfBenefitCareTeam) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitCareTeam) marshalJSON() jsonExplanationOfBenefitCareTeam {
-	m := jsonExplanationOfBenefitCareTeam{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
-	}
-	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
-	}
-	m.Provider = r.Provider
-	if r.Responsible != nil && r.Responsible.Value != nil {
-		m.Responsible = r.Responsible
-	}
-	if r.Responsible != nil && (r.Responsible.Id != nil || r.Responsible.Extension != nil) {
-		m.ResponsiblePrimitiveElement = &primitiveElement{Id: r.Responsible.Id, Extension: r.Responsible.Extension}
-	}
-	m.Role = r.Role
-	m.Qualification = r.Qualification
-	return m
-}
-func (r *ExplanationOfBenefitCareTeam) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitCareTeam
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitCareTeam) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *ExplanationOfBenefitCareTeam) unmarshalJSON(m jsonExplanationOfBenefitCareTeam) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
-	}
-	r.Provider = m.Provider
-	r.Responsible = m.Responsible
-	if m.ResponsiblePrimitiveElement != nil {
-		if r.Responsible == nil {
-			r.Responsible = &Boolean{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Responsible.Id = m.ResponsiblePrimitiveElement.Id
-		r.Responsible.Extension = m.ResponsiblePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Role = m.Role
-	r.Qualification = m.Qualification
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"provider\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Provider.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Responsible != nil && r.Responsible.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"responsible\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Responsible)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Responsible != nil && (r.Responsible.Id != nil || r.Responsible.Extension != nil) {
+		p := primitiveElement{Id: r.Responsible.Id, Extension: r.Responsible.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_responsible\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Role != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"role\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Role.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Qualification != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"qualification\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Qualification.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ExplanationOfBenefitCareTeam) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitCareTeam element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitCareTeam element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitCareTeam element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitCareTeam element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitCareTeam element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitCareTeam element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "provider":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Provider = v
+		case "responsible":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Responsible == nil {
+				r.Responsible = &Boolean{}
+			}
+			r.Responsible.Value = v.Value
+		case "_responsible":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Responsible == nil {
+				r.Responsible = &Boolean{}
+			}
+			r.Responsible.Id = v.Id
+			r.Responsible.Extension = v.Extension
+		case "role":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Role = &v
+		case "qualification":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Qualification = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitCareTeam", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitCareTeam element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitCareTeam) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1640,198 +4394,903 @@ func (r String) isExplanationOfBenefitSupportingInfoValue()     {}
 func (r Quantity) isExplanationOfBenefitSupportingInfoValue()   {}
 func (r Attachment) isExplanationOfBenefitSupportingInfoValue() {}
 func (r Reference) isExplanationOfBenefitSupportingInfoValue()  {}
-
-type jsonExplanationOfBenefitSupportingInfo struct {
-	Id                           *string           `json:"id,omitempty"`
-	Extension                    []Extension       `json:"extension,omitempty"`
-	ModifierExtension            []Extension       `json:"modifierExtension,omitempty"`
-	Sequence                     PositiveInt       `json:"sequence,omitempty"`
-	SequencePrimitiveElement     *primitiveElement `json:"_sequence,omitempty"`
-	Category                     CodeableConcept   `json:"category,omitempty"`
-	Code                         *CodeableConcept  `json:"code,omitempty"`
-	TimingDate                   *Date             `json:"timingDate,omitempty"`
-	TimingDatePrimitiveElement   *primitiveElement `json:"_timingDate,omitempty"`
-	TimingPeriod                 *Period           `json:"timingPeriod,omitempty"`
-	ValueBoolean                 *Boolean          `json:"valueBoolean,omitempty"`
-	ValueBooleanPrimitiveElement *primitiveElement `json:"_valueBoolean,omitempty"`
-	ValueString                  *String           `json:"valueString,omitempty"`
-	ValueStringPrimitiveElement  *primitiveElement `json:"_valueString,omitempty"`
-	ValueQuantity                *Quantity         `json:"valueQuantity,omitempty"`
-	ValueAttachment              *Attachment       `json:"valueAttachment,omitempty"`
-	ValueReference               *Reference        `json:"valueReference,omitempty"`
-	Reason                       *Coding           `json:"reason,omitempty"`
-}
-
 func (r ExplanationOfBenefitSupportingInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitSupportingInfo) marshalJSON() jsonExplanationOfBenefitSupportingInfo {
-	m := jsonExplanationOfBenefitSupportingInfo{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitSupportingInfo) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Category = r.Category
-	m.Code = r.Code
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"category\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Category.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Code != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Code.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	switch v := r.Timing.(type) {
 	case Date:
 		if v.Value != nil {
-			m.TimingDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"timingDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_timingDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.TimingDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"timingDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.TimingDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_timingDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Period:
-		m.TimingPeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"timingPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.TimingPeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"timingPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Value.(type) {
 	case Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Boolean:
 		if v.Value != nil {
-			m.ValueBoolean = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueBooleanPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueBoolean\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.ValueString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.ValueString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"valueString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ValueStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_valueString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Quantity:
-		m.ValueQuantity = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Quantity:
-		m.ValueQuantity = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Attachment:
-		m.ValueAttachment = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Attachment:
-		m.ValueAttachment = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueAttachment\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.ValueReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.ValueReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	m.Reason = r.Reason
-	return m
-}
-func (r *ExplanationOfBenefitSupportingInfo) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitSupportingInfo
-	if err := json.Unmarshal(b, &m); err != nil {
+	if r.Reason != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reason\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Reason.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitSupportingInfo) unmarshalJSON(m jsonExplanationOfBenefitSupportingInfo) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitSupportingInfo) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Category = m.Category
-	r.Code = m.Code
-	if m.TimingDate != nil || m.TimingDatePrimitiveElement != nil {
-		if r.Timing != nil {
-			return fmt.Errorf("multiple values for field \"Timing\"")
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitSupportingInfo element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.TimingDate
-		if m.TimingDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitSupportingInfo element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.TimingDatePrimitiveElement.Id
-			v.Extension = m.TimingDatePrimitiveElement.Extension
-		}
-		r.Timing = v
-	}
-	if m.TimingPeriod != nil {
-		if r.Timing != nil {
-			return fmt.Errorf("multiple values for field \"Timing\"")
-		}
-		v := m.TimingPeriod
-		r.Timing = v
-	}
-	if m.ValueBoolean != nil || m.ValueBooleanPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueBoolean
-		if m.ValueBooleanPrimitiveElement != nil {
-			if v == nil {
-				v = &Boolean{}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.ValueBooleanPrimitiveElement.Id
-			v.Extension = m.ValueBooleanPrimitiveElement.Extension
-		}
-		r.Value = v
-	}
-	if m.ValueString != nil || m.ValueStringPrimitiveElement != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueString
-		if m.ValueStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitSupportingInfo element", t)
 			}
-			v.Id = m.ValueStringPrimitiveElement.Id
-			v.Extension = m.ValueStringPrimitiveElement.Extension
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitSupportingInfo element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitSupportingInfo element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitSupportingInfo element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = v
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = &v
+		case "timingDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = Date{
+					Extension: r.Timing.(Date).Extension,
+					Id:        r.Timing.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Timing = v
+			}
+		case "_timingDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Timing.(Date).Value,
+				}
+			} else {
+				r.Timing = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "timingPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Timing = v
+		case "valueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: r.Value.(Boolean).Extension,
+					Id:        r.Value.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Boolean).Value,
+				}
+			} else {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: r.Value.(String).Extension,
+					Id:        r.Value.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(String).Value,
+				}
+			} else {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "reason":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Reason = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitSupportingInfo", f)
 		}
-		r.Value = v
 	}
-	if m.ValueQuantity != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueQuantity
-		r.Value = v
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	if m.ValueAttachment != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueAttachment
-		r.Value = v
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitSupportingInfo element", t)
 	}
-	if m.ValueReference != nil {
-		if r.Value != nil {
-			return fmt.Errorf("multiple values for field \"Value\"")
-		}
-		v := m.ValueReference
-		r.Value = v
-	}
-	r.Reason = m.Reason
 	return nil
 }
 func (r ExplanationOfBenefitSupportingInfo) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -2092,82 +5551,474 @@ type isExplanationOfBenefitDiagnosisDiagnosis interface {
 
 func (r CodeableConcept) isExplanationOfBenefitDiagnosisDiagnosis() {}
 func (r Reference) isExplanationOfBenefitDiagnosisDiagnosis()       {}
-
-type jsonExplanationOfBenefitDiagnosis struct {
-	Id                       *string           `json:"id,omitempty"`
-	Extension                []Extension       `json:"extension,omitempty"`
-	ModifierExtension        []Extension       `json:"modifierExtension,omitempty"`
-	Sequence                 PositiveInt       `json:"sequence,omitempty"`
-	SequencePrimitiveElement *primitiveElement `json:"_sequence,omitempty"`
-	DiagnosisCodeableConcept *CodeableConcept  `json:"diagnosisCodeableConcept,omitempty"`
-	DiagnosisReference       *Reference        `json:"diagnosisReference,omitempty"`
-	Type                     []CodeableConcept `json:"type,omitempty"`
-	OnAdmission              *CodeableConcept  `json:"onAdmission,omitempty"`
-	PackageCode              *CodeableConcept  `json:"packageCode,omitempty"`
-}
-
 func (r ExplanationOfBenefitDiagnosis) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitDiagnosis) marshalJSON() jsonExplanationOfBenefitDiagnosis {
-	m := jsonExplanationOfBenefitDiagnosis{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitDiagnosis) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Diagnosis.(type) {
 	case CodeableConcept:
-		m.DiagnosisCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diagnosisCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.DiagnosisCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diagnosisCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.DiagnosisReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diagnosisReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.DiagnosisReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diagnosisReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	m.Type = r.Type
-	m.OnAdmission = r.OnAdmission
-	m.PackageCode = r.PackageCode
-	return m
-}
-func (r *ExplanationOfBenefitDiagnosis) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitDiagnosis
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Type) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Type {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.OnAdmission != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onAdmission\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OnAdmission.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.PackageCode != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"packageCode\":"))
+		if err != nil {
+			return err
+		}
+		err = r.PackageCode.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitDiagnosis) unmarshalJSON(m jsonExplanationOfBenefitDiagnosis) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitDiagnosis) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	if m.DiagnosisCodeableConcept != nil {
-		if r.Diagnosis != nil {
-			return fmt.Errorf("multiple values for field \"Diagnosis\"")
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitDiagnosis element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.DiagnosisCodeableConcept
-		r.Diagnosis = v
-	}
-	if m.DiagnosisReference != nil {
-		if r.Diagnosis != nil {
-			return fmt.Errorf("multiple values for field \"Diagnosis\"")
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitDiagnosis element", t)
 		}
-		v := m.DiagnosisReference
-		r.Diagnosis = v
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitDiagnosis element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitDiagnosis element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitDiagnosis element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitDiagnosis element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "diagnosisCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Diagnosis = v
+		case "diagnosisReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Diagnosis = v
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitDiagnosis element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitDiagnosis element", t)
+			}
+		case "onAdmission":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.OnAdmission = &v
+		case "packageCode":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.PackageCode = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitDiagnosis", f)
+		}
 	}
-	r.Type = m.Type
-	r.OnAdmission = m.OnAdmission
-	r.PackageCode = m.PackageCode
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitDiagnosis element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitDiagnosis) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -2351,95 +6202,547 @@ type isExplanationOfBenefitProcedureProcedure interface {
 
 func (r CodeableConcept) isExplanationOfBenefitProcedureProcedure() {}
 func (r Reference) isExplanationOfBenefitProcedureProcedure()       {}
-
-type jsonExplanationOfBenefitProcedure struct {
-	Id                       *string           `json:"id,omitempty"`
-	Extension                []Extension       `json:"extension,omitempty"`
-	ModifierExtension        []Extension       `json:"modifierExtension,omitempty"`
-	Sequence                 PositiveInt       `json:"sequence,omitempty"`
-	SequencePrimitiveElement *primitiveElement `json:"_sequence,omitempty"`
-	Type                     []CodeableConcept `json:"type,omitempty"`
-	Date                     *DateTime         `json:"date,omitempty"`
-	DatePrimitiveElement     *primitiveElement `json:"_date,omitempty"`
-	ProcedureCodeableConcept *CodeableConcept  `json:"procedureCodeableConcept,omitempty"`
-	ProcedureReference       *Reference        `json:"procedureReference,omitempty"`
-	Udi                      []Reference       `json:"udi,omitempty"`
-}
-
 func (r ExplanationOfBenefitProcedure) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitProcedure) marshalJSON() jsonExplanationOfBenefitProcedure {
-	m := jsonExplanationOfBenefitProcedure{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitProcedure) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Type = r.Type
+	if len(r.Type) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Type {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.Date != nil && r.Date.Value != nil {
-		m.Date = r.Date
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"date\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Date)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
-		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_date\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Procedure.(type) {
 	case CodeableConcept:
-		m.ProcedureCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"procedureCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.ProcedureCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"procedureCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.ProcedureReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"procedureReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.ProcedureReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"procedureReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	m.Udi = r.Udi
-	return m
-}
-func (r *ExplanationOfBenefitProcedure) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitProcedure
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Udi) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"udi\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Udi {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitProcedure) unmarshalJSON(m jsonExplanationOfBenefitProcedure) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitProcedure) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Type = m.Type
-	r.Date = m.Date
-	if m.DatePrimitiveElement != nil {
-		if r.Date == nil {
-			r.Date = &DateTime{}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitProcedure element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Date.Id = m.DatePrimitiveElement.Id
-		r.Date.Extension = m.DatePrimitiveElement.Extension
-	}
-	if m.ProcedureCodeableConcept != nil {
-		if r.Procedure != nil {
-			return fmt.Errorf("multiple values for field \"Procedure\"")
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitProcedure element", t)
 		}
-		v := m.ProcedureCodeableConcept
-		r.Procedure = v
-	}
-	if m.ProcedureReference != nil {
-		if r.Procedure != nil {
-			return fmt.Errorf("multiple values for field \"Procedure\"")
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcedure element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcedure element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcedure element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcedure element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcedure element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcedure element", t)
+			}
+		case "date":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "procedureCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Procedure = v
+		case "procedureReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Procedure = v
+		case "udi":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcedure element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Udi = append(r.Udi, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcedure element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitProcedure", f)
 		}
-		v := m.ProcedureReference
-		r.Procedure = v
 	}
-	r.Udi = m.Udi
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitProcedure element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitProcedure) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -2613,87 +6916,425 @@ type ExplanationOfBenefitInsurance struct {
 	// Reference numbers previously provided by the insurer to the provider to be quoted on subsequent claims containing services or products related to the prior authorization.
 	PreAuthRef []String
 }
-type jsonExplanationOfBenefitInsurance struct {
-	Id                         *string             `json:"id,omitempty"`
-	Extension                  []Extension         `json:"extension,omitempty"`
-	ModifierExtension          []Extension         `json:"modifierExtension,omitempty"`
-	Focal                      Boolean             `json:"focal,omitempty"`
-	FocalPrimitiveElement      *primitiveElement   `json:"_focal,omitempty"`
-	Coverage                   Reference           `json:"coverage,omitempty"`
-	PreAuthRef                 []String            `json:"preAuthRef,omitempty"`
-	PreAuthRefPrimitiveElement []*primitiveElement `json:"_preAuthRef,omitempty"`
-}
 
 func (r ExplanationOfBenefitInsurance) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitInsurance) marshalJSON() jsonExplanationOfBenefitInsurance {
-	m := jsonExplanationOfBenefitInsurance{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Focal.Value != nil {
-		m.Focal = r.Focal
+func (r ExplanationOfBenefitInsurance) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"focal\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Focal)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Focal.Id != nil || r.Focal.Extension != nil {
-		m.FocalPrimitiveElement = &primitiveElement{Id: r.Focal.Id, Extension: r.Focal.Extension}
-	}
-	m.Coverage = r.Coverage
-	anyPreAuthRefValue := false
-	for _, e := range r.PreAuthRef {
-		if e.Value != nil {
-			anyPreAuthRefValue = true
-			break
+		p := primitiveElement{Id: r.Focal.Id, Extension: r.Focal.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_focal\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyPreAuthRefValue {
-		m.PreAuthRef = r.PreAuthRef
-	}
-	anyPreAuthRefIdOrExtension := false
-	for _, e := range r.PreAuthRef {
-		if e.Id != nil || e.Extension != nil {
-			anyPreAuthRefIdOrExtension = true
-			break
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
 		}
 	}
-	if anyPreAuthRefIdOrExtension {
-		m.PreAuthRefPrimitiveElement = make([]*primitiveElement, 0, len(r.PreAuthRef))
+	setComma = true
+	_, err = w.Write([]byte("\"coverage\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Coverage.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	{
+		anyValue := false
+		for _, e := range r.PreAuthRef {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"preAuthRef\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.PreAuthRef)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.PreAuthRef {
 			if e.Id != nil || e.Extension != nil {
-				m.PreAuthRefPrimitiveElement = append(m.PreAuthRefPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.PreAuthRefPrimitiveElement = append(m.PreAuthRefPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_preAuthRef\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.PreAuthRef {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	return m
-}
-func (r *ExplanationOfBenefitInsurance) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitInsurance
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitInsurance) unmarshalJSON(m jsonExplanationOfBenefitInsurance) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Focal = m.Focal
-	if m.FocalPrimitiveElement != nil {
-		r.Focal.Id = m.FocalPrimitiveElement.Id
-		r.Focal.Extension = m.FocalPrimitiveElement.Extension
+func (r *ExplanationOfBenefitInsurance) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Coverage = m.Coverage
-	r.PreAuthRef = m.PreAuthRef
-	for i, e := range m.PreAuthRefPrimitiveElement {
-		if len(r.PreAuthRef) <= i {
-			r.PreAuthRef = append(r.PreAuthRef, String{})
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitInsurance element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.PreAuthRef[i].Id = e.Id
-			r.PreAuthRef[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitInsurance element", t)
 		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitInsurance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitInsurance element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitInsurance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitInsurance element", t)
+			}
+		case "focal":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Focal.Value = v.Value
+		case "_focal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Focal.Id = v.Id
+			r.Focal.Extension = v.Extension
+		case "coverage":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Coverage = v
+		case "preAuthRef":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitInsurance element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.PreAuthRef) <= i {
+					r.PreAuthRef = append(r.PreAuthRef, String{})
+				}
+				r.PreAuthRef[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitInsurance element", t)
+			}
+		case "_preAuthRef":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitInsurance element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.PreAuthRef) <= i {
+					r.PreAuthRef = append(r.PreAuthRef, String{})
+				}
+				r.PreAuthRef[i].Id = v.Id
+				r.PreAuthRef[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitInsurance element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitInsurance", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitInsurance element", t)
 	}
 	return nil
 }
@@ -2831,78 +7472,397 @@ type isExplanationOfBenefitAccidentLocation interface {
 
 func (r Address) isExplanationOfBenefitAccidentLocation()   {}
 func (r Reference) isExplanationOfBenefitAccidentLocation() {}
-
-type jsonExplanationOfBenefitAccident struct {
-	Id                   *string           `json:"id,omitempty"`
-	Extension            []Extension       `json:"extension,omitempty"`
-	ModifierExtension    []Extension       `json:"modifierExtension,omitempty"`
-	Date                 *Date             `json:"date,omitempty"`
-	DatePrimitiveElement *primitiveElement `json:"_date,omitempty"`
-	Type                 *CodeableConcept  `json:"type,omitempty"`
-	LocationAddress      *Address          `json:"locationAddress,omitempty"`
-	LocationReference    *Reference        `json:"locationReference,omitempty"`
-}
-
 func (r ExplanationOfBenefitAccident) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitAccident) marshalJSON() jsonExplanationOfBenefitAccident {
-	m := jsonExplanationOfBenefitAccident{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Date != nil && r.Date.Value != nil {
-		m.Date = r.Date
-	}
-	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
-		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
-	}
-	m.Type = r.Type
-	switch v := r.Location.(type) {
-	case Address:
-		m.LocationAddress = &v
-	case *Address:
-		m.LocationAddress = v
-	case Reference:
-		m.LocationReference = &v
-	case *Reference:
-		m.LocationReference = v
-	}
-	return m
-}
-func (r *ExplanationOfBenefitAccident) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitAccident
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitAccident) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && r.Date.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"date\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Date)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
+		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_date\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.Location.(type) {
+	case Address:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Address:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case Reference:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Reference:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitAccident) unmarshalJSON(m jsonExplanationOfBenefitAccident) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Date = m.Date
-	if m.DatePrimitiveElement != nil {
-		if r.Date == nil {
-			r.Date = &Date{}
-		}
-		r.Date.Id = m.DatePrimitiveElement.Id
-		r.Date.Extension = m.DatePrimitiveElement.Extension
+func (r *ExplanationOfBenefitAccident) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Type = m.Type
-	if m.LocationAddress != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationAddress
-		r.Location = v
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitAccident element", t)
 	}
-	if m.LocationReference != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.LocationReference
-		r.Location = v
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitAccident element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAccident element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAccident element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAccident element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAccident element", t)
+			}
+		case "date":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "locationAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "locationReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitAccident", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitAccident element", t)
 	}
 	return nil
 }
@@ -3109,382 +8069,1945 @@ type isExplanationOfBenefitItemLocation interface {
 func (r CodeableConcept) isExplanationOfBenefitItemLocation() {}
 func (r Address) isExplanationOfBenefitItemLocation()         {}
 func (r Reference) isExplanationOfBenefitItemLocation()       {}
-
-type jsonExplanationOfBenefitItem struct {
-	Id                                  *string                                `json:"id,omitempty"`
-	Extension                           []Extension                            `json:"extension,omitempty"`
-	ModifierExtension                   []Extension                            `json:"modifierExtension,omitempty"`
-	Sequence                            PositiveInt                            `json:"sequence,omitempty"`
-	SequencePrimitiveElement            *primitiveElement                      `json:"_sequence,omitempty"`
-	CareTeamSequence                    []PositiveInt                          `json:"careTeamSequence,omitempty"`
-	CareTeamSequencePrimitiveElement    []*primitiveElement                    `json:"_careTeamSequence,omitempty"`
-	DiagnosisSequence                   []PositiveInt                          `json:"diagnosisSequence,omitempty"`
-	DiagnosisSequencePrimitiveElement   []*primitiveElement                    `json:"_diagnosisSequence,omitempty"`
-	ProcedureSequence                   []PositiveInt                          `json:"procedureSequence,omitempty"`
-	ProcedureSequencePrimitiveElement   []*primitiveElement                    `json:"_procedureSequence,omitempty"`
-	InformationSequence                 []PositiveInt                          `json:"informationSequence,omitempty"`
-	InformationSequencePrimitiveElement []*primitiveElement                    `json:"_informationSequence,omitempty"`
-	Revenue                             *CodeableConcept                       `json:"revenue,omitempty"`
-	Category                            *CodeableConcept                       `json:"category,omitempty"`
-	ProductOrService                    CodeableConcept                        `json:"productOrService,omitempty"`
-	Modifier                            []CodeableConcept                      `json:"modifier,omitempty"`
-	ProgramCode                         []CodeableConcept                      `json:"programCode,omitempty"`
-	ServicedDate                        *Date                                  `json:"servicedDate,omitempty"`
-	ServicedDatePrimitiveElement        *primitiveElement                      `json:"_servicedDate,omitempty"`
-	ServicedPeriod                      *Period                                `json:"servicedPeriod,omitempty"`
-	LocationCodeableConcept             *CodeableConcept                       `json:"locationCodeableConcept,omitempty"`
-	LocationAddress                     *Address                               `json:"locationAddress,omitempty"`
-	LocationReference                   *Reference                             `json:"locationReference,omitempty"`
-	Quantity                            *Quantity                              `json:"quantity,omitempty"`
-	UnitPrice                           *Money                                 `json:"unitPrice,omitempty"`
-	Factor                              *Decimal                               `json:"factor,omitempty"`
-	FactorPrimitiveElement              *primitiveElement                      `json:"_factor,omitempty"`
-	Net                                 *Money                                 `json:"net,omitempty"`
-	Udi                                 []Reference                            `json:"udi,omitempty"`
-	BodySite                            *CodeableConcept                       `json:"bodySite,omitempty"`
-	SubSite                             []CodeableConcept                      `json:"subSite,omitempty"`
-	Encounter                           []Reference                            `json:"encounter,omitempty"`
-	NoteNumber                          []PositiveInt                          `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement          []*primitiveElement                    `json:"_noteNumber,omitempty"`
-	Adjudication                        []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
-	Detail                              []ExplanationOfBenefitItemDetail       `json:"detail,omitempty"`
-}
-
 func (r ExplanationOfBenefitItem) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitItem) marshalJSON() jsonExplanationOfBenefitItem {
-	m := jsonExplanationOfBenefitItem{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitItem) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
-	}
-	anyCareTeamSequenceValue := false
-	for _, e := range r.CareTeamSequence {
-		if e.Value != nil {
-			anyCareTeamSequenceValue = true
-			break
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyCareTeamSequenceValue {
-		m.CareTeamSequence = r.CareTeamSequence
-	}
-	anyCareTeamSequenceIdOrExtension := false
-	for _, e := range r.CareTeamSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyCareTeamSequenceIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.CareTeamSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyCareTeamSequenceIdOrExtension {
-		m.CareTeamSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.CareTeamSequence))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"careTeamSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.CareTeamSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.CareTeamSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.CareTeamSequencePrimitiveElement = append(m.CareTeamSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.CareTeamSequencePrimitiveElement = append(m.CareTeamSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_careTeamSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.CareTeamSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyDiagnosisSequenceValue := false
-	for _, e := range r.DiagnosisSequence {
-		if e.Value != nil {
-			anyDiagnosisSequenceValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.DiagnosisSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyDiagnosisSequenceValue {
-		m.DiagnosisSequence = r.DiagnosisSequence
-	}
-	anyDiagnosisSequenceIdOrExtension := false
-	for _, e := range r.DiagnosisSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyDiagnosisSequenceIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"diagnosisSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.DiagnosisSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyDiagnosisSequenceIdOrExtension {
-		m.DiagnosisSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.DiagnosisSequence))
+		anyIdOrExtension := false
 		for _, e := range r.DiagnosisSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.DiagnosisSequencePrimitiveElement = append(m.DiagnosisSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.DiagnosisSequencePrimitiveElement = append(m.DiagnosisSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_diagnosisSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.DiagnosisSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyProcedureSequenceValue := false
-	for _, e := range r.ProcedureSequence {
-		if e.Value != nil {
-			anyProcedureSequenceValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.ProcedureSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyProcedureSequenceValue {
-		m.ProcedureSequence = r.ProcedureSequence
-	}
-	anyProcedureSequenceIdOrExtension := false
-	for _, e := range r.ProcedureSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyProcedureSequenceIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"procedureSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.ProcedureSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyProcedureSequenceIdOrExtension {
-		m.ProcedureSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.ProcedureSequence))
+		anyIdOrExtension := false
 		for _, e := range r.ProcedureSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.ProcedureSequencePrimitiveElement = append(m.ProcedureSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ProcedureSequencePrimitiveElement = append(m.ProcedureSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_procedureSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.ProcedureSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyInformationSequenceValue := false
-	for _, e := range r.InformationSequence {
-		if e.Value != nil {
-			anyInformationSequenceValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.InformationSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyInformationSequenceValue {
-		m.InformationSequence = r.InformationSequence
-	}
-	anyInformationSequenceIdOrExtension := false
-	for _, e := range r.InformationSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyInformationSequenceIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"informationSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.InformationSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyInformationSequenceIdOrExtension {
-		m.InformationSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.InformationSequence))
+		anyIdOrExtension := false
 		for _, e := range r.InformationSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.InformationSequencePrimitiveElement = append(m.InformationSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.InformationSequencePrimitiveElement = append(m.InformationSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_informationSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.InformationSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Revenue = r.Revenue
-	m.Category = r.Category
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.ProgramCode = r.ProgramCode
+	if r.Revenue != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"revenue\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Revenue.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Category != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"category\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Category.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ProgramCode) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"programCode\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ProgramCode {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	switch v := r.Serviced.(type) {
 	case Date:
 		if v.Value != nil {
-			m.ServicedDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.ServicedDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Period:
-		m.ServicedPeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.ServicedPeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Location.(type) {
 	case CodeableConcept:
-		m.LocationCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.LocationCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Address:
-		m.LocationAddress = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Address:
-		m.LocationAddress = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.LocationReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.LocationReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	m.Udi = r.Udi
-	m.BodySite = r.BodySite
-	m.SubSite = r.SubSite
-	m.Encounter = r.Encounter
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	if len(r.Udi) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"udi\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Udi {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.BodySite != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"bodySite\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BodySite.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.SubSite) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subSite\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.SubSite {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Encounter) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"encounter\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Encounter {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	m.Detail = r.Detail
-	return m
-}
-func (r *ExplanationOfBenefitItem) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitItem
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Detail) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"detail\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Detail {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitItem) unmarshalJSON(m jsonExplanationOfBenefitItem) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitItem) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.CareTeamSequence = m.CareTeamSequence
-	for i, e := range m.CareTeamSequencePrimitiveElement {
-		if len(r.CareTeamSequence) <= i {
-			r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{})
-		}
-		if e != nil {
-			r.CareTeamSequence[i].Id = e.Id
-			r.CareTeamSequence[i].Extension = e.Extension
-		}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitItem element", t)
 	}
-	r.DiagnosisSequence = m.DiagnosisSequence
-	for i, e := range m.DiagnosisSequencePrimitiveElement {
-		if len(r.DiagnosisSequence) <= i {
-			r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{})
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.DiagnosisSequence[i].Id = e.Id
-			r.DiagnosisSequence[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitItem element", t)
 		}
-	}
-	r.ProcedureSequence = m.ProcedureSequence
-	for i, e := range m.ProcedureSequencePrimitiveElement {
-		if len(r.ProcedureSequence) <= i {
-			r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{})
-		}
-		if e != nil {
-			r.ProcedureSequence[i].Id = e.Id
-			r.ProcedureSequence[i].Extension = e.Extension
-		}
-	}
-	r.InformationSequence = m.InformationSequence
-	for i, e := range m.InformationSequencePrimitiveElement {
-		if len(r.InformationSequence) <= i {
-			r.InformationSequence = append(r.InformationSequence, PositiveInt{})
-		}
-		if e != nil {
-			r.InformationSequence[i].Id = e.Id
-			r.InformationSequence[i].Extension = e.Extension
-		}
-	}
-	r.Revenue = m.Revenue
-	r.Category = m.Category
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.ProgramCode = m.ProgramCode
-	if m.ServicedDate != nil || m.ServicedDatePrimitiveElement != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
-		}
-		v := m.ServicedDate
-		if m.ServicedDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ServicedDatePrimitiveElement.Id
-			v.Extension = m.ServicedDatePrimitiveElement.Extension
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "careTeamSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.CareTeamSequence) <= i {
+					r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{})
+				}
+				r.CareTeamSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "_careTeamSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.CareTeamSequence) <= i {
+					r.CareTeamSequence = append(r.CareTeamSequence, PositiveInt{})
+				}
+				r.CareTeamSequence[i].Id = v.Id
+				r.CareTeamSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "diagnosisSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DiagnosisSequence) <= i {
+					r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{})
+				}
+				r.DiagnosisSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "_diagnosisSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DiagnosisSequence) <= i {
+					r.DiagnosisSequence = append(r.DiagnosisSequence, PositiveInt{})
+				}
+				r.DiagnosisSequence[i].Id = v.Id
+				r.DiagnosisSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "procedureSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.ProcedureSequence) <= i {
+					r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{})
+				}
+				r.ProcedureSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "_procedureSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.ProcedureSequence) <= i {
+					r.ProcedureSequence = append(r.ProcedureSequence, PositiveInt{})
+				}
+				r.ProcedureSequence[i].Id = v.Id
+				r.ProcedureSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "informationSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.InformationSequence) <= i {
+					r.InformationSequence = append(r.InformationSequence, PositiveInt{})
+				}
+				r.InformationSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "_informationSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.InformationSequence) <= i {
+					r.InformationSequence = append(r.InformationSequence, PositiveInt{})
+				}
+				r.InformationSequence[i].Id = v.Id
+				r.InformationSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "revenue":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Revenue = &v
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = &v
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "programCode":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ProgramCode = append(r.ProgramCode, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "servicedDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: r.Serviced.(Date).Extension,
+					Id:        r.Serviced.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Serviced = v
+			}
+		case "_servicedDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Serviced.(Date).Value,
+				}
+			} else {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "servicedPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Serviced = v
+		case "locationCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "locationAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "locationReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "udi":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Udi = append(r.Udi, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "bodySite":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BodySite = &v
+		case "subSite":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SubSite = append(r.SubSite, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "encounter":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Encounter = append(r.Encounter, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		case "detail":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItem element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Detail = append(r.Detail, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItem element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitItem", f)
 		}
-		r.Serviced = v
 	}
-	if m.ServicedPeriod != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
-		}
-		v := m.ServicedPeriod
-		r.Serviced = v
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	if m.LocationCodeableConcept != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationCodeableConcept
-		r.Location = v
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitItem element", t)
 	}
-	if m.LocationAddress != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationAddress
-		r.Location = v
-	}
-	if m.LocationReference != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationReference
-		r.Location = v
-	}
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
-	}
-	r.Net = m.Net
-	r.Udi = m.Udi
-	r.BodySite = m.BodySite
-	r.SubSite = m.SubSite
-	r.Encounter = m.Encounter
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
-		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
-		}
-	}
-	r.Adjudication = m.Adjudication
-	r.Detail = m.Detail
 	return nil
 }
 func (r ExplanationOfBenefitItem) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -3894,57 +10417,336 @@ type ExplanationOfBenefitItemAdjudication struct {
 	// A non-monetary value associated with the category. Mutually exclusive to the amount element above.
 	Value *Decimal
 }
-type jsonExplanationOfBenefitItemAdjudication struct {
-	Id                    *string           `json:"id,omitempty"`
-	Extension             []Extension       `json:"extension,omitempty"`
-	ModifierExtension     []Extension       `json:"modifierExtension,omitempty"`
-	Category              CodeableConcept   `json:"category,omitempty"`
-	Reason                *CodeableConcept  `json:"reason,omitempty"`
-	Amount                *Money            `json:"amount,omitempty"`
-	Value                 *Decimal          `json:"value,omitempty"`
-	ValuePrimitiveElement *primitiveElement `json:"_value,omitempty"`
-}
 
 func (r ExplanationOfBenefitItemAdjudication) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r ExplanationOfBenefitItemAdjudication) marshalJSON() jsonExplanationOfBenefitItemAdjudication {
-	m := jsonExplanationOfBenefitItemAdjudication{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Category = r.Category
-	m.Reason = r.Reason
-	m.Amount = r.Amount
-	if r.Value != nil && r.Value.Value != nil {
-		m.Value = r.Value
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
-		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
-	}
-	return m
+	return b.Bytes(), nil
 }
-func (r *ExplanationOfBenefitItemAdjudication) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitItemAdjudication
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitItemAdjudication) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *ExplanationOfBenefitItemAdjudication) unmarshalJSON(m jsonExplanationOfBenefitItemAdjudication) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Category = m.Category
-	r.Reason = m.Reason
-	r.Amount = m.Amount
-	r.Value = m.Value
-	if m.ValuePrimitiveElement != nil {
-		if r.Value == nil {
-			r.Value = &Decimal{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Value.Id = m.ValuePrimitiveElement.Id
-		r.Value.Extension = m.ValuePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"category\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Category.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Reason != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reason\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Reason.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Amount.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && r.Value.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"value\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Value)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
+		p := primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_value\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ExplanationOfBenefitItemAdjudication) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitItemAdjudication element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitItemAdjudication element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemAdjudication element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemAdjudication element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemAdjudication element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemAdjudication element", t)
+			}
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = v
+		case "reason":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Reason = &v
+		case "amount":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = &v
+		case "value":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Value = v.Value
+		case "_value":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Id = v.Id
+			r.Value.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitItemAdjudication", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitItemAdjudication element", t)
 	}
 	return nil
 }
@@ -4109,134 +10911,899 @@ type ExplanationOfBenefitItemDetail struct {
 	// Third-tier of goods and services.
 	SubDetail []ExplanationOfBenefitItemDetailSubDetail
 }
-type jsonExplanationOfBenefitItemDetail struct {
-	Id                         *string                                   `json:"id,omitempty"`
-	Extension                  []Extension                               `json:"extension,omitempty"`
-	ModifierExtension          []Extension                               `json:"modifierExtension,omitempty"`
-	Sequence                   PositiveInt                               `json:"sequence,omitempty"`
-	SequencePrimitiveElement   *primitiveElement                         `json:"_sequence,omitempty"`
-	Revenue                    *CodeableConcept                          `json:"revenue,omitempty"`
-	Category                   *CodeableConcept                          `json:"category,omitempty"`
-	ProductOrService           CodeableConcept                           `json:"productOrService,omitempty"`
-	Modifier                   []CodeableConcept                         `json:"modifier,omitempty"`
-	ProgramCode                []CodeableConcept                         `json:"programCode,omitempty"`
-	Quantity                   *Quantity                                 `json:"quantity,omitempty"`
-	UnitPrice                  *Money                                    `json:"unitPrice,omitempty"`
-	Factor                     *Decimal                                  `json:"factor,omitempty"`
-	FactorPrimitiveElement     *primitiveElement                         `json:"_factor,omitempty"`
-	Net                        *Money                                    `json:"net,omitempty"`
-	Udi                        []Reference                               `json:"udi,omitempty"`
-	NoteNumber                 []PositiveInt                             `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement []*primitiveElement                       `json:"_noteNumber,omitempty"`
-	Adjudication               []ExplanationOfBenefitItemAdjudication    `json:"adjudication,omitempty"`
-	SubDetail                  []ExplanationOfBenefitItemDetailSubDetail `json:"subDetail,omitempty"`
-}
 
 func (r ExplanationOfBenefitItemDetail) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitItemDetail) marshalJSON() jsonExplanationOfBenefitItemDetail {
-	m := jsonExplanationOfBenefitItemDetail{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitItemDetail) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Revenue = r.Revenue
-	m.Category = r.Category
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.ProgramCode = r.ProgramCode
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+	if r.Revenue != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"revenue\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Revenue.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Category != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"category\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Category.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ProgramCode) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"programCode\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ProgramCode {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	m.Udi = r.Udi
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	if len(r.Udi) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"udi\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Udi {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	m.SubDetail = r.SubDetail
-	return m
-}
-func (r *ExplanationOfBenefitItemDetail) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitItemDetail
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.SubDetail) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subDetail\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.SubDetail {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitItemDetail) unmarshalJSON(m jsonExplanationOfBenefitItemDetail) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitItemDetail) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Revenue = m.Revenue
-	r.Category = m.Category
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.ProgramCode = m.ProgramCode
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitItemDetail element", t)
 	}
-	r.Net = m.Net
-	r.Udi = m.Udi
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitItemDetail element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "revenue":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Revenue = &v
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = &v
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "programCode":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ProgramCode = append(r.ProgramCode, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "udi":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Udi = append(r.Udi, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		case "subDetail":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemDetailSubDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SubDetail = append(r.SubDetail, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetail element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitItemDetail", f)
 		}
 	}
-	r.Adjudication = m.Adjudication
-	r.SubDetail = m.SubDetail
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitItemDetail element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitItemDetail) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -4508,131 +12075,841 @@ type ExplanationOfBenefitItemDetailSubDetail struct {
 	// The adjudication results.
 	Adjudication []ExplanationOfBenefitItemAdjudication
 }
-type jsonExplanationOfBenefitItemDetailSubDetail struct {
-	Id                         *string                                `json:"id,omitempty"`
-	Extension                  []Extension                            `json:"extension,omitempty"`
-	ModifierExtension          []Extension                            `json:"modifierExtension,omitempty"`
-	Sequence                   PositiveInt                            `json:"sequence,omitempty"`
-	SequencePrimitiveElement   *primitiveElement                      `json:"_sequence,omitempty"`
-	Revenue                    *CodeableConcept                       `json:"revenue,omitempty"`
-	Category                   *CodeableConcept                       `json:"category,omitempty"`
-	ProductOrService           CodeableConcept                        `json:"productOrService,omitempty"`
-	Modifier                   []CodeableConcept                      `json:"modifier,omitempty"`
-	ProgramCode                []CodeableConcept                      `json:"programCode,omitempty"`
-	Quantity                   *Quantity                              `json:"quantity,omitempty"`
-	UnitPrice                  *Money                                 `json:"unitPrice,omitempty"`
-	Factor                     *Decimal                               `json:"factor,omitempty"`
-	FactorPrimitiveElement     *primitiveElement                      `json:"_factor,omitempty"`
-	Net                        *Money                                 `json:"net,omitempty"`
-	Udi                        []Reference                            `json:"udi,omitempty"`
-	NoteNumber                 []PositiveInt                          `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement []*primitiveElement                    `json:"_noteNumber,omitempty"`
-	Adjudication               []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
-}
 
 func (r ExplanationOfBenefitItemDetailSubDetail) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) marshalJSON() jsonExplanationOfBenefitItemDetailSubDetail {
-	m := jsonExplanationOfBenefitItemDetailSubDetail{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
+func (r ExplanationOfBenefitItemDetailSubDetail) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Sequence.Id != nil || r.Sequence.Extension != nil {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Revenue = r.Revenue
-	m.Category = r.Category
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.ProgramCode = r.ProgramCode
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+	if r.Revenue != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"revenue\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Revenue.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Category != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"category\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Category.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ProgramCode) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"programCode\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ProgramCode {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	m.Udi = r.Udi
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	if len(r.Udi) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"udi\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Udi {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	return m
-}
-func (r *ExplanationOfBenefitItemDetailSubDetail) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitItemDetailSubDetail
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitItemDetailSubDetail) unmarshalJSON(m jsonExplanationOfBenefitItemDetailSubDetail) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+func (r *ExplanationOfBenefitItemDetailSubDetail) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Revenue = m.Revenue
-	r.Category = m.Category
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.ProgramCode = m.ProgramCode
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitItemDetailSubDetail element", t)
 	}
-	r.Net = m.Net
-	r.Udi = m.Udi
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitItemDetailSubDetail element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "sequence":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "revenue":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Revenue = &v
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = &v
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "programCode":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ProgramCode = append(r.ProgramCode, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "udi":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Udi = append(r.Udi, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitItemDetailSubDetail element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitItemDetailSubDetail", f)
 		}
 	}
-	r.Adjudication = m.Adjudication
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitItemDetailSubDetail element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -4917,321 +13194,1639 @@ type isExplanationOfBenefitAddItemLocation interface {
 func (r CodeableConcept) isExplanationOfBenefitAddItemLocation() {}
 func (r Address) isExplanationOfBenefitAddItemLocation()         {}
 func (r Reference) isExplanationOfBenefitAddItemLocation()       {}
-
-type jsonExplanationOfBenefitAddItem struct {
-	Id                                *string                                `json:"id,omitempty"`
-	Extension                         []Extension                            `json:"extension,omitempty"`
-	ModifierExtension                 []Extension                            `json:"modifierExtension,omitempty"`
-	ItemSequence                      []PositiveInt                          `json:"itemSequence,omitempty"`
-	ItemSequencePrimitiveElement      []*primitiveElement                    `json:"_itemSequence,omitempty"`
-	DetailSequence                    []PositiveInt                          `json:"detailSequence,omitempty"`
-	DetailSequencePrimitiveElement    []*primitiveElement                    `json:"_detailSequence,omitempty"`
-	SubDetailSequence                 []PositiveInt                          `json:"subDetailSequence,omitempty"`
-	SubDetailSequencePrimitiveElement []*primitiveElement                    `json:"_subDetailSequence,omitempty"`
-	Provider                          []Reference                            `json:"provider,omitempty"`
-	ProductOrService                  CodeableConcept                        `json:"productOrService,omitempty"`
-	Modifier                          []CodeableConcept                      `json:"modifier,omitempty"`
-	ProgramCode                       []CodeableConcept                      `json:"programCode,omitempty"`
-	ServicedDate                      *Date                                  `json:"servicedDate,omitempty"`
-	ServicedDatePrimitiveElement      *primitiveElement                      `json:"_servicedDate,omitempty"`
-	ServicedPeriod                    *Period                                `json:"servicedPeriod,omitempty"`
-	LocationCodeableConcept           *CodeableConcept                       `json:"locationCodeableConcept,omitempty"`
-	LocationAddress                   *Address                               `json:"locationAddress,omitempty"`
-	LocationReference                 *Reference                             `json:"locationReference,omitempty"`
-	Quantity                          *Quantity                              `json:"quantity,omitempty"`
-	UnitPrice                         *Money                                 `json:"unitPrice,omitempty"`
-	Factor                            *Decimal                               `json:"factor,omitempty"`
-	FactorPrimitiveElement            *primitiveElement                      `json:"_factor,omitempty"`
-	Net                               *Money                                 `json:"net,omitempty"`
-	BodySite                          *CodeableConcept                       `json:"bodySite,omitempty"`
-	SubSite                           []CodeableConcept                      `json:"subSite,omitempty"`
-	NoteNumber                        []PositiveInt                          `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement        []*primitiveElement                    `json:"_noteNumber,omitempty"`
-	Adjudication                      []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
-	Detail                            []ExplanationOfBenefitAddItemDetail    `json:"detail,omitempty"`
-}
-
 func (r ExplanationOfBenefitAddItem) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitAddItem) marshalJSON() jsonExplanationOfBenefitAddItem {
-	m := jsonExplanationOfBenefitAddItem{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	anyItemSequenceValue := false
-	for _, e := range r.ItemSequence {
-		if e.Value != nil {
-			anyItemSequenceValue = true
-			break
+func (r ExplanationOfBenefitAddItem) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
 		}
 	}
-	if anyItemSequenceValue {
-		m.ItemSequence = r.ItemSequence
-	}
-	anyItemSequenceIdOrExtension := false
-	for _, e := range r.ItemSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyItemSequenceIdOrExtension = true
-			break
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
 		}
 	}
-	if anyItemSequenceIdOrExtension {
-		m.ItemSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.ItemSequence))
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.ItemSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"itemSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.ItemSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.ItemSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.ItemSequencePrimitiveElement = append(m.ItemSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ItemSequencePrimitiveElement = append(m.ItemSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_itemSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.ItemSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyDetailSequenceValue := false
-	for _, e := range r.DetailSequence {
-		if e.Value != nil {
-			anyDetailSequenceValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.DetailSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyDetailSequenceValue {
-		m.DetailSequence = r.DetailSequence
-	}
-	anyDetailSequenceIdOrExtension := false
-	for _, e := range r.DetailSequence {
-		if e.Id != nil || e.Extension != nil {
-			anyDetailSequenceIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"detailSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.DetailSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyDetailSequenceIdOrExtension {
-		m.DetailSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.DetailSequence))
+		anyIdOrExtension := false
 		for _, e := range r.DetailSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.DetailSequencePrimitiveElement = append(m.DetailSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.DetailSequencePrimitiveElement = append(m.DetailSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_detailSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.DetailSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anySubDetailSequenceValue := false
-	for _, e := range r.SubDetailSequence {
-		if e.Value != nil {
-			anySubDetailSequenceValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.SubDetailSequence {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anySubDetailSequenceValue {
-		m.SubDetailSequence = r.SubDetailSequence
-	}
-	anySubDetailSequenceIdOrExtension := false
-	for _, e := range r.SubDetailSequence {
-		if e.Id != nil || e.Extension != nil {
-			anySubDetailSequenceIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"subDetailSequence\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.SubDetailSequence)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anySubDetailSequenceIdOrExtension {
-		m.SubDetailSequencePrimitiveElement = make([]*primitiveElement, 0, len(r.SubDetailSequence))
+		anyIdOrExtension := false
 		for _, e := range r.SubDetailSequence {
 			if e.Id != nil || e.Extension != nil {
-				m.SubDetailSequencePrimitiveElement = append(m.SubDetailSequencePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.SubDetailSequencePrimitiveElement = append(m.SubDetailSequencePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_subDetailSequence\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.SubDetailSequence {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Provider = r.Provider
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.ProgramCode = r.ProgramCode
+	if len(r.Provider) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"provider\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Provider {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ProgramCode) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"programCode\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ProgramCode {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	switch v := r.Serviced.(type) {
 	case Date:
 		if v.Value != nil {
-			m.ServicedDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.ServicedDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Period:
-		m.ServicedPeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.ServicedPeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Location.(type) {
 	case CodeableConcept:
-		m.LocationCodeableConcept = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *CodeableConcept:
-		m.LocationCodeableConcept = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Address:
-		m.LocationAddress = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Address:
-		m.LocationAddress = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationAddress\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Reference:
-		m.LocationReference = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Reference:
-		m.LocationReference = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"locationReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	m.BodySite = r.BodySite
-	m.SubSite = r.SubSite
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	if r.BodySite != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"bodySite\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BodySite.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.SubSite) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subSite\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.SubSite {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	m.Detail = r.Detail
-	return m
-}
-func (r *ExplanationOfBenefitAddItem) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitAddItem
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Detail) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"detail\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Detail {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitAddItem) unmarshalJSON(m jsonExplanationOfBenefitAddItem) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.ItemSequence = m.ItemSequence
-	for i, e := range m.ItemSequencePrimitiveElement {
-		if len(r.ItemSequence) <= i {
-			r.ItemSequence = append(r.ItemSequence, PositiveInt{})
-		}
-		if e != nil {
-			r.ItemSequence[i].Id = e.Id
-			r.ItemSequence[i].Extension = e.Extension
-		}
+func (r *ExplanationOfBenefitAddItem) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.DetailSequence = m.DetailSequence
-	for i, e := range m.DetailSequencePrimitiveElement {
-		if len(r.DetailSequence) <= i {
-			r.DetailSequence = append(r.DetailSequence, PositiveInt{})
-		}
-		if e != nil {
-			r.DetailSequence[i].Id = e.Id
-			r.DetailSequence[i].Extension = e.Extension
-		}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitAddItem element", t)
 	}
-	r.SubDetailSequence = m.SubDetailSequence
-	for i, e := range m.SubDetailSequencePrimitiveElement {
-		if len(r.SubDetailSequence) <= i {
-			r.SubDetailSequence = append(r.SubDetailSequence, PositiveInt{})
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.SubDetailSequence[i].Id = e.Id
-			r.SubDetailSequence[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitAddItem element", t)
 		}
-	}
-	r.Provider = m.Provider
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.ProgramCode = m.ProgramCode
-	if m.ServicedDate != nil || m.ServicedDatePrimitiveElement != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
-		}
-		v := m.ServicedDate
-		if m.ServicedDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.ServicedDatePrimitiveElement.Id
-			v.Extension = m.ServicedDatePrimitiveElement.Extension
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "itemSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.ItemSequence) <= i {
+					r.ItemSequence = append(r.ItemSequence, PositiveInt{})
+				}
+				r.ItemSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "_itemSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.ItemSequence) <= i {
+					r.ItemSequence = append(r.ItemSequence, PositiveInt{})
+				}
+				r.ItemSequence[i].Id = v.Id
+				r.ItemSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "detailSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DetailSequence) <= i {
+					r.DetailSequence = append(r.DetailSequence, PositiveInt{})
+				}
+				r.DetailSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "_detailSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DetailSequence) <= i {
+					r.DetailSequence = append(r.DetailSequence, PositiveInt{})
+				}
+				r.DetailSequence[i].Id = v.Id
+				r.DetailSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "subDetailSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.SubDetailSequence) <= i {
+					r.SubDetailSequence = append(r.SubDetailSequence, PositiveInt{})
+				}
+				r.SubDetailSequence[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "_subDetailSequence":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.SubDetailSequence) <= i {
+					r.SubDetailSequence = append(r.SubDetailSequence, PositiveInt{})
+				}
+				r.SubDetailSequence[i].Id = v.Id
+				r.SubDetailSequence[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "provider":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Provider = append(r.Provider, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "programCode":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ProgramCode = append(r.ProgramCode, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "servicedDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: r.Serviced.(Date).Extension,
+					Id:        r.Serviced.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Serviced = v
+			}
+		case "_servicedDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Serviced.(Date).Value,
+				}
+			} else {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "servicedPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Serviced = v
+		case "locationCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "locationAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "locationReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = v
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "bodySite":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BodySite = &v
+		case "subSite":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SubSite = append(r.SubSite, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		case "detail":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItem element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitAddItemDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Detail = append(r.Detail, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItem element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitAddItem", f)
 		}
-		r.Serviced = v
 	}
-	if m.ServicedPeriod != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
-		}
-		v := m.ServicedPeriod
-		r.Serviced = v
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	if m.LocationCodeableConcept != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationCodeableConcept
-		r.Location = v
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitAddItem element", t)
 	}
-	if m.LocationAddress != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationAddress
-		r.Location = v
-	}
-	if m.LocationReference != nil {
-		if r.Location != nil {
-			return fmt.Errorf("multiple values for field \"Location\"")
-		}
-		v := m.LocationReference
-		r.Location = v
-	}
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
-	}
-	r.Net = m.Net
-	r.BodySite = m.BodySite
-	r.SubSite = m.SubSite
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
-		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
-		}
-	}
-	r.Adjudication = m.Adjudication
-	r.Detail = m.Detail
 	return nil
 }
 func (r ExplanationOfBenefitAddItem) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -5596,109 +15191,678 @@ type ExplanationOfBenefitAddItemDetail struct {
 	// The third-tier service adjudications for payor added services.
 	SubDetail []ExplanationOfBenefitAddItemDetailSubDetail
 }
-type jsonExplanationOfBenefitAddItemDetail struct {
-	Id                         *string                                      `json:"id,omitempty"`
-	Extension                  []Extension                                  `json:"extension,omitempty"`
-	ModifierExtension          []Extension                                  `json:"modifierExtension,omitempty"`
-	ProductOrService           CodeableConcept                              `json:"productOrService,omitempty"`
-	Modifier                   []CodeableConcept                            `json:"modifier,omitempty"`
-	Quantity                   *Quantity                                    `json:"quantity,omitempty"`
-	UnitPrice                  *Money                                       `json:"unitPrice,omitempty"`
-	Factor                     *Decimal                                     `json:"factor,omitempty"`
-	FactorPrimitiveElement     *primitiveElement                            `json:"_factor,omitempty"`
-	Net                        *Money                                       `json:"net,omitempty"`
-	NoteNumber                 []PositiveInt                                `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement []*primitiveElement                          `json:"_noteNumber,omitempty"`
-	Adjudication               []ExplanationOfBenefitItemAdjudication       `json:"adjudication,omitempty"`
-	SubDetail                  []ExplanationOfBenefitAddItemDetailSubDetail `json:"subDetail,omitempty"`
-}
 
 func (r ExplanationOfBenefitAddItemDetail) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitAddItemDetail) marshalJSON() jsonExplanationOfBenefitAddItemDetail {
-	m := jsonExplanationOfBenefitAddItemDetail{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+func (r ExplanationOfBenefitAddItemDetail) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	m.SubDetail = r.SubDetail
-	return m
-}
-func (r *ExplanationOfBenefitAddItemDetail) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitAddItemDetail
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.SubDetail) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subDetail\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.SubDetail {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitAddItemDetail) unmarshalJSON(m jsonExplanationOfBenefitAddItemDetail) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
+func (r *ExplanationOfBenefitAddItemDetail) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Net = m.Net
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitAddItemDetail element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitAddItemDetail element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		case "subDetail":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitAddItemDetailSubDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SubDetail = append(r.SubDetail, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetail element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitAddItemDetail", f)
 		}
 	}
-	r.Adjudication = m.Adjudication
-	r.SubDetail = m.SubDetail
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitAddItemDetail element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitAddItemDetail) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -5905,106 +16069,620 @@ type ExplanationOfBenefitAddItemDetailSubDetail struct {
 	// The adjudication results.
 	Adjudication []ExplanationOfBenefitItemAdjudication
 }
-type jsonExplanationOfBenefitAddItemDetailSubDetail struct {
-	Id                         *string                                `json:"id,omitempty"`
-	Extension                  []Extension                            `json:"extension,omitempty"`
-	ModifierExtension          []Extension                            `json:"modifierExtension,omitempty"`
-	ProductOrService           CodeableConcept                        `json:"productOrService,omitempty"`
-	Modifier                   []CodeableConcept                      `json:"modifier,omitempty"`
-	Quantity                   *Quantity                              `json:"quantity,omitempty"`
-	UnitPrice                  *Money                                 `json:"unitPrice,omitempty"`
-	Factor                     *Decimal                               `json:"factor,omitempty"`
-	FactorPrimitiveElement     *primitiveElement                      `json:"_factor,omitempty"`
-	Net                        *Money                                 `json:"net,omitempty"`
-	NoteNumber                 []PositiveInt                          `json:"noteNumber,omitempty"`
-	NoteNumberPrimitiveElement []*primitiveElement                    `json:"_noteNumber,omitempty"`
-	Adjudication               []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
-}
 
 func (r ExplanationOfBenefitAddItemDetailSubDetail) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) marshalJSON() jsonExplanationOfBenefitAddItemDetailSubDetail {
-	m := jsonExplanationOfBenefitAddItemDetailSubDetail{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.Quantity = r.Quantity
-	m.UnitPrice = r.UnitPrice
+func (r ExplanationOfBenefitAddItemDetailSubDetail) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"productOrService\":"))
+	if err != nil {
+		return err
+	}
+	err = r.ProductOrService.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Quantity != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"quantity\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Quantity.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.UnitPrice != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unitPrice\":"))
+		if err != nil {
+			return err
+		}
+		err = r.UnitPrice.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.Factor != nil && r.Factor.Value != nil {
-		m.Factor = r.Factor
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"factor\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Factor)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Factor != nil && (r.Factor.Id != nil || r.Factor.Extension != nil) {
-		m.FactorPrimitiveElement = &primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
-	}
-	m.Net = r.Net
-	anyNoteNumberValue := false
-	for _, e := range r.NoteNumber {
-		if e.Value != nil {
-			anyNoteNumberValue = true
-			break
+		p := primitiveElement{Id: r.Factor.Id, Extension: r.Factor.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_factor\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberValue {
-		m.NoteNumber = r.NoteNumber
-	}
-	anyNoteNumberIdOrExtension := false
-	for _, e := range r.NoteNumber {
-		if e.Id != nil || e.Extension != nil {
-			anyNoteNumberIdOrExtension = true
-			break
+	if r.Net != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"net\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Net.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyNoteNumberIdOrExtension {
-		m.NoteNumberPrimitiveElement = make([]*primitiveElement, 0, len(r.NoteNumber))
+	{
+		anyValue := false
+		for _, e := range r.NoteNumber {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.NoteNumber)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.NoteNumber {
 			if e.Id != nil || e.Extension != nil {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.NoteNumberPrimitiveElement = append(m.NoteNumberPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_noteNumber\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.NoteNumber {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Adjudication = r.Adjudication
-	return m
-}
-func (r *ExplanationOfBenefitAddItemDetailSubDetail) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitAddItemDetailSubDetail
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Adjudication) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjudication\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Adjudication {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitAddItemDetailSubDetail) unmarshalJSON(m jsonExplanationOfBenefitAddItemDetailSubDetail) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.Quantity = m.Quantity
-	r.UnitPrice = m.UnitPrice
-	r.Factor = m.Factor
-	if m.FactorPrimitiveElement != nil {
-		if r.Factor == nil {
-			r.Factor = &Decimal{}
-		}
-		r.Factor.Id = m.FactorPrimitiveElement.Id
-		r.Factor.Extension = m.FactorPrimitiveElement.Extension
+func (r *ExplanationOfBenefitAddItemDetailSubDetail) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Net = m.Net
-	r.NoteNumber = m.NoteNumber
-	for i, e := range m.NoteNumberPrimitiveElement {
-		if len(r.NoteNumber) <= i {
-			r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.NoteNumber[i].Id = e.Id
-			r.NoteNumber[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		case "quantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Quantity = &v
+		case "unitPrice":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.UnitPrice = &v
+		case "factor":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Value = v.Value
+		case "_factor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Factor == nil {
+				r.Factor = &Decimal{}
+			}
+			r.Factor.Id = v.Id
+			r.Factor.Extension = v.Extension
+		case "net":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Net = &v
+		case "noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v PositiveInt
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		case "_noteNumber":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.NoteNumber) <= i {
+					r.NoteNumber = append(r.NoteNumber, PositiveInt{})
+				}
+				r.NoteNumber[i].Id = v.Id
+				r.NoteNumber[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		case "adjudication":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitItemAdjudication
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Adjudication = append(r.Adjudication, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitAddItemDetailSubDetail", f)
 		}
 	}
-	r.Adjudication = m.Adjudication
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitAddItemDetailSubDetail element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -6188,39 +16866,248 @@ type ExplanationOfBenefitTotal struct {
 	// Monetary total amount associated with the category.
 	Amount Money
 }
-type jsonExplanationOfBenefitTotal struct {
-	Id                *string         `json:"id,omitempty"`
-	Extension         []Extension     `json:"extension,omitempty"`
-	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
-	Category          CodeableConcept `json:"category,omitempty"`
-	Amount            Money           `json:"amount,omitempty"`
-}
 
 func (r ExplanationOfBenefitTotal) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitTotal) marshalJSON() jsonExplanationOfBenefitTotal {
-	m := jsonExplanationOfBenefitTotal{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Category = r.Category
-	m.Amount = r.Amount
-	return m
-}
-func (r *ExplanationOfBenefitTotal) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitTotal
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitTotal) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"category\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Category.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"amount\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Amount.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitTotal) unmarshalJSON(m jsonExplanationOfBenefitTotal) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Category = m.Category
-	r.Amount = m.Amount
+func (r *ExplanationOfBenefitTotal) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitTotal element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitTotal element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitTotal element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitTotal element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitTotal element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitTotal element", t)
+			}
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = v
+		case "amount":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitTotal", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitTotal element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitTotal) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -6346,64 +17233,387 @@ type ExplanationOfBenefitPayment struct {
 	// Issuer's unique identifier for the payment instrument.
 	Identifier *Identifier
 }
-type jsonExplanationOfBenefitPayment struct {
-	Id                   *string           `json:"id,omitempty"`
-	Extension            []Extension       `json:"extension,omitempty"`
-	ModifierExtension    []Extension       `json:"modifierExtension,omitempty"`
-	Type                 *CodeableConcept  `json:"type,omitempty"`
-	Adjustment           *Money            `json:"adjustment,omitempty"`
-	AdjustmentReason     *CodeableConcept  `json:"adjustmentReason,omitempty"`
-	Date                 *Date             `json:"date,omitempty"`
-	DatePrimitiveElement *primitiveElement `json:"_date,omitempty"`
-	Amount               *Money            `json:"amount,omitempty"`
-	Identifier           *Identifier       `json:"identifier,omitempty"`
-}
 
 func (r ExplanationOfBenefitPayment) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r ExplanationOfBenefitPayment) marshalJSON() jsonExplanationOfBenefitPayment {
-	m := jsonExplanationOfBenefitPayment{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
-	m.Adjustment = r.Adjustment
-	m.AdjustmentReason = r.AdjustmentReason
-	if r.Date != nil && r.Date.Value != nil {
-		m.Date = r.Date
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
-		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
-	}
-	m.Amount = r.Amount
-	m.Identifier = r.Identifier
-	return m
+	return b.Bytes(), nil
 }
-func (r *ExplanationOfBenefitPayment) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitPayment
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitPayment) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *ExplanationOfBenefitPayment) unmarshalJSON(m jsonExplanationOfBenefitPayment) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	r.Adjustment = m.Adjustment
-	r.AdjustmentReason = m.AdjustmentReason
-	r.Date = m.Date
-	if m.DatePrimitiveElement != nil {
-		if r.Date == nil {
-			r.Date = &Date{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Date.Id = m.DatePrimitiveElement.Id
-		r.Date.Extension = m.DatePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Amount = m.Amount
-	r.Identifier = m.Identifier
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Adjustment != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjustment\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Adjustment.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.AdjustmentReason != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"adjustmentReason\":"))
+		if err != nil {
+			return err
+		}
+		err = r.AdjustmentReason.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && r.Date.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"date\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Date)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
+		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_date\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Amount.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Identifier != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Identifier.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ExplanationOfBenefitPayment) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitPayment element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitPayment element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitPayment element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitPayment element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitPayment element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitPayment element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "adjustment":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Adjustment = &v
+		case "adjustmentReason":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.AdjustmentReason = &v
+		case "date":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "amount":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = &v
+		case "identifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Identifier = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitPayment", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitPayment element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitPayment) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -6569,84 +17779,417 @@ type ExplanationOfBenefitProcessNote struct {
 	// A code to define the language used in the text of the note.
 	Language *CodeableConcept
 }
-type jsonExplanationOfBenefitProcessNote struct {
-	Id                     *string           `json:"id,omitempty"`
-	Extension              []Extension       `json:"extension,omitempty"`
-	ModifierExtension      []Extension       `json:"modifierExtension,omitempty"`
-	Number                 *PositiveInt      `json:"number,omitempty"`
-	NumberPrimitiveElement *primitiveElement `json:"_number,omitempty"`
-	Type                   *Code             `json:"type,omitempty"`
-	TypePrimitiveElement   *primitiveElement `json:"_type,omitempty"`
-	Text                   *String           `json:"text,omitempty"`
-	TextPrimitiveElement   *primitiveElement `json:"_text,omitempty"`
-	Language               *CodeableConcept  `json:"language,omitempty"`
-}
 
 func (r ExplanationOfBenefitProcessNote) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitProcessNote) marshalJSON() jsonExplanationOfBenefitProcessNote {
-	m := jsonExplanationOfBenefitProcessNote{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Number != nil && r.Number.Value != nil {
-		m.Number = r.Number
-	}
-	if r.Number != nil && (r.Number.Id != nil || r.Number.Extension != nil) {
-		m.NumberPrimitiveElement = &primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
-	}
-	if r.Type != nil && r.Type.Value != nil {
-		m.Type = r.Type
-	}
-	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
-		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
-	}
-	if r.Text != nil && r.Text.Value != nil {
-		m.Text = r.Text
-	}
-	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
-		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
-	}
-	m.Language = r.Language
-	return m
-}
-func (r *ExplanationOfBenefitProcessNote) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitProcessNote
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitProcessNote) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Number != nil && r.Number.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"number\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Number)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Number != nil && (r.Number.Id != nil || r.Number.Extension != nil) {
+		p := primitiveElement{Id: r.Number.Id, Extension: r.Number.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_number\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil && r.Type.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Type)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
+		p := primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_type\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil && r.Text.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Text)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
+		p := primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_text\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Language.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitProcessNote) unmarshalJSON(m jsonExplanationOfBenefitProcessNote) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Number = m.Number
-	if m.NumberPrimitiveElement != nil {
-		if r.Number == nil {
-			r.Number = &PositiveInt{}
-		}
-		r.Number.Id = m.NumberPrimitiveElement.Id
-		r.Number.Extension = m.NumberPrimitiveElement.Extension
+func (r *ExplanationOfBenefitProcessNote) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Type = m.Type
-	if m.TypePrimitiveElement != nil {
-		if r.Type == nil {
-			r.Type = &Code{}
-		}
-		r.Type.Id = m.TypePrimitiveElement.Id
-		r.Type.Extension = m.TypePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitProcessNote element", t)
 	}
-	r.Text = m.Text
-	if m.TextPrimitiveElement != nil {
-		if r.Text == nil {
-			r.Text = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Text.Id = m.TextPrimitiveElement.Id
-		r.Text.Extension = m.TextPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitProcessNote element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcessNote element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcessNote element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitProcessNote element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitProcessNote element", t)
+			}
+		case "number":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Number == nil {
+				r.Number = &PositiveInt{}
+			}
+			r.Number.Value = v.Value
+		case "_number":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Number == nil {
+				r.Number = &PositiveInt{}
+			}
+			r.Number.Id = v.Id
+			r.Number.Extension = v.Extension
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "text":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Value = v.Value
+		case "_text":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Id = v.Id
+			r.Text.Extension = v.Extension
+		case "language":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Language = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitProcessNote", f)
+		}
 	}
-	r.Language = m.Language
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitProcessNote element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitProcessNote) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -6798,96 +18341,545 @@ type ExplanationOfBenefitBenefitBalance struct {
 	// Benefits Used to date.
 	Financial []ExplanationOfBenefitBenefitBalanceFinancial
 }
-type jsonExplanationOfBenefitBenefitBalance struct {
-	Id                          *string                                       `json:"id,omitempty"`
-	Extension                   []Extension                                   `json:"extension,omitempty"`
-	ModifierExtension           []Extension                                   `json:"modifierExtension,omitempty"`
-	Category                    CodeableConcept                               `json:"category,omitempty"`
-	Excluded                    *Boolean                                      `json:"excluded,omitempty"`
-	ExcludedPrimitiveElement    *primitiveElement                             `json:"_excluded,omitempty"`
-	Name                        *String                                       `json:"name,omitempty"`
-	NamePrimitiveElement        *primitiveElement                             `json:"_name,omitempty"`
-	Description                 *String                                       `json:"description,omitempty"`
-	DescriptionPrimitiveElement *primitiveElement                             `json:"_description,omitempty"`
-	Network                     *CodeableConcept                              `json:"network,omitempty"`
-	Unit                        *CodeableConcept                              `json:"unit,omitempty"`
-	Term                        *CodeableConcept                              `json:"term,omitempty"`
-	Financial                   []ExplanationOfBenefitBenefitBalanceFinancial `json:"financial,omitempty"`
-}
 
 func (r ExplanationOfBenefitBenefitBalance) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitBenefitBalance) marshalJSON() jsonExplanationOfBenefitBenefitBalance {
-	m := jsonExplanationOfBenefitBenefitBalance{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Category = r.Category
-	if r.Excluded != nil && r.Excluded.Value != nil {
-		m.Excluded = r.Excluded
-	}
-	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
-		m.ExcludedPrimitiveElement = &primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
-	}
-	if r.Name != nil && r.Name.Value != nil {
-		m.Name = r.Name
-	}
-	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
-		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-	}
-	if r.Description != nil && r.Description.Value != nil {
-		m.Description = r.Description
-	}
-	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
-		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
-	}
-	m.Network = r.Network
-	m.Unit = r.Unit
-	m.Term = r.Term
-	m.Financial = r.Financial
-	return m
-}
-func (r *ExplanationOfBenefitBenefitBalance) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitBenefitBalance
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ExplanationOfBenefitBenefitBalance) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"category\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Category.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Excluded != nil && r.Excluded.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"excluded\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Excluded)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
+		p := primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_excluded\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && r.Name.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && r.Description.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"description\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Description)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
+		p := primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_description\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Network != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"network\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Network.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Unit != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unit\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Unit.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Term != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"term\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Term.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Financial) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"financial\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Financial {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ExplanationOfBenefitBenefitBalance) unmarshalJSON(m jsonExplanationOfBenefitBenefitBalance) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Category = m.Category
-	r.Excluded = m.Excluded
-	if m.ExcludedPrimitiveElement != nil {
-		if r.Excluded == nil {
-			r.Excluded = &Boolean{}
-		}
-		r.Excluded.Id = m.ExcludedPrimitiveElement.Id
-		r.Excluded.Extension = m.ExcludedPrimitiveElement.Extension
+func (r *ExplanationOfBenefitBenefitBalance) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Name = m.Name
-	if m.NamePrimitiveElement != nil {
-		if r.Name == nil {
-			r.Name = &String{}
-		}
-		r.Name.Id = m.NamePrimitiveElement.Id
-		r.Name.Extension = m.NamePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitBenefitBalance element", t)
 	}
-	r.Description = m.Description
-	if m.DescriptionPrimitiveElement != nil {
-		if r.Description == nil {
-			r.Description = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Description.Id = m.DescriptionPrimitiveElement.Id
-		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitBenefitBalance element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = v
+		case "excluded":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Excluded == nil {
+				r.Excluded = &Boolean{}
+			}
+			r.Excluded.Value = v.Value
+		case "_excluded":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Excluded == nil {
+				r.Excluded = &Boolean{}
+			}
+			r.Excluded.Id = v.Id
+			r.Excluded.Extension = v.Extension
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "network":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Network = &v
+		case "unit":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Unit = &v
+		case "term":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Term = &v
+		case "financial":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+			for d.More() {
+				var v ExplanationOfBenefitBenefitBalanceFinancial
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Financial = append(r.Financial, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitBenefitBalance element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitBenefitBalance", f)
+		}
 	}
-	r.Network = m.Network
-	r.Unit = m.Unit
-	r.Term = m.Term
-	r.Financial = m.Financial
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitBenefitBalance element", t)
+	}
 	return nil
 }
 func (r ExplanationOfBenefitBenefitBalance) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -7087,154 +19079,691 @@ type isExplanationOfBenefitBenefitBalanceFinancialUsed interface {
 
 func (r UnsignedInt) isExplanationOfBenefitBenefitBalanceFinancialUsed() {}
 func (r Money) isExplanationOfBenefitBenefitBalanceFinancialUsed()       {}
-
-type jsonExplanationOfBenefitBenefitBalanceFinancial struct {
-	Id                                 *string           `json:"id,omitempty"`
-	Extension                          []Extension       `json:"extension,omitempty"`
-	ModifierExtension                  []Extension       `json:"modifierExtension,omitempty"`
-	Type                               CodeableConcept   `json:"type,omitempty"`
-	AllowedUnsignedInt                 *UnsignedInt      `json:"allowedUnsignedInt,omitempty"`
-	AllowedUnsignedIntPrimitiveElement *primitiveElement `json:"_allowedUnsignedInt,omitempty"`
-	AllowedString                      *String           `json:"allowedString,omitempty"`
-	AllowedStringPrimitiveElement      *primitiveElement `json:"_allowedString,omitempty"`
-	AllowedMoney                       *Money            `json:"allowedMoney,omitempty"`
-	UsedUnsignedInt                    *UnsignedInt      `json:"usedUnsignedInt,omitempty"`
-	UsedUnsignedIntPrimitiveElement    *primitiveElement `json:"_usedUnsignedInt,omitempty"`
-	UsedMoney                          *Money            `json:"usedMoney,omitempty"`
-}
-
 func (r ExplanationOfBenefitBenefitBalanceFinancial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) marshalJSON() jsonExplanationOfBenefitBenefitBalanceFinancial {
-	m := jsonExplanationOfBenefitBenefitBalanceFinancial{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+func (r ExplanationOfBenefitBenefitBalanceFinancial) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
 	switch v := r.Allowed.(type) {
 	case UnsignedInt:
 		if v.Value != nil {
-			m.AllowedUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.AllowedUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.AllowedString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.AllowedString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Money:
-		m.AllowedMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"allowedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.AllowedMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"allowedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Used.(type) {
 	case UnsignedInt:
 		if v.Value != nil {
-			m.UsedUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.UsedUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Money:
-		m.UsedMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"usedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.UsedMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"usedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	return m
-}
-func (r *ExplanationOfBenefitBenefitBalanceFinancial) UnmarshalJSON(b []byte) error {
-	var m jsonExplanationOfBenefitBenefitBalanceFinancial
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *ExplanationOfBenefitBenefitBalanceFinancial) unmarshalJSON(m jsonExplanationOfBenefitBenefitBalanceFinancial) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	if m.AllowedUnsignedInt != nil || m.AllowedUnsignedIntPrimitiveElement != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
+func (r *ExplanationOfBenefitBenefitBalanceFinancial) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.AllowedUnsignedInt
-		if m.AllowedUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ExplanationOfBenefitBenefitBalanceFinancial element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.AllowedUnsignedIntPrimitiveElement.Id
-			v.Extension = m.AllowedUnsignedIntPrimitiveElement.Extension
-		}
-		r.Allowed = v
-	}
-	if m.AllowedString != nil || m.AllowedStringPrimitiveElement != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
-		}
-		v := m.AllowedString
-		if m.AllowedStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.AllowedStringPrimitiveElement.Id
-			v.Extension = m.AllowedStringPrimitiveElement.Extension
-		}
-		r.Allowed = v
-	}
-	if m.AllowedMoney != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
-		}
-		v := m.AllowedMoney
-		r.Allowed = v
-	}
-	if m.UsedUnsignedInt != nil || m.UsedUnsignedIntPrimitiveElement != nil {
-		if r.Used != nil {
-			return fmt.Errorf("multiple values for field \"Used\"")
-		}
-		v := m.UsedUnsignedInt
-		if m.UsedUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
 			}
-			v.Id = m.UsedUnsignedIntPrimitiveElement.Id
-			v.Extension = m.UsedUnsignedIntPrimitiveElement.Extension
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "allowedUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = UnsignedInt{
+					Extension: r.Allowed.(UnsignedInt).Extension,
+					Id:        r.Allowed.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Allowed = v
+			}
+		case "_allowedUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Allowed.(UnsignedInt).Value,
+				}
+			} else {
+				r.Allowed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "allowedString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = String{
+					Extension: r.Allowed.(String).Extension,
+					Id:        r.Allowed.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Allowed = v
+			}
+		case "_allowedString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Allowed.(String).Value,
+				}
+			} else {
+				r.Allowed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "allowedMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Allowed = v
+		case "usedUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = UnsignedInt{
+					Extension: r.Used.(UnsignedInt).Extension,
+					Id:        r.Used.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Used = v
+			}
+		case "_usedUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Used.(UnsignedInt).Value,
+				}
+			} else {
+				r.Used = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "usedMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Used = v
+		default:
+			return fmt.Errorf("invalid field: %s in ExplanationOfBenefitBenefitBalanceFinancial", f)
 		}
-		r.Used = v
 	}
-	if m.UsedMoney != nil {
-		if r.Used != nil {
-			return fmt.Errorf("multiple values for field \"Used\"")
-		}
-		v := m.UsedMoney
-		r.Used = v
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ExplanationOfBenefitBenefitBalanceFinancial element", t)
 	}
 	return nil
 }

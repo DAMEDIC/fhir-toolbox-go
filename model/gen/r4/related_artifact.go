@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for RelatedArtifact Type: Related artifacts such as additional documentation, justification, or bibliographic references.
@@ -29,125 +31,541 @@ type RelatedArtifact struct {
 	// The related resource, such as a library, value set, profile, or other knowledge resource.
 	Resource *Canonical
 }
-type jsonRelatedArtifact struct {
-	Id                       *string           `json:"id,omitempty"`
-	Extension                []Extension       `json:"extension,omitempty"`
-	Type                     Code              `json:"type,omitempty"`
-	TypePrimitiveElement     *primitiveElement `json:"_type,omitempty"`
-	Label                    *String           `json:"label,omitempty"`
-	LabelPrimitiveElement    *primitiveElement `json:"_label,omitempty"`
-	Display                  *String           `json:"display,omitempty"`
-	DisplayPrimitiveElement  *primitiveElement `json:"_display,omitempty"`
-	Citation                 *Markdown         `json:"citation,omitempty"`
-	CitationPrimitiveElement *primitiveElement `json:"_citation,omitempty"`
-	Url                      *Url              `json:"url,omitempty"`
-	UrlPrimitiveElement      *primitiveElement `json:"_url,omitempty"`
-	Document                 *Attachment       `json:"document,omitempty"`
-	Resource                 *Canonical        `json:"resource,omitempty"`
-	ResourcePrimitiveElement *primitiveElement `json:"_resource,omitempty"`
-}
 
 func (r RelatedArtifact) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r RelatedArtifact) marshalJSON() jsonRelatedArtifact {
-	m := jsonRelatedArtifact{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Type.Value != nil {
-		m.Type = r.Type
-	}
-	if r.Type.Id != nil || r.Type.Extension != nil {
-		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
-	}
-	if r.Label != nil && r.Label.Value != nil {
-		m.Label = r.Label
-	}
-	if r.Label != nil && (r.Label.Id != nil || r.Label.Extension != nil) {
-		m.LabelPrimitiveElement = &primitiveElement{Id: r.Label.Id, Extension: r.Label.Extension}
-	}
-	if r.Display != nil && r.Display.Value != nil {
-		m.Display = r.Display
-	}
-	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
-		m.DisplayPrimitiveElement = &primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
-	}
-	if r.Citation != nil && r.Citation.Value != nil {
-		m.Citation = r.Citation
-	}
-	if r.Citation != nil && (r.Citation.Id != nil || r.Citation.Extension != nil) {
-		m.CitationPrimitiveElement = &primitiveElement{Id: r.Citation.Id, Extension: r.Citation.Extension}
-	}
-	if r.Url != nil && r.Url.Value != nil {
-		m.Url = r.Url
-	}
-	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
-		m.UrlPrimitiveElement = &primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
-	}
-	m.Document = r.Document
-	if r.Resource != nil && r.Resource.Value != nil {
-		m.Resource = r.Resource
-	}
-	if r.Resource != nil && (r.Resource.Id != nil || r.Resource.Extension != nil) {
-		m.ResourcePrimitiveElement = &primitiveElement{Id: r.Resource.Id, Extension: r.Resource.Extension}
-	}
-	return m
-}
-func (r *RelatedArtifact) UnmarshalJSON(b []byte) error {
-	var m jsonRelatedArtifact
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r RelatedArtifact) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Type)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type.Id != nil || r.Type.Extension != nil {
+		p := primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_type\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Label != nil && r.Label.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"label\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Label)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Label != nil && (r.Label.Id != nil || r.Label.Extension != nil) {
+		p := primitiveElement{Id: r.Label.Id, Extension: r.Label.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_label\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Display != nil && r.Display.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"display\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Display)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Display != nil && (r.Display.Id != nil || r.Display.Extension != nil) {
+		p := primitiveElement{Id: r.Display.Id, Extension: r.Display.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_display\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Citation != nil && r.Citation.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"citation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Citation)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Citation != nil && (r.Citation.Id != nil || r.Citation.Extension != nil) {
+		p := primitiveElement{Id: r.Citation.Id, Extension: r.Citation.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_citation\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Url != nil && r.Url.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"url\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Url)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Url != nil && (r.Url.Id != nil || r.Url.Extension != nil) {
+		p := primitiveElement{Id: r.Url.Id, Extension: r.Url.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_url\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Document != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"document\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Document.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Resource != nil && r.Resource.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"resource\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Resource)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Resource != nil && (r.Resource.Id != nil || r.Resource.Extension != nil) {
+		p := primitiveElement{Id: r.Resource.Id, Extension: r.Resource.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_resource\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *RelatedArtifact) unmarshalJSON(m jsonRelatedArtifact) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Type = m.Type
-	if m.TypePrimitiveElement != nil {
-		r.Type.Id = m.TypePrimitiveElement.Id
-		r.Type.Extension = m.TypePrimitiveElement.Extension
+func (r *RelatedArtifact) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Label = m.Label
-	if m.LabelPrimitiveElement != nil {
-		if r.Label == nil {
-			r.Label = &String{}
-		}
-		r.Label.Id = m.LabelPrimitiveElement.Id
-		r.Label.Extension = m.LabelPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in RelatedArtifact element", t)
 	}
-	r.Display = m.Display
-	if m.DisplayPrimitiveElement != nil {
-		if r.Display == nil {
-			r.Display = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Display.Id = m.DisplayPrimitiveElement.Id
-		r.Display.Extension = m.DisplayPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in RelatedArtifact element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in RelatedArtifact element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in RelatedArtifact element", t)
+			}
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "label":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Label == nil {
+				r.Label = &String{}
+			}
+			r.Label.Value = v.Value
+		case "_label":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Label == nil {
+				r.Label = &String{}
+			}
+			r.Label.Id = v.Id
+			r.Label.Extension = v.Extension
+		case "display":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Display == nil {
+				r.Display = &String{}
+			}
+			r.Display.Value = v.Value
+		case "_display":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Display == nil {
+				r.Display = &String{}
+			}
+			r.Display.Id = v.Id
+			r.Display.Extension = v.Extension
+		case "citation":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Citation == nil {
+				r.Citation = &Markdown{}
+			}
+			r.Citation.Value = v.Value
+		case "_citation":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Citation == nil {
+				r.Citation = &Markdown{}
+			}
+			r.Citation.Id = v.Id
+			r.Citation.Extension = v.Extension
+		case "url":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Url == nil {
+				r.Url = &Url{}
+			}
+			r.Url.Value = v.Value
+		case "_url":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Url == nil {
+				r.Url = &Url{}
+			}
+			r.Url.Id = v.Id
+			r.Url.Extension = v.Extension
+		case "document":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Document = &v
+		case "resource":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Resource == nil {
+				r.Resource = &Canonical{}
+			}
+			r.Resource.Value = v.Value
+		case "_resource":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Resource == nil {
+				r.Resource = &Canonical{}
+			}
+			r.Resource.Id = v.Id
+			r.Resource.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in RelatedArtifact", f)
+		}
 	}
-	r.Citation = m.Citation
-	if m.CitationPrimitiveElement != nil {
-		if r.Citation == nil {
-			r.Citation = &Markdown{}
-		}
-		r.Citation.Id = m.CitationPrimitiveElement.Id
-		r.Citation.Extension = m.CitationPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Url = m.Url
-	if m.UrlPrimitiveElement != nil {
-		if r.Url == nil {
-			r.Url = &Url{}
-		}
-		r.Url.Id = m.UrlPrimitiveElement.Id
-		r.Url.Extension = m.UrlPrimitiveElement.Extension
-	}
-	r.Document = m.Document
-	r.Resource = m.Resource
-	if m.ResourcePrimitiveElement != nil {
-		if r.Resource == nil {
-			r.Resource = &Canonical{}
-		}
-		r.Resource.Id = m.ResourcePrimitiveElement.Id
-		r.Resource.Extension = m.ResourcePrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in RelatedArtifact element", t)
 	}
 	return nil
 }

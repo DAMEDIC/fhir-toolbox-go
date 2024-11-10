@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Identifier Type: An identifier - identifies some entity uniquely and unambiguously. Typically this is used for business identifiers.
@@ -27,87 +29,407 @@ type Identifier struct {
 	// Organization that issued/manages the identifier.
 	Assigner *Reference
 }
-type jsonIdentifier struct {
-	Id                     *string           `json:"id,omitempty"`
-	Extension              []Extension       `json:"extension,omitempty"`
-	Use                    *Code             `json:"use,omitempty"`
-	UsePrimitiveElement    *primitiveElement `json:"_use,omitempty"`
-	Type                   *CodeableConcept  `json:"type,omitempty"`
-	System                 *Uri              `json:"system,omitempty"`
-	SystemPrimitiveElement *primitiveElement `json:"_system,omitempty"`
-	Value                  *String           `json:"value,omitempty"`
-	ValuePrimitiveElement  *primitiveElement `json:"_value,omitempty"`
-	Period                 *Period           `json:"period,omitempty"`
-	Assigner               *Reference        `json:"assigner,omitempty"`
-}
 
 func (r Identifier) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Identifier) marshalJSON() jsonIdentifier {
-	m := jsonIdentifier{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Use != nil && r.Use.Value != nil {
-		m.Use = r.Use
-	}
-	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
-		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
-	}
-	m.Type = r.Type
-	if r.System != nil && r.System.Value != nil {
-		m.System = r.System
-	}
-	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
-		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
-	}
-	if r.Value != nil && r.Value.Value != nil {
-		m.Value = r.Value
-	}
-	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
-		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
-	}
-	m.Period = r.Period
-	m.Assigner = r.Assigner
-	return m
-}
-func (r *Identifier) UnmarshalJSON(b []byte) error {
-	var m jsonIdentifier
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Identifier) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Use != nil && r.Use.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"use\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Use)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
+		p := primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_use\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.System != nil && r.System.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"system\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.System)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
+		p := primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_system\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && r.Value.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"value\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Value)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
+		p := primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_value\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Period != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Period.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Assigner != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"assigner\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Assigner.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *Identifier) unmarshalJSON(m jsonIdentifier) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Use = m.Use
-	if m.UsePrimitiveElement != nil {
-		if r.Use == nil {
-			r.Use = &Code{}
-		}
-		r.Use.Id = m.UsePrimitiveElement.Id
-		r.Use.Extension = m.UsePrimitiveElement.Extension
+func (r *Identifier) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Type = m.Type
-	r.System = m.System
-	if m.SystemPrimitiveElement != nil {
-		if r.System == nil {
-			r.System = &Uri{}
-		}
-		r.System.Id = m.SystemPrimitiveElement.Id
-		r.System.Extension = m.SystemPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Identifier element", t)
 	}
-	r.Value = m.Value
-	if m.ValuePrimitiveElement != nil {
-		if r.Value == nil {
-			r.Value = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Value.Id = m.ValuePrimitiveElement.Id
-		r.Value.Extension = m.ValuePrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Identifier element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Identifier element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Identifier element", t)
+			}
+		case "use":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Value = v.Value
+		case "_use":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Id = v.Id
+			r.Use.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "system":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Value = v.Value
+		case "_system":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Id = v.Id
+			r.System.Extension = v.Extension
+		case "value":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &String{}
+			}
+			r.Value.Value = v.Value
+		case "_value":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &String{}
+			}
+			r.Value.Id = v.Id
+			r.Value.Extension = v.Extension
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		case "assigner":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Assigner = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Identifier", f)
+		}
 	}
-	r.Period = m.Period
-	r.Assigner = m.Assigner
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Identifier element", t)
+	}
 	return nil
 }
 func (r Identifier) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

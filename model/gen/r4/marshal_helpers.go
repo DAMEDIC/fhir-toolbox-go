@@ -1,17 +1,15 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 	"unicode"
 )
 
-type primitiveElement struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-}
 type ContainedResource struct {
 	model.Resource
 }
@@ -24,19 +22,333 @@ func (r ContainedResource) String() string {
 	return string(buf)
 }
 func (r ContainedResource) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.Resource)
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
+func (r ContainedResource) marshalJSON(w io.Writer) error {
+	switch t := r.Resource.(type) {
+	case Account:
+		return t.marshalJSON(w)
+	case ActivityDefinition:
+		return t.marshalJSON(w)
+	case AdverseEvent:
+		return t.marshalJSON(w)
+	case AllergyIntolerance:
+		return t.marshalJSON(w)
+	case Appointment:
+		return t.marshalJSON(w)
+	case AppointmentResponse:
+		return t.marshalJSON(w)
+	case AuditEvent:
+		return t.marshalJSON(w)
+	case Basic:
+		return t.marshalJSON(w)
+	case Binary:
+		return t.marshalJSON(w)
+	case BiologicallyDerivedProduct:
+		return t.marshalJSON(w)
+	case BodyStructure:
+		return t.marshalJSON(w)
+	case Bundle:
+		return t.marshalJSON(w)
+	case CapabilityStatement:
+		return t.marshalJSON(w)
+	case CarePlan:
+		return t.marshalJSON(w)
+	case CareTeam:
+		return t.marshalJSON(w)
+	case CatalogEntry:
+		return t.marshalJSON(w)
+	case ChargeItem:
+		return t.marshalJSON(w)
+	case ChargeItemDefinition:
+		return t.marshalJSON(w)
+	case Claim:
+		return t.marshalJSON(w)
+	case ClaimResponse:
+		return t.marshalJSON(w)
+	case ClinicalImpression:
+		return t.marshalJSON(w)
+	case CodeSystem:
+		return t.marshalJSON(w)
+	case Communication:
+		return t.marshalJSON(w)
+	case CommunicationRequest:
+		return t.marshalJSON(w)
+	case CompartmentDefinition:
+		return t.marshalJSON(w)
+	case Composition:
+		return t.marshalJSON(w)
+	case ConceptMap:
+		return t.marshalJSON(w)
+	case Condition:
+		return t.marshalJSON(w)
+	case Consent:
+		return t.marshalJSON(w)
+	case Contract:
+		return t.marshalJSON(w)
+	case Coverage:
+		return t.marshalJSON(w)
+	case CoverageEligibilityRequest:
+		return t.marshalJSON(w)
+	case CoverageEligibilityResponse:
+		return t.marshalJSON(w)
+	case DetectedIssue:
+		return t.marshalJSON(w)
+	case Device:
+		return t.marshalJSON(w)
+	case DeviceDefinition:
+		return t.marshalJSON(w)
+	case DeviceMetric:
+		return t.marshalJSON(w)
+	case DeviceRequest:
+		return t.marshalJSON(w)
+	case DeviceUseStatement:
+		return t.marshalJSON(w)
+	case DiagnosticReport:
+		return t.marshalJSON(w)
+	case DocumentManifest:
+		return t.marshalJSON(w)
+	case DocumentReference:
+		return t.marshalJSON(w)
+	case EffectEvidenceSynthesis:
+		return t.marshalJSON(w)
+	case Encounter:
+		return t.marshalJSON(w)
+	case Endpoint:
+		return t.marshalJSON(w)
+	case EnrollmentRequest:
+		return t.marshalJSON(w)
+	case EnrollmentResponse:
+		return t.marshalJSON(w)
+	case EpisodeOfCare:
+		return t.marshalJSON(w)
+	case EventDefinition:
+		return t.marshalJSON(w)
+	case Evidence:
+		return t.marshalJSON(w)
+	case EvidenceVariable:
+		return t.marshalJSON(w)
+	case ExampleScenario:
+		return t.marshalJSON(w)
+	case ExplanationOfBenefit:
+		return t.marshalJSON(w)
+	case FamilyMemberHistory:
+		return t.marshalJSON(w)
+	case Flag:
+		return t.marshalJSON(w)
+	case Goal:
+		return t.marshalJSON(w)
+	case GraphDefinition:
+		return t.marshalJSON(w)
+	case Group:
+		return t.marshalJSON(w)
+	case GuidanceResponse:
+		return t.marshalJSON(w)
+	case HealthcareService:
+		return t.marshalJSON(w)
+	case ImagingStudy:
+		return t.marshalJSON(w)
+	case Immunization:
+		return t.marshalJSON(w)
+	case ImmunizationEvaluation:
+		return t.marshalJSON(w)
+	case ImmunizationRecommendation:
+		return t.marshalJSON(w)
+	case ImplementationGuide:
+		return t.marshalJSON(w)
+	case InsurancePlan:
+		return t.marshalJSON(w)
+	case Invoice:
+		return t.marshalJSON(w)
+	case Library:
+		return t.marshalJSON(w)
+	case Linkage:
+		return t.marshalJSON(w)
+	case List:
+		return t.marshalJSON(w)
+	case Location:
+		return t.marshalJSON(w)
+	case Measure:
+		return t.marshalJSON(w)
+	case MeasureReport:
+		return t.marshalJSON(w)
+	case Media:
+		return t.marshalJSON(w)
+	case Medication:
+		return t.marshalJSON(w)
+	case MedicationAdministration:
+		return t.marshalJSON(w)
+	case MedicationDispense:
+		return t.marshalJSON(w)
+	case MedicationKnowledge:
+		return t.marshalJSON(w)
+	case MedicationRequest:
+		return t.marshalJSON(w)
+	case MedicationStatement:
+		return t.marshalJSON(w)
+	case MedicinalProduct:
+		return t.marshalJSON(w)
+	case MedicinalProductAuthorization:
+		return t.marshalJSON(w)
+	case MedicinalProductContraindication:
+		return t.marshalJSON(w)
+	case MedicinalProductIndication:
+		return t.marshalJSON(w)
+	case MedicinalProductIngredient:
+		return t.marshalJSON(w)
+	case MedicinalProductInteraction:
+		return t.marshalJSON(w)
+	case MedicinalProductManufactured:
+		return t.marshalJSON(w)
+	case MedicinalProductPackaged:
+		return t.marshalJSON(w)
+	case MedicinalProductPharmaceutical:
+		return t.marshalJSON(w)
+	case MedicinalProductUndesirableEffect:
+		return t.marshalJSON(w)
+	case MessageDefinition:
+		return t.marshalJSON(w)
+	case MessageHeader:
+		return t.marshalJSON(w)
+	case MolecularSequence:
+		return t.marshalJSON(w)
+	case NamingSystem:
+		return t.marshalJSON(w)
+	case NutritionOrder:
+		return t.marshalJSON(w)
+	case Observation:
+		return t.marshalJSON(w)
+	case ObservationDefinition:
+		return t.marshalJSON(w)
+	case OperationDefinition:
+		return t.marshalJSON(w)
+	case OperationOutcome:
+		return t.marshalJSON(w)
+	case Organization:
+		return t.marshalJSON(w)
+	case OrganizationAffiliation:
+		return t.marshalJSON(w)
+	case Parameters:
+		return t.marshalJSON(w)
+	case Patient:
+		return t.marshalJSON(w)
+	case PaymentNotice:
+		return t.marshalJSON(w)
+	case PaymentReconciliation:
+		return t.marshalJSON(w)
+	case Person:
+		return t.marshalJSON(w)
+	case PlanDefinition:
+		return t.marshalJSON(w)
+	case Practitioner:
+		return t.marshalJSON(w)
+	case PractitionerRole:
+		return t.marshalJSON(w)
+	case Procedure:
+		return t.marshalJSON(w)
+	case Provenance:
+		return t.marshalJSON(w)
+	case Questionnaire:
+		return t.marshalJSON(w)
+	case QuestionnaireResponse:
+		return t.marshalJSON(w)
+	case RelatedPerson:
+		return t.marshalJSON(w)
+	case RequestGroup:
+		return t.marshalJSON(w)
+	case ResearchDefinition:
+		return t.marshalJSON(w)
+	case ResearchElementDefinition:
+		return t.marshalJSON(w)
+	case ResearchStudy:
+		return t.marshalJSON(w)
+	case ResearchSubject:
+		return t.marshalJSON(w)
+	case RiskAssessment:
+		return t.marshalJSON(w)
+	case RiskEvidenceSynthesis:
+		return t.marshalJSON(w)
+	case Schedule:
+		return t.marshalJSON(w)
+	case SearchParameter:
+		return t.marshalJSON(w)
+	case ServiceRequest:
+		return t.marshalJSON(w)
+	case Slot:
+		return t.marshalJSON(w)
+	case Specimen:
+		return t.marshalJSON(w)
+	case SpecimenDefinition:
+		return t.marshalJSON(w)
+	case StructureDefinition:
+		return t.marshalJSON(w)
+	case StructureMap:
+		return t.marshalJSON(w)
+	case Subscription:
+		return t.marshalJSON(w)
+	case Substance:
+		return t.marshalJSON(w)
+	case SubstanceNucleicAcid:
+		return t.marshalJSON(w)
+	case SubstancePolymer:
+		return t.marshalJSON(w)
+	case SubstanceProtein:
+		return t.marshalJSON(w)
+	case SubstanceReferenceInformation:
+		return t.marshalJSON(w)
+	case SubstanceSourceMaterial:
+		return t.marshalJSON(w)
+	case SubstanceSpecification:
+		return t.marshalJSON(w)
+	case SupplyDelivery:
+		return t.marshalJSON(w)
+	case SupplyRequest:
+		return t.marshalJSON(w)
+	case Task:
+		return t.marshalJSON(w)
+	case TerminologyCapabilities:
+		return t.marshalJSON(w)
+	case TestReport:
+		return t.marshalJSON(w)
+	case TestScript:
+		return t.marshalJSON(w)
+	case ValueSet:
+		return t.marshalJSON(w)
+	case VerificationResult:
+		return t.marshalJSON(w)
+	case VisionPrescription:
+		return t.marshalJSON(w)
+	default:
+		return fmt.Errorf("unknown resource: %v", t)
+	}
+}
+func (r *ContainedResource) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (cr *ContainedResource) unmarshalJSON(d *json.Decoder) error {
+	var rawValue json.RawMessage
+	err := d.Decode(&rawValue)
+	if err != nil {
+		return err
+	}
 	var t struct {
 		ResourceType string `json:"resourceType"`
 	}
-	if json.Unmarshal(b, &t) != nil {
-		return json.Unmarshal(b, &t)
+	err = json.Unmarshal(rawValue, &t)
+	if err != nil {
+		return err
 	}
+	d = json.NewDecoder(bytes.NewReader(rawValue))
 	switch t.ResourceType {
 	case "Account":
 		var r Account
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -44,7 +356,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ActivityDefinition":
 		var r ActivityDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -52,7 +364,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "AdverseEvent":
 		var r AdverseEvent
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -60,7 +372,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "AllergyIntolerance":
 		var r AllergyIntolerance
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -68,7 +380,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Appointment":
 		var r Appointment
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -76,7 +388,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "AppointmentResponse":
 		var r AppointmentResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -84,7 +396,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "AuditEvent":
 		var r AuditEvent
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -92,7 +404,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Basic":
 		var r Basic
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -100,7 +412,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Binary":
 		var r Binary
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -108,7 +420,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "BiologicallyDerivedProduct":
 		var r BiologicallyDerivedProduct
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -116,7 +428,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "BodyStructure":
 		var r BodyStructure
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -124,7 +436,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Bundle":
 		var r Bundle
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -132,7 +444,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CapabilityStatement":
 		var r CapabilityStatement
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -140,7 +452,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CarePlan":
 		var r CarePlan
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -148,7 +460,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CareTeam":
 		var r CareTeam
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -156,7 +468,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CatalogEntry":
 		var r CatalogEntry
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -164,7 +476,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ChargeItem":
 		var r ChargeItem
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -172,7 +484,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ChargeItemDefinition":
 		var r ChargeItemDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -180,7 +492,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Claim":
 		var r Claim
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -188,7 +500,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ClaimResponse":
 		var r ClaimResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -196,7 +508,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ClinicalImpression":
 		var r ClinicalImpression
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -204,7 +516,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CodeSystem":
 		var r CodeSystem
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -212,7 +524,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Communication":
 		var r Communication
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -220,7 +532,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CommunicationRequest":
 		var r CommunicationRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -228,7 +540,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CompartmentDefinition":
 		var r CompartmentDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -236,7 +548,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Composition":
 		var r Composition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -244,7 +556,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ConceptMap":
 		var r ConceptMap
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -252,7 +564,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Condition":
 		var r Condition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -260,7 +572,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Consent":
 		var r Consent
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -268,7 +580,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Contract":
 		var r Contract
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -276,7 +588,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Coverage":
 		var r Coverage
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -284,7 +596,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CoverageEligibilityRequest":
 		var r CoverageEligibilityRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -292,7 +604,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CoverageEligibilityResponse":
 		var r CoverageEligibilityResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -300,7 +612,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DetectedIssue":
 		var r DetectedIssue
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -308,7 +620,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Device":
 		var r Device
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -316,7 +628,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DeviceDefinition":
 		var r DeviceDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -324,7 +636,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DeviceMetric":
 		var r DeviceMetric
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -332,7 +644,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DeviceRequest":
 		var r DeviceRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -340,7 +652,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DeviceUseStatement":
 		var r DeviceUseStatement
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -348,7 +660,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DiagnosticReport":
 		var r DiagnosticReport
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -356,7 +668,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DocumentManifest":
 		var r DocumentManifest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -364,7 +676,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DocumentReference":
 		var r DocumentReference
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -372,7 +684,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EffectEvidenceSynthesis":
 		var r EffectEvidenceSynthesis
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -380,7 +692,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Encounter":
 		var r Encounter
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -388,7 +700,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Endpoint":
 		var r Endpoint
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -396,7 +708,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EnrollmentRequest":
 		var r EnrollmentRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -404,7 +716,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EnrollmentResponse":
 		var r EnrollmentResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -412,7 +724,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EpisodeOfCare":
 		var r EpisodeOfCare
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -420,7 +732,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EventDefinition":
 		var r EventDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -428,7 +740,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Evidence":
 		var r Evidence
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -436,7 +748,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "EvidenceVariable":
 		var r EvidenceVariable
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -444,7 +756,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ExampleScenario":
 		var r ExampleScenario
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -452,7 +764,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ExplanationOfBenefit":
 		var r ExplanationOfBenefit
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -460,7 +772,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "FamilyMemberHistory":
 		var r FamilyMemberHistory
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -468,7 +780,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Flag":
 		var r Flag
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -476,7 +788,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Goal":
 		var r Goal
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -484,7 +796,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "GraphDefinition":
 		var r GraphDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -492,7 +804,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Group":
 		var r Group
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -500,7 +812,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "GuidanceResponse":
 		var r GuidanceResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -508,7 +820,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "HealthcareService":
 		var r HealthcareService
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -516,7 +828,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ImagingStudy":
 		var r ImagingStudy
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -524,7 +836,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Immunization":
 		var r Immunization
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -532,7 +844,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ImmunizationEvaluation":
 		var r ImmunizationEvaluation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -540,7 +852,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ImmunizationRecommendation":
 		var r ImmunizationRecommendation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -548,7 +860,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ImplementationGuide":
 		var r ImplementationGuide
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -556,7 +868,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "InsurancePlan":
 		var r InsurancePlan
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -564,7 +876,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Invoice":
 		var r Invoice
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -572,7 +884,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Library":
 		var r Library
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -580,7 +892,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Linkage":
 		var r Linkage
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -588,7 +900,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "List":
 		var r List
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -596,7 +908,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Location":
 		var r Location
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -604,7 +916,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Measure":
 		var r Measure
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -612,7 +924,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MeasureReport":
 		var r MeasureReport
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -620,7 +932,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Media":
 		var r Media
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -628,7 +940,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Medication":
 		var r Medication
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -636,7 +948,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicationAdministration":
 		var r MedicationAdministration
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -644,7 +956,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicationDispense":
 		var r MedicationDispense
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -652,7 +964,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicationKnowledge":
 		var r MedicationKnowledge
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -660,7 +972,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicationRequest":
 		var r MedicationRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -668,7 +980,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicationStatement":
 		var r MedicationStatement
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -676,7 +988,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProduct":
 		var r MedicinalProduct
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -684,7 +996,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductAuthorization":
 		var r MedicinalProductAuthorization
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -692,7 +1004,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductContraindication":
 		var r MedicinalProductContraindication
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -700,7 +1012,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductIndication":
 		var r MedicinalProductIndication
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -708,7 +1020,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductIngredient":
 		var r MedicinalProductIngredient
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -716,7 +1028,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductInteraction":
 		var r MedicinalProductInteraction
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -724,7 +1036,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductManufactured":
 		var r MedicinalProductManufactured
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -732,7 +1044,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductPackaged":
 		var r MedicinalProductPackaged
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -740,7 +1052,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductPharmaceutical":
 		var r MedicinalProductPharmaceutical
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -748,7 +1060,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MedicinalProductUndesirableEffect":
 		var r MedicinalProductUndesirableEffect
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -756,7 +1068,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MessageDefinition":
 		var r MessageDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -764,7 +1076,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MessageHeader":
 		var r MessageHeader
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -772,7 +1084,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MolecularSequence":
 		var r MolecularSequence
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -780,7 +1092,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "NamingSystem":
 		var r NamingSystem
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -788,7 +1100,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "NutritionOrder":
 		var r NutritionOrder
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -796,7 +1108,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Observation":
 		var r Observation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -804,7 +1116,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ObservationDefinition":
 		var r ObservationDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -812,7 +1124,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "OperationDefinition":
 		var r OperationDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -820,7 +1132,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "OperationOutcome":
 		var r OperationOutcome
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -828,7 +1140,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Organization":
 		var r Organization
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -836,7 +1148,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "OrganizationAffiliation":
 		var r OrganizationAffiliation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -844,7 +1156,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Parameters":
 		var r Parameters
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -852,7 +1164,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Patient":
 		var r Patient
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -860,7 +1172,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "PaymentNotice":
 		var r PaymentNotice
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -868,7 +1180,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "PaymentReconciliation":
 		var r PaymentReconciliation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -876,7 +1188,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Person":
 		var r Person
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -884,7 +1196,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "PlanDefinition":
 		var r PlanDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -892,7 +1204,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Practitioner":
 		var r Practitioner
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -900,7 +1212,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "PractitionerRole":
 		var r PractitionerRole
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -908,7 +1220,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Procedure":
 		var r Procedure
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -916,7 +1228,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Provenance":
 		var r Provenance
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -924,7 +1236,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Questionnaire":
 		var r Questionnaire
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -932,7 +1244,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "QuestionnaireResponse":
 		var r QuestionnaireResponse
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -940,7 +1252,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RelatedPerson":
 		var r RelatedPerson
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -948,7 +1260,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RequestGroup":
 		var r RequestGroup
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -956,7 +1268,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ResearchDefinition":
 		var r ResearchDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -964,7 +1276,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ResearchElementDefinition":
 		var r ResearchElementDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -972,7 +1284,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ResearchStudy":
 		var r ResearchStudy
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -980,7 +1292,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ResearchSubject":
 		var r ResearchSubject
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -988,7 +1300,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RiskAssessment":
 		var r RiskAssessment
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -996,7 +1308,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RiskEvidenceSynthesis":
 		var r RiskEvidenceSynthesis
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1004,7 +1316,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Schedule":
 		var r Schedule
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1012,7 +1324,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SearchParameter":
 		var r SearchParameter
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1020,7 +1332,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ServiceRequest":
 		var r ServiceRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1028,7 +1340,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Slot":
 		var r Slot
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1036,7 +1348,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Specimen":
 		var r Specimen
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1044,7 +1356,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SpecimenDefinition":
 		var r SpecimenDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1052,7 +1364,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "StructureDefinition":
 		var r StructureDefinition
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1060,7 +1372,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "StructureMap":
 		var r StructureMap
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1068,7 +1380,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Subscription":
 		var r Subscription
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1076,7 +1388,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Substance":
 		var r Substance
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1084,7 +1396,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstanceNucleicAcid":
 		var r SubstanceNucleicAcid
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1092,7 +1404,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstancePolymer":
 		var r SubstancePolymer
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1100,7 +1412,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstanceProtein":
 		var r SubstanceProtein
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1108,7 +1420,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstanceReferenceInformation":
 		var r SubstanceReferenceInformation
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1116,7 +1428,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstanceSourceMaterial":
 		var r SubstanceSourceMaterial
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1124,7 +1436,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SubstanceSpecification":
 		var r SubstanceSpecification
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1132,7 +1444,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SupplyDelivery":
 		var r SupplyDelivery
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1140,7 +1452,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SupplyRequest":
 		var r SupplyRequest
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1148,7 +1460,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "Task":
 		var r Task
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1156,7 +1468,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TerminologyCapabilities":
 		var r TerminologyCapabilities
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1164,7 +1476,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TestReport":
 		var r TestReport
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1172,7 +1484,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TestScript":
 		var r TestScript
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1180,7 +1492,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ValueSet":
 		var r ValueSet
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1188,7 +1500,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "VerificationResult":
 		var r VerificationResult
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -1196,7 +1508,7 @@ func (cr *ContainedResource) UnmarshalJSON(b []byte) error {
 		return nil
 	case "VisionPrescription":
 		var r VisionPrescription
-		err := json.Unmarshal(b, &r)
+		err := r.unmarshalJSON(d)
 		if err != nil {
 			return err
 		}
@@ -2419,4 +2731,145 @@ func (cr *ContainedResource) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 	default:
 		return fmt.Errorf("unknown resource type: %s", start.Name.Local)
 	}
+}
+
+type primitiveElement struct {
+	Id        *string
+	Extension []Extension
+}
+
+func (r primitiveElement) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *primitiveElement) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t == nil {
+		return nil
+	} else if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in primitive element element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in primitive element element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in primitive element element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in primitive element element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %v in primitive element, expected \"id\" or \"extension\" (at index %v)", t, d.InputOffset()-1)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in primitive element element", t)
+	}
+	return nil
 }

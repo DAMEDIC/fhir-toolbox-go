@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // An authorization for the provision of glasses and/or contact lenses to a patient.
@@ -57,150 +59,835 @@ func (r VisionPrescription) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonVisionPrescription struct {
-	ResourceType                  string                                `json:"resourceType"`
-	Id                            *Id                                   `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement                     `json:"_id,omitempty"`
-	Meta                          *Meta                                 `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                                  `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement                     `json:"_implicitRules,omitempty"`
-	Language                      *Code                                 `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement                     `json:"_language,omitempty"`
-	Text                          *Narrative                            `json:"text,omitempty"`
-	Contained                     []ContainedResource                   `json:"contained,omitempty"`
-	Extension                     []Extension                           `json:"extension,omitempty"`
-	ModifierExtension             []Extension                           `json:"modifierExtension,omitempty"`
-	Identifier                    []Identifier                          `json:"identifier,omitempty"`
-	Status                        Code                                  `json:"status,omitempty"`
-	StatusPrimitiveElement        *primitiveElement                     `json:"_status,omitempty"`
-	Created                       DateTime                              `json:"created,omitempty"`
-	CreatedPrimitiveElement       *primitiveElement                     `json:"_created,omitempty"`
-	Patient                       Reference                             `json:"patient,omitempty"`
-	Encounter                     *Reference                            `json:"encounter,omitempty"`
-	DateWritten                   DateTime                              `json:"dateWritten,omitempty"`
-	DateWrittenPrimitiveElement   *primitiveElement                     `json:"_dateWritten,omitempty"`
-	Prescriber                    Reference                             `json:"prescriber,omitempty"`
-	LensSpecification             []VisionPrescriptionLensSpecification `json:"lensSpecification,omitempty"`
-}
-
 func (r VisionPrescription) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r VisionPrescription) marshalJSON() jsonVisionPrescription {
-	m := jsonVisionPrescription{}
-	m.ResourceType = "VisionPrescription"
-	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
-	}
-	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
-	}
-	m.Meta = r.Meta
-	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
-	}
-	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
-	}
-	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
-	}
-	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
-	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
-	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
-	if r.Status.Value != nil {
-		m.Status = r.Status
-	}
-	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
-	}
-	if r.Created.Value != nil {
-		m.Created = r.Created
-	}
-	if r.Created.Id != nil || r.Created.Extension != nil {
-		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
-	}
-	m.Patient = r.Patient
-	m.Encounter = r.Encounter
-	if r.DateWritten.Value != nil {
-		m.DateWritten = r.DateWritten
-	}
-	if r.DateWritten.Id != nil || r.DateWritten.Extension != nil {
-		m.DateWrittenPrimitiveElement = &primitiveElement{Id: r.DateWritten.Id, Extension: r.DateWritten.Extension}
-	}
-	m.Prescriber = r.Prescriber
-	m.LensSpecification = r.LensSpecification
-	return m
-}
-func (r *VisionPrescription) UnmarshalJSON(b []byte) error {
-	var m jsonVisionPrescription
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VisionPrescription) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	_, err = w.Write([]byte("\"resourceType\":\"VisionPrescription\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
+	if r.Id != nil && r.Id.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && r.Language.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Status.Id != nil || r.Status.Extension != nil {
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"created\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Created)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Created.Id != nil || r.Created.Extension != nil {
+		p := primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_created\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"patient\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Patient.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Encounter != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"encounter\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Encounter.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"dateWritten\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.DateWritten)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.DateWritten.Id != nil || r.DateWritten.Extension != nil {
+		p := primitiveElement{Id: r.DateWritten.Id, Extension: r.DateWritten.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_dateWritten\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"prescriber\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Prescriber.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.LensSpecification) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"lensSpecification\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.LensSpecification {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *VisionPrescription) unmarshalJSON(m jsonVisionPrescription) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
+func (r *VisionPrescription) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *VisionPrescription) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VisionPrescription element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
-	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VisionPrescription element", t)
 		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
-	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescription element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescription element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescription element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescription element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescription element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescription element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescription element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescription element", t)
+			}
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "created":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Created.Value = v.Value
+		case "_created":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Created.Id = v.Id
+			r.Created.Extension = v.Extension
+		case "patient":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Patient = v
+		case "encounter":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Encounter = &v
+		case "dateWritten":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.DateWritten.Value = v.Value
+		case "_dateWritten":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DateWritten.Id = v.Id
+			r.DateWritten.Extension = v.Extension
+		case "prescriber":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Prescriber = v
+		case "lensSpecification":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescription element", t)
+			}
+			for d.More() {
+				var v VisionPrescriptionLensSpecification
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.LensSpecification = append(r.LensSpecification, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescription element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in VisionPrescription", f)
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VisionPrescription element", t)
 	}
-	r.Created = m.Created
-	if m.CreatedPrimitiveElement != nil {
-		r.Created.Id = m.CreatedPrimitiveElement.Id
-		r.Created.Extension = m.CreatedPrimitiveElement.Extension
-	}
-	r.Patient = m.Patient
-	r.Encounter = m.Encounter
-	r.DateWritten = m.DateWritten
-	if m.DateWrittenPrimitiveElement != nil {
-		r.DateWritten.Id = m.DateWrittenPrimitiveElement.Id
-		r.DateWritten.Extension = m.DateWrittenPrimitiveElement.Extension
-	}
-	r.Prescriber = m.Prescriber
-	r.LensSpecification = m.LensSpecification
 	return nil
 }
 func (r VisionPrescription) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -471,202 +1158,990 @@ type VisionPrescriptionLensSpecification struct {
 	// Notes for special requirements such as coatings and lens materials.
 	Note []Annotation
 }
-type jsonVisionPrescriptionLensSpecification struct {
-	Id                        *string                                    `json:"id,omitempty"`
-	Extension                 []Extension                                `json:"extension,omitempty"`
-	ModifierExtension         []Extension                                `json:"modifierExtension,omitempty"`
-	Product                   CodeableConcept                            `json:"product,omitempty"`
-	Eye                       Code                                       `json:"eye,omitempty"`
-	EyePrimitiveElement       *primitiveElement                          `json:"_eye,omitempty"`
-	Sphere                    *Decimal                                   `json:"sphere,omitempty"`
-	SpherePrimitiveElement    *primitiveElement                          `json:"_sphere,omitempty"`
-	Cylinder                  *Decimal                                   `json:"cylinder,omitempty"`
-	CylinderPrimitiveElement  *primitiveElement                          `json:"_cylinder,omitempty"`
-	Axis                      *Integer                                   `json:"axis,omitempty"`
-	AxisPrimitiveElement      *primitiveElement                          `json:"_axis,omitempty"`
-	Prism                     []VisionPrescriptionLensSpecificationPrism `json:"prism,omitempty"`
-	Add                       *Decimal                                   `json:"add,omitempty"`
-	AddPrimitiveElement       *primitiveElement                          `json:"_add,omitempty"`
-	Power                     *Decimal                                   `json:"power,omitempty"`
-	PowerPrimitiveElement     *primitiveElement                          `json:"_power,omitempty"`
-	BackCurve                 *Decimal                                   `json:"backCurve,omitempty"`
-	BackCurvePrimitiveElement *primitiveElement                          `json:"_backCurve,omitempty"`
-	Diameter                  *Decimal                                   `json:"diameter,omitempty"`
-	DiameterPrimitiveElement  *primitiveElement                          `json:"_diameter,omitempty"`
-	Duration                  *Quantity                                  `json:"duration,omitempty"`
-	Color                     *String                                    `json:"color,omitempty"`
-	ColorPrimitiveElement     *primitiveElement                          `json:"_color,omitempty"`
-	Brand                     *String                                    `json:"brand,omitempty"`
-	BrandPrimitiveElement     *primitiveElement                          `json:"_brand,omitempty"`
-	Note                      []Annotation                               `json:"note,omitempty"`
-}
 
 func (r VisionPrescriptionLensSpecification) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r VisionPrescriptionLensSpecification) marshalJSON() jsonVisionPrescriptionLensSpecification {
-	m := jsonVisionPrescriptionLensSpecification{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Product = r.Product
-	if r.Eye.Value != nil {
-		m.Eye = r.Eye
-	}
-	if r.Eye.Id != nil || r.Eye.Extension != nil {
-		m.EyePrimitiveElement = &primitiveElement{Id: r.Eye.Id, Extension: r.Eye.Extension}
-	}
-	if r.Sphere != nil && r.Sphere.Value != nil {
-		m.Sphere = r.Sphere
-	}
-	if r.Sphere != nil && (r.Sphere.Id != nil || r.Sphere.Extension != nil) {
-		m.SpherePrimitiveElement = &primitiveElement{Id: r.Sphere.Id, Extension: r.Sphere.Extension}
-	}
-	if r.Cylinder != nil && r.Cylinder.Value != nil {
-		m.Cylinder = r.Cylinder
-	}
-	if r.Cylinder != nil && (r.Cylinder.Id != nil || r.Cylinder.Extension != nil) {
-		m.CylinderPrimitiveElement = &primitiveElement{Id: r.Cylinder.Id, Extension: r.Cylinder.Extension}
-	}
-	if r.Axis != nil && r.Axis.Value != nil {
-		m.Axis = r.Axis
-	}
-	if r.Axis != nil && (r.Axis.Id != nil || r.Axis.Extension != nil) {
-		m.AxisPrimitiveElement = &primitiveElement{Id: r.Axis.Id, Extension: r.Axis.Extension}
-	}
-	m.Prism = r.Prism
-	if r.Add != nil && r.Add.Value != nil {
-		m.Add = r.Add
-	}
-	if r.Add != nil && (r.Add.Id != nil || r.Add.Extension != nil) {
-		m.AddPrimitiveElement = &primitiveElement{Id: r.Add.Id, Extension: r.Add.Extension}
-	}
-	if r.Power != nil && r.Power.Value != nil {
-		m.Power = r.Power
-	}
-	if r.Power != nil && (r.Power.Id != nil || r.Power.Extension != nil) {
-		m.PowerPrimitiveElement = &primitiveElement{Id: r.Power.Id, Extension: r.Power.Extension}
-	}
-	if r.BackCurve != nil && r.BackCurve.Value != nil {
-		m.BackCurve = r.BackCurve
-	}
-	if r.BackCurve != nil && (r.BackCurve.Id != nil || r.BackCurve.Extension != nil) {
-		m.BackCurvePrimitiveElement = &primitiveElement{Id: r.BackCurve.Id, Extension: r.BackCurve.Extension}
-	}
-	if r.Diameter != nil && r.Diameter.Value != nil {
-		m.Diameter = r.Diameter
-	}
-	if r.Diameter != nil && (r.Diameter.Id != nil || r.Diameter.Extension != nil) {
-		m.DiameterPrimitiveElement = &primitiveElement{Id: r.Diameter.Id, Extension: r.Diameter.Extension}
-	}
-	m.Duration = r.Duration
-	if r.Color != nil && r.Color.Value != nil {
-		m.Color = r.Color
-	}
-	if r.Color != nil && (r.Color.Id != nil || r.Color.Extension != nil) {
-		m.ColorPrimitiveElement = &primitiveElement{Id: r.Color.Id, Extension: r.Color.Extension}
-	}
-	if r.Brand != nil && r.Brand.Value != nil {
-		m.Brand = r.Brand
-	}
-	if r.Brand != nil && (r.Brand.Id != nil || r.Brand.Extension != nil) {
-		m.BrandPrimitiveElement = &primitiveElement{Id: r.Brand.Id, Extension: r.Brand.Extension}
-	}
-	m.Note = r.Note
-	return m
-}
-func (r *VisionPrescriptionLensSpecification) UnmarshalJSON(b []byte) error {
-	var m jsonVisionPrescriptionLensSpecification
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VisionPrescriptionLensSpecification) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"product\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Product.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"eye\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Eye)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Eye.Id != nil || r.Eye.Extension != nil {
+		p := primitiveElement{Id: r.Eye.Id, Extension: r.Eye.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_eye\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Sphere != nil && r.Sphere.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sphere\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sphere)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Sphere != nil && (r.Sphere.Id != nil || r.Sphere.Extension != nil) {
+		p := primitiveElement{Id: r.Sphere.Id, Extension: r.Sphere.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sphere\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Cylinder != nil && r.Cylinder.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"cylinder\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Cylinder)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Cylinder != nil && (r.Cylinder.Id != nil || r.Cylinder.Extension != nil) {
+		p := primitiveElement{Id: r.Cylinder.Id, Extension: r.Cylinder.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_cylinder\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Axis != nil && r.Axis.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"axis\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Axis)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Axis != nil && (r.Axis.Id != nil || r.Axis.Extension != nil) {
+		p := primitiveElement{Id: r.Axis.Id, Extension: r.Axis.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_axis\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Prism) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"prism\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Prism {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Add != nil && r.Add.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"add\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Add)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Add != nil && (r.Add.Id != nil || r.Add.Extension != nil) {
+		p := primitiveElement{Id: r.Add.Id, Extension: r.Add.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_add\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Power != nil && r.Power.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"power\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Power)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Power != nil && (r.Power.Id != nil || r.Power.Extension != nil) {
+		p := primitiveElement{Id: r.Power.Id, Extension: r.Power.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_power\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.BackCurve != nil && r.BackCurve.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"backCurve\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.BackCurve)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.BackCurve != nil && (r.BackCurve.Id != nil || r.BackCurve.Extension != nil) {
+		p := primitiveElement{Id: r.BackCurve.Id, Extension: r.BackCurve.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_backCurve\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Diameter != nil && r.Diameter.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"diameter\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Diameter)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Diameter != nil && (r.Diameter.Id != nil || r.Diameter.Extension != nil) {
+		p := primitiveElement{Id: r.Diameter.Id, Extension: r.Diameter.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_diameter\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Duration != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"duration\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Duration.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Color != nil && r.Color.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"color\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Color)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Color != nil && (r.Color.Id != nil || r.Color.Extension != nil) {
+		p := primitiveElement{Id: r.Color.Id, Extension: r.Color.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_color\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Brand != nil && r.Brand.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"brand\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Brand)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Brand != nil && (r.Brand.Id != nil || r.Brand.Extension != nil) {
+		p := primitiveElement{Id: r.Brand.Id, Extension: r.Brand.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_brand\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Note) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"note\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Note {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *VisionPrescriptionLensSpecification) unmarshalJSON(m jsonVisionPrescriptionLensSpecification) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Product = m.Product
-	r.Eye = m.Eye
-	if m.EyePrimitiveElement != nil {
-		r.Eye.Id = m.EyePrimitiveElement.Id
-		r.Eye.Extension = m.EyePrimitiveElement.Extension
+func (r *VisionPrescriptionLensSpecification) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Sphere = m.Sphere
-	if m.SpherePrimitiveElement != nil {
-		if r.Sphere == nil {
-			r.Sphere = &Decimal{}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VisionPrescriptionLensSpecification element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Sphere.Id = m.SpherePrimitiveElement.Id
-		r.Sphere.Extension = m.SpherePrimitiveElement.Extension
-	}
-	r.Cylinder = m.Cylinder
-	if m.CylinderPrimitiveElement != nil {
-		if r.Cylinder == nil {
-			r.Cylinder = &Decimal{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VisionPrescriptionLensSpecification element", t)
 		}
-		r.Cylinder.Id = m.CylinderPrimitiveElement.Id
-		r.Cylinder.Extension = m.CylinderPrimitiveElement.Extension
-	}
-	r.Axis = m.Axis
-	if m.AxisPrimitiveElement != nil {
-		if r.Axis == nil {
-			r.Axis = &Integer{}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecification element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecification element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecification element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecification element", t)
+			}
+		case "product":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Product = v
+		case "eye":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Eye.Value = v.Value
+		case "_eye":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Eye.Id = v.Id
+			r.Eye.Extension = v.Extension
+		case "sphere":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Sphere == nil {
+				r.Sphere = &Decimal{}
+			}
+			r.Sphere.Value = v.Value
+		case "_sphere":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Sphere == nil {
+				r.Sphere = &Decimal{}
+			}
+			r.Sphere.Id = v.Id
+			r.Sphere.Extension = v.Extension
+		case "cylinder":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Cylinder == nil {
+				r.Cylinder = &Decimal{}
+			}
+			r.Cylinder.Value = v.Value
+		case "_cylinder":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Cylinder == nil {
+				r.Cylinder = &Decimal{}
+			}
+			r.Cylinder.Id = v.Id
+			r.Cylinder.Extension = v.Extension
+		case "axis":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Axis == nil {
+				r.Axis = &Integer{}
+			}
+			r.Axis.Value = v.Value
+		case "_axis":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Axis == nil {
+				r.Axis = &Integer{}
+			}
+			r.Axis.Id = v.Id
+			r.Axis.Extension = v.Extension
+		case "prism":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecification element", t)
+			}
+			for d.More() {
+				var v VisionPrescriptionLensSpecificationPrism
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Prism = append(r.Prism, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecification element", t)
+			}
+		case "add":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Add == nil {
+				r.Add = &Decimal{}
+			}
+			r.Add.Value = v.Value
+		case "_add":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Add == nil {
+				r.Add = &Decimal{}
+			}
+			r.Add.Id = v.Id
+			r.Add.Extension = v.Extension
+		case "power":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Power == nil {
+				r.Power = &Decimal{}
+			}
+			r.Power.Value = v.Value
+		case "_power":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Power == nil {
+				r.Power = &Decimal{}
+			}
+			r.Power.Id = v.Id
+			r.Power.Extension = v.Extension
+		case "backCurve":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.BackCurve == nil {
+				r.BackCurve = &Decimal{}
+			}
+			r.BackCurve.Value = v.Value
+		case "_backCurve":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.BackCurve == nil {
+				r.BackCurve = &Decimal{}
+			}
+			r.BackCurve.Id = v.Id
+			r.BackCurve.Extension = v.Extension
+		case "diameter":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Diameter == nil {
+				r.Diameter = &Decimal{}
+			}
+			r.Diameter.Value = v.Value
+		case "_diameter":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Diameter == nil {
+				r.Diameter = &Decimal{}
+			}
+			r.Diameter.Id = v.Id
+			r.Diameter.Extension = v.Extension
+		case "duration":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Duration = &v
+		case "color":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Color == nil {
+				r.Color = &String{}
+			}
+			r.Color.Value = v.Value
+		case "_color":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Color == nil {
+				r.Color = &String{}
+			}
+			r.Color.Id = v.Id
+			r.Color.Extension = v.Extension
+		case "brand":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Brand == nil {
+				r.Brand = &String{}
+			}
+			r.Brand.Value = v.Value
+		case "_brand":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Brand == nil {
+				r.Brand = &String{}
+			}
+			r.Brand.Id = v.Id
+			r.Brand.Extension = v.Extension
+		case "note":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecification element", t)
+			}
+			for d.More() {
+				var v Annotation
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecification element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in VisionPrescriptionLensSpecification", f)
 		}
-		r.Axis.Id = m.AxisPrimitiveElement.Id
-		r.Axis.Extension = m.AxisPrimitiveElement.Extension
 	}
-	r.Prism = m.Prism
-	r.Add = m.Add
-	if m.AddPrimitiveElement != nil {
-		if r.Add == nil {
-			r.Add = &Decimal{}
-		}
-		r.Add.Id = m.AddPrimitiveElement.Id
-		r.Add.Extension = m.AddPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Power = m.Power
-	if m.PowerPrimitiveElement != nil {
-		if r.Power == nil {
-			r.Power = &Decimal{}
-		}
-		r.Power.Id = m.PowerPrimitiveElement.Id
-		r.Power.Extension = m.PowerPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VisionPrescriptionLensSpecification element", t)
 	}
-	r.BackCurve = m.BackCurve
-	if m.BackCurvePrimitiveElement != nil {
-		if r.BackCurve == nil {
-			r.BackCurve = &Decimal{}
-		}
-		r.BackCurve.Id = m.BackCurvePrimitiveElement.Id
-		r.BackCurve.Extension = m.BackCurvePrimitiveElement.Extension
-	}
-	r.Diameter = m.Diameter
-	if m.DiameterPrimitiveElement != nil {
-		if r.Diameter == nil {
-			r.Diameter = &Decimal{}
-		}
-		r.Diameter.Id = m.DiameterPrimitiveElement.Id
-		r.Diameter.Extension = m.DiameterPrimitiveElement.Extension
-	}
-	r.Duration = m.Duration
-	r.Color = m.Color
-	if m.ColorPrimitiveElement != nil {
-		if r.Color == nil {
-			r.Color = &String{}
-		}
-		r.Color.Id = m.ColorPrimitiveElement.Id
-		r.Color.Extension = m.ColorPrimitiveElement.Extension
-	}
-	r.Brand = m.Brand
-	if m.BrandPrimitiveElement != nil {
-		if r.Brand == nil {
-			r.Brand = &String{}
-		}
-		r.Brand.Id = m.BrandPrimitiveElement.Id
-		r.Brand.Extension = m.BrandPrimitiveElement.Extension
-	}
-	r.Note = m.Note
 	return nil
 }
 func (r VisionPrescriptionLensSpecification) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -916,58 +2391,317 @@ type VisionPrescriptionLensSpecificationPrism struct {
 	// The relative base, or reference lens edge, for the prism.
 	Base Code
 }
-type jsonVisionPrescriptionLensSpecificationPrism struct {
-	Id                     *string           `json:"id,omitempty"`
-	Extension              []Extension       `json:"extension,omitempty"`
-	ModifierExtension      []Extension       `json:"modifierExtension,omitempty"`
-	Amount                 Decimal           `json:"amount,omitempty"`
-	AmountPrimitiveElement *primitiveElement `json:"_amount,omitempty"`
-	Base                   Code              `json:"base,omitempty"`
-	BasePrimitiveElement   *primitiveElement `json:"_base,omitempty"`
-}
 
 func (r VisionPrescriptionLensSpecificationPrism) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r VisionPrescriptionLensSpecificationPrism) marshalJSON() jsonVisionPrescriptionLensSpecificationPrism {
-	m := jsonVisionPrescriptionLensSpecificationPrism{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Amount.Value != nil {
-		m.Amount = r.Amount
-	}
-	if r.Amount.Id != nil || r.Amount.Extension != nil {
-		m.AmountPrimitiveElement = &primitiveElement{Id: r.Amount.Id, Extension: r.Amount.Extension}
-	}
-	if r.Base.Value != nil {
-		m.Base = r.Base
-	}
-	if r.Base.Id != nil || r.Base.Extension != nil {
-		m.BasePrimitiveElement = &primitiveElement{Id: r.Base.Id, Extension: r.Base.Extension}
-	}
-	return m
-}
-func (r *VisionPrescriptionLensSpecificationPrism) UnmarshalJSON(b []byte) error {
-	var m jsonVisionPrescriptionLensSpecificationPrism
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VisionPrescriptionLensSpecificationPrism) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *VisionPrescriptionLensSpecificationPrism) unmarshalJSON(m jsonVisionPrescriptionLensSpecificationPrism) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Amount = m.Amount
-	if m.AmountPrimitiveElement != nil {
-		r.Amount.Id = m.AmountPrimitiveElement.Id
-		r.Amount.Extension = m.AmountPrimitiveElement.Extension
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Base = m.Base
-	if m.BasePrimitiveElement != nil {
-		r.Base.Id = m.BasePrimitiveElement.Id
-		r.Base.Extension = m.BasePrimitiveElement.Extension
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Amount)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount.Id != nil || r.Amount.Extension != nil {
+		p := primitiveElement{Id: r.Amount.Id, Extension: r.Amount.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_amount\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"base\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Base)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Base.Id != nil || r.Base.Extension != nil {
+		p := primitiveElement{Id: r.Base.Id, Extension: r.Base.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_base\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *VisionPrescriptionLensSpecificationPrism) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VisionPrescriptionLensSpecificationPrism element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VisionPrescriptionLensSpecificationPrism element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecificationPrism element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecificationPrism element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VisionPrescriptionLensSpecificationPrism element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VisionPrescriptionLensSpecificationPrism element", t)
+			}
+		case "amount":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Amount.Value = v.Value
+		case "_amount":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount.Id = v.Id
+			r.Amount.Extension = v.Extension
+		case "base":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Base.Value = v.Value
+		case "_base":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Base.Id = v.Id
+			r.Base.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in VisionPrescriptionLensSpecificationPrism", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VisionPrescriptionLensSpecificationPrism element", t)
 	}
 	return nil
 }

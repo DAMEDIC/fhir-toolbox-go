@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // A SubstanceProtein is defined as a single unit of a linear amino acid sequence, or a combination of subunits that are either covalently linked or have a defined invariant stoichiometric relationship. This includes all synthetic, recombinant and purified SubstanceProteins of defined sequence, whether the use is therapeutic or prophylactic. This set of elements will be used to describe albumins, coagulation factors, cytokines, growth factors, peptide/SubstanceProtein hormones, enzymes, toxins, toxoids, recombinant vaccines, and immunomodulators.
@@ -49,157 +51,768 @@ func (r SubstanceProtein) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonSubstanceProtein struct {
-	ResourceType                     string                    `json:"resourceType"`
-	Id                               *Id                       `json:"id,omitempty"`
-	IdPrimitiveElement               *primitiveElement         `json:"_id,omitempty"`
-	Meta                             *Meta                     `json:"meta,omitempty"`
-	ImplicitRules                    *Uri                      `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement    *primitiveElement         `json:"_implicitRules,omitempty"`
-	Language                         *Code                     `json:"language,omitempty"`
-	LanguagePrimitiveElement         *primitiveElement         `json:"_language,omitempty"`
-	Text                             *Narrative                `json:"text,omitempty"`
-	Contained                        []ContainedResource       `json:"contained,omitempty"`
-	Extension                        []Extension               `json:"extension,omitempty"`
-	ModifierExtension                []Extension               `json:"modifierExtension,omitempty"`
-	SequenceType                     *CodeableConcept          `json:"sequenceType,omitempty"`
-	NumberOfSubunits                 *Integer                  `json:"numberOfSubunits,omitempty"`
-	NumberOfSubunitsPrimitiveElement *primitiveElement         `json:"_numberOfSubunits,omitempty"`
-	DisulfideLinkage                 []String                  `json:"disulfideLinkage,omitempty"`
-	DisulfideLinkagePrimitiveElement []*primitiveElement       `json:"_disulfideLinkage,omitempty"`
-	Subunit                          []SubstanceProteinSubunit `json:"subunit,omitempty"`
-}
-
 func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstanceProtein) marshalJSON() jsonSubstanceProtein {
-	m := jsonSubstanceProtein{}
-	m.ResourceType = "SubstanceProtein"
+func (r SubstanceProtein) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"SubstanceProtein\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.SequenceType = r.SequenceType
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.SequenceType != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequenceType\":"))
+		if err != nil {
+			return err
+		}
+		err = r.SequenceType.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.NumberOfSubunits != nil && r.NumberOfSubunits.Value != nil {
-		m.NumberOfSubunits = r.NumberOfSubunits
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"numberOfSubunits\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.NumberOfSubunits)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.NumberOfSubunits != nil && (r.NumberOfSubunits.Id != nil || r.NumberOfSubunits.Extension != nil) {
-		m.NumberOfSubunitsPrimitiveElement = &primitiveElement{Id: r.NumberOfSubunits.Id, Extension: r.NumberOfSubunits.Extension}
-	}
-	anyDisulfideLinkageValue := false
-	for _, e := range r.DisulfideLinkage {
-		if e.Value != nil {
-			anyDisulfideLinkageValue = true
-			break
+		p := primitiveElement{Id: r.NumberOfSubunits.Id, Extension: r.NumberOfSubunits.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_numberOfSubunits\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyDisulfideLinkageValue {
-		m.DisulfideLinkage = r.DisulfideLinkage
-	}
-	anyDisulfideLinkageIdOrExtension := false
-	for _, e := range r.DisulfideLinkage {
-		if e.Id != nil || e.Extension != nil {
-			anyDisulfideLinkageIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.DisulfideLinkage {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyDisulfideLinkageIdOrExtension {
-		m.DisulfideLinkagePrimitiveElement = make([]*primitiveElement, 0, len(r.DisulfideLinkage))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"disulfideLinkage\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.DisulfideLinkage)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.DisulfideLinkage {
 			if e.Id != nil || e.Extension != nil {
-				m.DisulfideLinkagePrimitiveElement = append(m.DisulfideLinkagePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.DisulfideLinkagePrimitiveElement = append(m.DisulfideLinkagePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_disulfideLinkage\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.DisulfideLinkage {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Subunit = r.Subunit
-	return m
-}
-func (r *SubstanceProtein) UnmarshalJSON(b []byte) error {
-	var m jsonSubstanceProtein
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Subunit) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subunit\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Subunit {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *SubstanceProtein) unmarshalJSON(m jsonSubstanceProtein) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
-		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
+func (r *SubstanceProtein) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *SubstanceProtein) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
-		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstanceProtein element", t)
 	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
-	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
-	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.SequenceType = m.SequenceType
-	r.NumberOfSubunits = m.NumberOfSubunits
-	if m.NumberOfSubunitsPrimitiveElement != nil {
-		if r.NumberOfSubunits == nil {
-			r.NumberOfSubunits = &Integer{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstanceProtein element", t)
 		}
-		r.NumberOfSubunits.Id = m.NumberOfSubunitsPrimitiveElement.Id
-		r.NumberOfSubunits.Extension = m.NumberOfSubunitsPrimitiveElement.Extension
-	}
-	r.DisulfideLinkage = m.DisulfideLinkage
-	for i, e := range m.DisulfideLinkagePrimitiveElement {
-		if len(r.DisulfideLinkage) <= i {
-			r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "sequenceType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SequenceType = &v
+		case "numberOfSubunits":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfSubunits == nil {
+				r.NumberOfSubunits = &Integer{}
+			}
+			r.NumberOfSubunits.Value = v.Value
+		case "_numberOfSubunits":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfSubunits == nil {
+				r.NumberOfSubunits = &Integer{}
+			}
+			r.NumberOfSubunits.Id = v.Id
+			r.NumberOfSubunits.Extension = v.Extension
+		case "disulfideLinkage":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DisulfideLinkage) <= i {
+					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+				}
+				r.DisulfideLinkage[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "_disulfideLinkage":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DisulfideLinkage) <= i {
+					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+				}
+				r.DisulfideLinkage[i].Id = v.Id
+				r.DisulfideLinkage[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "subunit":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v SubstanceProteinSubunit
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Subunit = append(r.Subunit, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstanceProtein", f)
 		}
-		if e != nil {
-			r.DisulfideLinkage[i].Id = e.Id
-			r.DisulfideLinkage[i].Extension = e.Extension
-		}
 	}
-	r.Subunit = m.Subunit
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstanceProtein element", t)
+	}
 	return nil
 }
 func (r SubstanceProtein) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -414,121 +1027,590 @@ type SubstanceProteinSubunit struct {
 	// The modification at the C-terminal shall be specified.
 	CTerminalModification *String
 }
-type jsonSubstanceProteinSubunit struct {
-	Id                                    *string           `json:"id,omitempty"`
-	Extension                             []Extension       `json:"extension,omitempty"`
-	ModifierExtension                     []Extension       `json:"modifierExtension,omitempty"`
-	Subunit                               *Integer          `json:"subunit,omitempty"`
-	SubunitPrimitiveElement               *primitiveElement `json:"_subunit,omitempty"`
-	Sequence                              *String           `json:"sequence,omitempty"`
-	SequencePrimitiveElement              *primitiveElement `json:"_sequence,omitempty"`
-	Length                                *Integer          `json:"length,omitempty"`
-	LengthPrimitiveElement                *primitiveElement `json:"_length,omitempty"`
-	SequenceAttachment                    *Attachment       `json:"sequenceAttachment,omitempty"`
-	NTerminalModificationId               *Identifier       `json:"nTerminalModificationId,omitempty"`
-	NTerminalModification                 *String           `json:"nTerminalModification,omitempty"`
-	NTerminalModificationPrimitiveElement *primitiveElement `json:"_nTerminalModification,omitempty"`
-	CTerminalModificationId               *Identifier       `json:"cTerminalModificationId,omitempty"`
-	CTerminalModification                 *String           `json:"cTerminalModification,omitempty"`
-	CTerminalModificationPrimitiveElement *primitiveElement `json:"_cTerminalModification,omitempty"`
-}
 
 func (r SubstanceProteinSubunit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstanceProteinSubunit) marshalJSON() jsonSubstanceProteinSubunit {
-	m := jsonSubstanceProteinSubunit{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.Subunit != nil && r.Subunit.Value != nil {
-		m.Subunit = r.Subunit
-	}
-	if r.Subunit != nil && (r.Subunit.Id != nil || r.Subunit.Extension != nil) {
-		m.SubunitPrimitiveElement = &primitiveElement{Id: r.Subunit.Id, Extension: r.Subunit.Extension}
-	}
-	if r.Sequence != nil && r.Sequence.Value != nil {
-		m.Sequence = r.Sequence
-	}
-	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
-		m.SequencePrimitiveElement = &primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
-	}
-	if r.Length != nil && r.Length.Value != nil {
-		m.Length = r.Length
-	}
-	if r.Length != nil && (r.Length.Id != nil || r.Length.Extension != nil) {
-		m.LengthPrimitiveElement = &primitiveElement{Id: r.Length.Id, Extension: r.Length.Extension}
-	}
-	m.SequenceAttachment = r.SequenceAttachment
-	m.NTerminalModificationId = r.NTerminalModificationId
-	if r.NTerminalModification != nil && r.NTerminalModification.Value != nil {
-		m.NTerminalModification = r.NTerminalModification
-	}
-	if r.NTerminalModification != nil && (r.NTerminalModification.Id != nil || r.NTerminalModification.Extension != nil) {
-		m.NTerminalModificationPrimitiveElement = &primitiveElement{Id: r.NTerminalModification.Id, Extension: r.NTerminalModification.Extension}
-	}
-	m.CTerminalModificationId = r.CTerminalModificationId
-	if r.CTerminalModification != nil && r.CTerminalModification.Value != nil {
-		m.CTerminalModification = r.CTerminalModification
-	}
-	if r.CTerminalModification != nil && (r.CTerminalModification.Id != nil || r.CTerminalModification.Extension != nil) {
-		m.CTerminalModificationPrimitiveElement = &primitiveElement{Id: r.CTerminalModification.Id, Extension: r.CTerminalModification.Extension}
-	}
-	return m
-}
-func (r *SubstanceProteinSubunit) UnmarshalJSON(b []byte) error {
-	var m jsonSubstanceProteinSubunit
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstanceProteinSubunit) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Subunit != nil && r.Subunit.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"subunit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Subunit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Subunit != nil && (r.Subunit.Id != nil || r.Subunit.Extension != nil) {
+		p := primitiveElement{Id: r.Subunit.Id, Extension: r.Subunit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_subunit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Sequence != nil && r.Sequence.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequence\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Sequence)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Sequence != nil && (r.Sequence.Id != nil || r.Sequence.Extension != nil) {
+		p := primitiveElement{Id: r.Sequence.Id, Extension: r.Sequence.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sequence\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Length != nil && r.Length.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"length\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Length)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Length != nil && (r.Length.Id != nil || r.Length.Extension != nil) {
+		p := primitiveElement{Id: r.Length.Id, Extension: r.Length.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_length\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.SequenceAttachment != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sequenceAttachment\":"))
+		if err != nil {
+			return err
+		}
+		err = r.SequenceAttachment.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.NTerminalModificationId != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"nTerminalModificationId\":"))
+		if err != nil {
+			return err
+		}
+		err = r.NTerminalModificationId.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.NTerminalModification != nil && r.NTerminalModification.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"nTerminalModification\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.NTerminalModification)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.NTerminalModification != nil && (r.NTerminalModification.Id != nil || r.NTerminalModification.Extension != nil) {
+		p := primitiveElement{Id: r.NTerminalModification.Id, Extension: r.NTerminalModification.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_nTerminalModification\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.CTerminalModificationId != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"cTerminalModificationId\":"))
+		if err != nil {
+			return err
+		}
+		err = r.CTerminalModificationId.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.CTerminalModification != nil && r.CTerminalModification.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"cTerminalModification\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.CTerminalModification)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.CTerminalModification != nil && (r.CTerminalModification.Id != nil || r.CTerminalModification.Extension != nil) {
+		p := primitiveElement{Id: r.CTerminalModification.Id, Extension: r.CTerminalModification.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_cTerminalModification\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *SubstanceProteinSubunit) unmarshalJSON(m jsonSubstanceProteinSubunit) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Subunit = m.Subunit
-	if m.SubunitPrimitiveElement != nil {
-		if r.Subunit == nil {
-			r.Subunit = &Integer{}
-		}
-		r.Subunit.Id = m.SubunitPrimitiveElement.Id
-		r.Subunit.Extension = m.SubunitPrimitiveElement.Extension
+func (r *SubstanceProteinSubunit) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Sequence = m.Sequence
-	if m.SequencePrimitiveElement != nil {
-		if r.Sequence == nil {
-			r.Sequence = &String{}
-		}
-		r.Sequence.Id = m.SequencePrimitiveElement.Id
-		r.Sequence.Extension = m.SequencePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstanceProteinSubunit element", t)
 	}
-	r.Length = m.Length
-	if m.LengthPrimitiveElement != nil {
-		if r.Length == nil {
-			r.Length = &Integer{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Length.Id = m.LengthPrimitiveElement.Id
-		r.Length.Extension = m.LengthPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstanceProteinSubunit element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProteinSubunit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProteinSubunit element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProteinSubunit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProteinSubunit element", t)
+			}
+		case "subunit":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Subunit == nil {
+				r.Subunit = &Integer{}
+			}
+			r.Subunit.Value = v.Value
+		case "_subunit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Subunit == nil {
+				r.Subunit = &Integer{}
+			}
+			r.Subunit.Id = v.Id
+			r.Subunit.Extension = v.Extension
+		case "sequence":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Sequence == nil {
+				r.Sequence = &String{}
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Sequence == nil {
+				r.Sequence = &String{}
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "length":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Length == nil {
+				r.Length = &Integer{}
+			}
+			r.Length.Value = v.Value
+		case "_length":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Length == nil {
+				r.Length = &Integer{}
+			}
+			r.Length.Id = v.Id
+			r.Length.Extension = v.Extension
+		case "sequenceAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SequenceAttachment = &v
+		case "nTerminalModificationId":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.NTerminalModificationId = &v
+		case "nTerminalModification":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.NTerminalModification == nil {
+				r.NTerminalModification = &String{}
+			}
+			r.NTerminalModification.Value = v.Value
+		case "_nTerminalModification":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.NTerminalModification == nil {
+				r.NTerminalModification = &String{}
+			}
+			r.NTerminalModification.Id = v.Id
+			r.NTerminalModification.Extension = v.Extension
+		case "cTerminalModificationId":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.CTerminalModificationId = &v
+		case "cTerminalModification":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.CTerminalModification == nil {
+				r.CTerminalModification = &String{}
+			}
+			r.CTerminalModification.Value = v.Value
+		case "_cTerminalModification":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.CTerminalModification == nil {
+				r.CTerminalModification = &String{}
+			}
+			r.CTerminalModification.Id = v.Id
+			r.CTerminalModification.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in SubstanceProteinSubunit", f)
+		}
 	}
-	r.SequenceAttachment = m.SequenceAttachment
-	r.NTerminalModificationId = m.NTerminalModificationId
-	r.NTerminalModification = m.NTerminalModification
-	if m.NTerminalModificationPrimitiveElement != nil {
-		if r.NTerminalModification == nil {
-			r.NTerminalModification = &String{}
-		}
-		r.NTerminalModification.Id = m.NTerminalModificationPrimitiveElement.Id
-		r.NTerminalModification.Extension = m.NTerminalModificationPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.CTerminalModificationId = m.CTerminalModificationId
-	r.CTerminalModification = m.CTerminalModification
-	if m.CTerminalModificationPrimitiveElement != nil {
-		if r.CTerminalModification == nil {
-			r.CTerminalModification = &String{}
-		}
-		r.CTerminalModification.Id = m.CTerminalModificationPrimitiveElement.Id
-		r.CTerminalModification.Extension = m.CTerminalModificationPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstanceProteinSubunit element", t)
 	}
 	return nil
 }

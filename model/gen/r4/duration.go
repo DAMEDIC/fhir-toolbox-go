@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Duration Type: A length of time.
@@ -23,109 +25,460 @@ type Duration struct {
 	// A computer processable form of the unit in some unit representation system.
 	Code *Code
 }
-type jsonDuration struct {
-	Id                         *string           `json:"id,omitempty"`
-	Extension                  []Extension       `json:"extension,omitempty"`
-	Value                      *Decimal          `json:"value,omitempty"`
-	ValuePrimitiveElement      *primitiveElement `json:"_value,omitempty"`
-	Comparator                 *Code             `json:"comparator,omitempty"`
-	ComparatorPrimitiveElement *primitiveElement `json:"_comparator,omitempty"`
-	Unit                       *String           `json:"unit,omitempty"`
-	UnitPrimitiveElement       *primitiveElement `json:"_unit,omitempty"`
-	System                     *Uri              `json:"system,omitempty"`
-	SystemPrimitiveElement     *primitiveElement `json:"_system,omitempty"`
-	Code                       *Code             `json:"code,omitempty"`
-	CodePrimitiveElement       *primitiveElement `json:"_code,omitempty"`
-}
 
 func (r Duration) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Duration) marshalJSON() jsonDuration {
-	m := jsonDuration{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Value != nil && r.Value.Value != nil {
-		m.Value = r.Value
-	}
-	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
-		m.ValuePrimitiveElement = &primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
-	}
-	if r.Comparator != nil && r.Comparator.Value != nil {
-		m.Comparator = r.Comparator
-	}
-	if r.Comparator != nil && (r.Comparator.Id != nil || r.Comparator.Extension != nil) {
-		m.ComparatorPrimitiveElement = &primitiveElement{Id: r.Comparator.Id, Extension: r.Comparator.Extension}
-	}
-	if r.Unit != nil && r.Unit.Value != nil {
-		m.Unit = r.Unit
-	}
-	if r.Unit != nil && (r.Unit.Id != nil || r.Unit.Extension != nil) {
-		m.UnitPrimitiveElement = &primitiveElement{Id: r.Unit.Id, Extension: r.Unit.Extension}
-	}
-	if r.System != nil && r.System.Value != nil {
-		m.System = r.System
-	}
-	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
-		m.SystemPrimitiveElement = &primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
-	}
-	if r.Code != nil && r.Code.Value != nil {
-		m.Code = r.Code
-	}
-	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
-		m.CodePrimitiveElement = &primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
-	}
-	return m
-}
-func (r *Duration) UnmarshalJSON(b []byte) error {
-	var m jsonDuration
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Duration) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && r.Value.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"value\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Value)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Value != nil && (r.Value.Id != nil || r.Value.Extension != nil) {
+		p := primitiveElement{Id: r.Value.Id, Extension: r.Value.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_value\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Comparator != nil && r.Comparator.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"comparator\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Comparator)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Comparator != nil && (r.Comparator.Id != nil || r.Comparator.Extension != nil) {
+		p := primitiveElement{Id: r.Comparator.Id, Extension: r.Comparator.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_comparator\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Unit != nil && r.Unit.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Unit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Unit != nil && (r.Unit.Id != nil || r.Unit.Extension != nil) {
+		p := primitiveElement{Id: r.Unit.Id, Extension: r.Unit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_unit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.System != nil && r.System.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"system\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.System)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.System != nil && (r.System.Id != nil || r.System.Extension != nil) {
+		p := primitiveElement{Id: r.System.Id, Extension: r.System.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_system\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code != nil && r.Code.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Code)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code != nil && (r.Code.Id != nil || r.Code.Extension != nil) {
+		p := primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_code\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *Duration) unmarshalJSON(m jsonDuration) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Value = m.Value
-	if m.ValuePrimitiveElement != nil {
-		if r.Value == nil {
-			r.Value = &Decimal{}
-		}
-		r.Value.Id = m.ValuePrimitiveElement.Id
-		r.Value.Extension = m.ValuePrimitiveElement.Extension
+func (r *Duration) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Comparator = m.Comparator
-	if m.ComparatorPrimitiveElement != nil {
-		if r.Comparator == nil {
-			r.Comparator = &Code{}
-		}
-		r.Comparator.Id = m.ComparatorPrimitiveElement.Id
-		r.Comparator.Extension = m.ComparatorPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Duration element", t)
 	}
-	r.Unit = m.Unit
-	if m.UnitPrimitiveElement != nil {
-		if r.Unit == nil {
-			r.Unit = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Unit.Id = m.UnitPrimitiveElement.Id
-		r.Unit.Extension = m.UnitPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Duration element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Duration element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Duration element", t)
+			}
+		case "value":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Value = v.Value
+		case "_value":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Id = v.Id
+			r.Value.Extension = v.Extension
+		case "comparator":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Comparator == nil {
+				r.Comparator = &Code{}
+			}
+			r.Comparator.Value = v.Value
+		case "_comparator":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Comparator == nil {
+				r.Comparator = &Code{}
+			}
+			r.Comparator.Id = v.Id
+			r.Comparator.Extension = v.Extension
+		case "unit":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Unit == nil {
+				r.Unit = &String{}
+			}
+			r.Unit.Value = v.Value
+		case "_unit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Unit == nil {
+				r.Unit = &String{}
+			}
+			r.Unit.Id = v.Id
+			r.Unit.Extension = v.Extension
+		case "system":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Value = v.Value
+		case "_system":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Id = v.Id
+			r.System.Extension = v.Extension
+		case "code":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Code == nil {
+				r.Code = &Code{}
+			}
+			r.Code.Value = v.Value
+		case "_code":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Code == nil {
+				r.Code = &Code{}
+			}
+			r.Code.Id = v.Id
+			r.Code.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in Duration", f)
+		}
 	}
-	r.System = m.System
-	if m.SystemPrimitiveElement != nil {
-		if r.System == nil {
-			r.System = &Uri{}
-		}
-		r.System.Id = m.SystemPrimitiveElement.Id
-		r.System.Extension = m.SystemPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Code = m.Code
-	if m.CodePrimitiveElement != nil {
-		if r.Code == nil {
-			r.Code = &Code{}
-		}
-		r.Code.Id = m.CodePrimitiveElement.Id
-		r.Code.Extension = m.CodePrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Duration element", t)
 	}
 	return nil
 }

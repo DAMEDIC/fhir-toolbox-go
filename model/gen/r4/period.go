@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Period Type: A time period defined by a start and end date and optionally time.
@@ -17,61 +19,271 @@ type Period struct {
 	// The end of the period. If the end of the period is missing, it means no end was known or planned at the time the instance was created. The start may be in the past, and the end date in the future, which means that period is expected/planned to end at that time.
 	End *DateTime
 }
-type jsonPeriod struct {
-	Id                    *string           `json:"id,omitempty"`
-	Extension             []Extension       `json:"extension,omitempty"`
-	Start                 *DateTime         `json:"start,omitempty"`
-	StartPrimitiveElement *primitiveElement `json:"_start,omitempty"`
-	End                   *DateTime         `json:"end,omitempty"`
-	EndPrimitiveElement   *primitiveElement `json:"_end,omitempty"`
-}
 
 func (r Period) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Period) marshalJSON() jsonPeriod {
-	m := jsonPeriod{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Start != nil && r.Start.Value != nil {
-		m.Start = r.Start
-	}
-	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
-		m.StartPrimitiveElement = &primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
-	}
-	if r.End != nil && r.End.Value != nil {
-		m.End = r.End
-	}
-	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
-		m.EndPrimitiveElement = &primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
-	}
-	return m
-}
-func (r *Period) UnmarshalJSON(b []byte) error {
-	var m jsonPeriod
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Period) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *Period) unmarshalJSON(m jsonPeriod) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Start = m.Start
-	if m.StartPrimitiveElement != nil {
-		if r.Start == nil {
-			r.Start = &DateTime{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Start.Id = m.StartPrimitiveElement.Id
-		r.Start.Extension = m.StartPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.End = m.End
-	if m.EndPrimitiveElement != nil {
-		if r.End == nil {
-			r.End = &DateTime{}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.End.Id = m.EndPrimitiveElement.Id
-		r.End.Extension = m.EndPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Start != nil && r.Start.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"start\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Start)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Start != nil && (r.Start.Id != nil || r.Start.Extension != nil) {
+		p := primitiveElement{Id: r.Start.Id, Extension: r.Start.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_start\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.End != nil && r.End.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"end\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.End)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.End != nil && (r.End.Id != nil || r.End.Extension != nil) {
+		p := primitiveElement{Id: r.End.Id, Extension: r.End.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_end\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *Period) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Period element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Period element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Period element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Period element", t)
+			}
+		case "start":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Start == nil {
+				r.Start = &DateTime{}
+			}
+			r.Start.Value = v.Value
+		case "_start":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Start == nil {
+				r.Start = &DateTime{}
+			}
+			r.Start.Id = v.Id
+			r.Start.Extension = v.Extension
+		case "end":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.End == nil {
+				r.End = &DateTime{}
+			}
+			r.End.Value = v.Value
+		case "_end":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.End == nil {
+				r.End = &DateTime{}
+			}
+			r.End.Id = v.Id
+			r.End.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in Period", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Period element", t)
 	}
 	return nil
 }

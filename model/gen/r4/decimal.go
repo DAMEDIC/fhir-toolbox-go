@@ -19,9 +19,9 @@ func (r Decimal) MarshalJSON() ([]byte, error) {
 	return []byte(*r.Value), nil
 }
 func (r *Decimal) UnmarshalJSON(b []byte) error {
-	var value string
-	value = string(b)
-	*r = Decimal{Value: &value}
+	var v string
+	v = string(b)
+	*r = Decimal{Value: &v}
 	return nil
 }
 func (r Decimal) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

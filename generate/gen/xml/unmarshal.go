@@ -11,20 +11,14 @@ func ImplementUnmarshal(f *File, s ir.Struct) {
 		Id("d").Op("*").Qual("encoding/xml", "Decoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
 	).Params(Error()).BlockFunc(func(g *Group) {
-		//g.If(Id("r").Op("==").Nil()).Block(
-		//	Id("*r").Op("=").Id(s.Name).Values(),
-		//)
-
 		validateStructNamespace(g, s)
 		unmarshalAttrs(g, s)
 
 		if s.Name == "Xhtml" {
 			unmarshalXhtml(g)
-
-			return
+		} else {
+			unmarshalFields(g, s)
 		}
-
-		unmarshalFields(g, s)
 	})
 }
 

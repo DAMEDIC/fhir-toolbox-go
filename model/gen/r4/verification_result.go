@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // Describes validation requirements, source(s), status and dates for one or more elements.
@@ -69,223 +71,1221 @@ func (r VerificationResult) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonVerificationResult struct {
-	ResourceType                   string                            `json:"resourceType"`
-	Id                             *Id                               `json:"id,omitempty"`
-	IdPrimitiveElement             *primitiveElement                 `json:"_id,omitempty"`
-	Meta                           *Meta                             `json:"meta,omitempty"`
-	ImplicitRules                  *Uri                              `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement  *primitiveElement                 `json:"_implicitRules,omitempty"`
-	Language                       *Code                             `json:"language,omitempty"`
-	LanguagePrimitiveElement       *primitiveElement                 `json:"_language,omitempty"`
-	Text                           *Narrative                        `json:"text,omitempty"`
-	Contained                      []ContainedResource               `json:"contained,omitempty"`
-	Extension                      []Extension                       `json:"extension,omitempty"`
-	ModifierExtension              []Extension                       `json:"modifierExtension,omitempty"`
-	Target                         []Reference                       `json:"target,omitempty"`
-	TargetLocation                 []String                          `json:"targetLocation,omitempty"`
-	TargetLocationPrimitiveElement []*primitiveElement               `json:"_targetLocation,omitempty"`
-	Need                           *CodeableConcept                  `json:"need,omitempty"`
-	Status                         Code                              `json:"status,omitempty"`
-	StatusPrimitiveElement         *primitiveElement                 `json:"_status,omitempty"`
-	StatusDate                     *DateTime                         `json:"statusDate,omitempty"`
-	StatusDatePrimitiveElement     *primitiveElement                 `json:"_statusDate,omitempty"`
-	ValidationType                 *CodeableConcept                  `json:"validationType,omitempty"`
-	ValidationProcess              []CodeableConcept                 `json:"validationProcess,omitempty"`
-	Frequency                      *Timing                           `json:"frequency,omitempty"`
-	LastPerformed                  *DateTime                         `json:"lastPerformed,omitempty"`
-	LastPerformedPrimitiveElement  *primitiveElement                 `json:"_lastPerformed,omitempty"`
-	NextScheduled                  *Date                             `json:"nextScheduled,omitempty"`
-	NextScheduledPrimitiveElement  *primitiveElement                 `json:"_nextScheduled,omitempty"`
-	FailureAction                  *CodeableConcept                  `json:"failureAction,omitempty"`
-	PrimarySource                  []VerificationResultPrimarySource `json:"primarySource,omitempty"`
-	Attestation                    *VerificationResultAttestation    `json:"attestation,omitempty"`
-	Validator                      []VerificationResultValidator     `json:"validator,omitempty"`
-}
-
 func (r VerificationResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r VerificationResult) marshalJSON() jsonVerificationResult {
-	m := jsonVerificationResult{}
-	m.ResourceType = "VerificationResult"
+func (r VerificationResult) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"VerificationResult\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
-	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
-	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Target = r.Target
-	anyTargetLocationValue := false
-	for _, e := range r.TargetLocation {
-		if e.Value != nil {
-			anyTargetLocationValue = true
-			break
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyTargetLocationValue {
-		m.TargetLocation = r.TargetLocation
-	}
-	anyTargetLocationIdOrExtension := false
-	for _, e := range r.TargetLocation {
-		if e.Id != nil || e.Extension != nil {
-			anyTargetLocationIdOrExtension = true
-			break
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyTargetLocationIdOrExtension {
-		m.TargetLocationPrimitiveElement = make([]*primitiveElement, 0, len(r.TargetLocation))
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Target) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"target\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Target {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.TargetLocation {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"targetLocation\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.TargetLocation)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.TargetLocation {
 			if e.Id != nil || e.Extension != nil {
-				m.TargetLocationPrimitiveElement = append(m.TargetLocationPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.TargetLocationPrimitiveElement = append(m.TargetLocationPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_targetLocation\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.TargetLocation {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Need = r.Need
-	if r.Status.Value != nil {
-		m.Status = r.Status
+	if r.Need != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"need\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Need.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.StatusDate != nil && r.StatusDate.Value != nil {
-		m.StatusDate = r.StatusDate
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"statusDate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.StatusDate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.StatusDate != nil && (r.StatusDate.Id != nil || r.StatusDate.Extension != nil) {
-		m.StatusDatePrimitiveElement = &primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
+		p := primitiveElement{Id: r.StatusDate.Id, Extension: r.StatusDate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_statusDate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.ValidationType = r.ValidationType
-	m.ValidationProcess = r.ValidationProcess
-	m.Frequency = r.Frequency
+	if r.ValidationType != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"validationType\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ValidationType.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ValidationProcess) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"validationProcess\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ValidationProcess {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Frequency != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"frequency\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Frequency.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.LastPerformed != nil && r.LastPerformed.Value != nil {
-		m.LastPerformed = r.LastPerformed
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"lastPerformed\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.LastPerformed)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.LastPerformed != nil && (r.LastPerformed.Id != nil || r.LastPerformed.Extension != nil) {
-		m.LastPerformedPrimitiveElement = &primitiveElement{Id: r.LastPerformed.Id, Extension: r.LastPerformed.Extension}
+		p := primitiveElement{Id: r.LastPerformed.Id, Extension: r.LastPerformed.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_lastPerformed\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.NextScheduled != nil && r.NextScheduled.Value != nil {
-		m.NextScheduled = r.NextScheduled
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"nextScheduled\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.NextScheduled)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.NextScheduled != nil && (r.NextScheduled.Id != nil || r.NextScheduled.Extension != nil) {
-		m.NextScheduledPrimitiveElement = &primitiveElement{Id: r.NextScheduled.Id, Extension: r.NextScheduled.Extension}
+		p := primitiveElement{Id: r.NextScheduled.Id, Extension: r.NextScheduled.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_nextScheduled\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.FailureAction = r.FailureAction
-	m.PrimarySource = r.PrimarySource
-	m.Attestation = r.Attestation
-	m.Validator = r.Validator
-	return m
-}
-func (r *VerificationResult) UnmarshalJSON(b []byte) error {
-	var m jsonVerificationResult
-	if err := json.Unmarshal(b, &m); err != nil {
+	if r.FailureAction != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"failureAction\":"))
+		if err != nil {
+			return err
+		}
+		err = r.FailureAction.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.PrimarySource) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"primarySource\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.PrimarySource {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Attestation != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"attestation\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Attestation.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Validator) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"validator\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Validator {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *VerificationResult) unmarshalJSON(m jsonVerificationResult) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
+func (r *VerificationResult) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *VerificationResult) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VerificationResult element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
-	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VerificationResult element", t)
 		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
-	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "target":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Target = append(r.Target, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "targetLocation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.TargetLocation) <= i {
+					r.TargetLocation = append(r.TargetLocation, String{})
+				}
+				r.TargetLocation[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "_targetLocation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.TargetLocation) <= i {
+					r.TargetLocation = append(r.TargetLocation, String{})
+				}
+				r.TargetLocation[i].Id = v.Id
+				r.TargetLocation[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "need":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Need = &v
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "statusDate":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.StatusDate == nil {
+				r.StatusDate = &DateTime{}
+			}
+			r.StatusDate.Value = v.Value
+		case "_statusDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.StatusDate == nil {
+				r.StatusDate = &DateTime{}
+			}
+			r.StatusDate.Id = v.Id
+			r.StatusDate.Extension = v.Extension
+		case "validationType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ValidationType = &v
+		case "validationProcess":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ValidationProcess = append(r.ValidationProcess, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "frequency":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Frequency = &v
+		case "lastPerformed":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LastPerformed == nil {
+				r.LastPerformed = &DateTime{}
+			}
+			r.LastPerformed.Value = v.Value
+		case "_lastPerformed":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LastPerformed == nil {
+				r.LastPerformed = &DateTime{}
+			}
+			r.LastPerformed.Id = v.Id
+			r.LastPerformed.Extension = v.Extension
+		case "nextScheduled":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.NextScheduled == nil {
+				r.NextScheduled = &Date{}
+			}
+			r.NextScheduled.Value = v.Value
+		case "_nextScheduled":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.NextScheduled == nil {
+				r.NextScheduled = &Date{}
+			}
+			r.NextScheduled.Id = v.Id
+			r.NextScheduled.Extension = v.Extension
+		case "failureAction":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.FailureAction = &v
+		case "primarySource":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v VerificationResultPrimarySource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PrimarySource = append(r.PrimarySource, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		case "attestation":
+			var v VerificationResultAttestation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Attestation = &v
+		case "validator":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResult element", t)
+			}
+			for d.More() {
+				var v VerificationResultValidator
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Validator = append(r.Validator, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResult element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in VerificationResult", f)
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
 	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Target = m.Target
-	r.TargetLocation = m.TargetLocation
-	for i, e := range m.TargetLocationPrimitiveElement {
-		if len(r.TargetLocation) <= i {
-			r.TargetLocation = append(r.TargetLocation, String{})
-		}
-		if e != nil {
-			r.TargetLocation[i].Id = e.Id
-			r.TargetLocation[i].Extension = e.Extension
-		}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VerificationResult element", t)
 	}
-	r.Need = m.Need
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
-	}
-	r.StatusDate = m.StatusDate
-	if m.StatusDatePrimitiveElement != nil {
-		if r.StatusDate == nil {
-			r.StatusDate = &DateTime{}
-		}
-		r.StatusDate.Id = m.StatusDatePrimitiveElement.Id
-		r.StatusDate.Extension = m.StatusDatePrimitiveElement.Extension
-	}
-	r.ValidationType = m.ValidationType
-	r.ValidationProcess = m.ValidationProcess
-	r.Frequency = m.Frequency
-	r.LastPerformed = m.LastPerformed
-	if m.LastPerformedPrimitiveElement != nil {
-		if r.LastPerformed == nil {
-			r.LastPerformed = &DateTime{}
-		}
-		r.LastPerformed.Id = m.LastPerformedPrimitiveElement.Id
-		r.LastPerformed.Extension = m.LastPerformedPrimitiveElement.Extension
-	}
-	r.NextScheduled = m.NextScheduled
-	if m.NextScheduledPrimitiveElement != nil {
-		if r.NextScheduled == nil {
-			r.NextScheduled = &Date{}
-		}
-		r.NextScheduled.Id = m.NextScheduledPrimitiveElement.Id
-		r.NextScheduled.Extension = m.NextScheduledPrimitiveElement.Extension
-	}
-	r.FailureAction = m.FailureAction
-	r.PrimarySource = m.PrimarySource
-	r.Attestation = m.Attestation
-	r.Validator = m.Validator
 	return nil
 }
 func (r VerificationResult) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -608,67 +1608,513 @@ type VerificationResultPrimarySource struct {
 	// Type of alerts/updates the primary source can send (specific requested changes; any changes; as defined by source).
 	PushTypeAvailable []CodeableConcept
 }
-type jsonVerificationResultPrimarySource struct {
-	Id                             *string           `json:"id,omitempty"`
-	Extension                      []Extension       `json:"extension,omitempty"`
-	ModifierExtension              []Extension       `json:"modifierExtension,omitempty"`
-	Who                            *Reference        `json:"who,omitempty"`
-	Type                           []CodeableConcept `json:"type,omitempty"`
-	CommunicationMethod            []CodeableConcept `json:"communicationMethod,omitempty"`
-	ValidationStatus               *CodeableConcept  `json:"validationStatus,omitempty"`
-	ValidationDate                 *DateTime         `json:"validationDate,omitempty"`
-	ValidationDatePrimitiveElement *primitiveElement `json:"_validationDate,omitempty"`
-	CanPushUpdates                 *CodeableConcept  `json:"canPushUpdates,omitempty"`
-	PushTypeAvailable              []CodeableConcept `json:"pushTypeAvailable,omitempty"`
-}
 
 func (r VerificationResultPrimarySource) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r VerificationResultPrimarySource) marshalJSON() jsonVerificationResultPrimarySource {
-	m := jsonVerificationResultPrimarySource{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Who = r.Who
-	m.Type = r.Type
-	m.CommunicationMethod = r.CommunicationMethod
-	m.ValidationStatus = r.ValidationStatus
-	if r.ValidationDate != nil && r.ValidationDate.Value != nil {
-		m.ValidationDate = r.ValidationDate
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.ValidationDate != nil && (r.ValidationDate.Id != nil || r.ValidationDate.Extension != nil) {
-		m.ValidationDatePrimitiveElement = &primitiveElement{Id: r.ValidationDate.Id, Extension: r.ValidationDate.Extension}
-	}
-	m.CanPushUpdates = r.CanPushUpdates
-	m.PushTypeAvailable = r.PushTypeAvailable
-	return m
+	return b.Bytes(), nil
 }
-func (r *VerificationResultPrimarySource) UnmarshalJSON(b []byte) error {
-	var m jsonVerificationResultPrimarySource
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VerificationResultPrimarySource) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *VerificationResultPrimarySource) unmarshalJSON(m jsonVerificationResultPrimarySource) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Who = m.Who
-	r.Type = m.Type
-	r.CommunicationMethod = m.CommunicationMethod
-	r.ValidationStatus = m.ValidationStatus
-	r.ValidationDate = m.ValidationDate
-	if m.ValidationDatePrimitiveElement != nil {
-		if r.ValidationDate == nil {
-			r.ValidationDate = &DateTime{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.ValidationDate.Id = m.ValidationDatePrimitiveElement.Id
-		r.ValidationDate.Extension = m.ValidationDatePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.CanPushUpdates = m.CanPushUpdates
-	r.PushTypeAvailable = m.PushTypeAvailable
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Who != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"who\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Who.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Type) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Type {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.CommunicationMethod) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"communicationMethod\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.CommunicationMethod {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.ValidationStatus != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"validationStatus\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ValidationStatus.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ValidationDate != nil && r.ValidationDate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"validationDate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ValidationDate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ValidationDate != nil && (r.ValidationDate.Id != nil || r.ValidationDate.Extension != nil) {
+		p := primitiveElement{Id: r.ValidationDate.Id, Extension: r.ValidationDate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_validationDate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.CanPushUpdates != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"canPushUpdates\":"))
+		if err != nil {
+			return err
+		}
+		err = r.CanPushUpdates.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.PushTypeAvailable) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"pushTypeAvailable\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.PushTypeAvailable {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *VerificationResultPrimarySource) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VerificationResultPrimarySource element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VerificationResultPrimarySource element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultPrimarySource element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultPrimarySource element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultPrimarySource element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultPrimarySource element", t)
+			}
+		case "who":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Who = &v
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultPrimarySource element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultPrimarySource element", t)
+			}
+		case "communicationMethod":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultPrimarySource element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.CommunicationMethod = append(r.CommunicationMethod, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultPrimarySource element", t)
+			}
+		case "validationStatus":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ValidationStatus = &v
+		case "validationDate":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ValidationDate == nil {
+				r.ValidationDate = &DateTime{}
+			}
+			r.ValidationDate.Value = v.Value
+		case "_validationDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ValidationDate == nil {
+				r.ValidationDate = &DateTime{}
+			}
+			r.ValidationDate.Id = v.Id
+			r.ValidationDate.Extension = v.Extension
+		case "canPushUpdates":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.CanPushUpdates = &v
+		case "pushTypeAvailable":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultPrimarySource element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PushTypeAvailable = append(r.PushTypeAvailable, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultPrimarySource element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in VerificationResultPrimarySource", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VerificationResultPrimarySource element", t)
+	}
 	return nil
 }
 func (r VerificationResultPrimarySource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -853,96 +2299,513 @@ type VerificationResultAttestation struct {
 	// Signed assertion by the attestation source that they have attested to the information.
 	SourceSignature *Signature
 }
-type jsonVerificationResultAttestation struct {
-	Id                                        *string           `json:"id,omitempty"`
-	Extension                                 []Extension       `json:"extension,omitempty"`
-	ModifierExtension                         []Extension       `json:"modifierExtension,omitempty"`
-	Who                                       *Reference        `json:"who,omitempty"`
-	OnBehalfOf                                *Reference        `json:"onBehalfOf,omitempty"`
-	CommunicationMethod                       *CodeableConcept  `json:"communicationMethod,omitempty"`
-	Date                                      *Date             `json:"date,omitempty"`
-	DatePrimitiveElement                      *primitiveElement `json:"_date,omitempty"`
-	SourceIdentityCertificate                 *String           `json:"sourceIdentityCertificate,omitempty"`
-	SourceIdentityCertificatePrimitiveElement *primitiveElement `json:"_sourceIdentityCertificate,omitempty"`
-	ProxyIdentityCertificate                  *String           `json:"proxyIdentityCertificate,omitempty"`
-	ProxyIdentityCertificatePrimitiveElement  *primitiveElement `json:"_proxyIdentityCertificate,omitempty"`
-	ProxySignature                            *Signature        `json:"proxySignature,omitempty"`
-	SourceSignature                           *Signature        `json:"sourceSignature,omitempty"`
-}
 
 func (r VerificationResultAttestation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r VerificationResultAttestation) marshalJSON() jsonVerificationResultAttestation {
-	m := jsonVerificationResultAttestation{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Who = r.Who
-	m.OnBehalfOf = r.OnBehalfOf
-	m.CommunicationMethod = r.CommunicationMethod
-	if r.Date != nil && r.Date.Value != nil {
-		m.Date = r.Date
-	}
-	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
-		m.DatePrimitiveElement = &primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
-	}
-	if r.SourceIdentityCertificate != nil && r.SourceIdentityCertificate.Value != nil {
-		m.SourceIdentityCertificate = r.SourceIdentityCertificate
-	}
-	if r.SourceIdentityCertificate != nil && (r.SourceIdentityCertificate.Id != nil || r.SourceIdentityCertificate.Extension != nil) {
-		m.SourceIdentityCertificatePrimitiveElement = &primitiveElement{Id: r.SourceIdentityCertificate.Id, Extension: r.SourceIdentityCertificate.Extension}
-	}
-	if r.ProxyIdentityCertificate != nil && r.ProxyIdentityCertificate.Value != nil {
-		m.ProxyIdentityCertificate = r.ProxyIdentityCertificate
-	}
-	if r.ProxyIdentityCertificate != nil && (r.ProxyIdentityCertificate.Id != nil || r.ProxyIdentityCertificate.Extension != nil) {
-		m.ProxyIdentityCertificatePrimitiveElement = &primitiveElement{Id: r.ProxyIdentityCertificate.Id, Extension: r.ProxyIdentityCertificate.Extension}
-	}
-	m.ProxySignature = r.ProxySignature
-	m.SourceSignature = r.SourceSignature
-	return m
-}
-func (r *VerificationResultAttestation) UnmarshalJSON(b []byte) error {
-	var m jsonVerificationResultAttestation
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VerificationResultAttestation) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Who != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"who\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Who.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.OnBehalfOf != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onBehalfOf\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OnBehalfOf.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.CommunicationMethod != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"communicationMethod\":"))
+		if err != nil {
+			return err
+		}
+		err = r.CommunicationMethod.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && r.Date.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"date\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Date)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
+		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_date\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.SourceIdentityCertificate != nil && r.SourceIdentityCertificate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sourceIdentityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.SourceIdentityCertificate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.SourceIdentityCertificate != nil && (r.SourceIdentityCertificate.Id != nil || r.SourceIdentityCertificate.Extension != nil) {
+		p := primitiveElement{Id: r.SourceIdentityCertificate.Id, Extension: r.SourceIdentityCertificate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sourceIdentityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ProxyIdentityCertificate != nil && r.ProxyIdentityCertificate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"proxyIdentityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ProxyIdentityCertificate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ProxyIdentityCertificate != nil && (r.ProxyIdentityCertificate.Id != nil || r.ProxyIdentityCertificate.Extension != nil) {
+		p := primitiveElement{Id: r.ProxyIdentityCertificate.Id, Extension: r.ProxyIdentityCertificate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_proxyIdentityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ProxySignature != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"proxySignature\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ProxySignature.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.SourceSignature != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sourceSignature\":"))
+		if err != nil {
+			return err
+		}
+		err = r.SourceSignature.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *VerificationResultAttestation) unmarshalJSON(m jsonVerificationResultAttestation) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Who = m.Who
-	r.OnBehalfOf = m.OnBehalfOf
-	r.CommunicationMethod = m.CommunicationMethod
-	r.Date = m.Date
-	if m.DatePrimitiveElement != nil {
-		if r.Date == nil {
-			r.Date = &Date{}
-		}
-		r.Date.Id = m.DatePrimitiveElement.Id
-		r.Date.Extension = m.DatePrimitiveElement.Extension
+func (r *VerificationResultAttestation) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.SourceIdentityCertificate = m.SourceIdentityCertificate
-	if m.SourceIdentityCertificatePrimitiveElement != nil {
-		if r.SourceIdentityCertificate == nil {
-			r.SourceIdentityCertificate = &String{}
-		}
-		r.SourceIdentityCertificate.Id = m.SourceIdentityCertificatePrimitiveElement.Id
-		r.SourceIdentityCertificate.Extension = m.SourceIdentityCertificatePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VerificationResultAttestation element", t)
 	}
-	r.ProxyIdentityCertificate = m.ProxyIdentityCertificate
-	if m.ProxyIdentityCertificatePrimitiveElement != nil {
-		if r.ProxyIdentityCertificate == nil {
-			r.ProxyIdentityCertificate = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.ProxyIdentityCertificate.Id = m.ProxyIdentityCertificatePrimitiveElement.Id
-		r.ProxyIdentityCertificate.Extension = m.ProxyIdentityCertificatePrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VerificationResultAttestation element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultAttestation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultAttestation element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultAttestation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultAttestation element", t)
+			}
+		case "who":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Who = &v
+		case "onBehalfOf":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.OnBehalfOf = &v
+		case "communicationMethod":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.CommunicationMethod = &v
+		case "date":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &Date{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "sourceIdentityCertificate":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SourceIdentityCertificate == nil {
+				r.SourceIdentityCertificate = &String{}
+			}
+			r.SourceIdentityCertificate.Value = v.Value
+		case "_sourceIdentityCertificate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SourceIdentityCertificate == nil {
+				r.SourceIdentityCertificate = &String{}
+			}
+			r.SourceIdentityCertificate.Id = v.Id
+			r.SourceIdentityCertificate.Extension = v.Extension
+		case "proxyIdentityCertificate":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ProxyIdentityCertificate == nil {
+				r.ProxyIdentityCertificate = &String{}
+			}
+			r.ProxyIdentityCertificate.Value = v.Value
+		case "_proxyIdentityCertificate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ProxyIdentityCertificate == nil {
+				r.ProxyIdentityCertificate = &String{}
+			}
+			r.ProxyIdentityCertificate.Id = v.Id
+			r.ProxyIdentityCertificate.Extension = v.Extension
+		case "proxySignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProxySignature = &v
+		case "sourceSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SourceSignature = &v
+		default:
+			return fmt.Errorf("invalid field: %s in VerificationResultAttestation", f)
+		}
 	}
-	r.ProxySignature = m.ProxySignature
-	r.SourceSignature = m.SourceSignature
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VerificationResultAttestation element", t)
+	}
 	return nil
 }
 func (r VerificationResultAttestation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1128,55 +2991,313 @@ type VerificationResultValidator struct {
 	// Signed assertion by the validator that they have validated the information.
 	AttestationSignature *Signature
 }
-type jsonVerificationResultValidator struct {
-	Id                                  *string           `json:"id,omitempty"`
-	Extension                           []Extension       `json:"extension,omitempty"`
-	ModifierExtension                   []Extension       `json:"modifierExtension,omitempty"`
-	Organization                        Reference         `json:"organization,omitempty"`
-	IdentityCertificate                 *String           `json:"identityCertificate,omitempty"`
-	IdentityCertificatePrimitiveElement *primitiveElement `json:"_identityCertificate,omitempty"`
-	AttestationSignature                *Signature        `json:"attestationSignature,omitempty"`
-}
 
 func (r VerificationResultValidator) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r VerificationResultValidator) marshalJSON() jsonVerificationResultValidator {
-	m := jsonVerificationResultValidator{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Organization = r.Organization
-	if r.IdentityCertificate != nil && r.IdentityCertificate.Value != nil {
-		m.IdentityCertificate = r.IdentityCertificate
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.IdentityCertificate != nil && (r.IdentityCertificate.Id != nil || r.IdentityCertificate.Extension != nil) {
-		m.IdentityCertificatePrimitiveElement = &primitiveElement{Id: r.IdentityCertificate.Id, Extension: r.IdentityCertificate.Extension}
-	}
-	m.AttestationSignature = r.AttestationSignature
-	return m
+	return b.Bytes(), nil
 }
-func (r *VerificationResultValidator) UnmarshalJSON(b []byte) error {
-	var m jsonVerificationResultValidator
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r VerificationResultValidator) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *VerificationResultValidator) unmarshalJSON(m jsonVerificationResultValidator) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Organization = m.Organization
-	r.IdentityCertificate = m.IdentityCertificate
-	if m.IdentityCertificatePrimitiveElement != nil {
-		if r.IdentityCertificate == nil {
-			r.IdentityCertificate = &String{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.IdentityCertificate.Id = m.IdentityCertificatePrimitiveElement.Id
-		r.IdentityCertificate.Extension = m.IdentityCertificatePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.AttestationSignature = m.AttestationSignature
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"organization\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Organization.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.IdentityCertificate != nil && r.IdentityCertificate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.IdentityCertificate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.IdentityCertificate != nil && (r.IdentityCertificate.Id != nil || r.IdentityCertificate.Extension != nil) {
+		p := primitiveElement{Id: r.IdentityCertificate.Id, Extension: r.IdentityCertificate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_identityCertificate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.AttestationSignature != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"attestationSignature\":"))
+		if err != nil {
+			return err
+		}
+		err = r.AttestationSignature.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *VerificationResultValidator) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in VerificationResultValidator element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in VerificationResultValidator element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultValidator element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultValidator element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in VerificationResultValidator element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in VerificationResultValidator element", t)
+			}
+		case "organization":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Organization = v
+		case "identityCertificate":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IdentityCertificate == nil {
+				r.IdentityCertificate = &String{}
+			}
+			r.IdentityCertificate.Value = v.Value
+		case "_identityCertificate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IdentityCertificate == nil {
+				r.IdentityCertificate = &String{}
+			}
+			r.IdentityCertificate.Id = v.Id
+			r.IdentityCertificate.Extension = v.Extension
+		case "attestationSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.AttestationSignature = &v
+		default:
+			return fmt.Errorf("invalid field: %s in VerificationResultValidator", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in VerificationResultValidator element", t)
+	}
 	return nil
 }
 func (r VerificationResultValidator) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

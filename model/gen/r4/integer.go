@@ -1,6 +1,7 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -18,14 +19,21 @@ type Integer struct {
 }
 
 func (r Integer) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.Value)
+	var b bytes.Buffer
+	enc := json.NewEncoder(&b)
+	enc.SetEscapeHTML(false)
+	err := enc.Encode(r.Value)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
 func (r *Integer) UnmarshalJSON(b []byte) error {
-	var value int32
-	if err := json.Unmarshal(b, &value); err != nil {
+	var v int32
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	*r = Integer{Value: &value}
+	*r = Integer{Value: &v}
 	return nil
 }
 func (r Integer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

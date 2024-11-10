@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Meta Type: The metadata about a resource. This is content in the resource that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource.
@@ -25,123 +27,594 @@ type Meta struct {
 	// Tags applied to this resource. Tags are intended to be used to identify and relate resources to process and workflow, and applications are not required to consider the tags when interpreting the meaning of a resource.
 	Tag []Coding
 }
-type jsonMeta struct {
-	Id                          *string             `json:"id,omitempty"`
-	Extension                   []Extension         `json:"extension,omitempty"`
-	VersionId                   *Id                 `json:"versionId,omitempty"`
-	VersionIdPrimitiveElement   *primitiveElement   `json:"_versionId,omitempty"`
-	LastUpdated                 *Instant            `json:"lastUpdated,omitempty"`
-	LastUpdatedPrimitiveElement *primitiveElement   `json:"_lastUpdated,omitempty"`
-	Source                      *Uri                `json:"source,omitempty"`
-	SourcePrimitiveElement      *primitiveElement   `json:"_source,omitempty"`
-	Profile                     []Canonical         `json:"profile,omitempty"`
-	ProfilePrimitiveElement     []*primitiveElement `json:"_profile,omitempty"`
-	Security                    []Coding            `json:"security,omitempty"`
-	Tag                         []Coding            `json:"tag,omitempty"`
-}
 
 func (r Meta) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Meta) marshalJSON() jsonMeta {
-	m := jsonMeta{}
-	m.Id = r.Id
-	m.Extension = r.Extension
+func (r Meta) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.VersionId != nil && r.VersionId.Value != nil {
-		m.VersionId = r.VersionId
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"versionId\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.VersionId)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.VersionId != nil && (r.VersionId.Id != nil || r.VersionId.Extension != nil) {
-		m.VersionIdPrimitiveElement = &primitiveElement{Id: r.VersionId.Id, Extension: r.VersionId.Extension}
+		p := primitiveElement{Id: r.VersionId.Id, Extension: r.VersionId.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_versionId\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.LastUpdated != nil && r.LastUpdated.Value != nil {
-		m.LastUpdated = r.LastUpdated
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"lastUpdated\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.LastUpdated)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.LastUpdated != nil && (r.LastUpdated.Id != nil || r.LastUpdated.Extension != nil) {
-		m.LastUpdatedPrimitiveElement = &primitiveElement{Id: r.LastUpdated.Id, Extension: r.LastUpdated.Extension}
+		p := primitiveElement{Id: r.LastUpdated.Id, Extension: r.LastUpdated.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_lastUpdated\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Source != nil && r.Source.Value != nil {
-		m.Source = r.Source
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"source\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Source)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Source != nil && (r.Source.Id != nil || r.Source.Extension != nil) {
-		m.SourcePrimitiveElement = &primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
-	}
-	anyProfileValue := false
-	for _, e := range r.Profile {
-		if e.Value != nil {
-			anyProfileValue = true
-			break
+		p := primitiveElement{Id: r.Source.Id, Extension: r.Source.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_source\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyProfileValue {
-		m.Profile = r.Profile
-	}
-	anyProfileIdOrExtension := false
-	for _, e := range r.Profile {
-		if e.Id != nil || e.Extension != nil {
-			anyProfileIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.Profile {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyProfileIdOrExtension {
-		m.ProfilePrimitiveElement = make([]*primitiveElement, 0, len(r.Profile))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"profile\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Profile)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Profile {
 			if e.Id != nil || e.Extension != nil {
-				m.ProfilePrimitiveElement = append(m.ProfilePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ProfilePrimitiveElement = append(m.ProfilePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_profile\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Profile {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Security = r.Security
-	m.Tag = r.Tag
-	return m
-}
-func (r *Meta) UnmarshalJSON(b []byte) error {
-	var m jsonMeta
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.Security) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"security\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Security {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Tag) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"tag\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Tag {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *Meta) unmarshalJSON(m jsonMeta) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.VersionId = m.VersionId
-	if m.VersionIdPrimitiveElement != nil {
-		if r.VersionId == nil {
-			r.VersionId = &Id{}
-		}
-		r.VersionId.Id = m.VersionIdPrimitiveElement.Id
-		r.VersionId.Extension = m.VersionIdPrimitiveElement.Extension
+func (r *Meta) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.LastUpdated = m.LastUpdated
-	if m.LastUpdatedPrimitiveElement != nil {
-		if r.LastUpdated == nil {
-			r.LastUpdated = &Instant{}
-		}
-		r.LastUpdated.Id = m.LastUpdatedPrimitiveElement.Id
-		r.LastUpdated.Extension = m.LastUpdatedPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Meta element", t)
 	}
-	r.Source = m.Source
-	if m.SourcePrimitiveElement != nil {
-		if r.Source == nil {
-			r.Source = &Uri{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Source.Id = m.SourcePrimitiveElement.Id
-		r.Source.Extension = m.SourcePrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Meta element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Meta element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Meta element", t)
+			}
+		case "versionId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.VersionId == nil {
+				r.VersionId = &Id{}
+			}
+			r.VersionId.Value = v.Value
+		case "_versionId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.VersionId == nil {
+				r.VersionId = &Id{}
+			}
+			r.VersionId.Id = v.Id
+			r.VersionId.Extension = v.Extension
+		case "lastUpdated":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LastUpdated == nil {
+				r.LastUpdated = &Instant{}
+			}
+			r.LastUpdated.Value = v.Value
+		case "_lastUpdated":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LastUpdated == nil {
+				r.LastUpdated = &Instant{}
+			}
+			r.LastUpdated.Id = v.Id
+			r.LastUpdated.Extension = v.Extension
+		case "source":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Source == nil {
+				r.Source = &Uri{}
+			}
+			r.Source.Value = v.Value
+		case "_source":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Source == nil {
+				r.Source = &Uri{}
+			}
+			r.Source.Id = v.Id
+			r.Source.Extension = v.Extension
+		case "profile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Meta element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Canonical
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Profile) <= i {
+					r.Profile = append(r.Profile, Canonical{})
+				}
+				r.Profile[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Meta element", t)
+			}
+		case "_profile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Meta element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Profile) <= i {
+					r.Profile = append(r.Profile, Canonical{})
+				}
+				r.Profile[i].Id = v.Id
+				r.Profile[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Meta element", t)
+			}
+		case "security":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Meta element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Security = append(r.Security, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Meta element", t)
+			}
+		case "tag":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Meta element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Tag = append(r.Tag, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Meta element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in Meta", f)
+		}
 	}
-	r.Profile = m.Profile
-	for i, e := range m.ProfilePrimitiveElement {
-		if len(r.Profile) <= i {
-			r.Profile = append(r.Profile, Canonical{})
-		}
-		if e != nil {
-			r.Profile[i].Id = e.Id
-			r.Profile[i].Extension = e.Extension
-		}
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Security = m.Security
-	r.Tag = m.Tag
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Meta element", t)
+	}
 	return nil
 }
 func (r Meta) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for HumanName Type: A human's name with the ability to identify parts and usage.
@@ -29,198 +31,788 @@ type HumanName struct {
 	// Indicates the period of time when this name was valid for the named person.
 	Period *Period
 }
-type jsonHumanName struct {
-	Id                     *string             `json:"id,omitempty"`
-	Extension              []Extension         `json:"extension,omitempty"`
-	Use                    *Code               `json:"use,omitempty"`
-	UsePrimitiveElement    *primitiveElement   `json:"_use,omitempty"`
-	Text                   *String             `json:"text,omitempty"`
-	TextPrimitiveElement   *primitiveElement   `json:"_text,omitempty"`
-	Family                 *String             `json:"family,omitempty"`
-	FamilyPrimitiveElement *primitiveElement   `json:"_family,omitempty"`
-	Given                  []String            `json:"given,omitempty"`
-	GivenPrimitiveElement  []*primitiveElement `json:"_given,omitempty"`
-	Prefix                 []String            `json:"prefix,omitempty"`
-	PrefixPrimitiveElement []*primitiveElement `json:"_prefix,omitempty"`
-	Suffix                 []String            `json:"suffix,omitempty"`
-	SuffixPrimitiveElement []*primitiveElement `json:"_suffix,omitempty"`
-	Period                 *Period             `json:"period,omitempty"`
-}
 
 func (r HumanName) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r HumanName) marshalJSON() jsonHumanName {
-	m := jsonHumanName{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	if r.Use != nil && r.Use.Value != nil {
-		m.Use = r.Use
-	}
-	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
-		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
-	}
-	if r.Text != nil && r.Text.Value != nil {
-		m.Text = r.Text
-	}
-	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
-		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
-	}
-	if r.Family != nil && r.Family.Value != nil {
-		m.Family = r.Family
-	}
-	if r.Family != nil && (r.Family.Id != nil || r.Family.Extension != nil) {
-		m.FamilyPrimitiveElement = &primitiveElement{Id: r.Family.Id, Extension: r.Family.Extension}
-	}
-	anyGivenValue := false
-	for _, e := range r.Given {
-		if e.Value != nil {
-			anyGivenValue = true
-			break
-		}
-	}
-	if anyGivenValue {
-		m.Given = r.Given
-	}
-	anyGivenIdOrExtension := false
-	for _, e := range r.Given {
-		if e.Id != nil || e.Extension != nil {
-			anyGivenIdOrExtension = true
-			break
-		}
-	}
-	if anyGivenIdOrExtension {
-		m.GivenPrimitiveElement = make([]*primitiveElement, 0, len(r.Given))
-		for _, e := range r.Given {
-			if e.Id != nil || e.Extension != nil {
-				m.GivenPrimitiveElement = append(m.GivenPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.GivenPrimitiveElement = append(m.GivenPrimitiveElement, nil)
-			}
-		}
-	}
-	anyPrefixValue := false
-	for _, e := range r.Prefix {
-		if e.Value != nil {
-			anyPrefixValue = true
-			break
-		}
-	}
-	if anyPrefixValue {
-		m.Prefix = r.Prefix
-	}
-	anyPrefixIdOrExtension := false
-	for _, e := range r.Prefix {
-		if e.Id != nil || e.Extension != nil {
-			anyPrefixIdOrExtension = true
-			break
-		}
-	}
-	if anyPrefixIdOrExtension {
-		m.PrefixPrimitiveElement = make([]*primitiveElement, 0, len(r.Prefix))
-		for _, e := range r.Prefix {
-			if e.Id != nil || e.Extension != nil {
-				m.PrefixPrimitiveElement = append(m.PrefixPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.PrefixPrimitiveElement = append(m.PrefixPrimitiveElement, nil)
-			}
-		}
-	}
-	anySuffixValue := false
-	for _, e := range r.Suffix {
-		if e.Value != nil {
-			anySuffixValue = true
-			break
-		}
-	}
-	if anySuffixValue {
-		m.Suffix = r.Suffix
-	}
-	anySuffixIdOrExtension := false
-	for _, e := range r.Suffix {
-		if e.Id != nil || e.Extension != nil {
-			anySuffixIdOrExtension = true
-			break
-		}
-	}
-	if anySuffixIdOrExtension {
-		m.SuffixPrimitiveElement = make([]*primitiveElement, 0, len(r.Suffix))
-		for _, e := range r.Suffix {
-			if e.Id != nil || e.Extension != nil {
-				m.SuffixPrimitiveElement = append(m.SuffixPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.SuffixPrimitiveElement = append(m.SuffixPrimitiveElement, nil)
-			}
-		}
-	}
-	m.Period = r.Period
-	return m
-}
-func (r *HumanName) UnmarshalJSON(b []byte) error {
-	var m jsonHumanName
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r HumanName) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Use != nil && r.Use.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"use\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Use)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
+		p := primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_use\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil && r.Text.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Text)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
+		p := primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_text\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Family != nil && r.Family.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"family\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Family)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Family != nil && (r.Family.Id != nil || r.Family.Extension != nil) {
+		p := primitiveElement{Id: r.Family.Id, Extension: r.Family.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_family\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Given {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"given\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Given)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
+		for _, e := range r.Given {
+			if e.Id != nil || e.Extension != nil {
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_given\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Given {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Prefix {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"prefix\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Prefix)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
+		for _, e := range r.Prefix {
+			if e.Id != nil || e.Extension != nil {
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_prefix\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Prefix {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Suffix {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"suffix\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Suffix)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
+		for _, e := range r.Suffix {
+			if e.Id != nil || e.Extension != nil {
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_suffix\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Suffix {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if r.Period != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Period.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *HumanName) unmarshalJSON(m jsonHumanName) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Use = m.Use
-	if m.UsePrimitiveElement != nil {
-		if r.Use == nil {
-			r.Use = &Code{}
-		}
-		r.Use.Id = m.UsePrimitiveElement.Id
-		r.Use.Extension = m.UsePrimitiveElement.Extension
+func (r *HumanName) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Text = m.Text
-	if m.TextPrimitiveElement != nil {
-		if r.Text == nil {
-			r.Text = &String{}
-		}
-		r.Text.Id = m.TextPrimitiveElement.Id
-		r.Text.Extension = m.TextPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in HumanName element", t)
 	}
-	r.Family = m.Family
-	if m.FamilyPrimitiveElement != nil {
-		if r.Family == nil {
-			r.Family = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Family.Id = m.FamilyPrimitiveElement.Id
-		r.Family.Extension = m.FamilyPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in HumanName element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "use":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Value = v.Value
+		case "_use":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Id = v.Id
+			r.Use.Extension = v.Extension
+		case "text":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Value = v.Value
+		case "_text":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Id = v.Id
+			r.Text.Extension = v.Extension
+		case "family":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Family == nil {
+				r.Family = &String{}
+			}
+			r.Family.Value = v.Value
+		case "_family":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Family == nil {
+				r.Family = &String{}
+			}
+			r.Family.Id = v.Id
+			r.Family.Extension = v.Extension
+		case "given":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Given) <= i {
+					r.Given = append(r.Given, String{})
+				}
+				r.Given[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "_given":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Given) <= i {
+					r.Given = append(r.Given, String{})
+				}
+				r.Given[i].Id = v.Id
+				r.Given[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "prefix":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Prefix) <= i {
+					r.Prefix = append(r.Prefix, String{})
+				}
+				r.Prefix[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "_prefix":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Prefix) <= i {
+					r.Prefix = append(r.Prefix, String{})
+				}
+				r.Prefix[i].Id = v.Id
+				r.Prefix[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "suffix":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Suffix) <= i {
+					r.Suffix = append(r.Suffix, String{})
+				}
+				r.Suffix[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "_suffix":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in HumanName element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Suffix) <= i {
+					r.Suffix = append(r.Suffix, String{})
+				}
+				r.Suffix[i].Id = v.Id
+				r.Suffix[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in HumanName element", t)
+			}
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		default:
+			return fmt.Errorf("invalid field: %s in HumanName", f)
+		}
 	}
-	r.Given = m.Given
-	for i, e := range m.GivenPrimitiveElement {
-		if len(r.Given) <= i {
-			r.Given = append(r.Given, String{})
-		}
-		if e != nil {
-			r.Given[i].Id = e.Id
-			r.Given[i].Extension = e.Extension
-		}
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Prefix = m.Prefix
-	for i, e := range m.PrefixPrimitiveElement {
-		if len(r.Prefix) <= i {
-			r.Prefix = append(r.Prefix, String{})
-		}
-		if e != nil {
-			r.Prefix[i].Id = e.Id
-			r.Prefix[i].Extension = e.Extension
-		}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in HumanName element", t)
 	}
-	r.Suffix = m.Suffix
-	for i, e := range m.SuffixPrimitiveElement {
-		if len(r.Suffix) <= i {
-			r.Suffix = append(r.Suffix, String{})
-		}
-		if e != nil {
-			r.Suffix[i].Id = e.Id
-			r.Suffix[i].Extension = e.Extension
-		}
-	}
-	r.Period = m.Period
 	return nil
 }
 func (r HumanName) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

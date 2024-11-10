@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // This resource provides eligibility and plan details from the processing of an CoverageEligibilityRequest resource.
@@ -78,274 +80,1382 @@ type isCoverageEligibilityResponseServiced interface {
 
 func (r Date) isCoverageEligibilityResponseServiced()   {}
 func (r Period) isCoverageEligibilityResponseServiced() {}
-
-type jsonCoverageEligibilityResponse struct {
-	ResourceType                  string                                 `json:"resourceType"`
-	Id                            *Id                                    `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement                      `json:"_id,omitempty"`
-	Meta                          *Meta                                  `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                                   `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement                      `json:"_implicitRules,omitempty"`
-	Language                      *Code                                  `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement                      `json:"_language,omitempty"`
-	Text                          *Narrative                             `json:"text,omitempty"`
-	Contained                     []ContainedResource                    `json:"contained,omitempty"`
-	Extension                     []Extension                            `json:"extension,omitempty"`
-	ModifierExtension             []Extension                            `json:"modifierExtension,omitempty"`
-	Identifier                    []Identifier                           `json:"identifier,omitempty"`
-	Status                        Code                                   `json:"status,omitempty"`
-	StatusPrimitiveElement        *primitiveElement                      `json:"_status,omitempty"`
-	Purpose                       []Code                                 `json:"purpose,omitempty"`
-	PurposePrimitiveElement       []*primitiveElement                    `json:"_purpose,omitempty"`
-	Patient                       Reference                              `json:"patient,omitempty"`
-	ServicedDate                  *Date                                  `json:"servicedDate,omitempty"`
-	ServicedDatePrimitiveElement  *primitiveElement                      `json:"_servicedDate,omitempty"`
-	ServicedPeriod                *Period                                `json:"servicedPeriod,omitempty"`
-	Created                       DateTime                               `json:"created,omitempty"`
-	CreatedPrimitiveElement       *primitiveElement                      `json:"_created,omitempty"`
-	Requestor                     *Reference                             `json:"requestor,omitempty"`
-	Request                       Reference                              `json:"request,omitempty"`
-	Outcome                       Code                                   `json:"outcome,omitempty"`
-	OutcomePrimitiveElement       *primitiveElement                      `json:"_outcome,omitempty"`
-	Disposition                   *String                                `json:"disposition,omitempty"`
-	DispositionPrimitiveElement   *primitiveElement                      `json:"_disposition,omitempty"`
-	Insurer                       Reference                              `json:"insurer,omitempty"`
-	Insurance                     []CoverageEligibilityResponseInsurance `json:"insurance,omitempty"`
-	PreAuthRef                    *String                                `json:"preAuthRef,omitempty"`
-	PreAuthRefPrimitiveElement    *primitiveElement                      `json:"_preAuthRef,omitempty"`
-	Form                          *CodeableConcept                       `json:"form,omitempty"`
-	Error                         []CoverageEligibilityResponseError     `json:"error,omitempty"`
-}
-
 func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r CoverageEligibilityResponse) marshalJSON() jsonCoverageEligibilityResponse {
-	m := jsonCoverageEligibilityResponse{}
-	m.ResourceType = "CoverageEligibilityResponse"
+func (r CoverageEligibilityResponse) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"CoverageEligibilityResponse\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Identifier = r.Identifier
-	if r.Status.Value != nil {
-		m.Status = r.Status
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Identifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"identifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Identifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"status\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Status)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Status.Id != nil || r.Status.Extension != nil {
-		m.StatusPrimitiveElement = &primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
-	}
-	anyPurposeValue := false
-	for _, e := range r.Purpose {
-		if e.Value != nil {
-			anyPurposeValue = true
-			break
+		p := primitiveElement{Id: r.Status.Id, Extension: r.Status.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_status\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyPurposeValue {
-		m.Purpose = r.Purpose
-	}
-	anyPurposeIdOrExtension := false
-	for _, e := range r.Purpose {
-		if e.Id != nil || e.Extension != nil {
-			anyPurposeIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.Purpose {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyPurposeIdOrExtension {
-		m.PurposePrimitiveElement = make([]*primitiveElement, 0, len(r.Purpose))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"purpose\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Purpose)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Purpose {
 			if e.Id != nil || e.Extension != nil {
-				m.PurposePrimitiveElement = append(m.PurposePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.PurposePrimitiveElement = append(m.PurposePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_purpose\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Purpose {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Patient = r.Patient
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"patient\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Patient.marshalJSON(w)
+	if err != nil {
+		return err
+	}
 	switch v := r.Serviced.(type) {
 	case Date:
 		if v.Value != nil {
-			m.ServicedDate = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *Date:
 		if v.Value != nil {
-			m.ServicedDate = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.ServicedDatePrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_servicedDate\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Period:
-		m.ServicedPeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.ServicedPeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"servicedPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	if r.Created.Value != nil {
-		m.Created = r.Created
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"created\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Created)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Created.Id != nil || r.Created.Extension != nil {
-		m.CreatedPrimitiveElement = &primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
+		p := primitiveElement{Id: r.Created.Id, Extension: r.Created.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_created\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Requestor = r.Requestor
-	m.Request = r.Request
-	if r.Outcome.Value != nil {
-		m.Outcome = r.Outcome
+	if r.Requestor != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"requestor\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Requestor.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	if r.Outcome.Id != nil || r.Outcome.Extension != nil {
-		m.OutcomePrimitiveElement = &primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
 	}
-	if r.Disposition != nil && r.Disposition.Value != nil {
-		m.Disposition = r.Disposition
-	}
-	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
-		m.DispositionPrimitiveElement = &primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
-	}
-	m.Insurer = r.Insurer
-	m.Insurance = r.Insurance
-	if r.PreAuthRef != nil && r.PreAuthRef.Value != nil {
-		m.PreAuthRef = r.PreAuthRef
-	}
-	if r.PreAuthRef != nil && (r.PreAuthRef.Id != nil || r.PreAuthRef.Extension != nil) {
-		m.PreAuthRefPrimitiveElement = &primitiveElement{Id: r.PreAuthRef.Id, Extension: r.PreAuthRef.Extension}
-	}
-	m.Form = r.Form
-	m.Error = r.Error
-	return m
-}
-func (r *CoverageEligibilityResponse) UnmarshalJSON(b []byte) error {
-	var m jsonCoverageEligibilityResponse
-	if err := json.Unmarshal(b, &m); err != nil {
+	setComma = true
+	_, err = w.Write([]byte("\"request\":"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *CoverageEligibilityResponse) unmarshalJSON(m jsonCoverageEligibilityResponse) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
-		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
+	err = r.Request.marshalJSON(w)
+	if err != nil {
+		return err
 	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
-		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
-	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
-		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
-	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
-	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Identifier = m.Identifier
-	r.Status = m.Status
-	if m.StatusPrimitiveElement != nil {
-		r.Status.Id = m.StatusPrimitiveElement.Id
-		r.Status.Extension = m.StatusPrimitiveElement.Extension
-	}
-	r.Purpose = m.Purpose
-	for i, e := range m.PurposePrimitiveElement {
-		if len(r.Purpose) <= i {
-			r.Purpose = append(r.Purpose, Code{})
-		}
-		if e != nil {
-			r.Purpose[i].Id = e.Id
-			r.Purpose[i].Extension = e.Extension
-		}
-	}
-	r.Patient = m.Patient
-	if m.ServicedDate != nil || m.ServicedDatePrimitiveElement != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
-		}
-		v := m.ServicedDate
-		if m.ServicedDatePrimitiveElement != nil {
-			if v == nil {
-				v = &Date{}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
 			}
-			v.Id = m.ServicedDatePrimitiveElement.Id
-			v.Extension = m.ServicedDatePrimitiveElement.Extension
 		}
-		r.Serviced = v
-	}
-	if m.ServicedPeriod != nil {
-		if r.Serviced != nil {
-			return fmt.Errorf("multiple values for field \"Serviced\"")
+		setComma = true
+		_, err = w.Write([]byte("\"outcome\":"))
+		if err != nil {
+			return err
 		}
-		v := m.ServicedPeriod
-		r.Serviced = v
-	}
-	r.Created = m.Created
-	if m.CreatedPrimitiveElement != nil {
-		r.Created.Id = m.CreatedPrimitiveElement.Id
-		r.Created.Extension = m.CreatedPrimitiveElement.Extension
-	}
-	r.Requestor = m.Requestor
-	r.Request = m.Request
-	r.Outcome = m.Outcome
-	if m.OutcomePrimitiveElement != nil {
-		r.Outcome.Id = m.OutcomePrimitiveElement.Id
-		r.Outcome.Extension = m.OutcomePrimitiveElement.Extension
-	}
-	r.Disposition = m.Disposition
-	if m.DispositionPrimitiveElement != nil {
-		if r.Disposition == nil {
-			r.Disposition = &String{}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Outcome)
+		if err != nil {
+			return err
 		}
-		r.Disposition.Id = m.DispositionPrimitiveElement.Id
-		r.Disposition.Extension = m.DispositionPrimitiveElement.Extension
-	}
-	r.Insurer = m.Insurer
-	r.Insurance = m.Insurance
-	r.PreAuthRef = m.PreAuthRef
-	if m.PreAuthRefPrimitiveElement != nil {
-		if r.PreAuthRef == nil {
-			r.PreAuthRef = &String{}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
 		}
-		r.PreAuthRef.Id = m.PreAuthRefPrimitiveElement.Id
-		r.PreAuthRef.Extension = m.PreAuthRefPrimitiveElement.Extension
 	}
-	r.Form = m.Form
-	r.Error = m.Error
+	if r.Outcome.Id != nil || r.Outcome.Extension != nil {
+		p := primitiveElement{Id: r.Outcome.Id, Extension: r.Outcome.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_outcome\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Disposition != nil && r.Disposition.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"disposition\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Disposition)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Disposition != nil && (r.Disposition.Id != nil || r.Disposition.Extension != nil) {
+		p := primitiveElement{Id: r.Disposition.Id, Extension: r.Disposition.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_disposition\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"insurer\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Insurer.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Insurance) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"insurance\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Insurance {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.PreAuthRef != nil && r.PreAuthRef.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"preAuthRef\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PreAuthRef)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.PreAuthRef != nil && (r.PreAuthRef.Id != nil || r.PreAuthRef.Extension != nil) {
+		p := primitiveElement{Id: r.PreAuthRef.Id, Extension: r.PreAuthRef.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_preAuthRef\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Form != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"form\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Form.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Error) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"error\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Error {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *CoverageEligibilityResponse) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *CoverageEligibilityResponse) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in CoverageEligibilityResponse element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in CoverageEligibilityResponse element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "purpose":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Purpose) <= i {
+					r.Purpose = append(r.Purpose, Code{})
+				}
+				r.Purpose[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "_purpose":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Purpose) <= i {
+					r.Purpose = append(r.Purpose, Code{})
+				}
+				r.Purpose[i].Id = v.Id
+				r.Purpose[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "patient":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Patient = v
+		case "servicedDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: r.Serviced.(Date).Extension,
+					Id:        r.Serviced.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Serviced = v
+			}
+		case "_servicedDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Serviced != nil {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Serviced.(Date).Value,
+				}
+			} else {
+				r.Serviced = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "servicedPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Serviced = v
+		case "created":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Created.Value = v.Value
+		case "_created":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Created.Id = v.Id
+			r.Created.Extension = v.Extension
+		case "requestor":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Requestor = &v
+		case "request":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Request = v
+		case "outcome":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Outcome.Value = v.Value
+		case "_outcome":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Outcome.Id = v.Id
+			r.Outcome.Extension = v.Extension
+		case "disposition":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Disposition == nil {
+				r.Disposition = &String{}
+			}
+			r.Disposition.Value = v.Value
+		case "_disposition":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Disposition == nil {
+				r.Disposition = &String{}
+			}
+			r.Disposition.Id = v.Id
+			r.Disposition.Extension = v.Extension
+		case "insurer":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Insurer = v
+		case "insurance":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v CoverageEligibilityResponseInsurance
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Insurance = append(r.Insurance, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		case "preAuthRef":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PreAuthRef == nil {
+				r.PreAuthRef = &String{}
+			}
+			r.PreAuthRef.Value = v.Value
+		case "_preAuthRef":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PreAuthRef == nil {
+				r.PreAuthRef = &String{}
+			}
+			r.PreAuthRef.Id = v.Id
+			r.PreAuthRef.Extension = v.Extension
+		case "form":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Form = &v
+		case "error":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponse element", t)
+			}
+			for d.More() {
+				var v CoverageEligibilityResponseError
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Error = append(r.Error, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponse element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in CoverageEligibilityResponse", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in CoverageEligibilityResponse element", t)
+	}
 	return nil
 }
 func (r CoverageEligibilityResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -694,58 +1804,371 @@ type CoverageEligibilityResponseInsurance struct {
 	// Benefits and optionally current balances, and authorization details by category or service.
 	Item []CoverageEligibilityResponseInsuranceItem
 }
-type jsonCoverageEligibilityResponseInsurance struct {
-	Id                      *string                                    `json:"id,omitempty"`
-	Extension               []Extension                                `json:"extension,omitempty"`
-	ModifierExtension       []Extension                                `json:"modifierExtension,omitempty"`
-	Coverage                Reference                                  `json:"coverage,omitempty"`
-	Inforce                 *Boolean                                   `json:"inforce,omitempty"`
-	InforcePrimitiveElement *primitiveElement                          `json:"_inforce,omitempty"`
-	BenefitPeriod           *Period                                    `json:"benefitPeriod,omitempty"`
-	Item                    []CoverageEligibilityResponseInsuranceItem `json:"item,omitempty"`
-}
 
 func (r CoverageEligibilityResponseInsurance) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r CoverageEligibilityResponseInsurance) marshalJSON() jsonCoverageEligibilityResponseInsurance {
-	m := jsonCoverageEligibilityResponseInsurance{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Coverage = r.Coverage
-	if r.Inforce != nil && r.Inforce.Value != nil {
-		m.Inforce = r.Inforce
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.Inforce != nil && (r.Inforce.Id != nil || r.Inforce.Extension != nil) {
-		m.InforcePrimitiveElement = &primitiveElement{Id: r.Inforce.Id, Extension: r.Inforce.Extension}
-	}
-	m.BenefitPeriod = r.BenefitPeriod
-	m.Item = r.Item
-	return m
+	return b.Bytes(), nil
 }
-func (r *CoverageEligibilityResponseInsurance) UnmarshalJSON(b []byte) error {
-	var m jsonCoverageEligibilityResponseInsurance
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r CoverageEligibilityResponseInsurance) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *CoverageEligibilityResponseInsurance) unmarshalJSON(m jsonCoverageEligibilityResponseInsurance) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Coverage = m.Coverage
-	r.Inforce = m.Inforce
-	if m.InforcePrimitiveElement != nil {
-		if r.Inforce == nil {
-			r.Inforce = &Boolean{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Inforce.Id = m.InforcePrimitiveElement.Id
-		r.Inforce.Extension = m.InforcePrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.BenefitPeriod = m.BenefitPeriod
-	r.Item = m.Item
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"coverage\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Coverage.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Inforce != nil && r.Inforce.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"inforce\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Inforce)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Inforce != nil && (r.Inforce.Id != nil || r.Inforce.Extension != nil) {
+		p := primitiveElement{Id: r.Inforce.Id, Extension: r.Inforce.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_inforce\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.BenefitPeriod != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"benefitPeriod\":"))
+		if err != nil {
+			return err
+		}
+		err = r.BenefitPeriod.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Item) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"item\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Item {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *CoverageEligibilityResponseInsurance) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in CoverageEligibilityResponseInsurance element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in CoverageEligibilityResponseInsurance element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsurance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsurance element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsurance element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsurance element", t)
+			}
+		case "coverage":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Coverage = v
+		case "inforce":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Inforce == nil {
+				r.Inforce = &Boolean{}
+			}
+			r.Inforce.Value = v.Value
+		case "_inforce":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Inforce == nil {
+				r.Inforce = &Boolean{}
+			}
+			r.Inforce.Id = v.Id
+			r.Inforce.Extension = v.Extension
+		case "benefitPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.BenefitPeriod = &v
+		case "item":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsurance element", t)
+			}
+			for d.More() {
+				var v CoverageEligibilityResponseInsuranceItem
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsurance element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in CoverageEligibilityResponseInsurance", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in CoverageEligibilityResponseInsurance element", t)
+	}
 	return nil
 }
 func (r CoverageEligibilityResponseInsurance) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -909,139 +2332,836 @@ type CoverageEligibilityResponseInsuranceItem struct {
 	// A web location for obtaining requirements or descriptive information regarding the preauthorization.
 	AuthorizationUrl *Uri
 }
-type jsonCoverageEligibilityResponseInsuranceItem struct {
-	Id                                    *string                                           `json:"id,omitempty"`
-	Extension                             []Extension                                       `json:"extension,omitempty"`
-	ModifierExtension                     []Extension                                       `json:"modifierExtension,omitempty"`
-	Category                              *CodeableConcept                                  `json:"category,omitempty"`
-	ProductOrService                      *CodeableConcept                                  `json:"productOrService,omitempty"`
-	Modifier                              []CodeableConcept                                 `json:"modifier,omitempty"`
-	Provider                              *Reference                                        `json:"provider,omitempty"`
-	Excluded                              *Boolean                                          `json:"excluded,omitempty"`
-	ExcludedPrimitiveElement              *primitiveElement                                 `json:"_excluded,omitempty"`
-	Name                                  *String                                           `json:"name,omitempty"`
-	NamePrimitiveElement                  *primitiveElement                                 `json:"_name,omitempty"`
-	Description                           *String                                           `json:"description,omitempty"`
-	DescriptionPrimitiveElement           *primitiveElement                                 `json:"_description,omitempty"`
-	Network                               *CodeableConcept                                  `json:"network,omitempty"`
-	Unit                                  *CodeableConcept                                  `json:"unit,omitempty"`
-	Term                                  *CodeableConcept                                  `json:"term,omitempty"`
-	Benefit                               []CoverageEligibilityResponseInsuranceItemBenefit `json:"benefit,omitempty"`
-	AuthorizationRequired                 *Boolean                                          `json:"authorizationRequired,omitempty"`
-	AuthorizationRequiredPrimitiveElement *primitiveElement                                 `json:"_authorizationRequired,omitempty"`
-	AuthorizationSupporting               []CodeableConcept                                 `json:"authorizationSupporting,omitempty"`
-	AuthorizationUrl                      *Uri                                              `json:"authorizationUrl,omitempty"`
-	AuthorizationUrlPrimitiveElement      *primitiveElement                                 `json:"_authorizationUrl,omitempty"`
-}
 
 func (r CoverageEligibilityResponseInsuranceItem) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r CoverageEligibilityResponseInsuranceItem) marshalJSON() jsonCoverageEligibilityResponseInsuranceItem {
-	m := jsonCoverageEligibilityResponseInsuranceItem{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Category = r.Category
-	m.ProductOrService = r.ProductOrService
-	m.Modifier = r.Modifier
-	m.Provider = r.Provider
-	if r.Excluded != nil && r.Excluded.Value != nil {
-		m.Excluded = r.Excluded
-	}
-	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
-		m.ExcludedPrimitiveElement = &primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
-	}
-	if r.Name != nil && r.Name.Value != nil {
-		m.Name = r.Name
-	}
-	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
-		m.NamePrimitiveElement = &primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-	}
-	if r.Description != nil && r.Description.Value != nil {
-		m.Description = r.Description
-	}
-	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
-		m.DescriptionPrimitiveElement = &primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
-	}
-	m.Network = r.Network
-	m.Unit = r.Unit
-	m.Term = r.Term
-	m.Benefit = r.Benefit
-	if r.AuthorizationRequired != nil && r.AuthorizationRequired.Value != nil {
-		m.AuthorizationRequired = r.AuthorizationRequired
-	}
-	if r.AuthorizationRequired != nil && (r.AuthorizationRequired.Id != nil || r.AuthorizationRequired.Extension != nil) {
-		m.AuthorizationRequiredPrimitiveElement = &primitiveElement{Id: r.AuthorizationRequired.Id, Extension: r.AuthorizationRequired.Extension}
-	}
-	m.AuthorizationSupporting = r.AuthorizationSupporting
-	if r.AuthorizationUrl != nil && r.AuthorizationUrl.Value != nil {
-		m.AuthorizationUrl = r.AuthorizationUrl
-	}
-	if r.AuthorizationUrl != nil && (r.AuthorizationUrl.Id != nil || r.AuthorizationUrl.Extension != nil) {
-		m.AuthorizationUrlPrimitiveElement = &primitiveElement{Id: r.AuthorizationUrl.Id, Extension: r.AuthorizationUrl.Extension}
-	}
-	return m
-}
-func (r *CoverageEligibilityResponseInsuranceItem) UnmarshalJSON(b []byte) error {
-	var m jsonCoverageEligibilityResponseInsuranceItem
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r CoverageEligibilityResponseInsuranceItem) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Category != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"category\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Category.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ProductOrService != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"productOrService\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ProductOrService.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Modifier) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifier\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Modifier {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Provider != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"provider\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Provider.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Excluded != nil && r.Excluded.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"excluded\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Excluded)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Excluded != nil && (r.Excluded.Id != nil || r.Excluded.Extension != nil) {
+		p := primitiveElement{Id: r.Excluded.Id, Extension: r.Excluded.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_excluded\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && r.Name.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && r.Description.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"description\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Description)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
+		p := primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_description\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Network != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"network\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Network.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Unit != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"unit\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Unit.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Term != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"term\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Term.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Benefit) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"benefit\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Benefit {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthorizationRequired != nil && r.AuthorizationRequired.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"authorizationRequired\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.AuthorizationRequired)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthorizationRequired != nil && (r.AuthorizationRequired.Id != nil || r.AuthorizationRequired.Extension != nil) {
+		p := primitiveElement{Id: r.AuthorizationRequired.Id, Extension: r.AuthorizationRequired.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_authorizationRequired\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.AuthorizationSupporting) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"authorizationSupporting\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.AuthorizationSupporting {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthorizationUrl != nil && r.AuthorizationUrl.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"authorizationUrl\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.AuthorizationUrl)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.AuthorizationUrl != nil && (r.AuthorizationUrl.Id != nil || r.AuthorizationUrl.Extension != nil) {
+		p := primitiveElement{Id: r.AuthorizationUrl.Id, Extension: r.AuthorizationUrl.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_authorizationUrl\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *CoverageEligibilityResponseInsuranceItem) unmarshalJSON(m jsonCoverageEligibilityResponseInsuranceItem) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Category = m.Category
-	r.ProductOrService = m.ProductOrService
-	r.Modifier = m.Modifier
-	r.Provider = m.Provider
-	r.Excluded = m.Excluded
-	if m.ExcludedPrimitiveElement != nil {
-		if r.Excluded == nil {
-			r.Excluded = &Boolean{}
-		}
-		r.Excluded.Id = m.ExcludedPrimitiveElement.Id
-		r.Excluded.Extension = m.ExcludedPrimitiveElement.Extension
+func (r *CoverageEligibilityResponseInsuranceItem) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Name = m.Name
-	if m.NamePrimitiveElement != nil {
-		if r.Name == nil {
-			r.Name = &String{}
-		}
-		r.Name.Id = m.NamePrimitiveElement.Id
-		r.Name.Extension = m.NamePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in CoverageEligibilityResponseInsuranceItem element", t)
 	}
-	r.Description = m.Description
-	if m.DescriptionPrimitiveElement != nil {
-		if r.Description == nil {
-			r.Description = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Description.Id = m.DescriptionPrimitiveElement.Id
-		r.Description.Extension = m.DescriptionPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in CoverageEligibilityResponseInsuranceItem element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+		case "category":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Category = &v
+		case "productOrService":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ProductOrService = &v
+		case "modifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Modifier = append(r.Modifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+		case "provider":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Provider = &v
+		case "excluded":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Excluded == nil {
+				r.Excluded = &Boolean{}
+			}
+			r.Excluded.Value = v.Value
+		case "_excluded":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Excluded == nil {
+				r.Excluded = &Boolean{}
+			}
+			r.Excluded.Id = v.Id
+			r.Excluded.Extension = v.Extension
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "network":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Network = &v
+		case "unit":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Unit = &v
+		case "term":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Term = &v
+		case "benefit":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+			for d.More() {
+				var v CoverageEligibilityResponseInsuranceItemBenefit
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Benefit = append(r.Benefit, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+		case "authorizationRequired":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AuthorizationRequired == nil {
+				r.AuthorizationRequired = &Boolean{}
+			}
+			r.AuthorizationRequired.Value = v.Value
+		case "_authorizationRequired":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AuthorizationRequired == nil {
+				r.AuthorizationRequired = &Boolean{}
+			}
+			r.AuthorizationRequired.Id = v.Id
+			r.AuthorizationRequired.Extension = v.Extension
+		case "authorizationSupporting":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.AuthorizationSupporting = append(r.AuthorizationSupporting, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItem element", t)
+			}
+		case "authorizationUrl":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AuthorizationUrl == nil {
+				r.AuthorizationUrl = &Uri{}
+			}
+			r.AuthorizationUrl.Value = v.Value
+		case "_authorizationUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AuthorizationUrl == nil {
+				r.AuthorizationUrl = &Uri{}
+			}
+			r.AuthorizationUrl.Id = v.Id
+			r.AuthorizationUrl.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in CoverageEligibilityResponseInsuranceItem", f)
+		}
 	}
-	r.Network = m.Network
-	r.Unit = m.Unit
-	r.Term = m.Term
-	r.Benefit = m.Benefit
-	r.AuthorizationRequired = m.AuthorizationRequired
-	if m.AuthorizationRequiredPrimitiveElement != nil {
-		if r.AuthorizationRequired == nil {
-			r.AuthorizationRequired = &Boolean{}
-		}
-		r.AuthorizationRequired.Id = m.AuthorizationRequiredPrimitiveElement.Id
-		r.AuthorizationRequired.Extension = m.AuthorizationRequiredPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.AuthorizationSupporting = m.AuthorizationSupporting
-	r.AuthorizationUrl = m.AuthorizationUrl
-	if m.AuthorizationUrlPrimitiveElement != nil {
-		if r.AuthorizationUrl == nil {
-			r.AuthorizationUrl = &Uri{}
-		}
-		r.AuthorizationUrl.Id = m.AuthorizationUrlPrimitiveElement.Id
-		r.AuthorizationUrl.Extension = m.AuthorizationUrlPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in CoverageEligibilityResponseInsuranceItem element", t)
 	}
 	return nil
 }
@@ -1309,184 +3429,810 @@ type isCoverageEligibilityResponseInsuranceItemBenefitUsed interface {
 func (r UnsignedInt) isCoverageEligibilityResponseInsuranceItemBenefitUsed() {}
 func (r String) isCoverageEligibilityResponseInsuranceItemBenefitUsed()      {}
 func (r Money) isCoverageEligibilityResponseInsuranceItemBenefitUsed()       {}
-
-type jsonCoverageEligibilityResponseInsuranceItemBenefit struct {
-	Id                                 *string           `json:"id,omitempty"`
-	Extension                          []Extension       `json:"extension,omitempty"`
-	ModifierExtension                  []Extension       `json:"modifierExtension,omitempty"`
-	Type                               CodeableConcept   `json:"type,omitempty"`
-	AllowedUnsignedInt                 *UnsignedInt      `json:"allowedUnsignedInt,omitempty"`
-	AllowedUnsignedIntPrimitiveElement *primitiveElement `json:"_allowedUnsignedInt,omitempty"`
-	AllowedString                      *String           `json:"allowedString,omitempty"`
-	AllowedStringPrimitiveElement      *primitiveElement `json:"_allowedString,omitempty"`
-	AllowedMoney                       *Money            `json:"allowedMoney,omitempty"`
-	UsedUnsignedInt                    *UnsignedInt      `json:"usedUnsignedInt,omitempty"`
-	UsedUnsignedIntPrimitiveElement    *primitiveElement `json:"_usedUnsignedInt,omitempty"`
-	UsedString                         *String           `json:"usedString,omitempty"`
-	UsedStringPrimitiveElement         *primitiveElement `json:"_usedString,omitempty"`
-	UsedMoney                          *Money            `json:"usedMoney,omitempty"`
-}
-
 func (r CoverageEligibilityResponseInsuranceItemBenefit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) marshalJSON() jsonCoverageEligibilityResponseInsuranceItemBenefit {
-	m := jsonCoverageEligibilityResponseInsuranceItemBenefit{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
+func (r CoverageEligibilityResponseInsuranceItemBenefit) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
 	switch v := r.Allowed.(type) {
 	case UnsignedInt:
 		if v.Value != nil {
-			m.AllowedUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.AllowedUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.AllowedString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.AllowedString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"allowedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.AllowedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_allowedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Money:
-		m.AllowedMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"allowedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.AllowedMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"allowedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	switch v := r.Used.(type) {
 	case UnsignedInt:
 		if v.Value != nil {
-			m.UsedUnsignedInt = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *UnsignedInt:
 		if v.Value != nil {
-			m.UsedUnsignedInt = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedUnsignedIntPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedUnsignedInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case String:
 		if v.Value != nil {
-			m.UsedString = &v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case *String:
 		if v.Value != nil {
-			m.UsedString = v
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"usedString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
 		if v.Id != nil || v.Extension != nil {
-			m.UsedStringPrimitiveElement = &primitiveElement{Id: v.Id, Extension: v.Extension}
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_usedString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
 		}
 	case Money:
-		m.UsedMoney = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"usedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Money:
-		m.UsedMoney = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"usedMoney\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	return m
-}
-func (r *CoverageEligibilityResponseInsuranceItemBenefit) UnmarshalJSON(b []byte) error {
-	var m jsonCoverageEligibilityResponseInsuranceItemBenefit
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *CoverageEligibilityResponseInsuranceItemBenefit) unmarshalJSON(m jsonCoverageEligibilityResponseInsuranceItemBenefit) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	if m.AllowedUnsignedInt != nil || m.AllowedUnsignedIntPrimitiveElement != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
+func (r *CoverageEligibilityResponseInsuranceItemBenefit) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.AllowedUnsignedInt
-		if m.AllowedUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in CoverageEligibilityResponseInsuranceItemBenefit element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
 			}
-			v.Id = m.AllowedUnsignedIntPrimitiveElement.Id
-			v.Extension = m.AllowedUnsignedIntPrimitiveElement.Extension
-		}
-		r.Allowed = v
-	}
-	if m.AllowedString != nil || m.AllowedStringPrimitiveElement != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
-		}
-		v := m.AllowedString
-		if m.AllowedStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
 			}
-			v.Id = m.AllowedStringPrimitiveElement.Id
-			v.Extension = m.AllowedStringPrimitiveElement.Extension
-		}
-		r.Allowed = v
-	}
-	if m.AllowedMoney != nil {
-		if r.Allowed != nil {
-			return fmt.Errorf("multiple values for field \"Allowed\"")
-		}
-		v := m.AllowedMoney
-		r.Allowed = v
-	}
-	if m.UsedUnsignedInt != nil || m.UsedUnsignedIntPrimitiveElement != nil {
-		if r.Used != nil {
-			return fmt.Errorf("multiple values for field \"Used\"")
-		}
-		v := m.UsedUnsignedInt
-		if m.UsedUnsignedIntPrimitiveElement != nil {
-			if v == nil {
-				v = &UnsignedInt{}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
 			}
-			v.Id = m.UsedUnsignedIntPrimitiveElement.Id
-			v.Extension = m.UsedUnsignedIntPrimitiveElement.Extension
-		}
-		r.Used = v
-	}
-	if m.UsedString != nil || m.UsedStringPrimitiveElement != nil {
-		if r.Used != nil {
-			return fmt.Errorf("multiple values for field \"Used\"")
-		}
-		v := m.UsedString
-		if m.UsedStringPrimitiveElement != nil {
-			if v == nil {
-				v = &String{}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
 			}
-			v.Id = m.UsedStringPrimitiveElement.Id
-			v.Extension = m.UsedStringPrimitiveElement.Extension
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "allowedUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = UnsignedInt{
+					Extension: r.Allowed.(UnsignedInt).Extension,
+					Id:        r.Allowed.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Allowed = v
+			}
+		case "_allowedUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Allowed.(UnsignedInt).Value,
+				}
+			} else {
+				r.Allowed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "allowedString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = String{
+					Extension: r.Allowed.(String).Extension,
+					Id:        r.Allowed.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Allowed = v
+			}
+		case "_allowedString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Allowed != nil {
+				r.Allowed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Allowed.(String).Value,
+				}
+			} else {
+				r.Allowed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "allowedMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Allowed = v
+		case "usedUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = UnsignedInt{
+					Extension: r.Used.(UnsignedInt).Extension,
+					Id:        r.Used.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Used = v
+			}
+		case "_usedUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Used.(UnsignedInt).Value,
+				}
+			} else {
+				r.Used = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "usedString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = String{
+					Extension: r.Used.(String).Extension,
+					Id:        r.Used.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Used = v
+			}
+		case "_usedString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Used != nil {
+				r.Used = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Used.(String).Value,
+				}
+			} else {
+				r.Used = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "usedMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Used = v
+		default:
+			return fmt.Errorf("invalid field: %s in CoverageEligibilityResponseInsuranceItemBenefit", f)
 		}
-		r.Used = v
 	}
-	if m.UsedMoney != nil {
-		if r.Used != nil {
-			return fmt.Errorf("multiple values for field \"Used\"")
-		}
-		v := m.UsedMoney
-		r.Used = v
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in CoverageEligibilityResponseInsuranceItemBenefit element", t)
 	}
 	return nil
 }
@@ -1686,36 +4432,226 @@ type CoverageEligibilityResponseError struct {
 	// An error code,from a specified code system, which details why the eligibility check could not be performed.
 	Code CodeableConcept
 }
-type jsonCoverageEligibilityResponseError struct {
-	Id                *string         `json:"id,omitempty"`
-	Extension         []Extension     `json:"extension,omitempty"`
-	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
-	Code              CodeableConcept `json:"code,omitempty"`
-}
 
 func (r CoverageEligibilityResponseError) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r CoverageEligibilityResponseError) marshalJSON() jsonCoverageEligibilityResponseError {
-	m := jsonCoverageEligibilityResponseError{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Code = r.Code
-	return m
-}
-func (r *CoverageEligibilityResponseError) UnmarshalJSON(b []byte) error {
-	var m jsonCoverageEligibilityResponseError
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r CoverageEligibilityResponseError) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"code\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Code.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *CoverageEligibilityResponseError) unmarshalJSON(m jsonCoverageEligibilityResponseError) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Code = m.Code
+func (r *CoverageEligibilityResponseError) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in CoverageEligibilityResponseError element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in CoverageEligibilityResponseError element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseError element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseError element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in CoverageEligibilityResponseError element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in CoverageEligibilityResponseError element", t)
+			}
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = v
+		default:
+			return fmt.Errorf("invalid field: %s in CoverageEligibilityResponseError", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in CoverageEligibilityResponseError element", t)
+	}
 	return nil
 }
 func (r CoverageEligibilityResponseError) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

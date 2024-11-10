@@ -1,10 +1,12 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	model "fhir-toolbox/model"
 	"fmt"
+	"io"
 )
 
 // Todo.
@@ -53,150 +55,845 @@ func (r SubstancePolymer) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type jsonSubstancePolymer struct {
-	ResourceType                  string                       `json:"resourceType"`
-	Id                            *Id                          `json:"id,omitempty"`
-	IdPrimitiveElement            *primitiveElement            `json:"_id,omitempty"`
-	Meta                          *Meta                        `json:"meta,omitempty"`
-	ImplicitRules                 *Uri                         `json:"implicitRules,omitempty"`
-	ImplicitRulesPrimitiveElement *primitiveElement            `json:"_implicitRules,omitempty"`
-	Language                      *Code                        `json:"language,omitempty"`
-	LanguagePrimitiveElement      *primitiveElement            `json:"_language,omitempty"`
-	Text                          *Narrative                   `json:"text,omitempty"`
-	Contained                     []ContainedResource          `json:"contained,omitempty"`
-	Extension                     []Extension                  `json:"extension,omitempty"`
-	ModifierExtension             []Extension                  `json:"modifierExtension,omitempty"`
-	Class                         *CodeableConcept             `json:"class,omitempty"`
-	Geometry                      *CodeableConcept             `json:"geometry,omitempty"`
-	CopolymerConnectivity         []CodeableConcept            `json:"copolymerConnectivity,omitempty"`
-	Modification                  []String                     `json:"modification,omitempty"`
-	ModificationPrimitiveElement  []*primitiveElement          `json:"_modification,omitempty"`
-	MonomerSet                    []SubstancePolymerMonomerSet `json:"monomerSet,omitempty"`
-	Repeat                        []SubstancePolymerRepeat     `json:"repeat,omitempty"`
-}
-
 func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstancePolymer) marshalJSON() jsonSubstancePolymer {
-	m := jsonSubstancePolymer{}
-	m.ResourceType = "SubstancePolymer"
+func (r SubstancePolymer) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("\"resourceType\":\"SubstancePolymer\""))
+	if err != nil {
+		return err
+	}
+	setComma := true
 	if r.Id != nil && r.Id.Value != nil {
-		m.Id = r.Id
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Id != nil && (r.Id.Id != nil || r.Id.Extension != nil) {
-		m.IdPrimitiveElement = &primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		p := primitiveElement{Id: r.Id.Id, Extension: r.Id.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_id\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Meta = r.Meta
+	if r.Meta != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"meta\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Meta.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
 	if r.ImplicitRules != nil && r.ImplicitRules.Value != nil {
-		m.ImplicitRules = r.ImplicitRules
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ImplicitRules)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.ImplicitRules != nil && (r.ImplicitRules.Id != nil || r.ImplicitRules.Extension != nil) {
-		m.ImplicitRulesPrimitiveElement = &primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		p := primitiveElement{Id: r.ImplicitRules.Id, Extension: r.ImplicitRules.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_implicitRules\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && r.Language.Value != nil {
-		m.Language = r.Language
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"language\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Language)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Language != nil && (r.Language.Id != nil || r.Language.Extension != nil) {
-		m.LanguagePrimitiveElement = &primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
-	}
-	m.Text = r.Text
-	m.Contained = make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		m.Contained = append(m.Contained, ContainedResource{c})
-	}
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Class = r.Class
-	m.Geometry = r.Geometry
-	m.CopolymerConnectivity = r.CopolymerConnectivity
-	anyModificationValue := false
-	for _, e := range r.Modification {
-		if e.Value != nil {
-			anyModificationValue = true
-			break
+		p := primitiveElement{Id: r.Language.Id, Extension: r.Language.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_language\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyModificationValue {
-		m.Modification = r.Modification
-	}
-	anyModificationIdOrExtension := false
-	for _, e := range r.Modification {
-		if e.Id != nil || e.Extension != nil {
-			anyModificationIdOrExtension = true
-			break
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyModificationIdOrExtension {
-		m.ModificationPrimitiveElement = make([]*primitiveElement, 0, len(r.Modification))
+	if len(r.Contained) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contained\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, c := range r.Contained {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = ContainedResource{c}.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Class != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"class\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Class.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Geometry != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"geometry\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Geometry.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.CopolymerConnectivity) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"copolymerConnectivity\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.CopolymerConnectivity {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Modification {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"modification\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Modification)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Modification {
 			if e.Id != nil || e.Extension != nil {
-				m.ModificationPrimitiveElement = append(m.ModificationPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ModificationPrimitiveElement = append(m.ModificationPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_modification\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Modification {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.MonomerSet = r.MonomerSet
-	m.Repeat = r.Repeat
-	return m
-}
-func (r *SubstancePolymer) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymer
-	if err := json.Unmarshal(b, &m); err != nil {
+	if len(r.MonomerSet) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"monomerSet\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.MonomerSet {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Repeat) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repeat\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Repeat {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *SubstancePolymer) unmarshalJSON(m jsonSubstancePolymer) error {
-	r.Id = m.Id
-	if m.IdPrimitiveElement != nil {
-		if r.Id == nil {
-			r.Id = &Id{}
-		}
-		r.Id.Id = m.IdPrimitiveElement.Id
-		r.Id.Extension = m.IdPrimitiveElement.Extension
+func (r *SubstancePolymer) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *SubstancePolymer) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Meta = m.Meta
-	r.ImplicitRules = m.ImplicitRules
-	if m.ImplicitRulesPrimitiveElement != nil {
-		if r.ImplicitRules == nil {
-			r.ImplicitRules = &Uri{}
-		}
-		r.ImplicitRules.Id = m.ImplicitRulesPrimitiveElement.Id
-		r.ImplicitRules.Extension = m.ImplicitRulesPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymer element", t)
 	}
-	r.Language = m.Language
-	if m.LanguagePrimitiveElement != nil {
-		if r.Language == nil {
-			r.Language = &Code{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Language.Id = m.LanguagePrimitiveElement.Id
-		r.Language.Extension = m.LanguagePrimitiveElement.Extension
-	}
-	r.Text = m.Text
-	r.Contained = make([]model.Resource, 0, len(m.Contained))
-	for _, v := range m.Contained {
-		r.Contained = append(r.Contained, v.Resource)
-	}
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Class = m.Class
-	r.Geometry = m.Geometry
-	r.CopolymerConnectivity = m.CopolymerConnectivity
-	r.Modification = m.Modification
-	for i, e := range m.ModificationPrimitiveElement {
-		if len(r.Modification) <= i {
-			r.Modification = append(r.Modification, String{})
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymer element", t)
 		}
-		if e != nil {
-			r.Modification[i].Id = e.Id
-			r.Modification[i].Extension = e.Extension
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "class":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Class = &v
+		case "geometry":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Geometry = &v
+		case "copolymerConnectivity":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.CopolymerConnectivity = append(r.CopolymerConnectivity, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "modification":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Modification) <= i {
+					r.Modification = append(r.Modification, String{})
+				}
+				r.Modification[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "_modification":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Modification) <= i {
+					r.Modification = append(r.Modification, String{})
+				}
+				r.Modification[i].Id = v.Id
+				r.Modification[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "monomerSet":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerMonomerSet
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.MonomerSet = append(r.MonomerSet, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		case "repeat":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymer element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerRepeat
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Repeat = append(r.Repeat, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymer element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymer", f)
 		}
 	}
-	r.MonomerSet = m.MonomerSet
-	r.Repeat = m.Repeat
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymer element", t)
+	}
 	return nil
 }
 func (r SubstancePolymer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -421,39 +1118,286 @@ type SubstancePolymerMonomerSet struct {
 	// Todo.
 	StartingMaterial []SubstancePolymerMonomerSetStartingMaterial
 }
-type jsonSubstancePolymerMonomerSet struct {
-	Id                *string                                      `json:"id,omitempty"`
-	Extension         []Extension                                  `json:"extension,omitempty"`
-	ModifierExtension []Extension                                  `json:"modifierExtension,omitempty"`
-	RatioType         *CodeableConcept                             `json:"ratioType,omitempty"`
-	StartingMaterial  []SubstancePolymerMonomerSetStartingMaterial `json:"startingMaterial,omitempty"`
-}
 
 func (r SubstancePolymerMonomerSet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstancePolymerMonomerSet) marshalJSON() jsonSubstancePolymerMonomerSet {
-	m := jsonSubstancePolymerMonomerSet{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.RatioType = r.RatioType
-	m.StartingMaterial = r.StartingMaterial
-	return m
-}
-func (r *SubstancePolymerMonomerSet) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerMonomerSet
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerMonomerSet) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.RatioType != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"ratioType\":"))
+		if err != nil {
+			return err
+		}
+		err = r.RatioType.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.StartingMaterial) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"startingMaterial\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.StartingMaterial {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *SubstancePolymerMonomerSet) unmarshalJSON(m jsonSubstancePolymerMonomerSet) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.RatioType = m.RatioType
-	r.StartingMaterial = m.StartingMaterial
+func (r *SubstancePolymerMonomerSet) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerMonomerSet element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerMonomerSet element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerMonomerSet element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerMonomerSet element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerMonomerSet element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerMonomerSet element", t)
+			}
+		case "ratioType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.RatioType = &v
+		case "startingMaterial":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerMonomerSet element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerMonomerSetStartingMaterial
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.StartingMaterial = append(r.StartingMaterial, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerMonomerSet element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerMonomerSet", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerMonomerSet element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerMonomerSet) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -575,58 +1519,339 @@ type SubstancePolymerMonomerSetStartingMaterial struct {
 	// Todo.
 	Amount *SubstanceAmount
 }
-type jsonSubstancePolymerMonomerSetStartingMaterial struct {
-	Id                         *string           `json:"id,omitempty"`
-	Extension                  []Extension       `json:"extension,omitempty"`
-	ModifierExtension          []Extension       `json:"modifierExtension,omitempty"`
-	Material                   *CodeableConcept  `json:"material,omitempty"`
-	Type                       *CodeableConcept  `json:"type,omitempty"`
-	IsDefining                 *Boolean          `json:"isDefining,omitempty"`
-	IsDefiningPrimitiveElement *primitiveElement `json:"_isDefining,omitempty"`
-	Amount                     *SubstanceAmount  `json:"amount,omitempty"`
-}
 
 func (r SubstancePolymerMonomerSetStartingMaterial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r SubstancePolymerMonomerSetStartingMaterial) marshalJSON() jsonSubstancePolymerMonomerSetStartingMaterial {
-	m := jsonSubstancePolymerMonomerSetStartingMaterial{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Material = r.Material
-	m.Type = r.Type
-	if r.IsDefining != nil && r.IsDefining.Value != nil {
-		m.IsDefining = r.IsDefining
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.IsDefining != nil && (r.IsDefining.Id != nil || r.IsDefining.Extension != nil) {
-		m.IsDefiningPrimitiveElement = &primitiveElement{Id: r.IsDefining.Id, Extension: r.IsDefining.Extension}
-	}
-	m.Amount = r.Amount
-	return m
+	return b.Bytes(), nil
 }
-func (r *SubstancePolymerMonomerSetStartingMaterial) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerMonomerSetStartingMaterial
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerMonomerSetStartingMaterial) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *SubstancePolymerMonomerSetStartingMaterial) unmarshalJSON(m jsonSubstancePolymerMonomerSetStartingMaterial) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Material = m.Material
-	r.Type = m.Type
-	r.IsDefining = m.IsDefining
-	if m.IsDefiningPrimitiveElement != nil {
-		if r.IsDefining == nil {
-			r.IsDefining = &Boolean{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.IsDefining.Id = m.IsDefiningPrimitiveElement.Id
-		r.IsDefining.Extension = m.IsDefiningPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Amount = m.Amount
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Material != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"material\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Material.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.IsDefining != nil && r.IsDefining.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"isDefining\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.IsDefining)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.IsDefining != nil && (r.IsDefining.Id != nil || r.IsDefining.Extension != nil) {
+		p := primitiveElement{Id: r.IsDefining.Id, Extension: r.IsDefining.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_isDefining\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Amount.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *SubstancePolymerMonomerSetStartingMaterial) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerMonomerSetStartingMaterial element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerMonomerSetStartingMaterial element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerMonomerSetStartingMaterial element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerMonomerSetStartingMaterial element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerMonomerSetStartingMaterial element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerMonomerSetStartingMaterial element", t)
+			}
+		case "material":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Material = &v
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "isDefining":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IsDefining == nil {
+				r.IsDefining = &Boolean{}
+			}
+			r.IsDefining.Value = v.Value
+		case "_isDefining":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IsDefining == nil {
+				r.IsDefining = &Boolean{}
+			}
+			r.IsDefining.Id = v.Id
+			r.IsDefining.Extension = v.Extension
+		case "amount":
+			var v SubstanceAmount
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = &v
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerMonomerSetStartingMaterial", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerMonomerSetStartingMaterial element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -770,71 +1995,412 @@ type SubstancePolymerRepeat struct {
 	// Todo.
 	RepeatUnit []SubstancePolymerRepeatRepeatUnit
 }
-type jsonSubstancePolymerRepeat struct {
-	Id                                      *string                            `json:"id,omitempty"`
-	Extension                               []Extension                        `json:"extension,omitempty"`
-	ModifierExtension                       []Extension                        `json:"modifierExtension,omitempty"`
-	NumberOfUnits                           *Integer                           `json:"numberOfUnits,omitempty"`
-	NumberOfUnitsPrimitiveElement           *primitiveElement                  `json:"_numberOfUnits,omitempty"`
-	AverageMolecularFormula                 *String                            `json:"averageMolecularFormula,omitempty"`
-	AverageMolecularFormulaPrimitiveElement *primitiveElement                  `json:"_averageMolecularFormula,omitempty"`
-	RepeatUnitAmountType                    *CodeableConcept                   `json:"repeatUnitAmountType,omitempty"`
-	RepeatUnit                              []SubstancePolymerRepeatRepeatUnit `json:"repeatUnit,omitempty"`
-}
 
 func (r SubstancePolymerRepeat) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstancePolymerRepeat) marshalJSON() jsonSubstancePolymerRepeat {
-	m := jsonSubstancePolymerRepeat{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	if r.NumberOfUnits != nil && r.NumberOfUnits.Value != nil {
-		m.NumberOfUnits = r.NumberOfUnits
-	}
-	if r.NumberOfUnits != nil && (r.NumberOfUnits.Id != nil || r.NumberOfUnits.Extension != nil) {
-		m.NumberOfUnitsPrimitiveElement = &primitiveElement{Id: r.NumberOfUnits.Id, Extension: r.NumberOfUnits.Extension}
-	}
-	if r.AverageMolecularFormula != nil && r.AverageMolecularFormula.Value != nil {
-		m.AverageMolecularFormula = r.AverageMolecularFormula
-	}
-	if r.AverageMolecularFormula != nil && (r.AverageMolecularFormula.Id != nil || r.AverageMolecularFormula.Extension != nil) {
-		m.AverageMolecularFormulaPrimitiveElement = &primitiveElement{Id: r.AverageMolecularFormula.Id, Extension: r.AverageMolecularFormula.Extension}
-	}
-	m.RepeatUnitAmountType = r.RepeatUnitAmountType
-	m.RepeatUnit = r.RepeatUnit
-	return m
-}
-func (r *SubstancePolymerRepeat) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerRepeat
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerRepeat) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.NumberOfUnits != nil && r.NumberOfUnits.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"numberOfUnits\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.NumberOfUnits)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.NumberOfUnits != nil && (r.NumberOfUnits.Id != nil || r.NumberOfUnits.Extension != nil) {
+		p := primitiveElement{Id: r.NumberOfUnits.Id, Extension: r.NumberOfUnits.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_numberOfUnits\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.AverageMolecularFormula != nil && r.AverageMolecularFormula.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"averageMolecularFormula\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.AverageMolecularFormula)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.AverageMolecularFormula != nil && (r.AverageMolecularFormula.Id != nil || r.AverageMolecularFormula.Extension != nil) {
+		p := primitiveElement{Id: r.AverageMolecularFormula.Id, Extension: r.AverageMolecularFormula.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_averageMolecularFormula\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.RepeatUnitAmountType != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repeatUnitAmountType\":"))
+		if err != nil {
+			return err
+		}
+		err = r.RepeatUnitAmountType.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.RepeatUnit) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repeatUnit\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.RepeatUnit {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *SubstancePolymerRepeat) unmarshalJSON(m jsonSubstancePolymerRepeat) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.NumberOfUnits = m.NumberOfUnits
-	if m.NumberOfUnitsPrimitiveElement != nil {
-		if r.NumberOfUnits == nil {
-			r.NumberOfUnits = &Integer{}
-		}
-		r.NumberOfUnits.Id = m.NumberOfUnitsPrimitiveElement.Id
-		r.NumberOfUnits.Extension = m.NumberOfUnitsPrimitiveElement.Extension
+func (r *SubstancePolymerRepeat) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.AverageMolecularFormula = m.AverageMolecularFormula
-	if m.AverageMolecularFormulaPrimitiveElement != nil {
-		if r.AverageMolecularFormula == nil {
-			r.AverageMolecularFormula = &String{}
-		}
-		r.AverageMolecularFormula.Id = m.AverageMolecularFormulaPrimitiveElement.Id
-		r.AverageMolecularFormula.Extension = m.AverageMolecularFormulaPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerRepeat element", t)
 	}
-	r.RepeatUnitAmountType = m.RepeatUnitAmountType
-	r.RepeatUnit = m.RepeatUnit
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerRepeat element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeat element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeat element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeat element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeat element", t)
+			}
+		case "numberOfUnits":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfUnits == nil {
+				r.NumberOfUnits = &Integer{}
+			}
+			r.NumberOfUnits.Value = v.Value
+		case "_numberOfUnits":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfUnits == nil {
+				r.NumberOfUnits = &Integer{}
+			}
+			r.NumberOfUnits.Id = v.Id
+			r.NumberOfUnits.Extension = v.Extension
+		case "averageMolecularFormula":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AverageMolecularFormula == nil {
+				r.AverageMolecularFormula = &String{}
+			}
+			r.AverageMolecularFormula.Value = v.Value
+		case "_averageMolecularFormula":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AverageMolecularFormula == nil {
+				r.AverageMolecularFormula = &String{}
+			}
+			r.AverageMolecularFormula.Id = v.Id
+			r.AverageMolecularFormula.Extension = v.Extension
+		case "repeatUnitAmountType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.RepeatUnitAmountType = &v
+		case "repeatUnit":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeat element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerRepeatRepeatUnit
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.RepeatUnit = append(r.RepeatUnit, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeat element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerRepeat", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerRepeat element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerRepeat) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -980,61 +2546,431 @@ type SubstancePolymerRepeatRepeatUnit struct {
 	// Todo.
 	StructuralRepresentation []SubstancePolymerRepeatRepeatUnitStructuralRepresentation
 }
-type jsonSubstancePolymerRepeatRepeatUnit struct {
-	Id                          *string                                                    `json:"id,omitempty"`
-	Extension                   []Extension                                                `json:"extension,omitempty"`
-	ModifierExtension           []Extension                                                `json:"modifierExtension,omitempty"`
-	OrientationOfPolymerisation *CodeableConcept                                           `json:"orientationOfPolymerisation,omitempty"`
-	RepeatUnit                  *String                                                    `json:"repeatUnit,omitempty"`
-	RepeatUnitPrimitiveElement  *primitiveElement                                          `json:"_repeatUnit,omitempty"`
-	Amount                      *SubstanceAmount                                           `json:"amount,omitempty"`
-	DegreeOfPolymerisation      []SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation   `json:"degreeOfPolymerisation,omitempty"`
-	StructuralRepresentation    []SubstancePolymerRepeatRepeatUnitStructuralRepresentation `json:"structuralRepresentation,omitempty"`
-}
 
 func (r SubstancePolymerRepeatRepeatUnit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r SubstancePolymerRepeatRepeatUnit) marshalJSON() jsonSubstancePolymerRepeatRepeatUnit {
-	m := jsonSubstancePolymerRepeatRepeatUnit{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.OrientationOfPolymerisation = r.OrientationOfPolymerisation
-	if r.RepeatUnit != nil && r.RepeatUnit.Value != nil {
-		m.RepeatUnit = r.RepeatUnit
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.RepeatUnit != nil && (r.RepeatUnit.Id != nil || r.RepeatUnit.Extension != nil) {
-		m.RepeatUnitPrimitiveElement = &primitiveElement{Id: r.RepeatUnit.Id, Extension: r.RepeatUnit.Extension}
-	}
-	m.Amount = r.Amount
-	m.DegreeOfPolymerisation = r.DegreeOfPolymerisation
-	m.StructuralRepresentation = r.StructuralRepresentation
-	return m
+	return b.Bytes(), nil
 }
-func (r *SubstancePolymerRepeatRepeatUnit) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerRepeatRepeatUnit
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerRepeatRepeatUnit) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *SubstancePolymerRepeatRepeatUnit) unmarshalJSON(m jsonSubstancePolymerRepeatRepeatUnit) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.OrientationOfPolymerisation = m.OrientationOfPolymerisation
-	r.RepeatUnit = m.RepeatUnit
-	if m.RepeatUnitPrimitiveElement != nil {
-		if r.RepeatUnit == nil {
-			r.RepeatUnit = &String{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.RepeatUnit.Id = m.RepeatUnitPrimitiveElement.Id
-		r.RepeatUnit.Extension = m.RepeatUnitPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Amount = m.Amount
-	r.DegreeOfPolymerisation = m.DegreeOfPolymerisation
-	r.StructuralRepresentation = m.StructuralRepresentation
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.OrientationOfPolymerisation != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"orientationOfPolymerisation\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OrientationOfPolymerisation.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.RepeatUnit != nil && r.RepeatUnit.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repeatUnit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.RepeatUnit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.RepeatUnit != nil && (r.RepeatUnit.Id != nil || r.RepeatUnit.Extension != nil) {
+		p := primitiveElement{Id: r.RepeatUnit.Id, Extension: r.RepeatUnit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_repeatUnit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Amount.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.DegreeOfPolymerisation) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"degreeOfPolymerisation\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.DegreeOfPolymerisation {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.StructuralRepresentation) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"structuralRepresentation\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.StructuralRepresentation {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *SubstancePolymerRepeatRepeatUnit) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerRepeatRepeatUnit element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerRepeatRepeatUnit element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+		case "orientationOfPolymerisation":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.OrientationOfPolymerisation = &v
+		case "repeatUnit":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.RepeatUnit == nil {
+				r.RepeatUnit = &String{}
+			}
+			r.RepeatUnit.Value = v.Value
+		case "_repeatUnit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.RepeatUnit == nil {
+				r.RepeatUnit = &String{}
+			}
+			r.RepeatUnit.Id = v.Id
+			r.RepeatUnit.Extension = v.Extension
+		case "amount":
+			var v SubstanceAmount
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = &v
+		case "degreeOfPolymerisation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.DegreeOfPolymerisation = append(r.DegreeOfPolymerisation, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+		case "structuralRepresentation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+			for d.More() {
+				var v SubstancePolymerRepeatRepeatUnitStructuralRepresentation
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.StructuralRepresentation = append(r.StructuralRepresentation, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnit element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerRepeatRepeatUnit", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerRepeatRepeatUnit element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerRepeatRepeatUnit) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1185,39 +3121,252 @@ type SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation struct {
 	// Todo.
 	Amount *SubstanceAmount
 }
-type jsonSubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation struct {
-	Id                *string          `json:"id,omitempty"`
-	Extension         []Extension      `json:"extension,omitempty"`
-	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Degree            *CodeableConcept `json:"degree,omitempty"`
-	Amount            *SubstanceAmount `json:"amount,omitempty"`
-}
 
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) marshalJSON() jsonSubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation {
-	m := jsonSubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Degree = r.Degree
-	m.Amount = r.Amount
-	return m
-}
-func (r *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Degree != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"degree\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Degree.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Amount != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"amount\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Amount.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) unmarshalJSON(m jsonSubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Degree = m.Degree
-	r.Amount = m.Amount
+func (r *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+			}
+		case "degree":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Degree = &v
+		case "amount":
+			var v SubstanceAmount
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Amount = &v
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -1337,55 +3486,315 @@ type SubstancePolymerRepeatRepeatUnitStructuralRepresentation struct {
 	// Todo.
 	Attachment *Attachment
 }
-type jsonSubstancePolymerRepeatRepeatUnitStructuralRepresentation struct {
-	Id                             *string           `json:"id,omitempty"`
-	Extension                      []Extension       `json:"extension,omitempty"`
-	ModifierExtension              []Extension       `json:"modifierExtension,omitempty"`
-	Type                           *CodeableConcept  `json:"type,omitempty"`
-	Representation                 *String           `json:"representation,omitempty"`
-	RepresentationPrimitiveElement *primitiveElement `json:"_representation,omitempty"`
-	Attachment                     *Attachment       `json:"attachment,omitempty"`
-}
 
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
-}
-func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) marshalJSON() jsonSubstancePolymerRepeatRepeatUnitStructuralRepresentation {
-	m := jsonSubstancePolymerRepeatRepeatUnitStructuralRepresentation{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Type = r.Type
-	if r.Representation != nil && r.Representation.Value != nil {
-		m.Representation = r.Representation
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
 	}
-	if r.Representation != nil && (r.Representation.Id != nil || r.Representation.Extension != nil) {
-		m.RepresentationPrimitiveElement = &primitiveElement{Id: r.Representation.Id, Extension: r.Representation.Extension}
-	}
-	m.Attachment = r.Attachment
-	return m
+	return b.Bytes(), nil
 }
-func (r *SubstancePolymerRepeatRepeatUnitStructuralRepresentation) UnmarshalJSON(b []byte) error {
-	var m jsonSubstancePolymerRepeatRepeatUnitStructuralRepresentation
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
-}
-func (r *SubstancePolymerRepeatRepeatUnitStructuralRepresentation) unmarshalJSON(m jsonSubstancePolymerRepeatRepeatUnitStructuralRepresentation) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Type = m.Type
-	r.Representation = m.Representation
-	if m.RepresentationPrimitiveElement != nil {
-		if r.Representation == nil {
-			r.Representation = &String{}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
 		}
-		r.Representation.Id = m.RepresentationPrimitiveElement.Id
-		r.Representation.Extension = m.RepresentationPrimitiveElement.Extension
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
-	r.Attachment = m.Attachment
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Representation != nil && r.Representation.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"representation\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Representation)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Representation != nil && (r.Representation.Id != nil || r.Representation.Extension != nil) {
+		p := primitiveElement{Id: r.Representation.Id, Extension: r.Representation.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_representation\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Attachment != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"attachment\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Attachment.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r *SubstancePolymerRepeatRepeatUnitStructuralRepresentation) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "representation":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Representation == nil {
+				r.Representation = &String{}
+			}
+			r.Representation.Value = v.Value
+		case "_representation":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Representation == nil {
+				r.Representation = &String{}
+			}
+			r.Representation.Id = v.Id
+			r.Representation.Extension = v.Extension
+		case "attachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Attachment = &v
+		default:
+			return fmt.Errorf("invalid field: %s in SubstancePolymerRepeatRepeatUnitStructuralRepresentation", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstancePolymerRepeatRepeatUnitStructuralRepresentation element", t)
+	}
 	return nil
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

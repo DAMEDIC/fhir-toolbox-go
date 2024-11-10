@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for ProdCharacteristic Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
@@ -39,151 +41,779 @@ type ProdCharacteristic struct {
 	// Where applicable, the scoring can be specified An appropriate controlled vocabulary shall be used The term and the term identifier shall be used.
 	Scoring *CodeableConcept
 }
-type jsonProdCharacteristic struct {
-	Id                      *string             `json:"id,omitempty"`
-	Extension               []Extension         `json:"extension,omitempty"`
-	ModifierExtension       []Extension         `json:"modifierExtension,omitempty"`
-	Height                  *Quantity           `json:"height,omitempty"`
-	Width                   *Quantity           `json:"width,omitempty"`
-	Depth                   *Quantity           `json:"depth,omitempty"`
-	Weight                  *Quantity           `json:"weight,omitempty"`
-	NominalVolume           *Quantity           `json:"nominalVolume,omitempty"`
-	ExternalDiameter        *Quantity           `json:"externalDiameter,omitempty"`
-	Shape                   *String             `json:"shape,omitempty"`
-	ShapePrimitiveElement   *primitiveElement   `json:"_shape,omitempty"`
-	Color                   []String            `json:"color,omitempty"`
-	ColorPrimitiveElement   []*primitiveElement `json:"_color,omitempty"`
-	Imprint                 []String            `json:"imprint,omitempty"`
-	ImprintPrimitiveElement []*primitiveElement `json:"_imprint,omitempty"`
-	Image                   []Attachment        `json:"image,omitempty"`
-	Scoring                 *CodeableConcept    `json:"scoring,omitempty"`
-}
 
 func (r ProdCharacteristic) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r ProdCharacteristic) marshalJSON() jsonProdCharacteristic {
-	m := jsonProdCharacteristic{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	m.Height = r.Height
-	m.Width = r.Width
-	m.Depth = r.Depth
-	m.Weight = r.Weight
-	m.NominalVolume = r.NominalVolume
-	m.ExternalDiameter = r.ExternalDiameter
-	if r.Shape != nil && r.Shape.Value != nil {
-		m.Shape = r.Shape
-	}
-	if r.Shape != nil && (r.Shape.Id != nil || r.Shape.Extension != nil) {
-		m.ShapePrimitiveElement = &primitiveElement{Id: r.Shape.Id, Extension: r.Shape.Extension}
-	}
-	anyColorValue := false
-	for _, e := range r.Color {
-		if e.Value != nil {
-			anyColorValue = true
-			break
-		}
-	}
-	if anyColorValue {
-		m.Color = r.Color
-	}
-	anyColorIdOrExtension := false
-	for _, e := range r.Color {
-		if e.Id != nil || e.Extension != nil {
-			anyColorIdOrExtension = true
-			break
-		}
-	}
-	if anyColorIdOrExtension {
-		m.ColorPrimitiveElement = make([]*primitiveElement, 0, len(r.Color))
-		for _, e := range r.Color {
-			if e.Id != nil || e.Extension != nil {
-				m.ColorPrimitiveElement = append(m.ColorPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ColorPrimitiveElement = append(m.ColorPrimitiveElement, nil)
-			}
-		}
-	}
-	anyImprintValue := false
-	for _, e := range r.Imprint {
-		if e.Value != nil {
-			anyImprintValue = true
-			break
-		}
-	}
-	if anyImprintValue {
-		m.Imprint = r.Imprint
-	}
-	anyImprintIdOrExtension := false
-	for _, e := range r.Imprint {
-		if e.Id != nil || e.Extension != nil {
-			anyImprintIdOrExtension = true
-			break
-		}
-	}
-	if anyImprintIdOrExtension {
-		m.ImprintPrimitiveElement = make([]*primitiveElement, 0, len(r.Imprint))
-		for _, e := range r.Imprint {
-			if e.Id != nil || e.Extension != nil {
-				m.ImprintPrimitiveElement = append(m.ImprintPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.ImprintPrimitiveElement = append(m.ImprintPrimitiveElement, nil)
-			}
-		}
-	}
-	m.Image = r.Image
-	m.Scoring = r.Scoring
-	return m
-}
-func (r *ProdCharacteristic) UnmarshalJSON(b []byte) error {
-	var m jsonProdCharacteristic
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r ProdCharacteristic) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Height != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"height\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Height.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Width != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"width\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Width.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Depth != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"depth\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Depth.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Weight != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"weight\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Weight.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.NominalVolume != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"nominalVolume\":"))
+		if err != nil {
+			return err
+		}
+		err = r.NominalVolume.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ExternalDiameter != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"externalDiameter\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ExternalDiameter.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Shape != nil && r.Shape.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"shape\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Shape)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Shape != nil && (r.Shape.Id != nil || r.Shape.Extension != nil) {
+		p := primitiveElement{Id: r.Shape.Id, Extension: r.Shape.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_shape\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Color {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"color\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Color)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
+		for _, e := range r.Color {
+			if e.Id != nil || e.Extension != nil {
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_color\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Color {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Imprint {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"imprint\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Imprint)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
+		for _, e := range r.Imprint {
+			if e.Id != nil || e.Extension != nil {
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_imprint\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Imprint {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if len(r.Image) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"image\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Image {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Scoring != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"scoring\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Scoring.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *ProdCharacteristic) unmarshalJSON(m jsonProdCharacteristic) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Height = m.Height
-	r.Width = m.Width
-	r.Depth = m.Depth
-	r.Weight = m.Weight
-	r.NominalVolume = m.NominalVolume
-	r.ExternalDiameter = m.ExternalDiameter
-	r.Shape = m.Shape
-	if m.ShapePrimitiveElement != nil {
-		if r.Shape == nil {
-			r.Shape = &String{}
-		}
-		r.Shape.Id = m.ShapePrimitiveElement.Id
-		r.Shape.Extension = m.ShapePrimitiveElement.Extension
+func (r *ProdCharacteristic) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Color = m.Color
-	for i, e := range m.ColorPrimitiveElement {
-		if len(r.Color) <= i {
-			r.Color = append(r.Color, String{})
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ProdCharacteristic element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.Color[i].Id = e.Id
-			r.Color[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ProdCharacteristic element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "height":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Height = &v
+		case "width":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Width = &v
+		case "depth":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Depth = &v
+		case "weight":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Weight = &v
+		case "nominalVolume":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.NominalVolume = &v
+		case "externalDiameter":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ExternalDiameter = &v
+		case "shape":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Shape == nil {
+				r.Shape = &String{}
+			}
+			r.Shape.Value = v.Value
+		case "_shape":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Shape == nil {
+				r.Shape = &String{}
+			}
+			r.Shape.Id = v.Id
+			r.Shape.Extension = v.Extension
+		case "color":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Color) <= i {
+					r.Color = append(r.Color, String{})
+				}
+				r.Color[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "_color":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Color) <= i {
+					r.Color = append(r.Color, String{})
+				}
+				r.Color[i].Id = v.Id
+				r.Color[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "imprint":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Imprint) <= i {
+					r.Imprint = append(r.Imprint, String{})
+				}
+				r.Imprint[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "_imprint":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Imprint) <= i {
+					r.Imprint = append(r.Imprint, String{})
+				}
+				r.Imprint[i].Id = v.Id
+				r.Imprint[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "image":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ProdCharacteristic element", t)
+			}
+			for d.More() {
+				var v Attachment
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Image = append(r.Image, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ProdCharacteristic element", t)
+			}
+		case "scoring":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Scoring = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ProdCharacteristic", f)
 		}
 	}
-	r.Imprint = m.Imprint
-	for i, e := range m.ImprintPrimitiveElement {
-		if len(r.Imprint) <= i {
-			r.Imprint = append(r.Imprint, String{})
-		}
-		if e != nil {
-			r.Imprint[i].Id = e.Id
-			r.Imprint[i].Extension = e.Extension
-		}
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.Image = m.Image
-	r.Scoring = m.Scoring
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ProdCharacteristic element", t)
+	}
 	return nil
 }
 func (r ProdCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
