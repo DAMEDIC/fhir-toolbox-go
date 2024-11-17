@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/testdata/assertjson"
 	"fhir-toolbox/testdata/assertxml"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/swaggest/assertjson"
 
 	"fhir-toolbox/testdata"
 )
@@ -36,7 +36,7 @@ func TestRoundtripJSONR4Integration(t *testing.T) {
 			jsonOut, err := json.Marshal(r)
 			assert.NoError(t, err)
 
-			assertjson.Equal(t, jsonIn, jsonOut)
+			assertjson.Equal(t, string(jsonIn), string(jsonOut))
 		})
 	}
 }

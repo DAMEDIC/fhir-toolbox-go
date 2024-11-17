@@ -7,6 +7,7 @@ import (
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/gen/r4"
 	"fhir-toolbox/rest"
+	"fhir-toolbox/testdata/assertjson"
 	"fhir-toolbox/testdata/assertxml"
 	"fhir-toolbox/utils"
 	"fmt"
@@ -16,7 +17,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/swaggest/assertjson"
 )
 
 func TestHandleRead(t *testing.T) {
@@ -196,7 +196,7 @@ func TestHandleRead(t *testing.T) {
 
 			if strings.Contains(tt.format, "json") {
 				assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
-				assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
+				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
 			} else {
 				assert.Equal(t, "application/fhir+xml", rr.Header().Get("Content-Type"))
 				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
@@ -686,7 +686,7 @@ func TestHandleSearch(t *testing.T) {
 
 			assert.Equal(t, tt.expectedStatus, rr.Code)
 			assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
-			assertjson.Equal(t, []byte(tt.expectedBody), rr.Body.Bytes())
+			assertjson.Equal(t, tt.expectedBody, rr.Body.String())
 		})
 	}
 }

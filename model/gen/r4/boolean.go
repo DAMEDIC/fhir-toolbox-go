@@ -1,6 +1,7 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -18,14 +19,21 @@ type Boolean struct {
 }
 
 func (r Boolean) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.Value)
+	var b bytes.Buffer
+	enc := json.NewEncoder(&b)
+	enc.SetEscapeHTML(false)
+	err := enc.Encode(r.Value)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
 func (r *Boolean) UnmarshalJSON(b []byte) error {
-	var value bool
-	if err := json.Unmarshal(b, &value); err != nil {
+	var v bool
+	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	*r = Boolean{Value: &value}
+	*r = Boolean{Value: &v}
 	return nil
 }
 func (r Boolean) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

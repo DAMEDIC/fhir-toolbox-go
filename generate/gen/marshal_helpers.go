@@ -15,26 +15,27 @@ func GenerateMarshalHelpers(resources []ir.Struct, genTarget, release string) {
 
 	f := NewFilePath(dir)
 
-	f.Type().Id("primitiveElement").Struct(
-		Id("Id").Id("*string").Tag(map[string]string{"json": "id,omitempty"}),
-		Id("Extension").Index().Id("Extension").Tag(map[string]string{"json": "extension,omitempty"}),
-	)
-
-	f.Type().Id("ContainedResource").Struct(
-		Qual("fhir-toolbox/model", "Resource"),
-	)
+	implementContainedResource(f)
 	implementStringContained(f)
-
-	json.ImplementMarshalContained(f)
+	json.ImplementMarshalContained(resources, f)
 	json.ImplementUnmarshalContained(resources, f)
-
 	xml.ImplementMarshalContained(f)
 	xml.ImplementUnmarshalContained(resources, f)
+
+	implementPrimitiveElement(f)
+	json.ImplementMarshalPrimitiveElement(f)
+	json.ImplementUnmarshalPrimitiveElement(f)
 
 	err := f.Save(filepath.Join(dir, "marshal_helpers.go"))
 	if err != nil {
 		log.Panic(err)
 	}
+}
+
+func implementContainedResource(f *File) *Statement {
+	return f.Type().Id("ContainedResource").Struct(
+		Qual("fhir-toolbox/model", "Resource"),
+	)
 }
 
 func implementStringContained(f *File) {
@@ -44,5 +45,12 @@ func implementStringContained(f *File) {
 			Return(Lit("null")),
 		),
 		Return(Id("string").Params(Id("buf"))),
+	)
+}
+
+func implementPrimitiveElement(f *File) *Statement {
+	return f.Type().Id("primitiveElement").Struct(
+		Id("Id").Id("*string"),
+		Id("Extension").Index().Id("Extension"),
 	)
 }

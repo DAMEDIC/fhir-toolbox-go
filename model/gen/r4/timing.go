@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Timing Type: Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned, expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds, and may be used for reporting the schedule to which past regular activities were carried out.
@@ -25,78 +27,395 @@ type Timing struct {
 	// A code for the timing schedule (or just text in code.text). Some codes such as BID are ubiquitous, but many institutions define their own additional codes. If a code is provided, the code is understood to be a complete statement of whatever is specified in the structured timing data, and either the code or the data may be used to interpret the Timing, with the exception that .repeat.bounds still applies over the code (and is not contained in the code).
 	Code *CodeableConcept
 }
-type jsonTiming struct {
-	Id                    *string             `json:"id,omitempty"`
-	Extension             []Extension         `json:"extension,omitempty"`
-	ModifierExtension     []Extension         `json:"modifierExtension,omitempty"`
-	Event                 []DateTime          `json:"event,omitempty"`
-	EventPrimitiveElement []*primitiveElement `json:"_event,omitempty"`
-	Repeat                *TimingRepeat       `json:"repeat,omitempty"`
-	Code                  *CodeableConcept    `json:"code,omitempty"`
-}
 
 func (r Timing) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Timing) marshalJSON() jsonTiming {
-	m := jsonTiming{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.ModifierExtension = r.ModifierExtension
-	anyEventValue := false
-	for _, e := range r.Event {
-		if e.Value != nil {
-			anyEventValue = true
-			break
+func (r Timing) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
 		}
 	}
-	if anyEventValue {
-		m.Event = r.Event
-	}
-	anyEventIdOrExtension := false
-	for _, e := range r.Event {
-		if e.Id != nil || e.Extension != nil {
-			anyEventIdOrExtension = true
-			break
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
 		}
 	}
-	if anyEventIdOrExtension {
-		m.EventPrimitiveElement = make([]*primitiveElement, 0, len(r.Event))
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		anyValue := false
+		for _, e := range r.Event {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
+		}
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"event\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Event)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Event {
 			if e.Id != nil || e.Extension != nil {
-				m.EventPrimitiveElement = append(m.EventPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.EventPrimitiveElement = append(m.EventPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_event\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Event {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	m.Repeat = r.Repeat
-	m.Code = r.Code
-	return m
-}
-func (r *Timing) UnmarshalJSON(b []byte) error {
-	var m jsonTiming
-	if err := json.Unmarshal(b, &m); err != nil {
+	if r.Repeat != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"repeat\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Repeat.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Code.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *Timing) unmarshalJSON(m jsonTiming) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.ModifierExtension = m.ModifierExtension
-	r.Event = m.Event
-	for i, e := range m.EventPrimitiveElement {
-		if len(r.Event) <= i {
-			r.Event = append(r.Event, DateTime{})
+func (r *Timing) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Timing element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		if e != nil {
-			r.Event[i].Id = e.Id
-			r.Event[i].Extension = e.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Timing element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "event":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v DateTime
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Event) <= i {
+					r.Event = append(r.Event, DateTime{})
+				}
+				r.Event[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "_event":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Event) <= i {
+					r.Event = append(r.Event, DateTime{})
+				}
+				r.Event[i].Id = v.Id
+				r.Event[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "repeat":
+			var v TimingRepeat
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Repeat = &v
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Timing", f)
 		}
 	}
-	r.Repeat = m.Repeat
-	r.Code = m.Code
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Timing element", t)
+	}
 	return nil
 }
 func (r Timing) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -254,361 +573,1427 @@ type isTimingRepeatBounds interface {
 func (r Duration) isTimingRepeatBounds() {}
 func (r Range) isTimingRepeatBounds()    {}
 func (r Period) isTimingRepeatBounds()   {}
-
-type jsonTimingRepeat struct {
-	Id                           *string             `json:"id,omitempty"`
-	Extension                    []Extension         `json:"extension,omitempty"`
-	BoundsDuration               *Duration           `json:"boundsDuration,omitempty"`
-	BoundsRange                  *Range              `json:"boundsRange,omitempty"`
-	BoundsPeriod                 *Period             `json:"boundsPeriod,omitempty"`
-	Count                        *PositiveInt        `json:"count,omitempty"`
-	CountPrimitiveElement        *primitiveElement   `json:"_count,omitempty"`
-	CountMax                     *PositiveInt        `json:"countMax,omitempty"`
-	CountMaxPrimitiveElement     *primitiveElement   `json:"_countMax,omitempty"`
-	Duration                     *Decimal            `json:"duration,omitempty"`
-	DurationPrimitiveElement     *primitiveElement   `json:"_duration,omitempty"`
-	DurationMax                  *Decimal            `json:"durationMax,omitempty"`
-	DurationMaxPrimitiveElement  *primitiveElement   `json:"_durationMax,omitempty"`
-	DurationUnit                 *Code               `json:"durationUnit,omitempty"`
-	DurationUnitPrimitiveElement *primitiveElement   `json:"_durationUnit,omitempty"`
-	Frequency                    *PositiveInt        `json:"frequency,omitempty"`
-	FrequencyPrimitiveElement    *primitiveElement   `json:"_frequency,omitempty"`
-	FrequencyMax                 *PositiveInt        `json:"frequencyMax,omitempty"`
-	FrequencyMaxPrimitiveElement *primitiveElement   `json:"_frequencyMax,omitempty"`
-	Period                       *Decimal            `json:"period,omitempty"`
-	PeriodPrimitiveElement       *primitiveElement   `json:"_period,omitempty"`
-	PeriodMax                    *Decimal            `json:"periodMax,omitempty"`
-	PeriodMaxPrimitiveElement    *primitiveElement   `json:"_periodMax,omitempty"`
-	PeriodUnit                   *Code               `json:"periodUnit,omitempty"`
-	PeriodUnitPrimitiveElement   *primitiveElement   `json:"_periodUnit,omitempty"`
-	DayOfWeek                    []Code              `json:"dayOfWeek,omitempty"`
-	DayOfWeekPrimitiveElement    []*primitiveElement `json:"_dayOfWeek,omitempty"`
-	TimeOfDay                    []Time              `json:"timeOfDay,omitempty"`
-	TimeOfDayPrimitiveElement    []*primitiveElement `json:"_timeOfDay,omitempty"`
-	When                         []Code              `json:"when,omitempty"`
-	WhenPrimitiveElement         []*primitiveElement `json:"_when,omitempty"`
-	Offset                       *UnsignedInt        `json:"offset,omitempty"`
-	OffsetPrimitiveElement       *primitiveElement   `json:"_offset,omitempty"`
-}
-
 func (r TimingRepeat) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r TimingRepeat) marshalJSON() jsonTimingRepeat {
-	m := jsonTimingRepeat{}
-	m.Id = r.Id
-	m.Extension = r.Extension
+func (r TimingRepeat) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	switch v := r.Bounds.(type) {
 	case Duration:
-		m.BoundsDuration = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Duration:
-		m.BoundsDuration = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsDuration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Range:
-		m.BoundsRange = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Range:
-		m.BoundsRange = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case Period:
-		m.BoundsPeriod = &v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	case *Period:
-		m.BoundsPeriod = v
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"boundsPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Count != nil && r.Count.Value != nil {
-		m.Count = r.Count
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"count\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Count)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Count != nil && (r.Count.Id != nil || r.Count.Extension != nil) {
-		m.CountPrimitiveElement = &primitiveElement{Id: r.Count.Id, Extension: r.Count.Extension}
+		p := primitiveElement{Id: r.Count.Id, Extension: r.Count.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_count\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.CountMax != nil && r.CountMax.Value != nil {
-		m.CountMax = r.CountMax
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"countMax\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.CountMax)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.CountMax != nil && (r.CountMax.Id != nil || r.CountMax.Extension != nil) {
-		m.CountMaxPrimitiveElement = &primitiveElement{Id: r.CountMax.Id, Extension: r.CountMax.Extension}
+		p := primitiveElement{Id: r.CountMax.Id, Extension: r.CountMax.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_countMax\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Duration != nil && r.Duration.Value != nil {
-		m.Duration = r.Duration
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"duration\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Duration)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Duration != nil && (r.Duration.Id != nil || r.Duration.Extension != nil) {
-		m.DurationPrimitiveElement = &primitiveElement{Id: r.Duration.Id, Extension: r.Duration.Extension}
+		p := primitiveElement{Id: r.Duration.Id, Extension: r.Duration.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_duration\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.DurationMax != nil && r.DurationMax.Value != nil {
-		m.DurationMax = r.DurationMax
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"durationMax\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.DurationMax)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.DurationMax != nil && (r.DurationMax.Id != nil || r.DurationMax.Extension != nil) {
-		m.DurationMaxPrimitiveElement = &primitiveElement{Id: r.DurationMax.Id, Extension: r.DurationMax.Extension}
+		p := primitiveElement{Id: r.DurationMax.Id, Extension: r.DurationMax.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_durationMax\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.DurationUnit != nil && r.DurationUnit.Value != nil {
-		m.DurationUnit = r.DurationUnit
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"durationUnit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.DurationUnit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.DurationUnit != nil && (r.DurationUnit.Id != nil || r.DurationUnit.Extension != nil) {
-		m.DurationUnitPrimitiveElement = &primitiveElement{Id: r.DurationUnit.Id, Extension: r.DurationUnit.Extension}
+		p := primitiveElement{Id: r.DurationUnit.Id, Extension: r.DurationUnit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_durationUnit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Frequency != nil && r.Frequency.Value != nil {
-		m.Frequency = r.Frequency
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"frequency\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Frequency)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Frequency != nil && (r.Frequency.Id != nil || r.Frequency.Extension != nil) {
-		m.FrequencyPrimitiveElement = &primitiveElement{Id: r.Frequency.Id, Extension: r.Frequency.Extension}
+		p := primitiveElement{Id: r.Frequency.Id, Extension: r.Frequency.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_frequency\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.FrequencyMax != nil && r.FrequencyMax.Value != nil {
-		m.FrequencyMax = r.FrequencyMax
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"frequencyMax\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.FrequencyMax)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.FrequencyMax != nil && (r.FrequencyMax.Id != nil || r.FrequencyMax.Extension != nil) {
-		m.FrequencyMaxPrimitiveElement = &primitiveElement{Id: r.FrequencyMax.Id, Extension: r.FrequencyMax.Extension}
+		p := primitiveElement{Id: r.FrequencyMax.Id, Extension: r.FrequencyMax.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_frequencyMax\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Period != nil && r.Period.Value != nil {
-		m.Period = r.Period
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Period)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Period != nil && (r.Period.Id != nil || r.Period.Extension != nil) {
-		m.PeriodPrimitiveElement = &primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
+		p := primitiveElement{Id: r.Period.Id, Extension: r.Period.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_period\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.PeriodMax != nil && r.PeriodMax.Value != nil {
-		m.PeriodMax = r.PeriodMax
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"periodMax\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PeriodMax)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.PeriodMax != nil && (r.PeriodMax.Id != nil || r.PeriodMax.Extension != nil) {
-		m.PeriodMaxPrimitiveElement = &primitiveElement{Id: r.PeriodMax.Id, Extension: r.PeriodMax.Extension}
+		p := primitiveElement{Id: r.PeriodMax.Id, Extension: r.PeriodMax.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_periodMax\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.PeriodUnit != nil && r.PeriodUnit.Value != nil {
-		m.PeriodUnit = r.PeriodUnit
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"periodUnit\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PeriodUnit)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.PeriodUnit != nil && (r.PeriodUnit.Id != nil || r.PeriodUnit.Extension != nil) {
-		m.PeriodUnitPrimitiveElement = &primitiveElement{Id: r.PeriodUnit.Id, Extension: r.PeriodUnit.Extension}
-	}
-	anyDayOfWeekValue := false
-	for _, e := range r.DayOfWeek {
-		if e.Value != nil {
-			anyDayOfWeekValue = true
-			break
+		p := primitiveElement{Id: r.PeriodUnit.Id, Extension: r.PeriodUnit.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_periodUnit\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyDayOfWeekValue {
-		m.DayOfWeek = r.DayOfWeek
-	}
-	anyDayOfWeekIdOrExtension := false
-	for _, e := range r.DayOfWeek {
-		if e.Id != nil || e.Extension != nil {
-			anyDayOfWeekIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.DayOfWeek {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyDayOfWeekIdOrExtension {
-		m.DayOfWeekPrimitiveElement = make([]*primitiveElement, 0, len(r.DayOfWeek))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"dayOfWeek\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.DayOfWeek)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.DayOfWeek {
 			if e.Id != nil || e.Extension != nil {
-				m.DayOfWeekPrimitiveElement = append(m.DayOfWeekPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.DayOfWeekPrimitiveElement = append(m.DayOfWeekPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_dayOfWeek\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.DayOfWeek {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyTimeOfDayValue := false
-	for _, e := range r.TimeOfDay {
-		if e.Value != nil {
-			anyTimeOfDayValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.TimeOfDay {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyTimeOfDayValue {
-		m.TimeOfDay = r.TimeOfDay
-	}
-	anyTimeOfDayIdOrExtension := false
-	for _, e := range r.TimeOfDay {
-		if e.Id != nil || e.Extension != nil {
-			anyTimeOfDayIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"timeOfDay\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.TimeOfDay)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyTimeOfDayIdOrExtension {
-		m.TimeOfDayPrimitiveElement = make([]*primitiveElement, 0, len(r.TimeOfDay))
+		anyIdOrExtension := false
 		for _, e := range r.TimeOfDay {
 			if e.Id != nil || e.Extension != nil {
-				m.TimeOfDayPrimitiveElement = append(m.TimeOfDayPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.TimeOfDayPrimitiveElement = append(m.TimeOfDayPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_timeOfDay\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.TimeOfDay {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
-	anyWhenValue := false
-	for _, e := range r.When {
-		if e.Value != nil {
-			anyWhenValue = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.When {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyWhenValue {
-		m.When = r.When
-	}
-	anyWhenIdOrExtension := false
-	for _, e := range r.When {
-		if e.Id != nil || e.Extension != nil {
-			anyWhenIdOrExtension = true
-			break
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"when\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.When)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
 		}
-	}
-	if anyWhenIdOrExtension {
-		m.WhenPrimitiveElement = make([]*primitiveElement, 0, len(r.When))
+		anyIdOrExtension := false
 		for _, e := range r.When {
 			if e.Id != nil || e.Extension != nil {
-				m.WhenPrimitiveElement = append(m.WhenPrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.WhenPrimitiveElement = append(m.WhenPrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_when\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.When {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
 	if r.Offset != nil && r.Offset.Value != nil {
-		m.Offset = r.Offset
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"offset\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Offset)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Offset != nil && (r.Offset.Id != nil || r.Offset.Extension != nil) {
-		m.OffsetPrimitiveElement = &primitiveElement{Id: r.Offset.Id, Extension: r.Offset.Extension}
+		p := primitiveElement{Id: r.Offset.Id, Extension: r.Offset.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_offset\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	return m
-}
-func (r *TimingRepeat) UnmarshalJSON(b []byte) error {
-	var m jsonTimingRepeat
-	if err := json.Unmarshal(b, &m); err != nil {
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *TimingRepeat) unmarshalJSON(m jsonTimingRepeat) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	if m.BoundsDuration != nil {
-		if r.Bounds != nil {
-			return fmt.Errorf("multiple values for field \"Bounds\"")
-		}
-		v := m.BoundsDuration
-		r.Bounds = v
+func (r *TimingRepeat) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	if m.BoundsRange != nil {
-		if r.Bounds != nil {
-			return fmt.Errorf("multiple values for field \"Bounds\"")
-		}
-		v := m.BoundsRange
-		r.Bounds = v
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TimingRepeat element", t)
 	}
-	if m.BoundsPeriod != nil {
-		if r.Bounds != nil {
-			return fmt.Errorf("multiple values for field \"Bounds\"")
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		v := m.BoundsPeriod
-		r.Bounds = v
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TimingRepeat element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "boundsDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "boundsRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "boundsPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "count":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Count == nil {
+				r.Count = &PositiveInt{}
+			}
+			r.Count.Value = v.Value
+		case "_count":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Count == nil {
+				r.Count = &PositiveInt{}
+			}
+			r.Count.Id = v.Id
+			r.Count.Extension = v.Extension
+		case "countMax":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.CountMax == nil {
+				r.CountMax = &PositiveInt{}
+			}
+			r.CountMax.Value = v.Value
+		case "_countMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.CountMax == nil {
+				r.CountMax = &PositiveInt{}
+			}
+			r.CountMax.Id = v.Id
+			r.CountMax.Extension = v.Extension
+		case "duration":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Duration == nil {
+				r.Duration = &Decimal{}
+			}
+			r.Duration.Value = v.Value
+		case "_duration":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Duration == nil {
+				r.Duration = &Decimal{}
+			}
+			r.Duration.Id = v.Id
+			r.Duration.Extension = v.Extension
+		case "durationMax":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DurationMax == nil {
+				r.DurationMax = &Decimal{}
+			}
+			r.DurationMax.Value = v.Value
+		case "_durationMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DurationMax == nil {
+				r.DurationMax = &Decimal{}
+			}
+			r.DurationMax.Id = v.Id
+			r.DurationMax.Extension = v.Extension
+		case "durationUnit":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DurationUnit == nil {
+				r.DurationUnit = &Code{}
+			}
+			r.DurationUnit.Value = v.Value
+		case "_durationUnit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DurationUnit == nil {
+				r.DurationUnit = &Code{}
+			}
+			r.DurationUnit.Id = v.Id
+			r.DurationUnit.Extension = v.Extension
+		case "frequency":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Frequency == nil {
+				r.Frequency = &PositiveInt{}
+			}
+			r.Frequency.Value = v.Value
+		case "_frequency":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Frequency == nil {
+				r.Frequency = &PositiveInt{}
+			}
+			r.Frequency.Id = v.Id
+			r.Frequency.Extension = v.Extension
+		case "frequencyMax":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.FrequencyMax == nil {
+				r.FrequencyMax = &PositiveInt{}
+			}
+			r.FrequencyMax.Value = v.Value
+		case "_frequencyMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.FrequencyMax == nil {
+				r.FrequencyMax = &PositiveInt{}
+			}
+			r.FrequencyMax.Id = v.Id
+			r.FrequencyMax.Extension = v.Extension
+		case "period":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Period == nil {
+				r.Period = &Decimal{}
+			}
+			r.Period.Value = v.Value
+		case "_period":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Period == nil {
+				r.Period = &Decimal{}
+			}
+			r.Period.Id = v.Id
+			r.Period.Extension = v.Extension
+		case "periodMax":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PeriodMax == nil {
+				r.PeriodMax = &Decimal{}
+			}
+			r.PeriodMax.Value = v.Value
+		case "_periodMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PeriodMax == nil {
+				r.PeriodMax = &Decimal{}
+			}
+			r.PeriodMax.Id = v.Id
+			r.PeriodMax.Extension = v.Extension
+		case "periodUnit":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PeriodUnit == nil {
+				r.PeriodUnit = &Code{}
+			}
+			r.PeriodUnit.Value = v.Value
+		case "_periodUnit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PeriodUnit == nil {
+				r.PeriodUnit = &Code{}
+			}
+			r.PeriodUnit.Id = v.Id
+			r.PeriodUnit.Extension = v.Extension
+		case "dayOfWeek":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DayOfWeek) <= i {
+					r.DayOfWeek = append(r.DayOfWeek, Code{})
+				}
+				r.DayOfWeek[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_dayOfWeek":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DayOfWeek) <= i {
+					r.DayOfWeek = append(r.DayOfWeek, Code{})
+				}
+				r.DayOfWeek[i].Id = v.Id
+				r.DayOfWeek[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "timeOfDay":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Time
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.TimeOfDay) <= i {
+					r.TimeOfDay = append(r.TimeOfDay, Time{})
+				}
+				r.TimeOfDay[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_timeOfDay":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.TimeOfDay) <= i {
+					r.TimeOfDay = append(r.TimeOfDay, Time{})
+				}
+				r.TimeOfDay[i].Id = v.Id
+				r.TimeOfDay[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "when":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.When) <= i {
+					r.When = append(r.When, Code{})
+				}
+				r.When[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_when":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.When) <= i {
+					r.When = append(r.When, Code{})
+				}
+				r.When[i].Id = v.Id
+				r.When[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "offset":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Offset == nil {
+				r.Offset = &UnsignedInt{}
+			}
+			r.Offset.Value = v.Value
+		case "_offset":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Offset == nil {
+				r.Offset = &UnsignedInt{}
+			}
+			r.Offset.Id = v.Id
+			r.Offset.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in TimingRepeat", f)
+		}
 	}
-	r.Count = m.Count
-	if m.CountPrimitiveElement != nil {
-		if r.Count == nil {
-			r.Count = &PositiveInt{}
-		}
-		r.Count.Id = m.CountPrimitiveElement.Id
-		r.Count.Extension = m.CountPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.CountMax = m.CountMax
-	if m.CountMaxPrimitiveElement != nil {
-		if r.CountMax == nil {
-			r.CountMax = &PositiveInt{}
-		}
-		r.CountMax.Id = m.CountMaxPrimitiveElement.Id
-		r.CountMax.Extension = m.CountMaxPrimitiveElement.Extension
-	}
-	r.Duration = m.Duration
-	if m.DurationPrimitiveElement != nil {
-		if r.Duration == nil {
-			r.Duration = &Decimal{}
-		}
-		r.Duration.Id = m.DurationPrimitiveElement.Id
-		r.Duration.Extension = m.DurationPrimitiveElement.Extension
-	}
-	r.DurationMax = m.DurationMax
-	if m.DurationMaxPrimitiveElement != nil {
-		if r.DurationMax == nil {
-			r.DurationMax = &Decimal{}
-		}
-		r.DurationMax.Id = m.DurationMaxPrimitiveElement.Id
-		r.DurationMax.Extension = m.DurationMaxPrimitiveElement.Extension
-	}
-	r.DurationUnit = m.DurationUnit
-	if m.DurationUnitPrimitiveElement != nil {
-		if r.DurationUnit == nil {
-			r.DurationUnit = &Code{}
-		}
-		r.DurationUnit.Id = m.DurationUnitPrimitiveElement.Id
-		r.DurationUnit.Extension = m.DurationUnitPrimitiveElement.Extension
-	}
-	r.Frequency = m.Frequency
-	if m.FrequencyPrimitiveElement != nil {
-		if r.Frequency == nil {
-			r.Frequency = &PositiveInt{}
-		}
-		r.Frequency.Id = m.FrequencyPrimitiveElement.Id
-		r.Frequency.Extension = m.FrequencyPrimitiveElement.Extension
-	}
-	r.FrequencyMax = m.FrequencyMax
-	if m.FrequencyMaxPrimitiveElement != nil {
-		if r.FrequencyMax == nil {
-			r.FrequencyMax = &PositiveInt{}
-		}
-		r.FrequencyMax.Id = m.FrequencyMaxPrimitiveElement.Id
-		r.FrequencyMax.Extension = m.FrequencyMaxPrimitiveElement.Extension
-	}
-	r.Period = m.Period
-	if m.PeriodPrimitiveElement != nil {
-		if r.Period == nil {
-			r.Period = &Decimal{}
-		}
-		r.Period.Id = m.PeriodPrimitiveElement.Id
-		r.Period.Extension = m.PeriodPrimitiveElement.Extension
-	}
-	r.PeriodMax = m.PeriodMax
-	if m.PeriodMaxPrimitiveElement != nil {
-		if r.PeriodMax == nil {
-			r.PeriodMax = &Decimal{}
-		}
-		r.PeriodMax.Id = m.PeriodMaxPrimitiveElement.Id
-		r.PeriodMax.Extension = m.PeriodMaxPrimitiveElement.Extension
-	}
-	r.PeriodUnit = m.PeriodUnit
-	if m.PeriodUnitPrimitiveElement != nil {
-		if r.PeriodUnit == nil {
-			r.PeriodUnit = &Code{}
-		}
-		r.PeriodUnit.Id = m.PeriodUnitPrimitiveElement.Id
-		r.PeriodUnit.Extension = m.PeriodUnitPrimitiveElement.Extension
-	}
-	r.DayOfWeek = m.DayOfWeek
-	for i, e := range m.DayOfWeekPrimitiveElement {
-		if len(r.DayOfWeek) <= i {
-			r.DayOfWeek = append(r.DayOfWeek, Code{})
-		}
-		if e != nil {
-			r.DayOfWeek[i].Id = e.Id
-			r.DayOfWeek[i].Extension = e.Extension
-		}
-	}
-	r.TimeOfDay = m.TimeOfDay
-	for i, e := range m.TimeOfDayPrimitiveElement {
-		if len(r.TimeOfDay) <= i {
-			r.TimeOfDay = append(r.TimeOfDay, Time{})
-		}
-		if e != nil {
-			r.TimeOfDay[i].Id = e.Id
-			r.TimeOfDay[i].Extension = e.Extension
-		}
-	}
-	r.When = m.When
-	for i, e := range m.WhenPrimitiveElement {
-		if len(r.When) <= i {
-			r.When = append(r.When, Code{})
-		}
-		if e != nil {
-			r.When[i].Id = e.Id
-			r.When[i].Extension = e.Extension
-		}
-	}
-	r.Offset = m.Offset
-	if m.OffsetPrimitiveElement != nil {
-		if r.Offset == nil {
-			r.Offset = &UnsignedInt{}
-		}
-		r.Offset.Id = m.OffsetPrimitiveElement.Id
-		r.Offset.Extension = m.OffsetPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TimingRepeat element", t)
 	}
 	return nil
 }

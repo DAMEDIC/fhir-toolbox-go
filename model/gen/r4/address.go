@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Address Type: An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid for mail delivery.  There are a variety of postal address formats defined around the world.
@@ -35,200 +37,817 @@ type Address struct {
 	// Time period when address was/is in use.
 	Period *Period
 }
-type jsonAddress struct {
-	Id                         *string             `json:"id,omitempty"`
-	Extension                  []Extension         `json:"extension,omitempty"`
-	Use                        *Code               `json:"use,omitempty"`
-	UsePrimitiveElement        *primitiveElement   `json:"_use,omitempty"`
-	Type                       *Code               `json:"type,omitempty"`
-	TypePrimitiveElement       *primitiveElement   `json:"_type,omitempty"`
-	Text                       *String             `json:"text,omitempty"`
-	TextPrimitiveElement       *primitiveElement   `json:"_text,omitempty"`
-	Line                       []String            `json:"line,omitempty"`
-	LinePrimitiveElement       []*primitiveElement `json:"_line,omitempty"`
-	City                       *String             `json:"city,omitempty"`
-	CityPrimitiveElement       *primitiveElement   `json:"_city,omitempty"`
-	District                   *String             `json:"district,omitempty"`
-	DistrictPrimitiveElement   *primitiveElement   `json:"_district,omitempty"`
-	State                      *String             `json:"state,omitempty"`
-	StatePrimitiveElement      *primitiveElement   `json:"_state,omitempty"`
-	PostalCode                 *String             `json:"postalCode,omitempty"`
-	PostalCodePrimitiveElement *primitiveElement   `json:"_postalCode,omitempty"`
-	Country                    *String             `json:"country,omitempty"`
-	CountryPrimitiveElement    *primitiveElement   `json:"_country,omitempty"`
-	Period                     *Period             `json:"period,omitempty"`
-}
 
 func (r Address) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Address) marshalJSON() jsonAddress {
-	m := jsonAddress{}
-	m.Id = r.Id
-	m.Extension = r.Extension
+func (r Address) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
 	if r.Use != nil && r.Use.Value != nil {
-		m.Use = r.Use
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"use\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Use)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Use != nil && (r.Use.Id != nil || r.Use.Extension != nil) {
-		m.UsePrimitiveElement = &primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		p := primitiveElement{Id: r.Use.Id, Extension: r.Use.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_use\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Type != nil && r.Type.Value != nil {
-		m.Type = r.Type
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Type)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Type != nil && (r.Type.Id != nil || r.Type.Extension != nil) {
-		m.TypePrimitiveElement = &primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
+		p := primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_type\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Text != nil && r.Text.Value != nil {
-		m.Text = r.Text
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Text)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Text != nil && (r.Text.Id != nil || r.Text.Extension != nil) {
-		m.TextPrimitiveElement = &primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
-	}
-	anyLineValue := false
-	for _, e := range r.Line {
-		if e.Value != nil {
-			anyLineValue = true
-			break
+		p := primitiveElement{Id: r.Text.Id, Extension: r.Text.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_text\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
 		}
 	}
-	if anyLineValue {
-		m.Line = r.Line
-	}
-	anyLineIdOrExtension := false
-	for _, e := range r.Line {
-		if e.Id != nil || e.Extension != nil {
-			anyLineIdOrExtension = true
-			break
+	{
+		anyValue := false
+		for _, e := range r.Line {
+			if e.Value != nil {
+				anyValue = true
+				break
+			}
 		}
-	}
-	if anyLineIdOrExtension {
-		m.LinePrimitiveElement = make([]*primitiveElement, 0, len(r.Line))
+		if anyValue {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"line\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(r.Line)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		anyIdOrExtension := false
 		for _, e := range r.Line {
 			if e.Id != nil || e.Extension != nil {
-				m.LinePrimitiveElement = append(m.LinePrimitiveElement, &primitiveElement{Id: e.Id, Extension: e.Extension})
-			} else {
-				m.LinePrimitiveElement = append(m.LinePrimitiveElement, nil)
+				anyIdOrExtension = true
+				break
+			}
+		}
+		if anyIdOrExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_line\":"))
+			if err != nil {
+				return err
+			}
+			_, err = w.Write([]byte("["))
+			if err != nil {
+				return err
+			}
+			setComma = false
+			for _, e := range r.Line {
+				if e.Id != nil || e.Extension != nil {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					p := primitiveElement{Id: e.Id, Extension: e.Extension}
+					err = p.marshalJSON(w)
+					if err != nil {
+						return err
+					}
+				} else {
+					if setComma {
+						_, err = w.Write([]byte(","))
+						if err != nil {
+							return err
+						}
+					}
+					setComma = true
+					_, err = w.Write([]byte("null"))
+					if err != nil {
+						return err
+					}
+				}
+			}
+			_, err = w.Write([]byte("]"))
+			if err != nil {
+				return err
 			}
 		}
 	}
 	if r.City != nil && r.City.Value != nil {
-		m.City = r.City
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"city\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.City)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.City != nil && (r.City.Id != nil || r.City.Extension != nil) {
-		m.CityPrimitiveElement = &primitiveElement{Id: r.City.Id, Extension: r.City.Extension}
+		p := primitiveElement{Id: r.City.Id, Extension: r.City.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_city\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.District != nil && r.District.Value != nil {
-		m.District = r.District
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"district\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.District)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.District != nil && (r.District.Id != nil || r.District.Extension != nil) {
-		m.DistrictPrimitiveElement = &primitiveElement{Id: r.District.Id, Extension: r.District.Extension}
+		p := primitiveElement{Id: r.District.Id, Extension: r.District.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_district\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.State != nil && r.State.Value != nil {
-		m.State = r.State
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"state\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.State)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.State != nil && (r.State.Id != nil || r.State.Extension != nil) {
-		m.StatePrimitiveElement = &primitiveElement{Id: r.State.Id, Extension: r.State.Extension}
+		p := primitiveElement{Id: r.State.Id, Extension: r.State.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_state\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.PostalCode != nil && r.PostalCode.Value != nil {
-		m.PostalCode = r.PostalCode
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"postalCode\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PostalCode)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.PostalCode != nil && (r.PostalCode.Id != nil || r.PostalCode.Extension != nil) {
-		m.PostalCodePrimitiveElement = &primitiveElement{Id: r.PostalCode.Id, Extension: r.PostalCode.Extension}
+		p := primitiveElement{Id: r.PostalCode.Id, Extension: r.PostalCode.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_postalCode\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
 	if r.Country != nil && r.Country.Value != nil {
-		m.Country = r.Country
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"country\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Country)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
 	}
 	if r.Country != nil && (r.Country.Id != nil || r.Country.Extension != nil) {
-		m.CountryPrimitiveElement = &primitiveElement{Id: r.Country.Id, Extension: r.Country.Extension}
+		p := primitiveElement{Id: r.Country.Id, Extension: r.Country.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_country\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
 	}
-	m.Period = r.Period
-	return m
-}
-func (r *Address) UnmarshalJSON(b []byte) error {
-	var m jsonAddress
-	if err := json.Unmarshal(b, &m); err != nil {
+	if r.Period != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Period.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	return nil
 }
-func (r *Address) unmarshalJSON(m jsonAddress) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Use = m.Use
-	if m.UsePrimitiveElement != nil {
-		if r.Use == nil {
-			r.Use = &Code{}
-		}
-		r.Use.Id = m.UsePrimitiveElement.Id
-		r.Use.Extension = m.UsePrimitiveElement.Extension
+func (r *Address) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Type = m.Type
-	if m.TypePrimitiveElement != nil {
-		if r.Type == nil {
-			r.Type = &Code{}
-		}
-		r.Type.Id = m.TypePrimitiveElement.Id
-		r.Type.Extension = m.TypePrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Address element", t)
 	}
-	r.Text = m.Text
-	if m.TextPrimitiveElement != nil {
-		if r.Text == nil {
-			r.Text = &String{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.Text.Id = m.TextPrimitiveElement.Id
-		r.Text.Extension = m.TextPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Address element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Address element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Address element", t)
+			}
+		case "use":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Value = v.Value
+		case "_use":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Use == nil {
+				r.Use = &Code{}
+			}
+			r.Use.Id = v.Id
+			r.Use.Extension = v.Extension
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "text":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Value = v.Value
+		case "_text":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Id = v.Id
+			r.Text.Extension = v.Extension
+		case "line":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Address element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Line) <= i {
+					r.Line = append(r.Line, String{})
+				}
+				r.Line[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Address element", t)
+			}
+		case "_line":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Address element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Line) <= i {
+					r.Line = append(r.Line, String{})
+				}
+				r.Line[i].Id = v.Id
+				r.Line[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Address element", t)
+			}
+		case "city":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.City == nil {
+				r.City = &String{}
+			}
+			r.City.Value = v.Value
+		case "_city":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.City == nil {
+				r.City = &String{}
+			}
+			r.City.Id = v.Id
+			r.City.Extension = v.Extension
+		case "district":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.District == nil {
+				r.District = &String{}
+			}
+			r.District.Value = v.Value
+		case "_district":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.District == nil {
+				r.District = &String{}
+			}
+			r.District.Id = v.Id
+			r.District.Extension = v.Extension
+		case "state":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.State == nil {
+				r.State = &String{}
+			}
+			r.State.Value = v.Value
+		case "_state":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.State == nil {
+				r.State = &String{}
+			}
+			r.State.Id = v.Id
+			r.State.Extension = v.Extension
+		case "postalCode":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PostalCode == nil {
+				r.PostalCode = &String{}
+			}
+			r.PostalCode.Value = v.Value
+		case "_postalCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PostalCode == nil {
+				r.PostalCode = &String{}
+			}
+			r.PostalCode.Id = v.Id
+			r.PostalCode.Extension = v.Extension
+		case "country":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Country == nil {
+				r.Country = &String{}
+			}
+			r.Country.Value = v.Value
+		case "_country":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Country == nil {
+				r.Country = &String{}
+			}
+			r.Country.Id = v.Id
+			r.Country.Extension = v.Extension
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Address", f)
+		}
 	}
-	r.Line = m.Line
-	for i, e := range m.LinePrimitiveElement {
-		if len(r.Line) <= i {
-			r.Line = append(r.Line, String{})
-		}
-		if e != nil {
-			r.Line[i].Id = e.Id
-			r.Line[i].Extension = e.Extension
-		}
+	t, err = d.Token()
+	if err != nil {
+		return err
 	}
-	r.City = m.City
-	if m.CityPrimitiveElement != nil {
-		if r.City == nil {
-			r.City = &String{}
-		}
-		r.City.Id = m.CityPrimitiveElement.Id
-		r.City.Extension = m.CityPrimitiveElement.Extension
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Address element", t)
 	}
-	r.District = m.District
-	if m.DistrictPrimitiveElement != nil {
-		if r.District == nil {
-			r.District = &String{}
-		}
-		r.District.Id = m.DistrictPrimitiveElement.Id
-		r.District.Extension = m.DistrictPrimitiveElement.Extension
-	}
-	r.State = m.State
-	if m.StatePrimitiveElement != nil {
-		if r.State == nil {
-			r.State = &String{}
-		}
-		r.State.Id = m.StatePrimitiveElement.Id
-		r.State.Extension = m.StatePrimitiveElement.Extension
-	}
-	r.PostalCode = m.PostalCode
-	if m.PostalCodePrimitiveElement != nil {
-		if r.PostalCode == nil {
-			r.PostalCode = &String{}
-		}
-		r.PostalCode.Id = m.PostalCodePrimitiveElement.Id
-		r.PostalCode.Extension = m.PostalCodePrimitiveElement.Extension
-	}
-	r.Country = m.Country
-	if m.CountryPrimitiveElement != nil {
-		if r.Country == nil {
-			r.Country = &String{}
-		}
-		r.Country.Id = m.CountryPrimitiveElement.Id
-		r.Country.Extension = m.CountryPrimitiveElement.Extension
-	}
-	r.Period = m.Period
 	return nil
 }
 func (r Address) MarshalXML(e *xml.Encoder, start xml.StartElement) error {

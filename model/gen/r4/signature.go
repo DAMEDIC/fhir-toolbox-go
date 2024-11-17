@@ -1,9 +1,11 @@
 package r4
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 )
 
 // Base StructureDefinition for Signature Type: A signature along with supporting context. The signature may be a digital signature that is cryptographic in nature, or some other signature acceptable to the domain. This other signature may be as simple as a graphical image representing a hand-written signature, or a signature ceremony Different signature approaches have different utilities.
@@ -29,99 +31,495 @@ type Signature struct {
 	// The base64 encoding of the Signature content. When signature is not recorded electronically this element would be empty.
 	Data *Base64Binary
 }
-type jsonSignature struct {
-	Id                           *string           `json:"id,omitempty"`
-	Extension                    []Extension       `json:"extension,omitempty"`
-	Type                         []Coding          `json:"type,omitempty"`
-	When                         Instant           `json:"when,omitempty"`
-	WhenPrimitiveElement         *primitiveElement `json:"_when,omitempty"`
-	Who                          Reference         `json:"who,omitempty"`
-	OnBehalfOf                   *Reference        `json:"onBehalfOf,omitempty"`
-	TargetFormat                 *Code             `json:"targetFormat,omitempty"`
-	TargetFormatPrimitiveElement *primitiveElement `json:"_targetFormat,omitempty"`
-	SigFormat                    *Code             `json:"sigFormat,omitempty"`
-	SigFormatPrimitiveElement    *primitiveElement `json:"_sigFormat,omitempty"`
-	Data                         *Base64Binary     `json:"data,omitempty"`
-	DataPrimitiveElement         *primitiveElement `json:"_data,omitempty"`
-}
 
 func (r Signature) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.marshalJSON())
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
 }
-func (r Signature) marshalJSON() jsonSignature {
-	m := jsonSignature{}
-	m.Id = r.Id
-	m.Extension = r.Extension
-	m.Type = r.Type
-	if r.When.Value != nil {
-		m.When = r.When
-	}
-	if r.When.Id != nil || r.When.Extension != nil {
-		m.WhenPrimitiveElement = &primitiveElement{Id: r.When.Id, Extension: r.When.Extension}
-	}
-	m.Who = r.Who
-	m.OnBehalfOf = r.OnBehalfOf
-	if r.TargetFormat != nil && r.TargetFormat.Value != nil {
-		m.TargetFormat = r.TargetFormat
-	}
-	if r.TargetFormat != nil && (r.TargetFormat.Id != nil || r.TargetFormat.Extension != nil) {
-		m.TargetFormatPrimitiveElement = &primitiveElement{Id: r.TargetFormat.Id, Extension: r.TargetFormat.Extension}
-	}
-	if r.SigFormat != nil && r.SigFormat.Value != nil {
-		m.SigFormat = r.SigFormat
-	}
-	if r.SigFormat != nil && (r.SigFormat.Id != nil || r.SigFormat.Extension != nil) {
-		m.SigFormatPrimitiveElement = &primitiveElement{Id: r.SigFormat.Id, Extension: r.SigFormat.Extension}
-	}
-	if r.Data != nil && r.Data.Value != nil {
-		m.Data = r.Data
-	}
-	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
-		m.DataPrimitiveElement = &primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
-	}
-	return m
-}
-func (r *Signature) UnmarshalJSON(b []byte) error {
-	var m jsonSignature
-	if err := json.Unmarshal(b, &m); err != nil {
+func (r Signature) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
 		return err
 	}
-	return r.unmarshalJSON(m)
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Type) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Type {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"when\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.When)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.When.Id != nil || r.When.Extension != nil {
+		p := primitiveElement{Id: r.When.Id, Extension: r.When.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_when\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"who\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Who.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.OnBehalfOf != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onBehalfOf\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OnBehalfOf.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.TargetFormat != nil && r.TargetFormat.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetFormat\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.TargetFormat)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.TargetFormat != nil && (r.TargetFormat.Id != nil || r.TargetFormat.Extension != nil) {
+		p := primitiveElement{Id: r.TargetFormat.Id, Extension: r.TargetFormat.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_targetFormat\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.SigFormat != nil && r.SigFormat.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"sigFormat\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.SigFormat)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.SigFormat != nil && (r.SigFormat.Id != nil || r.SigFormat.Extension != nil) {
+		p := primitiveElement{Id: r.SigFormat.Id, Extension: r.SigFormat.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_sigFormat\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Data != nil && r.Data.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"data\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Data)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Data != nil && (r.Data.Id != nil || r.Data.Extension != nil) {
+		p := primitiveElement{Id: r.Data.Id, Extension: r.Data.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_data\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
 }
-func (r *Signature) unmarshalJSON(m jsonSignature) error {
-	r.Id = m.Id
-	r.Extension = m.Extension
-	r.Type = m.Type
-	r.When = m.When
-	if m.WhenPrimitiveElement != nil {
-		r.When.Id = m.WhenPrimitiveElement.Id
-		r.When.Extension = m.WhenPrimitiveElement.Extension
+func (r *Signature) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
 	}
-	r.Who = m.Who
-	r.OnBehalfOf = m.OnBehalfOf
-	r.TargetFormat = m.TargetFormat
-	if m.TargetFormatPrimitiveElement != nil {
-		if r.TargetFormat == nil {
-			r.TargetFormat = &Code{}
-		}
-		r.TargetFormat.Id = m.TargetFormatPrimitiveElement.Id
-		r.TargetFormat.Extension = m.TargetFormatPrimitiveElement.Extension
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Signature element", t)
 	}
-	r.SigFormat = m.SigFormat
-	if m.SigFormatPrimitiveElement != nil {
-		if r.SigFormat == nil {
-			r.SigFormat = &Code{}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
 		}
-		r.SigFormat.Id = m.SigFormatPrimitiveElement.Id
-		r.SigFormat.Extension = m.SigFormatPrimitiveElement.Extension
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Signature element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Signature element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Signature element", t)
+			}
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Signature element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Signature element", t)
+			}
+		case "when":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.When.Value = v.Value
+		case "_when":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.When.Id = v.Id
+			r.When.Extension = v.Extension
+		case "who":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Who = v
+		case "onBehalfOf":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.OnBehalfOf = &v
+		case "targetFormat":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.TargetFormat == nil {
+				r.TargetFormat = &Code{}
+			}
+			r.TargetFormat.Value = v.Value
+		case "_targetFormat":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.TargetFormat == nil {
+				r.TargetFormat = &Code{}
+			}
+			r.TargetFormat.Id = v.Id
+			r.TargetFormat.Extension = v.Extension
+		case "sigFormat":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SigFormat == nil {
+				r.SigFormat = &Code{}
+			}
+			r.SigFormat.Value = v.Value
+		case "_sigFormat":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SigFormat == nil {
+				r.SigFormat = &Code{}
+			}
+			r.SigFormat.Id = v.Id
+			r.SigFormat.Extension = v.Extension
+		case "data":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Data == nil {
+				r.Data = &Base64Binary{}
+			}
+			r.Data.Value = v.Value
+		case "_data":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Data == nil {
+				r.Data = &Base64Binary{}
+			}
+			r.Data.Id = v.Id
+			r.Data.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in Signature", f)
+		}
 	}
-	r.Data = m.Data
-	if m.DataPrimitiveElement != nil {
-		if r.Data == nil {
-			r.Data = &Base64Binary{}
-		}
-		r.Data.Id = m.DataPrimitiveElement.Id
-		r.Data.Extension = m.DataPrimitiveElement.Extension
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Signature element", t)
 	}
 	return nil
 }
