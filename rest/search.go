@@ -5,7 +5,7 @@ import (
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/model"
-	"fhir-toolbox/rest/bundle"
+	"fhir-toolbox/model/basic"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -14,6 +14,27 @@ import (
 	"strings"
 	"time"
 )
+
+// SearchError indicates that a search could not be performed.
+type SearchError struct {
+	error
+}
+
+func (e SearchError) Error() string {
+	return fmt.Sprintf("processing search: %v", e.error)
+}
+
+func (e SearchError) StatusCode() int {
+	return 500
+}
+
+func (e SearchError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "processing", Diagnostics: e.Error()},
+		},
+	}
+}
 
 func dispatchSearch(
 	context context.Context,
@@ -37,7 +58,7 @@ func dispatchSearch(
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	bundle, err := bundle.NewSearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
+	bundle, err := NewSearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
@@ -141,7 +162,7 @@ func parseCursor(params url.Values) (search.Cursor, capabilities.FHIRError) {
 	return "", nil
 }
 
-func parseSearchValue(typ search.Type, value string, tz *time.Location) (search.Value, error) {
+func parseSearchValue(typ search.ParameterType, value string, tz *time.Location) (search.Value, error) {
 	prefix := parseSearchValuePrefix(typ, value)
 	if prefix != "" {
 		// all prefixes have a width of 2
@@ -156,14 +177,14 @@ func parseSearchValue(typ search.Type, value string, tz *time.Location) (search.
 	return search.Value{Prefix: prefix, DatePrecision: datePrecision, Value: valueAny}, nil
 }
 
-func parseSearchValuePrefix(typ search.Type, value string) string {
+func parseSearchValuePrefix(typ search.ParameterType, value string) string {
 	// all prefixes have a width of 2
 	if len(value) < 2 {
 		return ""
 	}
 
 	// only number, date and quantity can have prefixes
-	if !slices.Contains([]search.Type{search.Number, search.Date, search.Quantity}, typ) {
+	if !slices.Contains([]search.ParameterType{search.Number, search.Date, search.Quantity}, typ) {
 		return ""
 	}
 
@@ -174,7 +195,7 @@ func parseSearchValuePrefix(typ search.Type, value string) string {
 	return value[:2]
 }
 
-func parseSearchValueAny(typ search.Type, value string, tz *time.Location) (any, search.DatePrecision, error) {
+func parseSearchValueAny(typ search.ParameterType, value string, tz *time.Location) (any, search.DatePrecision, error) {
 	switch typ {
 	case search.Date:
 		return parseDate(value, tz)

@@ -64,7 +64,7 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r4.Observ
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
 func (b *mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.Desc{
+		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.Token},
 		},
 	}
@@ -154,7 +154,7 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r4.Compos
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
 func (b *mockBackend) SearchCapabilitiesComposition() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.Desc{
+		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.Token},
 		},
 	}

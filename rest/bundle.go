@@ -1,4 +1,4 @@
-package bundle
+package rest
 
 import (
 	"fhir-toolbox/capabilities"
@@ -7,11 +7,34 @@ import (
 	"fhir-toolbox/model/basic"
 	"fmt"
 	"net/url"
-	"slices"
 	"strings"
 )
 
+// MissingIdError indicates that a bundle entry is missing an id.
+type MissingIdError struct {
+	ResourceType string
+}
+
+func (e MissingIdError) Error() string {
+	return fmt.Sprintf("missing ID for resource of type %s", e.ResourceType)
+}
+
+func (e MissingIdError) StatusCode() int {
+	return 500
+}
+
+func (e MissingIdError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "processing", Diagnostics: e.Error()},
+		},
+	}
+}
+
 // NewSearchBundle creates a new search bundle from the given resources and parameters.
+//
+// The REST server uses cursor based pagination.
+// If the search results contains a `Next` cursor, a 'next' bundle link entry will be set.
 func NewSearchBundle(
 	matchResourceType string,
 	result search.Result,
@@ -34,8 +57,6 @@ func NewSearchBundle(
 					usedOptions,
 					searchCapabilities,
 					baseURL,
-					usedOptions.Cursor,
-					usedOptions.Count,
 				),
 			},
 		},
@@ -43,15 +64,16 @@ func NewSearchBundle(
 	}
 
 	if result.Next != "" {
+		nextOptions := usedOptions
+		nextOptions.Cursor = result.Next
+
 		bundle.Link = append(bundle.Link, basic.BundleLink{
 			Relation: "next",
 			Url: relationLink(
 				matchResourceType,
-				usedOptions,
+				nextOptions,
 				searchCapabilities,
 				baseURL,
-				result.Next,
-				usedOptions.Count,
 			),
 		})
 
@@ -101,13 +123,15 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 	}, nil
 }
 
+// relationLink creates links to be used as `Bundle.link`.
+//
+// Supplied search parameters that are not supported (not included in the search capabilities)
+// are removed.
 func relationLink(
 	resourceType string,
-	usedOptions search.Options,
+	options search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-	cursor search.Cursor,
-	count int,
 ) string {
 	path := strings.Trim(baseURL.Path, "/ ")
 	link := url.URL{
@@ -116,50 +140,16 @@ func relationLink(
 		Path:   fmt.Sprintf("%s/%s", path, resourceType),
 	}
 
-	// only include includes that were actually used
-	for _, include := range usedOptions.Includes {
-		if slices.Contains(searchCapabilities.Includes, include) {
-			link.RawQuery += fmt.Sprintf("_include=%s&", include)
+	// remove options supplied by the client, but not used/supported by the backend
+	usedOptions := options
+	usedOptions.Parameters = make(search.Parameters, len(options.Parameters))
+	for key, ands := range options.Parameters {
+		if _, ok := searchCapabilities.Parameters[key]; ok {
+			usedOptions.Parameters[key] = ands
 		}
 	}
 
-	allParams := make([]string, 0, len(usedOptions.Parameters))
-	for param := range usedOptions.Parameters {
-		allParams = append(allParams, param)
-	}
-	// sort alphabetically to make the result deterministic
-	slices.Sort(allParams)
+	link.RawQuery = usedOptions.QueryString()
 
-	// only include parameters that were actually used
-	for _, name := range allParams {
-		_, isSupportedParameter := searchCapabilities.Parameters[name]
-		if !isSupportedParameter {
-			continue
-		}
-
-		// this must be present because we just got the name form the map
-		ands := usedOptions.Parameters[name]
-
-		for _, and := range ands {
-			link.RawQuery += fmt.Sprintf("%s=", name)
-
-			for _, or := range and {
-				link.RawQuery += fmt.Sprintf("%s,", url.QueryEscape(or.String()))
-			}
-
-			link.RawQuery = strings.TrimRight(link.RawQuery, ",")
-			link.RawQuery += "&"
-		}
-
-	}
-
-	if cursor != "" {
-		link.RawQuery += fmt.Sprintf("_cursor=%s&", cursor)
-	}
-
-	link.RawQuery += fmt.Sprintf("_count=%d&", count)
-
-	// strip the trailing "&" or "?"
-	link.RawQuery = strings.TrimRight(link.RawQuery, "&?")
 	return link.String()
 }

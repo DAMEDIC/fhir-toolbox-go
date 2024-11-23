@@ -92,7 +92,7 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	// TODO: These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
-		Parameters: map[string]search.Desc{
+		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.String},
 		},
 	}, nil

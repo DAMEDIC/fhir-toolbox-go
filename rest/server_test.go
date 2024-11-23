@@ -286,7 +286,7 @@ func TestHandleSearch(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Patient?_id=1,2&_count=500"
+						"url":"http://example.com/Patient?_id=1%2C2&_count=500"
 					}
 				]
 			}`,
@@ -411,7 +411,7 @@ func TestHandleSearch(t *testing.T) {
 				"link":[
 					{
 						"relation":"self",
-						"url":"http://example.com/Observation?_include=Observation:patient&_id=1&_count=500"
+						"url":"http://example.com/Observation?_id=1&_include=Observation%3Apatient&_count=500"
 					}
 				]
 			}`,
@@ -706,7 +706,7 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, ca
 
 func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.Desc{
+		Parameters: map[string]search.ParameterDescription{
 			"_id":  {Type: search.Token},
 			"date": {Type: search.Date},
 			"eq1":  {Type: search.Token},
@@ -747,7 +747,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 
 func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.Desc{
+		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.Token},
 		},
 		Includes: []string{"Observation:patient"},
