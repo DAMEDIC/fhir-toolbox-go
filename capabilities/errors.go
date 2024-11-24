@@ -93,3 +93,28 @@ func (e NotFoundError) OperationOutcome() model.Resource {
 		},
 	}
 }
+
+// SearchError indicates that a search could not be performed.
+type SearchError struct {
+	error
+}
+
+func NewSearchError(err error) SearchError {
+	return SearchError{err}
+}
+
+func (e SearchError) Error() string {
+	return fmt.Sprintf("processing search: %v", e.error)
+}
+
+func (e SearchError) StatusCode() int {
+	return 500
+}
+
+func (e SearchError) OperationOutcome() model.Resource {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{Severity: "fatal", Code: "processing", Diagnostics: e.Error()},
+		},
+	}
+}

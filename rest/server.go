@@ -1,7 +1,9 @@
 package rest
 
 import (
+	"context"
 	"fhir-toolbox/capabilities"
+	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/capabilities/wrap"
 	"fhir-toolbox/model"
 	"fhir-toolbox/model/basic"
@@ -74,6 +76,19 @@ func readHandler(
 	})
 }
 
+func dispatchRead(
+	context context.Context,
+	backend capabilities.GenericAPI,
+	resourceType string,
+	resourceID string,
+) (int, model.Resource) {
+	resource, err := backend.Read(context, resourceType, resourceID)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+	return http.StatusOK, resource
+}
+
 func searchHandler(
 	backend capabilities.GenericAPI,
 	defaultFormat Format,
@@ -102,6 +117,48 @@ func searchHandler(
 
 		returnResult(w, format, status, resource)
 	})
+}
+
+func dispatchSearch(
+	context context.Context,
+	backend capabilities.GenericAPI,
+	resourceType string,
+	parameters url.Values,
+	baseURL *url.URL,
+	tz *time.Location,
+	maxCount,
+	defaultCount int,
+) (int, model.Resource) {
+	searchCapabilities, err := backend.SearchCapabilities(resourceType)
+
+	options, err := parseSearchOptions(searchCapabilities, parameters, tz, maxCount, defaultCount)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	resources, err := backend.Search(context, resourceType, options)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	bundle, err := NewSearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	return http.StatusOK, bundle
+}
+
+func parseSearchOptions(
+	searchCapabilities search.Capabilities,
+	params url.Values,
+	tz *time.Location,
+	maxCount, defaultCount int) (search.Options, capabilities.FHIRError) {
+	options, err := search.ParseOptions(searchCapabilities, params, tz, maxCount, defaultCount)
+	if err != nil {
+		return search.Options{}, capabilities.NewSearchError(err)
+	}
+	return options, nil
 }
 
 func returnResult[T any](w http.ResponseWriter, format Format, status int, r T) {

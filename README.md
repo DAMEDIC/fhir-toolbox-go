@@ -105,12 +105,11 @@ concreteAPI := wrap.Concrete[model.R4](genericAPI)
 
 Everything part of the FHIR specification is in scope of this project.
 However, we (DAMEDIC) do not strive for feature-completion.
-Instead we will only implemented what we need for building our products.
+Instead we will only implement what we need for building our products.
 See [Contribution](#contribution) below.
 
 ## Contribution
 
 We are happy to accept contributions.
 Bugfixes are always welcomed.
-For more complex features we appreciate commitment to maintain the contributed sources
-as unmaintained/dead code eventually becomes a burden.
+For more complex features we appreciate commitment to maintain the contributed sources.
