@@ -13,19 +13,19 @@ This includes model types and interfaces modeling capabilities that you can use 
 - FHIR model types with JSON and XML (un)marshalling
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
-      - alternatively: generic API for building wrappers
+        - alternatively: generic API for building wrappers
     - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
     - Cursor-based pagination
 
-
 ## Getting Started
+
 A quick "getting started" tutorial can be found in the [`./examples/demo`](./examples/demo/main.go) project.
 
 ### Other Examples
 
-You can find more examples in `./examples`.
-The `facade` example shows how to build custom FHIR facades on top of legacy data sources using the capabilities API.
-The `proxy` example uses the generic API to forward all requests to another FHIR server.
+You can find more examples in [`./examples/`](./examples/o).
+The [`facade`](./examples/facade/main.go) example shows how to build custom FHIR facades on top of legacy data sources using the capabilities API.
+The [`proxy`](./examples/proxy/main.go) example uses the generic API to forward all requests to another FHIR server.
 
 ```sh
 go run ./examples/proxy https://server.fire.ly/
@@ -75,30 +75,36 @@ func (a myAPI) Search(ctx context.Context, resourceType string, options search.O
 ```
 
 You can implement your custom backend or client either way.
-The **concrete** API is ideal for building custom FHIR facades where a limited set of resources is used (see `example/mock`).
-The **generic** API is better suited for e.g. building full FHIR clients (see `example/proxy`) or standalone FHIR servers.
+The **concrete** API is ideal for building custom FHIR facades where a limited set of resources is used (see [
+`./examples/mock`](./examples/mock/main.go)).
+The **generic** API is better suited for e.g. building FHIR clients (see [`./examples/proxy`](./examples/proxy/main.go))
+or standalone FHIR servers.
 
 #### Interoperability
+
 The `capabilities/wrap` package provides two wrapper functions to wrap a concrete into the generic API:
+
 ```Go
-// at the moment, the wrapped generic API **only** implements the generic API,
-// this might change in the future
 genericAPI := wrap.Generic[model.R4](concreteAPI)
 ```
+
 and vice versa:
+
 ```Go
-// the returned concrete API implements both the generic and the concrete API
 concreteAPI := wrap.Concrete[model.R4](genericAPI)
 ```
 
 ## Packages
 
-| Package            | Description                                                                   |
-|--------------------|-------------------------------------------------------------------------------|
-| `model`            | Generated FHIR model types                                                    |
-| `capabilities`     | Interfaces modeling capabilities a server can provide or a client can consume |
-| `capabilites/wrap` | Conversion between the concrete and generic capabilities API                  |
-| `rest`             | FHIR REST server implementation                                               |
+| Package              | Description                                                                   |
+|----------------------|-------------------------------------------------------------------------------|
+| `model`              | Generated FHIR model types                                                    |
+| `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
+| `capabilites/search` | Types and helper functions for implementing search capabilities               |
+| `capabilites/wrap`   | Conversion between the concrete and generic capabilities API                  |
+| `rest`               | FHIR REST server implementation                                               |
+| `testdata`           | Utils for loading test data and writing tests                                 |
+| `examples`           | Examples on what you can do with this module                                  |
 
 ### Scope
 
@@ -111,4 +117,4 @@ See [Contribution](#contribution) below.
 
 We are happy to accept contributions.
 Bugfixes are always welcomed.
-For more complex features we appreciate commitment to maintain the contributed sources.
+For more elaborate features we appreciate commitment to maintain the contributed code.
