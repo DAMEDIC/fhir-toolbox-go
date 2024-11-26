@@ -30,6 +30,13 @@ type MarketingStatus struct {
 	RestoreDate *DateTime
 }
 
+func (r MarketingStatus) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MarketingStatus) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -506,11 +513,4 @@ func (r *MarketingStatus) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 			return nil
 		}
 	}
-}
-func (r MarketingStatus) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

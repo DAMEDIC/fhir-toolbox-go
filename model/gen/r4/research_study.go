@@ -79,6 +79,40 @@ type ResearchStudy struct {
 	Objective []ResearchStudyObjective
 }
 
+// Describes an expected sequence of events for one of the participants of a study.  E.g. Exposure to drug A, wash-out, exposure to drug B, wash-out, follow-up.
+type ResearchStudyArm struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Unique, human-readable label for this arm of the study.
+	Name String
+	// Categorization of study arm, e.g. experimental, active comparator, placebo comparater.
+	Type *CodeableConcept
+	// A succinct description of the path through the study that would be followed by a subject adhering to this arm.
+	Description *String
+}
+
+// A goal that the study is aiming to achieve in terms of a scientific question to be answered by the analysis of data collected during the study.
+type ResearchStudyObjective struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Unique, human-readable label for this objective of the study.
+	Name *String
+	// The kind of study objective.
+	Type *CodeableConcept
+}
+
 func (r ResearchStudy) ResourceType() string {
 	return "ResearchStudy"
 }
@@ -90,6 +124,13 @@ func (r ResearchStudy) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ResearchStudy) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -1134,6 +1175,396 @@ func (r ResearchStudy) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r ResearchStudyArm) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ResearchStudyArm) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name.Id != nil || r.Name.Extension != nil {
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && r.Description.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"description\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Description)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
+		p := primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_description\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ResearchStudyObjective) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ResearchStudyObjective) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && r.Name.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *ResearchStudy) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -1764,6 +2195,245 @@ func (r *ResearchStudy) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *ResearchStudyArm) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchStudyArm element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ResearchStudyArm element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyArm element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyArm element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyArm element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyArm element", t)
+			}
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ResearchStudyArm", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchStudyArm element", t)
+	}
+	return nil
+}
+func (r *ResearchStudyObjective) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchStudyObjective element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ResearchStudyObjective element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyObjective element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyObjective element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyObjective element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyObjective element", t)
+			}
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		default:
+			return fmt.Errorf("invalid field: %s in ResearchStudyObjective", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchStudyObjective element", t)
+	}
+	return nil
+}
 func (r ResearchStudy) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "ResearchStudy"
 	err := e.EncodeToken(start)
@@ -1899,6 +2569,76 @@ func (r ResearchStudy) MarshalXML(e *xml.Encoder, start xml.StartElement) error 
 		return err
 	}
 	err = e.EncodeElement(r.Objective, xml.StartElement{Name: xml.Name{Local: "objective"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ResearchStudyArm) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ResearchStudyObjective) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
 	if err != nil {
 		return err
 	}
@@ -2161,412 +2901,6 @@ func (r *ResearchStudy) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 		}
 	}
 }
-func (r ResearchStudy) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Describes an expected sequence of events for one of the participants of a study.  E.g. Exposure to drug A, wash-out, exposure to drug B, wash-out, follow-up.
-type ResearchStudyArm struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Unique, human-readable label for this arm of the study.
-	Name String
-	// Categorization of study arm, e.g. experimental, active comparator, placebo comparater.
-	Type *CodeableConcept
-	// A succinct description of the path through the study that would be followed by a subject adhering to this arm.
-	Description *String
-}
-
-func (r ResearchStudyArm) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ResearchStudyArm) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"name\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Name.Id != nil || r.Name.Extension != nil {
-		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_name\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Type != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"type\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Type.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Description != nil && r.Description.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"description\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Description)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Description != nil && (r.Description.Id != nil || r.Description.Extension != nil) {
-		p := primitiveElement{Id: r.Description.Id, Extension: r.Description.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_description\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ResearchStudyArm) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchStudyArm element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ResearchStudyArm element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyArm element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyArm element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyArm element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyArm element", t)
-			}
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = &v
-		case "description":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &String{}
-			}
-			r.Description.Value = v.Value
-		case "_description":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &String{}
-			}
-			r.Description.Id = v.Id
-			r.Description.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in ResearchStudyArm", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchStudyArm element", t)
-	}
-	return nil
-}
-func (r ResearchStudyArm) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *ResearchStudyArm) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -2633,349 +2967,6 @@ func (r *ResearchStudyArm) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		}
 	}
 }
-func (r ResearchStudyArm) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A goal that the study is aiming to achieve in terms of a scientific question to be answered by the analysis of data collected during the study.
-type ResearchStudyObjective struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Unique, human-readable label for this objective of the study.
-	Name *String
-	// The kind of study objective.
-	Type *CodeableConcept
-}
-
-func (r ResearchStudyObjective) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ResearchStudyObjective) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Name != nil && r.Name.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"name\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Name != nil && (r.Name.Id != nil || r.Name.Extension != nil) {
-		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_name\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Type != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"type\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Type.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ResearchStudyObjective) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchStudyObjective element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ResearchStudyObjective element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyObjective element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyObjective element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchStudyObjective element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchStudyObjective element", t)
-			}
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = &v
-		default:
-			return fmt.Errorf("invalid field: %s in ResearchStudyObjective", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchStudyObjective element", t)
-	}
-	return nil
-}
-func (r ResearchStudyObjective) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *ResearchStudyObjective) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -3034,11 +3025,4 @@ func (r *ResearchStudyObjective) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 			return nil
 		}
 	}
-}
-func (r ResearchStudyObjective) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

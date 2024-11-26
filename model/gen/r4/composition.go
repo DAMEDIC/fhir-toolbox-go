@@ -63,6 +63,96 @@ type Composition struct {
 	Section []CompositionSection
 }
 
+// A participant who has attested to the accuracy of the composition/document.
+type CompositionAttester struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The type of attestation the authenticator offers.
+	Mode Code
+	// When the composition was attested by the party.
+	Time *DateTime
+	// Who attested the composition in the specified way.
+	Party *Reference
+}
+
+// Relationships that this composition has with other compositions or documents that already exist.
+type CompositionRelatesTo struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The type of relationship that this composition has with anther composition or document.
+	Code Code
+	// The target composition/document of this relationship.
+	Target isCompositionRelatesToTarget
+}
+type isCompositionRelatesToTarget interface {
+	isCompositionRelatesToTarget()
+}
+
+func (r Identifier) isCompositionRelatesToTarget() {}
+func (r Reference) isCompositionRelatesToTarget()  {}
+
+// The clinical service, such as a colonoscopy or an appendectomy, being documented.
+type CompositionEvent struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as a "History and Physical Report" in which the procedure being documented is necessarily a "History and Physical" act.
+	Code []CodeableConcept
+	// The period of time covered by the documentation. There is no assertion that the documentation is a complete representation for this period, only that it documents events during this time.
+	Period *Period
+	// The description and/or reference of the event(s) being documented. For example, this could be used to document such a colonoscopy or an appendectomy.
+	Detail []Reference
+}
+
+// The root of the sections that make up the composition.
+type CompositionSection struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The label for this particular section.  This will be part of the rendered content for the document, and is often used to build a table of contents.
+	Title *String
+	// A code identifying the kind of content contained within the section. This must be consistent with the section title.
+	Code *CodeableConcept
+	// Identifies who is responsible for the information in this section, not necessarily who typed it in.
+	Author []Reference
+	// The actual focus of the section when it is not the subject of the composition, but instead represents something or someone associated with the subject such as (for a patient subject) a spouse, parent, fetus, or donor. If not focus is specified, the focus is assumed to be focus of the parent section, or, for a section in the Composition itself, the subject of the composition. Sections with a focus SHALL only include resources where the logical subject (patient, subject, focus, etc.) matches the section focus, or the resources have no logical subject (few resources).
+	Focus *Reference
+	// A human-readable narrative that contains the attested content of the section, used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it "clinically safe" for a human to just read the narrative.
+	Text *Narrative
+	// How the entry list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted.
+	Mode *Code
+	// Specifies the order applied to the items in the section entries.
+	OrderedBy *CodeableConcept
+	// A reference to the actual resource from which the narrative in the section is derived.
+	Entry []Reference
+	// If the section is empty, why the list is empty. An empty section typically has some text explaining the empty reason.
+	EmptyReason *CodeableConcept
+	// A nested sub-section within this section.
+	Section []CompositionSection
+}
+
 func (r Composition) ResourceType() string {
 	return "Composition"
 }
@@ -74,6 +164,13 @@ func (r Composition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Composition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Composition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -826,6 +923,1064 @@ func (r Composition) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r CompositionAttester) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r CompositionAttester) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"mode\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Mode)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Mode.Id != nil || r.Mode.Extension != nil {
+		p := primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_mode\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Time != nil && r.Time.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"time\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Time)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Time != nil && (r.Time.Id != nil || r.Time.Extension != nil) {
+		p := primitiveElement{Id: r.Time.Id, Extension: r.Time.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_time\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Party != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"party\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Party.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionRelatesTo) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r CompositionRelatesTo) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Code)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code.Id != nil || r.Code.Extension != nil {
+		p := primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_code\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.Target.(type) {
+	case Identifier:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Identifier:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case Reference:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Reference:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetReference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionEvent) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r CompositionEvent) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Code) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Code {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Period != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"period\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Period.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Detail) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"detail\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Detail {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionSection) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r CompositionSection) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Title != nil && r.Title.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"title\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Title)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
+		p := primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_title\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Code != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"code\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Code.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Author) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"author\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Author {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Focus != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"focus\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Focus.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Text != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"text\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Text.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Mode != nil && r.Mode.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"mode\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Mode)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Mode != nil && (r.Mode.Id != nil || r.Mode.Extension != nil) {
+		p := primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_mode\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.OrderedBy != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"orderedBy\":"))
+		if err != nil {
+			return err
+		}
+		err = r.OrderedBy.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Entry) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"entry\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Entry {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.EmptyReason != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"emptyReason\":"))
+		if err != nil {
+			return err
+		}
+		err = r.EmptyReason.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Section) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"section\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Section {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *Composition) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -1251,546 +2406,6 @@ func (r *Composition) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
-func (r Composition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "Composition"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	v := make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Category, xml.StartElement{Name: xml.Name{Local: "category"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Subject, xml.StartElement{Name: xml.Name{Local: "subject"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Encounter, xml.StartElement{Name: xml.Name{Local: "encounter"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Author, xml.StartElement{Name: xml.Name{Local: "author"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Confidentiality, xml.StartElement{Name: xml.Name{Local: "confidentiality"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Attester, xml.StartElement{Name: xml.Name{Local: "attester"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Custodian, xml.StartElement{Name: xml.Name{Local: "custodian"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.RelatesTo, xml.StartElement{Name: xml.Name{Local: "relatesTo"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Event, xml.StartElement{Name: xml.Name{Local: "event"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Section, xml.StartElement{Name: xml.Name{Local: "section"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *Composition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "text":
-				var v Narrative
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "contained":
-				var c ContainedResource
-				err := d.DecodeElement(&c, &t)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, c.Resource)
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "identifier":
-				var v Identifier
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Identifier = &v
-			case "status":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Status = v
-			case "type":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = v
-			case "category":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Category = append(r.Category, v)
-			case "subject":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subject = &v
-			case "encounter":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Encounter = &v
-			case "date":
-				var v DateTime
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Date = v
-			case "author":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Author = append(r.Author, v)
-			case "title":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Title = v
-			case "confidentiality":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Confidentiality = &v
-			case "attester":
-				var v CompositionAttester
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Attester = append(r.Attester, v)
-			case "custodian":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Custodian = &v
-			case "relatesTo":
-				var v CompositionRelatesTo
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.RelatesTo = append(r.RelatesTo, v)
-			case "event":
-				var v CompositionEvent
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Event = append(r.Event, v)
-			case "section":
-				var v CompositionSection
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Section = append(r.Section, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r Composition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A participant who has attested to the accuracy of the composition/document.
-type CompositionAttester struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The type of attestation the authenticator offers.
-	Mode Code
-	// When the composition was attested by the party.
-	Time *DateTime
-	// Who attested the composition in the specified way.
-	Party *Reference
-}
-
-func (r CompositionAttester) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r CompositionAttester) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"mode\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Mode)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Mode.Id != nil || r.Mode.Extension != nil {
-		p := primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_mode\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Time != nil && r.Time.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"time\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Time)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Time != nil && (r.Time.Id != nil || r.Time.Extension != nil) {
-		p := primitiveElement{Id: r.Time.Id, Extension: r.Time.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_time\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Party != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"party\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Party.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *CompositionAttester) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -1918,389 +2533,6 @@ func (r *CompositionAttester) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
-func (r CompositionAttester) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Mode, xml.StartElement{Name: xml.Name{Local: "mode"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Time, xml.StartElement{Name: xml.Name{Local: "time"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Party, xml.StartElement{Name: xml.Name{Local: "party"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *CompositionAttester) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "mode":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Mode = v
-			case "time":
-				var v DateTime
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Time = &v
-			case "party":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Party = &v
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r CompositionAttester) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Relationships that this composition has with other compositions or documents that already exist.
-type CompositionRelatesTo struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The type of relationship that this composition has with anther composition or document.
-	Code Code
-	// The target composition/document of this relationship.
-	Target isCompositionRelatesToTarget
-}
-type isCompositionRelatesToTarget interface {
-	isCompositionRelatesToTarget()
-}
-
-func (r Identifier) isCompositionRelatesToTarget() {}
-func (r Reference) isCompositionRelatesToTarget()  {}
-func (r CompositionRelatesTo) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r CompositionRelatesTo) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"code\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Code)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Code.Id != nil || r.Code.Extension != nil {
-		p := primitiveElement{Id: r.Code.Id, Extension: r.Code.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_code\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	switch v := r.Target.(type) {
-	case Identifier:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"targetIdentifier\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case *Identifier:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"targetIdentifier\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case Reference:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"targetReference\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case *Reference:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"targetReference\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *CompositionRelatesTo) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -2411,347 +2643,6 @@ func (r *CompositionRelatesTo) unmarshalJSON(d *json.Decoder) error {
 	}
 	if t != json.Delim('}') {
 		return fmt.Errorf("invalid token: %v, expected: '}' in CompositionRelatesTo element", t)
-	}
-	return nil
-}
-func (r CompositionRelatesTo) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.Target.(type) {
-	case Identifier, *Identifier:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "targetIdentifier"}})
-		if err != nil {
-			return err
-		}
-	case Reference, *Reference:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "targetReference"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *CompositionRelatesTo) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "code":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Code = v
-			case "targetIdentifier":
-				if r.Target != nil {
-					return fmt.Errorf("multiple values for field \"Target\"")
-				}
-				var v Identifier
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Target = v
-			case "targetReference":
-				if r.Target != nil {
-					return fmt.Errorf("multiple values for field \"Target\"")
-				}
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Target = v
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r CompositionRelatesTo) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The clinical service, such as a colonoscopy or an appendectomy, being documented.
-type CompositionEvent struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy, being documented. In some cases, the event is inherent in the typeCode, such as a "History and Physical Report" in which the procedure being documented is necessarily a "History and Physical" act.
-	Code []CodeableConcept
-	// The period of time covered by the documentation. There is no assertion that the documentation is a complete representation for this period, only that it documents events during this time.
-	Period *Period
-	// The description and/or reference of the event(s) being documented. For example, this could be used to document such a colonoscopy or an appendectomy.
-	Detail []Reference
-}
-
-func (r CompositionEvent) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r CompositionEvent) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Code) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"code\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Code {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Period != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"period\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Period.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Detail) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"detail\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Detail {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
 	}
 	return nil
 }
@@ -2889,538 +2780,6 @@ func (r *CompositionEvent) unmarshalJSON(d *json.Decoder) error {
 	}
 	if t != json.Delim('}') {
 		return fmt.Errorf("invalid token: %v, expected: '}' in CompositionEvent element", t)
-	}
-	return nil
-}
-func (r CompositionEvent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *CompositionEvent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "code":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Code = append(r.Code, v)
-			case "period":
-				var v Period
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Period = &v
-			case "detail":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Detail = append(r.Detail, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r CompositionEvent) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The root of the sections that make up the composition.
-type CompositionSection struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The label for this particular section.  This will be part of the rendered content for the document, and is often used to build a table of contents.
-	Title *String
-	// A code identifying the kind of content contained within the section. This must be consistent with the section title.
-	Code *CodeableConcept
-	// Identifies who is responsible for the information in this section, not necessarily who typed it in.
-	Author []Reference
-	// The actual focus of the section when it is not the subject of the composition, but instead represents something or someone associated with the subject such as (for a patient subject) a spouse, parent, fetus, or donor. If not focus is specified, the focus is assumed to be focus of the parent section, or, for a section in the Composition itself, the subject of the composition. Sections with a focus SHALL only include resources where the logical subject (patient, subject, focus, etc.) matches the section focus, or the resources have no logical subject (few resources).
-	Focus *Reference
-	// A human-readable narrative that contains the attested content of the section, used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it "clinically safe" for a human to just read the narrative.
-	Text *Narrative
-	// How the entry list was prepared - whether it is a working list that is suitable for being maintained on an ongoing basis, or if it represents a snapshot of a list of items from another source, or whether it is a prepared list where items may be marked as added, modified or deleted.
-	Mode *Code
-	// Specifies the order applied to the items in the section entries.
-	OrderedBy *CodeableConcept
-	// A reference to the actual resource from which the narrative in the section is derived.
-	Entry []Reference
-	// If the section is empty, why the list is empty. An empty section typically has some text explaining the empty reason.
-	EmptyReason *CodeableConcept
-	// A nested sub-section within this section.
-	Section []CompositionSection
-}
-
-func (r CompositionSection) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r CompositionSection) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Title != nil && r.Title.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"title\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Title)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Title != nil && (r.Title.Id != nil || r.Title.Extension != nil) {
-		p := primitiveElement{Id: r.Title.Id, Extension: r.Title.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_title\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Code != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"code\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Code.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Author) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"author\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Author {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Focus != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"focus\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Focus.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Text != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"text\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Text.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Mode != nil && r.Mode.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"mode\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Mode)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Mode != nil && (r.Mode.Id != nil || r.Mode.Extension != nil) {
-		p := primitiveElement{Id: r.Mode.Id, Extension: r.Mode.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_mode\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.OrderedBy != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"orderedBy\":"))
-		if err != nil {
-			return err
-		}
-		err = r.OrderedBy.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Entry) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"entry\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Entry {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.EmptyReason != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"emptyReason\":"))
-		if err != nil {
-			return err
-		}
-		err = r.EmptyReason.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Section) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"section\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Section {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
 	}
 	return nil
 }
@@ -3654,6 +3013,229 @@ func (r *CompositionSection) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r Composition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "Composition"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Category, xml.StartElement{Name: xml.Name{Local: "category"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subject, xml.StartElement{Name: xml.Name{Local: "subject"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Encounter, xml.StartElement{Name: xml.Name{Local: "encounter"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Author, xml.StartElement{Name: xml.Name{Local: "author"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Confidentiality, xml.StartElement{Name: xml.Name{Local: "confidentiality"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Attester, xml.StartElement{Name: xml.Name{Local: "attester"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Custodian, xml.StartElement{Name: xml.Name{Local: "custodian"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.RelatesTo, xml.StartElement{Name: xml.Name{Local: "relatesTo"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Event, xml.StartElement{Name: xml.Name{Local: "event"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Section, xml.StartElement{Name: xml.Name{Local: "section"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionAttester) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Mode, xml.StartElement{Name: xml.Name{Local: "mode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Time, xml.StartElement{Name: xml.Name{Local: "time"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Party, xml.StartElement{Name: xml.Name{Local: "party"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionRelatesTo) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Target.(type) {
+	case Identifier, *Identifier:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "targetIdentifier"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "targetReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r CompositionEvent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r CompositionSection) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -3718,6 +3300,400 @@ func (r CompositionSection) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 		return err
 	}
 	return nil
+}
+func (r *Composition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = &v
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "type":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "category":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Category = append(r.Category, v)
+			case "subject":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = &v
+			case "encounter":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Encounter = &v
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = v
+			case "author":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Author = append(r.Author, v)
+			case "title":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Title = v
+			case "confidentiality":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Confidentiality = &v
+			case "attester":
+				var v CompositionAttester
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Attester = append(r.Attester, v)
+			case "custodian":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Custodian = &v
+			case "relatesTo":
+				var v CompositionRelatesTo
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.RelatesTo = append(r.RelatesTo, v)
+			case "event":
+				var v CompositionEvent
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Event = append(r.Event, v)
+			case "section":
+				var v CompositionSection
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Section = append(r.Section, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *CompositionAttester) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "mode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mode = v
+			case "time":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Time = &v
+			case "party":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Party = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *CompositionRelatesTo) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "code":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = v
+			case "targetIdentifier":
+				if r.Target != nil {
+					return fmt.Errorf("multiple values for field \"Target\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Target = v
+			case "targetReference":
+				if r.Target != nil {
+					return fmt.Errorf("multiple values for field \"Target\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Target = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *CompositionEvent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			case "period":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			case "detail":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Detail = append(r.Detail, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *CompositionSection) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -3833,11 +3809,4 @@ func (r *CompositionSection) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 			return nil
 		}
 	}
-}
-func (r CompositionSection) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

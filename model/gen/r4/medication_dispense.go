@@ -78,20 +78,6 @@ type MedicationDispense struct {
 	// A summary of the events of interest that have occurred, such as when the dispense was verified.
 	EventHistory []Reference
 }
-
-func (r MedicationDispense) ResourceType() string {
-	return "MedicationDispense"
-}
-func (r MedicationDispense) ResourceId() (string, bool) {
-	if r.Id == nil {
-		return "", false
-	}
-	if r.Id.Value == nil {
-		return "", false
-	}
-	return *r.Id.Value, true
-}
-
 type isMedicationDispenseStatusReason interface {
 	isMedicationDispenseStatusReason()
 }
@@ -105,6 +91,62 @@ type isMedicationDispenseMedication interface {
 
 func (r CodeableConcept) isMedicationDispenseMedication() {}
 func (r Reference) isMedicationDispenseMedication()       {}
+
+// Indicates who or what performed the event.
+type MedicationDispensePerformer struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Distinguishes the type of performer in the dispense.  For example, date enterer, packager, final checker.
+	Function *CodeableConcept
+	// The device, practitioner, etc. who performed the action.  It should be assumed that the actor is the dispenser of the medication.
+	Actor Reference
+}
+
+// Indicates whether or not substitution was made as part of the dispense.  In some cases, substitution will be expected but does not happen, in other cases substitution is not expected but does happen.  This block explains what substitution did or did not happen and why.  If nothing is specified, substitution was not done.
+type MedicationDispenseSubstitution struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// True if the dispenser dispensed a different drug or product from what was prescribed.
+	WasSubstituted Boolean
+	// A code signifying whether a different drug was dispensed from what was prescribed.
+	Type *CodeableConcept
+	// Indicates the reason for the substitution (or lack of substitution) from what was prescribed.
+	Reason []CodeableConcept
+	// The person or organization that has primary responsibility for the substitution.
+	ResponsibleParty []Reference
+}
+
+func (r MedicationDispense) ResourceType() string {
+	return "MedicationDispense"
+}
+func (r MedicationDispense) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Value == nil {
+		return "", false
+	}
+	return *r.Id.Value, true
+}
+func (r MedicationDispense) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicationDispense) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1212,6 +1254,397 @@ func (r MedicationDispense) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r MedicationDispensePerformer) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r MedicationDispensePerformer) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Function != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"function\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Function.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"actor\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Actor.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r MedicationDispenseSubstitution) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r MedicationDispenseSubstitution) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"wasSubstituted\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.WasSubstituted)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.WasSubstituted.Id != nil || r.WasSubstituted.Extension != nil {
+		p := primitiveElement{Id: r.WasSubstituted.Id, Extension: r.WasSubstituted.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_wasSubstituted\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Type.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Reason) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reason\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Reason {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ResponsibleParty) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"responsibleParty\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ResponsibleParty {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *MedicationDispense) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -1776,6 +2209,256 @@ func (r *MedicationDispense) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *MedicationDispensePerformer) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in MedicationDispensePerformer element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in MedicationDispensePerformer element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispensePerformer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispensePerformer element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispensePerformer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispensePerformer element", t)
+			}
+		case "function":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Function = &v
+		case "actor":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Actor = v
+		default:
+			return fmt.Errorf("invalid field: %s in MedicationDispensePerformer", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in MedicationDispensePerformer element", t)
+	}
+	return nil
+}
+func (r *MedicationDispenseSubstitution) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in MedicationDispenseSubstitution element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in MedicationDispenseSubstitution element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
+			}
+		case "wasSubstituted":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.WasSubstituted.Value = v.Value
+		case "_wasSubstituted":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.WasSubstituted.Id = v.Id
+			r.WasSubstituted.Extension = v.Extension
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "reason":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Reason = append(r.Reason, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
+			}
+		case "responsibleParty":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ResponsibleParty = append(r.ResponsibleParty, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in MedicationDispenseSubstitution", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in MedicationDispenseSubstitution element", t)
+	}
+	return nil
+}
 func (r MedicationDispense) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "MedicationDispense"
 	err := e.EncodeToken(start)
@@ -1927,6 +2610,80 @@ func (r MedicationDispense) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 		return err
 	}
 	err = e.EncodeElement(r.EventHistory, xml.StartElement{Name: xml.Name{Local: "eventHistory"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r MedicationDispensePerformer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Function, xml.StartElement{Name: xml.Name{Local: "function"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Actor, xml.StartElement{Name: xml.Name{Local: "actor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r MedicationDispenseSubstitution) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.WasSubstituted, xml.StartElement{Name: xml.Name{Local: "wasSubstituted"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Reason, xml.StartElement{Name: xml.Name{Local: "reason"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ResponsibleParty, xml.StartElement{Name: xml.Name{Local: "responsibleParty"}})
 	if err != nil {
 		return err
 	}
@@ -2215,308 +2972,6 @@ func (r *MedicationDispense) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		}
 	}
 }
-func (r MedicationDispense) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Indicates who or what performed the event.
-type MedicationDispensePerformer struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Distinguishes the type of performer in the dispense.  For example, date enterer, packager, final checker.
-	Function *CodeableConcept
-	// The device, practitioner, etc. who performed the action.  It should be assumed that the actor is the dispenser of the medication.
-	Actor Reference
-}
-
-func (r MedicationDispensePerformer) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r MedicationDispensePerformer) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Function != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"function\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Function.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"actor\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Actor.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *MedicationDispensePerformer) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in MedicationDispensePerformer element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in MedicationDispensePerformer element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispensePerformer element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispensePerformer element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispensePerformer element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispensePerformer element", t)
-			}
-		case "function":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Function = &v
-		case "actor":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Actor = v
-		default:
-			return fmt.Errorf("invalid field: %s in MedicationDispensePerformer", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in MedicationDispensePerformer element", t)
-	}
-	return nil
-}
-func (r MedicationDispensePerformer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Function, xml.StartElement{Name: xml.Name{Local: "function"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Actor, xml.StartElement{Name: xml.Name{Local: "actor"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *MedicationDispensePerformer) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -2575,471 +3030,6 @@ func (r *MedicationDispensePerformer) UnmarshalXML(d *xml.Decoder, start xml.Sta
 			return nil
 		}
 	}
-}
-func (r MedicationDispensePerformer) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Indicates whether or not substitution was made as part of the dispense.  In some cases, substitution will be expected but does not happen, in other cases substitution is not expected but does happen.  This block explains what substitution did or did not happen and why.  If nothing is specified, substitution was not done.
-type MedicationDispenseSubstitution struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// True if the dispenser dispensed a different drug or product from what was prescribed.
-	WasSubstituted Boolean
-	// A code signifying whether a different drug was dispensed from what was prescribed.
-	Type *CodeableConcept
-	// Indicates the reason for the substitution (or lack of substitution) from what was prescribed.
-	Reason []CodeableConcept
-	// The person or organization that has primary responsibility for the substitution.
-	ResponsibleParty []Reference
-}
-
-func (r MedicationDispenseSubstitution) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r MedicationDispenseSubstitution) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"wasSubstituted\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.WasSubstituted)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.WasSubstituted.Id != nil || r.WasSubstituted.Extension != nil {
-		p := primitiveElement{Id: r.WasSubstituted.Id, Extension: r.WasSubstituted.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_wasSubstituted\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Type != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"type\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Type.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Reason) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"reason\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Reason {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ResponsibleParty) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"responsibleParty\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ResponsibleParty {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *MedicationDispenseSubstitution) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in MedicationDispenseSubstitution element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in MedicationDispenseSubstitution element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
-			}
-		case "wasSubstituted":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.WasSubstituted.Value = v.Value
-		case "_wasSubstituted":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.WasSubstituted.Id = v.Id
-			r.WasSubstituted.Extension = v.Extension
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = &v
-		case "reason":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Reason = append(r.Reason, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
-			}
-		case "responsibleParty":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in MedicationDispenseSubstitution element", t)
-			}
-			for d.More() {
-				var v Reference
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ResponsibleParty = append(r.ResponsibleParty, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in MedicationDispenseSubstitution element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in MedicationDispenseSubstitution", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in MedicationDispenseSubstitution element", t)
-	}
-	return nil
-}
-func (r MedicationDispenseSubstitution) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.WasSubstituted, xml.StartElement{Name: xml.Name{Local: "wasSubstituted"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Reason, xml.StartElement{Name: xml.Name{Local: "reason"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ResponsibleParty, xml.StartElement{Name: xml.Name{Local: "responsibleParty"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *MedicationDispenseSubstitution) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -3113,11 +3103,4 @@ func (r *MedicationDispenseSubstitution) UnmarshalXML(d *xml.Decoder, start xml.
 			return nil
 		}
 	}
-}
-func (r MedicationDispenseSubstitution) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

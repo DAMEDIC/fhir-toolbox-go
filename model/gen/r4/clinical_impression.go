@@ -70,6 +70,46 @@ type ClinicalImpression struct {
 	// Commentary about the impression, typically recorded after the impression itself was made, though supplemental notes by the original author could also appear.
 	Note []Annotation
 }
+type isClinicalImpressionEffective interface {
+	isClinicalImpressionEffective()
+}
+
+func (r DateTime) isClinicalImpressionEffective() {}
+func (r Period) isClinicalImpressionEffective()   {}
+
+// One or more sets of investigations (signs, symptoms, etc.). The actual grouping of investigations varies greatly depending on the type and context of the assessment. These investigations may include data generated during the assessment process, or data previously generated and recorded that is pertinent to the outcomes.
+type ClinicalImpressionInvestigation struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// A name/code for the group ("set") of investigations. Typically, this will be something like "signs", "symptoms", "clinical", "diagnostic", but the list is not constrained, and others such groups such as (exposure|family|travel|nutritional) history may be used.
+	Code CodeableConcept
+	// A record of a specific investigation that was undertaken.
+	Item []Reference
+}
+
+// Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
+type ClinicalImpressionFinding struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Specific text or code for finding or diagnosis, which may include ruled-out or resolved conditions.
+	ItemCodeableConcept *CodeableConcept
+	// Specific reference for finding or diagnosis, which may include ruled-out or resolved conditions.
+	ItemReference *Reference
+	// Which investigations support finding or diagnosis.
+	Basis *String
+}
 
 func (r ClinicalImpression) ResourceType() string {
 	return "ClinicalImpression"
@@ -83,13 +123,13 @@ func (r ClinicalImpression) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isClinicalImpressionEffective interface {
-	isClinicalImpressionEffective()
+func (r ClinicalImpression) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r DateTime) isClinicalImpressionEffective() {}
-func (r Period) isClinicalImpressionEffective()   {}
 func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1152,6 +1192,362 @@ func (r ClinicalImpression) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r ClinicalImpressionInvestigation) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ClinicalImpressionInvestigation) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"code\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Code.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Item) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"item\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Item {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ClinicalImpressionFinding) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ClinicalImpressionFinding) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.ItemCodeableConcept != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"itemCodeableConcept\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ItemCodeableConcept.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ItemReference != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"itemReference\":"))
+		if err != nil {
+			return err
+		}
+		err = r.ItemReference.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Basis != nil && r.Basis.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"basis\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Basis)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Basis != nil && (r.Basis.Id != nil || r.Basis.Extension != nil) {
+		p := primitiveElement{Id: r.Basis.Id, Extension: r.Basis.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_basis\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *ClinicalImpression) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -1735,6 +2131,239 @@ func (r *ClinicalImpression) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *ClinicalImpressionInvestigation) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ClinicalImpressionInvestigation element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ClinicalImpressionInvestigation element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
+			}
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = v
+		case "item":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
+			}
+			for d.More() {
+				var v Reference
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Item = append(r.Item, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ClinicalImpressionInvestigation", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ClinicalImpressionInvestigation element", t)
+	}
+	return nil
+}
+func (r *ClinicalImpressionFinding) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ClinicalImpressionFinding element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ClinicalImpressionFinding element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionFinding element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionFinding element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionFinding element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionFinding element", t)
+			}
+		case "itemCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ItemCodeableConcept = &v
+		case "itemReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ItemReference = &v
+		case "basis":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Basis == nil {
+				r.Basis = &String{}
+			}
+			r.Basis.Value = v.Value
+		case "_basis":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Basis == nil {
+				r.Basis = &String{}
+			}
+			r.Basis.Id = v.Id
+			r.Basis.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ClinicalImpressionFinding", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ClinicalImpressionFinding element", t)
+	}
+	return nil
+}
 func (r ClinicalImpression) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "ClinicalImpression"
 	err := e.EncodeToken(start)
@@ -1862,6 +2491,76 @@ func (r ClinicalImpression) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 		return err
 	}
 	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ClinicalImpressionInvestigation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Item, xml.StartElement{Name: xml.Name{Local: "item"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ClinicalImpressionFinding) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ItemCodeableConcept, xml.StartElement{Name: xml.Name{Local: "itemCodeableConcept"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ItemReference, xml.StartElement{Name: xml.Name{Local: "itemReference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Basis, xml.StartElement{Name: xml.Name{Local: "basis"}})
 	if err != nil {
 		return err
 	}
@@ -2109,342 +2808,6 @@ func (r *ClinicalImpression) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		}
 	}
 }
-func (r ClinicalImpression) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// One or more sets of investigations (signs, symptoms, etc.). The actual grouping of investigations varies greatly depending on the type and context of the assessment. These investigations may include data generated during the assessment process, or data previously generated and recorded that is pertinent to the outcomes.
-type ClinicalImpressionInvestigation struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// A name/code for the group ("set") of investigations. Typically, this will be something like "signs", "symptoms", "clinical", "diagnostic", but the list is not constrained, and others such groups such as (exposure|family|travel|nutritional) history may be used.
-	Code CodeableConcept
-	// A record of a specific investigation that was undertaken.
-	Item []Reference
-}
-
-func (r ClinicalImpressionInvestigation) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ClinicalImpressionInvestigation) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"code\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Code.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	if len(r.Item) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"item\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Item {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ClinicalImpressionInvestigation) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ClinicalImpressionInvestigation element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ClinicalImpressionInvestigation element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
-			}
-		case "code":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Code = v
-		case "item":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionInvestigation element", t)
-			}
-			for d.More() {
-				var v Reference
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Item = append(r.Item, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionInvestigation element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in ClinicalImpressionInvestigation", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ClinicalImpressionInvestigation element", t)
-	}
-	return nil
-}
-func (r ClinicalImpressionInvestigation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Item, xml.StartElement{Name: xml.Name{Local: "item"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *ClinicalImpressionInvestigation) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -2503,379 +2866,6 @@ func (r *ClinicalImpressionInvestigation) UnmarshalXML(d *xml.Decoder, start xml
 			return nil
 		}
 	}
-}
-func (r ClinicalImpressionInvestigation) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Specific findings or diagnoses that were considered likely or relevant to ongoing treatment.
-type ClinicalImpressionFinding struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Specific text or code for finding or diagnosis, which may include ruled-out or resolved conditions.
-	ItemCodeableConcept *CodeableConcept
-	// Specific reference for finding or diagnosis, which may include ruled-out or resolved conditions.
-	ItemReference *Reference
-	// Which investigations support finding or diagnosis.
-	Basis *String
-}
-
-func (r ClinicalImpressionFinding) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ClinicalImpressionFinding) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.ItemCodeableConcept != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"itemCodeableConcept\":"))
-		if err != nil {
-			return err
-		}
-		err = r.ItemCodeableConcept.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.ItemReference != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"itemReference\":"))
-		if err != nil {
-			return err
-		}
-		err = r.ItemReference.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Basis != nil && r.Basis.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"basis\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Basis)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Basis != nil && (r.Basis.Id != nil || r.Basis.Extension != nil) {
-		p := primitiveElement{Id: r.Basis.Id, Extension: r.Basis.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_basis\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ClinicalImpressionFinding) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ClinicalImpressionFinding element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ClinicalImpressionFinding element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionFinding element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionFinding element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ClinicalImpressionFinding element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ClinicalImpressionFinding element", t)
-			}
-		case "itemCodeableConcept":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.ItemCodeableConcept = &v
-		case "itemReference":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.ItemReference = &v
-		case "basis":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Basis == nil {
-				r.Basis = &String{}
-			}
-			r.Basis.Value = v.Value
-		case "_basis":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Basis == nil {
-				r.Basis = &String{}
-			}
-			r.Basis.Id = v.Id
-			r.Basis.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in ClinicalImpressionFinding", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ClinicalImpressionFinding element", t)
-	}
-	return nil
-}
-func (r ClinicalImpressionFinding) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ItemCodeableConcept, xml.StartElement{Name: xml.Name{Local: "itemCodeableConcept"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ItemReference, xml.StartElement{Name: xml.Name{Local: "itemReference"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Basis, xml.StartElement{Name: xml.Name{Local: "basis"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *ClinicalImpressionFinding) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -2942,11 +2932,4 @@ func (r *ClinicalImpressionFinding) UnmarshalXML(d *xml.Decoder, start xml.Start
 			return nil
 		}
 	}
-}
-func (r ClinicalImpressionFinding) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

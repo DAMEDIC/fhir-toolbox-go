@@ -74,6 +74,115 @@ type DeviceDefinition struct {
 	// A substance used to create the material(s) of which the device is made.
 	Material []DeviceDefinitionMaterial
 }
+type isDeviceDefinitionManufacturer interface {
+	isDeviceDefinitionManufacturer()
+}
+
+func (r String) isDeviceDefinitionManufacturer()    {}
+func (r Reference) isDeviceDefinitionManufacturer() {}
+
+// Unique device identifier (UDI) assigned to device label or package.  Note that the Device may include multiple udiCarriers as it either may include just the udiCarrier for the jurisdiction it is sold, or for multiple jurisdictions it could have been sold.
+type DeviceDefinitionUdiDeviceIdentifier struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The identifier that is to be associated with every Device that references this DeviceDefintiion for the issuer and jurisdication porvided in the DeviceDefinition.udiDeviceIdentifier.
+	DeviceIdentifier String
+	// The organization that assigns the identifier algorithm.
+	Issuer Uri
+	// The jurisdiction to which the deviceIdentifier applies.
+	Jurisdiction Uri
+}
+
+// A name given to the device to identify it.
+type DeviceDefinitionDeviceName struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The name of the device.
+	Name String
+	// The type of deviceName.
+	// UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | ModelName.
+	Type Code
+}
+
+// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication.
+type DeviceDefinitionSpecialization struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The standard that is used to operate and communicate.
+	SystemType String
+	// The version of the standard that is used to operate and communicate.
+	Version *String
+}
+
+// Device capabilities.
+type DeviceDefinitionCapability struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Type of capability.
+	Type CodeableConcept
+	// Description of capability.
+	Description []CodeableConcept
+}
+
+// The actual configuration settings of a device as it actually operates, e.g., regulation status, time properties.
+type DeviceDefinitionProperty struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Code that specifies the property DeviceDefinitionPropetyCode (Extensible).
+	Type CodeableConcept
+	// Property value as a quantity.
+	ValueQuantity []Quantity
+	// Property value as a code, e.g., NTP4 (synced to NTP).
+	ValueCode []CodeableConcept
+}
+
+// A substance used to create the material(s) of which the device is made.
+type DeviceDefinitionMaterial struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The substance.
+	Substance CodeableConcept
+	// Indicates an alternative material of the device.
+	Alternate *Boolean
+	// Whether the substance is a known or suspected allergen.
+	AllergenicIndicator *Boolean
+}
 
 func (r DeviceDefinition) ResourceType() string {
 	return "DeviceDefinition"
@@ -87,13 +196,13 @@ func (r DeviceDefinition) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isDeviceDefinitionManufacturer interface {
-	isDeviceDefinitionManufacturer()
+func (r DeviceDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r String) isDeviceDefinitionManufacturer()    {}
-func (r Reference) isDeviceDefinitionManufacturer() {}
 func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1239,6 +1348,1224 @@ func (r DeviceDefinition) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r DeviceDefinitionUdiDeviceIdentifier) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"deviceIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.DeviceIdentifier)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.DeviceIdentifier.Id != nil || r.DeviceIdentifier.Extension != nil {
+		p := primitiveElement{Id: r.DeviceIdentifier.Id, Extension: r.DeviceIdentifier.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_deviceIdentifier\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"issuer\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Issuer)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Issuer.Id != nil || r.Issuer.Extension != nil {
+		p := primitiveElement{Id: r.Issuer.Id, Extension: r.Issuer.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_issuer\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"jurisdiction\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Jurisdiction)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Jurisdiction.Id != nil || r.Jurisdiction.Extension != nil {
+		p := primitiveElement{Id: r.Jurisdiction.Id, Extension: r.Jurisdiction.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_jurisdiction\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionDeviceName) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionDeviceName) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"name\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Name)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Name.Id != nil || r.Name.Extension != nil {
+		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_name\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"type\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Type)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Type.Id != nil || r.Type.Extension != nil {
+		p := primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_type\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionSpecialization) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionSpecialization) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	{
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"systemType\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.SystemType)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.SystemType.Id != nil || r.SystemType.Extension != nil {
+		p := primitiveElement{Id: r.SystemType.Id, Extension: r.SystemType.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_systemType\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Version != nil && r.Version.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"version\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Version)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
+		p := primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_version\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionCapability) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionCapability) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.Description) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"description\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Description {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionProperty) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionProperty) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"type\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Type.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if len(r.ValueQuantity) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueQuantity\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ValueQuantity {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ValueCode) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"valueCode\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ValueCode {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionMaterial) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r DeviceDefinitionMaterial) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"substance\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Substance.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Alternate != nil && r.Alternate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"alternate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Alternate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Alternate != nil && (r.Alternate.Id != nil || r.Alternate.Extension != nil) {
+		p := primitiveElement{Id: r.Alternate.Id, Extension: r.Alternate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_alternate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.AllergenicIndicator != nil && r.AllergenicIndicator.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"allergenicIndicator\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.AllergenicIndicator)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.AllergenicIndicator != nil && (r.AllergenicIndicator.Id != nil || r.AllergenicIndicator.Extension != nil) {
+		p := primitiveElement{Id: r.AllergenicIndicator.Id, Extension: r.AllergenicIndicator.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_allergenicIndicator\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *DeviceDefinition) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -1892,6 +3219,753 @@ func (r *DeviceDefinition) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *DeviceDefinitionUdiDeviceIdentifier) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionUdiDeviceIdentifier element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionUdiDeviceIdentifier element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionUdiDeviceIdentifier element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionUdiDeviceIdentifier element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionUdiDeviceIdentifier element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionUdiDeviceIdentifier element", t)
+			}
+		case "deviceIdentifier":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.DeviceIdentifier.Value = v.Value
+		case "_deviceIdentifier":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DeviceIdentifier.Id = v.Id
+			r.DeviceIdentifier.Extension = v.Extension
+		case "issuer":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Issuer.Value = v.Value
+		case "_issuer":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Issuer.Id = v.Id
+			r.Issuer.Extension = v.Extension
+		case "jurisdiction":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Jurisdiction.Value = v.Value
+		case "_jurisdiction":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Jurisdiction.Id = v.Id
+			r.Jurisdiction.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionUdiDeviceIdentifier", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionUdiDeviceIdentifier element", t)
+	}
+	return nil
+}
+func (r *DeviceDefinitionDeviceName) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionDeviceName element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionDeviceName element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionDeviceName element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionDeviceName element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionDeviceName element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionDeviceName element", t)
+			}
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionDeviceName", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionDeviceName element", t)
+	}
+	return nil
+}
+func (r *DeviceDefinitionSpecialization) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionSpecialization element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionSpecialization element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionSpecialization element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionSpecialization element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionSpecialization element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionSpecialization element", t)
+			}
+		case "systemType":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.SystemType.Value = v.Value
+		case "_systemType":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SystemType.Id = v.Id
+			r.SystemType.Extension = v.Extension
+		case "version":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Version == nil {
+				r.Version = &String{}
+			}
+			r.Version.Value = v.Value
+		case "_version":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Version == nil {
+				r.Version = &String{}
+			}
+			r.Version.Id = v.Id
+			r.Version.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionSpecialization", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionSpecialization element", t)
+	}
+	return nil
+}
+func (r *DeviceDefinitionCapability) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionCapability element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionCapability element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "description":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Description = append(r.Description, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionCapability", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionCapability element", t)
+	}
+	return nil
+}
+func (r *DeviceDefinitionProperty) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionProperty element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionProperty element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "valueQuantity":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
+			}
+			for d.More() {
+				var v Quantity
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ValueQuantity = append(r.ValueQuantity, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
+			}
+		case "valueCode":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ValueCode = append(r.ValueCode, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionProperty", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionProperty element", t)
+	}
+	return nil
+}
+func (r *DeviceDefinitionMaterial) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionMaterial element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionMaterial element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionMaterial element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionMaterial element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionMaterial element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionMaterial element", t)
+			}
+		case "substance":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Substance = v
+		case "alternate":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Alternate == nil {
+				r.Alternate = &Boolean{}
+			}
+			r.Alternate.Value = v.Value
+		case "_alternate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Alternate == nil {
+				r.Alternate = &Boolean{}
+			}
+			r.Alternate.Id = v.Id
+			r.Alternate.Extension = v.Extension
+		case "allergenicIndicator":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AllergenicIndicator == nil {
+				r.AllergenicIndicator = &Boolean{}
+			}
+			r.AllergenicIndicator.Value = v.Value
+		case "_allergenicIndicator":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AllergenicIndicator == nil {
+				r.AllergenicIndicator = &Boolean{}
+			}
+			r.AllergenicIndicator.Id = v.Id
+			r.AllergenicIndicator.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in DeviceDefinitionMaterial", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionMaterial element", t)
+	}
+	return nil
+}
 func (r DeviceDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "DeviceDefinition"
 	err := e.EncodeToken(start)
@@ -2027,6 +4101,216 @@ func (r DeviceDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) err
 		return err
 	}
 	err = e.EncodeElement(r.Material, xml.StartElement{Name: xml.Name{Local: "material"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DeviceIdentifier, xml.StartElement{Name: xml.Name{Local: "deviceIdentifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Issuer, xml.StartElement{Name: xml.Name{Local: "issuer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionDeviceName) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionSpecialization) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SystemType, xml.StartElement{Name: xml.Name{Local: "systemType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionCapability) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionProperty) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ValueQuantity, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ValueCode, xml.StartElement{Name: xml.Name{Local: "valueCode"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r DeviceDefinitionMaterial) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Substance, xml.StartElement{Name: xml.Name{Local: "substance"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Alternate, xml.StartElement{Name: xml.Name{Local: "alternate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AllergenicIndicator, xml.StartElement{Name: xml.Name{Local: "allergenicIndicator"}})
 	if err != nil {
 		return err
 	}
@@ -2288,439 +4572,6 @@ func (r *DeviceDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		}
 	}
 }
-func (r DeviceDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Unique device identifier (UDI) assigned to device label or package.  Note that the Device may include multiple udiCarriers as it either may include just the udiCarrier for the jurisdiction it is sold, or for multiple jurisdictions it could have been sold.
-type DeviceDefinitionUdiDeviceIdentifier struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The identifier that is to be associated with every Device that references this DeviceDefintiion for the issuer and jurisdication porvided in the DeviceDefinition.udiDeviceIdentifier.
-	DeviceIdentifier String
-	// The organization that assigns the identifier algorithm.
-	Issuer Uri
-	// The jurisdiction to which the deviceIdentifier applies.
-	Jurisdiction Uri
-}
-
-func (r DeviceDefinitionUdiDeviceIdentifier) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionUdiDeviceIdentifier) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"deviceIdentifier\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.DeviceIdentifier)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.DeviceIdentifier.Id != nil || r.DeviceIdentifier.Extension != nil {
-		p := primitiveElement{Id: r.DeviceIdentifier.Id, Extension: r.DeviceIdentifier.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_deviceIdentifier\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"issuer\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Issuer)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Issuer.Id != nil || r.Issuer.Extension != nil {
-		p := primitiveElement{Id: r.Issuer.Id, Extension: r.Issuer.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_issuer\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"jurisdiction\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Jurisdiction)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Jurisdiction.Id != nil || r.Jurisdiction.Extension != nil {
-		p := primitiveElement{Id: r.Jurisdiction.Id, Extension: r.Jurisdiction.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_jurisdiction\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionUdiDeviceIdentifier) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionUdiDeviceIdentifier element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionUdiDeviceIdentifier element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionUdiDeviceIdentifier element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionUdiDeviceIdentifier element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionUdiDeviceIdentifier element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionUdiDeviceIdentifier element", t)
-			}
-		case "deviceIdentifier":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.DeviceIdentifier.Value = v.Value
-		case "_deviceIdentifier":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.DeviceIdentifier.Id = v.Id
-			r.DeviceIdentifier.Extension = v.Extension
-		case "issuer":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Issuer.Value = v.Value
-		case "_issuer":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Issuer.Id = v.Id
-			r.Issuer.Extension = v.Extension
-		case "jurisdiction":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Jurisdiction.Value = v.Value
-		case "_jurisdiction":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Jurisdiction.Id = v.Id
-			r.Jurisdiction.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionUdiDeviceIdentifier", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionUdiDeviceIdentifier element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionUdiDeviceIdentifier) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.DeviceIdentifier, xml.StartElement{Name: xml.Name{Local: "deviceIdentifier"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Issuer, xml.StartElement{Name: xml.Name{Local: "issuer"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *DeviceDefinitionUdiDeviceIdentifier) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -2787,377 +4638,6 @@ func (r *DeviceDefinitionUdiDeviceIdentifier) UnmarshalXML(d *xml.Decoder, start
 		}
 	}
 }
-func (r DeviceDefinitionUdiDeviceIdentifier) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A name given to the device to identify it.
-type DeviceDefinitionDeviceName struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The name of the device.
-	Name String
-	// The type of deviceName.
-	// UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | ModelName.
-	Type Code
-}
-
-func (r DeviceDefinitionDeviceName) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionDeviceName) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"name\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Name.Id != nil || r.Name.Extension != nil {
-		p := primitiveElement{Id: r.Name.Id, Extension: r.Name.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_name\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"type\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Type)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Type.Id != nil || r.Type.Extension != nil {
-		p := primitiveElement{Id: r.Type.Id, Extension: r.Type.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_type\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionDeviceName) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionDeviceName element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionDeviceName element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionDeviceName element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionDeviceName element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionDeviceName element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionDeviceName element", t)
-			}
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "type":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Type.Value = v.Value
-		case "_type":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type.Id = v.Id
-			r.Type.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionDeviceName", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionDeviceName element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionDeviceName) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *DeviceDefinitionDeviceName) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -3216,382 +4696,6 @@ func (r *DeviceDefinitionDeviceName) UnmarshalXML(d *xml.Decoder, start xml.Star
 			return nil
 		}
 	}
-}
-func (r DeviceDefinitionDeviceName) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication.
-type DeviceDefinitionSpecialization struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The standard that is used to operate and communicate.
-	SystemType String
-	// The version of the standard that is used to operate and communicate.
-	Version *String
-}
-
-func (r DeviceDefinitionSpecialization) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionSpecialization) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	{
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"systemType\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.SystemType)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.SystemType.Id != nil || r.SystemType.Extension != nil {
-		p := primitiveElement{Id: r.SystemType.Id, Extension: r.SystemType.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_systemType\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Version != nil && r.Version.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"version\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Version)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Version != nil && (r.Version.Id != nil || r.Version.Extension != nil) {
-		p := primitiveElement{Id: r.Version.Id, Extension: r.Version.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_version\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionSpecialization) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionSpecialization element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionSpecialization element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionSpecialization element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionSpecialization element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionSpecialization element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionSpecialization element", t)
-			}
-		case "systemType":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.SystemType.Value = v.Value
-		case "_systemType":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.SystemType.Id = v.Id
-			r.SystemType.Extension = v.Extension
-		case "version":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Version == nil {
-				r.Version = &String{}
-			}
-			r.Version.Value = v.Value
-		case "_version":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Version == nil {
-				r.Version = &String{}
-			}
-			r.Version.Id = v.Id
-			r.Version.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionSpecialization", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionSpecialization element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionSpecialization) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.SystemType, xml.StartElement{Name: xml.Name{Local: "systemType"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *DeviceDefinitionSpecialization) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -3652,342 +4756,6 @@ func (r *DeviceDefinitionSpecialization) UnmarshalXML(d *xml.Decoder, start xml.
 		}
 	}
 }
-func (r DeviceDefinitionSpecialization) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Device capabilities.
-type DeviceDefinitionCapability struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Type of capability.
-	Type CodeableConcept
-	// Description of capability.
-	Description []CodeableConcept
-}
-
-func (r DeviceDefinitionCapability) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionCapability) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"type\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Type.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	if len(r.Description) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"description\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Description {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionCapability) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionCapability element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionCapability element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
-			}
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = v
-		case "description":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionCapability element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Description = append(r.Description, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionCapability element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionCapability", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionCapability element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionCapability) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *DeviceDefinitionCapability) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -4046,406 +4814,6 @@ func (r *DeviceDefinitionCapability) UnmarshalXML(d *xml.Decoder, start xml.Star
 			return nil
 		}
 	}
-}
-func (r DeviceDefinitionCapability) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The actual configuration settings of a device as it actually operates, e.g., regulation status, time properties.
-type DeviceDefinitionProperty struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Code that specifies the property DeviceDefinitionPropetyCode (Extensible).
-	Type CodeableConcept
-	// Property value as a quantity.
-	ValueQuantity []Quantity
-	// Property value as a code, e.g., NTP4 (synced to NTP).
-	ValueCode []CodeableConcept
-}
-
-func (r DeviceDefinitionProperty) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionProperty) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"type\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Type.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	if len(r.ValueQuantity) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"valueQuantity\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ValueQuantity {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ValueCode) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"valueCode\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ValueCode {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionProperty) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionProperty element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionProperty element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
-			}
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = v
-		case "valueQuantity":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
-			}
-			for d.More() {
-				var v Quantity
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ValueQuantity = append(r.ValueQuantity, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
-			}
-		case "valueCode":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionProperty element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ValueCode = append(r.ValueCode, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionProperty element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionProperty", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionProperty element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionProperty) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ValueQuantity, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ValueCode, xml.StartElement{Name: xml.Name{Local: "valueCode"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *DeviceDefinitionProperty) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -4513,416 +4881,6 @@ func (r *DeviceDefinitionProperty) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		}
 	}
 }
-func (r DeviceDefinitionProperty) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A substance used to create the material(s) of which the device is made.
-type DeviceDefinitionMaterial struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The substance.
-	Substance CodeableConcept
-	// Indicates an alternative material of the device.
-	Alternate *Boolean
-	// Whether the substance is a known or suspected allergen.
-	AllergenicIndicator *Boolean
-}
-
-func (r DeviceDefinitionMaterial) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r DeviceDefinitionMaterial) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"substance\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Substance.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	if r.Alternate != nil && r.Alternate.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"alternate\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Alternate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Alternate != nil && (r.Alternate.Id != nil || r.Alternate.Extension != nil) {
-		p := primitiveElement{Id: r.Alternate.Id, Extension: r.Alternate.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_alternate\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.AllergenicIndicator != nil && r.AllergenicIndicator.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"allergenicIndicator\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.AllergenicIndicator)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.AllergenicIndicator != nil && (r.AllergenicIndicator.Id != nil || r.AllergenicIndicator.Extension != nil) {
-		p := primitiveElement{Id: r.AllergenicIndicator.Id, Extension: r.AllergenicIndicator.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_allergenicIndicator\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *DeviceDefinitionMaterial) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in DeviceDefinitionMaterial element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in DeviceDefinitionMaterial element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionMaterial element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionMaterial element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in DeviceDefinitionMaterial element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in DeviceDefinitionMaterial element", t)
-			}
-		case "substance":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Substance = v
-		case "alternate":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Alternate == nil {
-				r.Alternate = &Boolean{}
-			}
-			r.Alternate.Value = v.Value
-		case "_alternate":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Alternate == nil {
-				r.Alternate = &Boolean{}
-			}
-			r.Alternate.Id = v.Id
-			r.Alternate.Extension = v.Extension
-		case "allergenicIndicator":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.AllergenicIndicator == nil {
-				r.AllergenicIndicator = &Boolean{}
-			}
-			r.AllergenicIndicator.Value = v.Value
-		case "_allergenicIndicator":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.AllergenicIndicator == nil {
-				r.AllergenicIndicator = &Boolean{}
-			}
-			r.AllergenicIndicator.Id = v.Id
-			r.AllergenicIndicator.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in DeviceDefinitionMaterial", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in DeviceDefinitionMaterial element", t)
-	}
-	return nil
-}
-func (r DeviceDefinitionMaterial) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Substance, xml.StartElement{Name: xml.Name{Local: "substance"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Alternate, xml.StartElement{Name: xml.Name{Local: "alternate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.AllergenicIndicator, xml.StartElement{Name: xml.Name{Local: "allergenicIndicator"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *DeviceDefinitionMaterial) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -4988,11 +4946,4 @@ func (r *DeviceDefinitionMaterial) UnmarshalXML(d *xml.Decoder, start xml.StartE
 			return nil
 		}
 	}
-}
-func (r DeviceDefinitionMaterial) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

@@ -28,6 +28,13 @@ type Quantity struct {
 	Code *Code
 }
 
+func (r Quantity) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Quantity) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -597,11 +604,4 @@ func (r *Quantity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			return nil
 		}
 	}
-}
-func (r Quantity) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

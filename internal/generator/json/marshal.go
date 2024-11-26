@@ -1,17 +1,39 @@
+// Package json generated code for (un)marshalling FHIR reosurces to and from JSON.
 package json
 
 import (
-	"fhir-toolbox/generate/ir"
+	"fhir-toolbox/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
+	"strings"
 )
 
-func ImplementMarshal(f *File, s ir.Struct) {
-	if s.IsPrimitive {
-		implementMarshalPrimitive(f, s)
-	} else {
-		implementMarshalExternal(f, s)
-		implementMarshalInternal(f, s)
+type MarshalGenerator struct{}
+
+func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
+	for _, t := range rt.Structs {
+		if t.IsPrimitive {
+			implementMarshalPrimitive(f, t)
+		} else {
+			implementMarshalExternal(f, t)
+			implementMarshalInternal(f, t)
+		}
 	}
+
+	return true
+}
+
+func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	implementMarshalContainedExternal(f("contained", strings.ToLower(release)))
+	implementMarshalContainedInternal(f("contained", strings.ToLower(release)), ir.FilterResources(rt))
+	implementPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
+	implementMarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
+}
+
+func implementPrimitiveElement(f *File) *Statement {
+	return f.Type().Id("primitiveElement").Struct(
+		Id("Id").Id("*string"),
+		Id("Extension").Index().Id("Extension"),
+	)
 }
 
 func implementMarshalPrimitive(f *File, s ir.Struct) {
@@ -311,4 +333,62 @@ func write(g *Group, s string) {
 	g.If(Err().Op("!=").Nil()).Block(
 		Return(Err()),
 	)
+}
+
+func implementMarshalContainedExternal(f *File) {
+	f.Func().Params(Id("r").Id("ContainedResource")).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).Block(
+		Var().Id("b").Qual("bytes", "Buffer"),
+		Err().Op(":=").Id("r").Dot("marshalJSON").Call(Id("&b")),
+		If(Err().Op("!=").Nil()).Block(
+			Return(Nil(), Err()),
+		),
+		Return(Id("b").Dot("Bytes").Call(), Nil()),
+	)
+}
+
+func implementMarshalContainedInternal(f *File, resources []ir.ResourceOrType) {
+	f.Func().Params(Id("r").Id("ContainedResource")).Id("marshalJSON").Params(
+		Id("w").Qual("io", "Writer"),
+	).Params(Error()).Block(
+		Switch(Id("t").Op(":=").Id("r").Dot("Resource").Dot("").Call(Type())).BlockFunc(func(g *Group) {
+			for _, r := range resources {
+				g.Case(Id(r.Name)).Block(
+					Return(Id("t").Dot("marshalJSON").Call(Id("w"))),
+				)
+			}
+
+			g.Default().Block(
+				Return(Qual("fmt", "Errorf").Call(Lit("unknown resource: %v"), Id("t"))),
+			)
+		}),
+	)
+}
+
+func implementMarshalPrimitiveElement(f *File) {
+	f.Func().Params(Id("r").Id("primitiveElement")).Id("marshalJSON").Params(
+		Id("w").Qual("io", "Writer"),
+	).Params(Error()).BlockFunc(func(g *Group) {
+		g.Var().Err().Error()
+		write(g, "{")
+		g.Id("setComma").Op(":=").False()
+		g.If(Id("r.Id").Op("!=").Nil()).BlockFunc(func(g *Group) {
+			writeKey(g, "id")
+			writePrimitiveValue(g, "r.Id")
+		})
+		g.If(Len(Id("r.Extension")).Op(">").Lit(0)).BlockFunc(func(g *Group) {
+			writeKey(g, "extension")
+			write(g, "[")
+			g.Id("setComma").Op("=").False()
+			g.For(List(Id("_"), Id("e")).Op(":=").Range().Id("r.Extension")).BlockFunc(func(g *Group) {
+				checkWriteComma(g)
+				g.Err().Op("=").Id("e").Dot("marshalJSON").Call(Id("w"))
+				g.If(Err().Op("!=").Nil()).Block(
+					Return(Err()),
+				)
+			})
+			write(g, "]")
+		})
+		write(g, "}")
+		g.Return(Nil())
+	})
 }

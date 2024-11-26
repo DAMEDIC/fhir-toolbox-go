@@ -23,6 +23,79 @@ type Parameters struct {
 	Parameter []ParametersParameter
 }
 
+// A parameter passed to or received from the operation.
+type ParametersParameter struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The name of the parameter (reference to the operation definition).
+	Name String
+	// If the parameter is a data type.
+	Value isParametersParameterValue
+	// If the parameter is a whole resource.
+	Resource *model.Resource
+	// A named part of a multi-part parameter.
+	Part []ParametersParameter
+}
+type isParametersParameterValue interface {
+	isParametersParameterValue()
+}
+
+func (r Base64Binary) isParametersParameterValue()        {}
+func (r Boolean) isParametersParameterValue()             {}
+func (r Canonical) isParametersParameterValue()           {}
+func (r Code) isParametersParameterValue()                {}
+func (r Date) isParametersParameterValue()                {}
+func (r DateTime) isParametersParameterValue()            {}
+func (r Decimal) isParametersParameterValue()             {}
+func (r Id) isParametersParameterValue()                  {}
+func (r Instant) isParametersParameterValue()             {}
+func (r Integer) isParametersParameterValue()             {}
+func (r Markdown) isParametersParameterValue()            {}
+func (r Oid) isParametersParameterValue()                 {}
+func (r PositiveInt) isParametersParameterValue()         {}
+func (r String) isParametersParameterValue()              {}
+func (r Time) isParametersParameterValue()                {}
+func (r UnsignedInt) isParametersParameterValue()         {}
+func (r Uri) isParametersParameterValue()                 {}
+func (r Url) isParametersParameterValue()                 {}
+func (r Uuid) isParametersParameterValue()                {}
+func (r Address) isParametersParameterValue()             {}
+func (r Age) isParametersParameterValue()                 {}
+func (r Annotation) isParametersParameterValue()          {}
+func (r Attachment) isParametersParameterValue()          {}
+func (r CodeableConcept) isParametersParameterValue()     {}
+func (r Coding) isParametersParameterValue()              {}
+func (r ContactPoint) isParametersParameterValue()        {}
+func (r Count) isParametersParameterValue()               {}
+func (r Distance) isParametersParameterValue()            {}
+func (r Duration) isParametersParameterValue()            {}
+func (r HumanName) isParametersParameterValue()           {}
+func (r Identifier) isParametersParameterValue()          {}
+func (r Money) isParametersParameterValue()               {}
+func (r Period) isParametersParameterValue()              {}
+func (r Quantity) isParametersParameterValue()            {}
+func (r Range) isParametersParameterValue()               {}
+func (r Ratio) isParametersParameterValue()               {}
+func (r Reference) isParametersParameterValue()           {}
+func (r SampledData) isParametersParameterValue()         {}
+func (r Signature) isParametersParameterValue()           {}
+func (r Timing) isParametersParameterValue()              {}
+func (r ContactDetail) isParametersParameterValue()       {}
+func (r Contributor) isParametersParameterValue()         {}
+func (r DataRequirement) isParametersParameterValue()     {}
+func (r Expression) isParametersParameterValue()          {}
+func (r ParameterDefinition) isParametersParameterValue() {}
+func (r RelatedArtifact) isParametersParameterValue()     {}
+func (r TriggerDefinition) isParametersParameterValue()   {}
+func (r UsageContext) isParametersParameterValue()        {}
+func (r Dosage) isParametersParameterValue()              {}
+func (r Meta) isParametersParameterValue()                {}
 func (r Parameters) ResourceType() string {
 	return "Parameters"
 }
@@ -34,6 +107,13 @@ func (r Parameters) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Parameters) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Parameters) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -238,316 +318,6 @@ func (r Parameters) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *Parameters) UnmarshalJSON(b []byte) error {
-	d := json.NewDecoder(bytes.NewReader(b))
-	return r.unmarshalJSON(d)
-}
-func (r *Parameters) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in Parameters element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in Parameters element", t)
-		}
-		switch f {
-		case "resourceType":
-			_, err := d.Token()
-			if err != nil {
-				return err
-			}
-		case "id":
-			var v Id
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Value = v.Value
-		case "_id":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Id = v.Id
-			r.Id.Extension = v.Extension
-		case "meta":
-			var v Meta
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Meta = &v
-		case "implicitRules":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Value = v.Value
-		case "_implicitRules":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Id = v.Id
-			r.ImplicitRules.Extension = v.Extension
-		case "language":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Value = v.Value
-		case "_language":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Id = v.Id
-			r.Language.Extension = v.Extension
-		case "parameter":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Parameters element", t)
-			}
-			for d.More() {
-				var v ParametersParameter
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Parameter = append(r.Parameter, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Parameters element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in Parameters", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in Parameters element", t)
-	}
-	return nil
-}
-func (r Parameters) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "Parameters"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Parameter, xml.StartElement{Name: xml.Name{Local: "parameter"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *Parameters) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "parameter":
-				var v ParametersParameter
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Parameter = append(r.Parameter, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r Parameters) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A parameter passed to or received from the operation.
-type ParametersParameter struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The name of the parameter (reference to the operation definition).
-	Name String
-	// If the parameter is a data type.
-	Value isParametersParameterValue
-	// If the parameter is a whole resource.
-	Resource *model.Resource
-	// A named part of a multi-part parameter.
-	Part []ParametersParameter
-}
-type isParametersParameterValue interface {
-	isParametersParameterValue()
-}
-
-func (r Base64Binary) isParametersParameterValue()        {}
-func (r Boolean) isParametersParameterValue()             {}
-func (r Canonical) isParametersParameterValue()           {}
-func (r Code) isParametersParameterValue()                {}
-func (r Date) isParametersParameterValue()                {}
-func (r DateTime) isParametersParameterValue()            {}
-func (r Decimal) isParametersParameterValue()             {}
-func (r Id) isParametersParameterValue()                  {}
-func (r Instant) isParametersParameterValue()             {}
-func (r Integer) isParametersParameterValue()             {}
-func (r Markdown) isParametersParameterValue()            {}
-func (r Oid) isParametersParameterValue()                 {}
-func (r PositiveInt) isParametersParameterValue()         {}
-func (r String) isParametersParameterValue()              {}
-func (r Time) isParametersParameterValue()                {}
-func (r UnsignedInt) isParametersParameterValue()         {}
-func (r Uri) isParametersParameterValue()                 {}
-func (r Url) isParametersParameterValue()                 {}
-func (r Uuid) isParametersParameterValue()                {}
-func (r Address) isParametersParameterValue()             {}
-func (r Age) isParametersParameterValue()                 {}
-func (r Annotation) isParametersParameterValue()          {}
-func (r Attachment) isParametersParameterValue()          {}
-func (r CodeableConcept) isParametersParameterValue()     {}
-func (r Coding) isParametersParameterValue()              {}
-func (r ContactPoint) isParametersParameterValue()        {}
-func (r Count) isParametersParameterValue()               {}
-func (r Distance) isParametersParameterValue()            {}
-func (r Duration) isParametersParameterValue()            {}
-func (r HumanName) isParametersParameterValue()           {}
-func (r Identifier) isParametersParameterValue()          {}
-func (r Money) isParametersParameterValue()               {}
-func (r Period) isParametersParameterValue()              {}
-func (r Quantity) isParametersParameterValue()            {}
-func (r Range) isParametersParameterValue()               {}
-func (r Ratio) isParametersParameterValue()               {}
-func (r Reference) isParametersParameterValue()           {}
-func (r SampledData) isParametersParameterValue()         {}
-func (r Signature) isParametersParameterValue()           {}
-func (r Timing) isParametersParameterValue()              {}
-func (r ContactDetail) isParametersParameterValue()       {}
-func (r Contributor) isParametersParameterValue()         {}
-func (r DataRequirement) isParametersParameterValue()     {}
-func (r Expression) isParametersParameterValue()          {}
-func (r ParameterDefinition) isParametersParameterValue() {}
-func (r RelatedArtifact) isParametersParameterValue()     {}
-func (r TriggerDefinition) isParametersParameterValue()   {}
-func (r UsageContext) isParametersParameterValue()        {}
-func (r Dosage) isParametersParameterValue()              {}
-func (r Meta) isParametersParameterValue()                {}
 func (r ParametersParameter) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -3819,6 +3589,139 @@ func (r ParametersParameter) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Parameters) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Parameters) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Parameters element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Parameters element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "parameter":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Parameters element", t)
+			}
+			for d.More() {
+				var v ParametersParameter
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Parameter = append(r.Parameter, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Parameters element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in Parameters", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Parameters element", t)
+	}
+	return nil
+}
 func (r *ParametersParameter) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -4792,6 +4695,38 @@ func (r *ParametersParameter) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r Parameters) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "Parameters"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Parameter, xml.StartElement{Name: xml.Name{Local: "parameter"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r ParametersParameter) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -5083,6 +5018,70 @@ func (r ParametersParameter) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		return err
 	}
 	return nil
+}
+func (r *Parameters) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "parameter":
+				var v ParametersParameter
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Parameter = append(r.Parameter, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *ParametersParameter) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -5649,11 +5648,4 @@ func (r *ParametersParameter) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 			return nil
 		}
 	}
-}
-func (r ParametersParameter) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

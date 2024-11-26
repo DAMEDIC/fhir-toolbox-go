@@ -28,6 +28,13 @@ type ProductShelfLife struct {
 	SpecialPrecautionsForStorage []CodeableConcept
 }
 
+func (r ProductShelfLife) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ProductShelfLife) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -466,11 +473,4 @@ func (r *ProductShelfLife) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 			return nil
 		}
 	}
-}
-func (r ProductShelfLife) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

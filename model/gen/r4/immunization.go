@@ -86,7 +86,101 @@ type Immunization struct {
 	// The protocol (set of recommendations) being followed by the provider who administered the dose.
 	ProtocolApplied []ImmunizationProtocolApplied
 }
+type isImmunizationOccurrence interface {
+	isImmunizationOccurrence()
+}
 
+func (r DateTime) isImmunizationOccurrence() {}
+func (r String) isImmunizationOccurrence()   {}
+
+// Indicates who performed the immunization event.
+type ImmunizationPerformer struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Describes the type of performance (e.g. ordering provider, administering provider, etc.).
+	Function *CodeableConcept
+	// The practitioner or organization who performed the action.
+	Actor Reference
+}
+
+// Educational material presented to the patient (or guardian) at the time of vaccine administration.
+type ImmunizationEducation struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Identifier of the material presented to the patient.
+	DocumentType *String
+	// Reference pointer to the educational material given to the patient if the information was on line.
+	Reference *Uri
+	// Date the educational material was published.
+	PublicationDate *DateTime
+	// Date the educational material was given to the patient.
+	PresentationDate *DateTime
+}
+
+// Categorical data indicating that an adverse event is associated in time to an immunization.
+type ImmunizationReaction struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Date of reaction to the immunization.
+	Date *DateTime
+	// Details of the reaction.
+	Detail *Reference
+	// Self-reported indicator.
+	Reported *Boolean
+}
+
+// The protocol (set of recommendations) being followed by the provider who administered the dose.
+type ImmunizationProtocolApplied struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// One possible path to achieve presumed immunity against a disease - within the context of an authority.
+	Series *String
+	// Indicates the authority who published the protocol (e.g. ACIP) that is being followed.
+	Authority *Reference
+	// The vaccine preventable disease the dose is being administered against.
+	TargetDisease []CodeableConcept
+	// Nominal position in a series.
+	DoseNumber isImmunizationProtocolAppliedDoseNumber
+	// The recommended number of doses to achieve immunity.
+	SeriesDoses isImmunizationProtocolAppliedSeriesDoses
+}
+type isImmunizationProtocolAppliedDoseNumber interface {
+	isImmunizationProtocolAppliedDoseNumber()
+}
+
+func (r PositiveInt) isImmunizationProtocolAppliedDoseNumber() {}
+func (r String) isImmunizationProtocolAppliedDoseNumber()      {}
+
+type isImmunizationProtocolAppliedSeriesDoses interface {
+	isImmunizationProtocolAppliedSeriesDoses()
+}
+
+func (r PositiveInt) isImmunizationProtocolAppliedSeriesDoses() {}
+func (r String) isImmunizationProtocolAppliedSeriesDoses()      {}
 func (r Immunization) ResourceType() string {
 	return "Immunization"
 }
@@ -99,13 +193,13 @@ func (r Immunization) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isImmunizationOccurrence interface {
-	isImmunizationOccurrence()
+func (r Immunization) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r DateTime) isImmunizationOccurrence() {}
-func (r String) isImmunizationOccurrence()   {}
 func (r Immunization) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1355,6 +1449,1209 @@ func (r Immunization) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r ImmunizationPerformer) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ImmunizationPerformer) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Function != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"function\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Function.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"actor\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Actor.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationEducation) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ImmunizationEducation) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.DocumentType != nil && r.DocumentType.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"documentType\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.DocumentType)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.DocumentType != nil && (r.DocumentType.Id != nil || r.DocumentType.Extension != nil) {
+		p := primitiveElement{Id: r.DocumentType.Id, Extension: r.DocumentType.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_documentType\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Reference != nil && r.Reference.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reference\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Reference)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Reference != nil && (r.Reference.Id != nil || r.Reference.Extension != nil) {
+		p := primitiveElement{Id: r.Reference.Id, Extension: r.Reference.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_reference\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.PublicationDate != nil && r.PublicationDate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"publicationDate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PublicationDate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.PublicationDate != nil && (r.PublicationDate.Id != nil || r.PublicationDate.Extension != nil) {
+		p := primitiveElement{Id: r.PublicationDate.Id, Extension: r.PublicationDate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_publicationDate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.PresentationDate != nil && r.PresentationDate.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"presentationDate\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.PresentationDate)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.PresentationDate != nil && (r.PresentationDate.Id != nil || r.PresentationDate.Extension != nil) {
+		p := primitiveElement{Id: r.PresentationDate.Id, Extension: r.PresentationDate.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_presentationDate\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationReaction) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ImmunizationReaction) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && r.Date.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"date\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Date)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
+		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_date\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Detail != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"detail\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Detail.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Reported != nil && r.Reported.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"reported\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Reported)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Reported != nil && (r.Reported.Id != nil || r.Reported.Extension != nil) {
+		p := primitiveElement{Id: r.Reported.Id, Extension: r.Reported.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_reported\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationProtocolApplied) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r ImmunizationProtocolApplied) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if r.Series != nil && r.Series.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"series\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Series)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.Series != nil && (r.Series.Id != nil || r.Series.Extension != nil) {
+		p := primitiveElement{Id: r.Series.Id, Extension: r.Series.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_series\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.Authority != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"authority\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Authority.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.TargetDisease) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"targetDisease\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.TargetDisease {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.DoseNumber.(type) {
+	case PositiveInt:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"doseNumberPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_doseNumberPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case *PositiveInt:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"doseNumberPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_doseNumberPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"doseNumberString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_doseNumberString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case *String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"doseNumberString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_doseNumberString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	switch v := r.SeriesDoses.(type) {
+	case PositiveInt:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"seriesDosesPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_seriesDosesPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case *PositiveInt:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"seriesDosesPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_seriesDosesPositiveInt\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"seriesDosesString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_seriesDosesString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case *String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"seriesDosesString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_seriesDosesString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *Immunization) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -2034,6 +3331,672 @@ func (r *Immunization) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *ImmunizationPerformer) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationPerformer element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationPerformer element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationPerformer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationPerformer element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationPerformer element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationPerformer element", t)
+			}
+		case "function":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Function = &v
+		case "actor":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Actor = v
+		default:
+			return fmt.Errorf("invalid field: %s in ImmunizationPerformer", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationPerformer element", t)
+	}
+	return nil
+}
+func (r *ImmunizationEducation) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationEducation element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationEducation element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationEducation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationEducation element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationEducation element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationEducation element", t)
+			}
+		case "documentType":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DocumentType == nil {
+				r.DocumentType = &String{}
+			}
+			r.DocumentType.Value = v.Value
+		case "_documentType":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DocumentType == nil {
+				r.DocumentType = &String{}
+			}
+			r.DocumentType.Id = v.Id
+			r.DocumentType.Extension = v.Extension
+		case "reference":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Reference == nil {
+				r.Reference = &Uri{}
+			}
+			r.Reference.Value = v.Value
+		case "_reference":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Reference == nil {
+				r.Reference = &Uri{}
+			}
+			r.Reference.Id = v.Id
+			r.Reference.Extension = v.Extension
+		case "publicationDate":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PublicationDate == nil {
+				r.PublicationDate = &DateTime{}
+			}
+			r.PublicationDate.Value = v.Value
+		case "_publicationDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PublicationDate == nil {
+				r.PublicationDate = &DateTime{}
+			}
+			r.PublicationDate.Id = v.Id
+			r.PublicationDate.Extension = v.Extension
+		case "presentationDate":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PresentationDate == nil {
+				r.PresentationDate = &DateTime{}
+			}
+			r.PresentationDate.Value = v.Value
+		case "_presentationDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PresentationDate == nil {
+				r.PresentationDate = &DateTime{}
+			}
+			r.PresentationDate.Id = v.Id
+			r.PresentationDate.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ImmunizationEducation", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationEducation element", t)
+	}
+	return nil
+}
+func (r *ImmunizationReaction) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationReaction element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationReaction element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationReaction element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationReaction element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationReaction element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationReaction element", t)
+			}
+		case "date":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "detail":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Detail = &v
+		case "reported":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Reported == nil {
+				r.Reported = &Boolean{}
+			}
+			r.Reported.Value = v.Value
+		case "_reported":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Reported == nil {
+				r.Reported = &Boolean{}
+			}
+			r.Reported.Id = v.Id
+			r.Reported.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ImmunizationReaction", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationReaction element", t)
+	}
+	return nil
+}
+func (r *ImmunizationProtocolApplied) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationProtocolApplied element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationProtocolApplied element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
+			}
+		case "series":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Series == nil {
+				r.Series = &String{}
+			}
+			r.Series.Value = v.Value
+		case "_series":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Series == nil {
+				r.Series = &String{}
+			}
+			r.Series.Id = v.Id
+			r.Series.Extension = v.Extension
+		case "authority":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Authority = &v
+		case "targetDisease":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.TargetDisease = append(r.TargetDisease, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
+			}
+		case "doseNumberPositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DoseNumber != nil {
+				r.DoseNumber = PositiveInt{
+					Extension: r.DoseNumber.(PositiveInt).Extension,
+					Id:        r.DoseNumber.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DoseNumber = v
+			}
+		case "_doseNumberPositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DoseNumber != nil {
+				r.DoseNumber = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DoseNumber.(PositiveInt).Value,
+				}
+			} else {
+				r.DoseNumber = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "doseNumberString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DoseNumber != nil {
+				r.DoseNumber = String{
+					Extension: r.DoseNumber.(String).Extension,
+					Id:        r.DoseNumber.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DoseNumber = v
+			}
+		case "_doseNumberString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DoseNumber != nil {
+				r.DoseNumber = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DoseNumber.(String).Value,
+				}
+			} else {
+				r.DoseNumber = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "seriesDosesPositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SeriesDoses != nil {
+				r.SeriesDoses = PositiveInt{
+					Extension: r.SeriesDoses.(PositiveInt).Extension,
+					Id:        r.SeriesDoses.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.SeriesDoses = v
+			}
+		case "_seriesDosesPositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SeriesDoses != nil {
+				r.SeriesDoses = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.SeriesDoses.(PositiveInt).Value,
+				}
+			} else {
+				r.SeriesDoses = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "seriesDosesString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SeriesDoses != nil {
+				r.SeriesDoses = String{
+					Extension: r.SeriesDoses.(String).Extension,
+					Id:        r.SeriesDoses.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.SeriesDoses = v
+			}
+		case "_seriesDosesString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SeriesDoses != nil {
+				r.SeriesDoses = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.SeriesDoses.(String).Value,
+				}
+			} else {
+				r.SeriesDoses = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ImmunizationProtocolApplied", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationProtocolApplied element", t)
+	}
+	return nil
+}
 func (r Immunization) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "Immunization"
 	err := e.EncodeToken(start)
@@ -2195,6 +4158,178 @@ func (r Immunization) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	err = e.EncodeElement(r.ProtocolApplied, xml.StartElement{Name: xml.Name{Local: "protocolApplied"}})
 	if err != nil {
 		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationPerformer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Function, xml.StartElement{Name: xml.Name{Local: "function"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Actor, xml.StartElement{Name: xml.Name{Local: "actor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationEducation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DocumentType, xml.StartElement{Name: xml.Name{Local: "documentType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Reference, xml.StartElement{Name: xml.Name{Local: "reference"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PublicationDate, xml.StartElement{Name: xml.Name{Local: "publicationDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PresentationDate, xml.StartElement{Name: xml.Name{Local: "presentationDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationReaction) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Reported, xml.StartElement{Name: xml.Name{Local: "reported"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r ImmunizationProtocolApplied) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Series, xml.StartElement{Name: xml.Name{Local: "series"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Authority, xml.StartElement{Name: xml.Name{Local: "authority"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.TargetDisease, xml.StartElement{Name: xml.Name{Local: "targetDisease"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.DoseNumber.(type) {
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "doseNumberPositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "doseNumberString"}})
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.SeriesDoses.(type) {
+	case PositiveInt, *PositiveInt:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "seriesDosesPositiveInt"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "seriesDosesString"}})
+		if err != nil {
+			return err
+		}
 	}
 	err = e.EncodeToken(start.End())
 	if err != nil {
@@ -2496,308 +4631,6 @@ func (r *Immunization) UnmarshalXML(d *xml.Decoder, start xml.StartElement) erro
 		}
 	}
 }
-func (r Immunization) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Indicates who performed the immunization event.
-type ImmunizationPerformer struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Describes the type of performance (e.g. ordering provider, administering provider, etc.).
-	Function *CodeableConcept
-	// The practitioner or organization who performed the action.
-	Actor Reference
-}
-
-func (r ImmunizationPerformer) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ImmunizationPerformer) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Function != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"function\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Function.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"actor\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Actor.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ImmunizationPerformer) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationPerformer element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationPerformer element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationPerformer element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationPerformer element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationPerformer element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationPerformer element", t)
-			}
-		case "function":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Function = &v
-		case "actor":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Actor = v
-		default:
-			return fmt.Errorf("invalid field: %s in ImmunizationPerformer", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationPerformer element", t)
-	}
-	return nil
-}
-func (r ImmunizationPerformer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Function, xml.StartElement{Name: xml.Name{Local: "function"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Actor, xml.StartElement{Name: xml.Name{Local: "actor"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *ImmunizationPerformer) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -2856,526 +4689,6 @@ func (r *ImmunizationPerformer) UnmarshalXML(d *xml.Decoder, start xml.StartElem
 			return nil
 		}
 	}
-}
-func (r ImmunizationPerformer) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Educational material presented to the patient (or guardian) at the time of vaccine administration.
-type ImmunizationEducation struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Identifier of the material presented to the patient.
-	DocumentType *String
-	// Reference pointer to the educational material given to the patient if the information was on line.
-	Reference *Uri
-	// Date the educational material was published.
-	PublicationDate *DateTime
-	// Date the educational material was given to the patient.
-	PresentationDate *DateTime
-}
-
-func (r ImmunizationEducation) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ImmunizationEducation) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.DocumentType != nil && r.DocumentType.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"documentType\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.DocumentType)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.DocumentType != nil && (r.DocumentType.Id != nil || r.DocumentType.Extension != nil) {
-		p := primitiveElement{Id: r.DocumentType.Id, Extension: r.DocumentType.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_documentType\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Reference != nil && r.Reference.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"reference\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Reference)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Reference != nil && (r.Reference.Id != nil || r.Reference.Extension != nil) {
-		p := primitiveElement{Id: r.Reference.Id, Extension: r.Reference.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_reference\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.PublicationDate != nil && r.PublicationDate.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"publicationDate\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.PublicationDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.PublicationDate != nil && (r.PublicationDate.Id != nil || r.PublicationDate.Extension != nil) {
-		p := primitiveElement{Id: r.PublicationDate.Id, Extension: r.PublicationDate.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_publicationDate\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.PresentationDate != nil && r.PresentationDate.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"presentationDate\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.PresentationDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.PresentationDate != nil && (r.PresentationDate.Id != nil || r.PresentationDate.Extension != nil) {
-		p := primitiveElement{Id: r.PresentationDate.Id, Extension: r.PresentationDate.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_presentationDate\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ImmunizationEducation) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationEducation element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationEducation element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationEducation element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationEducation element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationEducation element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationEducation element", t)
-			}
-		case "documentType":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.DocumentType == nil {
-				r.DocumentType = &String{}
-			}
-			r.DocumentType.Value = v.Value
-		case "_documentType":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.DocumentType == nil {
-				r.DocumentType = &String{}
-			}
-			r.DocumentType.Id = v.Id
-			r.DocumentType.Extension = v.Extension
-		case "reference":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Reference == nil {
-				r.Reference = &Uri{}
-			}
-			r.Reference.Value = v.Value
-		case "_reference":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Reference == nil {
-				r.Reference = &Uri{}
-			}
-			r.Reference.Id = v.Id
-			r.Reference.Extension = v.Extension
-		case "publicationDate":
-			var v DateTime
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.PublicationDate == nil {
-				r.PublicationDate = &DateTime{}
-			}
-			r.PublicationDate.Value = v.Value
-		case "_publicationDate":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.PublicationDate == nil {
-				r.PublicationDate = &DateTime{}
-			}
-			r.PublicationDate.Id = v.Id
-			r.PublicationDate.Extension = v.Extension
-		case "presentationDate":
-			var v DateTime
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.PresentationDate == nil {
-				r.PresentationDate = &DateTime{}
-			}
-			r.PresentationDate.Value = v.Value
-		case "_presentationDate":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.PresentationDate == nil {
-				r.PresentationDate = &DateTime{}
-			}
-			r.PresentationDate.Id = v.Id
-			r.PresentationDate.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in ImmunizationEducation", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationEducation element", t)
-	}
-	return nil
-}
-func (r ImmunizationEducation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.DocumentType, xml.StartElement{Name: xml.Name{Local: "documentType"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Reference, xml.StartElement{Name: xml.Name{Local: "reference"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.PublicationDate, xml.StartElement{Name: xml.Name{Local: "publicationDate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.PresentationDate, xml.StartElement{Name: xml.Name{Local: "presentationDate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *ImmunizationEducation) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -3450,418 +4763,6 @@ func (r *ImmunizationEducation) UnmarshalXML(d *xml.Decoder, start xml.StartElem
 		}
 	}
 }
-func (r ImmunizationEducation) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Categorical data indicating that an adverse event is associated in time to an immunization.
-type ImmunizationReaction struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Date of reaction to the immunization.
-	Date *DateTime
-	// Details of the reaction.
-	Detail *Reference
-	// Self-reported indicator.
-	Reported *Boolean
-}
-
-func (r ImmunizationReaction) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ImmunizationReaction) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Date != nil && r.Date.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"date\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Date)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Date != nil && (r.Date.Id != nil || r.Date.Extension != nil) {
-		p := primitiveElement{Id: r.Date.Id, Extension: r.Date.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_date\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Detail != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"detail\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Detail.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Reported != nil && r.Reported.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"reported\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Reported)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Reported != nil && (r.Reported.Id != nil || r.Reported.Extension != nil) {
-		p := primitiveElement{Id: r.Reported.Id, Extension: r.Reported.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_reported\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ImmunizationReaction) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationReaction element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationReaction element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationReaction element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationReaction element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationReaction element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationReaction element", t)
-			}
-		case "date":
-			var v DateTime
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Date == nil {
-				r.Date = &DateTime{}
-			}
-			r.Date.Value = v.Value
-		case "_date":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Date == nil {
-				r.Date = &DateTime{}
-			}
-			r.Date.Id = v.Id
-			r.Date.Extension = v.Extension
-		case "detail":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Detail = &v
-		case "reported":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Reported == nil {
-				r.Reported = &Boolean{}
-			}
-			r.Reported.Value = v.Value
-		case "_reported":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Reported == nil {
-				r.Reported = &Boolean{}
-			}
-			r.Reported.Id = v.Id
-			r.Reported.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in ImmunizationReaction", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationReaction element", t)
-	}
-	return nil
-}
-func (r ImmunizationReaction) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Reported, xml.StartElement{Name: xml.Name{Local: "reported"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *ImmunizationReaction) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -3927,933 +4828,6 @@ func (r *ImmunizationReaction) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 			return nil
 		}
 	}
-}
-func (r ImmunizationReaction) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The protocol (set of recommendations) being followed by the provider who administered the dose.
-type ImmunizationProtocolApplied struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// One possible path to achieve presumed immunity against a disease - within the context of an authority.
-	Series *String
-	// Indicates the authority who published the protocol (e.g. ACIP) that is being followed.
-	Authority *Reference
-	// The vaccine preventable disease the dose is being administered against.
-	TargetDisease []CodeableConcept
-	// Nominal position in a series.
-	DoseNumber isImmunizationProtocolAppliedDoseNumber
-	// The recommended number of doses to achieve immunity.
-	SeriesDoses isImmunizationProtocolAppliedSeriesDoses
-}
-type isImmunizationProtocolAppliedDoseNumber interface {
-	isImmunizationProtocolAppliedDoseNumber()
-}
-
-func (r PositiveInt) isImmunizationProtocolAppliedDoseNumber() {}
-func (r String) isImmunizationProtocolAppliedDoseNumber()      {}
-
-type isImmunizationProtocolAppliedSeriesDoses interface {
-	isImmunizationProtocolAppliedSeriesDoses()
-}
-
-func (r PositiveInt) isImmunizationProtocolAppliedSeriesDoses() {}
-func (r String) isImmunizationProtocolAppliedSeriesDoses()      {}
-func (r ImmunizationProtocolApplied) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r ImmunizationProtocolApplied) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if r.Series != nil && r.Series.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"series\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Series)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.Series != nil && (r.Series.Id != nil || r.Series.Extension != nil) {
-		p := primitiveElement{Id: r.Series.Id, Extension: r.Series.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_series\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.Authority != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"authority\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Authority.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.TargetDisease) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"targetDisease\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.TargetDisease {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	switch v := r.DoseNumber.(type) {
-	case PositiveInt:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"doseNumberPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_doseNumberPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case *PositiveInt:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"doseNumberPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_doseNumberPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"doseNumberString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_doseNumberString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case *String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"doseNumberString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_doseNumberString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	switch v := r.SeriesDoses.(type) {
-	case PositiveInt:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"seriesDosesPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_seriesDosesPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case *PositiveInt:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"seriesDosesPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_seriesDosesPositiveInt\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"seriesDosesString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_seriesDosesString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case *String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"seriesDosesString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_seriesDosesString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ImmunizationProtocolApplied) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ImmunizationProtocolApplied element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ImmunizationProtocolApplied element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
-			}
-		case "series":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Series == nil {
-				r.Series = &String{}
-			}
-			r.Series.Value = v.Value
-		case "_series":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Series == nil {
-				r.Series = &String{}
-			}
-			r.Series.Id = v.Id
-			r.Series.Extension = v.Extension
-		case "authority":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Authority = &v
-		case "targetDisease":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ImmunizationProtocolApplied element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.TargetDisease = append(r.TargetDisease, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ImmunizationProtocolApplied element", t)
-			}
-		case "doseNumberPositiveInt":
-			var v PositiveInt
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.DoseNumber != nil {
-				r.DoseNumber = PositiveInt{
-					Extension: r.DoseNumber.(PositiveInt).Extension,
-					Id:        r.DoseNumber.(PositiveInt).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.DoseNumber = v
-			}
-		case "_doseNumberPositiveInt":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.DoseNumber != nil {
-				r.DoseNumber = PositiveInt{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.DoseNumber.(PositiveInt).Value,
-				}
-			} else {
-				r.DoseNumber = PositiveInt{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "doseNumberString":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.DoseNumber != nil {
-				r.DoseNumber = String{
-					Extension: r.DoseNumber.(String).Extension,
-					Id:        r.DoseNumber.(String).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.DoseNumber = v
-			}
-		case "_doseNumberString":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.DoseNumber != nil {
-				r.DoseNumber = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.DoseNumber.(String).Value,
-				}
-			} else {
-				r.DoseNumber = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "seriesDosesPositiveInt":
-			var v PositiveInt
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.SeriesDoses != nil {
-				r.SeriesDoses = PositiveInt{
-					Extension: r.SeriesDoses.(PositiveInt).Extension,
-					Id:        r.SeriesDoses.(PositiveInt).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.SeriesDoses = v
-			}
-		case "_seriesDosesPositiveInt":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.SeriesDoses != nil {
-				r.SeriesDoses = PositiveInt{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.SeriesDoses.(PositiveInt).Value,
-				}
-			} else {
-				r.SeriesDoses = PositiveInt{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "seriesDosesString":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.SeriesDoses != nil {
-				r.SeriesDoses = String{
-					Extension: r.SeriesDoses.(String).Extension,
-					Id:        r.SeriesDoses.(String).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.SeriesDoses = v
-			}
-		case "_seriesDosesString":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.SeriesDoses != nil {
-				r.SeriesDoses = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.SeriesDoses.(String).Value,
-				}
-			} else {
-				r.SeriesDoses = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in ImmunizationProtocolApplied", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ImmunizationProtocolApplied element", t)
-	}
-	return nil
-}
-func (r ImmunizationProtocolApplied) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Series, xml.StartElement{Name: xml.Name{Local: "series"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Authority, xml.StartElement{Name: xml.Name{Local: "authority"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.TargetDisease, xml.StartElement{Name: xml.Name{Local: "targetDisease"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.DoseNumber.(type) {
-	case PositiveInt, *PositiveInt:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "doseNumberPositiveInt"}})
-		if err != nil {
-			return err
-		}
-	case String, *String:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "doseNumberString"}})
-		if err != nil {
-			return err
-		}
-	}
-	switch v := r.SeriesDoses.(type) {
-	case PositiveInt, *PositiveInt:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "seriesDosesPositiveInt"}})
-		if err != nil {
-			return err
-		}
-	case String, *String:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "seriesDosesString"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
 }
 func (r *ImmunizationProtocolApplied) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -4960,11 +4934,4 @@ func (r *ImmunizationProtocolApplied) UnmarshalXML(d *xml.Decoder, start xml.Sta
 			return nil
 		}
 	}
-}
-func (r ImmunizationProtocolApplied) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

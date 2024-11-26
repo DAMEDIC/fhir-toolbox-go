@@ -22,6 +22,13 @@ type Range struct {
 	High *Quantity
 }
 
+func (r Range) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Range) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -291,11 +298,4 @@ func (r *Range) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			return nil
 		}
 	}
-}
-func (r Range) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

@@ -92,7 +92,12 @@ type Library struct {
 	// The content of the library as an Attachment. The content may be a reference to a url, or may be directly embedded as a base-64 string. Either way, the contentType of the attachment determines how to interpret the content.
 	Content []Attachment
 }
+type isLibrarySubject interface {
+	isLibrarySubject()
+}
 
+func (r CodeableConcept) isLibrarySubject() {}
+func (r Reference) isLibrarySubject()       {}
 func (r Library) ResourceType() string {
 	return "Library"
 }
@@ -105,13 +110,13 @@ func (r Library) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isLibrarySubject interface {
-	isLibrarySubject()
+func (r Library) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r CodeableConcept) isLibrarySubject() {}
-func (r Reference) isLibrarySubject()       {}
 func (r Library) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -2929,11 +2934,4 @@ func (r *Library) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			return nil
 		}
 	}
-}
-func (r Library) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

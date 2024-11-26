@@ -75,6 +75,13 @@ func (r TriggerDefinition) isExtensionValue()   {}
 func (r UsageContext) isExtensionValue()        {}
 func (r Dosage) isExtensionValue()              {}
 func (r Meta) isExtensionValue()                {}
+func (r Extension) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Extension) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -4969,11 +4976,4 @@ func (r *Extension) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			return nil
 		}
 	}
-}
-func (r Extension) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

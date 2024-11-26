@@ -39,6 +39,34 @@ type SubstanceProtein struct {
 	Subunit []SubstanceProteinSubunit
 }
 
+// This subclause refers to the description of each subunit constituting the SubstanceProtein. A subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit information shall be provided when the finished SubstanceProtein is a complex of multiple sequences; subunits are not used to delineate domains within a single sequence. Subunits are listed in order of decreasing length; sequences of the same length will be ordered by decreasing molecular weight; subunits that have identical sequences will be repeated multiple times.
+type SubstanceProteinSubunit struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Index of primary sequences of amino acids linked through peptide bonds in order of decreasing length. Sequences of the same length will be ordered by molecular weight. Subunits that have identical sequences will be repeated and have sequential subscripts.
+	Subunit *Integer
+	// The sequence information shall be provided enumerating the amino acids from N- to C-terminal end using standard single-letter amino acid codes. Uppercase shall be used for L-amino acids and lowercase for D-amino acids. Transcribed SubstanceProteins will always be described using the translated sequence; for synthetic peptide containing amino acids that are not represented with a single letter code an X should be used within the sequence. The modified amino acids will be distinguished by their position in the sequence.
+	Sequence *String
+	// Length of linear sequences of amino acids contained in the subunit.
+	Length *Integer
+	// The sequence information shall be provided enumerating the amino acids from N- to C-terminal end using standard single-letter amino acid codes. Uppercase shall be used for L-amino acids and lowercase for D-amino acids. Transcribed SubstanceProteins will always be described using the translated sequence; for synthetic peptide containing amino acids that are not represented with a single letter code an X should be used within the sequence. The modified amino acids will be distinguished by their position in the sequence.
+	SequenceAttachment *Attachment
+	// Unique identifier for molecular fragment modification based on the ISO 11238 Substance ID.
+	NTerminalModificationId *Identifier
+	// The name of the fragment modified at the N-terminal of the SubstanceProtein shall be specified.
+	NTerminalModification *String
+	// Unique identifier for molecular fragment modification based on the ISO 11238 Substance ID.
+	CTerminalModificationId *Identifier
+	// The modification at the C-terminal shall be specified.
+	CTerminalModification *String
+}
+
 func (r SubstanceProtein) ResourceType() string {
 	return "SubstanceProtein"
 }
@@ -50,6 +78,13 @@ func (r SubstanceProtein) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstanceProtein) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -525,509 +560,6 @@ func (r SubstanceProtein) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *SubstanceProtein) UnmarshalJSON(b []byte) error {
-	d := json.NewDecoder(bytes.NewReader(b))
-	return r.unmarshalJSON(d)
-}
-func (r *SubstanceProtein) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in SubstanceProtein element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in SubstanceProtein element", t)
-		}
-		switch f {
-		case "resourceType":
-			_, err := d.Token()
-			if err != nil {
-				return err
-			}
-		case "id":
-			var v Id
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Value = v.Value
-		case "_id":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Id = v.Id
-			r.Id.Extension = v.Extension
-		case "meta":
-			var v Meta
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Meta = &v
-		case "implicitRules":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Value = v.Value
-		case "_implicitRules":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Id = v.Id
-			r.ImplicitRules.Extension = v.Extension
-		case "language":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Value = v.Value
-		case "_language":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Id = v.Id
-			r.Language.Extension = v.Extension
-		case "text":
-			var v Narrative
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Text = &v
-		case "contained":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for d.More() {
-				var v ContainedResource
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, v.Resource)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		case "sequenceType":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.SequenceType = &v
-		case "numberOfSubunits":
-			var v Integer
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.NumberOfSubunits == nil {
-				r.NumberOfSubunits = &Integer{}
-			}
-			r.NumberOfSubunits.Value = v.Value
-		case "_numberOfSubunits":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.NumberOfSubunits == nil {
-				r.NumberOfSubunits = &Integer{}
-			}
-			r.NumberOfSubunits.Id = v.Id
-			r.NumberOfSubunits.Extension = v.Extension
-		case "disulfideLinkage":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v String
-				err := d.Decode(&v)
-				if err != nil {
-					return err
-				}
-				for len(r.DisulfideLinkage) <= i {
-					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
-				}
-				r.DisulfideLinkage[i].Value = v.Value
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		case "_disulfideLinkage":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v primitiveElement
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				for len(r.DisulfideLinkage) <= i {
-					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
-				}
-				r.DisulfideLinkage[i].Id = v.Id
-				r.DisulfideLinkage[i].Extension = v.Extension
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		case "subunit":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
-			}
-			for d.More() {
-				var v SubstanceProteinSubunit
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Subunit = append(r.Subunit, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in SubstanceProtein", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in SubstanceProtein element", t)
-	}
-	return nil
-}
-func (r SubstanceProtein) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "SubstanceProtein"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	v := make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.SequenceType, xml.StartElement{Name: xml.Name{Local: "sequenceType"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.NumberOfSubunits, xml.StartElement{Name: xml.Name{Local: "numberOfSubunits"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.DisulfideLinkage, xml.StartElement{Name: xml.Name{Local: "disulfideLinkage"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Subunit, xml.StartElement{Name: xml.Name{Local: "subunit"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *SubstanceProtein) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "text":
-				var v Narrative
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "contained":
-				var c ContainedResource
-				err := d.DecodeElement(&c, &t)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, c.Resource)
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "sequenceType":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.SequenceType = &v
-			case "numberOfSubunits":
-				var v Integer
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.NumberOfSubunits = &v
-			case "disulfideLinkage":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.DisulfideLinkage = append(r.DisulfideLinkage, v)
-			case "subunit":
-				var v SubstanceProteinSubunit
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subunit = append(r.Subunit, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r SubstanceProtein) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// This subclause refers to the description of each subunit constituting the SubstanceProtein. A subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit information shall be provided when the finished SubstanceProtein is a complex of multiple sequences; subunits are not used to delineate domains within a single sequence. Subunits are listed in order of decreasing length; sequences of the same length will be ordered by decreasing molecular weight; subunits that have identical sequences will be repeated multiple times.
-type SubstanceProteinSubunit struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Index of primary sequences of amino acids linked through peptide bonds in order of decreasing length. Sequences of the same length will be ordered by molecular weight. Subunits that have identical sequences will be repeated and have sequential subscripts.
-	Subunit *Integer
-	// The sequence information shall be provided enumerating the amino acids from N- to C-terminal end using standard single-letter amino acid codes. Uppercase shall be used for L-amino acids and lowercase for D-amino acids. Transcribed SubstanceProteins will always be described using the translated sequence; for synthetic peptide containing amino acids that are not represented with a single letter code an X should be used within the sequence. The modified amino acids will be distinguished by their position in the sequence.
-	Sequence *String
-	// Length of linear sequences of amino acids contained in the subunit.
-	Length *Integer
-	// The sequence information shall be provided enumerating the amino acids from N- to C-terminal end using standard single-letter amino acid codes. Uppercase shall be used for L-amino acids and lowercase for D-amino acids. Transcribed SubstanceProteins will always be described using the translated sequence; for synthetic peptide containing amino acids that are not represented with a single letter code an X should be used within the sequence. The modified amino acids will be distinguished by their position in the sequence.
-	SequenceAttachment *Attachment
-	// Unique identifier for molecular fragment modification based on the ISO 11238 Substance ID.
-	NTerminalModificationId *Identifier
-	// The name of the fragment modified at the N-terminal of the SubstanceProtein shall be specified.
-	NTerminalModification *String
-	// Unique identifier for molecular fragment modification based on the ISO 11238 Substance ID.
-	CTerminalModificationId *Identifier
-	// The modification at the C-terminal shall be specified.
-	CTerminalModification *String
-}
-
 func (r SubstanceProteinSubunit) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1404,6 +936,296 @@ func (r SubstanceProteinSubunit) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *SubstanceProtein) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *SubstanceProtein) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in SubstanceProtein element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in SubstanceProtein element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "sequenceType":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.SequenceType = &v
+		case "numberOfSubunits":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfSubunits == nil {
+				r.NumberOfSubunits = &Integer{}
+			}
+			r.NumberOfSubunits.Value = v.Value
+		case "_numberOfSubunits":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.NumberOfSubunits == nil {
+				r.NumberOfSubunits = &Integer{}
+			}
+			r.NumberOfSubunits.Id = v.Id
+			r.NumberOfSubunits.Extension = v.Extension
+		case "disulfideLinkage":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DisulfideLinkage) <= i {
+					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+				}
+				r.DisulfideLinkage[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "_disulfideLinkage":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DisulfideLinkage) <= i {
+					r.DisulfideLinkage = append(r.DisulfideLinkage, String{})
+				}
+				r.DisulfideLinkage[i].Id = v.Id
+				r.DisulfideLinkage[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		case "subunit":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in SubstanceProtein element", t)
+			}
+			for d.More() {
+				var v SubstanceProteinSubunit
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Subunit = append(r.Subunit, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in SubstanceProtein element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in SubstanceProtein", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in SubstanceProtein element", t)
+	}
+	return nil
+}
 func (r *SubstanceProteinSubunit) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -1614,6 +1436,70 @@ func (r *SubstanceProteinSubunit) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r SubstanceProtein) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "SubstanceProtein"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SequenceType, xml.StartElement{Name: xml.Name{Local: "sequenceType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.NumberOfSubunits, xml.StartElement{Name: xml.Name{Local: "numberOfSubunits"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DisulfideLinkage, xml.StartElement{Name: xml.Name{Local: "disulfideLinkage"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subunit, xml.StartElement{Name: xml.Name{Local: "subunit"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r SubstanceProteinSubunit) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -1670,6 +1556,119 @@ func (r SubstanceProteinSubunit) MarshalXML(e *xml.Encoder, start xml.StartEleme
 		return err
 	}
 	return nil
+}
+func (r *SubstanceProtein) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "sequenceType":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SequenceType = &v
+			case "numberOfSubunits":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.NumberOfSubunits = &v
+			case "disulfideLinkage":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DisulfideLinkage = append(r.DisulfideLinkage, v)
+			case "subunit":
+				var v SubstanceProteinSubunit
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subunit = append(r.Subunit, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *SubstanceProteinSubunit) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -1771,11 +1770,4 @@ func (r *SubstanceProteinSubunit) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 			return nil
 		}
 	}
-}
-func (r SubstanceProteinSubunit) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

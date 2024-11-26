@@ -24,6 +24,13 @@ type SimpleQuantity struct {
 	Code *Code
 }
 
+func (r SimpleQuantity) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SimpleQuantity) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -519,11 +526,4 @@ func (r *SimpleQuantity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) er
 			return nil
 		}
 	}
-}
-func (r SimpleQuantity) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

@@ -53,6 +53,125 @@ type AuditEvent struct {
 	Entity []AuditEventEntity
 }
 
+// An actor taking an active role in the event or activity that is logged.
+type AuditEventAgent struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Specification of the participation type the user plays when performing the event.
+	Type *CodeableConcept
+	// The security role that the user was acting under, that come from local codes defined by the access control security system (e.g. RBAC, ABAC) used in the local context.
+	Role []CodeableConcept
+	// Reference to who this agent is that was involved in the event.
+	Who *Reference
+	// Alternative agent Identifier. For a human, this should be a user identifier text string from authentication system. This identifier would be one known to a common authentication system (e.g. single sign-on), if available.
+	AltId *String
+	// Human-meaningful name for the agent.
+	Name *String
+	// Indicator that the user is or is not the requestor, or initiator, for the event being audited.
+	Requestor Boolean
+	// Where the event occurred.
+	Location *Reference
+	// The policy or plan that authorized the activity being recorded. Typically, a single activity may have multiple applicable policies, such as patient consent, guarantor funding, etc. The policy would also indicate the security token used.
+	Policy []Uri
+	// Type of media involved. Used when the event is about exporting/importing onto media.
+	Media *Coding
+	// Logical network location for application activity, if the activity has a network location.
+	Network *AuditEventAgentNetwork
+	// The reason (purpose of use), specific to this agent, that was used during the event being recorded.
+	PurposeOfUse []CodeableConcept
+}
+
+// Logical network location for application activity, if the activity has a network location.
+type AuditEventAgentNetwork struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// An identifier for the network access point of the user device for the audit event.
+	Address *String
+	// An identifier for the type of network access point that originated the audit event.
+	Type *Code
+}
+
+// The system that is reporting the event.
+type AuditEventSource struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Logical source location within the healthcare enterprise network.  For example, a hospital or other provider location within a multi-entity provider group.
+	Site *String
+	// Identifier of the source where the event was detected.
+	Observer Reference
+	// Code specifying the type of source where event originated.
+	Type []Coding
+}
+
+// Specific instances of data or objects that have been accessed.
+type AuditEventEntity struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Identifies a specific instance of the entity. The reference should be version specific.
+	What *Reference
+	// The type of the object that was involved in this audit event.
+	Type *Coding
+	// Code representing the role the entity played in the event being audited.
+	Role *Coding
+	// Identifier for the data life-cycle stage for the entity.
+	Lifecycle *Coding
+	// Security labels for the identified entity.
+	SecurityLabel []Coding
+	// A name of the entity in the audit event.
+	Name *String
+	// Text that describes the entity in more detail.
+	Description *String
+	// The query parameters for a query-type entities.
+	Query *Base64Binary
+	// Tagged value pairs for conveying additional information about the entity.
+	Detail []AuditEventEntityDetail
+}
+
+// Tagged value pairs for conveying additional information about the entity.
+type AuditEventEntityDetail struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The type of extra detail provided in the value.
+	Type String
+	// The  value of the extra detail.
+	Value isAuditEventEntityDetailValue
+}
+type isAuditEventEntityDetailValue interface {
+	isAuditEventEntityDetailValue()
+}
+
+func (r String) isAuditEventEntityDetailValue()       {}
+func (r Base64Binary) isAuditEventEntityDetailValue() {}
 func (r AuditEvent) ResourceType() string {
 	return "AuditEvent"
 }
@@ -64,6 +183,13 @@ func (r AuditEvent) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r AuditEvent) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r AuditEvent) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -710,679 +836,6 @@ func (r AuditEvent) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *AuditEvent) UnmarshalJSON(b []byte) error {
-	d := json.NewDecoder(bytes.NewReader(b))
-	return r.unmarshalJSON(d)
-}
-func (r *AuditEvent) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEvent element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in AuditEvent element", t)
-		}
-		switch f {
-		case "resourceType":
-			_, err := d.Token()
-			if err != nil {
-				return err
-			}
-		case "id":
-			var v Id
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Value = v.Value
-		case "_id":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Id = v.Id
-			r.Id.Extension = v.Extension
-		case "meta":
-			var v Meta
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Meta = &v
-		case "implicitRules":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Value = v.Value
-		case "_implicitRules":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Id = v.Id
-			r.ImplicitRules.Extension = v.Extension
-		case "language":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Value = v.Value
-		case "_language":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Id = v.Id
-			r.Language.Extension = v.Extension
-		case "text":
-			var v Narrative
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Text = &v
-		case "contained":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v ContainedResource
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, v.Resource)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "type":
-			var v Coding
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = v
-		case "subtype":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v Coding
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Subtype = append(r.Subtype, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "action":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Action == nil {
-				r.Action = &Code{}
-			}
-			r.Action.Value = v.Value
-		case "_action":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Action == nil {
-				r.Action = &Code{}
-			}
-			r.Action.Id = v.Id
-			r.Action.Extension = v.Extension
-		case "period":
-			var v Period
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Period = &v
-		case "recorded":
-			var v Instant
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Recorded.Value = v.Value
-		case "_recorded":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Recorded.Id = v.Id
-			r.Recorded.Extension = v.Extension
-		case "outcome":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Outcome == nil {
-				r.Outcome = &Code{}
-			}
-			r.Outcome.Value = v.Value
-		case "_outcome":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Outcome == nil {
-				r.Outcome = &Code{}
-			}
-			r.Outcome.Id = v.Id
-			r.Outcome.Extension = v.Extension
-		case "outcomeDesc":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.OutcomeDesc == nil {
-				r.OutcomeDesc = &String{}
-			}
-			r.OutcomeDesc.Value = v.Value
-		case "_outcomeDesc":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.OutcomeDesc == nil {
-				r.OutcomeDesc = &String{}
-			}
-			r.OutcomeDesc.Id = v.Id
-			r.OutcomeDesc.Extension = v.Extension
-		case "purposeOfEvent":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.PurposeOfEvent = append(r.PurposeOfEvent, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "agent":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v AuditEventAgent
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Agent = append(r.Agent, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		case "source":
-			var v AuditEventSource
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Source = v
-		case "entity":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
-			}
-			for d.More() {
-				var v AuditEventEntity
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Entity = append(r.Entity, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in AuditEvent", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEvent element", t)
-	}
-	return nil
-}
-func (r AuditEvent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "AuditEvent"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	v := make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Subtype, xml.StartElement{Name: xml.Name{Local: "subtype"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Action, xml.StartElement{Name: xml.Name{Local: "action"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Recorded, xml.StartElement{Name: xml.Name{Local: "recorded"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Outcome, xml.StartElement{Name: xml.Name{Local: "outcome"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.OutcomeDesc, xml.StartElement{Name: xml.Name{Local: "outcomeDesc"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.PurposeOfEvent, xml.StartElement{Name: xml.Name{Local: "purposeOfEvent"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Agent, xml.StartElement{Name: xml.Name{Local: "agent"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Source, xml.StartElement{Name: xml.Name{Local: "source"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Entity, xml.StartElement{Name: xml.Name{Local: "entity"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *AuditEvent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "text":
-				var v Narrative
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "contained":
-				var c ContainedResource
-				err := d.DecodeElement(&c, &t)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, c.Resource)
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "type":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = v
-			case "subtype":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subtype = append(r.Subtype, v)
-			case "action":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Action = &v
-			case "period":
-				var v Period
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Period = &v
-			case "recorded":
-				var v Instant
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Recorded = v
-			case "outcome":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Outcome = &v
-			case "outcomeDesc":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.OutcomeDesc = &v
-			case "purposeOfEvent":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.PurposeOfEvent = append(r.PurposeOfEvent, v)
-			case "agent":
-				var v AuditEventAgent
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Agent = append(r.Agent, v)
-			case "source":
-				var v AuditEventSource
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Source = v
-			case "entity":
-				var v AuditEventEntity
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Entity = append(r.Entity, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r AuditEvent) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// An actor taking an active role in the event or activity that is logged.
-type AuditEventAgent struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Specification of the participation type the user plays when performing the event.
-	Type *CodeableConcept
-	// The security role that the user was acting under, that come from local codes defined by the access control security system (e.g. RBAC, ABAC) used in the local context.
-	Role []CodeableConcept
-	// Reference to who this agent is that was involved in the event.
-	Who *Reference
-	// Alternative agent Identifier. For a human, this should be a user identifier text string from authentication system. This identifier would be one known to a common authentication system (e.g. single sign-on), if available.
-	AltId *String
-	// Human-meaningful name for the agent.
-	Name *String
-	// Indicator that the user is or is not the requestor, or initiator, for the event being audited.
-	Requestor Boolean
-	// Where the event occurred.
-	Location *Reference
-	// The policy or plan that authorized the activity being recorded. Typically, a single activity may have multiple applicable policies, such as patient consent, guarantor funding, etc. The policy would also indicate the security token used.
-	Policy []Uri
-	// Type of media involved. Used when the event is about exporting/importing onto media.
-	Media *Coding
-	// Logical network location for application activity, if the activity has a network location.
-	Network *AuditEventAgentNetwork
-	// The reason (purpose of use), specific to this agent, that was used during the event being recorded.
-	PurposeOfUse []CodeableConcept
-}
-
 func (r AuditEventAgent) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1869,496 +1322,6 @@ func (r AuditEventAgent) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *AuditEventAgent) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventAgent element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventAgent element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		case "type":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = &v
-		case "role":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Role = append(r.Role, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		case "who":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Who = &v
-		case "altId":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.AltId == nil {
-				r.AltId = &String{}
-			}
-			r.AltId.Value = v.Value
-		case "_altId":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.AltId == nil {
-				r.AltId = &String{}
-			}
-			r.AltId.Id = v.Id
-			r.AltId.Extension = v.Extension
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "requestor":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Requestor.Value = v.Value
-		case "_requestor":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Requestor.Id = v.Id
-			r.Requestor.Extension = v.Extension
-		case "location":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Location = &v
-		case "policy":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v Uri
-				err := d.Decode(&v)
-				if err != nil {
-					return err
-				}
-				for len(r.Policy) <= i {
-					r.Policy = append(r.Policy, Uri{})
-				}
-				r.Policy[i].Value = v.Value
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		case "_policy":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v primitiveElement
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				for len(r.Policy) <= i {
-					r.Policy = append(r.Policy, Uri{})
-				}
-				r.Policy[i].Id = v.Id
-				r.Policy[i].Extension = v.Extension
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		case "media":
-			var v Coding
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Media = &v
-		case "network":
-			var v AuditEventAgentNetwork
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Network = &v
-		case "purposeOfUse":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.PurposeOfUse = append(r.PurposeOfUse, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in AuditEventAgent", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventAgent element", t)
-	}
-	return nil
-}
-func (r AuditEventAgent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Role, xml.StartElement{Name: xml.Name{Local: "role"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Who, xml.StartElement{Name: xml.Name{Local: "who"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.AltId, xml.StartElement{Name: xml.Name{Local: "altId"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Requestor, xml.StartElement{Name: xml.Name{Local: "requestor"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Location, xml.StartElement{Name: xml.Name{Local: "location"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Policy, xml.StartElement{Name: xml.Name{Local: "policy"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Media, xml.StartElement{Name: xml.Name{Local: "media"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Network, xml.StartElement{Name: xml.Name{Local: "network"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.PurposeOfUse, xml.StartElement{Name: xml.Name{Local: "purposeOfUse"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *AuditEventAgent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "type":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = &v
-			case "role":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Role = append(r.Role, v)
-			case "who":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Who = &v
-			case "altId":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.AltId = &v
-			case "name":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Name = &v
-			case "requestor":
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Requestor = v
-			case "location":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Location = &v
-			case "policy":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Policy = append(r.Policy, v)
-			case "media":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Media = &v
-			case "network":
-				var v AuditEventAgentNetwork
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Network = &v
-			case "purposeOfUse":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.PurposeOfUse = append(r.PurposeOfUse, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r AuditEventAgent) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Logical network location for application activity, if the activity has a network location.
-type AuditEventAgentNetwork struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// An identifier for the network access point of the user device for the audit event.
-	Address *String
-	// An identifier for the type of network access point that originated the audit event.
-	Type *Code
-}
-
 func (r AuditEventAgentNetwork) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -2558,250 +1521,6 @@ func (r AuditEventAgentNetwork) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *AuditEventAgentNetwork) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventAgentNetwork element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventAgentNetwork element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgentNetwork element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgentNetwork element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgentNetwork element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgentNetwork element", t)
-			}
-		case "address":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Address == nil {
-				r.Address = &String{}
-			}
-			r.Address.Value = v.Value
-		case "_address":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Address == nil {
-				r.Address = &String{}
-			}
-			r.Address.Id = v.Id
-			r.Address.Extension = v.Extension
-		case "type":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Type == nil {
-				r.Type = &Code{}
-			}
-			r.Type.Value = v.Value
-		case "_type":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Type == nil {
-				r.Type = &Code{}
-			}
-			r.Type.Id = v.Id
-			r.Type.Extension = v.Extension
-		default:
-			return fmt.Errorf("invalid field: %s in AuditEventAgentNetwork", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventAgentNetwork element", t)
-	}
-	return nil
-}
-func (r AuditEventAgentNetwork) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Address, xml.StartElement{Name: xml.Name{Local: "address"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *AuditEventAgentNetwork) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "address":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Address = &v
-			case "type":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = &v
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r AuditEventAgentNetwork) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The system that is reporting the event.
-type AuditEventSource struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Logical source location within the healthcare enterprise network.  For example, a hospital or other provider location within a multi-entity provider group.
-	Site *String
-	// Identifier of the source where the event was detected.
-	Observer Reference
-	// Code specifying the type of source where event originated.
-	Type []Coding
-}
-
 func (r AuditEventSource) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -3009,282 +1728,6 @@ func (r AuditEventSource) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *AuditEventSource) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventSource element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventSource element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
-			}
-		case "site":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Site == nil {
-				r.Site = &String{}
-			}
-			r.Site.Value = v.Value
-		case "_site":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Site == nil {
-				r.Site = &String{}
-			}
-			r.Site.Id = v.Id
-			r.Site.Extension = v.Extension
-		case "observer":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Observer = v
-		case "type":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
-			}
-			for d.More() {
-				var v Coding
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Type = append(r.Type, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in AuditEventSource", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventSource element", t)
-	}
-	return nil
-}
-func (r AuditEventSource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Site, xml.StartElement{Name: xml.Name{Local: "site"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Observer, xml.StartElement{Name: xml.Name{Local: "observer"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *AuditEventSource) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "site":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Site = &v
-			case "observer":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Observer = v
-			case "type":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = append(r.Type, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r AuditEventSource) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Specific instances of data or objects that have been accessed.
-type AuditEventEntity struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Identifies a specific instance of the entity. The reference should be version specific.
-	What *Reference
-	// The type of the object that was involved in this audit event.
-	Type *Coding
-	// Code representing the role the entity played in the event being audited.
-	Role *Coding
-	// Identifier for the data life-cycle stage for the entity.
-	Lifecycle *Coding
-	// Security labels for the identified entity.
-	SecurityLabel []Coding
-	// A name of the entity in the audit event.
-	Name *String
-	// Text that describes the entity in more detail.
-	Description *String
-	// The query parameters for a query-type entities.
-	Query *Base64Binary
-	// Tagged value pairs for conveying additional information about the entity.
-	Detail []AuditEventEntityDetail
-}
-
 func (r AuditEventEntity) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -3664,425 +2107,6 @@ func (r AuditEventEntity) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *AuditEventEntity) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventEntity element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventEntity element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
-			}
-		case "what":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.What = &v
-		case "type":
-			var v Coding
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type = &v
-		case "role":
-			var v Coding
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Role = &v
-		case "lifecycle":
-			var v Coding
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Lifecycle = &v
-		case "securityLabel":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
-			}
-			for d.More() {
-				var v Coding
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.SecurityLabel = append(r.SecurityLabel, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
-			}
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "description":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &String{}
-			}
-			r.Description.Value = v.Value
-		case "_description":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &String{}
-			}
-			r.Description.Id = v.Id
-			r.Description.Extension = v.Extension
-		case "query":
-			var v Base64Binary
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Query == nil {
-				r.Query = &Base64Binary{}
-			}
-			r.Query.Value = v.Value
-		case "_query":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Query == nil {
-				r.Query = &Base64Binary{}
-			}
-			r.Query.Id = v.Id
-			r.Query.Extension = v.Extension
-		case "detail":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
-			}
-			for d.More() {
-				var v AuditEventEntityDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Detail = append(r.Detail, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in AuditEventEntity", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventEntity element", t)
-	}
-	return nil
-}
-func (r AuditEventEntity) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.What, xml.StartElement{Name: xml.Name{Local: "what"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Role, xml.StartElement{Name: xml.Name{Local: "role"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Lifecycle, xml.StartElement{Name: xml.Name{Local: "lifecycle"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.SecurityLabel, xml.StartElement{Name: xml.Name{Local: "securityLabel"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Query, xml.StartElement{Name: xml.Name{Local: "query"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *AuditEventEntity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "what":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.What = &v
-			case "type":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = &v
-			case "role":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Role = &v
-			case "lifecycle":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Lifecycle = &v
-			case "securityLabel":
-				var v Coding
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.SecurityLabel = append(r.SecurityLabel, v)
-			case "name":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Name = &v
-			case "description":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Description = &v
-			case "query":
-				var v Base64Binary
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Query = &v
-			case "detail":
-				var v AuditEventEntityDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Detail = append(r.Detail, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r AuditEventEntity) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Tagged value pairs for conveying additional information about the entity.
-type AuditEventEntityDetail struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The type of extra detail provided in the value.
-	Type String
-	// The  value of the extra detail.
-	Value isAuditEventEntityDetailValue
-}
-type isAuditEventEntityDetailValue interface {
-	isAuditEventEntityDetailValue()
-}
-
-func (r String) isAuditEventEntityDetailValue()       {}
-func (r Base64Binary) isAuditEventEntityDetailValue() {}
 func (r AuditEventEntityDetail) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -4414,6 +2438,1140 @@ func (r AuditEventEntityDetail) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *AuditEvent) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *AuditEvent) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEvent element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in AuditEvent element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "type":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = v
+		case "subtype":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Subtype = append(r.Subtype, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "action":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Action == nil {
+				r.Action = &Code{}
+			}
+			r.Action.Value = v.Value
+		case "_action":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Action == nil {
+				r.Action = &Code{}
+			}
+			r.Action.Id = v.Id
+			r.Action.Extension = v.Extension
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		case "recorded":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Recorded.Value = v.Value
+		case "_recorded":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Recorded.Id = v.Id
+			r.Recorded.Extension = v.Extension
+		case "outcome":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Outcome == nil {
+				r.Outcome = &Code{}
+			}
+			r.Outcome.Value = v.Value
+		case "_outcome":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Outcome == nil {
+				r.Outcome = &Code{}
+			}
+			r.Outcome.Id = v.Id
+			r.Outcome.Extension = v.Extension
+		case "outcomeDesc":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.OutcomeDesc == nil {
+				r.OutcomeDesc = &String{}
+			}
+			r.OutcomeDesc.Value = v.Value
+		case "_outcomeDesc":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.OutcomeDesc == nil {
+				r.OutcomeDesc = &String{}
+			}
+			r.OutcomeDesc.Id = v.Id
+			r.OutcomeDesc.Extension = v.Extension
+		case "purposeOfEvent":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PurposeOfEvent = append(r.PurposeOfEvent, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "agent":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v AuditEventAgent
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Agent = append(r.Agent, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		case "source":
+			var v AuditEventSource
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Source = v
+		case "entity":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEvent element", t)
+			}
+			for d.More() {
+				var v AuditEventEntity
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Entity = append(r.Entity, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEvent element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in AuditEvent", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEvent element", t)
+	}
+	return nil
+}
+func (r *AuditEventAgent) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventAgent element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventAgent element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		case "type":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "role":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Role = append(r.Role, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		case "who":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Who = &v
+		case "altId":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AltId == nil {
+				r.AltId = &String{}
+			}
+			r.AltId.Value = v.Value
+		case "_altId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AltId == nil {
+				r.AltId = &String{}
+			}
+			r.AltId.Id = v.Id
+			r.AltId.Extension = v.Extension
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "requestor":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Requestor.Value = v.Value
+		case "_requestor":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Requestor.Id = v.Id
+			r.Requestor.Extension = v.Extension
+		case "location":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Location = &v
+		case "policy":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Uri
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Policy) <= i {
+					r.Policy = append(r.Policy, Uri{})
+				}
+				r.Policy[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		case "_policy":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Policy) <= i {
+					r.Policy = append(r.Policy, Uri{})
+				}
+				r.Policy[i].Id = v.Id
+				r.Policy[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		case "media":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Media = &v
+		case "network":
+			var v AuditEventAgentNetwork
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Network = &v
+		case "purposeOfUse":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgent element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.PurposeOfUse = append(r.PurposeOfUse, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgent element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in AuditEventAgent", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventAgent element", t)
+	}
+	return nil
+}
+func (r *AuditEventAgentNetwork) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventAgentNetwork element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventAgentNetwork element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgentNetwork element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgentNetwork element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventAgentNetwork element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventAgentNetwork element", t)
+			}
+		case "address":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Address == nil {
+				r.Address = &String{}
+			}
+			r.Address.Value = v.Value
+		case "_address":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Address == nil {
+				r.Address = &String{}
+			}
+			r.Address.Id = v.Id
+			r.Address.Extension = v.Extension
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Type == nil {
+				r.Type = &Code{}
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in AuditEventAgentNetwork", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventAgentNetwork element", t)
+	}
+	return nil
+}
+func (r *AuditEventSource) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventSource element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventSource element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
+			}
+		case "site":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Site == nil {
+				r.Site = &String{}
+			}
+			r.Site.Value = v.Value
+		case "_site":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Site == nil {
+				r.Site = &String{}
+			}
+			r.Site.Id = v.Id
+			r.Site.Extension = v.Extension
+		case "observer":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Observer = v
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventSource element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventSource element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in AuditEventSource", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventSource element", t)
+	}
+	return nil
+}
+func (r *AuditEventEntity) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in AuditEventEntity element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in AuditEventEntity element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
+			}
+		case "what":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.What = &v
+		case "type":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type = &v
+		case "role":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Role = &v
+		case "lifecycle":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Lifecycle = &v
+		case "securityLabel":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.SecurityLabel = append(r.SecurityLabel, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
+			}
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "query":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Query == nil {
+				r.Query = &Base64Binary{}
+			}
+			r.Query.Value = v.Value
+		case "_query":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Query == nil {
+				r.Query = &Base64Binary{}
+			}
+			r.Query.Id = v.Id
+			r.Query.Extension = v.Extension
+		case "detail":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in AuditEventEntity element", t)
+			}
+			for d.More() {
+				var v AuditEventEntityDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Detail = append(r.Detail, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in AuditEventEntity element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in AuditEventEntity", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in AuditEventEntity element", t)
+	}
+	return nil
+}
 func (r *AuditEventEntityDetail) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -4579,6 +3737,298 @@ func (r *AuditEventEntityDetail) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r AuditEvent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "AuditEvent"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subtype, xml.StartElement{Name: xml.Name{Local: "subtype"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Action, xml.StartElement{Name: xml.Name{Local: "action"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Recorded, xml.StartElement{Name: xml.Name{Local: "recorded"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Outcome, xml.StartElement{Name: xml.Name{Local: "outcome"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.OutcomeDesc, xml.StartElement{Name: xml.Name{Local: "outcomeDesc"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PurposeOfEvent, xml.StartElement{Name: xml.Name{Local: "purposeOfEvent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Agent, xml.StartElement{Name: xml.Name{Local: "agent"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Source, xml.StartElement{Name: xml.Name{Local: "source"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Entity, xml.StartElement{Name: xml.Name{Local: "entity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r AuditEventAgent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Role, xml.StartElement{Name: xml.Name{Local: "role"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Who, xml.StartElement{Name: xml.Name{Local: "who"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AltId, xml.StartElement{Name: xml.Name{Local: "altId"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Requestor, xml.StartElement{Name: xml.Name{Local: "requestor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Location, xml.StartElement{Name: xml.Name{Local: "location"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Policy, xml.StartElement{Name: xml.Name{Local: "policy"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Media, xml.StartElement{Name: xml.Name{Local: "media"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Network, xml.StartElement{Name: xml.Name{Local: "network"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PurposeOfUse, xml.StartElement{Name: xml.Name{Local: "purposeOfUse"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r AuditEventAgentNetwork) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Address, xml.StartElement{Name: xml.Name{Local: "address"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r AuditEventSource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Site, xml.StartElement{Name: xml.Name{Local: "site"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Observer, xml.StartElement{Name: xml.Name{Local: "observer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r AuditEventEntity) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.What, xml.StartElement{Name: xml.Name{Local: "what"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Role, xml.StartElement{Name: xml.Name{Local: "role"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Lifecycle, xml.StartElement{Name: xml.Name{Local: "lifecycle"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.SecurityLabel, xml.StartElement{Name: xml.Name{Local: "securityLabel"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Query, xml.StartElement{Name: xml.Name{Local: "query"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Detail, xml.StartElement{Name: xml.Name{Local: "detail"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r AuditEventEntityDetail) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -4619,6 +4069,523 @@ func (r AuditEventEntityDetail) MarshalXML(e *xml.Encoder, start xml.StartElemen
 		return err
 	}
 	return nil
+}
+func (r *AuditEvent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "type":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "subtype":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subtype = append(r.Subtype, v)
+			case "action":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Action = &v
+			case "period":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			case "recorded":
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Recorded = v
+			case "outcome":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Outcome = &v
+			case "outcomeDesc":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.OutcomeDesc = &v
+			case "purposeOfEvent":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PurposeOfEvent = append(r.PurposeOfEvent, v)
+			case "agent":
+				var v AuditEventAgent
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Agent = append(r.Agent, v)
+			case "source":
+				var v AuditEventSource
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Source = v
+			case "entity":
+				var v AuditEventEntity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Entity = append(r.Entity, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *AuditEventAgent) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "type":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "role":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Role = append(r.Role, v)
+			case "who":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Who = &v
+			case "altId":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AltId = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "requestor":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requestor = v
+			case "location":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Location = &v
+			case "policy":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Policy = append(r.Policy, v)
+			case "media":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Media = &v
+			case "network":
+				var v AuditEventAgentNetwork
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Network = &v
+			case "purposeOfUse":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PurposeOfUse = append(r.PurposeOfUse, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *AuditEventAgentNetwork) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "address":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Address = &v
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *AuditEventSource) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "site":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Site = &v
+			case "observer":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Observer = v
+			case "type":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *AuditEventEntity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "what":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.What = &v
+			case "type":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = &v
+			case "role":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Role = &v
+			case "lifecycle":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Lifecycle = &v
+			case "securityLabel":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SecurityLabel = append(r.SecurityLabel, v)
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "query":
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Query = &v
+			case "detail":
+				var v AuditEventEntityDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Detail = append(r.Detail, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *AuditEventEntityDetail) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -4691,11 +4658,4 @@ func (r *AuditEventEntityDetail) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 			return nil
 		}
 	}
-}
-func (r AuditEventEntityDetail) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

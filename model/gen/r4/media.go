@@ -74,7 +74,12 @@ type Media struct {
 	// Comments made about the media by the performer, subject or other participants.
 	Note []Annotation
 }
+type isMediaCreated interface {
+	isMediaCreated()
+}
 
+func (r DateTime) isMediaCreated() {}
+func (r Period) isMediaCreated()   {}
 func (r Media) ResourceType() string {
 	return "Media"
 }
@@ -87,13 +92,13 @@ func (r Media) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isMediaCreated interface {
-	isMediaCreated()
+func (r Media) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r DateTime) isMediaCreated() {}
-func (r Period) isMediaCreated()   {}
 func (r Media) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -2078,11 +2083,4 @@ func (r *Media) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			return nil
 		}
 	}
-}
-func (r Media) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

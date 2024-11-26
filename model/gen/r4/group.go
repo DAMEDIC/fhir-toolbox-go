@@ -51,6 +51,53 @@ type Group struct {
 	Member []GroupMember
 }
 
+// Identifies traits whose presence r absence is shared by members of the group.
+type GroupCharacteristic struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// A code that identifies the kind of trait being asserted.
+	Code CodeableConcept
+	// The value of the trait that holds (or does not hold - see 'exclude') for members of the group.
+	Value isGroupCharacteristicValue
+	// If true, indicates the characteristic is one that is NOT held by members of the group.
+	Exclude Boolean
+	// The period over which the characteristic is tested; e.g. the patient had an operation during the month of June.
+	Period *Period
+}
+type isGroupCharacteristicValue interface {
+	isGroupCharacteristicValue()
+}
+
+func (r CodeableConcept) isGroupCharacteristicValue() {}
+func (r Boolean) isGroupCharacteristicValue()         {}
+func (r Quantity) isGroupCharacteristicValue()        {}
+func (r Range) isGroupCharacteristicValue()           {}
+func (r Reference) isGroupCharacteristicValue()       {}
+
+// Identifies the resource instances that are members of the group.
+type GroupMember struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// A reference to the entity that is a member of the group. Must be consistent with Group.type. If the entity is another group, then the type must be the same.
+	Entity Reference
+	// The period that the member was in the group, if known.
+	Period *Period
+	// A flag to indicate that the member is no longer in the group, but previously may have been a member.
+	Inactive *Boolean
+}
+
 func (r Group) ResourceType() string {
 	return "Group"
 }
@@ -62,6 +109,13 @@ func (r Group) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Group) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Group) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
@@ -702,647 +756,6 @@ func (r Group) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *Group) UnmarshalJSON(b []byte) error {
-	d := json.NewDecoder(bytes.NewReader(b))
-	return r.unmarshalJSON(d)
-}
-func (r *Group) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in Group element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in Group element", t)
-		}
-		switch f {
-		case "resourceType":
-			_, err := d.Token()
-			if err != nil {
-				return err
-			}
-		case "id":
-			var v Id
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Value = v.Value
-		case "_id":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Id = v.Id
-			r.Id.Extension = v.Extension
-		case "meta":
-			var v Meta
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Meta = &v
-		case "implicitRules":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Value = v.Value
-		case "_implicitRules":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Id = v.Id
-			r.ImplicitRules.Extension = v.Extension
-		case "language":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Value = v.Value
-		case "_language":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Id = v.Id
-			r.Language.Extension = v.Extension
-		case "text":
-			var v Narrative
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Text = &v
-		case "contained":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v ContainedResource
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, v.Resource)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		case "identifier":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v Identifier
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Identifier = append(r.Identifier, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		case "active":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Active == nil {
-				r.Active = &Boolean{}
-			}
-			r.Active.Value = v.Value
-		case "_active":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Active == nil {
-				r.Active = &Boolean{}
-			}
-			r.Active.Id = v.Id
-			r.Active.Extension = v.Extension
-		case "type":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Type.Value = v.Value
-		case "_type":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type.Id = v.Id
-			r.Type.Extension = v.Extension
-		case "actual":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Actual.Value = v.Value
-		case "_actual":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Actual.Id = v.Id
-			r.Actual.Extension = v.Extension
-		case "code":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Code = &v
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "quantity":
-			var v UnsignedInt
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Quantity == nil {
-				r.Quantity = &UnsignedInt{}
-			}
-			r.Quantity.Value = v.Value
-		case "_quantity":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Quantity == nil {
-				r.Quantity = &UnsignedInt{}
-			}
-			r.Quantity.Id = v.Id
-			r.Quantity.Extension = v.Extension
-		case "managingEntity":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.ManagingEntity = &v
-		case "characteristic":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v GroupCharacteristic
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Characteristic = append(r.Characteristic, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		case "member":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
-			}
-			for d.More() {
-				var v GroupMember
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Member = append(r.Member, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in Group", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in Group element", t)
-	}
-	return nil
-}
-func (r Group) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "Group"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	v := make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Active, xml.StartElement{Name: xml.Name{Local: "active"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Actual, xml.StartElement{Name: xml.Name{Local: "actual"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Quantity, xml.StartElement{Name: xml.Name{Local: "quantity"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ManagingEntity, xml.StartElement{Name: xml.Name{Local: "managingEntity"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Characteristic, xml.StartElement{Name: xml.Name{Local: "characteristic"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Member, xml.StartElement{Name: xml.Name{Local: "member"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *Group) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "text":
-				var v Narrative
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "contained":
-				var c ContainedResource
-				err := d.DecodeElement(&c, &t)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, c.Resource)
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "identifier":
-				var v Identifier
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Identifier = append(r.Identifier, v)
-			case "active":
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Active = &v
-			case "type":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = v
-			case "actual":
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Actual = v
-			case "code":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Code = &v
-			case "name":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Name = &v
-			case "quantity":
-				var v UnsignedInt
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Quantity = &v
-			case "managingEntity":
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ManagingEntity = &v
-			case "characteristic":
-				var v GroupCharacteristic
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Characteristic = append(r.Characteristic, v)
-			case "member":
-				var v GroupMember
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Member = append(r.Member, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r Group) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Identifies traits whose presence r absence is shared by members of the group.
-type GroupCharacteristic struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// A code that identifies the kind of trait being asserted.
-	Code CodeableConcept
-	// The value of the trait that holds (or does not hold - see 'exclude') for members of the group.
-	Value isGroupCharacteristicValue
-	// If true, indicates the characteristic is one that is NOT held by members of the group.
-	Exclude Boolean
-	// The period over which the characteristic is tested; e.g. the patient had an operation during the month of June.
-	Period *Period
-}
-type isGroupCharacteristicValue interface {
-	isGroupCharacteristicValue()
-}
-
-func (r CodeableConcept) isGroupCharacteristicValue() {}
-func (r Boolean) isGroupCharacteristicValue()         {}
-func (r Quantity) isGroupCharacteristicValue()        {}
-func (r Range) isGroupCharacteristicValue()           {}
-func (r Reference) isGroupCharacteristicValue()       {}
 func (r GroupCharacteristic) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1804,386 +1217,6 @@ func (r GroupCharacteristic) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *GroupCharacteristic) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in GroupCharacteristic element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in GroupCharacteristic element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in GroupCharacteristic element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in GroupCharacteristic element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in GroupCharacteristic element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in GroupCharacteristic element", t)
-			}
-		case "code":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Code = v
-		case "valueCodeableConcept":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Value = v
-		case "valueBoolean":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Value != nil {
-				r.Value = Boolean{
-					Extension: r.Value.(Boolean).Extension,
-					Id:        r.Value.(Boolean).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.Value = v
-			}
-		case "_valueBoolean":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Value != nil {
-				r.Value = Boolean{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.Value.(Boolean).Value,
-				}
-			} else {
-				r.Value = Boolean{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "valueQuantity":
-			var v Quantity
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Value = v
-		case "valueRange":
-			var v Range
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Value = v
-		case "valueReference":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Value = v
-		case "exclude":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Exclude.Value = v.Value
-		case "_exclude":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Exclude.Id = v.Id
-			r.Exclude.Extension = v.Extension
-		case "period":
-			var v Period
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Period = &v
-		default:
-			return fmt.Errorf("invalid field: %s in GroupCharacteristic", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in GroupCharacteristic element", t)
-	}
-	return nil
-}
-func (r GroupCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.Value.(type) {
-	case CodeableConcept, *CodeableConcept:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCodeableConcept"}})
-		if err != nil {
-			return err
-		}
-	case Boolean, *Boolean:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBoolean"}})
-		if err != nil {
-			return err
-		}
-	case Quantity, *Quantity:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
-		if err != nil {
-			return err
-		}
-	case Range, *Range:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueRange"}})
-		if err != nil {
-			return err
-		}
-	case Reference, *Reference:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueReference"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeElement(r.Exclude, xml.StartElement{Name: xml.Name{Local: "exclude"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *GroupCharacteristic) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "code":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Code = v
-			case "valueCodeableConcept":
-				if r.Value != nil {
-					return fmt.Errorf("multiple values for field \"Value\"")
-				}
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Value = v
-			case "valueBoolean":
-				if r.Value != nil {
-					return fmt.Errorf("multiple values for field \"Value\"")
-				}
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Value = v
-			case "valueQuantity":
-				if r.Value != nil {
-					return fmt.Errorf("multiple values for field \"Value\"")
-				}
-				var v Quantity
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Value = v
-			case "valueRange":
-				if r.Value != nil {
-					return fmt.Errorf("multiple values for field \"Value\"")
-				}
-				var v Range
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Value = v
-			case "valueReference":
-				if r.Value != nil {
-					return fmt.Errorf("multiple values for field \"Value\"")
-				}
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Value = v
-			case "exclude":
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Exclude = v
-			case "period":
-				var v Period
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Period = &v
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r GroupCharacteristic) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// Identifies the resource instances that are members of the group.
-type GroupMember struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// A reference to the entity that is a member of the group. Must be consistent with Group.type. If the entity is another group, then the type must be the same.
-	Entity Reference
-	// The period that the member was in the group, if known.
-	Period *Period
-	// A flag to indicate that the member is no longer in the group, but previously may have been a member.
-	Inactive *Boolean
-}
-
 func (r GroupMember) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -2373,6 +1406,542 @@ func (r GroupMember) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Group) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Group) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Group element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Group element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		case "active":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Value = v.Value
+		case "_active":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Active == nil {
+				r.Active = &Boolean{}
+			}
+			r.Active.Id = v.Id
+			r.Active.Extension = v.Extension
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "actual":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Actual.Value = v.Value
+		case "_actual":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Actual.Id = v.Id
+			r.Actual.Extension = v.Extension
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = &v
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "quantity":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Quantity == nil {
+				r.Quantity = &UnsignedInt{}
+			}
+			r.Quantity.Value = v.Value
+		case "_quantity":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Quantity == nil {
+				r.Quantity = &UnsignedInt{}
+			}
+			r.Quantity.Id = v.Id
+			r.Quantity.Extension = v.Extension
+		case "managingEntity":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.ManagingEntity = &v
+		case "characteristic":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v GroupCharacteristic
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Characteristic = append(r.Characteristic, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		case "member":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Group element", t)
+			}
+			for d.More() {
+				var v GroupMember
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Member = append(r.Member, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Group element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in Group", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Group element", t)
+	}
+	return nil
+}
+func (r *GroupCharacteristic) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in GroupCharacteristic element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in GroupCharacteristic element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in GroupCharacteristic element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in GroupCharacteristic element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in GroupCharacteristic element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in GroupCharacteristic element", t)
+			}
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = v
+		case "valueCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: r.Value.(Boolean).Extension,
+					Id:        r.Value.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Boolean).Value,
+				}
+			} else {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "exclude":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Exclude.Value = v.Value
+		case "_exclude":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Exclude.Id = v.Id
+			r.Exclude.Extension = v.Extension
+		case "period":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Period = &v
+		default:
+			return fmt.Errorf("invalid field: %s in GroupCharacteristic", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in GroupCharacteristic element", t)
+	}
+	return nil
+}
 func (r *GroupMember) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -2492,6 +2061,158 @@ func (r *GroupMember) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r Group) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "Group"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Active, xml.StartElement{Name: xml.Name{Local: "active"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Actual, xml.StartElement{Name: xml.Name{Local: "actual"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Quantity, xml.StartElement{Name: xml.Name{Local: "quantity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ManagingEntity, xml.StartElement{Name: xml.Name{Local: "managingEntity"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Characteristic, xml.StartElement{Name: xml.Name{Local: "characteristic"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Member, xml.StartElement{Name: xml.Name{Local: "member"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r GroupCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Value.(type) {
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueBoolean"}})
+		if err != nil {
+			return err
+		}
+	case Quantity, *Quantity:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueQuantity"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueRange"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "valueReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Exclude, xml.StartElement{Name: xml.Name{Local: "exclude"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Period, xml.StartElement{Name: xml.Name{Local: "period"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r GroupMember) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -2528,6 +2249,277 @@ func (r GroupMember) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r *Group) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "active":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Active = &v
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "actual":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Actual = v
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "quantity":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Quantity = &v
+			case "managingEntity":
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ManagingEntity = &v
+			case "characteristic":
+				var v GroupCharacteristic
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Characteristic = append(r.Characteristic, v)
+			case "member":
+				var v GroupMember
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Member = append(r.Member, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *GroupCharacteristic) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = v
+			case "valueCodeableConcept":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueBoolean":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueQuantity":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRange":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueReference":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "exclude":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Exclude = v
+			case "period":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *GroupMember) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -2594,11 +2586,4 @@ func (r *GroupMember) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 			return nil
 		}
 	}
-}
-func (r GroupMember) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

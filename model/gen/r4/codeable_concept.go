@@ -22,6 +22,13 @@ type CodeableConcept struct {
 	Text *String
 }
 
+func (r CodeableConcept) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r CodeableConcept) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -364,11 +371,4 @@ func (r *CodeableConcept) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 			return nil
 		}
 	}
-}
-func (r CodeableConcept) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

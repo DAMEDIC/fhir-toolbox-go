@@ -1,7 +1,7 @@
 package ir
 
 import (
-	"fhir-toolbox/generate/model"
+	"fhir-toolbox/internal/generator/model"
 	"fmt"
 	"slices"
 	"strings"
@@ -34,8 +34,9 @@ var (
 	notDomainResources = []string{"Binary", "Bundle", "Parameters"}
 )
 
-func Parse(bundle *model.Bundle) []SourceFile {
-	var sourceFiles []SourceFile
+// Parse parses a FHIR Bundle into the intermediate representation.
+func Parse(bundle *model.Bundle) []ResourceOrType {
+	var resourcesOrTypes []ResourceOrType
 
 	for _, s := range flattenBundle(bundle) {
 		if s.Kind == "logical" {
@@ -48,23 +49,24 @@ func Parse(bundle *model.Bundle) []SourceFile {
 			continue
 		}
 
-		sourceFile := SourceFile{
-			Name: toGoFileCasing(s.Name),
+		resourceOrType := ResourceOrType{
+			Name:        s.Name,
+			FileName:    toGoFileCasing(s.Name),
+			IsResource:  s.Kind == "resource",
+			IsPrimitive: slices.Contains(primitives, s.Name),
+			Structs: parseStructs(
+				s.Name,
+				s.Kind == "resource",
+				s.Snapshot.Element,
+				s.Type,
+				fmt.Sprintf("%s\n\n%s", s.Description, s.Purpose),
+			),
 		}
 
-		parseStruct(
-			&sourceFile.Structs,
-			s.Name,
-			s.Kind == "resource",
-			s.Snapshot.Element,
-			s.Type,
-			fmt.Sprintf("%s\n\n%s", s.Description, s.Purpose),
-		)
-
-		sourceFiles = append(sourceFiles, sourceFile)
+		resourcesOrTypes = append(resourcesOrTypes, resourceOrType)
 	}
 
-	return sourceFiles
+	return resourcesOrTypes
 }
 
 func flattenBundle(bundle *model.Bundle) []*model.StructureDefinition {
@@ -79,26 +81,23 @@ func flattenBundle(bundle *model.Bundle) []*model.StructureDefinition {
 	return definitions
 }
 
-func parseStruct(
-	into *[]*Struct,
+func parseStructs(
 	name string,
 	isResource bool,
 	elementDefinitions []model.ElementDefinition,
 	elementPathStripPrefix string,
 	docComment string,
-) {
+) []Struct {
 	structName := toGoTypeCasing(name)
 
 	groupedDefinitions := groupElementDefinitionsByPrefix(elementDefinitions, elementPathStripPrefix)
 
-	newStruct := &Struct{
-		Name:             structName,
-		IsResource:       isResource,
-		IsDomainResource: isResource && !slices.Contains(notDomainResources, name),
-		IsPrimitive:      slices.Contains(primitives, name),
-		DocComment:       docComment,
-	}
-	*into = append(*into, newStruct)
+	parsedStructs := []Struct{{
+		Name:        structName,
+		IsResource:  isResource,
+		IsPrimitive: slices.Contains(primitives, name),
+		DocComment:  docComment,
+	}}
 
 	for _, g := range groupedDefinitions {
 		if g.definitions[0].Max == "0" {
@@ -108,23 +107,29 @@ func parseStruct(
 		typeName := structName + toGoTypeCasing(g.fieldName)
 
 		if len(g.definitions) > 1 {
-			parseStruct(
-				into,
-				typeName,
-				false,
-				g.definitions,
-				g.definitions[0].Path,
-				g.definitions[0].Definition,
+			parsedStructs = append(
+				parsedStructs, parseStructs(
+					typeName,
+					false,
+					g.definitions,
+					g.definitions[0].Path,
+					g.definitions[0].Definition,
+				)...,
 			)
 		}
 
-		newStruct.Fields = append(newStruct.Fields, parseField(
-			structName,
-			isResource,
-			g.definitions[0],
-			elementPathStripPrefix,
-		))
+		parsedStructs[0].Fields = append(
+			parsedStructs[0].Fields,
+			parseField(
+				structName,
+				isResource,
+				g.definitions[0],
+				elementPathStripPrefix,
+			),
+		)
 	}
+
+	return parsedStructs
 }
 
 type definitionsGroup struct {

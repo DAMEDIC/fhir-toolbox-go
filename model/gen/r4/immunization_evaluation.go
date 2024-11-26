@@ -56,20 +56,6 @@ type ImmunizationEvaluation struct {
 	// The recommended number of doses to achieve immunity.
 	SeriesDoses isImmunizationEvaluationSeriesDoses
 }
-
-func (r ImmunizationEvaluation) ResourceType() string {
-	return "ImmunizationEvaluation"
-}
-func (r ImmunizationEvaluation) ResourceId() (string, bool) {
-	if r.Id == nil {
-		return "", false
-	}
-	if r.Id.Value == nil {
-		return "", false
-	}
-	return *r.Id.Value, true
-}
-
 type isImmunizationEvaluationDoseNumber interface {
 	isImmunizationEvaluationDoseNumber()
 }
@@ -83,6 +69,25 @@ type isImmunizationEvaluationSeriesDoses interface {
 
 func (r PositiveInt) isImmunizationEvaluationSeriesDoses() {}
 func (r String) isImmunizationEvaluationSeriesDoses()      {}
+func (r ImmunizationEvaluation) ResourceType() string {
+	return "ImmunizationEvaluation"
+}
+func (r ImmunizationEvaluation) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Value == nil {
+		return "", false
+	}
+	return *r.Id.Value, true
+}
+func (r ImmunizationEvaluation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1830,11 +1835,4 @@ func (r *ImmunizationEvaluation) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 			return nil
 		}
 	}
-}
-func (r ImmunizationEvaluation) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

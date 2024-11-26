@@ -42,6 +42,13 @@ type ProdCharacteristic struct {
 	Scoring *CodeableConcept
 }
 
+func (r ProdCharacteristic) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ProdCharacteristic) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1006,11 +1013,4 @@ func (r *ProdCharacteristic) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 			return nil
 		}
 	}
-}
-func (r ProdCharacteristic) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

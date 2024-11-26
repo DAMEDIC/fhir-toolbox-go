@@ -86,7 +86,12 @@ type EventDefinition struct {
 	// The trigger element defines when the event occurs. If more than one trigger condition is specified, the event fires whenever any one of the trigger conditions is met.
 	Trigger []TriggerDefinition
 }
+type isEventDefinitionSubject interface {
+	isEventDefinitionSubject()
+}
 
+func (r CodeableConcept) isEventDefinitionSubject() {}
+func (r Reference) isEventDefinitionSubject()       {}
 func (r EventDefinition) ResourceType() string {
 	return "EventDefinition"
 }
@@ -99,13 +104,13 @@ func (r EventDefinition) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isEventDefinitionSubject interface {
-	isEventDefinitionSubject()
+func (r EventDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r CodeableConcept) isEventDefinitionSubject() {}
-func (r Reference) isEventDefinitionSubject()       {}
 func (r EventDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -2752,11 +2757,4 @@ func (r *EventDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 			return nil
 		}
 	}
-}
-func (r EventDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

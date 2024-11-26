@@ -66,20 +66,6 @@ type FamilyMemberHistory struct {
 	// The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition.
 	Condition []FamilyMemberHistoryCondition
 }
-
-func (r FamilyMemberHistory) ResourceType() string {
-	return "FamilyMemberHistory"
-}
-func (r FamilyMemberHistory) ResourceId() (string, bool) {
-	if r.Id == nil {
-		return "", false
-	}
-	if r.Id.Value == nil {
-		return "", false
-	}
-	return *r.Id.Value, true
-}
-
 type isFamilyMemberHistoryBorn interface {
 	isFamilyMemberHistoryBorn()
 }
@@ -105,6 +91,55 @@ func (r Age) isFamilyMemberHistoryDeceased()     {}
 func (r Range) isFamilyMemberHistoryDeceased()   {}
 func (r Date) isFamilyMemberHistoryDeceased()    {}
 func (r String) isFamilyMemberHistoryDeceased()  {}
+
+// The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition.
+type FamilyMemberHistoryCondition struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less specific string like 'cancer' depending on how much is known about the condition and the capabilities of the creating system.
+	Code CodeableConcept
+	// Indicates what happened following the condition.  If the condition resulted in death, deceased date is captured on the relation.
+	Outcome *CodeableConcept
+	// This condition contributed to the cause of death of the related person. If contributedToDeath is not populated, then it is unknown.
+	ContributedToDeath *Boolean
+	// Either the age of onset, range of approximate age or descriptive string can be recorded.  For conditions with multiple occurrences, this describes the first known occurrence.
+	Onset isFamilyMemberHistoryConditionOnset
+	// An area where general notes can be placed about this specific condition.
+	Note []Annotation
+}
+type isFamilyMemberHistoryConditionOnset interface {
+	isFamilyMemberHistoryConditionOnset()
+}
+
+func (r Age) isFamilyMemberHistoryConditionOnset()    {}
+func (r Range) isFamilyMemberHistoryConditionOnset()  {}
+func (r Period) isFamilyMemberHistoryConditionOnset() {}
+func (r String) isFamilyMemberHistoryConditionOnset() {}
+func (r FamilyMemberHistory) ResourceType() string {
+	return "FamilyMemberHistory"
+}
+func (r FamilyMemberHistory) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Value == nil {
+		return "", false
+	}
+	return *r.Id.Value, true
+}
+func (r FamilyMemberHistory) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1734,6 +1769,456 @@ func (r FamilyMemberHistory) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r FamilyMemberHistoryCondition) MarshalJSON() ([]byte, error) {
+	var b bytes.Buffer
+	err := r.marshalJSON(&b)
+	if err != nil {
+		return nil, err
+	}
+	return b.Bytes(), nil
+}
+func (r FamilyMemberHistoryCondition) marshalJSON(w io.Writer) error {
+	var err error
+	_, err = w.Write([]byte("{"))
+	if err != nil {
+		return err
+	}
+	setComma := false
+	if r.Id != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"id\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.Id)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.Extension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"extension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Extension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if len(r.ModifierExtension) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"modifierExtension\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.ModifierExtension {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	if setComma {
+		_, err = w.Write([]byte(","))
+		if err != nil {
+			return err
+		}
+	}
+	setComma = true
+	_, err = w.Write([]byte("\"code\":"))
+	if err != nil {
+		return err
+	}
+	err = r.Code.marshalJSON(w)
+	if err != nil {
+		return err
+	}
+	if r.Outcome != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"outcome\":"))
+		if err != nil {
+			return err
+		}
+		err = r.Outcome.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	if r.ContributedToDeath != nil && r.ContributedToDeath.Value != nil {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"contributedToDeath\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(r.ContributedToDeath)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+	if r.ContributedToDeath != nil && (r.ContributedToDeath.Id != nil || r.ContributedToDeath.Extension != nil) {
+		p := primitiveElement{Id: r.ContributedToDeath.Id, Extension: r.ContributedToDeath.Extension}
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"_contributedToDeath\":"))
+		if err != nil {
+			return err
+		}
+		err = p.marshalJSON(w)
+		if err != nil {
+			return err
+		}
+	}
+	switch v := r.Onset.(type) {
+	case Age:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Age:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetAge\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case Range:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Range:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetRange\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case Period:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case *Period:
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"onsetPeriod\":"))
+		if err != nil {
+			return err
+		}
+		var b bytes.Buffer
+		enc := json.NewEncoder(&b)
+		enc.SetEscapeHTML(false)
+		err := enc.Encode(v)
+		if err != nil {
+			return err
+		}
+		_, err = w.Write(b.Bytes())
+		if err != nil {
+			return err
+		}
+	case String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"onsetString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_onsetString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	case *String:
+		if v.Value != nil {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"onsetString\":"))
+			if err != nil {
+				return err
+			}
+			var b bytes.Buffer
+			enc := json.NewEncoder(&b)
+			enc.SetEscapeHTML(false)
+			err := enc.Encode(v)
+			if err != nil {
+				return err
+			}
+			_, err = w.Write(b.Bytes())
+			if err != nil {
+				return err
+			}
+		}
+		if v.Id != nil || v.Extension != nil {
+			p := primitiveElement{Id: v.Id, Extension: v.Extension}
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			_, err = w.Write([]byte("\"_onsetString\":"))
+			if err != nil {
+				return err
+			}
+			err = p.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	if len(r.Note) > 0 {
+		if setComma {
+			_, err = w.Write([]byte(","))
+			if err != nil {
+				return err
+			}
+		}
+		setComma = true
+		_, err = w.Write([]byte("\"note\":"))
+		if err != nil {
+			return err
+		}
+		_, err = w.Write([]byte("["))
+		if err != nil {
+			return err
+		}
+		setComma = false
+		for _, e := range r.Note {
+			if setComma {
+				_, err = w.Write([]byte(","))
+				if err != nil {
+					return err
+				}
+			}
+			setComma = true
+			err = e.marshalJSON(w)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = w.Write([]byte("]"))
+		if err != nil {
+			return err
+		}
+	}
+	_, err = w.Write([]byte("}"))
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r *FamilyMemberHistory) UnmarshalJSON(b []byte) error {
 	d := json.NewDecoder(bytes.NewReader(b))
 	return r.unmarshalJSON(d)
@@ -2480,6 +2965,202 @@ func (r *FamilyMemberHistory) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r *FamilyMemberHistoryCondition) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in FamilyMemberHistoryCondition element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in FamilyMemberHistoryCondition element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
+			}
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = v
+		case "outcome":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Outcome = &v
+		case "contributedToDeath":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ContributedToDeath == nil {
+				r.ContributedToDeath = &Boolean{}
+			}
+			r.ContributedToDeath.Value = v.Value
+		case "_contributedToDeath":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ContributedToDeath == nil {
+				r.ContributedToDeath = &Boolean{}
+			}
+			r.ContributedToDeath.Id = v.Id
+			r.ContributedToDeath.Extension = v.Extension
+		case "onsetAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Onset = v
+		case "onsetRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Onset = v
+		case "onsetPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Onset = v
+		case "onsetString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Onset != nil {
+				r.Onset = String{
+					Extension: r.Onset.(String).Extension,
+					Id:        r.Onset.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Onset = v
+			}
+		case "_onsetString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Onset != nil {
+				r.Onset = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Onset.(String).Value,
+				}
+			} else {
+				r.Onset = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "note":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
+			}
+			for d.More() {
+				var v Annotation
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Note = append(r.Note, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in FamilyMemberHistoryCondition", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in FamilyMemberHistoryCondition element", t)
+	}
+	return nil
+}
 func (r FamilyMemberHistory) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "FamilyMemberHistory"
 	err := e.EncodeToken(start)
@@ -2640,6 +3321,69 @@ func (r FamilyMemberHistory) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		return err
 	}
 	err = e.EncodeElement(r.Condition, xml.StartElement{Name: xml.Name{Local: "condition"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (r FamilyMemberHistoryCondition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Outcome, xml.StartElement{Name: xml.Name{Local: "outcome"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ContributedToDeath, xml.StartElement{Name: xml.Name{Local: "contributedToDeath"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Onset.(type) {
+	case Age, *Age:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetAge"}})
+		if err != nil {
+			return err
+		}
+	case Range, *Range:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetRange"}})
+		if err != nil {
+			return err
+		}
+	case Period, *Period:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetPeriod"}})
+		if err != nil {
+			return err
+		}
+	case String, *String:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetString"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
 	if err != nil {
 		return err
 	}
@@ -2949,752 +3693,6 @@ func (r *FamilyMemberHistory) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 		}
 	}
 }
-func (r FamilyMemberHistory) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition.
-type FamilyMemberHistoryCondition struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less specific string like 'cancer' depending on how much is known about the condition and the capabilities of the creating system.
-	Code CodeableConcept
-	// Indicates what happened following the condition.  If the condition resulted in death, deceased date is captured on the relation.
-	Outcome *CodeableConcept
-	// This condition contributed to the cause of death of the related person. If contributedToDeath is not populated, then it is unknown.
-	ContributedToDeath *Boolean
-	// Either the age of onset, range of approximate age or descriptive string can be recorded.  For conditions with multiple occurrences, this describes the first known occurrence.
-	Onset isFamilyMemberHistoryConditionOnset
-	// An area where general notes can be placed about this specific condition.
-	Note []Annotation
-}
-type isFamilyMemberHistoryConditionOnset interface {
-	isFamilyMemberHistoryConditionOnset()
-}
-
-func (r Age) isFamilyMemberHistoryConditionOnset()    {}
-func (r Range) isFamilyMemberHistoryConditionOnset()  {}
-func (r Period) isFamilyMemberHistoryConditionOnset() {}
-func (r String) isFamilyMemberHistoryConditionOnset() {}
-func (r FamilyMemberHistoryCondition) MarshalJSON() ([]byte, error) {
-	var b bytes.Buffer
-	err := r.marshalJSON(&b)
-	if err != nil {
-		return nil, err
-	}
-	return b.Bytes(), nil
-}
-func (r FamilyMemberHistoryCondition) marshalJSON(w io.Writer) error {
-	var err error
-	_, err = w.Write([]byte("{"))
-	if err != nil {
-		return err
-	}
-	setComma := false
-	if r.Id != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"id\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.Extension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"extension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Extension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if len(r.ModifierExtension) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"modifierExtension\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.ModifierExtension {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	if setComma {
-		_, err = w.Write([]byte(","))
-		if err != nil {
-			return err
-		}
-	}
-	setComma = true
-	_, err = w.Write([]byte("\"code\":"))
-	if err != nil {
-		return err
-	}
-	err = r.Code.marshalJSON(w)
-	if err != nil {
-		return err
-	}
-	if r.Outcome != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"outcome\":"))
-		if err != nil {
-			return err
-		}
-		err = r.Outcome.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	if r.ContributedToDeath != nil && r.ContributedToDeath.Value != nil {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"contributedToDeath\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(r.ContributedToDeath)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	}
-	if r.ContributedToDeath != nil && (r.ContributedToDeath.Id != nil || r.ContributedToDeath.Extension != nil) {
-		p := primitiveElement{Id: r.ContributedToDeath.Id, Extension: r.ContributedToDeath.Extension}
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"_contributedToDeath\":"))
-		if err != nil {
-			return err
-		}
-		err = p.marshalJSON(w)
-		if err != nil {
-			return err
-		}
-	}
-	switch v := r.Onset.(type) {
-	case Age:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetAge\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case *Age:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetAge\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case Range:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetRange\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case *Range:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetRange\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case Period:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetPeriod\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case *Period:
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"onsetPeriod\":"))
-		if err != nil {
-			return err
-		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
-		enc.SetEscapeHTML(false)
-		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
-		if err != nil {
-			return err
-		}
-	case String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"onsetString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_onsetString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	case *String:
-		if v.Value != nil {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"onsetString\":"))
-			if err != nil {
-				return err
-			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
-			enc.SetEscapeHTML(false)
-			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
-			if err != nil {
-				return err
-			}
-		}
-		if v.Id != nil || v.Extension != nil {
-			p := primitiveElement{Id: v.Id, Extension: v.Extension}
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			_, err = w.Write([]byte("\"_onsetString\":"))
-			if err != nil {
-				return err
-			}
-			err = p.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-	}
-	if len(r.Note) > 0 {
-		if setComma {
-			_, err = w.Write([]byte(","))
-			if err != nil {
-				return err
-			}
-		}
-		setComma = true
-		_, err = w.Write([]byte("\"note\":"))
-		if err != nil {
-			return err
-		}
-		_, err = w.Write([]byte("["))
-		if err != nil {
-			return err
-		}
-		setComma = false
-		for _, e := range r.Note {
-			if setComma {
-				_, err = w.Write([]byte(","))
-				if err != nil {
-					return err
-				}
-			}
-			setComma = true
-			err = e.marshalJSON(w)
-			if err != nil {
-				return err
-			}
-		}
-		_, err = w.Write([]byte("]"))
-		if err != nil {
-			return err
-		}
-	}
-	_, err = w.Write([]byte("}"))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *FamilyMemberHistoryCondition) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in FamilyMemberHistoryCondition element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in FamilyMemberHistoryCondition element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
-			}
-		case "code":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Code = v
-		case "outcome":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Outcome = &v
-		case "contributedToDeath":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ContributedToDeath == nil {
-				r.ContributedToDeath = &Boolean{}
-			}
-			r.ContributedToDeath.Value = v.Value
-		case "_contributedToDeath":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ContributedToDeath == nil {
-				r.ContributedToDeath = &Boolean{}
-			}
-			r.ContributedToDeath.Id = v.Id
-			r.ContributedToDeath.Extension = v.Extension
-		case "onsetAge":
-			var v Age
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Onset = v
-		case "onsetRange":
-			var v Range
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Onset = v
-		case "onsetPeriod":
-			var v Period
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Onset = v
-		case "onsetString":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Onset != nil {
-				r.Onset = String{
-					Extension: r.Onset.(String).Extension,
-					Id:        r.Onset.(String).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.Onset = v
-			}
-		case "_onsetString":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Onset != nil {
-				r.Onset = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.Onset.(String).Value,
-				}
-			} else {
-				r.Onset = String{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "note":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in FamilyMemberHistoryCondition element", t)
-			}
-			for d.More() {
-				var v Annotation
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Note = append(r.Note, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in FamilyMemberHistoryCondition element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in FamilyMemberHistoryCondition", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in FamilyMemberHistoryCondition element", t)
-	}
-	return nil
-}
-func (r FamilyMemberHistoryCondition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Code, xml.StartElement{Name: xml.Name{Local: "code"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Outcome, xml.StartElement{Name: xml.Name{Local: "outcome"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ContributedToDeath, xml.StartElement{Name: xml.Name{Local: "contributedToDeath"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.Onset.(type) {
-	case Age, *Age:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetAge"}})
-		if err != nil {
-			return err
-		}
-	case Range, *Range:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetRange"}})
-		if err != nil {
-			return err
-		}
-	case Period, *Period:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetPeriod"}})
-		if err != nil {
-			return err
-		}
-	case String, *String:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "onsetString"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeElement(r.Note, xml.StartElement{Name: xml.Name{Local: "note"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
 func (r *FamilyMemberHistoryCondition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
 		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
@@ -3807,11 +3805,4 @@ func (r *FamilyMemberHistoryCondition) UnmarshalXML(d *xml.Decoder, start xml.St
 			return nil
 		}
 	}
-}
-func (r FamilyMemberHistoryCondition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

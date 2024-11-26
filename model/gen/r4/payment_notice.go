@@ -67,6 +67,13 @@ func (r PaymentNotice) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
+func (r PaymentNotice) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r PaymentNotice) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1228,11 +1235,4 @@ func (r *PaymentNotice) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 			return nil
 		}
 	}
-}
-func (r PaymentNotice) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

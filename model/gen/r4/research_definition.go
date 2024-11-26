@@ -98,7 +98,12 @@ type ResearchDefinition struct {
 	// A reference to a ResearchElementDefinition resomece that defines the outcome for the research.
 	Outcome *Reference
 }
+type isResearchDefinitionSubject interface {
+	isResearchDefinitionSubject()
+}
 
+func (r CodeableConcept) isResearchDefinitionSubject() {}
+func (r Reference) isResearchDefinitionSubject()       {}
 func (r ResearchDefinition) ResourceType() string {
 	return "ResearchDefinition"
 }
@@ -111,13 +116,13 @@ func (r ResearchDefinition) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isResearchDefinitionSubject interface {
-	isResearchDefinitionSubject()
+func (r ResearchDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r CodeableConcept) isResearchDefinitionSubject() {}
-func (r Reference) isResearchDefinitionSubject()       {}
 func (r ResearchDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -3215,11 +3220,4 @@ func (r *ResearchDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 			return nil
 		}
 	}
-}
-func (r ResearchDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

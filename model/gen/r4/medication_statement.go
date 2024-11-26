@@ -66,20 +66,6 @@ type MedicationStatement struct {
 	// Indicates how the medication is/was or should be taken by the patient.
 	Dosage []Dosage
 }
-
-func (r MedicationStatement) ResourceType() string {
-	return "MedicationStatement"
-}
-func (r MedicationStatement) ResourceId() (string, bool) {
-	if r.Id == nil {
-		return "", false
-	}
-	if r.Id.Value == nil {
-		return "", false
-	}
-	return *r.Id.Value, true
-}
-
 type isMedicationStatementMedication interface {
 	isMedicationStatementMedication()
 }
@@ -93,6 +79,25 @@ type isMedicationStatementEffective interface {
 
 func (r DateTime) isMedicationStatementEffective() {}
 func (r Period) isMedicationStatementEffective()   {}
+func (r MedicationStatement) ResourceType() string {
+	return "MedicationStatement"
+}
+func (r MedicationStatement) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Value == nil {
+		return "", false
+	}
+	return *r.Id.Value, true
+}
+func (r MedicationStatement) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1948,11 +1953,4 @@ func (r *MedicationStatement) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 			return nil
 		}
 	}
-}
-func (r MedicationStatement) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

@@ -56,7 +56,13 @@ type DeviceUseStatement struct {
 	// Details about the device statement that were not represented at all or sufficiently in one of the attributes provided in a class. These may include for example a comment, an instruction, or a note associated with the statement.
 	Note []Annotation
 }
+type isDeviceUseStatementTiming interface {
+	isDeviceUseStatementTiming()
+}
 
+func (r Timing) isDeviceUseStatementTiming()   {}
+func (r Period) isDeviceUseStatementTiming()   {}
+func (r DateTime) isDeviceUseStatementTiming() {}
 func (r DeviceUseStatement) ResourceType() string {
 	return "DeviceUseStatement"
 }
@@ -69,14 +75,13 @@ func (r DeviceUseStatement) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isDeviceUseStatementTiming interface {
-	isDeviceUseStatementTiming()
+func (r DeviceUseStatement) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r Timing) isDeviceUseStatementTiming()   {}
-func (r Period) isDeviceUseStatementTiming()   {}
-func (r DateTime) isDeviceUseStatementTiming() {}
 func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1651,11 +1656,4 @@ func (r *DeviceUseStatement) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 			return nil
 		}
 	}
-}
-func (r DeviceUseStatement) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

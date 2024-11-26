@@ -53,6 +53,13 @@ func (r MedicinalProductUndesirableEffect) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
+func (r MedicinalProductUndesirableEffect) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -904,11 +911,4 @@ func (r *MedicinalProductUndesirableEffect) UnmarshalXML(d *xml.Decoder, start x
 			return nil
 		}
 	}
-}
-func (r MedicinalProductUndesirableEffect) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

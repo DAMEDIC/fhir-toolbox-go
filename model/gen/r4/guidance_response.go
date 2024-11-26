@@ -62,7 +62,13 @@ type GuidanceResponse struct {
 	// If the evaluation could not be completed due to lack of information, or additional information would potentially result in a more accurate response, this element will a description of the data required in order to proceed with the evaluation. A subsequent request to the service should include this data.
 	DataRequirement []DataRequirement
 }
+type isGuidanceResponseModule interface {
+	isGuidanceResponseModule()
+}
 
+func (r Uri) isGuidanceResponseModule()             {}
+func (r Canonical) isGuidanceResponseModule()       {}
+func (r CodeableConcept) isGuidanceResponseModule() {}
 func (r GuidanceResponse) ResourceType() string {
 	return "GuidanceResponse"
 }
@@ -75,14 +81,13 @@ func (r GuidanceResponse) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isGuidanceResponseModule interface {
-	isGuidanceResponseModule()
+func (r GuidanceResponse) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r Uri) isGuidanceResponseModule()             {}
-func (r Canonical) isGuidanceResponseModule()       {}
-func (r CodeableConcept) isGuidanceResponseModule() {}
 func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1797,11 +1802,4 @@ func (r *GuidanceResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 			return nil
 		}
 	}
-}
-func (r GuidanceResponse) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

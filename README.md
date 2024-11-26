@@ -99,7 +99,6 @@ concreteAPI := wrap.Concrete[model.R4](genericAPI)
 | `capabilities`     | Interfaces modeling capabilities a server can provide or a client can consume |
 | `capabilites/wrap` | Conversion between the concrete and generic capabilities API                  |
 | `rest`             | FHIR REST server implementation                                               |
-| `generate`         | internal code generation scripts                                              |
 
 ### Scope
 

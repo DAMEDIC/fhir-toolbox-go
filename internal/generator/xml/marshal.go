@@ -1,9 +1,11 @@
+// Package json generated code for (un)marshalling FHIR reosurces to and from XML.
 package xml
 
 import (
-	"fhir-toolbox/generate/ir"
-
+	"fhir-toolbox/internal/generator"
+	"fhir-toolbox/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
+	"strings"
 )
 
 var (
@@ -11,7 +13,23 @@ var (
 	NamespaceXHTML = "http://www.w3.org/1999/xhtml"
 )
 
-func ImplementMarshal(f *File, s ir.Struct) {
+type MarshalGenerator struct {
+	generator.NoOpGenerator
+}
+
+func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
+	for _, t := range rt.Structs {
+		implementMarshal(f, t)
+	}
+
+	return true
+}
+
+func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	implementMarshalContained(f("contained", strings.ToLower(release)))
+}
+
+func implementMarshal(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("MarshalXML").Params(
 		Id("e").Op("*").Qual("encoding/xml", "Encoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
@@ -207,4 +225,33 @@ func writeXHTMLElement(g *Group) {
 		Return(Id("err")),
 	)
 	g.Return(Nil())
+}
+
+func implementMarshalContained(f *File) {
+	f.Func().Params(Id("r").Id("ContainedResource")).Id("MarshalXML").Params(
+		Id("e").Op("*").Qual("encoding/xml", "Encoder"),
+		Id("start").Qual("encoding/xml", "StartElement"),
+	).Error().Block(
+		If(Id("start.Name.Local").Op("==").Lit("ContainedResource")).Block(
+			Id("start.Name.Space").Op("=").Lit(NamespaceFHIR),
+			Return(Id("e").Op(".").Id("EncodeElement").Params(Id("r.Resource"), Id("start"))),
+		).Else().Block(
+			Err().Op(":=").Id("e.EncodeToken").Params(Id("start")),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Err().Op("=").Id("e.Encode").Params(Id("r.Resource")),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Err().Op("=").Id("e.EncodeToken").Params(Id("start.End()")),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Return(Nil()),
+		),
+	)
 }

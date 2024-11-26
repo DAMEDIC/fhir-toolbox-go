@@ -30,6 +30,13 @@ type Identifier struct {
 	Assigner *Reference
 }
 
+func (r Identifier) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Identifier) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -556,11 +563,4 @@ func (r *Identifier) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 			return nil
 		}
 	}
-}
-func (r Identifier) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

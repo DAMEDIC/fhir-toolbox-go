@@ -26,6 +26,13 @@ type MoneyQuantity struct {
 	Code *Code
 }
 
+func (r MoneyQuantity) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MoneyQuantity) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -595,11 +602,4 @@ func (r *MoneyQuantity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 			return nil
 		}
 	}
-}
-func (r MoneyQuantity) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

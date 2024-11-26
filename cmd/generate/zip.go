@@ -4,7 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/json"
-	"fhir-toolbox/generate/model"
+	"fhir-toolbox/internal/generator/model"
 	"io"
 	"log"
 )

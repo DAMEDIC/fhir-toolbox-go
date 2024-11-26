@@ -57,6 +57,13 @@ func (r MedicinalProductManufactured) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
+func (r MedicinalProductManufactured) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductManufactured) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1008,11 +1015,4 @@ func (r *MedicinalProductManufactured) UnmarshalXML(d *xml.Decoder, start xml.St
 			return nil
 		}
 	}
-}
-func (r MedicinalProductManufactured) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

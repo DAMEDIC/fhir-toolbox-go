@@ -27,6 +27,13 @@ type isAnnotationAuthor interface {
 
 func (r Reference) isAnnotationAuthor() {}
 func (r String) isAnnotationAuthor()    {}
+func (r Annotation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Annotation) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -574,11 +581,4 @@ func (r *Annotation) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 			return nil
 		}
 	}
-}
-func (r Annotation) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

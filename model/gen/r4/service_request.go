@@ -96,20 +96,6 @@ type ServiceRequest struct {
 	// Key events in the history of the request.
 	RelevantHistory []Reference
 }
-
-func (r ServiceRequest) ResourceType() string {
-	return "ServiceRequest"
-}
-func (r ServiceRequest) ResourceId() (string, bool) {
-	if r.Id == nil {
-		return "", false
-	}
-	if r.Id.Value == nil {
-		return "", false
-	}
-	return *r.Id.Value, true
-}
-
 type isServiceRequestQuantity interface {
 	isServiceRequestQuantity()
 }
@@ -132,6 +118,25 @@ type isServiceRequestAsNeeded interface {
 
 func (r Boolean) isServiceRequestAsNeeded()         {}
 func (r CodeableConcept) isServiceRequestAsNeeded() {}
+func (r ServiceRequest) ResourceType() string {
+	return "ServiceRequest"
+}
+func (r ServiceRequest) ResourceId() (string, bool) {
+	if r.Id == nil {
+		return "", false
+	}
+	if r.Id.Value == nil {
+		return "", false
+	}
+	return *r.Id.Value, true
+}
+func (r ServiceRequest) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -3480,11 +3485,4 @@ func (r *ServiceRequest) UnmarshalXML(d *xml.Decoder, start xml.StartElement) er
 			return nil
 		}
 	}
-}
-func (r ServiceRequest) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

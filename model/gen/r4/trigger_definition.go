@@ -33,6 +33,13 @@ func (r Timing) isTriggerDefinitionTiming()    {}
 func (r Reference) isTriggerDefinitionTiming() {}
 func (r Date) isTriggerDefinitionTiming()      {}
 func (r DateTime) isTriggerDefinitionTiming()  {}
+func (r TriggerDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r TriggerDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -886,11 +893,4 @@ func (r *TriggerDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 			return nil
 		}
 	}
-}
-func (r TriggerDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

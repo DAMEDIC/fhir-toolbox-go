@@ -30,6 +30,13 @@ type ParameterDefinition struct {
 	Profile *Canonical
 }
 
+func (r ParameterDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ParameterDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -735,11 +742,4 @@ func (r *ParameterDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 			return nil
 		}
 	}
-}
-func (r ParameterDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

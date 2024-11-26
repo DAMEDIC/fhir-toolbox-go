@@ -7,4 +7,4 @@ clean:
 	rm -rf ./${BUILD_DIR}
 
 generate:
-	go run ./generate
+	go run ./cmd/generate

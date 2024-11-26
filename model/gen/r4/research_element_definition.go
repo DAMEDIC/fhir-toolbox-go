@@ -98,7 +98,74 @@ type ResearchElementDefinition struct {
 	// A characteristic that defines the members of the research element. Multiple characteristics are applied with "and" semantics.
 	Characteristic []ResearchElementDefinitionCharacteristic
 }
+type isResearchElementDefinitionSubject interface {
+	isResearchElementDefinitionSubject()
+}
 
+func (r CodeableConcept) isResearchElementDefinitionSubject() {}
+func (r Reference) isResearchElementDefinitionSubject()       {}
+
+// A characteristic that defines the members of the research element. Multiple characteristics are applied with "and" semantics.
+type ResearchElementDefinitionCharacteristic struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
+	//
+	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
+	ModifierExtension []Extension
+	// Define members of the research element using Codes (such as condition, medication, or observation), Expressions ( using an expression language such as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in the last year).
+	Definition isResearchElementDefinitionCharacteristicDefinition
+	// Use UsageContext to define the members of the population, such as Age Ranges, Genders, Settings.
+	UsageContext []UsageContext
+	// When true, members with this characteristic are excluded from the element.
+	Exclude *Boolean
+	// Specifies the UCUM unit for the outcome.
+	UnitOfMeasure *CodeableConcept
+	// A narrative description of the time period the study covers.
+	StudyEffectiveDescription *String
+	// Indicates what effective period the study covers.
+	StudyEffective isResearchElementDefinitionCharacteristicStudyEffective
+	// Indicates duration from the study initiation.
+	StudyEffectiveTimeFromStart *Duration
+	// Indicates how elements are aggregated within the study effective period.
+	StudyEffectiveGroupMeasure *Code
+	// A narrative description of the time period the study covers.
+	ParticipantEffectiveDescription *String
+	// Indicates what effective period the study covers.
+	ParticipantEffective isResearchElementDefinitionCharacteristicParticipantEffective
+	// Indicates duration from the participant's study entry.
+	ParticipantEffectiveTimeFromStart *Duration
+	// Indicates how elements are aggregated within the study effective period.
+	ParticipantEffectiveGroupMeasure *Code
+}
+type isResearchElementDefinitionCharacteristicDefinition interface {
+	isResearchElementDefinitionCharacteristicDefinition()
+}
+
+func (r CodeableConcept) isResearchElementDefinitionCharacteristicDefinition() {}
+func (r Canonical) isResearchElementDefinitionCharacteristicDefinition()       {}
+func (r Expression) isResearchElementDefinitionCharacteristicDefinition()      {}
+func (r DataRequirement) isResearchElementDefinitionCharacteristicDefinition() {}
+
+type isResearchElementDefinitionCharacteristicStudyEffective interface {
+	isResearchElementDefinitionCharacteristicStudyEffective()
+}
+
+func (r DateTime) isResearchElementDefinitionCharacteristicStudyEffective() {}
+func (r Period) isResearchElementDefinitionCharacteristicStudyEffective()   {}
+func (r Duration) isResearchElementDefinitionCharacteristicStudyEffective() {}
+func (r Timing) isResearchElementDefinitionCharacteristicStudyEffective()   {}
+
+type isResearchElementDefinitionCharacteristicParticipantEffective interface {
+	isResearchElementDefinitionCharacteristicParticipantEffective()
+}
+
+func (r DateTime) isResearchElementDefinitionCharacteristicParticipantEffective() {}
+func (r Period) isResearchElementDefinitionCharacteristicParticipantEffective()   {}
+func (r Duration) isResearchElementDefinitionCharacteristicParticipantEffective() {}
+func (r Timing) isResearchElementDefinitionCharacteristicParticipantEffective()   {}
 func (r ResearchElementDefinition) ResourceType() string {
 	return "ResearchElementDefinition"
 }
@@ -111,13 +178,13 @@ func (r ResearchElementDefinition) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
-
-type isResearchElementDefinitionSubject interface {
-	isResearchElementDefinitionSubject()
+func (r ResearchElementDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
-
-func (r CodeableConcept) isResearchElementDefinitionSubject() {}
-func (r Reference) isResearchElementDefinitionSubject()       {}
 func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1840,1524 +1907,6 @@ func (r ResearchElementDefinition) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *ResearchElementDefinition) UnmarshalJSON(b []byte) error {
-	d := json.NewDecoder(bytes.NewReader(b))
-	return r.unmarshalJSON(d)
-}
-func (r *ResearchElementDefinition) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchElementDefinition element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in ResearchElementDefinition element", t)
-		}
-		switch f {
-		case "resourceType":
-			_, err := d.Token()
-			if err != nil {
-				return err
-			}
-		case "id":
-			var v Id
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Value = v.Value
-		case "_id":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Id == nil {
-				r.Id = &Id{}
-			}
-			r.Id.Id = v.Id
-			r.Id.Extension = v.Extension
-		case "meta":
-			var v Meta
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Meta = &v
-		case "implicitRules":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Value = v.Value
-		case "_implicitRules":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ImplicitRules == nil {
-				r.ImplicitRules = &Uri{}
-			}
-			r.ImplicitRules.Id = v.Id
-			r.ImplicitRules.Extension = v.Extension
-		case "language":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Value = v.Value
-		case "_language":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Language == nil {
-				r.Language = &Code{}
-			}
-			r.Language.Id = v.Id
-			r.Language.Extension = v.Extension
-		case "text":
-			var v Narrative
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Text = &v
-		case "contained":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContainedResource
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, v.Resource)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "url":
-			var v Uri
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Url == nil {
-				r.Url = &Uri{}
-			}
-			r.Url.Value = v.Value
-		case "_url":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Url == nil {
-				r.Url = &Uri{}
-			}
-			r.Url.Id = v.Id
-			r.Url.Extension = v.Extension
-		case "identifier":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v Identifier
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Identifier = append(r.Identifier, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "version":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Version == nil {
-				r.Version = &String{}
-			}
-			r.Version.Value = v.Value
-		case "_version":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Version == nil {
-				r.Version = &String{}
-			}
-			r.Version.Id = v.Id
-			r.Version.Extension = v.Extension
-		case "name":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Value = v.Value
-		case "_name":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Name == nil {
-				r.Name = &String{}
-			}
-			r.Name.Id = v.Id
-			r.Name.Extension = v.Extension
-		case "title":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Title == nil {
-				r.Title = &String{}
-			}
-			r.Title.Value = v.Value
-		case "_title":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Title == nil {
-				r.Title = &String{}
-			}
-			r.Title.Id = v.Id
-			r.Title.Extension = v.Extension
-		case "shortTitle":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ShortTitle == nil {
-				r.ShortTitle = &String{}
-			}
-			r.ShortTitle.Value = v.Value
-		case "_shortTitle":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ShortTitle == nil {
-				r.ShortTitle = &String{}
-			}
-			r.ShortTitle.Id = v.Id
-			r.ShortTitle.Extension = v.Extension
-		case "subtitle":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Subtitle == nil {
-				r.Subtitle = &String{}
-			}
-			r.Subtitle.Value = v.Value
-		case "_subtitle":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Subtitle == nil {
-				r.Subtitle = &String{}
-			}
-			r.Subtitle.Id = v.Id
-			r.Subtitle.Extension = v.Extension
-		case "status":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Status.Value = v.Value
-		case "_status":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Status.Id = v.Id
-			r.Status.Extension = v.Extension
-		case "experimental":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Experimental == nil {
-				r.Experimental = &Boolean{}
-			}
-			r.Experimental.Value = v.Value
-		case "_experimental":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Experimental == nil {
-				r.Experimental = &Boolean{}
-			}
-			r.Experimental.Id = v.Id
-			r.Experimental.Extension = v.Extension
-		case "subjectCodeableConcept":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Subject = v
-		case "subjectReference":
-			var v Reference
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Subject = v
-		case "date":
-			var v DateTime
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Date == nil {
-				r.Date = &DateTime{}
-			}
-			r.Date.Value = v.Value
-		case "_date":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Date == nil {
-				r.Date = &DateTime{}
-			}
-			r.Date.Id = v.Id
-			r.Date.Extension = v.Extension
-		case "publisher":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Publisher == nil {
-				r.Publisher = &String{}
-			}
-			r.Publisher.Value = v.Value
-		case "_publisher":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Publisher == nil {
-				r.Publisher = &String{}
-			}
-			r.Publisher.Id = v.Id
-			r.Publisher.Extension = v.Extension
-		case "contact":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContactDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Contact = append(r.Contact, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "description":
-			var v Markdown
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &Markdown{}
-			}
-			r.Description.Value = v.Value
-		case "_description":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Description == nil {
-				r.Description = &Markdown{}
-			}
-			r.Description.Id = v.Id
-			r.Description.Extension = v.Extension
-		case "comment":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v String
-				err := d.Decode(&v)
-				if err != nil {
-					return err
-				}
-				for len(r.Comment) <= i {
-					r.Comment = append(r.Comment, String{})
-				}
-				r.Comment[i].Value = v.Value
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "_comment":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v primitiveElement
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				for len(r.Comment) <= i {
-					r.Comment = append(r.Comment, String{})
-				}
-				r.Comment[i].Id = v.Id
-				r.Comment[i].Extension = v.Extension
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "useContext":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v UsageContext
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.UseContext = append(r.UseContext, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "jurisdiction":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Jurisdiction = append(r.Jurisdiction, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "purpose":
-			var v Markdown
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Purpose == nil {
-				r.Purpose = &Markdown{}
-			}
-			r.Purpose.Value = v.Value
-		case "_purpose":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Purpose == nil {
-				r.Purpose = &Markdown{}
-			}
-			r.Purpose.Id = v.Id
-			r.Purpose.Extension = v.Extension
-		case "usage":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Usage == nil {
-				r.Usage = &String{}
-			}
-			r.Usage.Value = v.Value
-		case "_usage":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Usage == nil {
-				r.Usage = &String{}
-			}
-			r.Usage.Id = v.Id
-			r.Usage.Extension = v.Extension
-		case "copyright":
-			var v Markdown
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Copyright == nil {
-				r.Copyright = &Markdown{}
-			}
-			r.Copyright.Value = v.Value
-		case "_copyright":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Copyright == nil {
-				r.Copyright = &Markdown{}
-			}
-			r.Copyright.Id = v.Id
-			r.Copyright.Extension = v.Extension
-		case "approvalDate":
-			var v Date
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.ApprovalDate == nil {
-				r.ApprovalDate = &Date{}
-			}
-			r.ApprovalDate.Value = v.Value
-		case "_approvalDate":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.ApprovalDate == nil {
-				r.ApprovalDate = &Date{}
-			}
-			r.ApprovalDate.Id = v.Id
-			r.ApprovalDate.Extension = v.Extension
-		case "lastReviewDate":
-			var v Date
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.LastReviewDate == nil {
-				r.LastReviewDate = &Date{}
-			}
-			r.LastReviewDate.Value = v.Value
-		case "_lastReviewDate":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.LastReviewDate == nil {
-				r.LastReviewDate = &Date{}
-			}
-			r.LastReviewDate.Id = v.Id
-			r.LastReviewDate.Extension = v.Extension
-		case "effectivePeriod":
-			var v Period
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.EffectivePeriod = &v
-		case "topic":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Topic = append(r.Topic, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "author":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContactDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Author = append(r.Author, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "editor":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContactDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Editor = append(r.Editor, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "reviewer":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContactDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Reviewer = append(r.Reviewer, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "endorser":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ContactDetail
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Endorser = append(r.Endorser, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "relatedArtifact":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v RelatedArtifact
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.RelatedArtifact = append(r.RelatedArtifact, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "library":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v Canonical
-				err := d.Decode(&v)
-				if err != nil {
-					return err
-				}
-				for len(r.Library) <= i {
-					r.Library = append(r.Library, Canonical{})
-				}
-				r.Library[i].Value = v.Value
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "_library":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for i := 0; d.More(); i++ {
-				var v primitiveElement
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				for len(r.Library) <= i {
-					r.Library = append(r.Library, Canonical{})
-				}
-				r.Library[i].Id = v.Id
-				r.Library[i].Extension = v.Extension
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		case "type":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Type.Value = v.Value
-		case "_type":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Type.Id = v.Id
-			r.Type.Extension = v.Extension
-		case "variableType":
-			var v Code
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.VariableType == nil {
-				r.VariableType = &Code{}
-			}
-			r.VariableType.Value = v.Value
-		case "_variableType":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.VariableType == nil {
-				r.VariableType = &Code{}
-			}
-			r.VariableType.Id = v.Id
-			r.VariableType.Extension = v.Extension
-		case "characteristic":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
-			}
-			for d.More() {
-				var v ResearchElementDefinitionCharacteristic
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Characteristic = append(r.Characteristic, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
-			}
-		default:
-			return fmt.Errorf("invalid field: %s in ResearchElementDefinition", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchElementDefinition element", t)
-	}
-	return nil
-}
-func (r ResearchElementDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "ResearchElementDefinition"
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	v := make([]ContainedResource, 0, len(r.Contained))
-	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ShortTitle, xml.StartElement{Name: xml.Name{Local: "shortTitle"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Subtitle, xml.StartElement{Name: xml.Name{Local: "subtitle"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Experimental, xml.StartElement{Name: xml.Name{Local: "experimental"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.Subject.(type) {
-	case CodeableConcept, *CodeableConcept:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "subjectCodeableConcept"}})
-		if err != nil {
-			return err
-		}
-	case Reference, *Reference:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "subjectReference"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Publisher, xml.StartElement{Name: xml.Name{Local: "publisher"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Contact, xml.StartElement{Name: xml.Name{Local: "contact"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Comment, xml.StartElement{Name: xml.Name{Local: "comment"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.UseContext, xml.StartElement{Name: xml.Name{Local: "useContext"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Purpose, xml.StartElement{Name: xml.Name{Local: "purpose"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Usage, xml.StartElement{Name: xml.Name{Local: "usage"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Copyright, xml.StartElement{Name: xml.Name{Local: "copyright"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ApprovalDate, xml.StartElement{Name: xml.Name{Local: "approvalDate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.LastReviewDate, xml.StartElement{Name: xml.Name{Local: "lastReviewDate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.EffectivePeriod, xml.StartElement{Name: xml.Name{Local: "effectivePeriod"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Topic, xml.StartElement{Name: xml.Name{Local: "topic"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Author, xml.StartElement{Name: xml.Name{Local: "author"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Editor, xml.StartElement{Name: xml.Name{Local: "editor"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Reviewer, xml.StartElement{Name: xml.Name{Local: "reviewer"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Endorser, xml.StartElement{Name: xml.Name{Local: "endorser"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.RelatedArtifact, xml.StartElement{Name: xml.Name{Local: "relatedArtifact"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Library, xml.StartElement{Name: xml.Name{Local: "library"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.VariableType, xml.StartElement{Name: xml.Name{Local: "variableType"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Characteristic, xml.StartElement{Name: xml.Name{Local: "characteristic"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *ResearchElementDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "id":
-				var v Id
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Id = &v
-			case "meta":
-				var v Meta
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Meta = &v
-			case "implicitRules":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ImplicitRules = &v
-			case "language":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Language = &v
-			case "text":
-				var v Narrative
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "contained":
-				var c ContainedResource
-				err := d.DecodeElement(&c, &t)
-				if err != nil {
-					return err
-				}
-				r.Contained = append(r.Contained, c.Resource)
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "url":
-				var v Uri
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Url = &v
-			case "identifier":
-				var v Identifier
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Identifier = append(r.Identifier, v)
-			case "version":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Version = &v
-			case "name":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Name = &v
-			case "title":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Title = &v
-			case "shortTitle":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ShortTitle = &v
-			case "subtitle":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subtitle = &v
-			case "status":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Status = v
-			case "experimental":
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Experimental = &v
-			case "subjectCodeableConcept":
-				if r.Subject != nil {
-					return fmt.Errorf("multiple values for field \"Subject\"")
-				}
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subject = v
-			case "subjectReference":
-				if r.Subject != nil {
-					return fmt.Errorf("multiple values for field \"Subject\"")
-				}
-				var v Reference
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Subject = v
-			case "date":
-				var v DateTime
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Date = &v
-			case "publisher":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Publisher = &v
-			case "contact":
-				var v ContactDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Contact = append(r.Contact, v)
-			case "description":
-				var v Markdown
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Description = &v
-			case "comment":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Comment = append(r.Comment, v)
-			case "useContext":
-				var v UsageContext
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.UseContext = append(r.UseContext, v)
-			case "jurisdiction":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Jurisdiction = append(r.Jurisdiction, v)
-			case "purpose":
-				var v Markdown
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Purpose = &v
-			case "usage":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Usage = &v
-			case "copyright":
-				var v Markdown
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Copyright = &v
-			case "approvalDate":
-				var v Date
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ApprovalDate = &v
-			case "lastReviewDate":
-				var v Date
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.LastReviewDate = &v
-			case "effectivePeriod":
-				var v Period
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.EffectivePeriod = &v
-			case "topic":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Topic = append(r.Topic, v)
-			case "author":
-				var v ContactDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Author = append(r.Author, v)
-			case "editor":
-				var v ContactDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Editor = append(r.Editor, v)
-			case "reviewer":
-				var v ContactDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Reviewer = append(r.Reviewer, v)
-			case "endorser":
-				var v ContactDetail
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Endorser = append(r.Endorser, v)
-			case "relatedArtifact":
-				var v RelatedArtifact
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.RelatedArtifact = append(r.RelatedArtifact, v)
-			case "library":
-				var v Canonical
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Library = append(r.Library, v)
-			case "type":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Type = v
-			case "variableType":
-				var v Code
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.VariableType = &v
-			case "characteristic":
-				var v ResearchElementDefinitionCharacteristic
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Characteristic = append(r.Characteristic, v)
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r ResearchElementDefinition) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// A characteristic that defines the members of the research element. Multiple characteristics are applied with "and" semantics.
-type ResearchElementDefinitionCharacteristic struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing element's descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.
-	//
-	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
-	ModifierExtension []Extension
-	// Define members of the research element using Codes (such as condition, medication, or observation), Expressions ( using an expression language such as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in the last year).
-	Definition isResearchElementDefinitionCharacteristicDefinition
-	// Use UsageContext to define the members of the population, such as Age Ranges, Genders, Settings.
-	UsageContext []UsageContext
-	// When true, members with this characteristic are excluded from the element.
-	Exclude *Boolean
-	// Specifies the UCUM unit for the outcome.
-	UnitOfMeasure *CodeableConcept
-	// A narrative description of the time period the study covers.
-	StudyEffectiveDescription *String
-	// Indicates what effective period the study covers.
-	StudyEffective isResearchElementDefinitionCharacteristicStudyEffective
-	// Indicates duration from the study initiation.
-	StudyEffectiveTimeFromStart *Duration
-	// Indicates how elements are aggregated within the study effective period.
-	StudyEffectiveGroupMeasure *Code
-	// A narrative description of the time period the study covers.
-	ParticipantEffectiveDescription *String
-	// Indicates what effective period the study covers.
-	ParticipantEffective isResearchElementDefinitionCharacteristicParticipantEffective
-	// Indicates duration from the participant's study entry.
-	ParticipantEffectiveTimeFromStart *Duration
-	// Indicates how elements are aggregated within the study effective period.
-	ParticipantEffectiveGroupMeasure *Code
-}
-type isResearchElementDefinitionCharacteristicDefinition interface {
-	isResearchElementDefinitionCharacteristicDefinition()
-}
-
-func (r CodeableConcept) isResearchElementDefinitionCharacteristicDefinition() {}
-func (r Canonical) isResearchElementDefinitionCharacteristicDefinition()       {}
-func (r Expression) isResearchElementDefinitionCharacteristicDefinition()      {}
-func (r DataRequirement) isResearchElementDefinitionCharacteristicDefinition() {}
-
-type isResearchElementDefinitionCharacteristicStudyEffective interface {
-	isResearchElementDefinitionCharacteristicStudyEffective()
-}
-
-func (r DateTime) isResearchElementDefinitionCharacteristicStudyEffective() {}
-func (r Period) isResearchElementDefinitionCharacteristicStudyEffective()   {}
-func (r Duration) isResearchElementDefinitionCharacteristicStudyEffective() {}
-func (r Timing) isResearchElementDefinitionCharacteristicStudyEffective()   {}
-
-type isResearchElementDefinitionCharacteristicParticipantEffective interface {
-	isResearchElementDefinitionCharacteristicParticipantEffective()
-}
-
-func (r DateTime) isResearchElementDefinitionCharacteristicParticipantEffective() {}
-func (r Period) isResearchElementDefinitionCharacteristicParticipantEffective()   {}
-func (r Duration) isResearchElementDefinitionCharacteristicParticipantEffective() {}
-func (r Timing) isResearchElementDefinitionCharacteristicParticipantEffective()   {}
 func (r ResearchElementDefinitionCharacteristic) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -4447,6 +2996,938 @@ func (r ResearchElementDefinitionCharacteristic) marshalJSON(w io.Writer) error 
 	}
 	return nil
 }
+func (r *ResearchElementDefinition) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *ResearchElementDefinition) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ResearchElementDefinition element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ResearchElementDefinition element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "text":
+			var v Narrative
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Text = &v
+		case "contained":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContainedResource
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, v.Resource)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "url":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Url == nil {
+				r.Url = &Uri{}
+			}
+			r.Url.Value = v.Value
+		case "_url":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Url == nil {
+				r.Url = &Uri{}
+			}
+			r.Url.Id = v.Id
+			r.Url.Extension = v.Extension
+		case "identifier":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v Identifier
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "version":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Version == nil {
+				r.Version = &String{}
+			}
+			r.Version.Value = v.Value
+		case "_version":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Version == nil {
+				r.Version = &String{}
+			}
+			r.Version.Id = v.Id
+			r.Version.Extension = v.Extension
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "title":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Title == nil {
+				r.Title = &String{}
+			}
+			r.Title.Value = v.Value
+		case "_title":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Title == nil {
+				r.Title = &String{}
+			}
+			r.Title.Id = v.Id
+			r.Title.Extension = v.Extension
+		case "shortTitle":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ShortTitle == nil {
+				r.ShortTitle = &String{}
+			}
+			r.ShortTitle.Value = v.Value
+		case "_shortTitle":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ShortTitle == nil {
+				r.ShortTitle = &String{}
+			}
+			r.ShortTitle.Id = v.Id
+			r.ShortTitle.Extension = v.Extension
+		case "subtitle":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Subtitle == nil {
+				r.Subtitle = &String{}
+			}
+			r.Subtitle.Value = v.Value
+		case "_subtitle":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Subtitle == nil {
+				r.Subtitle = &String{}
+			}
+			r.Subtitle.Id = v.Id
+			r.Subtitle.Extension = v.Extension
+		case "status":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "experimental":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Experimental == nil {
+				r.Experimental = &Boolean{}
+			}
+			r.Experimental.Value = v.Value
+		case "_experimental":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Experimental == nil {
+				r.Experimental = &Boolean{}
+			}
+			r.Experimental.Id = v.Id
+			r.Experimental.Extension = v.Extension
+		case "subjectCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Subject = v
+		case "subjectReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Subject = v
+		case "date":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Value = v.Value
+		case "_date":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Date == nil {
+				r.Date = &DateTime{}
+			}
+			r.Date.Id = v.Id
+			r.Date.Extension = v.Extension
+		case "publisher":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Publisher == nil {
+				r.Publisher = &String{}
+			}
+			r.Publisher.Value = v.Value
+		case "_publisher":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Publisher == nil {
+				r.Publisher = &String{}
+			}
+			r.Publisher.Id = v.Id
+			r.Publisher.Extension = v.Extension
+		case "contact":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContactDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Contact = append(r.Contact, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "description":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &Markdown{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &Markdown{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "comment":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Comment) <= i {
+					r.Comment = append(r.Comment, String{})
+				}
+				r.Comment[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "_comment":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Comment) <= i {
+					r.Comment = append(r.Comment, String{})
+				}
+				r.Comment[i].Id = v.Id
+				r.Comment[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "useContext":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v UsageContext
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.UseContext = append(r.UseContext, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "jurisdiction":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Jurisdiction = append(r.Jurisdiction, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "purpose":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Purpose == nil {
+				r.Purpose = &Markdown{}
+			}
+			r.Purpose.Value = v.Value
+		case "_purpose":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Purpose == nil {
+				r.Purpose = &Markdown{}
+			}
+			r.Purpose.Id = v.Id
+			r.Purpose.Extension = v.Extension
+		case "usage":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Usage == nil {
+				r.Usage = &String{}
+			}
+			r.Usage.Value = v.Value
+		case "_usage":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Usage == nil {
+				r.Usage = &String{}
+			}
+			r.Usage.Id = v.Id
+			r.Usage.Extension = v.Extension
+		case "copyright":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Copyright == nil {
+				r.Copyright = &Markdown{}
+			}
+			r.Copyright.Value = v.Value
+		case "_copyright":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Copyright == nil {
+				r.Copyright = &Markdown{}
+			}
+			r.Copyright.Id = v.Id
+			r.Copyright.Extension = v.Extension
+		case "approvalDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ApprovalDate == nil {
+				r.ApprovalDate = &Date{}
+			}
+			r.ApprovalDate.Value = v.Value
+		case "_approvalDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ApprovalDate == nil {
+				r.ApprovalDate = &Date{}
+			}
+			r.ApprovalDate.Id = v.Id
+			r.ApprovalDate.Extension = v.Extension
+		case "lastReviewDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LastReviewDate == nil {
+				r.LastReviewDate = &Date{}
+			}
+			r.LastReviewDate.Value = v.Value
+		case "_lastReviewDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LastReviewDate == nil {
+				r.LastReviewDate = &Date{}
+			}
+			r.LastReviewDate.Id = v.Id
+			r.LastReviewDate.Extension = v.Extension
+		case "effectivePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.EffectivePeriod = &v
+		case "topic":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Topic = append(r.Topic, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "author":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContactDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Author = append(r.Author, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "editor":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContactDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Editor = append(r.Editor, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "reviewer":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContactDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Reviewer = append(r.Reviewer, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "endorser":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ContactDetail
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Endorser = append(r.Endorser, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "relatedArtifact":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v RelatedArtifact
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.RelatedArtifact = append(r.RelatedArtifact, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "library":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Canonical
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Library) <= i {
+					r.Library = append(r.Library, Canonical{})
+				}
+				r.Library[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "_library":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Library) <= i {
+					r.Library = append(r.Library, Canonical{})
+				}
+				r.Library[i].Id = v.Id
+				r.Library[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "variableType":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.VariableType == nil {
+				r.VariableType = &Code{}
+			}
+			r.VariableType.Value = v.Value
+		case "_variableType":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.VariableType == nil {
+				r.VariableType = &Code{}
+			}
+			r.VariableType.Id = v.Id
+			r.VariableType.Extension = v.Extension
+		case "characteristic":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ResearchElementDefinition element", t)
+			}
+			for d.More() {
+				var v ResearchElementDefinitionCharacteristic
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Characteristic = append(r.Characteristic, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ResearchElementDefinition element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ResearchElementDefinition", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ResearchElementDefinition element", t)
+	}
+	return nil
+}
 func (r *ResearchElementDefinitionCharacteristic) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -4842,6 +4323,194 @@ func (r *ResearchElementDefinitionCharacteristic) unmarshalJSON(d *json.Decoder)
 	}
 	return nil
 }
+func (r ResearchElementDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name.Local = "ResearchElementDefinition"
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Id, xml.StartElement{Name: xml.Name{Local: "id"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Meta, xml.StartElement{Name: xml.Name{Local: "meta"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ImplicitRules, xml.StartElement{Name: xml.Name{Local: "implicitRules"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Language, xml.StartElement{Name: xml.Name{Local: "language"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	v := make([]ContainedResource, 0, len(r.Contained))
+	for _, c := range r.Contained {
+		v = append(v, ContainedResource{c})
+	}
+	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Url, xml.StartElement{Name: xml.Name{Local: "url"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Identifier, xml.StartElement{Name: xml.Name{Local: "identifier"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Version, xml.StartElement{Name: xml.Name{Local: "version"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Name, xml.StartElement{Name: xml.Name{Local: "name"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Title, xml.StartElement{Name: xml.Name{Local: "title"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ShortTitle, xml.StartElement{Name: xml.Name{Local: "shortTitle"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Subtitle, xml.StartElement{Name: xml.Name{Local: "subtitle"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Status, xml.StartElement{Name: xml.Name{Local: "status"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Experimental, xml.StartElement{Name: xml.Name{Local: "experimental"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.Subject.(type) {
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "subjectCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	case Reference, *Reference:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "subjectReference"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Date, xml.StartElement{Name: xml.Name{Local: "date"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Publisher, xml.StartElement{Name: xml.Name{Local: "publisher"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Contact, xml.StartElement{Name: xml.Name{Local: "contact"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Description, xml.StartElement{Name: xml.Name{Local: "description"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Comment, xml.StartElement{Name: xml.Name{Local: "comment"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.UseContext, xml.StartElement{Name: xml.Name{Local: "useContext"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Jurisdiction, xml.StartElement{Name: xml.Name{Local: "jurisdiction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Purpose, xml.StartElement{Name: xml.Name{Local: "purpose"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Usage, xml.StartElement{Name: xml.Name{Local: "usage"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Copyright, xml.StartElement{Name: xml.Name{Local: "copyright"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ApprovalDate, xml.StartElement{Name: xml.Name{Local: "approvalDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.LastReviewDate, xml.StartElement{Name: xml.Name{Local: "lastReviewDate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.EffectivePeriod, xml.StartElement{Name: xml.Name{Local: "effectivePeriod"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Topic, xml.StartElement{Name: xml.Name{Local: "topic"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Author, xml.StartElement{Name: xml.Name{Local: "author"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Editor, xml.StartElement{Name: xml.Name{Local: "editor"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Reviewer, xml.StartElement{Name: xml.Name{Local: "reviewer"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Endorser, xml.StartElement{Name: xml.Name{Local: "endorser"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.RelatedArtifact, xml.StartElement{Name: xml.Name{Local: "relatedArtifact"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Library, xml.StartElement{Name: xml.Name{Local: "library"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Type, xml.StartElement{Name: xml.Name{Local: "type"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.VariableType, xml.StartElement{Name: xml.Name{Local: "variableType"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Characteristic, xml.StartElement{Name: xml.Name{Local: "characteristic"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r ResearchElementDefinitionCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -4968,6 +4637,335 @@ func (r ResearchElementDefinitionCharacteristic) MarshalXML(e *xml.Encoder, star
 		return err
 	}
 	return nil
+}
+func (r *ResearchElementDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "text":
+				var v Narrative
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "contained":
+				var c ContainedResource
+				err := d.DecodeElement(&c, &t)
+				if err != nil {
+					return err
+				}
+				r.Contained = append(r.Contained, c.Resource)
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = &v
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = append(r.Identifier, v)
+			case "version":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Version = &v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "title":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Title = &v
+			case "shortTitle":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ShortTitle = &v
+			case "subtitle":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subtitle = &v
+			case "status":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "experimental":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Experimental = &v
+			case "subjectCodeableConcept":
+				if r.Subject != nil {
+					return fmt.Errorf("multiple values for field \"Subject\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = v
+			case "subjectReference":
+				if r.Subject != nil {
+					return fmt.Errorf("multiple values for field \"Subject\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Subject = v
+			case "date":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Date = &v
+			case "publisher":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Publisher = &v
+			case "contact":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Contact = append(r.Contact, v)
+			case "description":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "comment":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comment = append(r.Comment, v)
+			case "useContext":
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.UseContext = append(r.UseContext, v)
+			case "jurisdiction":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Jurisdiction = append(r.Jurisdiction, v)
+			case "purpose":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Purpose = &v
+			case "usage":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Usage = &v
+			case "copyright":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Copyright = &v
+			case "approvalDate":
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ApprovalDate = &v
+			case "lastReviewDate":
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LastReviewDate = &v
+			case "effectivePeriod":
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.EffectivePeriod = &v
+			case "topic":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Topic = append(r.Topic, v)
+			case "author":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Author = append(r.Author, v)
+			case "editor":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Editor = append(r.Editor, v)
+			case "reviewer":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Reviewer = append(r.Reviewer, v)
+			case "endorser":
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Endorser = append(r.Endorser, v)
+			case "relatedArtifact":
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.RelatedArtifact = append(r.RelatedArtifact, v)
+			case "library":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Library = append(r.Library, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "variableType":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.VariableType = &v
+			case "characteristic":
+				var v ResearchElementDefinitionCharacteristic
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Characteristic = append(r.Characteristic, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *ResearchElementDefinitionCharacteristic) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -5196,11 +5194,4 @@ func (r *ResearchElementDefinitionCharacteristic) UnmarshalXML(d *xml.Decoder, s
 			return nil
 		}
 	}
-}
-func (r ResearchElementDefinitionCharacteristic) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

@@ -1,27 +1,21 @@
-package gen
+package generator
 
 import (
-	"fhir-toolbox/generate/ir"
-	"log"
-	"os"
-	"path/filepath"
+	"fhir-toolbox/internal/generator/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
 	"github.com/iancoleman/strcase"
 )
 
-func GenerateCapabilityInterfaces(resources []ir.Struct, genTarget, release string) {
-	dir := filepath.Join(genTarget, strings.ToLower(release))
+type CapabilitiesGenerator struct {
+	NoOpGenerator
+}
 
-	err := os.MkdirAll(dir, os.ModePerm)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	generateCapability(dir, release, resources, "read", readParams, readReturn)
-	generateCapability(dir, release, resources, "search", searchParams, searchReturn)
-	generateFull(dir, release, resources)
+func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read", readParams, readReturn)
+	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search", searchParams, searchReturn)
+	generateFull(f("full", "capabilities"+release), ir.FilterResources(rt))
 }
 
 var (
@@ -44,16 +38,13 @@ func searchReturn(_, _ string) *Statement {
 	return Qual("fhir-toolbox/capabilities/search", "Result")
 }
 
-func generateCapability(genDir string, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
 	interactionName := strcase.ToCamel(interaction)
-	fileName := strings.ToLower(interaction)
 
 	allParams := []Code{Id("ctx").Qual("context", "Context")}
 	for k, v := range params {
 		allParams = append(allParams, &Statement{k, v})
 	}
-
-	f := NewFilePathName(genDir, "capabilities"+strings.ToUpper(release))
 
 	for _, r := range resources {
 		f.Type().Id(r.Name + interactionName).InterfaceFunc(func(g *Group) {
@@ -64,16 +55,9 @@ func generateCapability(genDir string, release string, resources []ir.Struct, in
 			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Qual("fhir-toolbox/capabilities", "FHIRError"))
 		})
 	}
-
-	err := f.Save(filepath.Join(genDir, fileName+".go"))
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
-func generateFull(genDir string, release string, resources []ir.Struct) {
-	f := NewFilePathName(genDir, "capabilities"+strings.ToUpper(release))
-
+func generateFull(f *File, resources []ir.ResourceOrType) {
 	f.Type().Id("FullAPI").InterfaceFunc(func(g *Group) {
 		g.Qual("fhir-toolbox/capabilities", "GenericAPI")
 		for _, r := range resources {
@@ -81,9 +65,4 @@ func generateFull(genDir string, release string, resources []ir.Struct) {
 			g.Id(r.Name + "Search")
 		}
 	})
-
-	err := f.Save(filepath.Join(genDir, "full.go"))
-	if err != nil {
-		log.Panic(err)
-	}
 }

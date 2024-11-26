@@ -29,6 +29,13 @@ func (r CodeableConcept) isUsageContextValue() {}
 func (r Quantity) isUsageContextValue()        {}
 func (r Range) isUsageContextValue()           {}
 func (r Reference) isUsageContextValue()       {}
+func (r UsageContext) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r UsageContext) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -537,11 +544,4 @@ func (r *UsageContext) UnmarshalXML(d *xml.Decoder, start xml.StartElement) erro
 			return nil
 		}
 	}
-}
-func (r UsageContext) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

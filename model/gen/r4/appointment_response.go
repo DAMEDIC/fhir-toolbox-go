@@ -59,6 +59,13 @@ func (r AppointmentResponse) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
+func (r AppointmentResponse) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1163,11 +1170,4 @@ func (r *AppointmentResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 			return nil
 		}
 	}
-}
-func (r AppointmentResponse) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

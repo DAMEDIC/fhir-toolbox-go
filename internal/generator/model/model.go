@@ -1,3 +1,7 @@
+// Package model contains a simplified representation of the FHIR model,
+// necessary for initially bootstrapping the generator.
+//
+// Future versions may switch to using the generated structures for an earlier version of this module.
 package model
 
 import (

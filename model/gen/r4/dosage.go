@@ -51,6 +51,41 @@ type isDosageAsNeeded interface {
 
 func (r Boolean) isDosageAsNeeded()         {}
 func (r CodeableConcept) isDosageAsNeeded() {}
+
+// The amount of medication administered.
+type DosageDoseAndRate struct {
+	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
+	Id *string
+	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+	Extension []Extension
+	// The kind of dose or rate specified, for example, ordered or calculated.
+	Type *CodeableConcept
+	// Amount of medication per dose.
+	Dose isDosageDoseAndRateDose
+	// Amount of medication per unit of time.
+	Rate isDosageDoseAndRateRate
+}
+type isDosageDoseAndRateDose interface {
+	isDosageDoseAndRateDose()
+}
+
+func (r Range) isDosageDoseAndRateDose()    {}
+func (r Quantity) isDosageDoseAndRateDose() {}
+
+type isDosageDoseAndRateRate interface {
+	isDosageDoseAndRateRate()
+}
+
+func (r Ratio) isDosageDoseAndRateRate()    {}
+func (r Range) isDosageDoseAndRateRate()    {}
+func (r Quantity) isDosageDoseAndRateRate() {}
+func (r Dosage) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Dosage) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -615,557 +650,6 @@ func (r Dosage) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
-func (r *Dosage) unmarshalJSON(d *json.Decoder) error {
-	t, err := d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('{') {
-		return fmt.Errorf("invalid token: %v, expected: '{' in Dosage element", t)
-	}
-	for d.More() {
-		t, err = d.Token()
-		if err != nil {
-			return err
-		}
-		f, ok := t.(string)
-		if !ok {
-			return fmt.Errorf("invalid token: %v, expected: field name in Dosage element", t)
-		}
-		switch f {
-		case "id":
-			var v string
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			r.Id = &v
-		case "extension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
-			}
-		case "modifierExtension":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
-			}
-			for d.More() {
-				var v Extension
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
-			}
-		case "sequence":
-			var v Integer
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Sequence == nil {
-				r.Sequence = &Integer{}
-			}
-			r.Sequence.Value = v.Value
-		case "_sequence":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Sequence == nil {
-				r.Sequence = &Integer{}
-			}
-			r.Sequence.Id = v.Id
-			r.Sequence.Extension = v.Extension
-		case "text":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.Text == nil {
-				r.Text = &String{}
-			}
-			r.Text.Value = v.Value
-		case "_text":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.Text == nil {
-				r.Text = &String{}
-			}
-			r.Text.Id = v.Id
-			r.Text.Extension = v.Extension
-		case "additionalInstruction":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
-			}
-			for d.More() {
-				var v CodeableConcept
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.AdditionalInstruction = append(r.AdditionalInstruction, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
-			}
-		case "patientInstruction":
-			var v String
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.PatientInstruction == nil {
-				r.PatientInstruction = &String{}
-			}
-			r.PatientInstruction.Value = v.Value
-		case "_patientInstruction":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.PatientInstruction == nil {
-				r.PatientInstruction = &String{}
-			}
-			r.PatientInstruction.Id = v.Id
-			r.PatientInstruction.Extension = v.Extension
-		case "timing":
-			var v Timing
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Timing = &v
-		case "asNeededBoolean":
-			var v Boolean
-			err := d.Decode(&v)
-			if err != nil {
-				return err
-			}
-			if r.AsNeeded != nil {
-				r.AsNeeded = Boolean{
-					Extension: r.AsNeeded.(Boolean).Extension,
-					Id:        r.AsNeeded.(Boolean).Id,
-					Value:     v.Value,
-				}
-			} else {
-				r.AsNeeded = v
-			}
-		case "_asNeededBoolean":
-			var v primitiveElement
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			if r.AsNeeded != nil {
-				r.AsNeeded = Boolean{
-					Extension: v.Extension,
-					Id:        v.Id,
-					Value:     r.AsNeeded.(Boolean).Value,
-				}
-			} else {
-				r.AsNeeded = Boolean{
-					Extension: v.Extension,
-					Id:        v.Id,
-				}
-			}
-		case "asNeededCodeableConcept":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.AsNeeded = v
-		case "site":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Site = &v
-		case "route":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Route = &v
-		case "method":
-			var v CodeableConcept
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.Method = &v
-		case "doseAndRate":
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim('[') {
-				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
-			}
-			for d.More() {
-				var v DosageDoseAndRate
-				err := v.unmarshalJSON(d)
-				if err != nil {
-					return err
-				}
-				r.DoseAndRate = append(r.DoseAndRate, v)
-			}
-			t, err = d.Token()
-			if err != nil {
-				return err
-			}
-			if t != json.Delim(']') {
-				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
-			}
-		case "maxDosePerPeriod":
-			var v Ratio
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.MaxDosePerPeriod = &v
-		case "maxDosePerAdministration":
-			var v Quantity
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.MaxDosePerAdministration = &v
-		case "maxDosePerLifetime":
-			var v Quantity
-			err := v.unmarshalJSON(d)
-			if err != nil {
-				return err
-			}
-			r.MaxDosePerLifetime = &v
-		default:
-			return fmt.Errorf("invalid field: %s in Dosage", f)
-		}
-	}
-	t, err = d.Token()
-	if err != nil {
-		return err
-	}
-	if t != json.Delim('}') {
-		return fmt.Errorf("invalid token: %v, expected: '}' in Dosage element", t)
-	}
-	return nil
-}
-func (r Dosage) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if r.Id != nil {
-		start.Attr = append(start.Attr, xml.Attr{
-			Name:  xml.Name{Local: "id"},
-			Value: *r.Id,
-		})
-	}
-	err := e.EncodeToken(start)
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Sequence, xml.StartElement{Name: xml.Name{Local: "sequence"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.AdditionalInstruction, xml.StartElement{Name: xml.Name{Local: "additionalInstruction"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.PatientInstruction, xml.StartElement{Name: xml.Name{Local: "patientInstruction"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Timing, xml.StartElement{Name: xml.Name{Local: "timing"}})
-	if err != nil {
-		return err
-	}
-	switch v := r.AsNeeded.(type) {
-	case Boolean, *Boolean:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "asNeededBoolean"}})
-		if err != nil {
-			return err
-		}
-	case CodeableConcept, *CodeableConcept:
-		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "asNeededCodeableConcept"}})
-		if err != nil {
-			return err
-		}
-	}
-	err = e.EncodeElement(r.Site, xml.StartElement{Name: xml.Name{Local: "site"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Route, xml.StartElement{Name: xml.Name{Local: "route"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.Method, xml.StartElement{Name: xml.Name{Local: "method"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.DoseAndRate, xml.StartElement{Name: xml.Name{Local: "doseAndRate"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.MaxDosePerPeriod, xml.StartElement{Name: xml.Name{Local: "maxDosePerPeriod"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.MaxDosePerAdministration, xml.StartElement{Name: xml.Name{Local: "maxDosePerAdministration"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeElement(r.MaxDosePerLifetime, xml.StartElement{Name: xml.Name{Local: "maxDosePerLifetime"}})
-	if err != nil {
-		return err
-	}
-	err = e.EncodeToken(start.End())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-func (r *Dosage) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if start.Name.Space != "http://hl7.org/fhir" {
-		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
-	}
-	for _, a := range start.Attr {
-		if a.Name.Space != "" {
-			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
-		}
-		switch a.Name.Local {
-		case "xmlns":
-			continue
-		case "id":
-			r.Id = &a.Value
-		default:
-			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
-		}
-	}
-	for {
-		token, err := d.Token()
-		if err != nil {
-			return err
-		}
-		switch t := token.(type) {
-		case xml.StartElement:
-			switch t.Name.Local {
-			case "extension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Extension = append(r.Extension, v)
-			case "modifierExtension":
-				var v Extension
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.ModifierExtension = append(r.ModifierExtension, v)
-			case "sequence":
-				var v Integer
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Sequence = &v
-			case "text":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Text = &v
-			case "additionalInstruction":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.AdditionalInstruction = append(r.AdditionalInstruction, v)
-			case "patientInstruction":
-				var v String
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.PatientInstruction = &v
-			case "timing":
-				var v Timing
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Timing = &v
-			case "asNeededBoolean":
-				if r.AsNeeded != nil {
-					return fmt.Errorf("multiple values for field \"AsNeeded\"")
-				}
-				var v Boolean
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.AsNeeded = v
-			case "asNeededCodeableConcept":
-				if r.AsNeeded != nil {
-					return fmt.Errorf("multiple values for field \"AsNeeded\"")
-				}
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.AsNeeded = v
-			case "site":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Site = &v
-			case "route":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Route = &v
-			case "method":
-				var v CodeableConcept
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.Method = &v
-			case "doseAndRate":
-				var v DosageDoseAndRate
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.DoseAndRate = append(r.DoseAndRate, v)
-			case "maxDosePerPeriod":
-				var v Ratio
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.MaxDosePerPeriod = &v
-			case "maxDosePerAdministration":
-				var v Quantity
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.MaxDosePerAdministration = &v
-			case "maxDosePerLifetime":
-				var v Quantity
-				err := d.DecodeElement(&v, &t)
-				if err != nil {
-					return err
-				}
-				r.MaxDosePerLifetime = &v
-			}
-		case xml.EndElement:
-			return nil
-		}
-	}
-}
-func (r Dosage) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
-}
-
-// The amount of medication administered.
-type DosageDoseAndRate struct {
-	// Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.
-	Id *string
-	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
-	Extension []Extension
-	// The kind of dose or rate specified, for example, ordered or calculated.
-	Type *CodeableConcept
-	// Amount of medication per dose.
-	Dose isDosageDoseAndRateDose
-	// Amount of medication per unit of time.
-	Rate isDosageDoseAndRateRate
-}
-type isDosageDoseAndRateDose interface {
-	isDosageDoseAndRateDose()
-}
-
-func (r Range) isDosageDoseAndRateDose()    {}
-func (r Quantity) isDosageDoseAndRateDose() {}
-
-type isDosageDoseAndRateRate interface {
-	isDosageDoseAndRateRate()
-}
-
-func (r Ratio) isDosageDoseAndRateRate()    {}
-func (r Range) isDosageDoseAndRateRate()    {}
-func (r Quantity) isDosageDoseAndRateRate() {}
 func (r DosageDoseAndRate) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1497,6 +981,288 @@ func (r DosageDoseAndRate) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Dosage) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Dosage element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Dosage element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
+			}
+		case "sequence":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Sequence == nil {
+				r.Sequence = &Integer{}
+			}
+			r.Sequence.Value = v.Value
+		case "_sequence":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Sequence == nil {
+				r.Sequence = &Integer{}
+			}
+			r.Sequence.Id = v.Id
+			r.Sequence.Extension = v.Extension
+		case "text":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Value = v.Value
+		case "_text":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Text == nil {
+				r.Text = &String{}
+			}
+			r.Text.Id = v.Id
+			r.Text.Extension = v.Extension
+		case "additionalInstruction":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
+			}
+			for d.More() {
+				var v CodeableConcept
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.AdditionalInstruction = append(r.AdditionalInstruction, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
+			}
+		case "patientInstruction":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PatientInstruction == nil {
+				r.PatientInstruction = &String{}
+			}
+			r.PatientInstruction.Value = v.Value
+		case "_patientInstruction":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PatientInstruction == nil {
+				r.PatientInstruction = &String{}
+			}
+			r.PatientInstruction.Id = v.Id
+			r.PatientInstruction.Extension = v.Extension
+		case "timing":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Timing = &v
+		case "asNeededBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.AsNeeded != nil {
+				r.AsNeeded = Boolean{
+					Extension: r.AsNeeded.(Boolean).Extension,
+					Id:        r.AsNeeded.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.AsNeeded = v
+			}
+		case "_asNeededBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.AsNeeded != nil {
+				r.AsNeeded = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.AsNeeded.(Boolean).Value,
+				}
+			} else {
+				r.AsNeeded = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "asNeededCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.AsNeeded = v
+		case "site":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Site = &v
+		case "route":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Route = &v
+		case "method":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Method = &v
+		case "doseAndRate":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Dosage element", t)
+			}
+			for d.More() {
+				var v DosageDoseAndRate
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.DoseAndRate = append(r.DoseAndRate, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Dosage element", t)
+			}
+		case "maxDosePerPeriod":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.MaxDosePerPeriod = &v
+		case "maxDosePerAdministration":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.MaxDosePerAdministration = &v
+		case "maxDosePerLifetime":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.MaxDosePerLifetime = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Dosage", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Dosage element", t)
+	}
+	return nil
+}
 func (r *DosageDoseAndRate) unmarshalJSON(d *json.Decoder) error {
 	t, err := d.Token()
 	if err != nil {
@@ -1600,6 +1366,91 @@ func (r *DosageDoseAndRate) unmarshalJSON(d *json.Decoder) error {
 	}
 	return nil
 }
+func (r Dosage) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if r.Id != nil {
+		start.Attr = append(start.Attr, xml.Attr{
+			Name:  xml.Name{Local: "id"},
+			Value: *r.Id,
+		})
+	}
+	err := e.EncodeToken(start)
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.ModifierExtension, xml.StartElement{Name: xml.Name{Local: "modifierExtension"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Sequence, xml.StartElement{Name: xml.Name{Local: "sequence"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Text, xml.StartElement{Name: xml.Name{Local: "text"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.AdditionalInstruction, xml.StartElement{Name: xml.Name{Local: "additionalInstruction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.PatientInstruction, xml.StartElement{Name: xml.Name{Local: "patientInstruction"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Timing, xml.StartElement{Name: xml.Name{Local: "timing"}})
+	if err != nil {
+		return err
+	}
+	switch v := r.AsNeeded.(type) {
+	case Boolean, *Boolean:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "asNeededBoolean"}})
+		if err != nil {
+			return err
+		}
+	case CodeableConcept, *CodeableConcept:
+		err := e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "asNeededCodeableConcept"}})
+		if err != nil {
+			return err
+		}
+	}
+	err = e.EncodeElement(r.Site, xml.StartElement{Name: xml.Name{Local: "site"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Route, xml.StartElement{Name: xml.Name{Local: "route"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.Method, xml.StartElement{Name: xml.Name{Local: "method"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.DoseAndRate, xml.StartElement{Name: xml.Name{Local: "doseAndRate"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.MaxDosePerPeriod, xml.StartElement{Name: xml.Name{Local: "maxDosePerPeriod"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.MaxDosePerAdministration, xml.StartElement{Name: xml.Name{Local: "maxDosePerAdministration"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeElement(r.MaxDosePerLifetime, xml.StartElement{Name: xml.Name{Local: "maxDosePerLifetime"}})
+	if err != nil {
+		return err
+	}
+	err = e.EncodeToken(start.End())
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (r DosageDoseAndRate) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -1653,6 +1504,155 @@ func (r DosageDoseAndRate) MarshalXML(e *xml.Encoder, start xml.StartElement) er
 		return err
 	}
 	return nil
+}
+func (r *Dosage) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "sequence":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Sequence = &v
+			case "text":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Text = &v
+			case "additionalInstruction":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AdditionalInstruction = append(r.AdditionalInstruction, v)
+			case "patientInstruction":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PatientInstruction = &v
+			case "timing":
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timing = &v
+			case "asNeededBoolean":
+				if r.AsNeeded != nil {
+					return fmt.Errorf("multiple values for field \"AsNeeded\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AsNeeded = v
+			case "asNeededCodeableConcept":
+				if r.AsNeeded != nil {
+					return fmt.Errorf("multiple values for field \"AsNeeded\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.AsNeeded = v
+			case "site":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Site = &v
+			case "route":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Route = &v
+			case "method":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Method = &v
+			case "doseAndRate":
+				var v DosageDoseAndRate
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DoseAndRate = append(r.DoseAndRate, v)
+			case "maxDosePerPeriod":
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxDosePerPeriod = &v
+			case "maxDosePerAdministration":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxDosePerAdministration = &v
+			case "maxDosePerLifetime":
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxDosePerLifetime = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r *DosageDoseAndRate) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if start.Name.Space != "http://hl7.org/fhir" {
@@ -1748,11 +1748,4 @@ func (r *DosageDoseAndRate) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 			return nil
 		}
 	}
-}
-func (r DosageDoseAndRate) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

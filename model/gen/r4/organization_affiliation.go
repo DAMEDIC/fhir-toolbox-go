@@ -69,6 +69,13 @@ func (r OrganizationAffiliation) ResourceId() (string, bool) {
 	}
 	return *r.Id.Value, true
 }
+func (r OrganizationAffiliation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r OrganizationAffiliation) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -1408,11 +1415,4 @@ func (r *OrganizationAffiliation) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 			return nil
 		}
 	}
-}
-func (r OrganizationAffiliation) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

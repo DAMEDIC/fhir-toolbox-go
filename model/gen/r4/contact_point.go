@@ -28,6 +28,13 @@ type ContactPoint struct {
 	Period *Period
 }
 
+func (r ContactPoint) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ContactPoint) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
@@ -558,11 +565,4 @@ func (r *ContactPoint) UnmarshalXML(d *xml.Decoder, start xml.StartElement) erro
 			return nil
 		}
 	}
-}
-func (r ContactPoint) String() string {
-	buf, err := json.MarshalIndent(r, "", "  ")
-	if err != nil {
-		return "null"
-	}
-	return string(buf)
 }

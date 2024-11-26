@@ -1,21 +1,33 @@
 package json
 
 import (
-	"fhir-toolbox/generate/ir"
-
+	"fhir-toolbox/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
+	"strings"
 )
 
-func ImplementUnmarshal(f *File, s ir.Struct) {
-	if s.IsResource {
-		implementUnmarshalExternal(f, s)
+type UnmarshalGenerator struct{}
+
+func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
+	for _, t := range rt.Structs {
+		if t.IsResource {
+			implementUnmarshalExternal(f, t)
+		}
+
+		if t.IsPrimitive {
+			implementUnmarshalPrimitive(f, t)
+		} else {
+			implementUnmarshalInternal(f, t)
+		}
 	}
 
-	if s.IsPrimitive {
-		implementUnmarshalPrimitive(f, s)
-	} else {
-		implementUnmarshalInternal(f, s)
-	}
+	return true
+}
+
+func (g UnmarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	implementUnmarshalContainedExternal(f("contained", strings.ToLower(release)))
+	implementUnmarshalContainedInternal(f("contained", strings.ToLower(release)), ir.FilterResources(rt))
+	implementUnmarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 }
 
 func implementUnmarshalExternal(f *File, s ir.Struct) {
@@ -338,4 +350,134 @@ func returnInvalidTokenError(in string, expected string) *Statement {
 		Lit("invalid token: %v, expected: "+expected+" in "+in+" element"),
 		Id("t"),
 	))
+}
+
+func implementUnmarshalContainedExternal(f *File) {
+	f.Func().Params(Id("r").Op("*").Id("ContainedResource")).Id("UnmarshalJSON").Params(
+		Id("b").Index().Byte(),
+	).Params(Error()).Block(
+		Id("d").Op(":=").Qual("encoding/json", "NewDecoder").Call(
+			Qual("bytes", "NewReader").Call(Id("b")),
+		),
+		Return(Id("r").Dot("unmarshalJSON").Call(Id("d"))),
+	)
+}
+
+func implementUnmarshalContainedInternal(f *File, resources []ir.ResourceOrType) {
+	f.Func().Params(Id("cr").Op("*").Id("ContainedResource")).Id("unmarshalJSON").Params(
+		Id("d").Op("*").Qual("encoding/json", "Decoder"),
+	).Params(Error()).Block(
+		Var().Id("rawValue").Qual("encoding/json", "RawMessage"),
+		Id("err").Op(":=").Id("d").Dot("Decode").Call(Id("&rawValue")),
+		If(Err().Op("!=").Nil()).Block(
+			Return(Id("err")),
+		),
+
+		Var().Id("t").Struct(
+			Id("ResourceType").String().Tag(map[string]string{"json": "resourceType"}),
+		),
+		Err().Op("=").Qual("encoding/json", "Unmarshal").Call(Id("rawValue"), Op("&").Id("t")),
+		If(Err().Op("!=").Nil()).Block(
+			Return(Err()),
+		),
+
+		Id("d").Op("=").Qual("encoding/json", "NewDecoder").
+			Call(Qual("bytes", "NewReader").Call(Id("rawValue"))),
+
+		Switch(Id("t.ResourceType")).BlockFunc(func(g *Group) {
+			for _, r := range resources {
+				g.Case(Lit(r.Name)).Block(
+					Var().Id("r").Id(r.Name),
+					Id("err").Op(":=").Id("r").Dot("unmarshalJSON").Call(Id("d")),
+					If(Id("err").Op("!=").Nil()).Block(
+						Return(Id("err")),
+					),
+					Op("*").Id("cr").Op("=").Id("ContainedResource").Values(Id("r")),
+					Return(Nil()),
+				)
+			}
+
+			g.Default().Block(
+				Return(Qual("fmt", "Errorf").Call(Lit("unknown resource type: %s"), Id("t.ResourceType"))),
+			)
+		}),
+	)
+}
+
+func implementUnmarshalPrimitiveElement(f *File) {
+	f.Func().Params(Id("r").Op("*").Id("primitiveElement")).Id("unmarshalJSON").Params(
+		Id("d").Op("*").Qual("encoding/json", "Decoder"),
+	).Params(Error()).BlockFunc(func(g *Group) {
+		g.List(Id("t"), Err()).Op(":=").Id("d").Dot("Token").Call()
+		g.If(Err().Op("!=").Nil()).Block(
+			Return(Err()),
+		)
+		g.If(Id("t").Op("==").Nil()).Block(
+			Return(Nil()),
+		).Else().If(Id("t").Op("!=").Qual("encoding/json", "Delim")).Params(LitRune('{')).Block(
+			returnInvalidTokenError("primitive element", "'{'"),
+		)
+
+		g.For(Id("d").Dot("More").Call()).Block(
+			List(Id("t"), Err()).Op("=").Id("d").Dot("Token").Call(),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+			List(Id("f"), Id("ok")).Op(":=").Id("t").Op(".").Call(String()),
+			If(Op("!").Id("ok")).Block(
+				returnInvalidTokenError("primitive element", "field name"),
+			),
+			Switch(Id("f")).BlockFunc(func(g *Group) {
+				g.Case(Lit("id")).Block(
+					Var().Id("v").String(),
+					Id("err").Op(":=").Id("d").Dot("Decode").Call(Id("&v")),
+					If(Err().Op("!=").Nil()).Block(
+						Return(Id("err")),
+					),
+					Id("r.Id").Op("=").Id("&v"),
+				)
+				g.Case(Lit("extension")).Block(
+					List(Id("t"), Err()).Op("=").Id("d").Dot("Token").Call(),
+					If(Err().Op("!=").Nil()).Block(
+						Return(Err()),
+					),
+					If(Id("t").Op("!=").Qual("encoding/json", "Delim")).Params(LitRune('[')).Block(
+						returnInvalidTokenError("primitive element", "'['"),
+					),
+					For(Id("d").Dot("More").Call()).Block(
+						Var().Id("v").Id("Extension"),
+						Id("err").Op(":=").Id("v").Dot("unmarshalJSON").Call(Id("d")),
+						If(Err().Op("!=").Nil()).Block(
+							Return(Id("err")),
+						),
+						Id("r.Extension").Op("=").Append(Id("r.Extension"), Id("v")),
+					),
+					List(Id("t"), Err()).Op("=").Id("d").Dot("Token").Call(),
+					If(Err().Op("!=").Nil()).Block(
+						Return(Err()),
+					),
+					If(Id("t").Op("!=").Qual("encoding/json", "Delim")).Params(LitRune(']')).Block(
+						returnInvalidTokenError("primitive element", "']'"),
+					),
+				)
+
+				g.Default().Block(
+					Return(Qual("fmt", "Errorf").Params(
+						Lit("invalid field: %v in primitive element, expected \"id\" or \"extension\" (at index %v)"),
+						Id("t"),
+						Id("d").Dot("InputOffset").Call().Op("-").Lit(1),
+					)),
+				)
+			}),
+		)
+
+		g.List(Id("t"), Err()).Op("=").Id("d").Dot("Token").Call()
+		g.If(Err().Op("!=").Nil()).Block(
+			Return(Err()),
+		)
+		g.If(Id("t").Op("!=").Qual("encoding/json", "Delim")).Params(LitRune('}')).Block(
+			returnInvalidTokenError("primitive element", "'}'"),
+		)
+		g.Return(Nil())
+	})
 }

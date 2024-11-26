@@ -1,10 +1,7 @@
-package gen
+package generator
 
 import (
-	"fhir-toolbox/generate/ir"
-	"log"
-	"os"
-	"path/filepath"
+	"fhir-toolbox/internal/generator/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -13,46 +10,32 @@ import (
 
 const wrapperName = "InternalWrapper"
 
-func GenerateWrapper(resources []ir.Struct, genTarget, release string) {
-	genericDir := filepath.Join(genTarget, strings.ToLower(release), "generic")
-	concreteDir := filepath.Join(genTarget, strings.ToLower(release), "concrete")
-
-	err := os.MkdirAll(genericDir, os.ModePerm)
-	if err != nil {
-		log.Panic(err)
-	}
-	err = os.MkdirAll(concreteDir, os.ModePerm)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	generateGenericWrapperStruct(genericDir, release)
-	generateGeneric(genericDir, release, resources, "read", readParams, anyReadReturn)
-	generateGeneric(genericDir, release, resources, "search", searchParams, searchReturn)
-	generateConcreteWrapperStruct(concreteDir, release)
-	generateConcrete(concreteDir, release, resources, "read", readParams, anyReadReturn)
-	generateConcrete(concreteDir, release, resources, "search", searchParams, searchReturn)
+type WrapperGenerator struct {
+	NoOpGenerator
 }
 
-func generateGenericWrapperStruct(genDir, release string) {
-	f := NewFilePathName(genDir, "generic"+strings.ToUpper(release))
+func (g WrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	generateGenericWrapperStruct(f("generic/wrapper", "generic"+release))
+	generateGeneric(f("generic/read", "generic"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
+	generateGeneric(f("generic/search", "generic"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+
+	generateConcreteWrapperStruct(f("concrete/wrapper", "concrete"+release))
+	generateConcrete(f("concrete/read", "concrete"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
+	generateConcrete(f("concrete/search", "concrete"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+}
+
+func generateGenericWrapperStruct(f *File) {
 	f.Type().Id(wrapperName).Struct(
 		Id("API").Any(),
 	)
-
-	err := f.Save(filepath.Join(genDir, "wrapper.go"))
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
 func anyReadReturn(_, _ string) *Statement {
 	return Qual("fhir-toolbox/model", "Resource")
 }
 
-func generateGeneric(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateGeneric(f *File, release string, resources []ir.ResourceOrType, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
 	interactionName := strcase.ToCamel(interaction)
-	fileName := strings.ToLower(interaction) + ".go"
 
 	allParams := []Code{Id("ctx").Qual("context", "Context"), Id("resourceType").String()}
 	for k, v := range params {
@@ -63,8 +46,6 @@ func generateGeneric(genDir, release string, resources []ir.Struct, interaction 
 	for k := range params {
 		passParams = append(passParams, k)
 	}
-
-	f := NewFilePathName(genDir, "generic"+strings.ToUpper(release))
 
 	if interaction == "search" {
 		f.Add(generateGenericSearchCapabilities(release, resources))
@@ -96,14 +77,9 @@ func generateGeneric(genDir, release string, resources []ir.Struct, interaction 
 				}
 			}),
 		)
-
-	err := f.Save(filepath.Join(genDir, fileName))
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
-func generateGenericSearchCapabilities(release string, resources []ir.Struct) Code {
+func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
 	return Func().Params(Id("w").Id(wrapperName)).Id("SearchCapabilities").
 		Params(Id("resourceType").String()).
 		Params(searchCapabilitiesReturn, Qual("fhir-toolbox/capabilities", "FHIRError")).
@@ -124,28 +100,19 @@ func generateGenericSearchCapabilities(release string, resources []ir.Struct) Co
 		)
 }
 
-func generateConcreteWrapperStruct(genDir, release string) {
-	f := NewFilePathName(genDir, "concrete"+strings.ToUpper(release))
+func generateConcreteWrapperStruct(f *File) {
 	f.Type().Id(wrapperName).Struct(
 		Qual("fhir-toolbox/capabilities", "GenericAPI"),
 	)
-
-	err := f.Save(filepath.Join(genDir, "wrapper.go"))
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
-func generateConcrete(genDir, release string, resources []ir.Struct, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateConcrete(f *File, release string, resources []ir.ResourceOrType, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
 	interactionName := strcase.ToCamel(interaction)
-	fileName := strings.ToLower(interaction) + ".go"
 
 	allParams := []Code{Id("ctx").Qual("context", "Context")}
 	for k, v := range params {
 		allParams = append(allParams, &Statement{k, v})
 	}
-
-	f := NewFilePathName(genDir, "concrete"+strings.ToUpper(release))
 
 	for _, r := range resources {
 		passParams := []Code{Id("ctx"), Lit(r.Name)}
@@ -161,7 +128,7 @@ func generateConcrete(genDir, release string, resources []ir.Struct, interaction
 		}
 
 		if interaction == "search" {
-			f.Add(generateConcreteSearchCapabilities(release, r))
+			f.Add(generateConcreteSearchCapabilities(r))
 		}
 
 		f.Func().Params(Id("w").Id(wrapperName)).Id(interactionName+r.Name).
@@ -188,14 +155,9 @@ func generateConcrete(genDir, release string, resources []ir.Struct, interaction
 				}
 			})
 	}
-
-	err := f.Save(filepath.Join(genDir, fileName))
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
-func generateConcreteSearchCapabilities(release string, r ir.Struct) Code {
+func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 	returnId := Qual("fhir-toolbox/capabilities/search", "Capabilities")
 	return Func().Params(Id("w").Id(wrapperName)).Id("SearchCapabilities" + r.Name).
 		Params().

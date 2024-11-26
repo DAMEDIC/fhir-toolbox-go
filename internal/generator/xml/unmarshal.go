@@ -1,12 +1,29 @@
 package xml
 
 import (
-	"fhir-toolbox/generate/ir"
-
+	"fhir-toolbox/internal/generator"
+	"fhir-toolbox/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
+	"strings"
 )
 
-func ImplementUnmarshal(f *File, s ir.Struct) {
+type UnmarshalGenerator struct {
+	generator.NoOpGenerator
+}
+
+func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
+	for _, t := range rt.Structs {
+		implementUnmarshal(f, t)
+	}
+
+	return true
+}
+
+func (g UnmarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	implementUnmarshalContained(f("contained", strings.ToLower(release)), ir.FilterResources(rt))
+}
+
+func implementUnmarshal(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Op("*").Id(s.Name)).Id("UnmarshalXML").Params(
 		Id("d").Op("*").Qual("encoding/xml", "Decoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
@@ -204,4 +221,53 @@ func unmarshalXhtml(g *Group) {
 	)
 	g.Id("r.Value").Op("=").Id("v.V")
 	g.Return(Nil())
+}
+
+func implementUnmarshalContained(f *File, resources []ir.ResourceOrType) {
+	f.Func().Params(Id("cr").Op("*").Id("ContainedResource")).Id("UnmarshalXML").Params(
+		Id("d").Op("*").Qual("encoding/xml", "Decoder"),
+		Id("start").Qual("encoding/xml", "StartElement"),
+	).Params(Error()).Block(
+		// if name is lower means we are dealing with a contained resource
+		If(Qual("unicode", "IsLower").Call(Rune().Call(Id("start.Name.Local").Index(Lit(0))))).Block(
+			Err().Op(":=").Id("d.Decode").Call(Op("cr")),
+			If(Id("err").Op("!=").Nil()).Block(
+				Return(Id("err")),
+			),
+			For().Block(
+				Id("t, err").Op(":=").Id("d.Token()"),
+				If(Err().Op("!=").Nil()).Block(
+					Return(Id("err")),
+				),
+				Id("_, ok").Op(":=").Id("t.").Params(Qual("encoding/xml", "EndElement")),
+				If(Id("ok")).Block(Break()),
+			),
+			Return(Nil()),
+		),
+
+		If(Id("start.Name.Space").Op("!=").Lit(NamespaceFHIR)).Block(
+			Return(Qual("fmt", "Errorf").Params(
+				Lit("invalid namespace: \"%s\", expected: \""+NamespaceFHIR+"\""),
+				Id("start.Name.Space"),
+			)),
+		),
+
+		Switch(Id("start.Name.Local")).BlockFunc(func(g *Group) {
+			for _, r := range resources {
+				g.Case(Lit(r.Name)).Block(
+					Var().Id("r").Id(r.Name),
+					Id("err").Op(":=").Id("d.DecodeElement").Call(Op("&r"), Id("&start")),
+					If(Id("err").Op("!=").Nil()).Block(
+						Return(Id("err")),
+					),
+					Op("*").Id("cr").Op("=").Id("ContainedResource").Values(Id("r")),
+					Return(Nil()),
+				)
+			}
+
+			g.Default().Block(
+				Return(Qual("fmt", "Errorf").Call(Lit("unknown resource type: %s"), Id("start.Name.Local"))),
+			)
+		}),
+	)
 }
