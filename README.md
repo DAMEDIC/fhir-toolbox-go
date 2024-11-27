@@ -91,7 +91,7 @@ genericAPI := wrap.Generic[model.R4](concreteAPI)
 and vice versa:
 
 ```Go
-concreteAPI := wrap.Concrete[model.R4](genericAPI)
+concreteAPI := wrap.ConcreteR4(genericAPI)
 ```
 
 ## Packages

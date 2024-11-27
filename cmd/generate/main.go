@@ -17,7 +17,6 @@ var (
 	definitionsURLFmtStr  = "http://hl7.org/fhir/%s/definitions.json.zip"
 	modelGenTarget        = "model/gen"
 	capabilitiesGenTarget = "capabilities/gen"
-	wrapperGenTarget      = "capabilities/wrap/gen"
 )
 
 func main() {
@@ -26,9 +25,6 @@ func main() {
 		panic(err)
 	}
 	if err := os.RemoveAll(capabilitiesGenTarget); err != nil {
-		panic(err)
-	}
-	if err := os.RemoveAll(wrapperGenTarget); err != nil {
 		panic(err)
 	}
 
@@ -56,9 +52,7 @@ func main() {
 
 		generator.GenerateAll(all, genDir(capabilitiesGenTarget, r), r,
 			generator.CapabilitiesGenerator{},
-		)
-		generator.GenerateAll(all, genDir(wrapperGenTarget, r), r,
-			generator.WrapperGenerator{},
+			generator.CapabilitiesWrapperGenerator{},
 		)
 	}
 

@@ -13,6 +13,8 @@ import (
 type GenericAPI interface {
 	GenericRead
 	GenericSearch
+
+	AllCapabilities() Capabilities
 }
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.

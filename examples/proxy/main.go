@@ -66,6 +66,11 @@ type Client struct {
 	url string
 }
 
+func AllCapabilities() capabilities.Capabilities {
+	// TODO: this should call the remote service for its capabilities
+	return capabilities.Capabilities{}
+}
+
 func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
 	// ContainedResource is a concrete representation of any resource
 	// internally this e.g. uses in bundles
@@ -92,7 +97,7 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	// TODO: These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
+		Params: map[string]search.ParamDesc{
 			"_id": {Type: search.String},
 		},
 	}, nil
@@ -100,7 +105,7 @@ func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, c
 
 func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
 	params := url.Values{}
-	for key, ands := range options.Parameters {
+	for key, ands := range options.Params {
 		for _, and := range ands {
 			orStrings := make([]string, 0, len(and))
 			for _, or := range and {

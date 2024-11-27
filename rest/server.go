@@ -18,7 +18,7 @@ import (
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	err := registerRoutes(mux, wrap.Generic[R](backend), config)
+	err := registerRoutes[R](mux, wrap.Generic[R](backend), config)
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +30,7 @@ func NewServer[R model.Release](backend any, config Config) (http.Handler, error
 	return handler, nil
 }
 
-func registerRoutes(
+func registerRoutes[R model.Release](
 	mux *http.ServeMux,
 	backend capabilities.GenericAPI,
 	config Config,
@@ -50,12 +50,33 @@ func registerRoutes(
 		return fmt.Errorf("unable to load timezone: %w", err)
 	}
 
+	date, _, err := search.ParseDate(config.Date, tz)
+	if err != nil {
+		return fmt.Errorf("error parsing date '%s': %w", config.Date, err)
+	}
+
+	mux.Handle(fmt.Sprintf("GET %s/metadata", basePath),
+		metadataHandler[R](backend, config.DefaultFormat, baseURL, date))
 	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath),
 		readHandler(backend, config.DefaultFormat))
 	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath),
 		searchHandler(backend, config.DefaultFormat, baseURL, tz, config.MaxCount, config.DefaultCount))
 
 	return nil
+}
+
+func metadataHandler[R model.Release](
+	backend capabilities.GenericAPI,
+	defaultFormat Format,
+	baseURL *url.URL,
+	date time.Time,
+) http.Handler {
+	capabilityStatement := CapabilityStatement[R](baseURL, backend.AllCapabilities(), date)
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		format := detectFormat(r, defaultFormat)
+		returnResult(w, format, http.StatusOK, capabilityStatement)
+	})
 }
 
 func readHandler(
@@ -141,7 +162,7 @@ func dispatchSearch(
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	bundle, err := NewSearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
+	bundle, err := SearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

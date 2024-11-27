@@ -8,25 +8,28 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-const wrapperName = "InternalWrapper"
+const genericWrapperName = "Generic"
+const concreteWrapperName = "Concrete"
 
-type WrapperGenerator struct {
+type CapabilitiesWrapperGenerator struct {
 	NoOpGenerator
 }
 
-func (g WrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	generateGenericWrapperStruct(f("generic/wrapper", "generic"+release))
-	generateGeneric(f("generic/read", "generic"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
-	generateGeneric(f("generic/search", "generic"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
+	generateGenericWrapperStruct(f("generic", "capabilities"+release))
+	generateWrapperAllCapabilities(f("generic", "capabilities"+release), release)
+	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
+	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
 
-	generateConcreteWrapperStruct(f("concrete/wrapper", "concrete"+release))
-	generateConcrete(f("concrete/read", "concrete"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
-	generateConcrete(f("concrete/search", "concrete"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+	generateConcreteIface(f("concrete", "capabilities"+release), ir.FilterResources(rt))
+	generateConcreteWrapperStruct(f("concrete", "capabilities"+release))
+	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
+	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
 }
 
 func generateGenericWrapperStruct(f *File) {
-	f.Type().Id(wrapperName).Struct(
-		Id("API").Any(),
+	f.Type().Id(genericWrapperName).Struct(
+		Id("Concrete").Any(),
 	)
 }
 
@@ -51,14 +54,14 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		f.Add(generateGenericSearchCapabilities(release, resources))
 	}
 
-	f.Func().Params(Id("w").Id(wrapperName)).Id(interactionName).
+	f.Func().Params(Id("w").Id(genericWrapperName)).Id(interactionName).
 		Params(allParams...).
 		Params(returnFunc("", ""), Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
-						g.List(Id("impl"), Id("ok")).Op(":=").Id("w.API").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+interactionName))
+						g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
 
 						if interaction == "search" {
 							g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, returnFunc("", "").Block()))
@@ -80,14 +83,14 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 }
 
 func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
-	return Func().Params(Id("w").Id(wrapperName)).Id("SearchCapabilities").
+	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
 		Params(Id("resourceType").String()).
 		Params(searchCapabilitiesReturn, Qual("fhir-toolbox/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).Block(
-						List(Id("impl"), Id("ok")).Op(":=").Id("w.API").Assert(Qual("fhir-toolbox/capabilities/gen/"+strings.ToLower(release), r.Name+"Search")),
+						List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name+"Search")),
 						If(Op("!").Id("ok")).Block(
 							returnNotImplementedError("search", r.Name, searchCapabilitiesReturn.Clone().Block()),
 						),
@@ -100,9 +103,27 @@ func generateGenericSearchCapabilities(release string, resources []ir.ResourceOr
 		)
 }
 
+func generateWrapperAllCapabilities(f *File, release string) {
+	f.Func().Params(Id("w").Id(genericWrapperName)).Id("AllCapabilities").Params().
+		Params(Qual("fhir-toolbox/capabilities", "Capabilities")).
+		Block(
+			Return(Id("AllCapabilities").
+				Call(Id("w").Dot("Concrete"))),
+		)
+}
+
+func generateConcreteIface(f *File, resources []ir.ResourceOrType) {
+	f.Type().Id("ConcreteAPI").InterfaceFunc(func(g *Group) {
+		for _, r := range resources {
+			g.Id(r.Name + "Read")
+			g.Id(r.Name + "Search")
+		}
+	})
+}
+
 func generateConcreteWrapperStruct(f *File) {
-	f.Type().Id(wrapperName).Struct(
-		Qual("fhir-toolbox/capabilities", "GenericAPI"),
+	f.Type().Id(concreteWrapperName).Struct(
+		Id("Generic").Qual("fhir-toolbox/capabilities", "GenericAPI"),
 	)
 }
 
@@ -131,11 +152,11 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 			f.Add(generateConcreteSearchCapabilities(r))
 		}
 
-		f.Func().Params(Id("w").Id(wrapperName)).Id(interactionName+r.Name).
+		f.Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+r.Name).
 			Params(allParams...).
 			Params(returnTypeId, Qual("fhir-toolbox/capabilities", "FHIRError")).
 			BlockFunc(func(g *Group) {
-				g.List(Id("v"), Id("err")).Op(":=").Id("w.GenericAPI." + interactionName).Params(passParams...)
+				g.List(Id("v"), Id("err")).Op(":=").Id("w.Generic." + interactionName).Params(passParams...)
 				g.If(Id("err").Op("!=").Nil()).Block(Return(returnTypeId.Clone().Block(), Id("err")))
 
 				if interaction == "read" {
@@ -159,11 +180,11 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 
 func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 	returnId := Qual("fhir-toolbox/capabilities/search", "Capabilities")
-	return Func().Params(Id("w").Id(wrapperName)).Id("SearchCapabilities" + r.Name).
+	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities" + r.Name).
 		Params().
 		Params(returnId).
 		BlockFunc(func(g *Group) {
-			g.List(Id("c"), Id("err")).Op(":=").Id("w.GenericAPI.SearchCapabilities").Params(Lit(r.Name))
+			g.List(Id("c"), Id("err")).Op(":=").Id("w.Generic.SearchCapabilities").Params(Lit(r.Name))
 			g.If(Id("err").Op("!=").Nil()).Block(Return(returnId.Clone().Block()))
 			g.Return(Id("c"))
 		})

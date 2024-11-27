@@ -15,7 +15,8 @@ type CapabilitiesGenerator struct {
 func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read", readParams, readReturn)
 	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search", searchParams, searchReturn)
-	generateFull(f("full", "capabilities"+release), ir.FilterResources(rt))
+
+	generateAllCapabilitiesFn(f("capabilities", "capabilities"+release), release, ir.FilterResources(rt))
 }
 
 var (
@@ -57,12 +58,34 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 	}
 }
 
-func generateFull(f *File, resources []ir.ResourceOrType) {
-	f.Type().Id("FullAPI").InterfaceFunc(func(g *Group) {
-		g.Qual("fhir-toolbox/capabilities", "GenericAPI")
+func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceOrType) {
+	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(Qual("fhir-toolbox/capabilities", "Capabilities")).BlockFunc(func(g *Group) {
+		g.Id("read").Op(":=").Index().String().Values()
+		g.Id("search").Op(":=").Map(String()).Qual("fhir-toolbox/capabilities/search", "Capabilities").Values()
+
 		for _, r := range resources {
-			g.Id(r.Name + "Read")
-			g.Id(r.Name + "Search")
+			g.If(
+				List(Id("_"), Id("ok")).Op(":=").Id("api").Dot("").Call(
+					Id(r.Name+"Read"),
+				),
+				Id("ok"),
+			).Block(
+				Id("read").Op("=").Append(List(Id("read"), Lit(r.Name))),
+			)
+
+			g.If(
+				List(Id("c"), Id("ok")).Op(":=").Id("api").Dot("").Call(
+					Id(r.Name+"Search"),
+				),
+				Id("ok"),
+			).Block(
+				Id("search").Index(Lit(r.Name)).Op("=").Id("c").Dot("SearchCapabilities" + r.Name).Call(),
+			)
 		}
+
+		g.Return(Qual("fhir-toolbox/capabilities", "Capabilities").Values(Dict{
+			Id("ReadInteractions"):   Id("read"),
+			Id("SearchCapabilities"): Id("search"),
+		}))
 	})
 }

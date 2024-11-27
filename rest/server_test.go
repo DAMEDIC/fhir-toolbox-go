@@ -19,6 +19,141 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestCapabilityStatement(t *testing.T) {
+	var tests = []struct {
+		name           string
+		format         string
+		date           string
+		expectedStatus int
+		expectedBody   string
+	}{
+		{
+			name:           "JSON CapabilityStatement",
+			format:         "application/fhir+json",
+			date:           "2024-11-28T11:25:27+01:00",
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+			  "date": "2024-11-28T11:25:27+01:00",
+			  "fhirVersion": "4.0.1",
+			  "format": [
+				"xml",
+				"json"
+			  ],
+			  "implementation": {
+				"description": "a simple FHIR service built with fhir-toolbox-go"
+			  },
+			  "kind": "instance",
+			  "resourceType": "CapabilityStatement",
+			  "rest": [
+				{
+				  "mode": "server",
+				  "resource": [
+					{
+					  "interaction": [
+						{
+						  "code": "search-type"
+						}
+					  ],
+					  "searchInclude": [
+						"Observation:patient"
+					  ],
+					  "searchParam": [
+						{
+						  "name": "_id",
+						  "type": "token"
+						}
+					  ],
+					  "type": "Observation"
+					},
+					{
+					  "interaction": [
+						{
+						  "code": "read"
+						},
+						{
+						  "code": "search-type"
+						}
+					  ],
+					  "searchParam": [
+						{
+						  "name": "_id",
+						  "type": "token"
+						},
+						{
+						  "name": "date",
+						  "type": "date"
+						},
+						{
+						  "name": "eb8",
+						  "type": "token"
+						},
+						{
+						  "name": "eq1",
+						  "type": "token"
+						},
+						{
+						  "name": "ge5",
+						  "type": "token"
+						},
+						{
+						  "name": "gt3",
+						  "type": "token"
+						},
+						{
+						  "name": "le6",
+						  "type": "token"
+						},
+						{
+						  "name": "lt4",
+						  "type": "token"
+						},
+						{
+						  "name": "ne2",
+						  "type": "token"
+						},
+						{
+						  "name": "sa7",
+						  "type": "token"
+						}
+					  ],
+					  "type": "Patient"
+					}
+				  ]
+				}
+			  ],
+			  "software": {
+				"name": "fhir-toolbox-go"
+			  },
+			  "status": "active"
+			}`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config := rest.DefaultConfig
+			config.Date = tt.date
+			server, err := rest.NewServer[model.R4](mockBackend{}, config)
+			assert.NoError(t, err)
+			req := httptest.NewRequest("GET", "/metadata", nil)
+			req.Header.Set("Accept", tt.format)
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			assert.Equal(t, tt.expectedStatus, rr.Code)
+
+			if strings.Contains(tt.format, "json") {
+				assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
+			} else {
+				assert.Equal(t, "application/fhir+xml", rr.Header().Get("Content-Type"))
+				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
+			}
+		})
+	}
+}
+
 func TestHandleRead(t *testing.T) {
 	var tests = []struct {
 		name           string
@@ -706,7 +841,7 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, ca
 
 func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
+		Params: map[string]search.ParamDesc{
 			"_id":  {Type: search.Token},
 			"date": {Type: search.Date},
 			"eq1":  {Type: search.Token},
@@ -724,8 +859,8 @@ func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	t := ctx.Value("t").(*testing.T)
 
-	if options.Parameters["_id"] != nil {
-		for _, and := range options.Parameters["_id"] {
+	if options.Params["_id"] != nil {
+		for _, and := range options.Params["_id"] {
 			for _, or := range and {
 				assert.Emptyf(t, or.Prefix, "prefix must be empty for all except number, date, and quantity")
 			}
@@ -747,7 +882,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 
 func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
+		Params: map[string]search.ParamDesc{
 			"_id": {Type: search.Token},
 		},
 		Includes: []string{"Observation:patient"},

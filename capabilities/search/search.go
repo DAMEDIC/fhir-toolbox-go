@@ -12,7 +12,7 @@
 //	func (b *myAPI) SearchCapabilitiesObservation() search.Capabilities {
 //		   // return supported search capabilities
 //		   return search.Capabilities{
-//		       Parameters: map[string]search.ParameterDescription{
+//		       Params: map[string]search.ParamDesc{
 //	           "_id": {Type: search.Token},
 //		       },
 //	   }
@@ -56,40 +56,39 @@ type Cursor string
 //
 // [CapabilityStatements]: https://hl7.org/fhir/capabilitystatement.html
 type Capabilities struct {
-	Parameters map[string]ParameterDescription
-	Includes   []string
+	Params   map[string]ParamDesc
+	Includes []string
 }
 
-// ParameterDescription describes a parameter that is supported by the implementation.
-type ParameterDescription struct {
-	Type ParameterType
+// ParamDesc describes a parameter that is supported by the implementation.
+type ParamDesc struct {
+	Type ParamType
 }
 
-// ParameterType is the type of the parameter
-type ParameterType string
+// ParamType is the type of the parameter
+type ParamType string
 
 const (
-	Number    ParameterType = "number"
-	Date                    = "date"
-	String                  = "string"
-	Token                   = "token"
-	Reference               = "reference"
-	Composite               = "composite"
-	Quantity                = "quantity"
-	Uri                     = "uri"
-	Special                 = "special"
+	Number    ParamType = "number"
+	Date      ParamType = "date"
+	String    ParamType = "string"
+	Token     ParamType = "token"
+	Reference ParamType = "reference"
+	Composite ParamType = "composite"
+	Quantity  ParamType = "quantity"
+	Uri       ParamType = "uri"
+	Special   ParamType = "special"
 )
 
-// Search Options passed to an implementation.
+// Options passed to a search implementation.
 type Options struct {
-	Parameters Parameters
-	Includes   []string
-	Count      int
-	Cursor     Cursor
+	Params   Params
+	Includes []string
+	Count    int
+	Cursor   Cursor
 }
 
-// Parameters of a
-type Parameters map[string]AndList
+type Params map[string]AndList
 type AndList []OrList
 type OrList []Value
 
@@ -106,13 +105,13 @@ type Prefix = string
 
 const (
 	Equal          Prefix = "eq"
-	NotEqual              = "ne"
-	GreaterThan           = "gt"
-	LessThan              = "lt"
-	GreaterOrEqual        = "ge"
-	LessOrEqual           = "le"
-	StartsAfter           = "sa"
-	EndsBefore            = "eb"
+	NotEqual       Prefix = "ne"
+	GreaterThan    Prefix = "gt"
+	LessThan       Prefix = "lt"
+	GreaterOrEqual Prefix = "ge"
+	LessOrEqual    Prefix = "le"
+	StartsAfter    Prefix = "sa"
+	EndsBefore     Prefix = "eb"
 )
 
 var KnownPrefixes = []Prefix{Equal, NotEqual, GreaterThan, LessThan, GreaterOrEqual, LessOrEqual, StartsAfter, EndsBefore}
@@ -121,20 +120,20 @@ var KnownPrefixes = []Prefix{Equal, NotEqual, GreaterThan, LessThan, GreaterOrEq
 type DatePrecision string
 
 const (
-	YearPrecision       DatePrecision = "year"
-	MonthPrecision                    = "month"
-	DayPrecision                      = "day"
-	HourMinutePrecision               = "hourMinute"
-	FullTimePrecision                 = "time"
+	PrecisionYear       DatePrecision = "year"
+	PrecisionMonth      DatePrecision = "month"
+	PrecisionDay        DatePrecision = "day"
+	PrecisionHourMinute DatePrecision = "hourMinute"
+	PrecisionFullTime   DatePrecision = "time"
 )
 
 // Format strings for precision aware parsing and encoding.
 const (
-	OnlyYearFormat   = "2006"
-	UpToMonthFormat  = "2006-01"
-	UpToDayFormat    = "2006-01-02"
-	HourMinuteFormat = "2006-01-02T15:04Z07:00"
-	FullTimeFormat   = "2006-01-02T15:04:05.999999999Z07:00"
+	DateFormatOnlyYear   = "2006"
+	DateFormatUpToMonth  = "2006-01"
+	DateFormatUpToDay    = "2006-01-02"
+	DateFormatHourMinute = "2006-01-02T15:04Z07:00"
+	DateFormatFullTime   = "2006-01-02T15:04:05.999999999Z07:00"
 )
 
 // String formats the value as string.
@@ -155,16 +154,16 @@ func (v Value) String() string {
 
 func formatDate(v time.Time, p DatePrecision) string {
 	switch p {
-	case YearPrecision:
-		return v.Format(OnlyYearFormat)
-	case MonthPrecision:
-		return v.Format(UpToMonthFormat)
-	case DayPrecision:
-		return v.Format(UpToDayFormat)
-	case HourMinutePrecision:
-		return v.Format(HourMinuteFormat)
+	case PrecisionYear:
+		return v.Format(DateFormatOnlyYear)
+	case PrecisionMonth:
+		return v.Format(DateFormatUpToMonth)
+	case PrecisionDay:
+		return v.Format(DateFormatUpToDay)
+	case PrecisionHourMinute:
+		return v.Format(DateFormatHourMinute)
 	default:
-		return v.Format(FullTimeFormat)
+		return v.Format(DateFormatFullTime)
 	}
 }
 
@@ -178,7 +177,7 @@ func formatDate(v time.Time, p DatePrecision) string {
 func (o Options) QueryString() string {
 	var builder strings.Builder
 
-	builder.WriteString(o.Parameters.Query().Encode())
+	builder.WriteString(o.Params.Query().Encode())
 
 	if len(o.Includes) > 0 {
 		includes := append([]string{}, o.Includes...)
@@ -217,7 +216,7 @@ func (o Options) QueryString() string {
 // All contained values are sorted, but the returned [url.Values] is backed by a map.
 // To obtain a deterministic query string you can call [url.Values.Encode], because
 // it will sort the keys alphabetically.
-func (p Parameters) Query() url.Values {
+func (p Params) Query() url.Values {
 	values := url.Values{}
 
 	for key, ands := range p {
@@ -245,7 +244,7 @@ func (p Parameters) Query() url.Values {
 // by the passed `searchCapabilities` are used.
 //
 // [Result modifying parameters] are parsed into separate fields on the [Options] object.
-// All other parameters are parsed into [Options.Parameters].
+// All other parameters are parsed into [options.Params].
 //
 // [Result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
 //
@@ -258,8 +257,8 @@ func ParseOptions(
 ) (Options, error) {
 	options := Options{
 		// Parameters is backed by a map, which must be initialized
-		Parameters: Parameters{},
-		Count:      min(defaultCount, maxCount),
+		Params: Params{},
+		Count:  min(defaultCount, maxCount),
 	}
 
 	for k, v := range params {
@@ -286,7 +285,7 @@ func ParseOptions(
 		case "_contained", "_elements", "_graph", "_maxresults", "_revinclude", "_score", "_summary", "_total":
 
 		default:
-			desc, ok := searchCapabilities.Parameters[k]
+			desc, ok := searchCapabilities.Params[k]
 			if !ok {
 				// only known parameters are forwarded
 				continue
@@ -297,7 +296,7 @@ func ParseOptions(
 				return Options{}, err
 			}
 
-			options.Parameters[k] = ands
+			options.Params[k] = ands
 		}
 	}
 
@@ -322,7 +321,7 @@ func parseCursor(values []string) (Cursor, error) {
 	return Cursor(values[0]), nil
 }
 
-func parseSearchParam(values []string, desc ParameterDescription, tz *time.Location, k string) (AndList, error) {
+func parseSearchParam(values []string, desc ParamDesc, tz *time.Location, k string) (AndList, error) {
 	ands := make(AndList, 0, len(values))
 	for _, ors := range values {
 		splitStrings := strings.Split(ors, ",")
@@ -341,7 +340,7 @@ func parseSearchParam(values []string, desc ParameterDescription, tz *time.Locat
 	return ands, nil
 }
 
-func parseSearchValue(typ ParameterType, value string, tz *time.Location) (Value, error) {
+func parseSearchValue(typ ParamType, value string, tz *time.Location) (Value, error) {
 	prefix := parseSearchValuePrefix(typ, value)
 	if prefix != "" {
 		// all prefixes have a width of 2
@@ -356,14 +355,14 @@ func parseSearchValue(typ ParameterType, value string, tz *time.Location) (Value
 	return Value{Prefix: prefix, DatePrecision: datePrecision, Value: valueAny}, nil
 }
 
-func parseSearchValuePrefix(typ ParameterType, value string) string {
+func parseSearchValuePrefix(typ ParamType, value string) string {
 	// all prefixes have a width of 2
 	if len(value) < 2 {
 		return ""
 	}
 
 	// only number, date and quantity can have prefixes
-	if !slices.Contains([]ParameterType{Number, Date, Quantity}, typ) {
+	if !slices.Contains([]ParamType{Number, Date, Quantity}, typ) {
 		return ""
 	}
 
@@ -374,35 +373,35 @@ func parseSearchValuePrefix(typ ParameterType, value string) string {
 	return value[:2]
 }
 
-func parseSearchValueAny(typ ParameterType, value string, tz *time.Location) (any, DatePrecision, error) {
+func parseSearchValueAny(typ ParamType, value string, tz *time.Location) (any, DatePrecision, error) {
 	switch typ {
 	case Date:
-		return parseDate(value, tz)
+		return ParseDate(value, tz)
 	default:
 		return value, "", nil
 	}
 }
 
-func parseDate(value string, tz *time.Location) (time.Time, DatePrecision, error) {
-	date, err := time.ParseInLocation(OnlyYearFormat, value, tz)
+func ParseDate(value string, tz *time.Location) (time.Time, DatePrecision, error) {
+	date, err := time.ParseInLocation(DateFormatOnlyYear, value, tz)
 	if err == nil {
-		return date, YearPrecision, nil
+		return date, PrecisionYear, nil
 	}
-	date, err = time.ParseInLocation(UpToMonthFormat, value, tz)
+	date, err = time.ParseInLocation(DateFormatUpToMonth, value, tz)
 	if err == nil {
-		return date, MonthPrecision, nil
+		return date, PrecisionMonth, nil
 	}
-	date, err = time.ParseInLocation(UpToDayFormat, value, tz)
+	date, err = time.ParseInLocation(DateFormatUpToDay, value, tz)
 	if err == nil {
-		return date, DayPrecision, nil
+		return date, PrecisionDay, nil
 	}
-	date, err = time.ParseInLocation(HourMinuteFormat, value, tz)
+	date, err = time.ParseInLocation(DateFormatHourMinute, value, tz)
 	if err == nil {
-		return date, HourMinutePrecision, nil
+		return date, PrecisionHourMinute, nil
 	}
-	date, err = time.ParseInLocation(FullTimeFormat, value, tz)
+	date, err = time.ParseInLocation(DateFormatFullTime, value, tz)
 	if err == nil {
-		return date, FullTimePrecision, nil
+		return date, PrecisionFullTime, nil
 	}
 	return time.Time{}, "", err
 }

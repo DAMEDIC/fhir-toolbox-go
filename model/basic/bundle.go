@@ -6,9 +6,9 @@ import (
 )
 
 type Bundle struct {
-	Type  string        `json:"type"`
-	Link  []BundleLink  `json:"link"`
-	Entry []BundleEntry `json:"entry"`
+	Type  string        `json:"type,omitempty"`
+	Link  []BundleLink  `json:"link,omitempty"`
+	Entry []BundleEntry `json:"entry,omitempty"`
 }
 
 func (b Bundle) ResourceType() string {
@@ -22,22 +22,22 @@ func (b Bundle) ResourceId() (string, bool) {
 func (b Bundle) MarshalJSON() ([]byte, error) {
 	type embedded Bundle
 	return json.Marshal(struct {
-		ResourceType string `json:"resourceType"`
+		ResourceType string `json:"resourceType,omitempty"`
 		embedded
 	}{b.ResourceType(), embedded(b)})
 }
 
 type BundleLink struct {
-	Relation string `json:"relation"`
-	Url      string `json:"url"`
+	Relation string `json:"relation,omitempty"`
+	Url      string `json:"url,omitempty"`
 }
 
 type BundleEntry struct {
-	FullUrl  string            `json:"fullUrl"`
-	Resource model.Resource    `json:"resource"`
-	Search   BundleEntrySearch `json:"search"`
+	FullUrl  string            `json:"fullUrl,omitempty"`
+	Resource model.Resource    `json:"resource,omitempty"`
+	Search   BundleEntrySearch `json:"search,omitempty"`
 }
 
 type BundleEntrySearch struct {
-	Mode string `json:"mode"`
+	Mode string `json:"mode,omitempty"`
 }

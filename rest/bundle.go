@@ -31,11 +31,11 @@ func (e MissingIdError) OperationOutcome() model.Resource {
 	}
 }
 
-// NewSearchBundle creates a new search bundle from the given resources and parameters.
+// SearchBundle creates a new search bundle from the given resources and parameters.
 //
 // The REST server uses cursor based pagination.
 // If the search results contains a `Next` cursor, a 'next' bundle link entry will be set.
-func NewSearchBundle(
+func SearchBundle(
 	matchResourceType string,
 	result search.Result,
 	usedOptions search.Options,
@@ -142,10 +142,10 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Parameters = make(search.Parameters, len(options.Parameters))
-	for key, ands := range options.Parameters {
-		if _, ok := searchCapabilities.Parameters[key]; ok {
-			usedOptions.Parameters[key] = ands
+	usedOptions.Params = make(search.Params, len(options.Params))
+	for key, ands := range options.Params {
+		if _, ok := searchCapabilities.Params[key]; ok {
+			usedOptions.Params[key] = ands
 		}
 	}
 
