@@ -1,8 +1,13 @@
 # fhir-toolbox-go
 
-This project provides a set of packages for building FHIR services in Go.
+> HL7®, and FHIR® are the registered trademarks of Health Level Seven International.
+> The use of these trademarks does not constitute an endorsement by HL7®.
+> This project is not affiliated with HL7® in any way.
 
-This includes model types and interfaces modeling capabilities that you can use to build custom FHIR servers.
+This project provides a set of packages for working with the HL7® FHIR® standard in Go.
+You only need to implement some interfaces and get a REST implementation out-of-the box.
+
+This includes model types and interfaces modeling capabilities that you can use to build custom FHIR® servers.
 
 > While used in production at DAMEDIC, this project is still in its early days
 > and the feature set is quite limit.
@@ -10,12 +15,21 @@ This includes model types and interfaces modeling capabilities that you can use 
 
 ## Features
 
-- FHIR model types with JSON and XML (un)marshalling
+- FHIR® model types with JSON and XML (un)marshalling
+  - R4, R4B & R5 
+  - generated from the FHIR® specification
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building wrappers
+        - automatic CapabilityStatement generation
     - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
     - Cursor-based pagination
+
+### Roadmap
+- FHIRPath evaluation
+- proper handling of `_include` and `_revinclude`
+- resource validation
+- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
 
 ## Getting Started
 
@@ -24,8 +38,9 @@ A quick "getting started" tutorial can be found in the [`./examples/demo`](./exa
 ### Other Examples
 
 You can find more examples in [`./examples/`](./examples/o).
-The [`facade`](./examples/facade/main.go) example shows how to build custom FHIR facades on top of legacy data sources using the capabilities API.
-The [`proxy`](./examples/proxy/main.go) example uses the generic API to forward all requests to another FHIR server.
+The [`mock`](./examples/mock/main.go) example shows how to build custom FHIR® facades on top of legacy data sources
+using the capabilities API.
+The [`proxy`](./examples/proxy/main.go) example uses the generic API to forward all requests to another FHIR® server.
 
 ```sh
 go run ./examples/proxy https://server.fire.ly/
@@ -49,11 +64,11 @@ to get a bundle.
 
 ## Capabilities
 
-Everything is architectured around capabilities, represented by interfaces (e.g. `PatientSearch`).
+Everything is designed around capabilities, represented by interfaces (e.g. `PatientSearch`).
 This flexible architecture allows different use cases, such as
 
-- building FHIR facades to legacy systems by implementing a custom backend
-- using this library as a FHIR client (by leveraging a - still to be build - REST backend)
+- building FHIR® facades to legacy systems by implementing a custom backend
+- using this library as a FHIR® client (by leveraging a - still to be build - REST backend)
 
 ### Concrete vs. Generic API
 
@@ -75,10 +90,11 @@ func (a myAPI) Search(ctx context.Context, resourceType string, options search.O
 ```
 
 You can implement your custom backend or client either way.
-The **concrete** API is ideal for building custom FHIR facades where a limited set of resources is used (see [
+The **concrete** API is ideal for building custom FHIR® facades where a limited set of resources is used (see [
 `./examples/mock`](./examples/mock/main.go)).
-The **generic** API is better suited for e.g. building FHIR clients (see [`./examples/proxy`](./examples/proxy/main.go))
-or standalone FHIR servers.
+The **generic** API is better suited for e.g. building FHIR® clients (see [
+`./examples/proxy`](./examples/proxy/main.go))
+or standalone FHIR® servers.
 
 #### Interoperability
 
@@ -98,17 +114,17 @@ concreteAPI := wrap.ConcreteR4(genericAPI)
 
 | Package              | Description                                                                   |
 |----------------------|-------------------------------------------------------------------------------|
-| `model`              | Generated FHIR model types                                                    |
+| `model`              | Generated FHIR® model types                                                   |
 | `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
 | `capabilites/search` | Types and helper functions for implementing search capabilities               |
 | `capabilites/wrap`   | Conversion between the concrete and generic capabilities API                  |
-| `rest`               | FHIR REST server implementation                                               |
+| `rest`               | FHIR® REST server implementation                                              |
 | `testdata`           | Utils for loading test data and writing tests                                 |
 | `examples`           | Examples on what you can do with this module                                  |
 
 ### Scope
 
-Everything part of the FHIR specification is in scope of this project.
+Everything part of the FHIR® specification is in scope of this project.
 However, we (DAMEDIC) do not strive for feature-completion.
 Instead we will only implement what we need for building our products.
 See [Contribution](#contribution) below.
