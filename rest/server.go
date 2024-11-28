@@ -6,7 +6,6 @@ import (
 	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/capabilities/wrap"
 	"fhir-toolbox/model"
-	"fhir-toolbox/model/basic"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -89,8 +88,8 @@ func readHandler(
 		resourceID := r.PathValue("id")
 
 		status, resource := dispatchRead(r.Context(), backend, resourceType, resourceID)
-		if outcome, ok := resource.(basic.OperationOutcome); ok {
-			slog.Error("error reading resource", "resourceType", resourceType, "OperationOutcome", outcome)
+		if status != http.StatusOK {
+			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
 		}
 
 		returnResult(w, format, status, resource)
@@ -132,8 +131,8 @@ func searchHandler(
 			maxCount,
 			defaultCount,
 		)
-		if outcome, ok := resource.(basic.OperationOutcome); ok {
-			slog.Error("error searching resource", "resourceType", resourceType, "OperationOutcome", outcome)
+		if status != http.StatusOK {
+			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
 		}
 
 		returnResult(w, format, status, resource)

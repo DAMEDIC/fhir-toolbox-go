@@ -25,8 +25,8 @@ func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g UnmarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementUnmarshalContainedExternal(f("contained", strings.ToLower(release)))
-	implementUnmarshalContainedInternal(f("contained", strings.ToLower(release)), ir.FilterResources(rt))
+	implementUnmarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
+	implementUnmarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
 	implementUnmarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 }
 

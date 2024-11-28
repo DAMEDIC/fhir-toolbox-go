@@ -33,295 +33,587 @@ func (r ContainedResource) marshalJSON(w io.Writer) error {
 	switch t := r.Resource.(type) {
 	case Account:
 		return t.marshalJSON(w)
+	case *Account:
+		return t.marshalJSON(w)
 	case ActivityDefinition:
+		return t.marshalJSON(w)
+	case *ActivityDefinition:
 		return t.marshalJSON(w)
 	case AdverseEvent:
 		return t.marshalJSON(w)
+	case *AdverseEvent:
+		return t.marshalJSON(w)
 	case AllergyIntolerance:
+		return t.marshalJSON(w)
+	case *AllergyIntolerance:
 		return t.marshalJSON(w)
 	case Appointment:
 		return t.marshalJSON(w)
+	case *Appointment:
+		return t.marshalJSON(w)
 	case AppointmentResponse:
+		return t.marshalJSON(w)
+	case *AppointmentResponse:
 		return t.marshalJSON(w)
 	case AuditEvent:
 		return t.marshalJSON(w)
+	case *AuditEvent:
+		return t.marshalJSON(w)
 	case Basic:
+		return t.marshalJSON(w)
+	case *Basic:
 		return t.marshalJSON(w)
 	case Binary:
 		return t.marshalJSON(w)
+	case *Binary:
+		return t.marshalJSON(w)
 	case BiologicallyDerivedProduct:
+		return t.marshalJSON(w)
+	case *BiologicallyDerivedProduct:
 		return t.marshalJSON(w)
 	case BodyStructure:
 		return t.marshalJSON(w)
+	case *BodyStructure:
+		return t.marshalJSON(w)
 	case Bundle:
+		return t.marshalJSON(w)
+	case *Bundle:
 		return t.marshalJSON(w)
 	case CapabilityStatement:
 		return t.marshalJSON(w)
+	case *CapabilityStatement:
+		return t.marshalJSON(w)
 	case CarePlan:
+		return t.marshalJSON(w)
+	case *CarePlan:
 		return t.marshalJSON(w)
 	case CareTeam:
 		return t.marshalJSON(w)
+	case *CareTeam:
+		return t.marshalJSON(w)
 	case CatalogEntry:
+		return t.marshalJSON(w)
+	case *CatalogEntry:
 		return t.marshalJSON(w)
 	case ChargeItem:
 		return t.marshalJSON(w)
+	case *ChargeItem:
+		return t.marshalJSON(w)
 	case ChargeItemDefinition:
+		return t.marshalJSON(w)
+	case *ChargeItemDefinition:
 		return t.marshalJSON(w)
 	case Claim:
 		return t.marshalJSON(w)
+	case *Claim:
+		return t.marshalJSON(w)
 	case ClaimResponse:
+		return t.marshalJSON(w)
+	case *ClaimResponse:
 		return t.marshalJSON(w)
 	case ClinicalImpression:
 		return t.marshalJSON(w)
+	case *ClinicalImpression:
+		return t.marshalJSON(w)
 	case CodeSystem:
+		return t.marshalJSON(w)
+	case *CodeSystem:
 		return t.marshalJSON(w)
 	case Communication:
 		return t.marshalJSON(w)
+	case *Communication:
+		return t.marshalJSON(w)
 	case CommunicationRequest:
+		return t.marshalJSON(w)
+	case *CommunicationRequest:
 		return t.marshalJSON(w)
 	case CompartmentDefinition:
 		return t.marshalJSON(w)
+	case *CompartmentDefinition:
+		return t.marshalJSON(w)
 	case Composition:
+		return t.marshalJSON(w)
+	case *Composition:
 		return t.marshalJSON(w)
 	case ConceptMap:
 		return t.marshalJSON(w)
+	case *ConceptMap:
+		return t.marshalJSON(w)
 	case Condition:
+		return t.marshalJSON(w)
+	case *Condition:
 		return t.marshalJSON(w)
 	case Consent:
 		return t.marshalJSON(w)
+	case *Consent:
+		return t.marshalJSON(w)
 	case Contract:
+		return t.marshalJSON(w)
+	case *Contract:
 		return t.marshalJSON(w)
 	case Coverage:
 		return t.marshalJSON(w)
+	case *Coverage:
+		return t.marshalJSON(w)
 	case CoverageEligibilityRequest:
+		return t.marshalJSON(w)
+	case *CoverageEligibilityRequest:
 		return t.marshalJSON(w)
 	case CoverageEligibilityResponse:
 		return t.marshalJSON(w)
+	case *CoverageEligibilityResponse:
+		return t.marshalJSON(w)
 	case DetectedIssue:
+		return t.marshalJSON(w)
+	case *DetectedIssue:
 		return t.marshalJSON(w)
 	case Device:
 		return t.marshalJSON(w)
+	case *Device:
+		return t.marshalJSON(w)
 	case DeviceDefinition:
+		return t.marshalJSON(w)
+	case *DeviceDefinition:
 		return t.marshalJSON(w)
 	case DeviceMetric:
 		return t.marshalJSON(w)
+	case *DeviceMetric:
+		return t.marshalJSON(w)
 	case DeviceRequest:
+		return t.marshalJSON(w)
+	case *DeviceRequest:
 		return t.marshalJSON(w)
 	case DeviceUseStatement:
 		return t.marshalJSON(w)
+	case *DeviceUseStatement:
+		return t.marshalJSON(w)
 	case DiagnosticReport:
+		return t.marshalJSON(w)
+	case *DiagnosticReport:
 		return t.marshalJSON(w)
 	case DocumentManifest:
 		return t.marshalJSON(w)
+	case *DocumentManifest:
+		return t.marshalJSON(w)
 	case DocumentReference:
+		return t.marshalJSON(w)
+	case *DocumentReference:
 		return t.marshalJSON(w)
 	case EffectEvidenceSynthesis:
 		return t.marshalJSON(w)
+	case *EffectEvidenceSynthesis:
+		return t.marshalJSON(w)
 	case Encounter:
+		return t.marshalJSON(w)
+	case *Encounter:
 		return t.marshalJSON(w)
 	case Endpoint:
 		return t.marshalJSON(w)
+	case *Endpoint:
+		return t.marshalJSON(w)
 	case EnrollmentRequest:
+		return t.marshalJSON(w)
+	case *EnrollmentRequest:
 		return t.marshalJSON(w)
 	case EnrollmentResponse:
 		return t.marshalJSON(w)
+	case *EnrollmentResponse:
+		return t.marshalJSON(w)
 	case EpisodeOfCare:
+		return t.marshalJSON(w)
+	case *EpisodeOfCare:
 		return t.marshalJSON(w)
 	case EventDefinition:
 		return t.marshalJSON(w)
+	case *EventDefinition:
+		return t.marshalJSON(w)
 	case Evidence:
+		return t.marshalJSON(w)
+	case *Evidence:
 		return t.marshalJSON(w)
 	case EvidenceVariable:
 		return t.marshalJSON(w)
+	case *EvidenceVariable:
+		return t.marshalJSON(w)
 	case ExampleScenario:
+		return t.marshalJSON(w)
+	case *ExampleScenario:
 		return t.marshalJSON(w)
 	case ExplanationOfBenefit:
 		return t.marshalJSON(w)
+	case *ExplanationOfBenefit:
+		return t.marshalJSON(w)
 	case FamilyMemberHistory:
+		return t.marshalJSON(w)
+	case *FamilyMemberHistory:
 		return t.marshalJSON(w)
 	case Flag:
 		return t.marshalJSON(w)
+	case *Flag:
+		return t.marshalJSON(w)
 	case Goal:
+		return t.marshalJSON(w)
+	case *Goal:
 		return t.marshalJSON(w)
 	case GraphDefinition:
 		return t.marshalJSON(w)
+	case *GraphDefinition:
+		return t.marshalJSON(w)
 	case Group:
+		return t.marshalJSON(w)
+	case *Group:
 		return t.marshalJSON(w)
 	case GuidanceResponse:
 		return t.marshalJSON(w)
+	case *GuidanceResponse:
+		return t.marshalJSON(w)
 	case HealthcareService:
+		return t.marshalJSON(w)
+	case *HealthcareService:
 		return t.marshalJSON(w)
 	case ImagingStudy:
 		return t.marshalJSON(w)
+	case *ImagingStudy:
+		return t.marshalJSON(w)
 	case Immunization:
+		return t.marshalJSON(w)
+	case *Immunization:
 		return t.marshalJSON(w)
 	case ImmunizationEvaluation:
 		return t.marshalJSON(w)
+	case *ImmunizationEvaluation:
+		return t.marshalJSON(w)
 	case ImmunizationRecommendation:
+		return t.marshalJSON(w)
+	case *ImmunizationRecommendation:
 		return t.marshalJSON(w)
 	case ImplementationGuide:
 		return t.marshalJSON(w)
+	case *ImplementationGuide:
+		return t.marshalJSON(w)
 	case InsurancePlan:
+		return t.marshalJSON(w)
+	case *InsurancePlan:
 		return t.marshalJSON(w)
 	case Invoice:
 		return t.marshalJSON(w)
+	case *Invoice:
+		return t.marshalJSON(w)
 	case Library:
+		return t.marshalJSON(w)
+	case *Library:
 		return t.marshalJSON(w)
 	case Linkage:
 		return t.marshalJSON(w)
+	case *Linkage:
+		return t.marshalJSON(w)
 	case List:
+		return t.marshalJSON(w)
+	case *List:
 		return t.marshalJSON(w)
 	case Location:
 		return t.marshalJSON(w)
+	case *Location:
+		return t.marshalJSON(w)
 	case Measure:
+		return t.marshalJSON(w)
+	case *Measure:
 		return t.marshalJSON(w)
 	case MeasureReport:
 		return t.marshalJSON(w)
+	case *MeasureReport:
+		return t.marshalJSON(w)
 	case Media:
+		return t.marshalJSON(w)
+	case *Media:
 		return t.marshalJSON(w)
 	case Medication:
 		return t.marshalJSON(w)
+	case *Medication:
+		return t.marshalJSON(w)
 	case MedicationAdministration:
+		return t.marshalJSON(w)
+	case *MedicationAdministration:
 		return t.marshalJSON(w)
 	case MedicationDispense:
 		return t.marshalJSON(w)
+	case *MedicationDispense:
+		return t.marshalJSON(w)
 	case MedicationKnowledge:
+		return t.marshalJSON(w)
+	case *MedicationKnowledge:
 		return t.marshalJSON(w)
 	case MedicationRequest:
 		return t.marshalJSON(w)
+	case *MedicationRequest:
+		return t.marshalJSON(w)
 	case MedicationStatement:
+		return t.marshalJSON(w)
+	case *MedicationStatement:
 		return t.marshalJSON(w)
 	case MedicinalProduct:
 		return t.marshalJSON(w)
+	case *MedicinalProduct:
+		return t.marshalJSON(w)
 	case MedicinalProductAuthorization:
+		return t.marshalJSON(w)
+	case *MedicinalProductAuthorization:
 		return t.marshalJSON(w)
 	case MedicinalProductContraindication:
 		return t.marshalJSON(w)
+	case *MedicinalProductContraindication:
+		return t.marshalJSON(w)
 	case MedicinalProductIndication:
+		return t.marshalJSON(w)
+	case *MedicinalProductIndication:
 		return t.marshalJSON(w)
 	case MedicinalProductIngredient:
 		return t.marshalJSON(w)
+	case *MedicinalProductIngredient:
+		return t.marshalJSON(w)
 	case MedicinalProductInteraction:
+		return t.marshalJSON(w)
+	case *MedicinalProductInteraction:
 		return t.marshalJSON(w)
 	case MedicinalProductManufactured:
 		return t.marshalJSON(w)
+	case *MedicinalProductManufactured:
+		return t.marshalJSON(w)
 	case MedicinalProductPackaged:
+		return t.marshalJSON(w)
+	case *MedicinalProductPackaged:
 		return t.marshalJSON(w)
 	case MedicinalProductPharmaceutical:
 		return t.marshalJSON(w)
+	case *MedicinalProductPharmaceutical:
+		return t.marshalJSON(w)
 	case MedicinalProductUndesirableEffect:
+		return t.marshalJSON(w)
+	case *MedicinalProductUndesirableEffect:
 		return t.marshalJSON(w)
 	case MessageDefinition:
 		return t.marshalJSON(w)
+	case *MessageDefinition:
+		return t.marshalJSON(w)
 	case MessageHeader:
+		return t.marshalJSON(w)
+	case *MessageHeader:
 		return t.marshalJSON(w)
 	case MolecularSequence:
 		return t.marshalJSON(w)
+	case *MolecularSequence:
+		return t.marshalJSON(w)
 	case NamingSystem:
+		return t.marshalJSON(w)
+	case *NamingSystem:
 		return t.marshalJSON(w)
 	case NutritionOrder:
 		return t.marshalJSON(w)
+	case *NutritionOrder:
+		return t.marshalJSON(w)
 	case Observation:
+		return t.marshalJSON(w)
+	case *Observation:
 		return t.marshalJSON(w)
 	case ObservationDefinition:
 		return t.marshalJSON(w)
+	case *ObservationDefinition:
+		return t.marshalJSON(w)
 	case OperationDefinition:
+		return t.marshalJSON(w)
+	case *OperationDefinition:
 		return t.marshalJSON(w)
 	case OperationOutcome:
 		return t.marshalJSON(w)
+	case *OperationOutcome:
+		return t.marshalJSON(w)
 	case Organization:
+		return t.marshalJSON(w)
+	case *Organization:
 		return t.marshalJSON(w)
 	case OrganizationAffiliation:
 		return t.marshalJSON(w)
+	case *OrganizationAffiliation:
+		return t.marshalJSON(w)
 	case Parameters:
+		return t.marshalJSON(w)
+	case *Parameters:
 		return t.marshalJSON(w)
 	case Patient:
 		return t.marshalJSON(w)
+	case *Patient:
+		return t.marshalJSON(w)
 	case PaymentNotice:
+		return t.marshalJSON(w)
+	case *PaymentNotice:
 		return t.marshalJSON(w)
 	case PaymentReconciliation:
 		return t.marshalJSON(w)
+	case *PaymentReconciliation:
+		return t.marshalJSON(w)
 	case Person:
+		return t.marshalJSON(w)
+	case *Person:
 		return t.marshalJSON(w)
 	case PlanDefinition:
 		return t.marshalJSON(w)
+	case *PlanDefinition:
+		return t.marshalJSON(w)
 	case Practitioner:
+		return t.marshalJSON(w)
+	case *Practitioner:
 		return t.marshalJSON(w)
 	case PractitionerRole:
 		return t.marshalJSON(w)
+	case *PractitionerRole:
+		return t.marshalJSON(w)
 	case Procedure:
+		return t.marshalJSON(w)
+	case *Procedure:
 		return t.marshalJSON(w)
 	case Provenance:
 		return t.marshalJSON(w)
+	case *Provenance:
+		return t.marshalJSON(w)
 	case Questionnaire:
+		return t.marshalJSON(w)
+	case *Questionnaire:
 		return t.marshalJSON(w)
 	case QuestionnaireResponse:
 		return t.marshalJSON(w)
+	case *QuestionnaireResponse:
+		return t.marshalJSON(w)
 	case RelatedPerson:
+		return t.marshalJSON(w)
+	case *RelatedPerson:
 		return t.marshalJSON(w)
 	case RequestGroup:
 		return t.marshalJSON(w)
+	case *RequestGroup:
+		return t.marshalJSON(w)
 	case ResearchDefinition:
+		return t.marshalJSON(w)
+	case *ResearchDefinition:
 		return t.marshalJSON(w)
 	case ResearchElementDefinition:
 		return t.marshalJSON(w)
+	case *ResearchElementDefinition:
+		return t.marshalJSON(w)
 	case ResearchStudy:
+		return t.marshalJSON(w)
+	case *ResearchStudy:
 		return t.marshalJSON(w)
 	case ResearchSubject:
 		return t.marshalJSON(w)
+	case *ResearchSubject:
+		return t.marshalJSON(w)
 	case RiskAssessment:
+		return t.marshalJSON(w)
+	case *RiskAssessment:
 		return t.marshalJSON(w)
 	case RiskEvidenceSynthesis:
 		return t.marshalJSON(w)
+	case *RiskEvidenceSynthesis:
+		return t.marshalJSON(w)
 	case Schedule:
+		return t.marshalJSON(w)
+	case *Schedule:
 		return t.marshalJSON(w)
 	case SearchParameter:
 		return t.marshalJSON(w)
+	case *SearchParameter:
+		return t.marshalJSON(w)
 	case ServiceRequest:
+		return t.marshalJSON(w)
+	case *ServiceRequest:
 		return t.marshalJSON(w)
 	case Slot:
 		return t.marshalJSON(w)
+	case *Slot:
+		return t.marshalJSON(w)
 	case Specimen:
+		return t.marshalJSON(w)
+	case *Specimen:
 		return t.marshalJSON(w)
 	case SpecimenDefinition:
 		return t.marshalJSON(w)
+	case *SpecimenDefinition:
+		return t.marshalJSON(w)
 	case StructureDefinition:
+		return t.marshalJSON(w)
+	case *StructureDefinition:
 		return t.marshalJSON(w)
 	case StructureMap:
 		return t.marshalJSON(w)
+	case *StructureMap:
+		return t.marshalJSON(w)
 	case Subscription:
+		return t.marshalJSON(w)
+	case *Subscription:
 		return t.marshalJSON(w)
 	case Substance:
 		return t.marshalJSON(w)
+	case *Substance:
+		return t.marshalJSON(w)
 	case SubstanceNucleicAcid:
+		return t.marshalJSON(w)
+	case *SubstanceNucleicAcid:
 		return t.marshalJSON(w)
 	case SubstancePolymer:
 		return t.marshalJSON(w)
+	case *SubstancePolymer:
+		return t.marshalJSON(w)
 	case SubstanceProtein:
+		return t.marshalJSON(w)
+	case *SubstanceProtein:
 		return t.marshalJSON(w)
 	case SubstanceReferenceInformation:
 		return t.marshalJSON(w)
+	case *SubstanceReferenceInformation:
+		return t.marshalJSON(w)
 	case SubstanceSourceMaterial:
+		return t.marshalJSON(w)
+	case *SubstanceSourceMaterial:
 		return t.marshalJSON(w)
 	case SubstanceSpecification:
 		return t.marshalJSON(w)
+	case *SubstanceSpecification:
+		return t.marshalJSON(w)
 	case SupplyDelivery:
+		return t.marshalJSON(w)
+	case *SupplyDelivery:
 		return t.marshalJSON(w)
 	case SupplyRequest:
 		return t.marshalJSON(w)
+	case *SupplyRequest:
+		return t.marshalJSON(w)
 	case Task:
+		return t.marshalJSON(w)
+	case *Task:
 		return t.marshalJSON(w)
 	case TerminologyCapabilities:
 		return t.marshalJSON(w)
+	case *TerminologyCapabilities:
+		return t.marshalJSON(w)
 	case TestReport:
+		return t.marshalJSON(w)
+	case *TestReport:
 		return t.marshalJSON(w)
 	case TestScript:
 		return t.marshalJSON(w)
+	case *TestScript:
+		return t.marshalJSON(w)
 	case ValueSet:
+		return t.marshalJSON(w)
+	case *ValueSet:
 		return t.marshalJSON(w)
 	case VerificationResult:
 		return t.marshalJSON(w)
+	case *VerificationResult:
+		return t.marshalJSON(w)
 	case VisionPrescription:
+		return t.marshalJSON(w)
+	case *VisionPrescription:
 		return t.marshalJSON(w)
 	default:
 		return fmt.Errorf("unknown resource: %v", t)
@@ -1519,15 +1811,14 @@ func (cr *ContainedResource) unmarshalJSON(d *json.Decoder) error {
 	}
 }
 func (r ContainedResource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if start.Name.Local == "ContainedResource" {
-		start.Name.Space = "http://hl7.org/fhir"
-		return e.EncodeElement(r.Resource, start)
+	if len(start.Name.Local) > 0 && unicode.IsUpper(rune(start.Name.Local[0])) {
+		return e.Encode(r.Resource)
 	} else {
 		err := e.EncodeToken(start)
 		if err != nil {
 			return err
 		}
-		err = e.Encode(r.Resource)
+		err = e.EncodeElement(r.Resource, xml.StartElement{Name: xml.Name{Local: "__contained__"}})
 		if err != nil {
 			return err
 		}

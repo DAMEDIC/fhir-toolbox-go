@@ -4324,6 +4324,11 @@ func (r *ResearchElementDefinitionCharacteristic) unmarshalJSON(d *json.Decoder)
 	return nil
 }
 func (r ResearchElementDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "ResearchElementDefinition"
 	err := e.EncodeToken(start)
 	if err != nil {

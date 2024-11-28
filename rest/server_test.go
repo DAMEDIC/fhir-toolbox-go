@@ -28,7 +28,7 @@ func TestCapabilityStatement(t *testing.T) {
 		expectedBody   string
 	}{
 		{
-			name:           "JSON CapabilityStatement",
+			name:           "CapabilityStatement JSON",
 			format:         "application/fhir+json",
 			date:           "2024-11-28T11:25:27+01:00",
 			expectedStatus: http.StatusOK,
@@ -40,7 +40,8 @@ func TestCapabilityStatement(t *testing.T) {
 				"json"
 			  ],
 			  "implementation": {
-				"description": "a simple FHIR service built with fhir-toolbox-go"
+				"description": "a simple FHIR service built with fhir-toolbox-go",
+				"url": "http://example.com/metadata"
 			  },
 			  "kind": "instance",
 			  "resourceType": "CapabilityStatement",
@@ -127,15 +128,103 @@ func TestCapabilityStatement(t *testing.T) {
 			  "status": "active"
 			}`,
 		},
+		{
+			name:           "CapabilityStatement XML",
+			format:         "application/fhir+xml",
+			date:           "2024-11-28T11:25:27+01:00",
+			expectedStatus: http.StatusOK,
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<CapabilityStatement xmlns='http://hl7.org/fhir'>
+				  <status value='active'/>
+				  <date value='2024-11-28T11:25:27+01:00'/>
+				  <kind value='instance'/>
+				  <software>
+					<name value='fhir-toolbox-go'/>
+				  </software>
+				  <implementation>
+					<description value='a simple FHIR service built with fhir-toolbox-go'/>
+					<url value='http://example.com/metadata'/>
+				  </implementation>
+				  <fhirVersion value='4.0.1'/>
+				  <format value='xml'/>
+				  <format value='json'/>
+				  <rest>
+					<mode value='server'/>
+					<resource>
+					  <type value='Observation'/>
+					  <interaction>
+						<code value='search-type'/>
+					  </interaction>
+					  <searchInclude value='Observation:patient'/>
+					  <searchParam>
+						<name value='_id'/>
+						<type value='token'/>
+					  </searchParam>
+					</resource>
+					<resource>
+					  <type value='Patient'/>
+					  <interaction>
+						<code value='read'/>
+					  </interaction>
+					  <interaction>
+						<code value='search-type'/>
+					  </interaction>
+					  <searchParam>
+						<name value='_id'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='date'/>
+						<type value='date'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='eb8'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='eq1'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='ge5'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='gt3'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='le6'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='lt4'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='ne2'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='sa7'/>
+						<type value='token'/>
+					  </searchParam>
+					</resource>
+				  </rest>
+				</CapabilityStatement>`,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
+			config.Base = "http://example.com"
 			config.Date = tt.date
+
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
 			assert.NoError(t, err)
-			req := httptest.NewRequest("GET", "/metadata", nil)
+
+			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
 			req.Header.Set("Accept", tt.format)
 
 			rr := httptest.NewRecorder()
@@ -220,7 +309,7 @@ func TestHandleRead(t *testing.T) {
 			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
-				<Patient>
+				<Patient xmlns="http://hl7.org/fhir">
 					<id value="1"/>
             	</Patient>`,
 		},
@@ -232,7 +321,7 @@ func TestHandleRead(t *testing.T) {
 			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
-				<Patient>
+				<Patient xmlns="http://hl7.org/fhir">
 					<id value="1"/>
             	</Patient>`,
 		},
@@ -244,7 +333,7 @@ func TestHandleRead(t *testing.T) {
 			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
-				<Patient>
+				<Patient xmlns="http://hl7.org/fhir">
 					<id value="1"/>
             	</Patient>`,
 		},
@@ -256,7 +345,7 @@ func TestHandleRead(t *testing.T) {
 			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
-				<Patient>
+				<Patient xmlns="http://hl7.org/fhir">
 					<id value="1"/>
             	</Patient>`,
 		},
@@ -318,9 +407,13 @@ func TestHandleRead(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			server, err := rest.NewServer[model.R4](tt.backend, rest.DefaultConfig)
+			config := rest.DefaultConfig
+			config.Base = "http://example.com"
+
+			server, err := rest.NewServer[model.R4](tt.backend, config)
 			assert.NoError(t, err)
-			requestURL := fmt.Sprintf("/%s/%s", tt.resourceType, tt.resourceID)
+
+			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
 			req := httptest.NewRequest("GET", requestURL, nil)
 			req.Header.Set("Accept", tt.format)
 
@@ -810,8 +903,10 @@ func TestHandleSearch(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
 			config.Base = "http://example.com"
+
 			server, err := rest.NewServer[model.R4](tt.backend, config)
 			assert.NoError(t, err)
+
 			requestURL := fmt.Sprintf("http://example.com/%s?%s", tt.resourceType, tt.queryString)
 			req := httptest.NewRequest("GET", requestURL, nil)
 			req = req.WithContext(context.WithValue(req.Context(), "t", t))

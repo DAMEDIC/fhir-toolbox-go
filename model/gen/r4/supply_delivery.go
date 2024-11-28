@@ -1550,6 +1550,11 @@ func (r *SupplyDeliverySuppliedItem) unmarshalJSON(d *json.Decoder) error {
 	return nil
 }
 func (r SupplyDelivery) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "SupplyDelivery"
 	err := e.EncodeToken(start)
 	if err != nil {

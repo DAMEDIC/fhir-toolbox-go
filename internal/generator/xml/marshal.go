@@ -26,7 +26,7 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementMarshalContained(f("contained", strings.ToLower(release)))
+	implementMarshalContained(f("contained_resource", strings.ToLower(release)))
 }
 
 func implementMarshal(f *File, s ir.Struct) {
@@ -36,6 +36,11 @@ func implementMarshal(f *File, s ir.Struct) {
 	).Params(Error()).BlockFunc(func(g *Group) {
 
 		if s.IsResource {
+			g.If(Id("start.Name.Local").Op("==").Lit("__contained__")).Block(
+				Id("start.Name.Space").Op("=").Lit(""),
+			).Else().Block(
+				Id("start.Name.Space").Op("=").Lit(NamespaceFHIR),
+			)
 			g.Id("start.Name.Local").Op("=").Lit(s.Name)
 		} else if s.Name == "Xhtml" {
 			g.Id("start.Name.Space").Op("=").Lit(NamespaceXHTML)
@@ -232,16 +237,24 @@ func implementMarshalContained(f *File) {
 		Id("e").Op("*").Qual("encoding/xml", "Encoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
 	).Error().Block(
-		If(Id("start.Name.Local").Op("==").Lit("ContainedResource")).Block(
-			Id("start.Name.Space").Op("=").Lit(NamespaceFHIR),
-			Return(Id("e").Op(".").Id("EncodeElement").Params(Id("r.Resource"), Id("start"))),
+		If(
+			Len(Id("start.Name.Local")).Op(">").Lit(0).Op("&&").
+				Qual("unicode", "IsUpper").Call(Rune().Call(Id("start.Name.Local").Index(Lit(0)))),
+		).Block(
+			Return(Id("e").Op(".").Id("Encode").Params(Id("r.Resource"))),
 		).Else().Block(
 			Err().Op(":=").Id("e.EncodeToken").Params(Id("start")),
 			If(Err().Op("!=").Nil()).Block(
 				Return(Err()),
 			),
 
-			Err().Op("=").Id("e.Encode").Params(Id("r.Resource")),
+			Err().Op("=").Id("e.EncodeElement").Params(
+				Id("r.Resource"),
+				Qual("encoding/xml", "StartElement").Values(Dict{
+					Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+						Id("Local"): Lit("__contained__"),
+					}),
+				})),
 			If(Err().Op("!=").Nil()).Block(
 				Return(Err()),
 			),

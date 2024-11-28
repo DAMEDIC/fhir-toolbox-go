@@ -2790,6 +2790,11 @@ func (r *SpecimenDefinitionTypeTestedHandling) unmarshalJSON(d *json.Decoder) er
 	return nil
 }
 func (r SpecimenDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "SpecimenDefinition"
 	err := e.EncodeToken(start)
 	if err != nil {

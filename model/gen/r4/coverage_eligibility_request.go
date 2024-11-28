@@ -3106,6 +3106,11 @@ func (r *CoverageEligibilityRequestItemDiagnosis) unmarshalJSON(d *json.Decoder)
 	return nil
 }
 func (r CoverageEligibilityRequest) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "CoverageEligibilityRequest"
 	err := e.EncodeToken(start)
 	if err != nil {

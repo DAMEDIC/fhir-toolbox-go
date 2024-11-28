@@ -2182,6 +2182,11 @@ func (r *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdra
 	return nil
 }
 func (r MedicinalProductPharmaceutical) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "MedicinalProductPharmaceutical"
 	err := e.EncodeToken(start)
 	if err != nil {

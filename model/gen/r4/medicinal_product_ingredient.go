@@ -2338,6 +2338,11 @@ func (r *MedicinalProductIngredientSubstance) unmarshalJSON(d *json.Decoder) err
 	return nil
 }
 func (r MedicinalProductIngredient) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "MedicinalProductIngredient"
 	err := e.EncodeToken(start)
 	if err != nil {

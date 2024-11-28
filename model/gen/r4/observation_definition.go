@@ -2127,6 +2127,11 @@ func (r *ObservationDefinitionQualifiedInterval) unmarshalJSON(d *json.Decoder) 
 	return nil
 }
 func (r ObservationDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "ObservationDefinition"
 	err := e.EncodeToken(start)
 	if err != nil {

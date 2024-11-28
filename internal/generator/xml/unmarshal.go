@@ -20,7 +20,7 @@ func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g UnmarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementUnmarshalContained(f("contained", strings.ToLower(release)), ir.FilterResources(rt))
+	implementUnmarshalContained(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
 }
 
 func implementUnmarshal(f *File, s ir.Struct) {

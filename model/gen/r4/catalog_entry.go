@@ -1511,6 +1511,11 @@ func (r *CatalogEntryRelatedEntry) unmarshalJSON(d *json.Decoder) error {
 	return nil
 }
 func (r CatalogEntry) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "CatalogEntry"
 	err := e.EncodeToken(start)
 	if err != nil {

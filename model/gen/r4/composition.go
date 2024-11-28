@@ -3014,6 +3014,11 @@ func (r *CompositionSection) unmarshalJSON(d *json.Decoder) error {
 	return nil
 }
 func (r Composition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "Composition"
 	err := e.EncodeToken(start)
 	if err != nil {

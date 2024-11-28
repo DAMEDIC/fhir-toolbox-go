@@ -876,6 +876,11 @@ func (r *ResearchSubject) unmarshalJSON(d *json.Decoder) error {
 	return nil
 }
 func (r ResearchSubject) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "ResearchSubject"
 	err := e.EncodeToken(start)
 	if err != nil {

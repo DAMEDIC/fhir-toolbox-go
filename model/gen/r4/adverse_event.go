@@ -2082,6 +2082,11 @@ func (r *AdverseEventSuspectEntityCausality) unmarshalJSON(d *json.Decoder) erro
 	return nil
 }
 func (r AdverseEvent) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "AdverseEvent"
 	err := e.EncodeToken(start)
 	if err != nil {

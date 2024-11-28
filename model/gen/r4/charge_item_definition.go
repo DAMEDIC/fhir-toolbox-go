@@ -3261,6 +3261,11 @@ func (r *ChargeItemDefinitionPropertyGroupPriceComponent) unmarshalJSON(d *json.
 	return nil
 }
 func (r ChargeItemDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "__contained__" {
+		start.Name.Space = ""
+	} else {
+		start.Name.Space = "http://hl7.org/fhir"
+	}
 	start.Name.Local = "ChargeItemDefinition"
 	err := e.EncodeToken(start)
 	if err != nil {

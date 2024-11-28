@@ -4,7 +4,8 @@ import (
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/capabilities/search"
 	"fhir-toolbox/model"
-	"fhir-toolbox/model/basic"
+	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/utils"
 	"fmt"
 	"net/url"
 	"strings"
@@ -24,9 +25,13 @@ func (e MissingIdError) StatusCode() int {
 }
 
 func (e MissingIdError) OperationOutcome() model.Resource {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{Severity: "fatal", Code: "processing", Diagnostics: e.Error()},
+	return r4.OperationOutcome{
+		Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: utils.Ptr("fatal")},
+				Code:        r4.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+			},
 		},
 	}
 }
@@ -41,17 +46,17 @@ func SearchBundle(
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-) (basic.Bundle, capabilities.FHIRError) {
+) (r4.Bundle, capabilities.FHIRError) {
 	entries, err := entries(matchResourceType, result.Resources, baseURL)
 	if err != nil {
-		return basic.Bundle{}, err
+		return r4.Bundle{}, err
 	}
 
-	bundle := basic.Bundle{
-		Type: "searchset",
-		Link: []basic.BundleLink{
+	bundle := r4.Bundle{
+		Type: r4.Code{Value: utils.Ptr("searchset")},
+		Link: []r4.BundleLink{
 			{
-				Relation: "self",
+				Relation: r4.String{Value: utils.Ptr("self")},
 				Url: relationLink(
 					matchResourceType,
 					usedOptions,
@@ -67,8 +72,8 @@ func SearchBundle(
 		nextOptions := usedOptions
 		nextOptions.Cursor = result.Next
 
-		bundle.Link = append(bundle.Link, basic.BundleLink{
-			Relation: "next",
+		bundle.Link = append(bundle.Link, r4.BundleLink{
+			Relation: r4.String{Value: utils.Ptr("next")},
 			Url: relationLink(
 				matchResourceType,
 				nextOptions,
@@ -82,8 +87,8 @@ func SearchBundle(
 	return bundle, nil
 }
 
-func entries(matchResourceType string, resources []model.Resource, baseURL *url.URL) ([]basic.BundleEntry, capabilities.FHIRError) {
-	entries := make([]basic.BundleEntry, 0, len(resources))
+func entries(matchResourceType string, resources []model.Resource, baseURL *url.URL) ([]r4.BundleEntry, capabilities.FHIRError) {
+	entries := make([]r4.BundleEntry, 0, len(resources))
 
 	for _, r := range resources {
 		searchMode := "include"
@@ -100,11 +105,11 @@ func entries(matchResourceType string, resources []model.Resource, baseURL *url.
 	return entries, nil
 }
 
-func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.BundleEntry, capabilities.FHIRError) {
+func entry(resource model.Resource, searchMode string, baseURL *url.URL) (r4.BundleEntry, capabilities.FHIRError) {
 	resourceType := resource.ResourceType()
 	resourceID, ok := resource.ResourceId()
 	if !ok {
-		return basic.BundleEntry{}, MissingIdError{ResourceType: resourceType}
+		return r4.BundleEntry{}, MissingIdError{ResourceType: resourceType}
 	}
 
 	path := strings.Trim(baseURL.Path, "/ ")
@@ -114,11 +119,11 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 		Path:   fmt.Sprintf("%s/%s/%s", path, resourceType, resourceID),
 	}
 
-	return basic.BundleEntry{
-		Resource: resource,
-		FullUrl:  fullURL.String(),
-		Search: basic.BundleEntrySearch{
-			Mode: searchMode,
+	return r4.BundleEntry{
+		Resource: &resource,
+		FullUrl:  &r4.Uri{Value: utils.Ptr(fullURL.String())},
+		Search: &r4.BundleEntrySearch{
+			Mode: &r4.Code{Value: &searchMode},
 		},
 	}, nil
 }
@@ -132,7 +137,7 @@ func relationLink(
 	options search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-) string {
+) r4.Uri {
 	path := strings.Trim(baseURL.Path, "/ ")
 	link := url.URL{
 		Scheme: baseURL.Scheme,
@@ -151,5 +156,5 @@ func relationLink(
 
 	link.RawQuery = usedOptions.QueryString()
 
-	return link.String()
+	return r4.Uri{Value: utils.Ptr(link.String())}
 }
