@@ -21,7 +21,9 @@ func GetExamples(release, format string) map[string][]byte {
 	examples := map[string][]byte{}
 	for _, file := range zip.File {
 		// not a FHIR resource
-		if strings.HasSuffix(file.Name, "package-min-ver.json") {
+		if strings.HasSuffix(file.Name, "package-min-ver.json") ||
+			strings.HasPrefix(file.Name, "__MACOSX/") ||
+			file.Name == "examples-json/" {
 			continue
 		}
 
@@ -29,7 +31,9 @@ func GetExamples(release, format string) map[string][]byte {
 		if err != nil {
 			log.Fatal(err)
 		}
-		examples[file.Name], err = io.ReadAll(f)
+
+		name := strings.TrimPrefix(file.Name, "examples-json/")
+		examples[name], err = io.ReadAll(f)
 		if err != nil {
 			log.Fatal(err)
 		}

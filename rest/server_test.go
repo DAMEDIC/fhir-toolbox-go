@@ -34,7 +34,7 @@ func TestCapabilityStatement(t *testing.T) {
 			expectedStatus: http.StatusOK,
 			expectedBody: `{
 			  "date": "2024-11-28T11:25:27+01:00",
-			  "fhirVersion": "4.0.1",
+			  "fhirVersion": "4.0",
 			  "format": [
 				"xml",
 				"json"
@@ -145,7 +145,7 @@ func TestCapabilityStatement(t *testing.T) {
 					<description value='a simple FHIR service built with fhir-toolbox-go'/>
 					<url value='http://example.com/metadata'/>
 				  </implementation>
-				  <fhirVersion value='4.0.1'/>
+				  <fhirVersion value='4.0'/>
 				  <format value='xml'/>
 				  <format value='json'/>
 				  <rest>

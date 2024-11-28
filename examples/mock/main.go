@@ -5,7 +5,7 @@ import (
 	"context"
 	"fhir-toolbox/capabilities"
 	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/model/gen/r5"
 	"fhir-toolbox/utils"
 	"log"
 	"log/slog"
@@ -30,7 +30,7 @@ func main() {
 
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	server, err := rest.NewServer[model.R4](&backend, rest.DefaultConfig)
+	server, err := rest.NewServer[model.R5](&backend, rest.DefaultConfig)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
@@ -42,7 +42,7 @@ func main() {
 
 type mockBackend struct{}
 
-func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r4.Observation, capabilities.FHIRError) {
+func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
 	// forward single resource read to a search for the specific id
 	result, err := b.SearchObservation(ctx, search.Options{
 		Params: search.Params{
@@ -51,14 +51,14 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r4.Observ
 		Count: 1,
 	})
 	if err != nil {
-		return r4.Observation{}, err
+		return r5.Observation{}, err
 	}
 
 	if len(result.Resources) == 0 {
-		return r4.Observation{}, capabilities.NotFoundError{ResourceType: "Observation", ID: id}
+		return r5.Observation{}, capabilities.NotFoundError{ResourceType: "Observation", ID: id}
 	}
 
-	return *result.Resources[0].(*r4.Observation), nil
+	return *result.Resources[0].(*r5.Observation), nil
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
@@ -73,58 +73,58 @@ func (b *mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	return search.Result{
 		Resources: []model.Resource{
-			r4.Observation{
-				Id: &r4.Id{Value: utils.Ptr("123")},
-				Meta: &r4.Meta{
-					LastUpdated: &r4.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
+			r5.Observation{
+				Id: &r5.Id{Value: utils.Ptr("123")},
+				Meta: &r5.Meta{
+					LastUpdated: &r5.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
 				},
-				Category: []r4.CodeableConcept{{
-					Coding: []r4.Coding{{
-						System:  &r4.Uri{Value: utils.Ptr("http://terminology.hl7.org/CodeSystem/observation-category")},
-						Code:    &r4.Code{Value: utils.Ptr("vital-signs")},
-						Display: &r4.String{Value: utils.Ptr("Vital Signs")},
+				Category: []r5.CodeableConcept{{
+					Coding: []r5.Coding{{
+						System:  &r5.Uri{Value: utils.Ptr("http://terminology.hl7.org/CodeSystem/observation-category")},
+						Code:    &r5.Code{Value: utils.Ptr("vital-signs")},
+						Display: &r5.String{Value: utils.Ptr("Vital Signs")},
 					}},
 				}},
-				Code: r4.CodeableConcept{
-					Coding: []r4.Coding{{
-						System:  &r4.Uri{Value: utils.Ptr("http://loinc.org")},
-						Code:    &r4.Code{Value: utils.Ptr("85354-9")},
-						Display: &r4.String{Value: utils.Ptr("Blood pressure panel with all children optional")},
+				Code: r5.CodeableConcept{
+					Coding: []r5.Coding{{
+						System:  &r5.Uri{Value: utils.Ptr("http://loinc.org")},
+						Code:    &r5.Code{Value: utils.Ptr("85354-9")},
+						Display: &r5.String{Value: utils.Ptr("Blood pressure panel with all children optional")},
 					}},
-					Text: &r4.String{Value: utils.Ptr("Blood pressure systolic & diastolic")},
+					Text: &r5.String{Value: utils.Ptr("Blood pressure systolic & diastolic")},
 				},
-				Effective: &r4.DateTime{Value: utils.Ptr(time.Now().AddDate(0, 0, -1).Format(time.RFC3339))},
-				Issued:    &r4.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
-				Status:    r4.Code{Value: utils.Ptr("final")},
-				Component: []r4.ObservationComponent{
+				Effective: &r5.DateTime{Value: utils.Ptr(time.Now().AddDate(0, 0, -1).Format(time.RFC3339))},
+				Issued:    &r5.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
+				Status:    r5.Code{Value: utils.Ptr("final")},
+				Component: []r5.ObservationComponent{
 					{
-						Code: r4.CodeableConcept{
-							Coding: []r4.Coding{{
-								System:  &r4.Uri{Value: utils.Ptr("http://loinc.org")},
-								Code:    &r4.Code{Value: utils.Ptr("8480-6")},
-								Display: &r4.String{Value: utils.Ptr("Systolic blood pressure")},
+						Code: r5.CodeableConcept{
+							Coding: []r5.Coding{{
+								System:  &r5.Uri{Value: utils.Ptr("http://loinc.org")},
+								Code:    &r5.Code{Value: utils.Ptr("8480-6")},
+								Display: &r5.String{Value: utils.Ptr("Systolic blood pressure")},
 							}},
 						},
-						Value: &r4.Quantity{
-							Value:  &r4.Decimal{Value: utils.Ptr("120.0")},
-							Unit:   &r4.String{Value: utils.Ptr("mmHg")},
-							System: &r4.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
-							Code:   &r4.Code{Value: utils.Ptr("mm[Hg]")},
+						Value: &r5.Quantity{
+							Value:  &r5.Decimal{Value: utils.Ptr("120.0")},
+							Unit:   &r5.String{Value: utils.Ptr("mmHg")},
+							System: &r5.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
+							Code:   &r5.Code{Value: utils.Ptr("mm[Hg]")},
 						},
 					},
 					{
-						Code: r4.CodeableConcept{
-							Coding: []r4.Coding{{
-								System:  &r4.Uri{Value: utils.Ptr("http://loinc.org")},
-								Code:    &r4.Code{Value: utils.Ptr("8462-4")},
-								Display: &r4.String{Value: utils.Ptr("Diastolic blood pressure")},
+						Code: r5.CodeableConcept{
+							Coding: []r5.Coding{{
+								System:  &r5.Uri{Value: utils.Ptr("http://loinc.org")},
+								Code:    &r5.Code{Value: utils.Ptr("8462-4")},
+								Display: &r5.String{Value: utils.Ptr("Diastolic blood pressure")},
 							}},
 						},
-						Value: &r4.Quantity{
-							Value:  &r4.Decimal{Value: utils.Ptr("600")},
-							Unit:   &r4.String{Value: utils.Ptr("mmHg")},
-							System: &r4.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
-							Code:   &r4.Code{Value: utils.Ptr("mm[Hg]")},
+						Value: &r5.Quantity{
+							Value:  &r5.Decimal{Value: utils.Ptr("600")},
+							Unit:   &r5.String{Value: utils.Ptr("mmHg")},
+							System: &r5.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
+							Code:   &r5.Code{Value: utils.Ptr("mm[Hg]")},
 						},
 					},
 				},
@@ -133,7 +133,7 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 	}, nil
 }
 
-func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r4.Composition, capabilities.FHIRError) {
+func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, capabilities.FHIRError) {
 	result, err := b.SearchComposition(ctx, search.Options{
 		Params: search.Params{
 			"_id": search.AndList{search.OrList{{Value: id}}},
@@ -141,14 +141,14 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r4.Compos
 		Count: 1,
 	})
 	if err != nil {
-		return r4.Composition{}, err
+		return r5.Composition{}, err
 	}
 
 	if len(result.Resources) == 0 {
-		return r4.Composition{}, capabilities.NotFoundError{ResourceType: "Composition", ID: id}
+		return r5.Composition{}, capabilities.NotFoundError{ResourceType: "Composition", ID: id}
 	}
 
-	return *result.Resources[0].(*r4.Composition), nil
+	return *result.Resources[0].(*r5.Composition), nil
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
@@ -163,21 +163,21 @@ func (b *mockBackend) SearchCapabilitiesComposition() search.Capabilities {
 func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	return search.Result{
 		Resources: []model.Resource{
-			r4.Composition{
-				Id: &r4.Id{Value: utils.Ptr("123")},
-				Meta: &r4.Meta{
-					LastUpdated: &r4.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
+			r5.Composition{
+				Id: &r5.Id{Value: utils.Ptr("123")},
+				Meta: &r5.Meta{
+					LastUpdated: &r5.Instant{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
 				},
-				Type: r4.CodeableConcept{
-					Coding: []r4.Coding{{
-						System:  &r4.Uri{Value: utils.Ptr("http://loinc.org")},
-						Code:    &r4.Code{Value: utils.Ptr("11503-0")},
-						Display: &r4.String{Value: utils.Ptr("Medical records")},
+				Type: r5.CodeableConcept{
+					Coding: []r5.Coding{{
+						System:  &r5.Uri{Value: utils.Ptr("http://loinc.org")},
+						Code:    &r5.Code{Value: utils.Ptr("11503-0")},
+						Display: &r5.String{Value: utils.Ptr("Medical records")},
 					}},
 				},
-				Title:  r4.String{Value: utils.Ptr("Test Composition")},
-				Status: r4.Code{Value: utils.Ptr("final")},
-				Date:   r4.DateTime{Value: utils.Ptr(time.Now().AddDate(0, 0, -1).Format(time.RFC3339))},
+				Title:  r5.String{Value: utils.Ptr("Test Composition")},
+				Status: r5.Code{Value: utils.Ptr("final")},
+				Date:   r5.DateTime{Value: utils.Ptr(time.Now().AddDate(0, 0, -1).Format(time.RFC3339))},
 			},
 		},
 	}, nil

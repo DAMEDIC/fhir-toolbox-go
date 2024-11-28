@@ -4,7 +4,7 @@ package main
 import (
 	"context"
 	"fhir-toolbox/capabilities"
-	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/model/gen/r5"
 	"fhir-toolbox/utils"
 	"log"
 	"net/http"
@@ -18,19 +18,19 @@ import (
 type demoBackend struct{}
 
 // 2. Implement your desired capabilities (interactions)
-func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r4.Observation, capabilities.FHIRError) {
-	return r4.Observation{
-		Id:     &r4.Id{Value: &id},
-		Status: r4.Code{Value: utils.Ptr("final")},
-		Code: r4.CodeableConcept{
-			Coding: []r4.Coding{{
-				System:  &r4.Uri{Value: utils.Ptr("http://loinc.org")},
-				Code:    &r4.Code{Value: utils.Ptr("8480-6")},
-				Display: &r4.String{Value: utils.Ptr("Systolic blood pressure")},
+func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
+	return r5.Observation{
+		Id:     &r5.Id{Value: &id},
+		Status: r5.Code{Value: utils.Ptr("final")},
+		Code: r5.CodeableConcept{
+			Coding: []r5.Coding{{
+				System:  &r5.Uri{Value: utils.Ptr("http://loinc.org")},
+				Code:    &r5.Code{Value: utils.Ptr("8480-6")},
+				Display: &r5.String{Value: utils.Ptr("Systolic blood pressure")},
 			}},
 		},
-		Effective: &r4.DateTime{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
-		Value:     &r4.Quantity{Value: &r4.Decimal{Value: utils.Ptr("120.0")}, Unit: &r4.String{Value: utils.Ptr("mmHg")}},
+		Effective: &r5.DateTime{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
+		Value:     &r5.Quantity{Value: &r5.Decimal{Value: utils.Ptr("120.0")}, Unit: &r5.String{Value: utils.Ptr("mmHg")}},
 	}, nil
 }
 
@@ -39,7 +39,7 @@ func main() {
 	backend := demoBackend{}
 
 	// 4. Start your server!
-	server, err := rest.NewServer[model.R4](&backend, rest.DefaultConfig)
+	server, err := rest.NewServer[model.R5](&backend, rest.DefaultConfig)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}

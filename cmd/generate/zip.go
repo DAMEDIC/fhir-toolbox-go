@@ -33,6 +33,9 @@ func readJSONFromZIP(path string) bundles {
 func readAndParseJSON(zip *zip.Reader, name string) model.Bundle {
 	file, err := zip.Open(name)
 	if err != nil {
+		file, err = zip.Open("definitions.json/" + name)
+	}
+	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()

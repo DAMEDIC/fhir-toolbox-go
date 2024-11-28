@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	buildReleases         = []string{"R4"}
+	buildReleases         = []string{"R4", "R4B", "R5"}
 	definitionsURLFmtStr  = "http://hl7.org/fhir/%s/definitions.json.zip"
 	modelGenTarget        = "model/gen"
 	capabilitiesGenTarget = "capabilities/gen"

@@ -5,6 +5,7 @@ import (
 	"fhir-toolbox/internal/generator"
 	"fhir-toolbox/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
+	"slices"
 	"strings"
 )
 
@@ -116,7 +117,7 @@ func marshalPrimitiveValueAttr(g *Group, s ir.Struct) {
 				Id("Value"): Qual("strconv", "FormatBool").Call(Id("*r.Value")),
 			})),
 		)
-	} else if s.Name == "Integer" || s.Name == "PositiveInt" || s.Name == "UnsignedInt" {
+	} else if slices.Contains([]string{"Integer", "Integer64", "PositiveInt", "UnsignedInt"}, s.Name) {
 		g.If(Id("r.Value").Op("!=").Nil()).Block(
 			Id("start.Attr").Op("=").Append(Id("start.Attr"), Qual("encoding/xml", "Attr").Values(Dict{
 				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{

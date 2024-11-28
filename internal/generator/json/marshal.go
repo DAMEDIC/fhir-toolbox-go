@@ -41,10 +41,19 @@ func implementMarshalPrimitive(f *File, s ir.Struct) {
 		if s.Name == "Decimal" {
 			g.Return(Index().Byte().Params(Op("*").Id("r").Op(".").Id("Value")), Nil())
 		} else {
+			if s.Name == "Integer64" {
+				g.Var().Id("v").Op("*").String()
+				g.If(Id("r.Value").Op("!=").Nil()).Block(
+					Id("s").Op(":=").Qual("strconv", "FormatInt").Call(Id("*r.Value"), Lit(10)),
+					Id("v").Op("=").Op("&").Id("s"),
+				)
+			} else {
+				g.Id("v").Op(":=").Id("r").Op(".").Id("Value")
+			}
 			g.Var().Id("b").Qual("bytes", "Buffer")
 			g.Id("enc").Op(":=").Qual("encoding/json", "NewEncoder").Call(Id("&b"))
 			g.Id("enc").Dot("SetEscapeHTML").Call(False())
-			g.Err().Op(":=").Id("enc").Dot("Encode").Call(Id("r").Op(".").Id("Value"))
+			g.Err().Op(":=").Id("enc").Dot("Encode").Call(Id("v"))
 			g.If(Err().Op("!=").Nil()).Block(
 				Return(Nil(), Err()),
 			)

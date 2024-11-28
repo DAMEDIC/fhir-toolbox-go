@@ -18,10 +18,11 @@ type Markdown struct {
 }
 
 func (r Markdown) MarshalJSON() ([]byte, error) {
+	v := r.Value
 	var b bytes.Buffer
 	enc := json.NewEncoder(&b)
 	enc.SetEscapeHTML(false)
-	err := enc.Encode(r.Value)
+	err := enc.Encode(v)
 	if err != nil {
 		return nil, err
 	}

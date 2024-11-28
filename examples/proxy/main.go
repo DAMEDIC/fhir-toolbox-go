@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model/gen/r4"
+	"fhir-toolbox/model/gen/r5"
 	"fmt"
 	"log"
 	"log/slog"
@@ -42,7 +42,7 @@ func main() {
 
 	// You can provide the concrete API by wrapping the generic API
 	// (uncomment the following lines to try it out):
-	//concreteApi := wrap.ConcreteR4(&genericClient)
+	//concreteApi := wrap.Concreter5(&genericClient)
 	//somePatient, fhirErr := concreteApi.ReadPatient(context.Background(), "547")
 	//if fhirErr != nil {
 	//	log.Fatalf("error reading some Patient %v", fhirErr)
@@ -52,7 +52,7 @@ func main() {
 	// Create the REST server.
 	// You can plug in any backend you want here.
 	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
-	server, err := rest.NewServer[model.R4](&genericClient, rest.DefaultConfig)
+	server, err := rest.NewServer[model.R5](&genericClient, rest.DefaultConfig)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
@@ -74,7 +74,7 @@ func AllCapabilities() capabilities.Capabilities {
 func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
 	// ContainedResource is a concrete representation of any resource
 	// internally this e.g. uses in bundles
-	var resource r4.ContainedResource
+	var resource r5.ContainedResource
 
 	url := fmt.Sprintf("%s/%s/%s", c.url, resourceType, id)
 	log.Printf("forwarding GET %s", url)
@@ -124,7 +124,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		panic(err)
 	}
 
-	var bundle r4.Bundle
+	var bundle r5.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)
 	if err != nil {
 		// TODO: return a proper error with operation outcome

@@ -20,6 +20,7 @@ func format(input string) string {
 
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
+	enc.SetIndent("", "  ")
 	enc.SetEscapeHTML(false)
 	err = enc.Encode(obj)
 	if err != nil {

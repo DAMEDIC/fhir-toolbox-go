@@ -1,29 +1,46 @@
 package model
 
+import "fmt"
+
 type Release interface {
-	isRelease()
+	fmt.Stringer
+	Version() string
 }
 
 type R4 struct{}
 
-func (r R4) isRelease() {}
+func (r R4) String() string {
+	return "R4"
+}
+
+func (r R4) Version() string {
+	return "4.0"
+}
+
+type R4B struct{}
+
+func (r R4B) String() string {
+	return "R4B"
+}
+
+func (r R4B) Version() string {
+	return "4.3"
+}
+
+type R5 struct{}
+
+func (r R5) String() string {
+	return "R5"
+}
+
+func (r R5) Version() string {
+	return "5.0"
+}
 
 func ReleaseName[R Release]() string {
-	var r R
-	switch any(r).(type) {
-	case R4:
-		return "R4"
-	default:
-		panic("unsupported release")
-	}
+	return (*new(R)).String()
 }
 
 func ReleaseVersion[R Release]() string {
-	var r R
-	switch any(r).(type) {
-	case R4:
-		return "4.0.1"
-	default:
-		panic("unsupported release")
-	}
+	return (*new(R)).Version()
 }

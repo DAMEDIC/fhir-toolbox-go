@@ -43,10 +43,14 @@ func implementUnmarshalExternal(f *File, s ir.Struct) {
 
 func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 	var ty string
-	for _, field := range s.Fields {
-		if field.Name == "Value" {
-			ty = field.PossibleTypes[0].Name
-			break
+	if s.Name == "Integer64" {
+		ty = "string"
+	} else {
+		for _, field := range s.Fields {
+			if field.Name == "Value" {
+				ty = field.PossibleTypes[0].Name
+				break
+			}
 		}
 	}
 
@@ -64,6 +68,12 @@ func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 	var assign Code
 	if s.Name == "Xhtml" {
 		assign = Id("*r").Op("=").Id(s.Name).Values(Id("Value").Op(":").Id("v"))
+	} else if s.Name == "Integer64" {
+		assign = Block(
+			List(Id("i"), Id("err")).Op(":=").Qual("strconv", "ParseInt").Call(Id("v"), Lit(10), Lit(0)),
+			If(Err().Op("!=").Nil()).Block(Return(Id("err"))),
+			Id("*r").Op("=").Id(s.Name).Values(Id("Value").Op(":").Id("&i")),
+		)
 	} else {
 		assign = Id("*r").Op("=").Id(s.Name).Values(Id("Value").Op(":").Id("&v"))
 	}

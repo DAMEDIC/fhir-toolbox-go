@@ -119,6 +119,13 @@ func unmarshalPrimitiveValueAttr(g *Group, s ir.Struct) {
 			)
 			g.Id("v").Op(":=").Id("int32").Call(Id("i"))
 			g.Id("r.Value").Op("=").Id("&v")
+		} else if s.Name == "Integer64" {
+			g.List(Id("i"), Id("err")).Op(":=").Qual("strconv", "ParseInt").Call(Id("a.Value"), Lit(10), Lit(0))
+			g.If(Err().Op("!=").Nil()).Block(
+				Return(Id("err")),
+			)
+			g.Id("v").Op(":=").Id("i")
+			g.Id("r.Value").Op("=").Id("&v")
 		} else if s.Name == "PositiveInt" || s.Name == "UnsignedInt" {
 			g.List(Id("i"), Id("err")).Op(":=").Qual("strconv", "ParseInt").Call(Id("a.Value"), Lit(10), Lit(0))
 			g.If(Err().Op("!=").Nil()).Block(
