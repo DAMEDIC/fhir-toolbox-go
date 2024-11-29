@@ -41,13 +41,13 @@ func (e MissingIdError) OperationOutcome() model.Resource {
 // The REST server uses cursor based pagination.
 // If the search results contains a `Next` cursor, a 'next' bundle link entry will be set.
 func SearchBundle(
-	matchResourceType string,
+	resourceType string,
 	result search.Result,
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
 ) (r4.Bundle, capabilities.FHIRError) {
-	entries, err := entries(matchResourceType, result.Resources, baseURL)
+	entries, err := entries(result, baseURL)
 	if err != nil {
 		return r4.Bundle{}, err
 	}
@@ -58,7 +58,7 @@ func SearchBundle(
 			{
 				Relation: r4.String{Value: utils.Ptr("self")},
 				Url: relationLink(
-					matchResourceType,
+					resourceType,
 					usedOptions,
 					searchCapabilities,
 					baseURL,
@@ -75,7 +75,7 @@ func SearchBundle(
 		bundle.Link = append(bundle.Link, r4.BundleLink{
 			Relation: r4.String{Value: utils.Ptr("next")},
 			Url: relationLink(
-				matchResourceType,
+				resourceType,
 				nextOptions,
 				searchCapabilities,
 				baseURL,
@@ -87,21 +87,25 @@ func SearchBundle(
 	return bundle, nil
 }
 
-func entries(matchResourceType string, resources []model.Resource, baseURL *url.URL) ([]r4.BundleEntry, capabilities.FHIRError) {
-	entries := make([]r4.BundleEntry, 0, len(resources))
+func entries(result search.Result, baseURL *url.URL) ([]r4.BundleEntry, capabilities.FHIRError) {
+	entries := make([]r4.BundleEntry, 0, len(result.Resources)+len(result.Included))
 
-	for _, r := range resources {
-		searchMode := "include"
-		if matchResourceType == "*" || matchResourceType == r.ResourceType() {
-			searchMode = "match"
-		}
-
-		entry, err := entry(r, searchMode, baseURL)
+	for _, r := range result.Resources {
+		entry, err := entry(r, "match", baseURL)
 		if err != nil {
-			return entries, err
+			return nil, err
 		}
 		entries = append(entries, entry)
 	}
+
+	for _, r := range result.Included {
+		entry, err := entry(r, "include", baseURL)
+		if err != nil {
+			return nil, err
+		}
+		entries = append(entries, entry)
+	}
+
 	return entries, nil
 }
 

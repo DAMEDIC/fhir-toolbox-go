@@ -601,11 +601,11 @@ func TestHandleSearch(t *testing.T) {
 			resourceType: "Observation",
 			queryString:  "_include=Observation:patient&_id=1",
 			backend: mockBackend{
-				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
-				},
 				mockObservations: []r4.Observation{
 					{Id: &r4.Id{Value: utils.Ptr("1")}, Status: r4.Code{Value: utils.Ptr("final")}},
+				},
+				mockObservationIncludes: []model.Resource{
+					r4.Patient{Id: &r4.Id{Value: utils.Ptr("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -613,16 +613,6 @@ func TestHandleSearch(t *testing.T) {
 				"resourceType":"Bundle",
 				"type":"searchset",
 				"entry":[
-					{
-						"fullUrl":"http://example.com/Patient/1",
-						"resource":{
-							"resourceType":"Patient",
-							"id":"1"
-						},
-						"search":{
-							"mode":"include"
-						}
-					},
 					{
 						"fullUrl":"http://example.com/Observation/1",
 						"resource":{
@@ -633,6 +623,16 @@ func TestHandleSearch(t *testing.T) {
 						},
 						"search":{
 							"mode":"match"
+						}
+					},
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"include"
 						}
 					}
 				],
@@ -922,9 +922,10 @@ func TestHandleSearch(t *testing.T) {
 }
 
 type mockBackend struct {
-	nextCursor       search.Cursor
-	mockPatients     []r4.Patient
-	mockObservations []r4.Observation
+	nextCursor              search.Cursor
+	mockPatients            []r4.Patient
+	mockObservations        []r4.Observation
+	mockObservationIncludes []model.Resource
 }
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {
@@ -985,14 +986,14 @@ func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 }
 
 func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	var resouces []model.Resource
-	for _, p := range m.mockPatients {
-		resouces = append(resouces, p)
-	}
+	var result search.Result
+
 	for _, p := range m.mockObservations {
-		resouces = append(resouces, p)
+		result.Resources = append(result.Resources, p)
 	}
-	return search.Result{
-		Resources: resouces,
-	}, nil
+	for _, p := range m.mockObservationIncludes {
+		result.Included = append(result.Included, p)
+	}
+
+	return result, nil
 }

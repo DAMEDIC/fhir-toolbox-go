@@ -19,7 +19,7 @@ type GenericAPI interface {
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.
 type GenericRead interface {
-	Read(ctx context.Context, resourceType string, id string) (model.Resource, FHIRError)
+	Read(ctx context.Context, resourceType, id string) (model.Resource, FHIRError)
 }
 
 // The GenericSearch interface provides a generic search capability by passing the `resourceType` as string.

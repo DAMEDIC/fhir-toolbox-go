@@ -27,7 +27,7 @@ import (
 // ```
 func Generic[R model.Release](api any) capabilities.GenericAPI {
 	// if already generic do not wrap it again
-	generic, ok := api.(capabilitiesR4.Generic)
+	generic, ok := api.(capabilities.GenericAPI)
 	if ok {
 		return generic
 	}

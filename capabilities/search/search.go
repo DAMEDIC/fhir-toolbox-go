@@ -41,6 +41,7 @@ import (
 // Result contains the result of a search operation.
 type Result struct {
 	Resources []model.Resource
+	Included  []model.Resource
 	Next      Cursor
 }
 
