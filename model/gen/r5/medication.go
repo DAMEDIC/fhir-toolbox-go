@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource is primarily used for the identification and definition of a medication, including ingredients, for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.
@@ -67,6 +68,7 @@ type MedicationIngredient struct {
 	Strength isMedicationIngredientStrength
 }
 type isMedicationIngredientStrength interface {
+	model.Element
 	isMedicationIngredientStrength()
 }
 
@@ -101,6 +103,110 @@ func (r Medication) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Medication) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.MarketingAuthorizationHolder != nil {
+		s += r.MarketingAuthorizationHolder.MemSize()
+	}
+	if r.DoseForm != nil {
+		s += r.DoseForm.MemSize()
+	}
+	if r.TotalVolume != nil {
+		s += r.TotalVolume.MemSize()
+	}
+	for _, i := range r.Ingredient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(MedicationIngredient{}))
+	if r.Batch != nil {
+		s += r.Batch.MemSize()
+	}
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	return s
+}
+func (r MedicationIngredient) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	if r.IsActive != nil {
+		s += r.IsActive.MemSize()
+	}
+	if r.Strength != nil {
+		s += r.Strength.MemSize()
+	}
+	return s
+}
+func (r MedicationBatch) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LotNumber != nil {
+		s += r.LotNumber.MemSize()
+	}
+	if r.ExpirationDate != nil {
+		s += r.ExpirationDate.MemSize()
+	}
+	return s
 }
 func (r Medication) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

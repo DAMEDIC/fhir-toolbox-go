@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Record details about an anatomical structure.  This resource may be used when a coded concept does not provide the necessary detail needed for the use case.
@@ -58,6 +59,63 @@ func (r BodyStructure) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r BodyStructure) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	if r.Morphology != nil {
+		s += r.Morphology.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.LocationQualifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.LocationQualifier) - len(r.LocationQualifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Image {
+		s += i.MemSize()
+	}
+	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	return s
 }
 func (r BodyStructure) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

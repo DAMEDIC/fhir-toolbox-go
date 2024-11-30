@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A SubstanceProtein is defined as a single unit of a linear amino acid sequence, or a combination of subunits that are either covalently linked or have a defined invariant stoichiometric relationship. This includes all synthetic, recombinant and purified SubstanceProteins of defined sequence, whether the use is therapeutic or prophylactic. This set of elements will be used to describe albumins, coagulation factors, cytokines, growth factors, peptide/SubstanceProtein hormones, enzymes, toxins, toxoids, recombinant vaccines, and immunomodulators.
@@ -78,6 +79,91 @@ func (r SubstanceProtein) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstanceProtein) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.SequenceType != nil {
+		s += r.SequenceType.MemSize()
+	}
+	if r.NumberOfSubunits != nil {
+		s += r.NumberOfSubunits.MemSize()
+	}
+	for _, i := range r.DisulfideLinkage {
+		s += i.MemSize()
+	}
+	s += (cap(r.DisulfideLinkage) - len(r.DisulfideLinkage)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Subunit {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subunit) - len(r.Subunit)) * int(unsafe.Sizeof(SubstanceProteinSubunit{}))
+	return s
+}
+func (r SubstanceProteinSubunit) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Subunit != nil {
+		s += r.Subunit.MemSize()
+	}
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	if r.Length != nil {
+		s += r.Length.MemSize()
+	}
+	if r.SequenceAttachment != nil {
+		s += r.SequenceAttachment.MemSize()
+	}
+	if r.NTerminalModificationId != nil {
+		s += r.NTerminalModificationId.MemSize()
+	}
+	if r.NTerminalModification != nil {
+		s += r.NTerminalModification.MemSize()
+	}
+	if r.CTerminalModificationId != nil {
+		s += r.CTerminalModificationId.MemSize()
+	}
+	if r.CTerminalModification != nil {
+		s += r.CTerminalModification.MemSize()
+	}
+	return s
 }
 func (r SubstanceProtein) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

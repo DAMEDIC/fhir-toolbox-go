@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Indicates that a device is to be or has been dispensed for a named person/patient.  This includes a description of the product (supply) provided and the instructions for using the device.
@@ -100,6 +101,122 @@ func (r DeviceDispense) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DeviceDispense) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.StatusReason != nil {
+		s += r.StatusReason.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Device.MemSize() - int(unsafe.Sizeof(r.Device))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Receiver != nil {
+		s += r.Receiver.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	for _, i := range r.SupportingInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(DeviceDispensePerformer{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.PreparedDate != nil {
+		s += r.PreparedDate.MemSize()
+	}
+	if r.WhenHandedOver != nil {
+		s += r.WhenHandedOver.MemSize()
+	}
+	if r.Destination != nil {
+		s += r.Destination.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.UsageInstruction != nil {
+		s += r.UsageInstruction.MemSize()
+	}
+	for _, i := range r.EventHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.EventHistory) - len(r.EventHistory)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r DeviceDispensePerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
 }
 func (r DeviceDispense) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

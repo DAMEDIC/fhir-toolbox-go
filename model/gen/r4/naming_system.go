@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A curated namespace that issues unique symbols within that namespace for the identification of concepts, people, devices, etc.  Represents a "System" used within the Identifier and Coding data types.
@@ -90,6 +91,99 @@ func (r NamingSystem) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r NamingSystem) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Responsible != nil {
+		s += r.Responsible.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Usage != nil {
+		s += r.Usage.MemSize()
+	}
+	for _, i := range r.UniqueId {
+		s += i.MemSize()
+	}
+	s += (cap(r.UniqueId) - len(r.UniqueId)) * int(unsafe.Sizeof(NamingSystemUniqueId{}))
+	return s
+}
+func (r NamingSystemUniqueId) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	if r.Preferred != nil {
+		s += r.Preferred.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
 }
 func (r NamingSystem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

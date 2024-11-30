@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // xhtml Type definition
@@ -15,6 +16,14 @@ type Xhtml struct {
 	Value string
 }
 
+func (r Xhtml) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	s += len(r.Value)
+	return s
+}
 func (r Xhtml) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

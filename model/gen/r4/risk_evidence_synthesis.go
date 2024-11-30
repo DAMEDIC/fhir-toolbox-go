@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The RiskEvidenceSynthesis resource describes the likelihood of an outcome in a population plus exposure state where the risk estimate is derived from a combination of research studies.
@@ -204,6 +205,278 @@ func (r RiskEvidenceSynthesis) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r RiskEvidenceSynthesis) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Topic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	if r.SynthesisType != nil {
+		s += r.SynthesisType.MemSize()
+	}
+	if r.StudyType != nil {
+		s += r.StudyType.MemSize()
+	}
+	s += r.Population.MemSize() - int(unsafe.Sizeof(r.Population))
+	if r.Exposure != nil {
+		s += r.Exposure.MemSize()
+	}
+	s += r.Outcome.MemSize() - int(unsafe.Sizeof(r.Outcome))
+	if r.SampleSize != nil {
+		s += r.SampleSize.MemSize()
+	}
+	if r.RiskEstimate != nil {
+		s += r.RiskEstimate.MemSize()
+	}
+	for _, i := range r.Certainty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Certainty) - len(r.Certainty)) * int(unsafe.Sizeof(RiskEvidenceSynthesisCertainty{}))
+	return s
+}
+func (r RiskEvidenceSynthesisSampleSize) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.NumberOfStudies != nil {
+		s += r.NumberOfStudies.MemSize()
+	}
+	if r.NumberOfParticipants != nil {
+		s += r.NumberOfParticipants.MemSize()
+	}
+	return s
+}
+func (r RiskEvidenceSynthesisRiskEstimate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.UnitOfMeasure != nil {
+		s += r.UnitOfMeasure.MemSize()
+	}
+	if r.DenominatorCount != nil {
+		s += r.DenominatorCount.MemSize()
+	}
+	if r.NumeratorCount != nil {
+		s += r.NumeratorCount.MemSize()
+	}
+	for _, i := range r.PrecisionEstimate {
+		s += i.MemSize()
+	}
+	s += (cap(r.PrecisionEstimate) - len(r.PrecisionEstimate)) * int(unsafe.Sizeof(RiskEvidenceSynthesisRiskEstimatePrecisionEstimate{}))
+	return s
+}
+func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Level != nil {
+		s += r.Level.MemSize()
+	}
+	if r.From != nil {
+		s += r.From.MemSize()
+	}
+	if r.To != nil {
+		s += r.To.MemSize()
+	}
+	return s
+}
+func (r RiskEvidenceSynthesisCertainty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Rating {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rating) - len(r.Rating)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.CertaintySubcomponent {
+		s += i.MemSize()
+	}
+	s += (cap(r.CertaintySubcomponent) - len(r.CertaintySubcomponent)) * int(unsafe.Sizeof(RiskEvidenceSynthesisCertaintyCertaintySubcomponent{}))
+	return s
+}
+func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Rating {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rating) - len(r.Rating)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
 }
 func (r RiskEvidenceSynthesis) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

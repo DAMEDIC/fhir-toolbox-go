@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The findings and interpretation of diagnostic tests performed on patients, groups of patients, products, substances, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports. The report also includes non-clinical context such as batch analysis and stability reporting of products and substances.
@@ -75,6 +76,7 @@ type DiagnosticReport struct {
 	PresentedForm []Attachment
 }
 type isDiagnosticReportEffective interface {
+	model.Element
 	isDiagnosticReportEffective()
 }
 
@@ -124,6 +126,146 @@ func (r DiagnosticReport) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DiagnosticReport) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Effective != nil {
+		s += r.Effective.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ResultsInterpreter {
+		s += i.MemSize()
+	}
+	s += (cap(r.ResultsInterpreter) - len(r.ResultsInterpreter)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Specimen {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Result {
+		s += i.MemSize()
+	}
+	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Study {
+		s += i.MemSize()
+	}
+	s += (cap(r.Study) - len(r.Study)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(DiagnosticReportSupportingInfo{}))
+	for _, i := range r.Media {
+		s += i.MemSize()
+	}
+	s += (cap(r.Media) - len(r.Media)) * int(unsafe.Sizeof(DiagnosticReportMedia{}))
+	if r.Composition != nil {
+		s += r.Composition.MemSize()
+	}
+	if r.Conclusion != nil {
+		s += r.Conclusion.MemSize()
+	}
+	for _, i := range r.ConclusionCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ConclusionCode) - len(r.ConclusionCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.PresentedForm {
+		s += i.MemSize()
+	}
+	s += (cap(r.PresentedForm) - len(r.PresentedForm)) * int(unsafe.Sizeof(Attachment{}))
+	return s
+}
+func (r DiagnosticReportSupportingInfo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	return s
+}
+func (r DiagnosticReportMedia) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	s += r.Link.MemSize() - int(unsafe.Sizeof(r.Link))
+	return s
 }
 func (r DiagnosticReport) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

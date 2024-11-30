@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Population Type: A populatioof people with some set of grouping criteria.
@@ -28,11 +30,39 @@ type Population struct {
 	PhysiologicalCondition *CodeableConcept
 }
 type isPopulationAge interface {
+	model.Element
 	isPopulationAge()
 }
 
 func (r Range) isPopulationAge()           {}
 func (r CodeableConcept) isPopulationAge() {}
+func (r Population) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Age != nil {
+		s += r.Age.MemSize()
+	}
+	if r.Gender != nil {
+		s += r.Gender.MemSize()
+	}
+	if r.Race != nil {
+		s += r.Race.MemSize()
+	}
+	if r.PhysiologicalCondition != nil {
+		s += r.PhysiologicalCondition.MemSize()
+	}
+	return s
+}
 func (r Population) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

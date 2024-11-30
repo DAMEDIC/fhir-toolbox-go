@@ -13,11 +13,12 @@ type ResourceOrType struct {
 
 // Struct represent a resource, type or backbone element within another resource, type or backbone element.
 type Struct struct {
-	Name        string
-	IsResource  bool
-	IsPrimitive bool
-	Fields      []StructField
-	DocComment  string
+	Name             string
+	IsResource       bool
+	IsDomainResource bool
+	IsPrimitive      bool
+	Fields           []StructField
+	DocComment       string
 }
 
 // A StructField represent child elements of a resource, type or backbone element.

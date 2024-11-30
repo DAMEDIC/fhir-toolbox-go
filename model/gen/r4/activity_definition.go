@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource allows for the definition of some activity to be performed, independent of a particular patient, practitioner, or other performance context.
@@ -123,6 +124,7 @@ type ActivityDefinition struct {
 	DynamicValue []ActivityDefinitionDynamicValue
 }
 type isActivityDefinitionSubject interface {
+	model.Element
 	isActivityDefinitionSubject()
 }
 
@@ -130,6 +132,7 @@ func (r CodeableConcept) isActivityDefinitionSubject() {}
 func (r Reference) isActivityDefinitionSubject()       {}
 
 type isActivityDefinitionTiming interface {
+	model.Element
 	isActivityDefinitionTiming()
 }
 
@@ -141,6 +144,7 @@ func (r Range) isActivityDefinitionTiming()    {}
 func (r Duration) isActivityDefinitionTiming() {}
 
 type isActivityDefinitionProduct interface {
+	model.Element
 	isActivityDefinitionProduct()
 }
 
@@ -190,6 +194,228 @@ func (r ActivityDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ActivityDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Subtitle != nil {
+		s += r.Subtitle.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Usage != nil {
+		s += r.Usage.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Topic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.Library {
+		s += i.MemSize()
+	}
+	s += (cap(r.Library) - len(r.Library)) * int(unsafe.Sizeof(Canonical{}))
+	if r.Kind != nil {
+		s += r.Kind.MemSize()
+	}
+	if r.Profile != nil {
+		s += r.Profile.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Intent != nil {
+		s += r.Intent.MemSize()
+	}
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.DoNotPerform != nil {
+		s += r.DoNotPerform.MemSize()
+	}
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(ActivityDefinitionParticipant{}))
+	if r.Product != nil {
+		s += r.Product.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	for _, i := range r.Dosage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dosage) - len(r.Dosage)) * int(unsafe.Sizeof(Dosage{}))
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.SpecimenRequirement {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecimenRequirement) - len(r.SpecimenRequirement)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ObservationRequirement {
+		s += i.MemSize()
+	}
+	s += (cap(r.ObservationRequirement) - len(r.ObservationRequirement)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ObservationResultRequirement {
+		s += i.MemSize()
+	}
+	s += (cap(r.ObservationResultRequirement) - len(r.ObservationResultRequirement)) * int(unsafe.Sizeof(Reference{}))
+	if r.Transform != nil {
+		s += r.Transform.MemSize()
+	}
+	for _, i := range r.DynamicValue {
+		s += i.MemSize()
+	}
+	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(unsafe.Sizeof(ActivityDefinitionDynamicValue{}))
+	return s
+}
+func (r ActivityDefinitionParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	return s
+}
+func (r ActivityDefinitionDynamicValue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	return s
 }
 func (r ActivityDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

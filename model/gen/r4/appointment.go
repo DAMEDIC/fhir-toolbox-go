@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).
@@ -110,6 +111,142 @@ func (r Appointment) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Appointment) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.CancelationReason != nil {
+		s += r.CancelationReason.MemSize()
+	}
+	for _, i := range r.ServiceCategory {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Specialty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AppointmentType != nil {
+		s += r.AppointmentType.MemSize()
+	}
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReasonReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.SupportingInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	if r.End != nil {
+		s += r.End.MemSize()
+	}
+	if r.MinutesDuration != nil {
+		s += r.MinutesDuration.MemSize()
+	}
+	for _, i := range r.Slot {
+		s += i.MemSize()
+	}
+	s += (cap(r.Slot) - len(r.Slot)) * int(unsafe.Sizeof(Reference{}))
+	if r.Created != nil {
+		s += r.Created.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	if r.PatientInstruction != nil {
+		s += r.PatientInstruction.MemSize()
+	}
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(AppointmentParticipant{}))
+	for _, i := range r.RequestedPeriod {
+		s += i.MemSize()
+	}
+	s += (cap(r.RequestedPeriod) - len(r.RequestedPeriod)) * int(unsafe.Sizeof(Period{}))
+	return s
+}
+func (r AppointmentParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	if r.Required != nil {
+		s += r.Required.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
 }
 func (r Appointment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

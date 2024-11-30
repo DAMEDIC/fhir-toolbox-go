@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A report of inventory or stock items.
@@ -100,6 +101,113 @@ func (r InventoryReport) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r InventoryReport) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.CountType.MemSize() - int(unsafe.Sizeof(r.CountType))
+	if r.OperationType != nil {
+		s += r.OperationType.MemSize()
+	}
+	if r.OperationTypeReason != nil {
+		s += r.OperationTypeReason.MemSize()
+	}
+	s += r.ReportedDateTime.MemSize() - int(unsafe.Sizeof(r.ReportedDateTime))
+	if r.Reporter != nil {
+		s += r.Reporter.MemSize()
+	}
+	if r.ReportingPeriod != nil {
+		s += r.ReportingPeriod.MemSize()
+	}
+	for _, i := range r.InventoryListing {
+		s += i.MemSize()
+	}
+	s += (cap(r.InventoryListing) - len(r.InventoryListing)) * int(unsafe.Sizeof(InventoryReportInventoryListing{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r InventoryReportInventoryListing) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.ItemStatus != nil {
+		s += r.ItemStatus.MemSize()
+	}
+	if r.CountingDateTime != nil {
+		s += r.CountingDateTime.MemSize()
+	}
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(InventoryReportInventoryListingItem{}))
+	return s
+}
+func (r InventoryReportInventoryListingItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	return s
 }
 func (r InventoryReport) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

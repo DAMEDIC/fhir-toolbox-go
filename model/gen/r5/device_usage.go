@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of a device being used by a patient where the record is the result of a report from the patient or a clinician.
@@ -65,6 +66,7 @@ type DeviceUsage struct {
 	Note []Annotation
 }
 type isDeviceUsageTiming interface {
+	model.Element
 	isDeviceUsageTiming()
 }
 
@@ -99,6 +101,110 @@ func (r DeviceUsage) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DeviceUsage) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	if r.Context != nil {
+		s += r.Context.MemSize()
+	}
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	if r.DateAsserted != nil {
+		s += r.DateAsserted.MemSize()
+	}
+	if r.UsageStatus != nil {
+		s += r.UsageStatus.MemSize()
+	}
+	for _, i := range r.UsageReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.UsageReason) - len(r.UsageReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Adherence != nil {
+		s += r.Adherence.MemSize()
+	}
+	if r.InformationSource != nil {
+		s += r.InformationSource.MemSize()
+	}
+	s += r.Device.MemSize() - int(unsafe.Sizeof(r.Device))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r DeviceUsageAdherence) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
 }
 func (r DeviceUsage) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

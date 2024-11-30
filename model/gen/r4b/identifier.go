@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Identifier Type: An identifier - identifies some entity uniquely and unambiguously. Typically this is used for business identifiers.
@@ -30,6 +31,35 @@ type Identifier struct {
 	Assigner *Reference
 }
 
+func (r Identifier) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Assigner != nil {
+		s += r.Assigner.MemSize()
+	}
+	return s
+}
 func (r Identifier) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

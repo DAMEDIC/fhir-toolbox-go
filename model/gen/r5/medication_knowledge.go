@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Information about a medication that is used to support knowledge.
@@ -123,6 +124,7 @@ type MedicationKnowledgeCost struct {
 	Cost isMedicationKnowledgeCostCost
 }
 type isMedicationKnowledgeCostCost interface {
+	model.Element
 	isMedicationKnowledgeCostCost()
 }
 
@@ -213,6 +215,7 @@ type MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic 
 	Value isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue
 }
 type isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue interface {
+	model.Element
 	isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue()
 }
 
@@ -240,6 +243,7 @@ type MedicationKnowledgeMedicineClassification struct {
 	Classification []CodeableConcept
 }
 type isMedicationKnowledgeMedicineClassificationSource interface {
+	model.Element
 	isMedicationKnowledgeMedicineClassificationSource()
 }
 
@@ -298,6 +302,7 @@ type MedicationKnowledgeStorageGuidelineEnvironmentalSetting struct {
 	Value isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue
 }
 type isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue interface {
+	model.Element
 	isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue()
 }
 
@@ -397,6 +402,7 @@ type MedicationKnowledgeDefinitionalIngredient struct {
 	Strength isMedicationKnowledgeDefinitionalIngredientStrength
 }
 type isMedicationKnowledgeDefinitionalIngredientStrength interface {
+	model.Element
 	isMedicationKnowledgeDefinitionalIngredientStrength()
 }
 
@@ -420,6 +426,7 @@ type MedicationKnowledgeDefinitionalDrugCharacteristic struct {
 	Value isMedicationKnowledgeDefinitionalDrugCharacteristicValue
 }
 type isMedicationKnowledgeDefinitionalDrugCharacteristicValue interface {
+	model.Element
 	isMedicationKnowledgeDefinitionalDrugCharacteristicValue()
 }
 
@@ -439,6 +446,525 @@ func (r MedicationKnowledge) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicationKnowledge) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	for _, i := range r.IntendedJurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.IntendedJurisdiction) - len(r.IntendedJurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.RelatedMedicationKnowledge {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedMedicationKnowledge) - len(r.RelatedMedicationKnowledge)) * int(unsafe.Sizeof(MedicationKnowledgeRelatedMedicationKnowledge{}))
+	for _, i := range r.AssociatedMedication {
+		s += i.MemSize()
+	}
+	s += (cap(r.AssociatedMedication) - len(r.AssociatedMedication)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ProductType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProductType) - len(r.ProductType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Monograph {
+		s += i.MemSize()
+	}
+	s += (cap(r.Monograph) - len(r.Monograph)) * int(unsafe.Sizeof(MedicationKnowledgeMonograph{}))
+	if r.PreparationInstruction != nil {
+		s += r.PreparationInstruction.MemSize()
+	}
+	for _, i := range r.Cost {
+		s += i.MemSize()
+	}
+	s += (cap(r.Cost) - len(r.Cost)) * int(unsafe.Sizeof(MedicationKnowledgeCost{}))
+	for _, i := range r.MonitoringProgram {
+		s += i.MemSize()
+	}
+	s += (cap(r.MonitoringProgram) - len(r.MonitoringProgram)) * int(unsafe.Sizeof(MedicationKnowledgeMonitoringProgram{}))
+	for _, i := range r.IndicationGuideline {
+		s += i.MemSize()
+	}
+	s += (cap(r.IndicationGuideline) - len(r.IndicationGuideline)) * int(unsafe.Sizeof(MedicationKnowledgeIndicationGuideline{}))
+	for _, i := range r.MedicineClassification {
+		s += i.MemSize()
+	}
+	s += (cap(r.MedicineClassification) - len(r.MedicineClassification)) * int(unsafe.Sizeof(MedicationKnowledgeMedicineClassification{}))
+	for _, i := range r.Packaging {
+		s += i.MemSize()
+	}
+	s += (cap(r.Packaging) - len(r.Packaging)) * int(unsafe.Sizeof(MedicationKnowledgePackaging{}))
+	for _, i := range r.ClinicalUseIssue {
+		s += i.MemSize()
+	}
+	s += (cap(r.ClinicalUseIssue) - len(r.ClinicalUseIssue)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.StorageGuideline {
+		s += i.MemSize()
+	}
+	s += (cap(r.StorageGuideline) - len(r.StorageGuideline)) * int(unsafe.Sizeof(MedicationKnowledgeStorageGuideline{}))
+	for _, i := range r.Regulatory {
+		s += i.MemSize()
+	}
+	s += (cap(r.Regulatory) - len(r.Regulatory)) * int(unsafe.Sizeof(MedicationKnowledgeRegulatory{}))
+	if r.Definitional != nil {
+		s += r.Definitional.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Reference {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reference) - len(r.Reference)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r MedicationKnowledgeMonograph) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeCost) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.EffectiveDate {
+		s += i.MemSize()
+	}
+	s += (cap(r.EffectiveDate) - len(r.EffectiveDate)) * int(unsafe.Sizeof(Period{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	if r.Cost != nil {
+		s += r.Cost.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeMonitoringProgram) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeIndicationGuideline) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Indication {
+		s += i.MemSize()
+	}
+	s += (cap(r.Indication) - len(r.Indication)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.DosingGuideline {
+		s += i.MemSize()
+	}
+	s += (cap(r.DosingGuideline) - len(r.DosingGuideline)) * int(unsafe.Sizeof(MedicationKnowledgeIndicationGuidelineDosingGuideline{}))
+	return s
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.TreatmentIntent != nil {
+		s += r.TreatmentIntent.MemSize()
+	}
+	for _, i := range r.Dosage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dosage) - len(r.Dosage)) * int(unsafe.Sizeof(MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage{}))
+	if r.AdministrationTreatment != nil {
+		s += r.AdministrationTreatment.MemSize()
+	}
+	for _, i := range r.PatientCharacteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.PatientCharacteristic) - len(r.PatientCharacteristic)) * int(unsafe.Sizeof(MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic{}))
+	return s
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Dosage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dosage) - len(r.Dosage)) * int(unsafe.Sizeof(Dosage{}))
+	return s
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeMedicineClassification) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	for _, i := range r.Classification {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r MedicationKnowledgePackaging) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Cost {
+		s += i.MemSize()
+	}
+	s += (cap(r.Cost) - len(r.Cost)) * int(unsafe.Sizeof(MedicationKnowledgeCost{}))
+	if r.PackagedProduct != nil {
+		s += r.PackagedProduct.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeStorageGuideline) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.StabilityDuration != nil {
+		s += r.StabilityDuration.MemSize()
+	}
+	for _, i := range r.EnvironmentalSetting {
+		s += i.MemSize()
+	}
+	s += (cap(r.EnvironmentalSetting) - len(r.EnvironmentalSetting)) * int(unsafe.Sizeof(MedicationKnowledgeStorageGuidelineEnvironmentalSetting{}))
+	return s
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeRegulatory) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.RegulatoryAuthority.MemSize() - int(unsafe.Sizeof(r.RegulatoryAuthority))
+	for _, i := range r.Substitution {
+		s += i.MemSize()
+	}
+	s += (cap(r.Substitution) - len(r.Substitution)) * int(unsafe.Sizeof(MedicationKnowledgeRegulatorySubstitution{}))
+	for _, i := range r.Schedule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Schedule) - len(r.Schedule)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.MaxDispense != nil {
+		s += r.MaxDispense.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeRegulatorySubstitution) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Allowed.MemSize() - int(unsafe.Sizeof(r.Allowed))
+	return s
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeDefinitional) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Definition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Definition) - len(r.Definition)) * int(unsafe.Sizeof(Reference{}))
+	if r.DoseForm != nil {
+		s += r.DoseForm.MemSize()
+	}
+	for _, i := range r.IntendedRoute {
+		s += i.MemSize()
+	}
+	s += (cap(r.IntendedRoute) - len(r.IntendedRoute)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Ingredient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(MedicationKnowledgeDefinitionalIngredient{}))
+	for _, i := range r.DrugCharacteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.DrugCharacteristic) - len(r.DrugCharacteristic)) * int(unsafe.Sizeof(MedicationKnowledgeDefinitionalDrugCharacteristic{}))
+	return s
+}
+func (r MedicationKnowledgeDefinitionalIngredient) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Strength != nil {
+		s += r.Strength.MemSize()
+	}
+	return s
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r MedicationKnowledge) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

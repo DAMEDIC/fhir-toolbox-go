@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of association of a device.
@@ -78,6 +79,88 @@ func (r DeviceAssociation) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DeviceAssociation) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Device.MemSize() - int(unsafe.Sizeof(r.Device))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.StatusReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.BodyStructure != nil {
+		s += r.BodyStructure.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.Operation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Operation) - len(r.Operation)) * int(unsafe.Sizeof(DeviceAssociationOperation{}))
+	return s
+}
+func (r DeviceAssociationOperation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Operator {
+		s += i.MemSize()
+	}
+	s += (cap(r.Operator) - len(r.Operator)) * int(unsafe.Sizeof(Reference{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
 }
 func (r DeviceAssociation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

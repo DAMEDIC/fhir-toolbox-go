@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The technical details of an endpoint that can be used for electronic services, such as for web services providing XDS.b or a REST endpoint for another FHIR server. This may include any security context information.
@@ -64,6 +65,70 @@ func (r Endpoint) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Endpoint) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.ConnectionType.MemSize() - int(unsafe.Sizeof(r.ConnectionType))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.ManagingOrganization != nil {
+		s += r.ManagingOrganization.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.PayloadType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PayloadType) - len(r.PayloadType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.PayloadMimeType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PayloadMimeType) - len(r.PayloadMimeType)) * int(unsafe.Sizeof(Code{}))
+	s += r.Address.MemSize() - int(unsafe.Sizeof(r.Address))
+	for _, i := range r.Header {
+		s += i.MemSize()
+	}
+	s += (cap(r.Header) - len(r.Header)) * int(unsafe.Sizeof(String{}))
+	return s
 }
 func (r Endpoint) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The subscription resource describes a particular client's request to be notified about a SubscriptionTopic.
@@ -118,6 +119,130 @@ func (r Subscription) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Subscription) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Topic.MemSize() - int(unsafe.Sizeof(r.Topic))
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.End != nil {
+		s += r.End.MemSize()
+	}
+	if r.ManagingEntity != nil {
+		s += r.ManagingEntity.MemSize()
+	}
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	for _, i := range r.FilterBy {
+		s += i.MemSize()
+	}
+	s += (cap(r.FilterBy) - len(r.FilterBy)) * int(unsafe.Sizeof(SubscriptionFilterBy{}))
+	s += r.ChannelType.MemSize() - int(unsafe.Sizeof(r.ChannelType))
+	if r.Endpoint != nil {
+		s += r.Endpoint.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(SubscriptionParameter{}))
+	if r.HeartbeatPeriod != nil {
+		s += r.HeartbeatPeriod.MemSize()
+	}
+	if r.Timeout != nil {
+		s += r.Timeout.MemSize()
+	}
+	if r.ContentType != nil {
+		s += r.ContentType.MemSize()
+	}
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	if r.MaxCount != nil {
+		s += r.MaxCount.MemSize()
+	}
+	return s
+}
+func (r SubscriptionFilterBy) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ResourceType != nil {
+		s += r.ResourceType.MemSize()
+	}
+	s += r.FilterParameter.MemSize() - int(unsafe.Sizeof(r.FilterParameter))
+	if r.Comparator != nil {
+		s += r.Comparator.MemSize()
+	}
+	if r.Modifier != nil {
+		s += r.Modifier.MemSize()
+	}
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r SubscriptionParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
 }
 func (r Subscription) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

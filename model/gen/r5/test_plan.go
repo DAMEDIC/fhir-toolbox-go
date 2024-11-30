@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A plan for executing testing on an artifact or specifications
@@ -77,6 +78,7 @@ type TestPlan struct {
 	TestCase []TestPlanTestCase
 }
 type isTestPlanVersionAlgorithm interface {
+	model.Element
 	isTestPlanVersionAlgorithm()
 }
 
@@ -171,6 +173,7 @@ type TestPlanTestCaseTestRunScript struct {
 	Source isTestPlanTestCaseTestRunScriptSource
 }
 type isTestPlanTestCaseTestRunScriptSource interface {
+	model.Element
 	isTestPlanTestCaseTestRunScriptSource()
 }
 
@@ -195,6 +198,7 @@ type TestPlanTestCaseTestData struct {
 	Source isTestPlanTestCaseTestDataSource
 }
 type isTestPlanTestCaseTestDataSource interface {
+	model.Element
 	isTestPlanTestCaseTestDataSource()
 }
 
@@ -230,6 +234,284 @@ func (r TestPlan) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r TestPlan) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Scope {
+		s += i.MemSize()
+	}
+	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(Reference{}))
+	if r.TestTools != nil {
+		s += r.TestTools.MemSize()
+	}
+	for _, i := range r.Dependency {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dependency) - len(r.Dependency)) * int(unsafe.Sizeof(TestPlanDependency{}))
+	if r.ExitCriteria != nil {
+		s += r.ExitCriteria.MemSize()
+	}
+	for _, i := range r.TestCase {
+		s += i.MemSize()
+	}
+	s += (cap(r.TestCase) - len(r.TestCase)) * int(unsafe.Sizeof(TestPlanTestCase{}))
+	return s
+}
+func (r TestPlanDependency) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Predecessor != nil {
+		s += r.Predecessor.MemSize()
+	}
+	return s
+}
+func (r TestPlanTestCase) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	for _, i := range r.Scope {
+		s += i.MemSize()
+	}
+	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Dependency {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dependency) - len(r.Dependency)) * int(unsafe.Sizeof(TestPlanTestCaseDependency{}))
+	for _, i := range r.TestRun {
+		s += i.MemSize()
+	}
+	s += (cap(r.TestRun) - len(r.TestRun)) * int(unsafe.Sizeof(TestPlanTestCaseTestRun{}))
+	for _, i := range r.TestData {
+		s += i.MemSize()
+	}
+	s += (cap(r.TestData) - len(r.TestData)) * int(unsafe.Sizeof(TestPlanTestCaseTestData{}))
+	for _, i := range r.Assertion {
+		s += i.MemSize()
+	}
+	s += (cap(r.Assertion) - len(r.Assertion)) * int(unsafe.Sizeof(TestPlanTestCaseAssertion{}))
+	return s
+}
+func (r TestPlanTestCaseDependency) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Predecessor != nil {
+		s += r.Predecessor.MemSize()
+	}
+	return s
+}
+func (r TestPlanTestCaseTestRun) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Narrative != nil {
+		s += r.Narrative.MemSize()
+	}
+	if r.Script != nil {
+		s += r.Script.MemSize()
+	}
+	return s
+}
+func (r TestPlanTestCaseTestRunScript) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	return s
+}
+func (r TestPlanTestCaseTestData) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	return s
+}
+func (r TestPlanTestCaseAssertion) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Object {
+		s += i.MemSize()
+	}
+	s += (cap(r.Object) - len(r.Object)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Result {
+		s += i.MemSize()
+	}
+	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(CodeableReference{}))
+	return s
 }
 func (r TestPlan) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

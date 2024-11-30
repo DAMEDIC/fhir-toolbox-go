@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Significant health conditions for a person related to the patient relevant in the context of care for the patient.
@@ -69,6 +70,7 @@ type FamilyMemberHistory struct {
 	Procedure []FamilyMemberHistoryProcedure
 }
 type isFamilyMemberHistoryBorn interface {
+	model.Element
 	isFamilyMemberHistoryBorn()
 }
 
@@ -77,6 +79,7 @@ func (r Date) isFamilyMemberHistoryBorn()   {}
 func (r String) isFamilyMemberHistoryBorn() {}
 
 type isFamilyMemberHistoryAge interface {
+	model.Element
 	isFamilyMemberHistoryAge()
 }
 
@@ -85,6 +88,7 @@ func (r Range) isFamilyMemberHistoryAge()  {}
 func (r String) isFamilyMemberHistoryAge() {}
 
 type isFamilyMemberHistoryDeceased interface {
+	model.Element
 	isFamilyMemberHistoryDeceased()
 }
 
@@ -132,6 +136,7 @@ type FamilyMemberHistoryCondition struct {
 	Note []Annotation
 }
 type isFamilyMemberHistoryConditionOnset interface {
+	model.Element
 	isFamilyMemberHistoryConditionOnset()
 }
 
@@ -162,6 +167,7 @@ type FamilyMemberHistoryProcedure struct {
 	Note []Annotation
 }
 type isFamilyMemberHistoryProcedurePerformed interface {
+	model.Element
 	isFamilyMemberHistoryProcedurePerformed()
 }
 
@@ -181,6 +187,174 @@ func (r FamilyMemberHistory) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r FamilyMemberHistory) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.DataAbsentReason != nil {
+		s += r.DataAbsentReason.MemSize()
+	}
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(FamilyMemberHistoryParticipant{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	s += r.Relationship.MemSize() - int(unsafe.Sizeof(r.Relationship))
+	if r.Sex != nil {
+		s += r.Sex.MemSize()
+	}
+	if r.Born != nil {
+		s += r.Born.MemSize()
+	}
+	if r.Age != nil {
+		s += r.Age.MemSize()
+	}
+	if r.EstimatedAge != nil {
+		s += r.EstimatedAge.MemSize()
+	}
+	if r.Deceased != nil {
+		s += r.Deceased.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(FamilyMemberHistoryCondition{}))
+	for _, i := range r.Procedure {
+		s += i.MemSize()
+	}
+	s += (cap(r.Procedure) - len(r.Procedure)) * int(unsafe.Sizeof(FamilyMemberHistoryProcedure{}))
+	return s
+}
+func (r FamilyMemberHistoryParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
+}
+func (r FamilyMemberHistoryCondition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	if r.ContributedToDeath != nil {
+		s += r.ContributedToDeath.MemSize()
+	}
+	if r.Onset != nil {
+		s += r.Onset.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r FamilyMemberHistoryProcedure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	if r.ContributedToDeath != nil {
+		s += r.ContributedToDeath.MemSize()
+	}
+	if r.Performed != nil {
+		s += r.Performed.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
 }
 func (r FamilyMemberHistory) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

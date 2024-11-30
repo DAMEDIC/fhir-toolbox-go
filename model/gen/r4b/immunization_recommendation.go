@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A patient's point-in-time set of recommendations (i.e. forecasting) according to a published schedule with optional supporting justification.
@@ -77,6 +78,7 @@ type ImmunizationRecommendationRecommendation struct {
 	SupportingPatientInformation []Reference
 }
 type isImmunizationRecommendationRecommendationDoseNumber interface {
+	model.Element
 	isImmunizationRecommendationRecommendationDoseNumber()
 }
 
@@ -84,6 +86,7 @@ func (r PositiveInt) isImmunizationRecommendationRecommendationDoseNumber() {}
 func (r String) isImmunizationRecommendationRecommendationDoseNumber()      {}
 
 type isImmunizationRecommendationRecommendationSeriesDoses interface {
+	model.Element
 	isImmunizationRecommendationRecommendationSeriesDoses()
 }
 
@@ -117,6 +120,123 @@ func (r ImmunizationRecommendation) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ImmunizationRecommendation) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	if r.Authority != nil {
+		s += r.Authority.MemSize()
+	}
+	for _, i := range r.Recommendation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Recommendation) - len(r.Recommendation)) * int(unsafe.Sizeof(ImmunizationRecommendationRecommendation{}))
+	return s
+}
+func (r ImmunizationRecommendationRecommendation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.VaccineCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.VaccineCode) - len(r.VaccineCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.TargetDisease != nil {
+		s += r.TargetDisease.MemSize()
+	}
+	for _, i := range r.ContraindicatedVaccineCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContraindicatedVaccineCode) - len(r.ContraindicatedVaccineCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.ForecastStatus.MemSize() - int(unsafe.Sizeof(r.ForecastStatus))
+	for _, i := range r.ForecastReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.ForecastReason) - len(r.ForecastReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.DateCriterion {
+		s += i.MemSize()
+	}
+	s += (cap(r.DateCriterion) - len(r.DateCriterion)) * int(unsafe.Sizeof(ImmunizationRecommendationRecommendationDateCriterion{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Series != nil {
+		s += r.Series.MemSize()
+	}
+	if r.DoseNumber != nil {
+		s += r.DoseNumber.MemSize()
+	}
+	if r.SeriesDoses != nil {
+		s += r.SeriesDoses.MemSize()
+	}
+	for _, i := range r.SupportingImmunization {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingImmunization) - len(r.SupportingImmunization)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SupportingPatientInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingPatientInformation) - len(r.SupportingPatientInformation)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ImmunizationRecommendationRecommendationDateCriterion) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
 }
 func (r ImmunizationRecommendation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Reference Type: A reference from one resource to another.
@@ -26,6 +27,29 @@ type Reference struct {
 	Display *String
 }
 
+func (r Reference) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	return s
+}
 func (r Reference) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

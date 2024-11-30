@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for ProdCharacteristic Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
@@ -42,6 +43,57 @@ type ProdCharacteristic struct {
 	Scoring *CodeableConcept
 }
 
+func (r ProdCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Height != nil {
+		s += r.Height.MemSize()
+	}
+	if r.Width != nil {
+		s += r.Width.MemSize()
+	}
+	if r.Depth != nil {
+		s += r.Depth.MemSize()
+	}
+	if r.Weight != nil {
+		s += r.Weight.MemSize()
+	}
+	if r.NominalVolume != nil {
+		s += r.NominalVolume.MemSize()
+	}
+	if r.ExternalDiameter != nil {
+		s += r.ExternalDiameter.MemSize()
+	}
+	if r.Shape != nil {
+		s += r.Shape.MemSize()
+	}
+	for _, i := range r.Color {
+		s += i.MemSize()
+	}
+	s += (cap(r.Color) - len(r.Color)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Imprint {
+		s += i.MemSize()
+	}
+	s += (cap(r.Imprint) - len(r.Imprint)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Image {
+		s += i.MemSize()
+	}
+	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
+	if r.Scoring != nil {
+		s += r.Scoring.MemSize()
+	}
+	return s
+}
 func (r ProdCharacteristic) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A ValueSet resource instance specifies a set of codes drawn from one or more code systems, intended for use in a particular context. Value sets link between [[[CodeSystem]]] definitions and their use in [coded elements](terminologies.html).
@@ -203,6 +204,7 @@ type ValueSetExpansionParameter struct {
 	Value isValueSetExpansionParameterValue
 }
 type isValueSetExpansionParameterValue interface {
+	model.Element
 	isValueSetExpansionParameterValue()
 }
 
@@ -253,6 +255,312 @@ func (r ValueSet) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ValueSet) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Immutable != nil {
+		s += r.Immutable.MemSize()
+	}
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.Compose != nil {
+		s += r.Compose.MemSize()
+	}
+	if r.Expansion != nil {
+		s += r.Expansion.MemSize()
+	}
+	return s
+}
+func (r ValueSetCompose) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LockedDate != nil {
+		s += r.LockedDate.MemSize()
+	}
+	if r.Inactive != nil {
+		s += r.Inactive.MemSize()
+	}
+	for _, i := range r.Include {
+		s += i.MemSize()
+	}
+	s += (cap(r.Include) - len(r.Include)) * int(unsafe.Sizeof(ValueSetComposeInclude{}))
+	for _, i := range r.Exclude {
+		s += i.MemSize()
+	}
+	s += (cap(r.Exclude) - len(r.Exclude)) * int(unsafe.Sizeof(ValueSetComposeInclude{}))
+	return s
+}
+func (r ValueSetComposeInclude) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	for _, i := range r.Concept {
+		s += i.MemSize()
+	}
+	s += (cap(r.Concept) - len(r.Concept)) * int(unsafe.Sizeof(ValueSetComposeIncludeConcept{}))
+	for _, i := range r.Filter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Filter) - len(r.Filter)) * int(unsafe.Sizeof(ValueSetComposeIncludeFilter{}))
+	for _, i := range r.ValueSet {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueSet) - len(r.ValueSet)) * int(unsafe.Sizeof(Canonical{}))
+	return s
+}
+func (r ValueSetComposeIncludeConcept) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	for _, i := range r.Designation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Designation) - len(r.Designation)) * int(unsafe.Sizeof(ValueSetComposeIncludeConceptDesignation{}))
+	return s
+}
+func (r ValueSetComposeIncludeConceptDesignation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r ValueSetComposeIncludeFilter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Property.MemSize() - int(unsafe.Sizeof(r.Property))
+	s += r.Op.MemSize() - int(unsafe.Sizeof(r.Op))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r ValueSetExpansion) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Timestamp.MemSize() - int(unsafe.Sizeof(r.Timestamp))
+	if r.Total != nil {
+		s += r.Total.MemSize()
+	}
+	if r.Offset != nil {
+		s += r.Offset.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ValueSetExpansionParameter{}))
+	for _, i := range r.Contains {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contains) - len(r.Contains)) * int(unsafe.Sizeof(ValueSetExpansionContains{}))
+	return s
+}
+func (r ValueSetExpansionParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ValueSetExpansionContains) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Abstract != nil {
+		s += r.Abstract.MemSize()
+	}
+	if r.Inactive != nil {
+		s += r.Inactive.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	for _, i := range r.Designation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Designation) - len(r.Designation)) * int(unsafe.Sizeof(ValueSetComposeIncludeConceptDesignation{}))
+	for _, i := range r.Contains {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contains) - len(r.Contains)) * int(unsafe.Sizeof(ValueSetExpansionContains{}))
+	return s
 }
 func (r ValueSet) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

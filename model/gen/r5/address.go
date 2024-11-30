@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Address Type: An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid for mail delivery.  There are a variety of postal address formats defined around the world.
@@ -39,6 +40,48 @@ type Address struct {
 	Period *Period
 }
 
+func (r Address) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Line {
+		s += i.MemSize()
+	}
+	s += (cap(r.Line) - len(r.Line)) * int(unsafe.Sizeof(String{}))
+	if r.City != nil {
+		s += r.City.MemSize()
+	}
+	if r.District != nil {
+		s += r.District.MemSize()
+	}
+	if r.State != nil {
+		s += r.State.MemSize()
+	}
+	if r.PostalCode != nil {
+		s += r.PostalCode.MemSize()
+	}
+	if r.Country != nil {
+		s += r.Country.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
 func (r Address) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A medicinal product in a container or package.
@@ -112,6 +113,146 @@ func (r MedicinalProductPackaged) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductPackaged) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.LegalStatusOfSupply != nil {
+		s += r.LegalStatusOfSupply.MemSize()
+	}
+	for _, i := range r.MarketingStatus {
+		s += i.MemSize()
+	}
+	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(unsafe.Sizeof(MarketingStatus{}))
+	if r.MarketingAuthorization != nil {
+		s += r.MarketingAuthorization.MemSize()
+	}
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.BatchIdentifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.BatchIdentifier) - len(r.BatchIdentifier)) * int(unsafe.Sizeof(MedicinalProductPackagedBatchIdentifier{}))
+	for _, i := range r.PackageItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(unsafe.Sizeof(MedicinalProductPackagedPackageItem{}))
+	return s
+}
+func (r MedicinalProductPackagedBatchIdentifier) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.OuterPackaging.MemSize() - int(unsafe.Sizeof(r.OuterPackaging))
+	if r.ImmediatePackaging != nil {
+		s += r.ImmediatePackaging.MemSize()
+	}
+	return s
+}
+func (r MedicinalProductPackagedPackageItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	for _, i := range r.Material {
+		s += i.MemSize()
+	}
+	s += (cap(r.Material) - len(r.Material)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.AlternateMaterial {
+		s += i.MemSize()
+	}
+	s += (cap(r.AlternateMaterial) - len(r.AlternateMaterial)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Device {
+		s += i.MemSize()
+	}
+	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ManufacturedItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.ManufacturedItem) - len(r.ManufacturedItem)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PackageItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(unsafe.Sizeof(MedicinalProductPackagedPackageItem{}))
+	if r.PhysicalCharacteristics != nil {
+		s += r.PhysicalCharacteristics.MemSize()
+	}
+	for _, i := range r.OtherCharacteristics {
+		s += i.MemSize()
+	}
+	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ShelfLifeStorage {
+		s += i.MemSize()
+	}
+	s += (cap(r.ShelfLifeStorage) - len(r.ShelfLifeStorage)) * int(unsafe.Sizeof(ProductShelfLife{}))
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	return s
 }
 func (r MedicinalProductPackaged) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

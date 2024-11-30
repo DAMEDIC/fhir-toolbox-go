@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Todo.
@@ -166,6 +167,214 @@ func (r SubstancePolymer) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstancePolymer) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Class != nil {
+		s += r.Class.MemSize()
+	}
+	if r.Geometry != nil {
+		s += r.Geometry.MemSize()
+	}
+	for _, i := range r.CopolymerConnectivity {
+		s += i.MemSize()
+	}
+	s += (cap(r.CopolymerConnectivity) - len(r.CopolymerConnectivity)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Modification {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modification) - len(r.Modification)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.MonomerSet {
+		s += i.MemSize()
+	}
+	s += (cap(r.MonomerSet) - len(r.MonomerSet)) * int(unsafe.Sizeof(SubstancePolymerMonomerSet{}))
+	for _, i := range r.Repeat {
+		s += i.MemSize()
+	}
+	s += (cap(r.Repeat) - len(r.Repeat)) * int(unsafe.Sizeof(SubstancePolymerRepeat{}))
+	return s
+}
+func (r SubstancePolymerMonomerSet) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.RatioType != nil {
+		s += r.RatioType.MemSize()
+	}
+	for _, i := range r.StartingMaterial {
+		s += i.MemSize()
+	}
+	s += (cap(r.StartingMaterial) - len(r.StartingMaterial)) * int(unsafe.Sizeof(SubstancePolymerMonomerSetStartingMaterial{}))
+	return s
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Material != nil {
+		s += r.Material.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.IsDefining != nil {
+		s += r.IsDefining.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r SubstancePolymerRepeat) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.NumberOfUnits != nil {
+		s += r.NumberOfUnits.MemSize()
+	}
+	if r.AverageMolecularFormula != nil {
+		s += r.AverageMolecularFormula.MemSize()
+	}
+	if r.RepeatUnitAmountType != nil {
+		s += r.RepeatUnitAmountType.MemSize()
+	}
+	for _, i := range r.RepeatUnit {
+		s += i.MemSize()
+	}
+	s += (cap(r.RepeatUnit) - len(r.RepeatUnit)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnit{}))
+	return s
+}
+func (r SubstancePolymerRepeatRepeatUnit) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.OrientationOfPolymerisation != nil {
+		s += r.OrientationOfPolymerisation.MemSize()
+	}
+	if r.RepeatUnit != nil {
+		s += r.RepeatUnit.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	for _, i := range r.DegreeOfPolymerisation {
+		s += i.MemSize()
+	}
+	s += (cap(r.DegreeOfPolymerisation) - len(r.DegreeOfPolymerisation)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation{}))
+	for _, i := range r.StructuralRepresentation {
+		s += i.MemSize()
+	}
+	s += (cap(r.StructuralRepresentation) - len(r.StructuralRepresentation)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnitStructuralRepresentation{}))
+	return s
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Degree != nil {
+		s += r.Degree.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Representation != nil {
+		s += r.Representation.MemSize()
+	}
+	if r.Attachment != nil {
+		s += r.Attachment.MemSize()
+	}
+	return s
 }
 func (r SubstancePolymer) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

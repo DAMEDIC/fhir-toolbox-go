@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Measurements and simple assertions made about a patient, device or other subject.
@@ -81,6 +82,7 @@ type Observation struct {
 	Component []ObservationComponent
 }
 type isObservationEffective interface {
+	model.Element
 	isObservationEffective()
 }
 
@@ -90,6 +92,7 @@ func (r Timing) isObservationEffective()   {}
 func (r Instant) isObservationEffective()  {}
 
 type isObservationValue interface {
+	model.Element
 	isObservationValue()
 }
 
@@ -151,6 +154,7 @@ type ObservationComponent struct {
 	ReferenceRange []ObservationReferenceRange
 }
 type isObservationComponentValue interface {
+	model.Element
 	isObservationComponentValue()
 }
 
@@ -176,6 +180,182 @@ func (r Observation) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Observation) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Effective != nil {
+		s += r.Effective.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.DataAbsentReason != nil {
+		s += r.DataAbsentReason.MemSize()
+	}
+	for _, i := range r.Interpretation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	if r.Specimen != nil {
+		s += r.Specimen.MemSize()
+	}
+	if r.Device != nil {
+		s += r.Device.MemSize()
+	}
+	for _, i := range r.ReferenceRange {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(unsafe.Sizeof(ObservationReferenceRange{}))
+	for _, i := range r.HasMember {
+		s += i.MemSize()
+	}
+	s += (cap(r.HasMember) - len(r.HasMember)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Component {
+		s += i.MemSize()
+	}
+	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ObservationComponent{}))
+	return s
+}
+func (r ObservationReferenceRange) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Low != nil {
+		s += r.Low.MemSize()
+	}
+	if r.High != nil {
+		s += r.High.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.AppliesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Age != nil {
+		s += r.Age.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	return s
+}
+func (r ObservationComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.DataAbsentReason != nil {
+		s += r.DataAbsentReason.MemSize()
+	}
+	for _, i := range r.Interpretation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReferenceRange {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(unsafe.Sizeof(ObservationReferenceRange{}))
+	return s
 }
 func (r Observation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

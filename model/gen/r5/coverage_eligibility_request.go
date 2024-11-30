@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The CoverageEligibilityRequest provides patient and insurance coverage information to an insurer for them to respond, in the form of an CoverageEligibilityResponse, with information regarding whether the stated coverage is valid and in-force and optionally to provide the insurance details of the policy.
@@ -61,6 +62,7 @@ type CoverageEligibilityRequest struct {
 	Item []CoverageEligibilityRequestItem
 }
 type isCoverageEligibilityRequestServiced interface {
+	model.Element
 	isCoverageEligibilityRequestServiced()
 }
 
@@ -83,6 +85,7 @@ type CoverageEligibilityRequestEvent struct {
 	When isCoverageEligibilityRequestEventWhen
 }
 type isCoverageEligibilityRequestEventWhen interface {
+	model.Element
 	isCoverageEligibilityRequestEventWhen()
 }
 
@@ -171,6 +174,7 @@ type CoverageEligibilityRequestItemDiagnosis struct {
 	Diagnosis isCoverageEligibilityRequestItemDiagnosisDiagnosis
 }
 type isCoverageEligibilityRequestItemDiagnosisDiagnosis interface {
+	model.Element
 	isCoverageEligibilityRequestItemDiagnosisDiagnosis()
 }
 
@@ -187,6 +191,209 @@ func (r CoverageEligibilityRequest) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r CoverageEligibilityRequest) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	for _, i := range r.Purpose {
+		s += i.MemSize()
+	}
+	s += (cap(r.Purpose) - len(r.Purpose)) * int(unsafe.Sizeof(Code{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(CoverageEligibilityRequestEvent{}))
+	if r.Serviced != nil {
+		s += r.Serviced.MemSize()
+	}
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	if r.Enterer != nil {
+		s += r.Enterer.MemSize()
+	}
+	if r.Provider != nil {
+		s += r.Provider.MemSize()
+	}
+	s += r.Insurer.MemSize() - int(unsafe.Sizeof(r.Insurer))
+	if r.Facility != nil {
+		s += r.Facility.MemSize()
+	}
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(CoverageEligibilityRequestSupportingInfo{}))
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(CoverageEligibilityRequestInsurance{}))
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(CoverageEligibilityRequestItem{}))
+	return s
+}
+func (r CoverageEligibilityRequestEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.When != nil {
+		s += r.When.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityRequestSupportingInfo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	s += r.Information.MemSize() - int(unsafe.Sizeof(r.Information))
+	if r.AppliesToAll != nil {
+		s += r.AppliesToAll.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityRequestInsurance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Focal != nil {
+		s += r.Focal.MemSize()
+	}
+	s += r.Coverage.MemSize() - int(unsafe.Sizeof(r.Coverage))
+	if r.BusinessArrangement != nil {
+		s += r.BusinessArrangement.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityRequestItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.SupportingInfoSequence {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfoSequence) - len(r.SupportingInfoSequence)) * int(unsafe.Sizeof(PositiveInt{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.ProductOrService != nil {
+		s += r.ProductOrService.MemSize()
+	}
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Provider != nil {
+		s += r.Provider.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.UnitPrice != nil {
+		s += r.UnitPrice.MemSize()
+	}
+	if r.Facility != nil {
+		s += r.Facility.MemSize()
+	}
+	for _, i := range r.Diagnosis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(unsafe.Sizeof(CoverageEligibilityRequestItemDiagnosis{}))
+	for _, i := range r.Detail {
+		s += i.MemSize()
+	}
+	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r CoverageEligibilityRequestItemDiagnosis) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Diagnosis != nil {
+		s += r.Diagnosis.MemSize()
+	}
+	return s
 }
 func (r CoverageEligibilityRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

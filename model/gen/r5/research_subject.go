@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A ResearchSubject is a participant or object which is the recipient of investigative activities in a research study.
@@ -84,6 +85,95 @@ func (r ResearchSubject) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ResearchSubject) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Progress {
+		s += i.MemSize()
+	}
+	s += (cap(r.Progress) - len(r.Progress)) * int(unsafe.Sizeof(ResearchSubjectProgress{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	s += r.Study.MemSize() - int(unsafe.Sizeof(r.Study))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.AssignedComparisonGroup != nil {
+		s += r.AssignedComparisonGroup.MemSize()
+	}
+	if r.ActualComparisonGroup != nil {
+		s += r.ActualComparisonGroup.MemSize()
+	}
+	for _, i := range r.Consent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Consent) - len(r.Consent)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ResearchSubjectProgress) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.SubjectState != nil {
+		s += r.SubjectState.MemSize()
+	}
+	if r.Milestone != nil {
+		s += r.Milestone.MemSize()
+	}
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	if r.StartDate != nil {
+		s += r.StartDate.MemSize()
+	}
+	if r.EndDate != nil {
+		s += r.EndDate.MemSize()
+	}
+	return s
 }
 func (r ResearchSubject) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

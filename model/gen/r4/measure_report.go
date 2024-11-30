@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The MeasureReport resource contains the results of the calculation of a measure; and optionally a reference to the resources involved in that calculation.
@@ -172,6 +173,212 @@ func (r MeasureReport) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MeasureReport) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Measure.MemSize() - int(unsafe.Sizeof(r.Measure))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Reporter != nil {
+		s += r.Reporter.MemSize()
+	}
+	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	if r.ImprovementNotation != nil {
+		s += r.ImprovementNotation.MemSize()
+	}
+	for _, i := range r.Group {
+		s += i.MemSize()
+	}
+	s += (cap(r.Group) - len(r.Group)) * int(unsafe.Sizeof(MeasureReportGroup{}))
+	for _, i := range r.EvaluatedResource {
+		s += i.MemSize()
+	}
+	s += (cap(r.EvaluatedResource) - len(r.EvaluatedResource)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r MeasureReportGroup) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	for _, i := range r.Population {
+		s += i.MemSize()
+	}
+	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(MeasureReportGroupPopulation{}))
+	if r.MeasureScore != nil {
+		s += r.MeasureScore.MemSize()
+	}
+	for _, i := range r.Stratifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Stratifier) - len(r.Stratifier)) * int(unsafe.Sizeof(MeasureReportGroupStratifier{}))
+	return s
+}
+func (r MeasureReportGroupPopulation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Count != nil {
+		s += r.Count.MemSize()
+	}
+	if r.SubjectResults != nil {
+		s += r.SubjectResults.MemSize()
+	}
+	return s
+}
+func (r MeasureReportGroupStratifier) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Stratum {
+		s += i.MemSize()
+	}
+	s += (cap(r.Stratum) - len(r.Stratum)) * int(unsafe.Sizeof(MeasureReportGroupStratifierStratum{}))
+	return s
+}
+func (r MeasureReportGroupStratifierStratum) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	for _, i := range r.Component {
+		s += i.MemSize()
+	}
+	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(MeasureReportGroupStratifierStratumComponent{}))
+	for _, i := range r.Population {
+		s += i.MemSize()
+	}
+	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(MeasureReportGroupStratifierStratumPopulation{}))
+	if r.MeasureScore != nil {
+		s += r.MeasureScore.MemSize()
+	}
+	return s
+}
+func (r MeasureReportGroupStratifierStratumComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r MeasureReportGroupStratifierStratumPopulation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Count != nil {
+		s += r.Count.MemSize()
+	}
+	if r.SubjectResults != nil {
+		s += r.SubjectResults.MemSize()
+	}
+	return s
 }
 func (r MeasureReport) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

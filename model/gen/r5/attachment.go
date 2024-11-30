@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Attachment Type: For referring to data content defined in other formats.
@@ -44,6 +45,56 @@ type Attachment struct {
 	Pages *PositiveInt
 }
 
+func (r Attachment) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ContentType != nil {
+		s += r.ContentType.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Data != nil {
+		s += r.Data.MemSize()
+	}
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Size != nil {
+		s += r.Size.MemSize()
+	}
+	if r.Hash != nil {
+		s += r.Hash.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Creation != nil {
+		s += r.Creation.MemSize()
+	}
+	if r.Height != nil {
+		s += r.Height.MemSize()
+	}
+	if r.Width != nil {
+		s += r.Width.MemSize()
+	}
+	if r.Frames != nil {
+		s += r.Frames.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	if r.Pages != nil {
+		s += r.Pages.MemSize()
+	}
+	return s
+}
 func (r Attachment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

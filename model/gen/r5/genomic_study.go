@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A set of analyses performed to analyze and generate genomic data.
@@ -127,6 +128,7 @@ type GenomicStudyAnalysisInput struct {
 	GeneratedBy isGenomicStudyAnalysisInputGeneratedBy
 }
 type isGenomicStudyAnalysisInputGeneratedBy interface {
+	model.Element
 	isGenomicStudyAnalysisInputGeneratedBy()
 }
 
@@ -192,6 +194,254 @@ func (r GenomicStudy) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r GenomicStudy) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.StartDate != nil {
+		s += r.StartDate.MemSize()
+	}
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	if r.Referrer != nil {
+		s += r.Referrer.MemSize()
+	}
+	for _, i := range r.Interpreter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interpreter) - len(r.Interpreter)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.InstantiatesCanonical != nil {
+		s += r.InstantiatesCanonical.MemSize()
+	}
+	if r.InstantiatesUri != nil {
+		s += r.InstantiatesUri.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Analysis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Analysis) - len(r.Analysis)) * int(unsafe.Sizeof(GenomicStudyAnalysis{}))
+	return s
+}
+func (r GenomicStudyAnalysis) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.MethodType {
+		s += i.MemSize()
+	}
+	s += (cap(r.MethodType) - len(r.MethodType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ChangeType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ChangeType) - len(r.ChangeType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.GenomeBuild != nil {
+		s += r.GenomeBuild.MemSize()
+	}
+	if r.InstantiatesCanonical != nil {
+		s += r.InstantiatesCanonical.MemSize()
+	}
+	if r.InstantiatesUri != nil {
+		s += r.InstantiatesUri.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Specimen {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.ProtocolPerformed != nil {
+		s += r.ProtocolPerformed.MemSize()
+	}
+	for _, i := range r.RegionsStudied {
+		s += i.MemSize()
+	}
+	s += (cap(r.RegionsStudied) - len(r.RegionsStudied)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.RegionsCalled {
+		s += i.MemSize()
+	}
+	s += (cap(r.RegionsCalled) - len(r.RegionsCalled)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Input {
+		s += i.MemSize()
+	}
+	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(GenomicStudyAnalysisInput{}))
+	for _, i := range r.Output {
+		s += i.MemSize()
+	}
+	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(GenomicStudyAnalysisOutput{}))
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(GenomicStudyAnalysisPerformer{}))
+	for _, i := range r.Device {
+		s += i.MemSize()
+	}
+	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(GenomicStudyAnalysisDevice{}))
+	return s
+}
+func (r GenomicStudyAnalysisInput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.File != nil {
+		s += r.File.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.GeneratedBy != nil {
+		s += r.GeneratedBy.MemSize()
+	}
+	return s
+}
+func (r GenomicStudyAnalysisOutput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.File != nil {
+		s += r.File.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	return s
+}
+func (r GenomicStudyAnalysisPerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	return s
+}
+func (r GenomicStudyAnalysisDevice) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Device != nil {
+		s += r.Device.MemSize()
+	}
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	return s
 }
 func (r GenomicStudy) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen to a level of concern.
@@ -65,6 +66,7 @@ type Condition struct {
 	Note []Annotation
 }
 type isConditionOnset interface {
+	model.Element
 	isConditionOnset()
 }
 
@@ -75,6 +77,7 @@ func (r Range) isConditionOnset()    {}
 func (r String) isConditionOnset()   {}
 
 type isConditionAbatement interface {
+	model.Element
 	isConditionAbatement()
 }
 
@@ -129,6 +132,141 @@ func (r Condition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Condition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.ClinicalStatus != nil {
+		s += r.ClinicalStatus.MemSize()
+	}
+	if r.VerificationStatus != nil {
+		s += r.VerificationStatus.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Severity != nil {
+		s += r.Severity.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Onset != nil {
+		s += r.Onset.MemSize()
+	}
+	if r.Abatement != nil {
+		s += r.Abatement.MemSize()
+	}
+	if r.RecordedDate != nil {
+		s += r.RecordedDate.MemSize()
+	}
+	if r.Recorder != nil {
+		s += r.Recorder.MemSize()
+	}
+	if r.Asserter != nil {
+		s += r.Asserter.MemSize()
+	}
+	for _, i := range r.Stage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Stage) - len(r.Stage)) * int(unsafe.Sizeof(ConditionStage{}))
+	for _, i := range r.Evidence {
+		s += i.MemSize()
+	}
+	s += (cap(r.Evidence) - len(r.Evidence)) * int(unsafe.Sizeof(ConditionEvidence{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r ConditionStage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Summary != nil {
+		s += r.Summary.MemSize()
+	}
+	for _, i := range r.Assessment {
+		s += i.MemSize()
+	}
+	s += (cap(r.Assessment) - len(r.Assessment)) * int(unsafe.Sizeof(Reference{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	return s
+}
+func (r ConditionEvidence) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Detail {
+		s += i.MemSize()
+	}
+	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(Reference{}))
+	return s
 }
 func (r Condition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

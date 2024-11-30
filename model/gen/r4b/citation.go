@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The Citation Resource enables reference to any knowledge artifact for purposes of identification and attribution. The Citation Resource supports existing reference structures and developing publication practices such as versioning, expressing complex contributorship roles, and referencing computable resources.
@@ -157,6 +158,7 @@ type CitationRelatesTo struct {
 	Target isCitationRelatesToTarget
 }
 type isCitationRelatesToTarget interface {
+	model.Element
 	isCitationRelatesToTarget()
 }
 
@@ -315,6 +317,7 @@ type CitationCitedArtifactRelatesTo struct {
 	Target isCitationCitedArtifactRelatesToTarget
 }
 type isCitationCitedArtifactRelatesToTarget interface {
+	model.Element
 	isCitationCitedArtifactRelatesToTarget()
 }
 
@@ -598,6 +601,794 @@ func (r Citation) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Citation) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Summary {
+		s += i.MemSize()
+	}
+	s += (cap(r.Summary) - len(r.Summary)) * int(unsafe.Sizeof(CitationSummary{}))
+	for _, i := range r.Classification {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CitationClassification{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.CurrentState {
+		s += i.MemSize()
+	}
+	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.StatusDate {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(unsafe.Sizeof(CitationStatusDate{}))
+	for _, i := range r.RelatesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(CitationRelatesTo{}))
+	if r.CitedArtifact != nil {
+		s += r.CitedArtifact.MemSize()
+	}
+	return s
+}
+func (r CitationSummary) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Style != nil {
+		s += r.Style.MemSize()
+	}
+	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	return s
+}
+func (r CitationClassification) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r CitationStatusDate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Activity.MemSize() - int(unsafe.Sizeof(r.Activity))
+	if r.Actual != nil {
+		s += r.Actual.MemSize()
+	}
+	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	return s
+}
+func (r CitationRelatesTo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.RelationshipType.MemSize() - int(unsafe.Sizeof(r.RelationshipType))
+	for _, i := range r.TargetClassifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.TargetClassifier) - len(r.TargetClassifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Target != nil {
+		s += r.Target.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifact) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.RelatedIdentifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedIdentifier) - len(r.RelatedIdentifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.DateAccessed != nil {
+		s += r.DateAccessed.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	for _, i := range r.CurrentState {
+		s += i.MemSize()
+	}
+	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.StatusDate {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(unsafe.Sizeof(CitationCitedArtifactStatusDate{}))
+	for _, i := range r.Title {
+		s += i.MemSize()
+	}
+	s += (cap(r.Title) - len(r.Title)) * int(unsafe.Sizeof(CitationCitedArtifactTitle{}))
+	for _, i := range r.Abstract {
+		s += i.MemSize()
+	}
+	s += (cap(r.Abstract) - len(r.Abstract)) * int(unsafe.Sizeof(CitationCitedArtifactAbstract{}))
+	if r.Part != nil {
+		s += r.Part.MemSize()
+	}
+	for _, i := range r.RelatesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(CitationCitedArtifactRelatesTo{}))
+	for _, i := range r.PublicationForm {
+		s += i.MemSize()
+	}
+	s += (cap(r.PublicationForm) - len(r.PublicationForm)) * int(unsafe.Sizeof(CitationCitedArtifactPublicationForm{}))
+	for _, i := range r.WebLocation {
+		s += i.MemSize()
+	}
+	s += (cap(r.WebLocation) - len(r.WebLocation)) * int(unsafe.Sizeof(CitationCitedArtifactWebLocation{}))
+	for _, i := range r.Classification {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CitationCitedArtifactClassification{}))
+	if r.Contributorship != nil {
+		s += r.Contributorship.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r CitationCitedArtifactVersion) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	if r.BaseCitation != nil {
+		s += r.BaseCitation.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactStatusDate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Activity.MemSize() - int(unsafe.Sizeof(r.Activity))
+	if r.Actual != nil {
+		s += r.Actual.MemSize()
+	}
+	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	return s
+}
+func (r CitationCitedArtifactTitle) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	return s
+}
+func (r CitationCitedArtifactAbstract) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactPart) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.BaseCitation != nil {
+		s += r.BaseCitation.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactRelatesTo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.RelationshipType.MemSize() - int(unsafe.Sizeof(r.RelationshipType))
+	for _, i := range r.TargetClassifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.TargetClassifier) - len(r.TargetClassifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Target != nil {
+		s += r.Target.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactPublicationForm) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.PublishedIn != nil {
+		s += r.PublishedIn.MemSize()
+	}
+	if r.PeriodicRelease != nil {
+		s += r.PeriodicRelease.MemSize()
+	}
+	if r.ArticleDate != nil {
+		s += r.ArticleDate.MemSize()
+	}
+	if r.LastRevisionDate != nil {
+		s += r.LastRevisionDate.MemSize()
+	}
+	for _, i := range r.Language {
+		s += i.MemSize()
+	}
+	s += (cap(r.Language) - len(r.Language)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AccessionNumber != nil {
+		s += r.AccessionNumber.MemSize()
+	}
+	if r.PageString != nil {
+		s += r.PageString.MemSize()
+	}
+	if r.FirstPage != nil {
+		s += r.FirstPage.MemSize()
+	}
+	if r.LastPage != nil {
+		s += r.LastPage.MemSize()
+	}
+	if r.PageCount != nil {
+		s += r.PageCount.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	if r.PublisherLocation != nil {
+		s += r.PublisherLocation.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.CitedMedium != nil {
+		s += r.CitedMedium.MemSize()
+	}
+	if r.Volume != nil {
+		s += r.Volume.MemSize()
+	}
+	if r.Issue != nil {
+		s += r.Issue.MemSize()
+	}
+	if r.DateOfPublication != nil {
+		s += r.DateOfPublication.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Year != nil {
+		s += r.Year.MemSize()
+	}
+	if r.Month != nil {
+		s += r.Month.MemSize()
+	}
+	if r.Day != nil {
+		s += r.Day.MemSize()
+	}
+	if r.Season != nil {
+		s += r.Season.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactWebLocation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactClassification) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.WhoClassified != nil {
+		s += r.WhoClassified.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactClassificationWhoClassified) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Person != nil {
+		s += r.Person.MemSize()
+	}
+	if r.Organization != nil {
+		s += r.Organization.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	if r.ClassifierCopyright != nil {
+		s += r.ClassifierCopyright.MemSize()
+	}
+	if r.FreeToShare != nil {
+		s += r.FreeToShare.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactContributorship) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Complete != nil {
+		s += r.Complete.MemSize()
+	}
+	for _, i := range r.Entry {
+		s += i.MemSize()
+	}
+	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipEntry{}))
+	for _, i := range r.Summary {
+		s += i.MemSize()
+	}
+	s += (cap(r.Summary) - len(r.Summary)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipSummary{}))
+	return s
+}
+func (r CitationCitedArtifactContributorshipEntry) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Initials != nil {
+		s += r.Initials.MemSize()
+	}
+	if r.CollectiveName != nil {
+		s += r.CollectiveName.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.AffiliationInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.AffiliationInfo) - len(r.AffiliationInfo)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipEntryAffiliationInfo{}))
+	for _, i := range r.Address {
+		s += i.MemSize()
+	}
+	s += (cap(r.Address) - len(r.Address)) * int(unsafe.Sizeof(Address{}))
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	for _, i := range r.ContributionType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContributionType) - len(r.ContributionType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	for _, i := range r.ContributionInstance {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContributionInstance) - len(r.ContributionInstance)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipEntryContributionInstance{}))
+	if r.CorrespondingContact != nil {
+		s += r.CorrespondingContact.MemSize()
+	}
+	if r.ListOrder != nil {
+		s += r.ListOrder.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Affiliation != nil {
+		s += r.Affiliation.MemSize()
+	}
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	return s
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Time != nil {
+		s += r.Time.MemSize()
+	}
+	return s
+}
+func (r CitationCitedArtifactContributorshipSummary) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Style != nil {
+		s += r.Style.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
 }
 func (r Citation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

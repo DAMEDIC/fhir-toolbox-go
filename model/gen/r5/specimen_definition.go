@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A kind of specimen with associated set of requirements.
@@ -87,6 +88,7 @@ type SpecimenDefinition struct {
 	TypeTested []SpecimenDefinitionTypeTested
 }
 type isSpecimenDefinitionVersionAlgorithm interface {
+	model.Element
 	isSpecimenDefinitionVersionAlgorithm()
 }
 
@@ -94,6 +96,7 @@ func (r String) isSpecimenDefinitionVersionAlgorithm() {}
 func (r Coding) isSpecimenDefinitionVersionAlgorithm() {}
 
 type isSpecimenDefinitionSubject interface {
+	model.Element
 	isSpecimenDefinitionSubject()
 }
 
@@ -160,6 +163,7 @@ type SpecimenDefinitionTypeTestedContainer struct {
 	Preparation *Markdown
 }
 type isSpecimenDefinitionTypeTestedContainerMinimumVolume interface {
+	model.Element
 	isSpecimenDefinitionTypeTestedContainerMinimumVolume()
 }
 
@@ -180,6 +184,7 @@ type SpecimenDefinitionTypeTestedContainerAdditive struct {
 	Additive isSpecimenDefinitionTypeTestedContainerAdditiveAdditive
 }
 type isSpecimenDefinitionTypeTestedContainerAdditiveAdditive interface {
+	model.Element
 	isSpecimenDefinitionTypeTestedContainerAdditiveAdditive()
 }
 
@@ -217,6 +222,259 @@ func (r SpecimenDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SpecimenDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.DerivedFromCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFromCanonical) - len(r.DerivedFromCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.DerivedFromUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(unsafe.Sizeof(Uri{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	if r.TypeCollected != nil {
+		s += r.TypeCollected.MemSize()
+	}
+	for _, i := range r.PatientPreparation {
+		s += i.MemSize()
+	}
+	s += (cap(r.PatientPreparation) - len(r.PatientPreparation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.TimeAspect != nil {
+		s += r.TimeAspect.MemSize()
+	}
+	for _, i := range r.Collection {
+		s += i.MemSize()
+	}
+	s += (cap(r.Collection) - len(r.Collection)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.TypeTested {
+		s += i.MemSize()
+	}
+	s += (cap(r.TypeTested) - len(r.TypeTested)) * int(unsafe.Sizeof(SpecimenDefinitionTypeTested{}))
+	return s
+}
+func (r SpecimenDefinitionTypeTested) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.IsDerived != nil {
+		s += r.IsDerived.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	s += r.Preference.MemSize() - int(unsafe.Sizeof(r.Preference))
+	if r.Container != nil {
+		s += r.Container.MemSize()
+	}
+	if r.Requirement != nil {
+		s += r.Requirement.MemSize()
+	}
+	if r.RetentionTime != nil {
+		s += r.RetentionTime.MemSize()
+	}
+	if r.SingleUse != nil {
+		s += r.SingleUse.MemSize()
+	}
+	for _, i := range r.RejectionCriterion {
+		s += i.MemSize()
+	}
+	s += (cap(r.RejectionCriterion) - len(r.RejectionCriterion)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Handling {
+		s += i.MemSize()
+	}
+	s += (cap(r.Handling) - len(r.Handling)) * int(unsafe.Sizeof(SpecimenDefinitionTypeTestedHandling{}))
+	for _, i := range r.TestingDestination {
+		s += i.MemSize()
+	}
+	s += (cap(r.TestingDestination) - len(r.TestingDestination)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r SpecimenDefinitionTypeTestedContainer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Material != nil {
+		s += r.Material.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Cap != nil {
+		s += r.Cap.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Capacity != nil {
+		s += r.Capacity.MemSize()
+	}
+	if r.MinimumVolume != nil {
+		s += r.MinimumVolume.MemSize()
+	}
+	for _, i := range r.Additive {
+		s += i.MemSize()
+	}
+	s += (cap(r.Additive) - len(r.Additive)) * int(unsafe.Sizeof(SpecimenDefinitionTypeTestedContainerAdditive{}))
+	if r.Preparation != nil {
+		s += r.Preparation.MemSize()
+	}
+	return s
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Additive != nil {
+		s += r.Additive.MemSize()
+	}
+	return s
+}
+func (r SpecimenDefinitionTypeTestedHandling) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.TemperatureQualifier != nil {
+		s += r.TemperatureQualifier.MemSize()
+	}
+	if r.TemperatureRange != nil {
+		s += r.TemperatureRange.MemSize()
+	}
+	if r.MaxDuration != nil {
+		s += r.MaxDuration.MemSize()
+	}
+	if r.Instruction != nil {
+		s += r.Instruction.MemSize()
+	}
+	return s
 }
 func (r SpecimenDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

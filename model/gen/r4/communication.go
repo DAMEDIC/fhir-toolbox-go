@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An occurrence of information being transmitted; e.g. an alert that was sent to a responsible provider, a public health agency that was notified about a reportable condition.
@@ -91,6 +92,7 @@ type CommunicationPayload struct {
 	Content isCommunicationPayloadContent
 }
 type isCommunicationPayloadContent interface {
+	model.Element
 	isCommunicationPayloadContent()
 }
 
@@ -108,6 +110,137 @@ func (r Communication) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Communication) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.InResponseTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.InResponseTo) - len(r.InResponseTo)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.StatusReason != nil {
+		s += r.StatusReason.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	for _, i := range r.Medium {
+		s += i.MemSize()
+	}
+	s += (cap(r.Medium) - len(r.Medium)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Topic != nil {
+		s += r.Topic.MemSize()
+	}
+	for _, i := range r.About {
+		s += i.MemSize()
+	}
+	s += (cap(r.About) - len(r.About)) * int(unsafe.Sizeof(Reference{}))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Sent != nil {
+		s += r.Sent.MemSize()
+	}
+	if r.Received != nil {
+		s += r.Received.MemSize()
+	}
+	for _, i := range r.Recipient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Recipient) - len(r.Recipient)) * int(unsafe.Sizeof(Reference{}))
+	if r.Sender != nil {
+		s += r.Sender.MemSize()
+	}
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReasonReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Payload {
+		s += i.MemSize()
+	}
+	s += (cap(r.Payload) - len(r.Payload)) * int(unsafe.Sizeof(CommunicationPayload{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r CommunicationPayload) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	return s
 }
 func (r Communication) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

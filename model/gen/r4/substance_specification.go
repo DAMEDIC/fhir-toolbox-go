@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The detailed description of a substance, typically at a level beyond what is used for prescribing.
@@ -95,6 +96,7 @@ type SubstanceSpecificationMoiety struct {
 	Amount isSubstanceSpecificationMoietyAmount
 }
 type isSubstanceSpecificationMoietyAmount interface {
+	model.Element
 	isSubstanceSpecificationMoietyAmount()
 }
 
@@ -123,6 +125,7 @@ type SubstanceSpecificationProperty struct {
 	Amount isSubstanceSpecificationPropertyAmount
 }
 type isSubstanceSpecificationPropertyDefiningSubstance interface {
+	model.Element
 	isSubstanceSpecificationPropertyDefiningSubstance()
 }
 
@@ -130,6 +133,7 @@ func (r Reference) isSubstanceSpecificationPropertyDefiningSubstance()       {}
 func (r CodeableConcept) isSubstanceSpecificationPropertyDefiningSubstance() {}
 
 type isSubstanceSpecificationPropertyAmount interface {
+	model.Element
 	isSubstanceSpecificationPropertyAmount()
 }
 
@@ -322,6 +326,7 @@ type SubstanceSpecificationRelationship struct {
 	Source []Reference
 }
 type isSubstanceSpecificationRelationshipSubstance interface {
+	model.Element
 	isSubstanceSpecificationRelationshipSubstance()
 }
 
@@ -329,6 +334,7 @@ func (r Reference) isSubstanceSpecificationRelationshipSubstance()       {}
 func (r CodeableConcept) isSubstanceSpecificationRelationshipSubstance() {}
 
 type isSubstanceSpecificationRelationshipAmount interface {
+	model.Element
 	isSubstanceSpecificationRelationshipAmount()
 }
 
@@ -347,6 +353,433 @@ func (r SubstanceSpecification) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstanceSpecification) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Domain != nil {
+		s += r.Domain.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	for _, i := range r.Moiety {
+		s += i.MemSize()
+	}
+	s += (cap(r.Moiety) - len(r.Moiety)) * int(unsafe.Sizeof(SubstanceSpecificationMoiety{}))
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(SubstanceSpecificationProperty{}))
+	if r.ReferenceInformation != nil {
+		s += r.ReferenceInformation.MemSize()
+	}
+	if r.Structure != nil {
+		s += r.Structure.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(SubstanceSpecificationCode{}))
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(SubstanceSpecificationName{}))
+	for _, i := range r.MolecularWeight {
+		s += i.MemSize()
+	}
+	s += (cap(r.MolecularWeight) - len(r.MolecularWeight)) * int(unsafe.Sizeof(SubstanceSpecificationStructureIsotopeMolecularWeight{}))
+	for _, i := range r.Relationship {
+		s += i.MemSize()
+	}
+	s += (cap(r.Relationship) - len(r.Relationship)) * int(unsafe.Sizeof(SubstanceSpecificationRelationship{}))
+	if r.NucleicAcid != nil {
+		s += r.NucleicAcid.MemSize()
+	}
+	if r.Polymer != nil {
+		s += r.Polymer.MemSize()
+	}
+	if r.Protein != nil {
+		s += r.Protein.MemSize()
+	}
+	if r.SourceMaterial != nil {
+		s += r.SourceMaterial.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationMoiety) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Stereochemistry != nil {
+		s += r.Stereochemistry.MemSize()
+	}
+	if r.OpticalActivity != nil {
+		s += r.OpticalActivity.MemSize()
+	}
+	if r.MolecularFormula != nil {
+		s += r.MolecularFormula.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Parameters != nil {
+		s += r.Parameters.MemSize()
+	}
+	if r.DefiningSubstance != nil {
+		s += r.DefiningSubstance.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationStructure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Stereochemistry != nil {
+		s += r.Stereochemistry.MemSize()
+	}
+	if r.OpticalActivity != nil {
+		s += r.OpticalActivity.MemSize()
+	}
+	if r.MolecularFormula != nil {
+		s += r.MolecularFormula.MemSize()
+	}
+	if r.MolecularFormulaByMoiety != nil {
+		s += r.MolecularFormulaByMoiety.MemSize()
+	}
+	for _, i := range r.Isotope {
+		s += i.MemSize()
+	}
+	s += (cap(r.Isotope) - len(r.Isotope)) * int(unsafe.Sizeof(SubstanceSpecificationStructureIsotope{}))
+	if r.MolecularWeight != nil {
+		s += r.MolecularWeight.MemSize()
+	}
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Representation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Representation) - len(r.Representation)) * int(unsafe.Sizeof(SubstanceSpecificationStructureRepresentation{}))
+	return s
+}
+func (r SubstanceSpecificationStructureIsotope) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Substitution != nil {
+		s += r.Substitution.MemSize()
+	}
+	if r.HalfLife != nil {
+		s += r.HalfLife.MemSize()
+	}
+	if r.MolecularWeight != nil {
+		s += r.MolecularWeight.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationStructureIsotopeMolecularWeight) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationStructureRepresentation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Representation != nil {
+		s += r.Representation.MemSize()
+	}
+	if r.Attachment != nil {
+		s += r.Attachment.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationCode) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r SubstanceSpecificationName) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Preferred != nil {
+		s += r.Preferred.MemSize()
+	}
+	for _, i := range r.Language {
+		s += i.MemSize()
+	}
+	s += (cap(r.Language) - len(r.Language)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Domain {
+		s += i.MemSize()
+	}
+	s += (cap(r.Domain) - len(r.Domain)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Synonym {
+		s += i.MemSize()
+	}
+	s += (cap(r.Synonym) - len(r.Synonym)) * int(unsafe.Sizeof(SubstanceSpecificationName{}))
+	for _, i := range r.Translation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Translation) - len(r.Translation)) * int(unsafe.Sizeof(SubstanceSpecificationName{}))
+	for _, i := range r.Official {
+		s += i.MemSize()
+	}
+	s += (cap(r.Official) - len(r.Official)) * int(unsafe.Sizeof(SubstanceSpecificationNameOfficial{}))
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r SubstanceSpecificationNameOfficial) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Authority != nil {
+		s += r.Authority.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	return s
+}
+func (r SubstanceSpecificationRelationship) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Substance != nil {
+		s += r.Substance.MemSize()
+	}
+	if r.Relationship != nil {
+		s += r.Relationship.MemSize()
+	}
+	if r.IsDefining != nil {
+		s += r.IsDefining.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	if r.AmountRatioLowLimit != nil {
+		s += r.AmountRatioLowLimit.MemSize()
+	}
+	if r.AmountType != nil {
+		s += r.AmountType.MemSize()
+	}
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	return s
 }
 func (r SubstanceSpecification) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

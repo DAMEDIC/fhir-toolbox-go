@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A definition of a FHIR structure. This resource is used to describe the underlying resources, data types defined in FHIR, and also for describing extensions and constraints on resources and data types.
@@ -160,6 +161,195 @@ func (r StructureDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r StructureDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	for _, i := range r.Keyword {
+		s += i.MemSize()
+	}
+	s += (cap(r.Keyword) - len(r.Keyword)) * int(unsafe.Sizeof(Coding{}))
+	if r.FhirVersion != nil {
+		s += r.FhirVersion.MemSize()
+	}
+	for _, i := range r.Mapping {
+		s += i.MemSize()
+	}
+	s += (cap(r.Mapping) - len(r.Mapping)) * int(unsafe.Sizeof(StructureDefinitionMapping{}))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	s += r.Abstract.MemSize() - int(unsafe.Sizeof(r.Abstract))
+	for _, i := range r.Context {
+		s += i.MemSize()
+	}
+	s += (cap(r.Context) - len(r.Context)) * int(unsafe.Sizeof(StructureDefinitionContext{}))
+	for _, i := range r.ContextInvariant {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContextInvariant) - len(r.ContextInvariant)) * int(unsafe.Sizeof(String{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.BaseDefinition != nil {
+		s += r.BaseDefinition.MemSize()
+	}
+	if r.Derivation != nil {
+		s += r.Derivation.MemSize()
+	}
+	if r.Snapshot != nil {
+		s += r.Snapshot.MemSize()
+	}
+	if r.Differential != nil {
+		s += r.Differential.MemSize()
+	}
+	return s
+}
+func (r StructureDefinitionMapping) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Identity.MemSize() - int(unsafe.Sizeof(r.Identity))
+	if r.Uri != nil {
+		s += r.Uri.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	return s
+}
+func (r StructureDefinitionContext) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	return s
+}
+func (r StructureDefinitionSnapshot) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Element {
+		s += i.MemSize()
+	}
+	s += (cap(r.Element) - len(r.Element)) * int(unsafe.Sizeof(ElementDefinition{}))
+	return s
+}
+func (r StructureDefinitionDifferential) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Element {
+		s += i.MemSize()
+	}
+	s += (cap(r.Element) - len(r.Element)) * int(unsafe.Sizeof(ElementDefinition{}))
+	return s
 }
 func (r StructureDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

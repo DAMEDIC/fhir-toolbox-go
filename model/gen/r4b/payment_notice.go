@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource provides the status of the payment for goods and services rendered, and the request and response resource references.
@@ -66,6 +67,65 @@ func (r PaymentNotice) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r PaymentNotice) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Request != nil {
+		s += r.Request.MemSize()
+	}
+	if r.Response != nil {
+		s += r.Response.MemSize()
+	}
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	if r.Provider != nil {
+		s += r.Provider.MemSize()
+	}
+	s += r.Payment.MemSize() - int(unsafe.Sizeof(r.Payment))
+	if r.PaymentDate != nil {
+		s += r.PaymentDate.MemSize()
+	}
+	if r.Payee != nil {
+		s += r.Payee.MemSize()
+	}
+	s += r.Recipient.MemSize() - int(unsafe.Sizeof(r.Recipient))
+	s += r.Amount.MemSize() - int(unsafe.Sizeof(r.Amount))
+	if r.PaymentStatus != nil {
+		s += r.PaymentStatus.MemSize()
+	}
+	return s
 }
 func (r PaymentNotice) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

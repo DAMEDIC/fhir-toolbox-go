@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // Base StructureDefinition for dateTime Type: A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.
@@ -17,6 +18,20 @@ type DateTime struct {
 	Value *string
 }
 
+func (r DateTime) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r DateTime) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

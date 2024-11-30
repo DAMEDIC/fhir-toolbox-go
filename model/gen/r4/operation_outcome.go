@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A collection of error, warning, or information messages that result from a system action.
@@ -70,6 +71,73 @@ func (r OperationOutcome) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r OperationOutcome) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Issue {
+		s += i.MemSize()
+	}
+	s += (cap(r.Issue) - len(r.Issue)) * int(unsafe.Sizeof(OperationOutcomeIssue{}))
+	return s
+}
+func (r OperationOutcomeIssue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Severity.MemSize() - int(unsafe.Sizeof(r.Severity))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Details != nil {
+		s += r.Details.MemSize()
+	}
+	if r.Diagnostics != nil {
+		s += r.Diagnostics.MemSize()
+	}
+	for _, i := range r.Location {
+		s += i.MemSize()
+	}
+	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Expression {
+		s += i.MemSize()
+	}
+	s += (cap(r.Expression) - len(r.Expression)) * int(unsafe.Sizeof(String{}))
+	return s
 }
 func (r OperationOutcome) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

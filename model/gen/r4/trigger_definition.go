@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for TriggerDefinition Type: A description of a triggering event. Triggering events can be named events, data events, or periodic, as determined by the type element.
@@ -26,6 +28,7 @@ type TriggerDefinition struct {
 	Condition *Expression
 }
 type isTriggerDefinitionTiming interface {
+	model.Element
 	isTriggerDefinitionTiming()
 }
 
@@ -33,6 +36,31 @@ func (r Timing) isTriggerDefinitionTiming()    {}
 func (r Reference) isTriggerDefinitionTiming() {}
 func (r Date) isTriggerDefinitionTiming()      {}
 func (r DateTime) isTriggerDefinitionTiming()  {}
+func (r TriggerDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	for _, i := range r.Data {
+		s += i.MemSize()
+	}
+	s += (cap(r.Data) - len(r.Data)) * int(unsafe.Sizeof(DataRequirement{}))
+	if r.Condition != nil {
+		s += r.Condition.MemSize()
+	}
+	return s
+}
 func (r TriggerDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

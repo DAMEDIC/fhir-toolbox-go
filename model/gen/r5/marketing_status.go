@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // MarketingStatus Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
@@ -30,6 +31,34 @@ type MarketingStatus struct {
 	RestoreDate *DateTime
 }
 
+func (r MarketingStatus) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Country != nil {
+		s += r.Country.MemSize()
+	}
+	if r.Jurisdiction != nil {
+		s += r.Jurisdiction.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.DateRange != nil {
+		s += r.DateRange.MemSize()
+	}
+	if r.RestoreDate != nil {
+		s += r.RestoreDate.MemSize()
+	}
+	return s
+}
 func (r MarketingStatus) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Represents a request a device to be provided to a specific patient. The device may be an implantable device to be subsequently implanted, or an external assistive device, such as a walker, to be delivered and subsequently be used.
@@ -83,6 +84,7 @@ type DeviceRequest struct {
 	RelevantHistory []Reference
 }
 type isDeviceRequestOccurrence interface {
+	model.Element
 	isDeviceRequestOccurrence()
 }
 
@@ -106,6 +108,7 @@ type DeviceRequestParameter struct {
 	Value isDeviceRequestParameterValue
 }
 type isDeviceRequestParameterValue interface {
+	model.Element
 	isDeviceRequestParameterValue()
 }
 
@@ -124,6 +127,142 @@ func (r DeviceRequest) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DeviceRequest) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Replaces {
+		s += i.MemSize()
+	}
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	if r.GroupIdentifier != nil {
+		s += r.GroupIdentifier.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.DoNotPerform != nil {
+		s += r.DoNotPerform.MemSize()
+	}
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(DeviceRequestParameter{}))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.AuthoredOn != nil {
+		s += r.AuthoredOn.MemSize()
+	}
+	if r.Requester != nil {
+		s += r.Requester.MemSize()
+	}
+	if r.Performer != nil {
+		s += r.Performer.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.AsNeeded != nil {
+		s += r.AsNeeded.MemSize()
+	}
+	if r.AsNeededFor != nil {
+		s += r.AsNeededFor.MemSize()
+	}
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.RelevantHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r DeviceRequestParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r DeviceRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

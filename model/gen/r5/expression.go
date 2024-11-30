@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Expression Type: A expression that is evaluated in a specified context and returns a value. The context of use of the expression must specify the context in which the expression is evaluated, and how the result of the expression is used.
@@ -26,6 +27,32 @@ type Expression struct {
 	Reference *Uri
 }
 
+func (r Expression) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	return s
+}
 func (r Expression) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The characteristics, operational status and capabilities of a medical-related component of a medical device.
@@ -75,6 +76,7 @@ type DeviceDefinition struct {
 	Material []DeviceDefinitionMaterial
 }
 type isDeviceDefinitionManufacturer interface {
+	model.Element
 	isDeviceDefinitionManufacturer()
 }
 
@@ -195,6 +197,237 @@ func (r DeviceDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DeviceDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.UdiDeviceIdentifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.UdiDeviceIdentifier) - len(r.UdiDeviceIdentifier)) * int(unsafe.Sizeof(DeviceDefinitionUdiDeviceIdentifier{}))
+	if r.Manufacturer != nil {
+		s += r.Manufacturer.MemSize()
+	}
+	for _, i := range r.DeviceName {
+		s += i.MemSize()
+	}
+	s += (cap(r.DeviceName) - len(r.DeviceName)) * int(unsafe.Sizeof(DeviceDefinitionDeviceName{}))
+	if r.ModelNumber != nil {
+		s += r.ModelNumber.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Specialization {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialization) - len(r.Specialization)) * int(unsafe.Sizeof(DeviceDefinitionSpecialization{}))
+	for _, i := range r.Version {
+		s += i.MemSize()
+	}
+	s += (cap(r.Version) - len(r.Version)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Safety {
+		s += i.MemSize()
+	}
+	s += (cap(r.Safety) - len(r.Safety)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ShelfLifeStorage {
+		s += i.MemSize()
+	}
+	s += (cap(r.ShelfLifeStorage) - len(r.ShelfLifeStorage)) * int(unsafe.Sizeof(ProductShelfLife{}))
+	if r.PhysicalCharacteristics != nil {
+		s += r.PhysicalCharacteristics.MemSize()
+	}
+	for _, i := range r.LanguageCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.LanguageCode) - len(r.LanguageCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Capability {
+		s += i.MemSize()
+	}
+	s += (cap(r.Capability) - len(r.Capability)) * int(unsafe.Sizeof(DeviceDefinitionCapability{}))
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(DeviceDefinitionProperty{}))
+	if r.Owner != nil {
+		s += r.Owner.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.OnlineInformation != nil {
+		s += r.OnlineInformation.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.ParentDevice != nil {
+		s += r.ParentDevice.MemSize()
+	}
+	for _, i := range r.Material {
+		s += i.MemSize()
+	}
+	s += (cap(r.Material) - len(r.Material)) * int(unsafe.Sizeof(DeviceDefinitionMaterial{}))
+	return s
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.DeviceIdentifier.MemSize() - int(unsafe.Sizeof(r.DeviceIdentifier))
+	s += r.Issuer.MemSize() - int(unsafe.Sizeof(r.Issuer))
+	s += r.Jurisdiction.MemSize() - int(unsafe.Sizeof(r.Jurisdiction))
+	return s
+}
+func (r DeviceDefinitionDeviceName) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	return s
+}
+func (r DeviceDefinitionSpecialization) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.SystemType.MemSize() - int(unsafe.Sizeof(r.SystemType))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	return s
+}
+func (r DeviceDefinitionCapability) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Description {
+		s += i.MemSize()
+	}
+	s += (cap(r.Description) - len(r.Description)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r DeviceDefinitionProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.ValueQuantity {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueQuantity) - len(r.ValueQuantity)) * int(unsafe.Sizeof(Quantity{}))
+	for _, i := range r.ValueCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueCode) - len(r.ValueCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r DeviceDefinitionMaterial) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Substance.MemSize() - int(unsafe.Sizeof(r.Substance))
+	if r.Alternate != nil {
+		s += r.Alternate.MemSize()
+	}
+	if r.AllergenicIndicator != nil {
+		s += r.AllergenicIndicator.MemSize()
+	}
+	return s
 }
 func (r DeviceDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

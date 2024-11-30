@@ -49,14 +49,17 @@ func Parse(bundle *model.Bundle) []ResourceOrType {
 			continue
 		}
 
+		isResource := s.Kind == "resource"
+
 		resourceOrType := ResourceOrType{
 			Name:        s.Name,
 			FileName:    toGoFileCasing(s.Name),
-			IsResource:  s.Kind == "resource",
+			IsResource:  isResource,
 			IsPrimitive: slices.Contains(primitives, s.Name),
 			Structs: parseStructs(
 				s.Name,
-				s.Kind == "resource",
+				isResource,
+				s.Kind == "resource" && strings.HasSuffix(s.BaseDefinition, "DomainResource"),
 				s.Snapshot.Element,
 				s.Type,
 				fmt.Sprintf("%s\n\n%s", s.Description, s.Purpose),
@@ -84,6 +87,7 @@ func flattenBundle(bundle *model.Bundle) []*model.StructureDefinition {
 func parseStructs(
 	name string,
 	isResource bool,
+	isDomainResource bool,
 	elementDefinitions []model.ElementDefinition,
 	elementPathStripPrefix string,
 	docComment string,
@@ -93,10 +97,11 @@ func parseStructs(
 	groupedDefinitions := groupElementDefinitionsByPrefix(elementDefinitions, elementPathStripPrefix)
 
 	parsedStructs := []Struct{{
-		Name:        structName,
-		IsResource:  isResource,
-		IsPrimitive: slices.Contains(primitives, name),
-		DocComment:  docComment,
+		Name:             structName,
+		IsResource:       isResource,
+		IsDomainResource: isDomainResource,
+		IsPrimitive:      slices.Contains(primitives, name),
+		DocComment:       docComment,
 	}}
 
 	for _, g := range groupedDefinitions {
@@ -110,6 +115,7 @@ func parseStructs(
 			parsedStructs = append(
 				parsedStructs, parseStructs(
 					typeName,
+					false,
 					false,
 					g.definitions,
 					g.definitions[0].Path,

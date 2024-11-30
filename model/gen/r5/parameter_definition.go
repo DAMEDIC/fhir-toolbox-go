@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // ParameterDefinition Type: The parameters to the module. This collection specifies both the input and output parameters. Input parameters are provided by the caller as part of the $evaluate operation. Output parameters are included in the GuidanceResponse.
@@ -30,6 +31,34 @@ type ParameterDefinition struct {
 	Profile *Canonical
 }
 
+func (r ParameterDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	s += r.Use.MemSize() - int(unsafe.Sizeof(r.Use))
+	if r.Min != nil {
+		s += r.Min.MemSize()
+	}
+	if r.Max != nil {
+		s += r.Max.MemSize()
+	}
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Profile != nil {
+		s += r.Profile.MemSize()
+	}
+	return s
+}
 func (r ParameterDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

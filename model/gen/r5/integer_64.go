@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"strconv"
+	"unsafe"
 )
 
 // integer64 Type: A very large whole number
@@ -18,6 +19,20 @@ type Integer64 struct {
 	Value *int64
 }
 
+func (r Integer64) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Integer64) MarshalJSON() ([]byte, error) {
 	var v *string
 	if r.Value != nil {

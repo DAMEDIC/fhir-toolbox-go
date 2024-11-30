@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server for a particular version of FHIR that may be used as a statement of actual server functionality or a statement of required or desired server implementation.
@@ -362,6 +363,465 @@ func (r CapabilityStatement) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r CapabilityStatement) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	for _, i := range r.Instantiates {
+		s += i.MemSize()
+	}
+	s += (cap(r.Instantiates) - len(r.Instantiates)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Imports {
+		s += i.MemSize()
+	}
+	s += (cap(r.Imports) - len(r.Imports)) * int(unsafe.Sizeof(Canonical{}))
+	if r.Software != nil {
+		s += r.Software.MemSize()
+	}
+	if r.Implementation != nil {
+		s += r.Implementation.MemSize()
+	}
+	s += r.FhirVersion.MemSize() - int(unsafe.Sizeof(r.FhirVersion))
+	for _, i := range r.Format {
+		s += i.MemSize()
+	}
+	s += (cap(r.Format) - len(r.Format)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.PatchFormat {
+		s += i.MemSize()
+	}
+	s += (cap(r.PatchFormat) - len(r.PatchFormat)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.ImplementationGuide {
+		s += i.MemSize()
+	}
+	s += (cap(r.ImplementationGuide) - len(r.ImplementationGuide)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Rest {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rest) - len(r.Rest)) * int(unsafe.Sizeof(CapabilityStatementRest{}))
+	for _, i := range r.Messaging {
+		s += i.MemSize()
+	}
+	s += (cap(r.Messaging) - len(r.Messaging)) * int(unsafe.Sizeof(CapabilityStatementMessaging{}))
+	for _, i := range r.Document {
+		s += i.MemSize()
+	}
+	s += (cap(r.Document) - len(r.Document)) * int(unsafe.Sizeof(CapabilityStatementDocument{}))
+	return s
+}
+func (r CapabilityStatementSoftware) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.ReleaseDate != nil {
+		s += r.ReleaseDate.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementImplementation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Custodian != nil {
+		s += r.Custodian.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementRest) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	if r.Security != nil {
+		s += r.Security.MemSize()
+	}
+	for _, i := range r.Resource {
+		s += i.MemSize()
+	}
+	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(CapabilityStatementRestResource{}))
+	for _, i := range r.Interaction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interaction) - len(r.Interaction)) * int(unsafe.Sizeof(CapabilityStatementRestInteraction{}))
+	for _, i := range r.SearchParam {
+		s += i.MemSize()
+	}
+	s += (cap(r.SearchParam) - len(r.SearchParam)) * int(unsafe.Sizeof(CapabilityStatementRestResourceSearchParam{}))
+	for _, i := range r.Operation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Operation) - len(r.Operation)) * int(unsafe.Sizeof(CapabilityStatementRestResourceOperation{}))
+	for _, i := range r.Compartment {
+		s += i.MemSize()
+	}
+	s += (cap(r.Compartment) - len(r.Compartment)) * int(unsafe.Sizeof(Canonical{}))
+	return s
+}
+func (r CapabilityStatementRestSecurity) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Cors != nil {
+		s += r.Cors.MemSize()
+	}
+	for _, i := range r.Service {
+		s += i.MemSize()
+	}
+	s += (cap(r.Service) - len(r.Service)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementRestResource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Profile != nil {
+		s += r.Profile.MemSize()
+	}
+	for _, i := range r.SupportedProfile {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportedProfile) - len(r.SupportedProfile)) * int(unsafe.Sizeof(Canonical{}))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	for _, i := range r.Interaction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interaction) - len(r.Interaction)) * int(unsafe.Sizeof(CapabilityStatementRestResourceInteraction{}))
+	if r.Versioning != nil {
+		s += r.Versioning.MemSize()
+	}
+	if r.ReadHistory != nil {
+		s += r.ReadHistory.MemSize()
+	}
+	if r.UpdateCreate != nil {
+		s += r.UpdateCreate.MemSize()
+	}
+	if r.ConditionalCreate != nil {
+		s += r.ConditionalCreate.MemSize()
+	}
+	if r.ConditionalRead != nil {
+		s += r.ConditionalRead.MemSize()
+	}
+	if r.ConditionalUpdate != nil {
+		s += r.ConditionalUpdate.MemSize()
+	}
+	if r.ConditionalDelete != nil {
+		s += r.ConditionalDelete.MemSize()
+	}
+	for _, i := range r.ReferencePolicy {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferencePolicy) - len(r.ReferencePolicy)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.SearchInclude {
+		s += i.MemSize()
+	}
+	s += (cap(r.SearchInclude) - len(r.SearchInclude)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.SearchRevInclude {
+		s += i.MemSize()
+	}
+	s += (cap(r.SearchRevInclude) - len(r.SearchRevInclude)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.SearchParam {
+		s += i.MemSize()
+	}
+	s += (cap(r.SearchParam) - len(r.SearchParam)) * int(unsafe.Sizeof(CapabilityStatementRestResourceSearchParam{}))
+	for _, i := range r.Operation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Operation) - len(r.Operation)) * int(unsafe.Sizeof(CapabilityStatementRestResourceOperation{}))
+	return s
+}
+func (r CapabilityStatementRestResourceInteraction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementRestResourceSearchParam) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementRestResourceOperation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Definition.MemSize() - int(unsafe.Sizeof(r.Definition))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementRestInteraction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r CapabilityStatementMessaging) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Endpoint {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(CapabilityStatementMessagingEndpoint{}))
+	if r.ReliableCache != nil {
+		s += r.ReliableCache.MemSize()
+	}
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	for _, i := range r.SupportedMessage {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportedMessage) - len(r.SupportedMessage)) * int(unsafe.Sizeof(CapabilityStatementMessagingSupportedMessage{}))
+	return s
+}
+func (r CapabilityStatementMessagingEndpoint) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Protocol.MemSize() - int(unsafe.Sizeof(r.Protocol))
+	s += r.Address.MemSize() - int(unsafe.Sizeof(r.Address))
+	return s
+}
+func (r CapabilityStatementMessagingSupportedMessage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	s += r.Definition.MemSize() - int(unsafe.Sizeof(r.Definition))
+	return s
+}
+func (r CapabilityStatementDocument) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	s += r.Profile.MemSize() - int(unsafe.Sizeof(r.Profile))
+	return s
 }
 func (r CapabilityStatement) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

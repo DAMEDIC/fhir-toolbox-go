@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Regulatory approval, clearance or licencing related to a regulated product, treatment, facility or activity that is cited in a guidance, regulation, rule or legislative act. An example is Market Authorization relating to a Medicinal Product.
@@ -83,6 +84,7 @@ type RegulatedAuthorizationCase struct {
 	Application []RegulatedAuthorizationCase
 }
 type isRegulatedAuthorizationCaseDate interface {
+	model.Element
 	isRegulatedAuthorizationCaseDate()
 }
 
@@ -99,6 +101,120 @@ func (r RegulatedAuthorization) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r RegulatedAuthorization) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Region {
+		s += i.MemSize()
+	}
+	s += (cap(r.Region) - len(r.Region)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	if r.ValidityPeriod != nil {
+		s += r.ValidityPeriod.MemSize()
+	}
+	for _, i := range r.Indication {
+		s += i.MemSize()
+	}
+	s += (cap(r.Indication) - len(r.Indication)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.IntendedUse != nil {
+		s += r.IntendedUse.MemSize()
+	}
+	for _, i := range r.Basis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Holder != nil {
+		s += r.Holder.MemSize()
+	}
+	if r.Regulator != nil {
+		s += r.Regulator.MemSize()
+	}
+	for _, i := range r.AttachedDocument {
+		s += i.MemSize()
+	}
+	s += (cap(r.AttachedDocument) - len(r.AttachedDocument)) * int(unsafe.Sizeof(Reference{}))
+	if r.Case != nil {
+		s += r.Case.MemSize()
+	}
+	return s
+}
+func (r RegulatedAuthorizationCase) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Application {
+		s += i.MemSize()
+	}
+	s += (cap(r.Application) - len(r.Application)) * int(unsafe.Sizeof(RegulatedAuthorizationCase{}))
+	return s
 }
 func (r RegulatedAuthorization) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

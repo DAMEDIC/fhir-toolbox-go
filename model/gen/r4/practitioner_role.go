@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A specific set of Roles/Locations/specialties/services that a practitioner may perform at an organization for a period of time.
@@ -108,6 +109,136 @@ func (r PractitionerRole) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r PractitionerRole) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Practitioner != nil {
+		s += r.Practitioner.MemSize()
+	}
+	if r.Organization != nil {
+		s += r.Organization.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Specialty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Location {
+		s += i.MemSize()
+	}
+	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.HealthcareService {
+		s += i.MemSize()
+	}
+	s += (cap(r.HealthcareService) - len(r.HealthcareService)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	for _, i := range r.AvailableTime {
+		s += i.MemSize()
+	}
+	s += (cap(r.AvailableTime) - len(r.AvailableTime)) * int(unsafe.Sizeof(PractitionerRoleAvailableTime{}))
+	for _, i := range r.NotAvailable {
+		s += i.MemSize()
+	}
+	s += (cap(r.NotAvailable) - len(r.NotAvailable)) * int(unsafe.Sizeof(PractitionerRoleNotAvailable{}))
+	if r.AvailabilityExceptions != nil {
+		s += r.AvailabilityExceptions.MemSize()
+	}
+	for _, i := range r.Endpoint {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r PractitionerRoleAvailableTime) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.DaysOfWeek {
+		s += i.MemSize()
+	}
+	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(unsafe.Sizeof(Code{}))
+	if r.AllDay != nil {
+		s += r.AllDay.MemSize()
+	}
+	if r.AvailableStartTime != nil {
+		s += r.AvailableStartTime.MemSize()
+	}
+	if r.AvailableEndTime != nil {
+		s += r.AvailableEndTime.MemSize()
+	}
+	return s
+}
+func (r PractitionerRoleNotAvailable) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	if r.During != nil {
+		s += r.During.MemSize()
+	}
+	return s
 }
 func (r PractitionerRole) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // code type: A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents
@@ -17,6 +18,20 @@ type Code struct {
 	Value *string
 }
 
+func (r Code) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Code) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

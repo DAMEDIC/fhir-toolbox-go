@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The EvidenceVariable resource describes an element that knowledge (Evidence) is about.
@@ -95,6 +96,7 @@ type EvidenceVariable struct {
 	Category []EvidenceVariableCategory
 }
 type isEvidenceVariableVersionAlgorithm interface {
+	model.Element
 	isEvidenceVariableVersionAlgorithm()
 }
 
@@ -141,6 +143,7 @@ type EvidenceVariableCharacteristic struct {
 	TimeFromEvent []EvidenceVariableCharacteristicTimeFromEvent
 }
 type isEvidenceVariableCharacteristicInstances interface {
+	model.Element
 	isEvidenceVariableCharacteristicInstances()
 }
 
@@ -148,6 +151,7 @@ func (r Quantity) isEvidenceVariableCharacteristicInstances() {}
 func (r Range) isEvidenceVariableCharacteristicInstances()    {}
 
 type isEvidenceVariableCharacteristicDuration interface {
+	model.Element
 	isEvidenceVariableCharacteristicDuration()
 }
 
@@ -176,6 +180,7 @@ type EvidenceVariableCharacteristicDefinitionByTypeAndValue struct {
 	Offset *CodeableConcept
 }
 type isEvidenceVariableCharacteristicDefinitionByTypeAndValueValue interface {
+	model.Element
 	isEvidenceVariableCharacteristicDefinitionByTypeAndValueValue()
 }
 
@@ -226,6 +231,7 @@ type EvidenceVariableCharacteristicTimeFromEvent struct {
 	Range *Range
 }
 type isEvidenceVariableCharacteristicTimeFromEventEvent interface {
+	model.Element
 	isEvidenceVariableCharacteristicTimeFromEventEvent()
 }
 
@@ -250,6 +256,7 @@ type EvidenceVariableCategory struct {
 	Value isEvidenceVariableCategoryValue
 }
 type isEvidenceVariableCategoryValue interface {
+	model.Element
 	isEvidenceVariableCategoryValue()
 }
 
@@ -267,6 +274,300 @@ func (r EvidenceVariable) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r EvidenceVariable) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.ShortTitle != nil {
+		s += r.ShortTitle.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	if r.Actual != nil {
+		s += r.Actual.MemSize()
+	}
+	for _, i := range r.Characteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(unsafe.Sizeof(EvidenceVariableCharacteristic{}))
+	if r.Handling != nil {
+		s += r.Handling.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(EvidenceVariableCategory{}))
+	return s
+}
+func (r EvidenceVariableCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LinkId != nil {
+		s += r.LinkId.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Exclude != nil {
+		s += r.Exclude.MemSize()
+	}
+	if r.DefinitionReference != nil {
+		s += r.DefinitionReference.MemSize()
+	}
+	if r.DefinitionCanonical != nil {
+		s += r.DefinitionCanonical.MemSize()
+	}
+	if r.DefinitionCodeableConcept != nil {
+		s += r.DefinitionCodeableConcept.MemSize()
+	}
+	if r.DefinitionExpression != nil {
+		s += r.DefinitionExpression.MemSize()
+	}
+	if r.DefinitionId != nil {
+		s += r.DefinitionId.MemSize()
+	}
+	if r.DefinitionByTypeAndValue != nil {
+		s += r.DefinitionByTypeAndValue.MemSize()
+	}
+	if r.DefinitionByCombination != nil {
+		s += r.DefinitionByCombination.MemSize()
+	}
+	if r.Instances != nil {
+		s += r.Instances.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	for _, i := range r.TimeFromEvent {
+		s += i.MemSize()
+	}
+	s += (cap(r.TimeFromEvent) - len(r.TimeFromEvent)) * int(unsafe.Sizeof(EvidenceVariableCharacteristicTimeFromEvent{}))
+	return s
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Method {
+		s += i.MemSize()
+	}
+	s += (cap(r.Method) - len(r.Method)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Device != nil {
+		s += r.Device.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Offset != nil {
+		s += r.Offset.MemSize()
+	}
+	return s
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Threshold != nil {
+		s += r.Threshold.MemSize()
+	}
+	for _, i := range r.Characteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(unsafe.Sizeof(EvidenceVariableCharacteristic{}))
+	return s
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Event != nil {
+		s += r.Event.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Range != nil {
+		s += r.Range.MemSize()
+	}
+	return s
+}
+func (r EvidenceVariableCategory) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r EvidenceVariable) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

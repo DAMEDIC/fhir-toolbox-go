@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"strconv"
+	"unsafe"
 )
 
 // positiveInt type: An integer with a value that is positive (e.g. >0)
@@ -18,6 +19,20 @@ type PositiveInt struct {
 	Value *uint32
 }
 
+func (r PositiveInt) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r PositiveInt) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

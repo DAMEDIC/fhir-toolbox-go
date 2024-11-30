@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Narrative Type: A human-readable summary of the resource conveying the essential clinical and business information for the resource.
@@ -20,6 +21,19 @@ type Narrative struct {
 	Div Xhtml
 }
 
+func (r Narrative) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Div.MemSize() - int(unsafe.Sizeof(r.Div))
+	return s
+}
 func (r Narrative) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

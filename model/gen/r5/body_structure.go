@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Record details about an anatomical structure.  This resource may be used when a coded concept does not provide the necessary detail needed for the use case.
@@ -116,6 +117,149 @@ func (r BodyStructure) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r BodyStructure) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	if r.Morphology != nil {
+		s += r.Morphology.MemSize()
+	}
+	for _, i := range r.IncludedStructure {
+		s += i.MemSize()
+	}
+	s += (cap(r.IncludedStructure) - len(r.IncludedStructure)) * int(unsafe.Sizeof(BodyStructureIncludedStructure{}))
+	for _, i := range r.ExcludedStructure {
+		s += i.MemSize()
+	}
+	s += (cap(r.ExcludedStructure) - len(r.ExcludedStructure)) * int(unsafe.Sizeof(BodyStructureIncludedStructure{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Image {
+		s += i.MemSize()
+	}
+	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	return s
+}
+func (r BodyStructureIncludedStructure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Structure.MemSize() - int(unsafe.Sizeof(r.Structure))
+	if r.Laterality != nil {
+		s += r.Laterality.MemSize()
+	}
+	for _, i := range r.BodyLandmarkOrientation {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodyLandmarkOrientation) - len(r.BodyLandmarkOrientation)) * int(unsafe.Sizeof(BodyStructureIncludedStructureBodyLandmarkOrientation{}))
+	for _, i := range r.SpatialReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpatialReference) - len(r.SpatialReference)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Qualifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Qualifier) - len(r.Qualifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.LandmarkDescription {
+		s += i.MemSize()
+	}
+	s += (cap(r.LandmarkDescription) - len(r.LandmarkDescription)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ClockFacePosition {
+		s += i.MemSize()
+	}
+	s += (cap(r.ClockFacePosition) - len(r.ClockFacePosition)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.DistanceFromLandmark {
+		s += i.MemSize()
+	}
+	s += (cap(r.DistanceFromLandmark) - len(r.DistanceFromLandmark)) * int(unsafe.Sizeof(BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark{}))
+	for _, i := range r.SurfaceOrientation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SurfaceOrientation) - len(r.SurfaceOrientation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Device {
+		s += i.MemSize()
+	}
+	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Value {
+		s += i.MemSize()
+	}
+	s += (cap(r.Value) - len(r.Value)) * int(unsafe.Sizeof(Quantity{}))
+	return s
 }
 func (r BodyStructure) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

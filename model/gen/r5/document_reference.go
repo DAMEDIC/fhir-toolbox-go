@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A reference to a document of any kind for any purpose. While the term “document” implies a more narrow focus, for this resource this “document” encompasses *any* serialized object with a mime-type, it includes formal patient-centric documents (CDA), clinical notes, scanned paper, non-patient specific documents like policy text, as well as a photo, video, or audio recording acquired or used in healthcare.  The DocumentReference resource provides metadata about the document so that the document can be discovered and managed.  The actual content may be inline base64 encoded data or provided by direct reference.
@@ -141,6 +142,7 @@ type DocumentReferenceContentProfile struct {
 	Value isDocumentReferenceContentProfileValue
 }
 type isDocumentReferenceContentProfileValue interface {
+	model.Element
 	isDocumentReferenceContentProfileValue()
 }
 
@@ -158,6 +160,194 @@ func (r DocumentReference) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r DocumentReference) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.DocStatus != nil {
+		s += r.DocStatus.MemSize()
+	}
+	for _, i := range r.Modality {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modality) - len(r.Modality)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Context {
+		s += i.MemSize()
+	}
+	s += (cap(r.Context) - len(r.Context)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.FacilityType != nil {
+		s += r.FacilityType.MemSize()
+	}
+	if r.PracticeSetting != nil {
+		s += r.PracticeSetting.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Attester {
+		s += i.MemSize()
+	}
+	s += (cap(r.Attester) - len(r.Attester)) * int(unsafe.Sizeof(DocumentReferenceAttester{}))
+	if r.Custodian != nil {
+		s += r.Custodian.MemSize()
+	}
+	for _, i := range r.RelatesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(DocumentReferenceRelatesTo{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.SecurityLabel {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Content {
+		s += i.MemSize()
+	}
+	s += (cap(r.Content) - len(r.Content)) * int(unsafe.Sizeof(DocumentReferenceContent{}))
+	return s
+}
+func (r DocumentReferenceAttester) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Time != nil {
+		s += r.Time.MemSize()
+	}
+	if r.Party != nil {
+		s += r.Party.MemSize()
+	}
+	return s
+}
+func (r DocumentReferenceRelatesTo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Target.MemSize() - int(unsafe.Sizeof(r.Target))
+	return s
+}
+func (r DocumentReferenceContent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Attachment.MemSize() - int(unsafe.Sizeof(r.Attachment))
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(DocumentReferenceContentProfile{}))
+	return s
+}
+func (r DocumentReferenceContentProfile) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r DocumentReference) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

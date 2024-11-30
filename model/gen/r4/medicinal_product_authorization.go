@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The regulatory authorization of a medicinal product.
@@ -105,6 +106,7 @@ type MedicinalProductAuthorizationProcedure struct {
 	Application []MedicinalProductAuthorizationProcedure
 }
 type isMedicinalProductAuthorizationProcedureDate interface {
+	model.Element
 	isMedicinalProductAuthorizationProcedureDate()
 }
 
@@ -121,6 +123,148 @@ func (r MedicinalProductAuthorization) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductAuthorization) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Country {
+		s += i.MemSize()
+	}
+	s += (cap(r.Country) - len(r.Country)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	if r.RestoreDate != nil {
+		s += r.RestoreDate.MemSize()
+	}
+	if r.ValidityPeriod != nil {
+		s += r.ValidityPeriod.MemSize()
+	}
+	if r.DataExclusivityPeriod != nil {
+		s += r.DataExclusivityPeriod.MemSize()
+	}
+	if r.DateOfFirstAuthorization != nil {
+		s += r.DateOfFirstAuthorization.MemSize()
+	}
+	if r.InternationalBirthDate != nil {
+		s += r.InternationalBirthDate.MemSize()
+	}
+	if r.LegalBasis != nil {
+		s += r.LegalBasis.MemSize()
+	}
+	for _, i := range r.JurisdictionalAuthorization {
+		s += i.MemSize()
+	}
+	s += (cap(r.JurisdictionalAuthorization) - len(r.JurisdictionalAuthorization)) * int(unsafe.Sizeof(MedicinalProductAuthorizationJurisdictionalAuthorization{}))
+	if r.Holder != nil {
+		s += r.Holder.MemSize()
+	}
+	if r.Regulator != nil {
+		s += r.Regulator.MemSize()
+	}
+	if r.Procedure != nil {
+		s += r.Procedure.MemSize()
+	}
+	return s
+}
+func (r MedicinalProductAuthorizationJurisdictionalAuthorization) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Country != nil {
+		s += r.Country.MemSize()
+	}
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.LegalStatusOfSupply != nil {
+		s += r.LegalStatusOfSupply.MemSize()
+	}
+	if r.ValidityPeriod != nil {
+		s += r.ValidityPeriod.MemSize()
+	}
+	return s
+}
+func (r MedicinalProductAuthorizationProcedure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Application {
+		s += i.MemSize()
+	}
+	s += (cap(r.Application) - len(r.Application)) * int(unsafe.Sizeof(MedicinalProductAuthorizationProcedure{}))
+	return s
 }
 func (r MedicinalProductAuthorization) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

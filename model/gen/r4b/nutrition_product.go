@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A food or fluid product that is consumed by patients.
@@ -99,6 +100,7 @@ type NutritionProductProductCharacteristic struct {
 	Value isNutritionProductProductCharacteristicValue
 }
 type isNutritionProductProductCharacteristicValue interface {
+	model.Element
 	isNutritionProductProductCharacteristicValue()
 }
 
@@ -142,6 +144,165 @@ func (r NutritionProduct) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r NutritionProduct) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Nutrient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Nutrient) - len(r.Nutrient)) * int(unsafe.Sizeof(NutritionProductNutrient{}))
+	for _, i := range r.Ingredient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(NutritionProductIngredient{}))
+	for _, i := range r.KnownAllergen {
+		s += i.MemSize()
+	}
+	s += (cap(r.KnownAllergen) - len(r.KnownAllergen)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.ProductCharacteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProductCharacteristic) - len(r.ProductCharacteristic)) * int(unsafe.Sizeof(NutritionProductProductCharacteristic{}))
+	if r.Instance != nil {
+		s += r.Instance.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r NutritionProductNutrient) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	for _, i := range r.Amount {
+		s += i.MemSize()
+	}
+	s += (cap(r.Amount) - len(r.Amount)) * int(unsafe.Sizeof(Ratio{}))
+	return s
+}
+func (r NutritionProductIngredient) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	for _, i := range r.Amount {
+		s += i.MemSize()
+	}
+	s += (cap(r.Amount) - len(r.Amount)) * int(unsafe.Sizeof(Ratio{}))
+	return s
+}
+func (r NutritionProductProductCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r NutritionProductInstance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.LotNumber != nil {
+		s += r.LotNumber.MemSize()
+	}
+	if r.Expiry != nil {
+		s += r.Expiry.MemSize()
+	}
+	if r.UseBy != nil {
+		s += r.UseBy.MemSize()
+	}
+	return s
 }
 func (r NutritionProduct) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The CodeSystem resource is used to declare the existence of and describe a code system or code system supplement and its key properties, and optionally define a part or all of its content.
@@ -181,6 +182,7 @@ type CodeSystemConceptProperty struct {
 	Value isCodeSystemConceptPropertyValue
 }
 type isCodeSystemConceptPropertyValue interface {
+	model.Element
 	isCodeSystemConceptPropertyValue()
 }
 
@@ -202,6 +204,241 @@ func (r CodeSystem) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r CodeSystem) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CaseSensitive != nil {
+		s += r.CaseSensitive.MemSize()
+	}
+	if r.ValueSet != nil {
+		s += r.ValueSet.MemSize()
+	}
+	if r.HierarchyMeaning != nil {
+		s += r.HierarchyMeaning.MemSize()
+	}
+	if r.Compositional != nil {
+		s += r.Compositional.MemSize()
+	}
+	if r.VersionNeeded != nil {
+		s += r.VersionNeeded.MemSize()
+	}
+	s += r.Content.MemSize() - int(unsafe.Sizeof(r.Content))
+	if r.Supplements != nil {
+		s += r.Supplements.MemSize()
+	}
+	if r.Count != nil {
+		s += r.Count.MemSize()
+	}
+	for _, i := range r.Filter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Filter) - len(r.Filter)) * int(unsafe.Sizeof(CodeSystemFilter{}))
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(CodeSystemProperty{}))
+	for _, i := range r.Concept {
+		s += i.MemSize()
+	}
+	s += (cap(r.Concept) - len(r.Concept)) * int(unsafe.Sizeof(CodeSystemConcept{}))
+	return s
+}
+func (r CodeSystemFilter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Operator {
+		s += i.MemSize()
+	}
+	s += (cap(r.Operator) - len(r.Operator)) * int(unsafe.Sizeof(Code{}))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r CodeSystemProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Uri != nil {
+		s += r.Uri.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	return s
+}
+func (r CodeSystemConcept) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	for _, i := range r.Designation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Designation) - len(r.Designation)) * int(unsafe.Sizeof(CodeSystemConceptDesignation{}))
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(CodeSystemConceptProperty{}))
+	for _, i := range r.Concept {
+		s += i.MemSize()
+	}
+	s += (cap(r.Concept) - len(r.Concept)) * int(unsafe.Sizeof(CodeSystemConcept{}))
+	return s
+}
+func (r CodeSystemConceptDesignation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r CodeSystemConceptProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r CodeSystem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

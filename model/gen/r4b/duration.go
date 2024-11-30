@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Duration Type: A length of time.
@@ -26,6 +27,32 @@ type Duration struct {
 	Code *Code
 }
 
+func (r Duration) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Comparator != nil {
+		s += r.Comparator.MemSize()
+	}
+	if r.Unit != nil {
+		s += r.Unit.MemSize()
+	}
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	return s
+}
 func (r Duration) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

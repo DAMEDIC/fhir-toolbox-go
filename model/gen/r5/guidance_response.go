@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A guidance response is the formal response to a guidance request, including any output parameters returned by the evaluation, as well as the description of any proposed actions to be taken.
@@ -61,6 +62,7 @@ type GuidanceResponse struct {
 	DataRequirement []DataRequirement
 }
 type isGuidanceResponseModule interface {
+	model.Element
 	isGuidanceResponseModule()
 }
 
@@ -78,6 +80,83 @@ func (r GuidanceResponse) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r GuidanceResponse) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.RequestIdentifier != nil {
+		s += r.RequestIdentifier.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Module != nil {
+		s += r.Module.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.OccurrenceDateTime != nil {
+		s += r.OccurrenceDateTime.MemSize()
+	}
+	if r.Performer != nil {
+		s += r.Performer.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.EvaluationMessage != nil {
+		s += r.EvaluationMessage.MemSize()
+	}
+	if r.OutputParameters != nil {
+		s += r.OutputParameters.MemSize()
+	}
+	for _, i := range r.Result {
+		s += i.MemSize()
+	}
+	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.DataRequirement {
+		s += i.MemSize()
+	}
+	s += (cap(r.DataRequirement) - len(r.DataRequirement)) * int(unsafe.Sizeof(DataRequirement{}))
+	return s
 }
 func (r GuidanceResponse) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

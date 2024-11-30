@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Signature Type: A signature along with supporting context. The signature may be a digital signature that is cryptographic in nature, or some other signature acceptable to the domain. This other signature may be as simple as a graphical image representing a hand-written signature, or a signature ceremony Different signature approaches have different utilities.
@@ -32,6 +33,39 @@ type Signature struct {
 	Data *Base64Binary
 }
 
+func (r Signature) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(Coding{}))
+	if r.When != nil {
+		s += r.When.MemSize()
+	}
+	if r.Who != nil {
+		s += r.Who.MemSize()
+	}
+	if r.OnBehalfOf != nil {
+		s += r.OnBehalfOf.MemSize()
+	}
+	if r.TargetFormat != nil {
+		s += r.TargetFormat.MemSize()
+	}
+	if r.SigFormat != nil {
+		s += r.SigFormat.MemSize()
+	}
+	if r.Data != nil {
+		s += r.Data.MemSize()
+	}
+	return s
+}
 func (r Signature) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

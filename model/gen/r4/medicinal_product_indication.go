@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Indication for the Medicinal Product.
@@ -65,6 +66,7 @@ type MedicinalProductIndicationOtherTherapy struct {
 	Medication isMedicinalProductIndicationOtherTherapyMedication
 }
 type isMedicinalProductIndicationOtherTherapyMedication interface {
+	model.Element
 	isMedicinalProductIndicationOtherTherapyMedication()
 }
 
@@ -81,6 +83,89 @@ func (r MedicinalProductIndication) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductIndication) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.DiseaseSymptomProcedure != nil {
+		s += r.DiseaseSymptomProcedure.MemSize()
+	}
+	if r.DiseaseStatus != nil {
+		s += r.DiseaseStatus.MemSize()
+	}
+	for _, i := range r.Comorbidity {
+		s += i.MemSize()
+	}
+	s += (cap(r.Comorbidity) - len(r.Comorbidity)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.IntendedEffect != nil {
+		s += r.IntendedEffect.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	for _, i := range r.OtherTherapy {
+		s += i.MemSize()
+	}
+	s += (cap(r.OtherTherapy) - len(r.OtherTherapy)) * int(unsafe.Sizeof(MedicinalProductIndicationOtherTherapy{}))
+	for _, i := range r.UndesirableEffect {
+		s += i.MemSize()
+	}
+	s += (cap(r.UndesirableEffect) - len(r.UndesirableEffect)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Population {
+		s += i.MemSize()
+	}
+	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(Population{}))
+	return s
+}
+func (r MedicinalProductIndicationOtherTherapy) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.TherapyRelationshipType.MemSize() - int(unsafe.Sizeof(r.TherapyRelationshipType))
+	if r.Medication != nil {
+		s += r.Medication.MemSize()
+	}
+	return s
 }
 func (r MedicinalProductIndication) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

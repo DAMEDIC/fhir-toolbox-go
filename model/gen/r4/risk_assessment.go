@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An assessment of the likely outcome(s) for a patient or other subject as well as the likelihood of each outcome.
@@ -65,6 +66,7 @@ type RiskAssessment struct {
 	Note []Annotation
 }
 type isRiskAssessmentOccurrence interface {
+	model.Element
 	isRiskAssessmentOccurrence()
 }
 
@@ -95,6 +97,7 @@ type RiskAssessmentPrediction struct {
 	Rationale *String
 }
 type isRiskAssessmentPredictionProbability interface {
+	model.Element
 	isRiskAssessmentPredictionProbability()
 }
 
@@ -102,6 +105,7 @@ func (r Decimal) isRiskAssessmentPredictionProbability() {}
 func (r Range) isRiskAssessmentPredictionProbability()   {}
 
 type isRiskAssessmentPredictionWhen interface {
+	model.Element
 	isRiskAssessmentPredictionWhen()
 }
 
@@ -118,6 +122,124 @@ func (r RiskAssessment) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r RiskAssessment) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.BasedOn != nil {
+		s += r.BasedOn.MemSize()
+	}
+	if r.Parent != nil {
+		s += r.Parent.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.Condition != nil {
+		s += r.Condition.MemSize()
+	}
+	if r.Performer != nil {
+		s += r.Performer.MemSize()
+	}
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReasonReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Basis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Prediction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Prediction) - len(r.Prediction)) * int(unsafe.Sizeof(RiskAssessmentPrediction{}))
+	if r.Mitigation != nil {
+		s += r.Mitigation.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r RiskAssessmentPrediction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	if r.Probability != nil {
+		s += r.Probability.MemSize()
+	}
+	if r.QualitativeRisk != nil {
+		s += r.QualitativeRisk.MemSize()
+	}
+	if r.RelativeRisk != nil {
+		s += r.RelativeRisk.MemSize()
+	}
+	if r.When != nil {
+		s += r.When.MemSize()
+	}
+	if r.Rationale != nil {
+		s += r.Rationale.MemSize()
+	}
+	return s
 }
 func (r RiskAssessment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

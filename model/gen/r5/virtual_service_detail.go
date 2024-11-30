@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // VirtualServiceDetail Type: Virtual Service Contact Details.
@@ -26,6 +28,7 @@ type VirtualServiceDetail struct {
 	SessionKey *String
 }
 type isVirtualServiceDetailAddress interface {
+	model.Element
 	isVirtualServiceDetailAddress()
 }
 
@@ -33,6 +36,33 @@ func (r Url) isVirtualServiceDetailAddress()                   {}
 func (r String) isVirtualServiceDetailAddress()                {}
 func (r ContactPoint) isVirtualServiceDetailAddress()          {}
 func (r ExtendedContactDetail) isVirtualServiceDetailAddress() {}
+func (r VirtualServiceDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ChannelType != nil {
+		s += r.ChannelType.MemSize()
+	}
+	if r.Address != nil {
+		s += r.Address.MemSize()
+	}
+	for _, i := range r.AdditionalInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalInfo) - len(r.AdditionalInfo)) * int(unsafe.Sizeof(Url{}))
+	if r.MaxParticipants != nil {
+		s += r.MaxParticipants.MemSize()
+	}
+	if r.SessionKey != nil {
+		s += r.SessionKey.MemSize()
+	}
+	return s
+}
 func (r VirtualServiceDetail) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

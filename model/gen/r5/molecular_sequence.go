@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Representation of a molecular sequence.
@@ -99,6 +100,7 @@ type MolecularSequenceRelativeStartingSequence struct {
 	Strand *Code
 }
 type isMolecularSequenceRelativeStartingSequenceSequence interface {
+	model.Element
 	isMolecularSequenceRelativeStartingSequenceSequence()
 }
 
@@ -137,6 +139,164 @@ func (r MolecularSequence) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MolecularSequence) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	if r.Specimen != nil {
+		s += r.Specimen.MemSize()
+	}
+	if r.Device != nil {
+		s += r.Device.MemSize()
+	}
+	if r.Performer != nil {
+		s += r.Performer.MemSize()
+	}
+	if r.Literal != nil {
+		s += r.Literal.MemSize()
+	}
+	for _, i := range r.Formatted {
+		s += i.MemSize()
+	}
+	s += (cap(r.Formatted) - len(r.Formatted)) * int(unsafe.Sizeof(Attachment{}))
+	for _, i := range r.Relative {
+		s += i.MemSize()
+	}
+	s += (cap(r.Relative) - len(r.Relative)) * int(unsafe.Sizeof(MolecularSequenceRelative{}))
+	return s
+}
+func (r MolecularSequenceRelative) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.CoordinateSystem.MemSize() - int(unsafe.Sizeof(r.CoordinateSystem))
+	if r.OrdinalPosition != nil {
+		s += r.OrdinalPosition.MemSize()
+	}
+	if r.SequenceRange != nil {
+		s += r.SequenceRange.MemSize()
+	}
+	if r.StartingSequence != nil {
+		s += r.StartingSequence.MemSize()
+	}
+	for _, i := range r.Edit {
+		s += i.MemSize()
+	}
+	s += (cap(r.Edit) - len(r.Edit)) * int(unsafe.Sizeof(MolecularSequenceRelativeEdit{}))
+	return s
+}
+func (r MolecularSequenceRelativeStartingSequence) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.GenomeAssembly != nil {
+		s += r.GenomeAssembly.MemSize()
+	}
+	if r.Chromosome != nil {
+		s += r.Chromosome.MemSize()
+	}
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	if r.WindowStart != nil {
+		s += r.WindowStart.MemSize()
+	}
+	if r.WindowEnd != nil {
+		s += r.WindowEnd.MemSize()
+	}
+	if r.Orientation != nil {
+		s += r.Orientation.MemSize()
+	}
+	if r.Strand != nil {
+		s += r.Strand.MemSize()
+	}
+	return s
+}
+func (r MolecularSequenceRelativeEdit) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	if r.End != nil {
+		s += r.End.MemSize()
+	}
+	if r.ReplacementSequence != nil {
+		s += r.ReplacementSequence.MemSize()
+	}
+	if r.ReplacedSequence != nil {
+		s += r.ReplacedSequence.MemSize()
+	}
+	return s
 }
 func (r MolecularSequence) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

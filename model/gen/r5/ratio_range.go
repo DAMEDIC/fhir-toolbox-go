@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // RatioRange Type: A range of ratios expressed as a low and high numerator and a denominator.
@@ -24,6 +25,26 @@ type RatioRange struct {
 	Denominator *Quantity
 }
 
+func (r RatioRange) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LowNumerator != nil {
+		s += r.LowNumerator.MemSize()
+	}
+	if r.HighNumerator != nil {
+		s += r.HighNumerator.MemSize()
+	}
+	if r.Denominator != nil {
+		s += r.Denominator.MemSize()
+	}
+	return s
+}
 func (r RatioRange) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

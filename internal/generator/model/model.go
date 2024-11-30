@@ -43,14 +43,15 @@ func (e *BundleEntry) UnmarshalJSON(data []byte) error {
 }
 
 type StructureDefinition struct {
-	URL         string                      `json:"url"`
-	Description string                      `json:"description"`
-	Purpose     string                      `json:"purpose"`
-	Kind        string                      `json:"kind"`
-	Abstract    bool                        `json:"abstract"`
-	Type        string                      `json:"type"`
-	Name        string                      `json:"name"`
-	Snapshot    StructureDefinitionSnapshot `json:"snapshot"`
+	URL            string                      `json:"url"`
+	Description    string                      `json:"description"`
+	Purpose        string                      `json:"purpose"`
+	Kind           string                      `json:"kind"`
+	BaseDefinition string                      `json:"baseDefinition"`
+	Abstract       bool                        `json:"abstract"`
+	Type           string                      `json:"type"`
+	Name           string                      `json:"name"`
+	Snapshot       StructureDefinitionSnapshot `json:"snapshot"`
 }
 
 type StructureDefinitionSnapshot struct {

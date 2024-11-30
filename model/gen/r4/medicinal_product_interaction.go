@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The interactions of the medicinal product with other medicinal products, or other forms of interactions.
@@ -59,6 +60,7 @@ type MedicinalProductInteractionInteractant struct {
 	Item isMedicinalProductInteractionInteractantItem
 }
 type isMedicinalProductInteractionInteractantItem interface {
+	model.Element
 	isMedicinalProductInteractionInteractantItem()
 }
 
@@ -75,6 +77,79 @@ func (r MedicinalProductInteraction) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductInteraction) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Interactant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Interactant) - len(r.Interactant)) * int(unsafe.Sizeof(MedicinalProductInteractionInteractant{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Effect != nil {
+		s += r.Effect.MemSize()
+	}
+	if r.Incidence != nil {
+		s += r.Incidence.MemSize()
+	}
+	if r.Management != nil {
+		s += r.Management.MemSize()
+	}
+	return s
+}
+func (r MedicinalProductInteractionInteractant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
 }
 func (r MedicinalProductInteraction) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

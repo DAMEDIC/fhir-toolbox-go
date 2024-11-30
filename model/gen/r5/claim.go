@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A provider issued list of professional services and products which have been provided, or are to be provided, to a patient which is sent to an insurer for reimbursement.
@@ -147,6 +148,7 @@ type ClaimEvent struct {
 	When isClaimEventWhen
 }
 type isClaimEventWhen interface {
+	model.Element
 	isClaimEventWhen()
 }
 
@@ -199,6 +201,7 @@ type ClaimSupportingInfo struct {
 	Reason *CodeableConcept
 }
 type isClaimSupportingInfoTiming interface {
+	model.Element
 	isClaimSupportingInfoTiming()
 }
 
@@ -206,6 +209,7 @@ func (r Date) isClaimSupportingInfoTiming()   {}
 func (r Period) isClaimSupportingInfoTiming() {}
 
 type isClaimSupportingInfoValue interface {
+	model.Element
 	isClaimSupportingInfoValue()
 }
 
@@ -236,6 +240,7 @@ type ClaimDiagnosis struct {
 	OnAdmission *CodeableConcept
 }
 type isClaimDiagnosisDiagnosis interface {
+	model.Element
 	isClaimDiagnosisDiagnosis()
 }
 
@@ -264,6 +269,7 @@ type ClaimProcedure struct {
 	Udi []Reference
 }
 type isClaimProcedureProcedure interface {
+	model.Element
 	isClaimProcedureProcedure()
 }
 
@@ -314,6 +320,7 @@ type ClaimAccident struct {
 	Location isClaimAccidentLocation
 }
 type isClaimAccidentLocation interface {
+	model.Element
 	isClaimAccidentLocation()
 }
 
@@ -382,6 +389,7 @@ type ClaimItem struct {
 	Detail []ClaimItemDetail
 }
 type isClaimItemServiced interface {
+	model.Element
 	isClaimItemServiced()
 }
 
@@ -389,6 +397,7 @@ func (r Date) isClaimItemServiced()   {}
 func (r Period) isClaimItemServiced() {}
 
 type isClaimItemLocation interface {
+	model.Element
 	isClaimItemLocation()
 }
 
@@ -509,6 +518,612 @@ func (r Claim) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Claim) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.TraceNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.TraceNumber) - len(r.TraceNumber)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.SubType != nil {
+		s += r.SubType.MemSize()
+	}
+	s += r.Use.MemSize() - int(unsafe.Sizeof(r.Use))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.BillablePeriod != nil {
+		s += r.BillablePeriod.MemSize()
+	}
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	if r.Enterer != nil {
+		s += r.Enterer.MemSize()
+	}
+	if r.Insurer != nil {
+		s += r.Insurer.MemSize()
+	}
+	if r.Provider != nil {
+		s += r.Provider.MemSize()
+	}
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.FundsReserve != nil {
+		s += r.FundsReserve.MemSize()
+	}
+	for _, i := range r.Related {
+		s += i.MemSize()
+	}
+	s += (cap(r.Related) - len(r.Related)) * int(unsafe.Sizeof(ClaimRelated{}))
+	if r.Prescription != nil {
+		s += r.Prescription.MemSize()
+	}
+	if r.OriginalPrescription != nil {
+		s += r.OriginalPrescription.MemSize()
+	}
+	if r.Payee != nil {
+		s += r.Payee.MemSize()
+	}
+	if r.Referral != nil {
+		s += r.Referral.MemSize()
+	}
+	for _, i := range r.Encounter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Encounter) - len(r.Encounter)) * int(unsafe.Sizeof(Reference{}))
+	if r.Facility != nil {
+		s += r.Facility.MemSize()
+	}
+	if r.DiagnosisRelatedGroup != nil {
+		s += r.DiagnosisRelatedGroup.MemSize()
+	}
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(ClaimEvent{}))
+	for _, i := range r.CareTeam {
+		s += i.MemSize()
+	}
+	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(unsafe.Sizeof(ClaimCareTeam{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(ClaimSupportingInfo{}))
+	for _, i := range r.Diagnosis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(unsafe.Sizeof(ClaimDiagnosis{}))
+	for _, i := range r.Procedure {
+		s += i.MemSize()
+	}
+	s += (cap(r.Procedure) - len(r.Procedure)) * int(unsafe.Sizeof(ClaimProcedure{}))
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(ClaimInsurance{}))
+	if r.Accident != nil {
+		s += r.Accident.MemSize()
+	}
+	if r.PatientPaid != nil {
+		s += r.PatientPaid.MemSize()
+	}
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(ClaimItem{}))
+	if r.Total != nil {
+		s += r.Total.MemSize()
+	}
+	return s
+}
+func (r ClaimRelated) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Claim != nil {
+		s += r.Claim.MemSize()
+	}
+	if r.Relationship != nil {
+		s += r.Relationship.MemSize()
+	}
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	return s
+}
+func (r ClaimPayee) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Party != nil {
+		s += r.Party.MemSize()
+	}
+	return s
+}
+func (r ClaimEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.When != nil {
+		s += r.When.MemSize()
+	}
+	return s
+}
+func (r ClaimCareTeam) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	s += r.Provider.MemSize() - int(unsafe.Sizeof(r.Provider))
+	if r.Responsible != nil {
+		s += r.Responsible.MemSize()
+	}
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	if r.Specialty != nil {
+		s += r.Specialty.MemSize()
+	}
+	return s
+}
+func (r ClaimSupportingInfo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	s += r.Category.MemSize() - int(unsafe.Sizeof(r.Category))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	return s
+}
+func (r ClaimDiagnosis) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	if r.Diagnosis != nil {
+		s += r.Diagnosis.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.OnAdmission != nil {
+		s += r.OnAdmission.MemSize()
+	}
+	return s
+}
+func (r ClaimProcedure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Procedure != nil {
+		s += r.Procedure.MemSize()
+	}
+	for _, i := range r.Udi {
+		s += i.MemSize()
+	}
+	s += (cap(r.Udi) - len(r.Udi)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ClaimInsurance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	s += r.Focal.MemSize() - int(unsafe.Sizeof(r.Focal))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Coverage.MemSize() - int(unsafe.Sizeof(r.Coverage))
+	if r.BusinessArrangement != nil {
+		s += r.BusinessArrangement.MemSize()
+	}
+	for _, i := range r.PreAuthRef {
+		s += i.MemSize()
+	}
+	s += (cap(r.PreAuthRef) - len(r.PreAuthRef)) * int(unsafe.Sizeof(String{}))
+	if r.ClaimResponse != nil {
+		s += r.ClaimResponse.MemSize()
+	}
+	return s
+}
+func (r ClaimAccident) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	return s
+}
+func (r ClaimItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	for _, i := range r.TraceNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.TraceNumber) - len(r.TraceNumber)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.CareTeamSequence {
+		s += i.MemSize()
+	}
+	s += (cap(r.CareTeamSequence) - len(r.CareTeamSequence)) * int(unsafe.Sizeof(PositiveInt{}))
+	for _, i := range r.DiagnosisSequence {
+		s += i.MemSize()
+	}
+	s += (cap(r.DiagnosisSequence) - len(r.DiagnosisSequence)) * int(unsafe.Sizeof(PositiveInt{}))
+	for _, i := range r.ProcedureSequence {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProcedureSequence) - len(r.ProcedureSequence)) * int(unsafe.Sizeof(PositiveInt{}))
+	for _, i := range r.InformationSequence {
+		s += i.MemSize()
+	}
+	s += (cap(r.InformationSequence) - len(r.InformationSequence)) * int(unsafe.Sizeof(PositiveInt{}))
+	if r.Revenue != nil {
+		s += r.Revenue.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.ProductOrService != nil {
+		s += r.ProductOrService.MemSize()
+	}
+	if r.ProductOrServiceEnd != nil {
+		s += r.ProductOrServiceEnd.MemSize()
+	}
+	for _, i := range r.Request {
+		s += i.MemSize()
+	}
+	s += (cap(r.Request) - len(r.Request)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ProgramCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProgramCode) - len(r.ProgramCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Serviced != nil {
+		s += r.Serviced.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.PatientPaid != nil {
+		s += r.PatientPaid.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.UnitPrice != nil {
+		s += r.UnitPrice.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Tax != nil {
+		s += r.Tax.MemSize()
+	}
+	if r.Net != nil {
+		s += r.Net.MemSize()
+	}
+	for _, i := range r.Udi {
+		s += i.MemSize()
+	}
+	s += (cap(r.Udi) - len(r.Udi)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(ClaimItemBodySite{}))
+	for _, i := range r.Encounter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Encounter) - len(r.Encounter)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Detail {
+		s += i.MemSize()
+	}
+	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(ClaimItemDetail{}))
+	return s
+}
+func (r ClaimItemBodySite) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Site {
+		s += i.MemSize()
+	}
+	s += (cap(r.Site) - len(r.Site)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.SubSite {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubSite) - len(r.SubSite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r ClaimItemDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	for _, i := range r.TraceNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.TraceNumber) - len(r.TraceNumber)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Revenue != nil {
+		s += r.Revenue.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.ProductOrService != nil {
+		s += r.ProductOrService.MemSize()
+	}
+	if r.ProductOrServiceEnd != nil {
+		s += r.ProductOrServiceEnd.MemSize()
+	}
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ProgramCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProgramCode) - len(r.ProgramCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.PatientPaid != nil {
+		s += r.PatientPaid.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.UnitPrice != nil {
+		s += r.UnitPrice.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Tax != nil {
+		s += r.Tax.MemSize()
+	}
+	if r.Net != nil {
+		s += r.Net.MemSize()
+	}
+	for _, i := range r.Udi {
+		s += i.MemSize()
+	}
+	s += (cap(r.Udi) - len(r.Udi)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SubDetail {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubDetail) - len(r.SubDetail)) * int(unsafe.Sizeof(ClaimItemDetailSubDetail{}))
+	return s
+}
+func (r ClaimItemDetailSubDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Sequence.MemSize() - int(unsafe.Sizeof(r.Sequence))
+	for _, i := range r.TraceNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.TraceNumber) - len(r.TraceNumber)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Revenue != nil {
+		s += r.Revenue.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.ProductOrService != nil {
+		s += r.ProductOrService.MemSize()
+	}
+	if r.ProductOrServiceEnd != nil {
+		s += r.ProductOrServiceEnd.MemSize()
+	}
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ProgramCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProgramCode) - len(r.ProgramCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.PatientPaid != nil {
+		s += r.PatientPaid.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.UnitPrice != nil {
+		s += r.UnitPrice.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Tax != nil {
+		s += r.Tax.MemSize()
+	}
+	if r.Net != nil {
+		s += r.Net.MemSize()
+	}
+	for _, i := range r.Udi {
+		s += i.MemSize()
+	}
+	s += (cap(r.Udi) - len(r.Udi)) * int(unsafe.Sizeof(Reference{}))
+	return s
 }
 func (r Claim) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

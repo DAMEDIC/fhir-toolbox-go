@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by direct reference.
@@ -75,6 +76,7 @@ type Media struct {
 	Note []Annotation
 }
 type isMediaCreated interface {
+	model.Element
 	isMediaCreated()
 }
 
@@ -91,6 +93,105 @@ func (r Media) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Media) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Modality != nil {
+		s += r.Modality.MemSize()
+	}
+	if r.View != nil {
+		s += r.View.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Created != nil {
+		s += r.Created.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	if r.Operator != nil {
+		s += r.Operator.MemSize()
+	}
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	if r.DeviceName != nil {
+		s += r.DeviceName.MemSize()
+	}
+	if r.Device != nil {
+		s += r.Device.MemSize()
+	}
+	if r.Height != nil {
+		s += r.Height.MemSize()
+	}
+	if r.Width != nil {
+		s += r.Width.MemSize()
+	}
+	if r.Frames != nil {
+		s += r.Frames.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	s += r.Content.MemSize() - int(unsafe.Sizeof(r.Content))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
 }
 func (r Media) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

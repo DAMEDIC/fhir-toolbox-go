@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An interaction between healthcare provider(s), and/or patient(s) for the purpose of providing healthcare service(s) or assessing the health status of patient(s).
@@ -192,6 +193,266 @@ func (r Encounter) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Encounter) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Class {
+		s += i.MemSize()
+	}
+	s += (cap(r.Class) - len(r.Class)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.SubjectStatus != nil {
+		s += r.SubjectStatus.MemSize()
+	}
+	for _, i := range r.EpisodeOfCare {
+		s += i.MemSize()
+	}
+	s += (cap(r.EpisodeOfCare) - len(r.EpisodeOfCare)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.CareTeam {
+		s += i.MemSize()
+	}
+	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(unsafe.Sizeof(Reference{}))
+	if r.PartOf != nil {
+		s += r.PartOf.MemSize()
+	}
+	if r.ServiceProvider != nil {
+		s += r.ServiceProvider.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(EncounterParticipant{}))
+	for _, i := range r.Appointment {
+		s += i.MemSize()
+	}
+	s += (cap(r.Appointment) - len(r.Appointment)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.VirtualService {
+		s += i.MemSize()
+	}
+	s += (cap(r.VirtualService) - len(r.VirtualService)) * int(unsafe.Sizeof(VirtualServiceDetail{}))
+	if r.ActualPeriod != nil {
+		s += r.ActualPeriod.MemSize()
+	}
+	if r.PlannedStartDate != nil {
+		s += r.PlannedStartDate.MemSize()
+	}
+	if r.PlannedEndDate != nil {
+		s += r.PlannedEndDate.MemSize()
+	}
+	if r.Length != nil {
+		s += r.Length.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(EncounterReason{}))
+	for _, i := range r.Diagnosis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(unsafe.Sizeof(EncounterDiagnosis{}))
+	for _, i := range r.Account {
+		s += i.MemSize()
+	}
+	s += (cap(r.Account) - len(r.Account)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.DietPreference {
+		s += i.MemSize()
+	}
+	s += (cap(r.DietPreference) - len(r.DietPreference)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.SpecialArrangement {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialArrangement) - len(r.SpecialArrangement)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.SpecialCourtesy {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialCourtesy) - len(r.SpecialCourtesy)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Admission != nil {
+		s += r.Admission.MemSize()
+	}
+	for _, i := range r.Location {
+		s += i.MemSize()
+	}
+	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(EncounterLocation{}))
+	return s
+}
+func (r EncounterParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	return s
+}
+func (r EncounterReason) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Use {
+		s += i.MemSize()
+	}
+	s += (cap(r.Use) - len(r.Use)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Value {
+		s += i.MemSize()
+	}
+	s += (cap(r.Value) - len(r.Value)) * int(unsafe.Sizeof(CodeableReference{}))
+	return s
+}
+func (r EncounterDiagnosis) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Use {
+		s += i.MemSize()
+	}
+	s += (cap(r.Use) - len(r.Use)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r EncounterAdmission) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.PreAdmissionIdentifier != nil {
+		s += r.PreAdmissionIdentifier.MemSize()
+	}
+	if r.Origin != nil {
+		s += r.Origin.MemSize()
+	}
+	if r.AdmitSource != nil {
+		s += r.AdmitSource.MemSize()
+	}
+	if r.ReAdmission != nil {
+		s += r.ReAdmission.MemSize()
+	}
+	if r.Destination != nil {
+		s += r.Destination.MemSize()
+	}
+	if r.DischargeDisposition != nil {
+		s += r.DischargeDisposition.MemSize()
+	}
+	return s
+}
+func (r EncounterLocation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Location.MemSize() - int(unsafe.Sizeof(r.Location))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Form != nil {
+		s += r.Form.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
 }
 func (r Encounter) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

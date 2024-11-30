@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Timing Type: Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned, expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds, and may be used for reporting the schedule to which past regular activities were carried out.
@@ -66,12 +68,97 @@ type TimingRepeat struct {
 	Offset *UnsignedInt
 }
 type isTimingRepeatBounds interface {
+	model.Element
 	isTimingRepeatBounds()
 }
 
 func (r Duration) isTimingRepeatBounds() {}
 func (r Range) isTimingRepeatBounds()    {}
 func (r Period) isTimingRepeatBounds()   {}
+func (r Timing) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(DateTime{}))
+	if r.Repeat != nil {
+		s += r.Repeat.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	return s
+}
+func (r TimingRepeat) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Bounds != nil {
+		s += r.Bounds.MemSize()
+	}
+	if r.Count != nil {
+		s += r.Count.MemSize()
+	}
+	if r.CountMax != nil {
+		s += r.CountMax.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	if r.DurationMax != nil {
+		s += r.DurationMax.MemSize()
+	}
+	if r.DurationUnit != nil {
+		s += r.DurationUnit.MemSize()
+	}
+	if r.Frequency != nil {
+		s += r.Frequency.MemSize()
+	}
+	if r.FrequencyMax != nil {
+		s += r.FrequencyMax.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.PeriodMax != nil {
+		s += r.PeriodMax.MemSize()
+	}
+	if r.PeriodUnit != nil {
+		s += r.PeriodUnit.MemSize()
+	}
+	for _, i := range r.DayOfWeek {
+		s += i.MemSize()
+	}
+	s += (cap(r.DayOfWeek) - len(r.DayOfWeek)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.TimeOfDay {
+		s += i.MemSize()
+	}
+	s += (cap(r.TimeOfDay) - len(r.TimeOfDay)) * int(unsafe.Sizeof(Time{}))
+	for _, i := range r.When {
+		s += i.MemSize()
+	}
+	s += (cap(r.When) - len(r.When)) * int(unsafe.Sizeof(Code{}))
+	if r.Offset != nil {
+		s += r.Offset.MemSize()
+	}
+	return s
+}
 func (r Timing) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Period Type: A time period defined by a start and end date and optionally time.
@@ -20,6 +21,23 @@ type Period struct {
 	End *DateTime
 }
 
+func (r Period) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	if r.End != nil {
+		s += r.End.MemSize()
+	}
+	return s
+}
 func (r Period) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

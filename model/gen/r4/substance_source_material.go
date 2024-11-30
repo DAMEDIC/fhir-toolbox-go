@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Source material shall capture information on the taxonomic and anatomical origins as well as the fraction of a material that can result in or can be modified to form a substance. This set of data elements shall be used to define polymer substances isolated from biological matrices. Taxonomic and anatomical origins shall be described using a controlled vocabulary as required. This information is captured for naturally derived polymers ( . starch) and structurally diverse substances. For Organisms belonging to the Kingdom Plantae the Substance level defines the fresh material of a single species or infraspecies, the Herbal Drug and the Herbal preparation. For Herbal preparations, the fraction information will be captured at the Substance information level and additional information for herbal extracts will be captured at the Specified Substance Group 1 information level. See for further explanation the Substance Class: Structurally Diverse and the herbal annex.
@@ -186,6 +187,243 @@ func (r SubstanceSourceMaterial) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstanceSourceMaterial) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.SourceMaterialClass != nil {
+		s += r.SourceMaterialClass.MemSize()
+	}
+	if r.SourceMaterialType != nil {
+		s += r.SourceMaterialType.MemSize()
+	}
+	if r.SourceMaterialState != nil {
+		s += r.SourceMaterialState.MemSize()
+	}
+	if r.OrganismId != nil {
+		s += r.OrganismId.MemSize()
+	}
+	if r.OrganismName != nil {
+		s += r.OrganismName.MemSize()
+	}
+	for _, i := range r.ParentSubstanceId {
+		s += i.MemSize()
+	}
+	s += (cap(r.ParentSubstanceId) - len(r.ParentSubstanceId)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.ParentSubstanceName {
+		s += i.MemSize()
+	}
+	s += (cap(r.ParentSubstanceName) - len(r.ParentSubstanceName)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.CountryOfOrigin {
+		s += i.MemSize()
+	}
+	s += (cap(r.CountryOfOrigin) - len(r.CountryOfOrigin)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.GeographicalLocation {
+		s += i.MemSize()
+	}
+	s += (cap(r.GeographicalLocation) - len(r.GeographicalLocation)) * int(unsafe.Sizeof(String{}))
+	if r.DevelopmentStage != nil {
+		s += r.DevelopmentStage.MemSize()
+	}
+	for _, i := range r.FractionDescription {
+		s += i.MemSize()
+	}
+	s += (cap(r.FractionDescription) - len(r.FractionDescription)) * int(unsafe.Sizeof(SubstanceSourceMaterialFractionDescription{}))
+	if r.Organism != nil {
+		s += r.Organism.MemSize()
+	}
+	for _, i := range r.PartDescription {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartDescription) - len(r.PartDescription)) * int(unsafe.Sizeof(SubstanceSourceMaterialPartDescription{}))
+	return s
+}
+func (r SubstanceSourceMaterialFractionDescription) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Fraction != nil {
+		s += r.Fraction.MemSize()
+	}
+	if r.MaterialType != nil {
+		s += r.MaterialType.MemSize()
+	}
+	return s
+}
+func (r SubstanceSourceMaterialOrganism) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Family != nil {
+		s += r.Family.MemSize()
+	}
+	if r.Genus != nil {
+		s += r.Genus.MemSize()
+	}
+	if r.Species != nil {
+		s += r.Species.MemSize()
+	}
+	if r.IntraspecificType != nil {
+		s += r.IntraspecificType.MemSize()
+	}
+	if r.IntraspecificDescription != nil {
+		s += r.IntraspecificDescription.MemSize()
+	}
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(SubstanceSourceMaterialOrganismAuthor{}))
+	if r.Hybrid != nil {
+		s += r.Hybrid.MemSize()
+	}
+	if r.OrganismGeneral != nil {
+		s += r.OrganismGeneral.MemSize()
+	}
+	return s
+}
+func (r SubstanceSourceMaterialOrganismAuthor) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.AuthorType != nil {
+		s += r.AuthorType.MemSize()
+	}
+	if r.AuthorDescription != nil {
+		s += r.AuthorDescription.MemSize()
+	}
+	return s
+}
+func (r SubstanceSourceMaterialOrganismHybrid) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.MaternalOrganismId != nil {
+		s += r.MaternalOrganismId.MemSize()
+	}
+	if r.MaternalOrganismName != nil {
+		s += r.MaternalOrganismName.MemSize()
+	}
+	if r.PaternalOrganismId != nil {
+		s += r.PaternalOrganismId.MemSize()
+	}
+	if r.PaternalOrganismName != nil {
+		s += r.PaternalOrganismName.MemSize()
+	}
+	if r.HybridType != nil {
+		s += r.HybridType.MemSize()
+	}
+	return s
+}
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Kingdom != nil {
+		s += r.Kingdom.MemSize()
+	}
+	if r.Phylum != nil {
+		s += r.Phylum.MemSize()
+	}
+	if r.Class != nil {
+		s += r.Class.MemSize()
+	}
+	if r.Order != nil {
+		s += r.Order.MemSize()
+	}
+	return s
+}
+func (r SubstanceSourceMaterialPartDescription) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Part != nil {
+		s += r.Part.MemSize()
+	}
+	if r.PartLocation != nil {
+		s += r.PartLocation.MemSize()
+	}
+	return s
 }
 func (r SubstanceSourceMaterial) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A Map of relationships between 2 structures that can be used to transform data.
@@ -73,6 +74,7 @@ type StructureMap struct {
 	Group []StructureMapGroup
 }
 type isStructureMapVersionAlgorithm interface {
+	model.Element
 	isStructureMapVersionAlgorithm()
 }
 
@@ -257,6 +259,7 @@ type StructureMapGroupRuleTargetParameter struct {
 	Value isStructureMapGroupRuleTargetParameterValue
 }
 type isStructureMapGroupRuleTargetParameterValue interface {
+	model.Element
 	isStructureMapGroupRuleTargetParameterValue()
 }
 
@@ -296,6 +299,362 @@ func (r StructureMap) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r StructureMap) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	for _, i := range r.Structure {
+		s += i.MemSize()
+	}
+	s += (cap(r.Structure) - len(r.Structure)) * int(unsafe.Sizeof(StructureMapStructure{}))
+	for _, i := range r.Import {
+		s += i.MemSize()
+	}
+	s += (cap(r.Import) - len(r.Import)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Const {
+		s += i.MemSize()
+	}
+	s += (cap(r.Const) - len(r.Const)) * int(unsafe.Sizeof(StructureMapConst{}))
+	for _, i := range r.Group {
+		s += i.MemSize()
+	}
+	s += (cap(r.Group) - len(r.Group)) * int(unsafe.Sizeof(StructureMapGroup{}))
+	return s
+}
+func (r StructureMapStructure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Alias != nil {
+		s += r.Alias.MemSize()
+	}
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r StructureMapConst) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r StructureMapGroup) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Extends != nil {
+		s += r.Extends.MemSize()
+	}
+	if r.TypeMode != nil {
+		s += r.TypeMode.MemSize()
+	}
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	for _, i := range r.Input {
+		s += i.MemSize()
+	}
+	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(StructureMapGroupInput{}))
+	for _, i := range r.Rule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rule) - len(r.Rule)) * int(unsafe.Sizeof(StructureMapGroupRule{}))
+	return s
+}
+func (r StructureMapGroupInput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r StructureMapGroupRule) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	for _, i := range r.Source {
+		s += i.MemSize()
+	}
+	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(StructureMapGroupRuleSource{}))
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(StructureMapGroupRuleTarget{}))
+	for _, i := range r.Rule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rule) - len(r.Rule)) * int(unsafe.Sizeof(StructureMapGroupRule{}))
+	for _, i := range r.Dependent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dependent) - len(r.Dependent)) * int(unsafe.Sizeof(StructureMapGroupRuleDependent{}))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	return s
+}
+func (r StructureMapGroupRuleSource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Context.MemSize() - int(unsafe.Sizeof(r.Context))
+	if r.Min != nil {
+		s += r.Min.MemSize()
+	}
+	if r.Max != nil {
+		s += r.Max.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.DefaultValue != nil {
+		s += r.DefaultValue.MemSize()
+	}
+	if r.Element != nil {
+		s += r.Element.MemSize()
+	}
+	if r.ListMode != nil {
+		s += r.ListMode.MemSize()
+	}
+	if r.Variable != nil {
+		s += r.Variable.MemSize()
+	}
+	if r.Condition != nil {
+		s += r.Condition.MemSize()
+	}
+	if r.Check != nil {
+		s += r.Check.MemSize()
+	}
+	if r.LogMessage != nil {
+		s += r.LogMessage.MemSize()
+	}
+	return s
+}
+func (r StructureMapGroupRuleTarget) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Context != nil {
+		s += r.Context.MemSize()
+	}
+	if r.Element != nil {
+		s += r.Element.MemSize()
+	}
+	if r.Variable != nil {
+		s += r.Variable.MemSize()
+	}
+	for _, i := range r.ListMode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ListMode) - len(r.ListMode)) * int(unsafe.Sizeof(Code{}))
+	if r.ListRuleId != nil {
+		s += r.ListRuleId.MemSize()
+	}
+	if r.Transform != nil {
+		s += r.Transform.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(StructureMapGroupRuleTargetParameter{}))
+	return s
+}
+func (r StructureMapGroupRuleTargetParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r StructureMapGroupRuleDependent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(StructureMapGroupRuleTargetParameter{}))
+	return s
 }
 func (r StructureMap) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Describes a stream of resource state changes identified by trigger criteria and annotated with labels useful to filter projections from this topic.
@@ -188,6 +189,241 @@ func (r SubscriptionTopic) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubscriptionTopic) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Canonical{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.ResourceTrigger {
+		s += i.MemSize()
+	}
+	s += (cap(r.ResourceTrigger) - len(r.ResourceTrigger)) * int(unsafe.Sizeof(SubscriptionTopicResourceTrigger{}))
+	for _, i := range r.EventTrigger {
+		s += i.MemSize()
+	}
+	s += (cap(r.EventTrigger) - len(r.EventTrigger)) * int(unsafe.Sizeof(SubscriptionTopicEventTrigger{}))
+	for _, i := range r.CanFilterBy {
+		s += i.MemSize()
+	}
+	s += (cap(r.CanFilterBy) - len(r.CanFilterBy)) * int(unsafe.Sizeof(SubscriptionTopicCanFilterBy{}))
+	for _, i := range r.NotificationShape {
+		s += i.MemSize()
+	}
+	s += (cap(r.NotificationShape) - len(r.NotificationShape)) * int(unsafe.Sizeof(SubscriptionTopicNotificationShape{}))
+	return s
+}
+func (r SubscriptionTopicResourceTrigger) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	for _, i := range r.SupportedInteraction {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportedInteraction) - len(r.SupportedInteraction)) * int(unsafe.Sizeof(Code{}))
+	if r.QueryCriteria != nil {
+		s += r.QueryCriteria.MemSize()
+	}
+	if r.FhirPathCriteria != nil {
+		s += r.FhirPathCriteria.MemSize()
+	}
+	return s
+}
+func (r SubscriptionTopicResourceTriggerQueryCriteria) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Previous != nil {
+		s += r.Previous.MemSize()
+	}
+	if r.ResultForCreate != nil {
+		s += r.ResultForCreate.MemSize()
+	}
+	if r.Current != nil {
+		s += r.Current.MemSize()
+	}
+	if r.ResultForDelete != nil {
+		s += r.ResultForDelete.MemSize()
+	}
+	if r.RequireBoth != nil {
+		s += r.RequireBoth.MemSize()
+	}
+	return s
+}
+func (r SubscriptionTopicEventTrigger) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	s += r.Event.MemSize() - int(unsafe.Sizeof(r.Event))
+	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	return s
+}
+func (r SubscriptionTopicCanFilterBy) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	s += r.FilterParameter.MemSize() - int(unsafe.Sizeof(r.FilterParameter))
+	if r.FilterDefinition != nil {
+		s += r.FilterDefinition.MemSize()
+	}
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(Code{}))
+	return s
+}
+func (r SubscriptionTopicNotificationShape) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	for _, i := range r.Include {
+		s += i.MemSize()
+	}
+	s += (cap(r.Include) - len(r.Include)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.RevInclude {
+		s += i.MemSize()
+	}
+	s += (cap(r.RevInclude) - len(r.RevInclude)) * int(unsafe.Sizeof(String{}))
+	return s
 }
 func (r SubscriptionTopic) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

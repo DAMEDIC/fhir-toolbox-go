@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Financial instrument which may be used to reimburse or pay for health care products and services. Includes both insurance and self-payment.
@@ -133,6 +134,7 @@ type CoverageCostToBeneficiary struct {
 	Exception []CoverageCostToBeneficiaryException
 }
 type isCoverageCostToBeneficiaryValue interface {
+	model.Element
 	isCoverageCostToBeneficiaryValue()
 }
 
@@ -166,6 +168,193 @@ func (r Coverage) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Coverage) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	for _, i := range r.PaymentBy {
+		s += i.MemSize()
+	}
+	s += (cap(r.PaymentBy) - len(r.PaymentBy)) * int(unsafe.Sizeof(CoveragePaymentBy{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.PolicyHolder != nil {
+		s += r.PolicyHolder.MemSize()
+	}
+	if r.Subscriber != nil {
+		s += r.Subscriber.MemSize()
+	}
+	for _, i := range r.SubscriberId {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubscriberId) - len(r.SubscriberId)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Beneficiary.MemSize() - int(unsafe.Sizeof(r.Beneficiary))
+	if r.Dependent != nil {
+		s += r.Dependent.MemSize()
+	}
+	if r.Relationship != nil {
+		s += r.Relationship.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Insurer != nil {
+		s += r.Insurer.MemSize()
+	}
+	for _, i := range r.Class {
+		s += i.MemSize()
+	}
+	s += (cap(r.Class) - len(r.Class)) * int(unsafe.Sizeof(CoverageClass{}))
+	if r.Order != nil {
+		s += r.Order.MemSize()
+	}
+	if r.Network != nil {
+		s += r.Network.MemSize()
+	}
+	for _, i := range r.CostToBeneficiary {
+		s += i.MemSize()
+	}
+	s += (cap(r.CostToBeneficiary) - len(r.CostToBeneficiary)) * int(unsafe.Sizeof(CoverageCostToBeneficiary{}))
+	if r.Subrogation != nil {
+		s += r.Subrogation.MemSize()
+	}
+	for _, i := range r.Contract {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contract) - len(r.Contract)) * int(unsafe.Sizeof(Reference{}))
+	if r.InsurancePlan != nil {
+		s += r.InsurancePlan.MemSize()
+	}
+	return s
+}
+func (r CoveragePaymentBy) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Party.MemSize() - int(unsafe.Sizeof(r.Party))
+	if r.Responsibility != nil {
+		s += r.Responsibility.MemSize()
+	}
+	return s
+}
+func (r CoverageClass) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	return s
+}
+func (r CoverageCostToBeneficiary) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Network != nil {
+		s += r.Network.MemSize()
+	}
+	if r.Unit != nil {
+		s += r.Unit.MemSize()
+	}
+	if r.Term != nil {
+		s += r.Term.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	for _, i := range r.Exception {
+		s += i.MemSize()
+	}
+	s += (cap(r.Exception) - len(r.Exception)) * int(unsafe.Sizeof(CoverageCostToBeneficiaryException{}))
+	return s
+}
+func (r CoverageCostToBeneficiaryException) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
 }
 func (r Coverage) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

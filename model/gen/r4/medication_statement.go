@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of a medication that is being consumed by a patient.   A MedicationStatement may indicate that the patient may be taking the medication now or has taken the medication in the past or will be taking the medication in the future.  The source of this information can be the patient, significant other (such as a family member or spouse), or a clinician.  A common scenario where this information is captured is during the history taking process during a patient visit or stay.   The medication information may come from sources such as the patient's memory, from a prescription bottle,  or from a list of medications the patient, clinician or other party maintains.
@@ -67,6 +68,7 @@ type MedicationStatement struct {
 	Dosage []Dosage
 }
 type isMedicationStatementMedication interface {
+	model.Element
 	isMedicationStatementMedication()
 }
 
@@ -74,6 +76,7 @@ func (r CodeableConcept) isMedicationStatementMedication() {}
 func (r Reference) isMedicationStatementMedication()       {}
 
 type isMedicationStatementEffective interface {
+	model.Element
 	isMedicationStatementEffective()
 }
 
@@ -90,6 +93,94 @@ func (r MedicationStatement) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicationStatement) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.StatusReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Medication != nil {
+		s += r.Medication.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Context != nil {
+		s += r.Context.MemSize()
+	}
+	if r.Effective != nil {
+		s += r.Effective.MemSize()
+	}
+	if r.DateAsserted != nil {
+		s += r.DateAsserted.MemSize()
+	}
+	if r.InformationSource != nil {
+		s += r.InformationSource.MemSize()
+	}
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReasonReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Dosage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Dosage) - len(r.Dosage)) * int(unsafe.Sizeof(Dosage{}))
+	return s
 }
 func (r MedicationStatement) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

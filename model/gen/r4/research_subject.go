@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A physical entity which is the primary unit of operational and/or administrative interest in a study.
@@ -58,6 +59,57 @@ func (r ResearchSubject) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ResearchSubject) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	s += r.Study.MemSize() - int(unsafe.Sizeof(r.Study))
+	s += r.Individual.MemSize() - int(unsafe.Sizeof(r.Individual))
+	if r.AssignedArm != nil {
+		s += r.AssignedArm.MemSize()
+	}
+	if r.ActualArm != nil {
+		s += r.ActualArm.MemSize()
+	}
+	if r.Consent != nil {
+		s += r.Consent.MemSize()
+	}
+	return s
 }
 func (r ResearchSubject) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

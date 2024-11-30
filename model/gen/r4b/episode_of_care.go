@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An association between a patient and an organization / healthcare provider(s) during which time encounters may occur. The managing organization assumes a level of responsibility for the patient during this time.
@@ -100,6 +101,116 @@ func (r EpisodeOfCare) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r EpisodeOfCare) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.StatusHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusHistory) - len(r.StatusHistory)) * int(unsafe.Sizeof(EpisodeOfCareStatusHistory{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Diagnosis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(unsafe.Sizeof(EpisodeOfCareDiagnosis{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.ManagingOrganization != nil {
+		s += r.ManagingOrganization.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.ReferralRequest {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferralRequest) - len(r.ReferralRequest)) * int(unsafe.Sizeof(Reference{}))
+	if r.CareManager != nil {
+		s += r.CareManager.MemSize()
+	}
+	for _, i := range r.Team {
+		s += i.MemSize()
+	}
+	s += (cap(r.Team) - len(r.Team)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Account {
+		s += i.MemSize()
+	}
+	s += (cap(r.Account) - len(r.Account)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r EpisodeOfCareStatusHistory) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	return s
+}
+func (r EpisodeOfCareDiagnosis) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Condition.MemSize() - int(unsafe.Sizeof(r.Condition))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	if r.Rank != nil {
+		s += r.Rank.MemSize()
+	}
+	return s
 }
 func (r EpisodeOfCare) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

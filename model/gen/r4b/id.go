@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // Base StructureDefinition for id type: Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.
@@ -17,6 +18,20 @@ type Id struct {
 	Value *string
 }
 
+func (r Id) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Id) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

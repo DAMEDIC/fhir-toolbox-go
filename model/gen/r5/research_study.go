@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A scientific study of nature that sometimes includes processes involved in health and disease. For example, clinical trials are research studies that involve people. These studies may be related to new ways to screen, prevent, diagnose, and treat disease. They may also study certain outcomes and certain groups of people by looking at data collected in the past or future.
@@ -244,6 +245,335 @@ func (r ResearchStudy) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ResearchStudy) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.Label {
+		s += i.MemSize()
+	}
+	s += (cap(r.Label) - len(r.Label)) * int(unsafe.Sizeof(ResearchStudyLabel{}))
+	for _, i := range r.Protocol {
+		s += i.MemSize()
+	}
+	s += (cap(r.Protocol) - len(r.Protocol)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.PrimaryPurposeType != nil {
+		s += r.PrimaryPurposeType.MemSize()
+	}
+	if r.Phase != nil {
+		s += r.Phase.MemSize()
+	}
+	for _, i := range r.StudyDesign {
+		s += i.MemSize()
+	}
+	s += (cap(r.StudyDesign) - len(r.StudyDesign)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Keyword {
+		s += i.MemSize()
+	}
+	s += (cap(r.Keyword) - len(r.Keyword)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Region {
+		s += i.MemSize()
+	}
+	s += (cap(r.Region) - len(r.Region)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.DescriptionSummary != nil {
+		s += r.DescriptionSummary.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.Site {
+		s += i.MemSize()
+	}
+	s += (cap(r.Site) - len(r.Site)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.AssociatedParty {
+		s += i.MemSize()
+	}
+	s += (cap(r.AssociatedParty) - len(r.AssociatedParty)) * int(unsafe.Sizeof(ResearchStudyAssociatedParty{}))
+	for _, i := range r.ProgressStatus {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProgressStatus) - len(r.ProgressStatus)) * int(unsafe.Sizeof(ResearchStudyProgressStatus{}))
+	if r.WhyStopped != nil {
+		s += r.WhyStopped.MemSize()
+	}
+	if r.Recruitment != nil {
+		s += r.Recruitment.MemSize()
+	}
+	for _, i := range r.ComparisonGroup {
+		s += i.MemSize()
+	}
+	s += (cap(r.ComparisonGroup) - len(r.ComparisonGroup)) * int(unsafe.Sizeof(ResearchStudyComparisonGroup{}))
+	for _, i := range r.Objective {
+		s += i.MemSize()
+	}
+	s += (cap(r.Objective) - len(r.Objective)) * int(unsafe.Sizeof(ResearchStudyObjective{}))
+	for _, i := range r.OutcomeMeasure {
+		s += i.MemSize()
+	}
+	s += (cap(r.OutcomeMeasure) - len(r.OutcomeMeasure)) * int(unsafe.Sizeof(ResearchStudyOutcomeMeasure{}))
+	for _, i := range r.Result {
+		s += i.MemSize()
+	}
+	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ResearchStudyLabel) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyAssociatedParty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	for _, i := range r.Period {
+		s += i.MemSize()
+	}
+	s += (cap(r.Period) - len(r.Period)) * int(unsafe.Sizeof(Period{}))
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Party != nil {
+		s += r.Party.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyProgressStatus) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.State.MemSize() - int(unsafe.Sizeof(r.State))
+	if r.Actual != nil {
+		s += r.Actual.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyRecruitment) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.TargetNumber != nil {
+		s += r.TargetNumber.MemSize()
+	}
+	if r.ActualNumber != nil {
+		s += r.ActualNumber.MemSize()
+	}
+	if r.Eligibility != nil {
+		s += r.Eligibility.MemSize()
+	}
+	if r.ActualGroup != nil {
+		s += r.ActualGroup.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyComparisonGroup) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LinkId != nil {
+		s += r.LinkId.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.IntendedExposure {
+		s += i.MemSize()
+	}
+	s += (cap(r.IntendedExposure) - len(r.IntendedExposure)) * int(unsafe.Sizeof(Reference{}))
+	if r.ObservedGroup != nil {
+		s += r.ObservedGroup.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyObjective) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	return s
+}
+func (r ResearchStudyOutcomeMeasure) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	return s
 }
 func (r ResearchStudy) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

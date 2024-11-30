@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A medically related item or items, in a container or package.
@@ -125,6 +126,7 @@ type PackagedProductDefinitionPackageShelfLifeStorage struct {
 	SpecialPrecautionsForStorage []CodeableConcept
 }
 type isPackagedProductDefinitionPackageShelfLifeStoragePeriod interface {
+	model.Element
 	isPackagedProductDefinitionPackageShelfLifeStoragePeriod()
 }
 
@@ -147,6 +149,7 @@ type PackagedProductDefinitionPackageProperty struct {
 	Value isPackagedProductDefinitionPackagePropertyValue
 }
 type isPackagedProductDefinitionPackagePropertyValue interface {
+	model.Element
 	isPackagedProductDefinitionPackagePropertyValue()
 }
 
@@ -183,6 +186,224 @@ func (r PackagedProductDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r PackagedProductDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.PackageFor {
+		s += i.MemSize()
+	}
+	s += (cap(r.PackageFor) - len(r.PackageFor)) * int(unsafe.Sizeof(Reference{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	for _, i := range r.ContainedItemQuantity {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContainedItemQuantity) - len(r.ContainedItemQuantity)) * int(unsafe.Sizeof(Quantity{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.LegalStatusOfSupply {
+		s += i.MemSize()
+	}
+	s += (cap(r.LegalStatusOfSupply) - len(r.LegalStatusOfSupply)) * int(unsafe.Sizeof(PackagedProductDefinitionLegalStatusOfSupply{}))
+	for _, i := range r.MarketingStatus {
+		s += i.MemSize()
+	}
+	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(unsafe.Sizeof(MarketingStatus{}))
+	for _, i := range r.Characteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.CopackagedIndicator != nil {
+		s += r.CopackagedIndicator.MemSize()
+	}
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	if r.Package != nil {
+		s += r.Package.MemSize()
+	}
+	return s
+}
+func (r PackagedProductDefinitionLegalStatusOfSupply) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Jurisdiction != nil {
+		s += r.Jurisdiction.MemSize()
+	}
+	return s
+}
+func (r PackagedProductDefinitionPackage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	for _, i := range r.Material {
+		s += i.MemSize()
+	}
+	s += (cap(r.Material) - len(r.Material)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.AlternateMaterial {
+		s += i.MemSize()
+	}
+	s += (cap(r.AlternateMaterial) - len(r.AlternateMaterial)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ShelfLifeStorage {
+		s += i.MemSize()
+	}
+	s += (cap(r.ShelfLifeStorage) - len(r.ShelfLifeStorage)) * int(unsafe.Sizeof(PackagedProductDefinitionPackageShelfLifeStorage{}))
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(PackagedProductDefinitionPackageProperty{}))
+	for _, i := range r.ContainedItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContainedItem) - len(r.ContainedItem)) * int(unsafe.Sizeof(PackagedProductDefinitionPackageContainedItem{}))
+	for _, i := range r.Package {
+		s += i.MemSize()
+	}
+	s += (cap(r.Package) - len(r.Package)) * int(unsafe.Sizeof(PackagedProductDefinitionPackage{}))
+	return s
+}
+func (r PackagedProductDefinitionPackageShelfLifeStorage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.SpecialPrecautionsForStorage {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialPrecautionsForStorage) - len(r.SpecialPrecautionsForStorage)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r PackagedProductDefinitionPackageProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r PackagedProductDefinitionPackageContainedItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
 }
 func (r PackagedProductDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

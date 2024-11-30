@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An authorization for the provision of glasses and/or contact lenses to a patient.
@@ -114,6 +115,126 @@ func (r VisionPrescription) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r VisionPrescription) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	s += r.DateWritten.MemSize() - int(unsafe.Sizeof(r.DateWritten))
+	s += r.Prescriber.MemSize() - int(unsafe.Sizeof(r.Prescriber))
+	for _, i := range r.LensSpecification {
+		s += i.MemSize()
+	}
+	s += (cap(r.LensSpecification) - len(r.LensSpecification)) * int(unsafe.Sizeof(VisionPrescriptionLensSpecification{}))
+	return s
+}
+func (r VisionPrescriptionLensSpecification) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Product.MemSize() - int(unsafe.Sizeof(r.Product))
+	s += r.Eye.MemSize() - int(unsafe.Sizeof(r.Eye))
+	if r.Sphere != nil {
+		s += r.Sphere.MemSize()
+	}
+	if r.Cylinder != nil {
+		s += r.Cylinder.MemSize()
+	}
+	if r.Axis != nil {
+		s += r.Axis.MemSize()
+	}
+	for _, i := range r.Prism {
+		s += i.MemSize()
+	}
+	s += (cap(r.Prism) - len(r.Prism)) * int(unsafe.Sizeof(VisionPrescriptionLensSpecificationPrism{}))
+	if r.Add != nil {
+		s += r.Add.MemSize()
+	}
+	if r.Power != nil {
+		s += r.Power.MemSize()
+	}
+	if r.BackCurve != nil {
+		s += r.BackCurve.MemSize()
+	}
+	if r.Diameter != nil {
+		s += r.Diameter.MemSize()
+	}
+	if r.Duration != nil {
+		s += r.Duration.MemSize()
+	}
+	if r.Color != nil {
+		s += r.Color.MemSize()
+	}
+	if r.Brand != nil {
+		s += r.Brand.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r VisionPrescriptionLensSpecificationPrism) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Amount.MemSize() - int(unsafe.Sizeof(r.Amount))
+	s += r.Base.MemSize() - int(unsafe.Sizeof(r.Base))
+	return s
 }
 func (r VisionPrescription) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of significant events/milestones key data throughout the history of an Encounter
@@ -84,6 +85,96 @@ func (r EncounterHistory) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r EncounterHistory) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Class.MemSize() - int(unsafe.Sizeof(r.Class))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.SubjectStatus != nil {
+		s += r.SubjectStatus.MemSize()
+	}
+	if r.ActualPeriod != nil {
+		s += r.ActualPeriod.MemSize()
+	}
+	if r.PlannedStartDate != nil {
+		s += r.PlannedStartDate.MemSize()
+	}
+	if r.PlannedEndDate != nil {
+		s += r.PlannedEndDate.MemSize()
+	}
+	if r.Length != nil {
+		s += r.Length.MemSize()
+	}
+	for _, i := range r.Location {
+		s += i.MemSize()
+	}
+	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(EncounterHistoryLocation{}))
+	return s
+}
+func (r EncounterHistoryLocation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Location.MemSize() - int(unsafe.Sizeof(r.Location))
+	if r.Form != nil {
+		s += r.Form.MemSize()
+	}
+	return s
 }
 func (r EncounterHistory) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

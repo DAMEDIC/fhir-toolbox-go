@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource allows for the definition of various types of plans as a sharable, consumable, and executable artifact. The resource is general enough to support the description of a broad range of clinical artifacts such as clinical decision support rules, order sets and protocols.
@@ -93,6 +94,7 @@ type PlanDefinition struct {
 	Action []PlanDefinitionAction
 }
 type isPlanDefinitionSubject interface {
+	model.Element
 	isPlanDefinitionSubject()
 }
 
@@ -143,6 +145,7 @@ type PlanDefinitionGoalTarget struct {
 	Due *Duration
 }
 type isPlanDefinitionGoalTargetDetail interface {
+	model.Element
 	isPlanDefinitionGoalTargetDetail()
 }
 
@@ -216,6 +219,7 @@ type PlanDefinitionAction struct {
 	Action []PlanDefinitionAction
 }
 type isPlanDefinitionActionSubject interface {
+	model.Element
 	isPlanDefinitionActionSubject()
 }
 
@@ -223,6 +227,7 @@ func (r CodeableConcept) isPlanDefinitionActionSubject() {}
 func (r Reference) isPlanDefinitionActionSubject()       {}
 
 type isPlanDefinitionActionTiming interface {
+	model.Element
 	isPlanDefinitionActionTiming()
 }
 
@@ -234,6 +239,7 @@ func (r Range) isPlanDefinitionActionTiming()    {}
 func (r Timing) isPlanDefinitionActionTiming()   {}
 
 type isPlanDefinitionActionDefinition interface {
+	model.Element
 	isPlanDefinitionActionDefinition()
 }
 
@@ -274,6 +280,7 @@ type PlanDefinitionActionRelatedAction struct {
 	Offset isPlanDefinitionActionRelatedActionOffset
 }
 type isPlanDefinitionActionRelatedActionOffset interface {
+	model.Element
 	isPlanDefinitionActionRelatedActionOffset()
 }
 
@@ -323,6 +330,390 @@ func (r PlanDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r PlanDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Subtitle != nil {
+		s += r.Subtitle.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Usage != nil {
+		s += r.Usage.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Topic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.Library {
+		s += i.MemSize()
+	}
+	s += (cap(r.Library) - len(r.Library)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Goal {
+		s += i.MemSize()
+	}
+	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(PlanDefinitionGoal{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(PlanDefinitionAction{}))
+	return s
+}
+func (r PlanDefinitionGoal) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	for _, i := range r.Addresses {
+		s += i.MemSize()
+	}
+	s += (cap(r.Addresses) - len(r.Addresses)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Documentation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Documentation) - len(r.Documentation)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(PlanDefinitionGoalTarget{}))
+	return s
+}
+func (r PlanDefinitionGoalTarget) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Measure != nil {
+		s += r.Measure.MemSize()
+	}
+	if r.Detail != nil {
+		s += r.Detail.MemSize()
+	}
+	if r.Due != nil {
+		s += r.Due.MemSize()
+	}
+	return s
+}
+func (r PlanDefinitionAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Prefix != nil {
+		s += r.Prefix.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.TextEquivalent != nil {
+		s += r.TextEquivalent.MemSize()
+	}
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Documentation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Documentation) - len(r.Documentation)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.GoalId {
+		s += i.MemSize()
+	}
+	s += (cap(r.GoalId) - len(r.GoalId)) * int(unsafe.Sizeof(Id{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Trigger {
+		s += i.MemSize()
+	}
+	s += (cap(r.Trigger) - len(r.Trigger)) * int(unsafe.Sizeof(TriggerDefinition{}))
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(PlanDefinitionActionCondition{}))
+	for _, i := range r.Input {
+		s += i.MemSize()
+	}
+	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(DataRequirement{}))
+	for _, i := range r.Output {
+		s += i.MemSize()
+	}
+	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(DataRequirement{}))
+	for _, i := range r.RelatedAction {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedAction) - len(r.RelatedAction)) * int(unsafe.Sizeof(PlanDefinitionActionRelatedAction{}))
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(PlanDefinitionActionParticipant{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.GroupingBehavior != nil {
+		s += r.GroupingBehavior.MemSize()
+	}
+	if r.SelectionBehavior != nil {
+		s += r.SelectionBehavior.MemSize()
+	}
+	if r.RequiredBehavior != nil {
+		s += r.RequiredBehavior.MemSize()
+	}
+	if r.PrecheckBehavior != nil {
+		s += r.PrecheckBehavior.MemSize()
+	}
+	if r.CardinalityBehavior != nil {
+		s += r.CardinalityBehavior.MemSize()
+	}
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	if r.Transform != nil {
+		s += r.Transform.MemSize()
+	}
+	for _, i := range r.DynamicValue {
+		s += i.MemSize()
+	}
+	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(unsafe.Sizeof(PlanDefinitionActionDynamicValue{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(PlanDefinitionAction{}))
+	return s
+}
+func (r PlanDefinitionActionCondition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	return s
+}
+func (r PlanDefinitionActionRelatedAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.ActionId.MemSize() - int(unsafe.Sizeof(r.ActionId))
+	s += r.Relationship.MemSize() - int(unsafe.Sizeof(r.Relationship))
+	if r.Offset != nil {
+		s += r.Offset.MemSize()
+	}
+	return s
+}
+func (r PlanDefinitionActionParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	return s
+}
+func (r PlanDefinitionActionDynamicValue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	return s
 }
 func (r PlanDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

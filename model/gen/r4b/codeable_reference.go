@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for CodeableReference Type: A reference to a resource (by instance), or instead, a reference to a concept defined in a terminology or ontology (by class).
@@ -22,6 +23,23 @@ type CodeableReference struct {
 	Reference *Reference
 }
 
+func (r CodeableReference) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Concept != nil {
+		s += r.Concept.MemSize()
+	}
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	return s
+}
 func (r CodeableReference) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

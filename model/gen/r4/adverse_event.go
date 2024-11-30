@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Actual or  potential/avoided event causing unintended physical injury resulting from or contributed to by medical care, a research study or other healthcare setting factors that requires additional monitoring, treatment, or hospitalization, or that results in death.
@@ -118,6 +119,148 @@ func (r AdverseEvent) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r AdverseEvent) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Actuality.MemSize() - int(unsafe.Sizeof(r.Actuality))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Event != nil {
+		s += r.Event.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Detected != nil {
+		s += r.Detected.MemSize()
+	}
+	if r.RecordedDate != nil {
+		s += r.RecordedDate.MemSize()
+	}
+	for _, i := range r.ResultingCondition {
+		s += i.MemSize()
+	}
+	s += (cap(r.ResultingCondition) - len(r.ResultingCondition)) * int(unsafe.Sizeof(Reference{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.Seriousness != nil {
+		s += r.Seriousness.MemSize()
+	}
+	if r.Severity != nil {
+		s += r.Severity.MemSize()
+	}
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	if r.Recorder != nil {
+		s += r.Recorder.MemSize()
+	}
+	for _, i := range r.Contributor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contributor) - len(r.Contributor)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SuspectEntity {
+		s += i.MemSize()
+	}
+	s += (cap(r.SuspectEntity) - len(r.SuspectEntity)) * int(unsafe.Sizeof(AdverseEventSuspectEntity{}))
+	for _, i := range r.SubjectMedicalHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubjectMedicalHistory) - len(r.SubjectMedicalHistory)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ReferenceDocument {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferenceDocument) - len(r.ReferenceDocument)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Study {
+		s += i.MemSize()
+	}
+	s += (cap(r.Study) - len(r.Study)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r AdverseEventSuspectEntity) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Instance.MemSize() - int(unsafe.Sizeof(r.Instance))
+	for _, i := range r.Causality {
+		s += i.MemSize()
+	}
+	s += (cap(r.Causality) - len(r.Causality)) * int(unsafe.Sizeof(AdverseEventSuspectEntityCausality{}))
+	return s
+}
+func (r AdverseEventSuspectEntityCausality) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Assessment != nil {
+		s += r.Assessment.MemSize()
+	}
+	if r.ProductRelatedness != nil {
+		s += r.ProductRelatedness.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	return s
 }
 func (r AdverseEvent) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

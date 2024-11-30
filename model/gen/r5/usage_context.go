@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // UsageContext Type: Specifies clinical/business/etc. metadata that can be used to retrieve, index and/or categorize an artifact. This metadata can either be specific to the applicable population (e.g., age category, DRG) or the specific context of care (e.g., venue, care setting, provider of care).
@@ -22,6 +24,7 @@ type UsageContext struct {
 	Value isUsageContextValue
 }
 type isUsageContextValue interface {
+	model.Element
 	isUsageContextValue()
 }
 
@@ -29,6 +32,21 @@ func (r CodeableConcept) isUsageContextValue() {}
 func (r Quantity) isUsageContextValue()        {}
 func (r Range) isUsageContextValue()           {}
 func (r Reference) isUsageContextValue()       {}
+func (r UsageContext) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
 func (r UsageContext) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

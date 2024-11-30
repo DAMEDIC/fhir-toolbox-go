@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This Resource provides one or more comments, classifiers or ratings about a Resource and supports attribution and rights management metadata for the added content.
@@ -53,6 +54,7 @@ type ArtifactAssessment struct {
 	Disposition *Code
 }
 type isArtifactAssessmentCiteAs interface {
+	model.Element
 	isArtifactAssessmentCiteAs()
 }
 
@@ -60,6 +62,7 @@ func (r Reference) isArtifactAssessmentCiteAs() {}
 func (r Markdown) isArtifactAssessmentCiteAs()  {}
 
 type isArtifactAssessmentArtifact interface {
+	model.Element
 	isArtifactAssessmentArtifact()
 }
 
@@ -110,6 +113,122 @@ func (r ArtifactAssessment) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ArtifactAssessment) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.CiteAs != nil {
+		s += r.CiteAs.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.Artifact != nil {
+		s += r.Artifact.MemSize()
+	}
+	for _, i := range r.Content {
+		s += i.MemSize()
+	}
+	s += (cap(r.Content) - len(r.Content)) * int(unsafe.Sizeof(ArtifactAssessmentContent{}))
+	if r.WorkflowStatus != nil {
+		s += r.WorkflowStatus.MemSize()
+	}
+	if r.Disposition != nil {
+		s += r.Disposition.MemSize()
+	}
+	return s
+}
+func (r ArtifactAssessmentContent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.InformationType != nil {
+		s += r.InformationType.MemSize()
+	}
+	if r.Summary != nil {
+		s += r.Summary.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	for _, i := range r.Path {
+		s += i.MemSize()
+	}
+	s += (cap(r.Path) - len(r.Path)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	if r.FreeToShare != nil {
+		s += r.FreeToShare.MemSize()
+	}
+	for _, i := range r.Component {
+		s += i.MemSize()
+	}
+	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ArtifactAssessmentContent{}))
+	return s
 }
 func (r ArtifactAssessment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

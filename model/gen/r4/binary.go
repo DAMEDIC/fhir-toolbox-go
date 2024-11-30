@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A resource that represents the data of a single raw artifact as digital content accessible in its native format.  A Binary resource can contain any content, whether text, image, pdf, zip archive, etc.
@@ -39,6 +40,29 @@ func (r Binary) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Binary) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	s += r.ContentType.MemSize() - int(unsafe.Sizeof(r.ContentType))
+	if r.SecurityContext != nil {
+		s += r.SecurityContext.MemSize()
+	}
+	if r.Data != nil {
+		s += r.Data.MemSize()
+	}
+	return s
 }
 func (r Binary) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for DataRequirement Type: Describes a required data item for evaluation in terms of the type of data, and optional code or date-based filters of the data.
@@ -34,6 +36,7 @@ type DataRequirement struct {
 	Sort []DataRequirementSort
 }
 type isDataRequirementSubject interface {
+	model.Element
 	isDataRequirementSubject()
 }
 
@@ -70,6 +73,7 @@ type DataRequirementDateFilter struct {
 	Value isDataRequirementDateFilterValue
 }
 type isDataRequirementDateFilterValue interface {
+	model.Element
 	isDataRequirementDateFilterValue()
 }
 
@@ -89,6 +93,101 @@ type DataRequirementSort struct {
 	Direction Code
 }
 
+func (r DataRequirement) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.MustSupport {
+		s += i.MemSize()
+	}
+	s += (cap(r.MustSupport) - len(r.MustSupport)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.CodeFilter {
+		s += i.MemSize()
+	}
+	s += (cap(r.CodeFilter) - len(r.CodeFilter)) * int(unsafe.Sizeof(DataRequirementCodeFilter{}))
+	for _, i := range r.DateFilter {
+		s += i.MemSize()
+	}
+	s += (cap(r.DateFilter) - len(r.DateFilter)) * int(unsafe.Sizeof(DataRequirementDateFilter{}))
+	if r.Limit != nil {
+		s += r.Limit.MemSize()
+	}
+	for _, i := range r.Sort {
+		s += i.MemSize()
+	}
+	s += (cap(r.Sort) - len(r.Sort)) * int(unsafe.Sizeof(DataRequirementSort{}))
+	return s
+}
+func (r DataRequirementCodeFilter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.SearchParam != nil {
+		s += r.SearchParam.MemSize()
+	}
+	if r.ValueSet != nil {
+		s += r.ValueSet.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	return s
+}
+func (r DataRequirementDateFilter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.SearchParam != nil {
+		s += r.SearchParam.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r DataRequirementSort) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	s += r.Direction.MemSize() - int(unsafe.Sizeof(r.Direction))
+	return s
+}
 func (r DataRequirement) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

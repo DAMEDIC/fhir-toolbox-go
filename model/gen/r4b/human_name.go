@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for HumanName Type: A human's name with the ability to identify parts and usage.
@@ -32,6 +33,41 @@ type HumanName struct {
 	Period *Period
 }
 
+func (r HumanName) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	if r.Family != nil {
+		s += r.Family.MemSize()
+	}
+	for _, i := range r.Given {
+		s += i.MemSize()
+	}
+	s += (cap(r.Given) - len(r.Given)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Prefix {
+		s += i.MemSize()
+	}
+	s += (cap(r.Prefix) - len(r.Prefix)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Suffix {
+		s += i.MemSize()
+	}
+	s += (cap(r.Suffix) - len(r.Suffix)) * int(unsafe.Sizeof(String{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
 func (r HumanName) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

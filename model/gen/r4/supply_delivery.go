@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Record of delivery of what is supplied.
@@ -53,6 +54,7 @@ type SupplyDelivery struct {
 	Receiver []Reference
 }
 type isSupplyDeliveryOccurrence interface {
+	model.Element
 	isSupplyDeliveryOccurrence()
 }
 
@@ -76,6 +78,7 @@ type SupplyDeliverySuppliedItem struct {
 	Item isSupplyDeliverySuppliedItemItem
 }
 type isSupplyDeliverySuppliedItemItem interface {
+	model.Element
 	isSupplyDeliverySuppliedItemItem()
 }
 
@@ -92,6 +95,96 @@ func (r SupplyDelivery) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SupplyDelivery) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Patient != nil {
+		s += r.Patient.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.SuppliedItem != nil {
+		s += r.SuppliedItem.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.Supplier != nil {
+		s += r.Supplier.MemSize()
+	}
+	if r.Destination != nil {
+		s += r.Destination.MemSize()
+	}
+	for _, i := range r.Receiver {
+		s += i.MemSize()
+	}
+	s += (cap(r.Receiver) - len(r.Receiver)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r SupplyDeliverySuppliedItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
 }
 func (r SupplyDelivery) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

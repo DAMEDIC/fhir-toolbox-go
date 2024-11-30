@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for ProductShelfLife Type: The shelf-life and storage information for a medicinal product item or container can be described using this class.
@@ -28,6 +29,30 @@ type ProductShelfLife struct {
 	SpecialPrecautionsForStorage []CodeableConcept
 }
 
+func (r ProductShelfLife) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	for _, i := range r.SpecialPrecautionsForStorage {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialPrecautionsForStorage) - len(r.SpecialPrecautionsForStorage)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
 func (r ProductShelfLife) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

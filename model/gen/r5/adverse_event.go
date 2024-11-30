@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An event (i.e. any change to current patient status) that may be related to unintended effects on a patient or research participant. The unintended effects may require additional monitoring, treatment, hospitalization, or may result in death. The AdverseEvent resource also extends to potential or avoided events that could have had such effects. There are two major domains where the AdverseEvent resource is expected to be used. One is in clinical care reported adverse events and the other is in reporting adverse events in clinical  research trial management.  Adverse events can be reported by healthcare providers, patients, caregivers or by medical products manufacturers.  Given the differences between these two concepts, we recommend consulting the domain specific implementation guides when implementing the AdverseEvent Resource. The implementation guides include specific extensions, value sets and constraints.
@@ -79,6 +80,7 @@ type AdverseEvent struct {
 	Note []Annotation
 }
 type isAdverseEventOccurrence interface {
+	model.Element
 	isAdverseEventOccurrence()
 }
 
@@ -118,6 +120,7 @@ type AdverseEventSuspectEntity struct {
 	Causality *AdverseEventSuspectEntityCausality
 }
 type isAdverseEventSuspectEntityInstance interface {
+	model.Element
 	isAdverseEventSuspectEntityInstance()
 }
 
@@ -156,6 +159,7 @@ type AdverseEventContributingFactor struct {
 	Item isAdverseEventContributingFactorItem
 }
 type isAdverseEventContributingFactorItem interface {
+	model.Element
 	isAdverseEventContributingFactorItem()
 }
 
@@ -176,6 +180,7 @@ type AdverseEventPreventiveAction struct {
 	Item isAdverseEventPreventiveActionItem
 }
 type isAdverseEventPreventiveActionItem interface {
+	model.Element
 	isAdverseEventPreventiveActionItem()
 }
 
@@ -196,6 +201,7 @@ type AdverseEventMitigatingAction struct {
 	Item isAdverseEventMitigatingActionItem
 }
 type isAdverseEventMitigatingActionItem interface {
+	model.Element
 	isAdverseEventMitigatingActionItem()
 }
 
@@ -216,6 +222,7 @@ type AdverseEventSupportingInfo struct {
 	Item isAdverseEventSupportingInfoItem
 }
 type isAdverseEventSupportingInfoItem interface {
+	model.Element
 	isAdverseEventSupportingInfoItem()
 }
 
@@ -232,6 +239,252 @@ func (r AdverseEvent) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r AdverseEvent) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Actuality.MemSize() - int(unsafe.Sizeof(r.Actuality))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.Detected != nil {
+		s += r.Detected.MemSize()
+	}
+	if r.RecordedDate != nil {
+		s += r.RecordedDate.MemSize()
+	}
+	for _, i := range r.ResultingEffect {
+		s += i.MemSize()
+	}
+	s += (cap(r.ResultingEffect) - len(r.ResultingEffect)) * int(unsafe.Sizeof(Reference{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.Seriousness != nil {
+		s += r.Seriousness.MemSize()
+	}
+	for _, i := range r.Outcome {
+		s += i.MemSize()
+	}
+	s += (cap(r.Outcome) - len(r.Outcome)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Recorder != nil {
+		s += r.Recorder.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(AdverseEventParticipant{}))
+	for _, i := range r.Study {
+		s += i.MemSize()
+	}
+	s += (cap(r.Study) - len(r.Study)) * int(unsafe.Sizeof(Reference{}))
+	if r.ExpectedInResearchStudy != nil {
+		s += r.ExpectedInResearchStudy.MemSize()
+	}
+	for _, i := range r.SuspectEntity {
+		s += i.MemSize()
+	}
+	s += (cap(r.SuspectEntity) - len(r.SuspectEntity)) * int(unsafe.Sizeof(AdverseEventSuspectEntity{}))
+	for _, i := range r.ContributingFactor {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContributingFactor) - len(r.ContributingFactor)) * int(unsafe.Sizeof(AdverseEventContributingFactor{}))
+	for _, i := range r.PreventiveAction {
+		s += i.MemSize()
+	}
+	s += (cap(r.PreventiveAction) - len(r.PreventiveAction)) * int(unsafe.Sizeof(AdverseEventPreventiveAction{}))
+	for _, i := range r.MitigatingAction {
+		s += i.MemSize()
+	}
+	s += (cap(r.MitigatingAction) - len(r.MitigatingAction)) * int(unsafe.Sizeof(AdverseEventMitigatingAction{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(AdverseEventSupportingInfo{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r AdverseEventParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
+}
+func (r AdverseEventSuspectEntity) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Instance != nil {
+		s += r.Instance.MemSize()
+	}
+	if r.Causality != nil {
+		s += r.Causality.MemSize()
+	}
+	return s
+}
+func (r AdverseEventSuspectEntityCausality) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.AssessmentMethod != nil {
+		s += r.AssessmentMethod.MemSize()
+	}
+	if r.EntityRelatedness != nil {
+		s += r.EntityRelatedness.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	return s
+}
+func (r AdverseEventContributingFactor) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
+}
+func (r AdverseEventPreventiveAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
+}
+func (r AdverseEventMitigatingAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
+}
+func (r AdverseEventSupportingInfo) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	return s
 }
 func (r AdverseEvent) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

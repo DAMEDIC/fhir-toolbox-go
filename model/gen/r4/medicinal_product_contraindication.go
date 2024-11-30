@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The clinical particulars - indications, contraindications etc. of a medicinal product, including for regulatory purposes.
@@ -61,6 +62,7 @@ type MedicinalProductContraindicationOtherTherapy struct {
 	Medication isMedicinalProductContraindicationOtherTherapyMedication
 }
 type isMedicinalProductContraindicationOtherTherapyMedication interface {
+	model.Element
 	isMedicinalProductContraindicationOtherTherapyMedication()
 }
 
@@ -77,6 +79,83 @@ func (r MedicinalProductContraindication) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductContraindication) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.Disease != nil {
+		s += r.Disease.MemSize()
+	}
+	if r.DiseaseStatus != nil {
+		s += r.DiseaseStatus.MemSize()
+	}
+	for _, i := range r.Comorbidity {
+		s += i.MemSize()
+	}
+	s += (cap(r.Comorbidity) - len(r.Comorbidity)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.TherapeuticIndication {
+		s += i.MemSize()
+	}
+	s += (cap(r.TherapeuticIndication) - len(r.TherapeuticIndication)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.OtherTherapy {
+		s += i.MemSize()
+	}
+	s += (cap(r.OtherTherapy) - len(r.OtherTherapy)) * int(unsafe.Sizeof(MedicinalProductContraindicationOtherTherapy{}))
+	for _, i := range r.Population {
+		s += i.MemSize()
+	}
+	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(Population{}))
+	return s
+}
+func (r MedicinalProductContraindicationOtherTherapy) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.TherapyRelationshipType.MemSize() - int(unsafe.Sizeof(r.TherapyRelationshipType))
+	if r.Medication != nil {
+		s += r.Medication.MemSize()
+	}
+	return s
 }
 func (r MedicinalProductContraindication) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

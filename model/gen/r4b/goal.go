@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.
@@ -63,6 +64,7 @@ type Goal struct {
 	OutcomeReference []Reference
 }
 type isGoalStart interface {
+	model.Element
 	isGoalStart()
 }
 
@@ -87,6 +89,7 @@ type GoalTarget struct {
 	Due isGoalTargetDue
 }
 type isGoalTargetDetail interface {
+	model.Element
 	isGoalTargetDetail()
 }
 
@@ -99,6 +102,7 @@ func (r Integer) isGoalTargetDetail()         {}
 func (r Ratio) isGoalTargetDetail()           {}
 
 type isGoalTargetDue interface {
+	model.Element
 	isGoalTargetDue()
 }
 
@@ -115,6 +119,111 @@ func (r Goal) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Goal) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.LifecycleStatus.MemSize() - int(unsafe.Sizeof(r.LifecycleStatus))
+	if r.AchievementStatus != nil {
+		s += r.AchievementStatus.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(GoalTarget{}))
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	if r.StatusReason != nil {
+		s += r.StatusReason.MemSize()
+	}
+	if r.ExpressedBy != nil {
+		s += r.ExpressedBy.MemSize()
+	}
+	for _, i := range r.Addresses {
+		s += i.MemSize()
+	}
+	s += (cap(r.Addresses) - len(r.Addresses)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.OutcomeCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.OutcomeCode) - len(r.OutcomeCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.OutcomeReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.OutcomeReference) - len(r.OutcomeReference)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r GoalTarget) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Measure != nil {
+		s += r.Measure.MemSize()
+	}
+	if r.Detail != nil {
+		s += r.Detail.MemSize()
+	}
+	if r.Due != nil {
+		s += r.Due.MemSize()
+	}
+	return s
 }
 func (r Goal) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

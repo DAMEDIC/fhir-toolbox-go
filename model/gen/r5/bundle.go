@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A container for a collection of resources.
@@ -153,6 +154,178 @@ func (r Bundle) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Bundle) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Timestamp != nil {
+		s += r.Timestamp.MemSize()
+	}
+	if r.Total != nil {
+		s += r.Total.MemSize()
+	}
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(BundleLink{}))
+	for _, i := range r.Entry {
+		s += i.MemSize()
+	}
+	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(BundleEntry{}))
+	if r.Signature != nil {
+		s += r.Signature.MemSize()
+	}
+	if r.Issues != nil {
+		s += (*r.Issues).MemSize()
+	}
+	s += (*r.Issues).MemSize()
+	return s
+}
+func (r BundleLink) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Relation.MemSize() - int(unsafe.Sizeof(r.Relation))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	return s
+}
+func (r BundleEntry) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(BundleLink{}))
+	if r.FullUrl != nil {
+		s += r.FullUrl.MemSize()
+	}
+	if r.Resource != nil {
+		s += (*r.Resource).MemSize()
+	}
+	s += (*r.Resource).MemSize()
+	if r.Search != nil {
+		s += r.Search.MemSize()
+	}
+	if r.Request != nil {
+		s += r.Request.MemSize()
+	}
+	if r.Response != nil {
+		s += r.Response.MemSize()
+	}
+	return s
+}
+func (r BundleEntrySearch) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Mode != nil {
+		s += r.Mode.MemSize()
+	}
+	if r.Score != nil {
+		s += r.Score.MemSize()
+	}
+	return s
+}
+func (r BundleEntryRequest) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Method.MemSize() - int(unsafe.Sizeof(r.Method))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	if r.IfNoneMatch != nil {
+		s += r.IfNoneMatch.MemSize()
+	}
+	if r.IfModifiedSince != nil {
+		s += r.IfModifiedSince.MemSize()
+	}
+	if r.IfMatch != nil {
+		s += r.IfMatch.MemSize()
+	}
+	if r.IfNoneExist != nil {
+		s += r.IfNoneExist.MemSize()
+	}
+	return s
+}
+func (r BundleEntryResponse) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	if r.Etag != nil {
+		s += r.Etag.MemSize()
+	}
+	if r.LastModified != nil {
+		s += r.LastModified.MemSize()
+	}
+	if r.Outcome != nil {
+		s += (*r.Outcome).MemSize()
+	}
+	s += (*r.Outcome).MemSize()
+	return s
 }
 func (r Bundle) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

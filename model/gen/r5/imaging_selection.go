@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A selection of DICOM SOP instances and/or frames within a single Study and Series. This might include additional specifics such as an image region, an Observation UID or a Segmentation Number, allowing linkage to an Observation Resource or transferring this information along with the ImagingStudy Resource.
@@ -160,6 +161,188 @@ func (r ImagingSelection) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ImagingSelection) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ImagingSelectionPerformer{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.StudyUid != nil {
+		s += r.StudyUid.MemSize()
+	}
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Endpoint {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	if r.SeriesUid != nil {
+		s += r.SeriesUid.MemSize()
+	}
+	if r.SeriesNumber != nil {
+		s += r.SeriesNumber.MemSize()
+	}
+	if r.FrameOfReferenceUid != nil {
+		s += r.FrameOfReferenceUid.MemSize()
+	}
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Instance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Instance) - len(r.Instance)) * int(unsafe.Sizeof(ImagingSelectionInstance{}))
+	return s
+}
+func (r ImagingSelectionPerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	return s
+}
+func (r ImagingSelectionInstance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Uid.MemSize() - int(unsafe.Sizeof(r.Uid))
+	if r.Number != nil {
+		s += r.Number.MemSize()
+	}
+	if r.SopClass != nil {
+		s += r.SopClass.MemSize()
+	}
+	for _, i := range r.Subset {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subset) - len(r.Subset)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.ImageRegion2D {
+		s += i.MemSize()
+	}
+	s += (cap(r.ImageRegion2D) - len(r.ImageRegion2D)) * int(unsafe.Sizeof(ImagingSelectionInstanceImageRegion2D{}))
+	for _, i := range r.ImageRegion3D {
+		s += i.MemSize()
+	}
+	s += (cap(r.ImageRegion3D) - len(r.ImageRegion3D)) * int(unsafe.Sizeof(ImagingSelectionInstanceImageRegion3D{}))
+	return s
+}
+func (r ImagingSelectionInstanceImageRegion2D) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.RegionType.MemSize() - int(unsafe.Sizeof(r.RegionType))
+	for _, i := range r.Coordinate {
+		s += i.MemSize()
+	}
+	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(unsafe.Sizeof(Decimal{}))
+	return s
+}
+func (r ImagingSelectionInstanceImageRegion3D) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.RegionType.MemSize() - int(unsafe.Sizeof(r.RegionType))
+	for _, i := range r.Coordinate {
+		s += i.MemSize()
+	}
+	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(unsafe.Sizeof(Decimal{}))
+	return s
 }
 func (r ImagingSelection) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Nucleic acids are defined by three distinct elements: the base, sugar and linkage. Individual substance/moiety IDs will be created for each of these elements. The nucleotide sequence will be always entered in the 5’-3’ direction.
@@ -118,6 +119,146 @@ func (r SubstanceNucleicAcid) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubstanceNucleicAcid) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.SequenceType != nil {
+		s += r.SequenceType.MemSize()
+	}
+	if r.NumberOfSubunits != nil {
+		s += r.NumberOfSubunits.MemSize()
+	}
+	if r.AreaOfHybridisation != nil {
+		s += r.AreaOfHybridisation.MemSize()
+	}
+	if r.OligoNucleotideType != nil {
+		s += r.OligoNucleotideType.MemSize()
+	}
+	for _, i := range r.Subunit {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subunit) - len(r.Subunit)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunit{}))
+	return s
+}
+func (r SubstanceNucleicAcidSubunit) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Subunit != nil {
+		s += r.Subunit.MemSize()
+	}
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	if r.Length != nil {
+		s += r.Length.MemSize()
+	}
+	if r.SequenceAttachment != nil {
+		s += r.SequenceAttachment.MemSize()
+	}
+	if r.FivePrime != nil {
+		s += r.FivePrime.MemSize()
+	}
+	if r.ThreePrime != nil {
+		s += r.ThreePrime.MemSize()
+	}
+	for _, i := range r.Linkage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Linkage) - len(r.Linkage)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunitLinkage{}))
+	for _, i := range r.Sugar {
+		s += i.MemSize()
+	}
+	s += (cap(r.Sugar) - len(r.Sugar)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunitSugar{}))
+	return s
+}
+func (r SubstanceNucleicAcidSubunitLinkage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Connectivity != nil {
+		s += r.Connectivity.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.ResidueSite != nil {
+		s += r.ResidueSite.MemSize()
+	}
+	return s
+}
+func (r SubstanceNucleicAcidSubunitSugar) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.ResidueSite != nil {
+		s += r.ResidueSite.MemSize()
+	}
+	return s
 }
 func (r SubstanceNucleicAcid) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

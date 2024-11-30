@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for ContactDetail Type: Specifies contact information for a person or organization.
@@ -22,6 +23,24 @@ type ContactDetail struct {
 	Telecom []ContactPoint
 }
 
+func (r ContactDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	return s
+}
 func (r ContactDetail) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

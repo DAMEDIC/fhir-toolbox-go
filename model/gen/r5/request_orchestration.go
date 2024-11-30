@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A set of related requests that can be used to capture intended activities that have inter-dependencies such as "give this medication after that one".
@@ -133,6 +134,7 @@ type RequestOrchestrationAction struct {
 	Action []RequestOrchestrationAction
 }
 type isRequestOrchestrationActionTiming interface {
+	model.Element
 	isRequestOrchestrationActionTiming()
 }
 
@@ -144,6 +146,7 @@ func (r Range) isRequestOrchestrationActionTiming()    {}
 func (r Timing) isRequestOrchestrationActionTiming()   {}
 
 type isRequestOrchestrationActionDefinition interface {
+	model.Element
 	isRequestOrchestrationActionDefinition()
 }
 
@@ -222,6 +225,7 @@ type RequestOrchestrationActionRelatedAction struct {
 	Offset isRequestOrchestrationActionRelatedActionOffset
 }
 type isRequestOrchestrationActionRelatedActionOffset interface {
+	model.Element
 	isRequestOrchestrationActionRelatedActionOffset()
 }
 
@@ -252,6 +256,7 @@ type RequestOrchestrationActionParticipant struct {
 	Actor isRequestOrchestrationActionParticipantActor
 }
 type isRequestOrchestrationActionParticipantActor interface {
+	model.Element
 	isRequestOrchestrationActionParticipantActor()
 }
 
@@ -285,6 +290,347 @@ func (r RequestOrchestration) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r RequestOrchestration) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Replaces {
+		s += i.MemSize()
+	}
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	if r.GroupIdentifier != nil {
+		s += r.GroupIdentifier.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.AuthoredOn != nil {
+		s += r.AuthoredOn.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Goal {
+		s += i.MemSize()
+	}
+	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(RequestOrchestrationAction{}))
+	return s
+}
+func (r RequestOrchestrationAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.LinkId != nil {
+		s += r.LinkId.MemSize()
+	}
+	if r.Prefix != nil {
+		s += r.Prefix.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.TextEquivalent != nil {
+		s += r.TextEquivalent.MemSize()
+	}
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Documentation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Documentation) - len(r.Documentation)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.Goal {
+		s += i.MemSize()
+	}
+	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(RequestOrchestrationActionCondition{}))
+	for _, i := range r.Input {
+		s += i.MemSize()
+	}
+	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(RequestOrchestrationActionInput{}))
+	for _, i := range r.Output {
+		s += i.MemSize()
+	}
+	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(RequestOrchestrationActionOutput{}))
+	for _, i := range r.RelatedAction {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedAction) - len(r.RelatedAction)) * int(unsafe.Sizeof(RequestOrchestrationActionRelatedAction{}))
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(RequestOrchestrationActionParticipant{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.GroupingBehavior != nil {
+		s += r.GroupingBehavior.MemSize()
+	}
+	if r.SelectionBehavior != nil {
+		s += r.SelectionBehavior.MemSize()
+	}
+	if r.RequiredBehavior != nil {
+		s += r.RequiredBehavior.MemSize()
+	}
+	if r.PrecheckBehavior != nil {
+		s += r.PrecheckBehavior.MemSize()
+	}
+	if r.CardinalityBehavior != nil {
+		s += r.CardinalityBehavior.MemSize()
+	}
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	if r.Transform != nil {
+		s += r.Transform.MemSize()
+	}
+	for _, i := range r.DynamicValue {
+		s += i.MemSize()
+	}
+	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(unsafe.Sizeof(RequestOrchestrationActionDynamicValue{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(RequestOrchestrationAction{}))
+	return s
+}
+func (r RequestOrchestrationActionCondition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	return s
+}
+func (r RequestOrchestrationActionInput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Requirement != nil {
+		s += r.Requirement.MemSize()
+	}
+	if r.RelatedData != nil {
+		s += r.RelatedData.MemSize()
+	}
+	return s
+}
+func (r RequestOrchestrationActionOutput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Requirement != nil {
+		s += r.Requirement.MemSize()
+	}
+	if r.RelatedData != nil {
+		s += r.RelatedData.MemSize()
+	}
+	return s
+}
+func (r RequestOrchestrationActionRelatedAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.TargetId.MemSize() - int(unsafe.Sizeof(r.TargetId))
+	s += r.Relationship.MemSize() - int(unsafe.Sizeof(r.Relationship))
+	if r.EndRelationship != nil {
+		s += r.EndRelationship.MemSize()
+	}
+	if r.Offset != nil {
+		s += r.Offset.MemSize()
+	}
+	return s
+}
+func (r RequestOrchestrationActionParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.TypeCanonical != nil {
+		s += r.TypeCanonical.MemSize()
+	}
+	if r.TypeReference != nil {
+		s += r.TypeReference.MemSize()
+	}
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	return s
+}
+func (r RequestOrchestrationActionDynamicValue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	return s
 }
 func (r RequestOrchestration) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

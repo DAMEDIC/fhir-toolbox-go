@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Extension Type: Optional Extension Element - found in all resources.
@@ -22,6 +24,7 @@ type Extension struct {
 	Value isExtensionValue
 }
 type isExtensionValue interface {
+	model.Element
 	isExtensionValue()
 }
 
@@ -76,6 +79,21 @@ func (r RelatedArtifact) isExtensionValue()     {}
 func (r TriggerDefinition) isExtensionValue()   {}
 func (r UsageContext) isExtensionValue()        {}
 func (r Dosage) isExtensionValue()              {}
+func (r Extension) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += len(r.Url)
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
 func (r Extension) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Provenance of a resource is a record that describes entities and processes involved in producing and delivering or otherwise influencing that resource. Provenance provides a critical foundation for assessing authenticity, enabling trust, and allowing reproducibility. Provenance assertions are a form of contextual metadata and can themselves become important records with their own provenance. Provenance statement indicates clinical significance in terms of confidence in authenticity, reliability, and trustworthiness, integrity, and stage in lifecycle (e.g. Document Completion - has the artifact been legally authenticated), all of which may impact security, privacy, and trust policies.
@@ -51,6 +52,7 @@ type Provenance struct {
 	Signature []Signature
 }
 type isProvenanceOccurred interface {
+	model.Element
 	isProvenanceOccurred()
 }
 
@@ -106,6 +108,119 @@ func (r Provenance) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Provenance) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(Reference{}))
+	if r.Occurred != nil {
+		s += r.Occurred.MemSize()
+	}
+	s += r.Recorded.MemSize() - int(unsafe.Sizeof(r.Recorded))
+	for _, i := range r.Policy {
+		s += i.MemSize()
+	}
+	s += (cap(r.Policy) - len(r.Policy)) * int(unsafe.Sizeof(Uri{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Activity != nil {
+		s += r.Activity.MemSize()
+	}
+	for _, i := range r.Agent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Agent) - len(r.Agent)) * int(unsafe.Sizeof(ProvenanceAgent{}))
+	for _, i := range r.Entity {
+		s += i.MemSize()
+	}
+	s += (cap(r.Entity) - len(r.Entity)) * int(unsafe.Sizeof(ProvenanceEntity{}))
+	for _, i := range r.Signature {
+		s += i.MemSize()
+	}
+	s += (cap(r.Signature) - len(r.Signature)) * int(unsafe.Sizeof(Signature{}))
+	return s
+}
+func (r ProvenanceAgent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Role {
+		s += i.MemSize()
+	}
+	s += (cap(r.Role) - len(r.Role)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Who.MemSize() - int(unsafe.Sizeof(r.Who))
+	if r.OnBehalfOf != nil {
+		s += r.OnBehalfOf.MemSize()
+	}
+	return s
+}
+func (r ProvenanceEntity) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	s += r.What.MemSize() - int(unsafe.Sizeof(r.What))
+	for _, i := range r.Agent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Agent) - len(r.Agent)) * int(unsafe.Sizeof(ProvenanceAgent{}))
+	return s
 }
 func (r Provenance) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

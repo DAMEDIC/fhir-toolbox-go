@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // RelatedArtifact Type: Related artifacts such as additional documentation, justification, or bibliographic references.
@@ -38,6 +39,46 @@ type RelatedArtifact struct {
 	PublicationDate *Date
 }
 
+func (r RelatedArtifact) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Classifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Label != nil {
+		s += r.Label.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	if r.Citation != nil {
+		s += r.Citation.MemSize()
+	}
+	if r.Document != nil {
+		s += r.Document.MemSize()
+	}
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	if r.ResourceReference != nil {
+		s += r.ResourceReference.MemSize()
+	}
+	if r.PublicationStatus != nil {
+		s += r.PublicationStatus.MemSize()
+	}
+	if r.PublicationDate != nil {
+		s += r.PublicationDate.MemSize()
+	}
+	return s
+}
 func (r RelatedArtifact) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

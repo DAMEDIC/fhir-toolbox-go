@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A biological material originating from a biological entity intended to be transplanted or infused into another (possibly the same) biological entity.
@@ -75,6 +76,7 @@ type BiologicallyDerivedProductCollection struct {
 	Collected isBiologicallyDerivedProductCollectionCollected
 }
 type isBiologicallyDerivedProductCollectionCollected interface {
+	model.Element
 	isBiologicallyDerivedProductCollectionCollected()
 }
 
@@ -97,6 +99,7 @@ type BiologicallyDerivedProductProperty struct {
 	Value isBiologicallyDerivedProductPropertyValue
 }
 type isBiologicallyDerivedProductPropertyValue interface {
+	model.Element
 	isBiologicallyDerivedProductPropertyValue()
 }
 
@@ -120,6 +123,125 @@ func (r BiologicallyDerivedProduct) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r BiologicallyDerivedProduct) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ProductCategory != nil {
+		s += r.ProductCategory.MemSize()
+	}
+	if r.ProductCode != nil {
+		s += r.ProductCode.MemSize()
+	}
+	for _, i := range r.Parent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parent) - len(r.Parent)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Request {
+		s += i.MemSize()
+	}
+	s += (cap(r.Request) - len(r.Request)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.BiologicalSourceEvent != nil {
+		s += r.BiologicalSourceEvent.MemSize()
+	}
+	for _, i := range r.ProcessingFacility {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProcessingFacility) - len(r.ProcessingFacility)) * int(unsafe.Sizeof(Reference{}))
+	if r.Division != nil {
+		s += r.Division.MemSize()
+	}
+	if r.ProductStatus != nil {
+		s += r.ProductStatus.MemSize()
+	}
+	if r.ExpirationDate != nil {
+		s += r.ExpirationDate.MemSize()
+	}
+	if r.Collection != nil {
+		s += r.Collection.MemSize()
+	}
+	if r.StorageTempRequirements != nil {
+		s += r.StorageTempRequirements.MemSize()
+	}
+	for _, i := range r.Property {
+		s += i.MemSize()
+	}
+	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(BiologicallyDerivedProductProperty{}))
+	return s
+}
+func (r BiologicallyDerivedProductCollection) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Collector != nil {
+		s += r.Collector.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	if r.Collected != nil {
+		s += r.Collected.MemSize()
+	}
+	return s
+}
+func (r BiologicallyDerivedProductProperty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r BiologicallyDerivedProduct) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

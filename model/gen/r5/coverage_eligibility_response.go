@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource provides eligibility and plan details from the processing of an CoverageEligibilityRequest resource.
@@ -63,6 +64,7 @@ type CoverageEligibilityResponse struct {
 	Error []CoverageEligibilityResponseError
 }
 type isCoverageEligibilityResponseServiced interface {
+	model.Element
 	isCoverageEligibilityResponseServiced()
 }
 
@@ -85,6 +87,7 @@ type CoverageEligibilityResponseEvent struct {
 	When isCoverageEligibilityResponseEventWhen
 }
 type isCoverageEligibilityResponseEventWhen interface {
+	model.Element
 	isCoverageEligibilityResponseEventWhen()
 }
 
@@ -169,6 +172,7 @@ type CoverageEligibilityResponseInsuranceItemBenefit struct {
 	Used isCoverageEligibilityResponseInsuranceItemBenefitUsed
 }
 type isCoverageEligibilityResponseInsuranceItemBenefitAllowed interface {
+	model.Element
 	isCoverageEligibilityResponseInsuranceItemBenefitAllowed()
 }
 
@@ -177,6 +181,7 @@ func (r String) isCoverageEligibilityResponseInsuranceItemBenefitAllowed()      
 func (r Money) isCoverageEligibilityResponseInsuranceItemBenefitAllowed()       {}
 
 type isCoverageEligibilityResponseInsuranceItemBenefitUsed interface {
+	model.Element
 	isCoverageEligibilityResponseInsuranceItemBenefitUsed()
 }
 
@@ -211,6 +216,226 @@ func (r CoverageEligibilityResponse) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r CoverageEligibilityResponse) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Purpose {
+		s += i.MemSize()
+	}
+	s += (cap(r.Purpose) - len(r.Purpose)) * int(unsafe.Sizeof(Code{}))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(CoverageEligibilityResponseEvent{}))
+	if r.Serviced != nil {
+		s += r.Serviced.MemSize()
+	}
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	if r.Requestor != nil {
+		s += r.Requestor.MemSize()
+	}
+	s += r.Request.MemSize() - int(unsafe.Sizeof(r.Request))
+	s += r.Outcome.MemSize() - int(unsafe.Sizeof(r.Outcome))
+	if r.Disposition != nil {
+		s += r.Disposition.MemSize()
+	}
+	s += r.Insurer.MemSize() - int(unsafe.Sizeof(r.Insurer))
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(CoverageEligibilityResponseInsurance{}))
+	if r.PreAuthRef != nil {
+		s += r.PreAuthRef.MemSize()
+	}
+	if r.Form != nil {
+		s += r.Form.MemSize()
+	}
+	for _, i := range r.Error {
+		s += i.MemSize()
+	}
+	s += (cap(r.Error) - len(r.Error)) * int(unsafe.Sizeof(CoverageEligibilityResponseError{}))
+	return s
+}
+func (r CoverageEligibilityResponseEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.When != nil {
+		s += r.When.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityResponseInsurance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Coverage.MemSize() - int(unsafe.Sizeof(r.Coverage))
+	if r.Inforce != nil {
+		s += r.Inforce.MemSize()
+	}
+	if r.BenefitPeriod != nil {
+		s += r.BenefitPeriod.MemSize()
+	}
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(CoverageEligibilityResponseInsuranceItem{}))
+	return s
+}
+func (r CoverageEligibilityResponseInsuranceItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.ProductOrService != nil {
+		s += r.ProductOrService.MemSize()
+	}
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Provider != nil {
+		s += r.Provider.MemSize()
+	}
+	if r.Excluded != nil {
+		s += r.Excluded.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Network != nil {
+		s += r.Network.MemSize()
+	}
+	if r.Unit != nil {
+		s += r.Unit.MemSize()
+	}
+	if r.Term != nil {
+		s += r.Term.MemSize()
+	}
+	for _, i := range r.Benefit {
+		s += i.MemSize()
+	}
+	s += (cap(r.Benefit) - len(r.Benefit)) * int(unsafe.Sizeof(CoverageEligibilityResponseInsuranceItemBenefit{}))
+	if r.AuthorizationRequired != nil {
+		s += r.AuthorizationRequired.MemSize()
+	}
+	for _, i := range r.AuthorizationSupporting {
+		s += i.MemSize()
+	}
+	s += (cap(r.AuthorizationSupporting) - len(r.AuthorizationSupporting)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AuthorizationUrl != nil {
+		s += r.AuthorizationUrl.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityResponseInsuranceItemBenefit) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Allowed != nil {
+		s += r.Allowed.MemSize()
+	}
+	if r.Used != nil {
+		s += r.Used.MemSize()
+	}
+	return s
+}
+func (r CoverageEligibilityResponseError) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.Expression {
+		s += i.MemSize()
+	}
+	s += (cap(r.Expression) - len(r.Expression)) * int(unsafe.Sizeof(String{}))
+	return s
 }
 func (r CoverageEligibilityResponse) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

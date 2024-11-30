@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Availability Type: Availability data for an {item}.
@@ -48,6 +49,66 @@ type AvailabilityNotAvailableTime struct {
 	During *Period
 }
 
+func (r Availability) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.AvailableTime {
+		s += i.MemSize()
+	}
+	s += (cap(r.AvailableTime) - len(r.AvailableTime)) * int(unsafe.Sizeof(AvailabilityAvailableTime{}))
+	for _, i := range r.NotAvailableTime {
+		s += i.MemSize()
+	}
+	s += (cap(r.NotAvailableTime) - len(r.NotAvailableTime)) * int(unsafe.Sizeof(AvailabilityNotAvailableTime{}))
+	return s
+}
+func (r AvailabilityAvailableTime) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.DaysOfWeek {
+		s += i.MemSize()
+	}
+	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(unsafe.Sizeof(Code{}))
+	if r.AllDay != nil {
+		s += r.AllDay.MemSize()
+	}
+	if r.AvailableStartTime != nil {
+		s += r.AvailableStartTime.MemSize()
+	}
+	if r.AvailableEndTime != nil {
+		s += r.AvailableEndTime.MemSize()
+	}
+	return s
+}
+func (r AvailabilityNotAvailableTime) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.During != nil {
+		s += r.During.MemSize()
+	}
+	return s
+}
 func (r Availability) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

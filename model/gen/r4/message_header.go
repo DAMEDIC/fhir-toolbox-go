@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The header for a message exchange that is either requesting or responding to an action.  The reference(s) that are the subject of the action as well as other information related to the action are typically transmitted in a bundle in which the MessageHeader resource instance is the first resource in the bundle.
@@ -55,6 +56,7 @@ type MessageHeader struct {
 	Definition *Canonical
 }
 type isMessageHeaderEvent interface {
+	model.Element
 	isMessageHeaderEvent()
 }
 
@@ -132,6 +134,144 @@ func (r MessageHeader) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MessageHeader) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Event != nil {
+		s += r.Event.MemSize()
+	}
+	for _, i := range r.Destination {
+		s += i.MemSize()
+	}
+	s += (cap(r.Destination) - len(r.Destination)) * int(unsafe.Sizeof(MessageHeaderDestination{}))
+	if r.Sender != nil {
+		s += r.Sender.MemSize()
+	}
+	if r.Enterer != nil {
+		s += r.Enterer.MemSize()
+	}
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	s += r.Source.MemSize() - int(unsafe.Sizeof(r.Source))
+	if r.Responsible != nil {
+		s += r.Responsible.MemSize()
+	}
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	if r.Response != nil {
+		s += r.Response.MemSize()
+	}
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	return s
+}
+func (r MessageHeaderDestination) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Target != nil {
+		s += r.Target.MemSize()
+	}
+	s += r.Endpoint.MemSize() - int(unsafe.Sizeof(r.Endpoint))
+	if r.Receiver != nil {
+		s += r.Receiver.MemSize()
+	}
+	return s
+}
+func (r MessageHeaderSource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Software != nil {
+		s += r.Software.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Contact != nil {
+		s += r.Contact.MemSize()
+	}
+	s += r.Endpoint.MemSize() - int(unsafe.Sizeof(r.Endpoint))
+	return s
+}
+func (r MessageHeaderResponse) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Identifier.MemSize() - int(unsafe.Sizeof(r.Identifier))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Details != nil {
+		s += r.Details.MemSize()
+	}
+	return s
 }
 func (r MessageHeader) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

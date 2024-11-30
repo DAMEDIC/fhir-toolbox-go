@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A slot of time on a schedule that may be available for booking appointments.
@@ -64,6 +65,67 @@ func (r Slot) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Slot) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.ServiceCategory {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Specialty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AppointmentType != nil {
+		s += r.AppointmentType.MemSize()
+	}
+	s += r.Schedule.MemSize() - int(unsafe.Sizeof(r.Schedule))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Start.MemSize() - int(unsafe.Sizeof(r.Start))
+	s += r.End.MemSize() - int(unsafe.Sizeof(r.End))
+	if r.Overbooked != nil {
+		s += r.Overbooked.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	return s
 }
 func (r Slot) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

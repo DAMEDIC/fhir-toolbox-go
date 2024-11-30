@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A search parameter that defines a named search item that can be used to search/filter on a resource.
@@ -93,6 +94,7 @@ type SearchParameter struct {
 	Component []SearchParameterComponent
 }
 type isSearchParameterVersionAlgorithm interface {
+	model.Element
 	isSearchParameterVersionAlgorithm()
 }
 
@@ -126,6 +128,146 @@ func (r SearchParameter) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SearchParameter) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.DerivedFrom != nil {
+		s += r.DerivedFrom.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.Base {
+		s += i.MemSize()
+	}
+	s += (cap(r.Base) - len(r.Base)) * int(unsafe.Sizeof(Code{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	if r.ProcessingMode != nil {
+		s += r.ProcessingMode.MemSize()
+	}
+	if r.Constraint != nil {
+		s += r.Constraint.MemSize()
+	}
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(Code{}))
+	if r.MultipleOr != nil {
+		s += r.MultipleOr.MemSize()
+	}
+	if r.MultipleAnd != nil {
+		s += r.MultipleAnd.MemSize()
+	}
+	for _, i := range r.Comparator {
+		s += i.MemSize()
+	}
+	s += (cap(r.Comparator) - len(r.Comparator)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.Modifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.Chain {
+		s += i.MemSize()
+	}
+	s += (cap(r.Chain) - len(r.Chain)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Component {
+		s += i.MemSize()
+	}
+	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(SearchParameterComponent{}))
+	return s
+}
+func (r SearchParameterComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Definition.MemSize() - int(unsafe.Sizeof(r.Definition))
+	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	return s
 }
 func (r SearchParameter) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for CodeableConcept Type: A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.
@@ -22,6 +23,24 @@ type CodeableConcept struct {
 	Text *String
 }
 
+func (r CodeableConcept) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Coding {
+		s += i.MemSize()
+	}
+	s += (cap(r.Coding) - len(r.Coding)) * int(unsafe.Sizeof(Coding{}))
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	return s
+}
 func (r CodeableConcept) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

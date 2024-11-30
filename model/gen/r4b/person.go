@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Demographics and administrative information about a person independent of a specific health-related context.
@@ -80,6 +81,92 @@ func (r Person) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Person) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(HumanName{}))
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.Gender != nil {
+		s += r.Gender.MemSize()
+	}
+	if r.BirthDate != nil {
+		s += r.BirthDate.MemSize()
+	}
+	for _, i := range r.Address {
+		s += i.MemSize()
+	}
+	s += (cap(r.Address) - len(r.Address)) * int(unsafe.Sizeof(Address{}))
+	if r.Photo != nil {
+		s += r.Photo.MemSize()
+	}
+	if r.ManagingOrganization != nil {
+		s += r.ManagingOrganization.MemSize()
+	}
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(PersonLink{}))
+	return s
+}
+func (r PersonLink) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Target.MemSize() - int(unsafe.Sizeof(r.Target))
+	if r.Assurance != nil {
+		s += r.Assurance.MemSize()
+	}
+	return s
 }
 func (r Person) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

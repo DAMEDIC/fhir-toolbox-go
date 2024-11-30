@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Ratio Type: A relationship of two Quantity values - expressed as a numerator and a denominator.
@@ -22,6 +23,23 @@ type Ratio struct {
 	Denominator *Quantity
 }
 
+func (r Ratio) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Numerator != nil {
+		s += r.Numerator.MemSize()
+	}
+	if r.Denominator != nil {
+		s += r.Denominator.MemSize()
+	}
+	return s
+}
 func (r Ratio) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The SubscriptionStatus resource describes the state of a Subscription during notifications.
@@ -76,6 +77,83 @@ func (r SubscriptionStatus) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SubscriptionStatus) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.EventsSinceSubscriptionStart != nil {
+		s += r.EventsSinceSubscriptionStart.MemSize()
+	}
+	for _, i := range r.NotificationEvent {
+		s += i.MemSize()
+	}
+	s += (cap(r.NotificationEvent) - len(r.NotificationEvent)) * int(unsafe.Sizeof(SubscriptionStatusNotificationEvent{}))
+	s += r.Subscription.MemSize() - int(unsafe.Sizeof(r.Subscription))
+	if r.Topic != nil {
+		s += r.Topic.MemSize()
+	}
+	for _, i := range r.Error {
+		s += i.MemSize()
+	}
+	s += (cap(r.Error) - len(r.Error)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r SubscriptionStatusNotificationEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.EventNumber.MemSize() - int(unsafe.Sizeof(r.EventNumber))
+	if r.Timestamp != nil {
+		s += r.Timestamp.MemSize()
+	}
+	if r.Focus != nil {
+		s += r.Focus.MemSize()
+	}
+	for _, i := range r.AdditionalContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalContext) - len(r.AdditionalContext)) * int(unsafe.Sizeof(Reference{}))
+	return s
 }
 func (r SubscriptionStatus) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

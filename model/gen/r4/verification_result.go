@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Describes validation requirements, source(s), status and dates for one or more elements.
@@ -142,6 +143,183 @@ func (r VerificationResult) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r VerificationResult) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.TargetLocation {
+		s += i.MemSize()
+	}
+	s += (cap(r.TargetLocation) - len(r.TargetLocation)) * int(unsafe.Sizeof(String{}))
+	if r.Need != nil {
+		s += r.Need.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.StatusDate != nil {
+		s += r.StatusDate.MemSize()
+	}
+	if r.ValidationType != nil {
+		s += r.ValidationType.MemSize()
+	}
+	for _, i := range r.ValidationProcess {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValidationProcess) - len(r.ValidationProcess)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Frequency != nil {
+		s += r.Frequency.MemSize()
+	}
+	if r.LastPerformed != nil {
+		s += r.LastPerformed.MemSize()
+	}
+	if r.NextScheduled != nil {
+		s += r.NextScheduled.MemSize()
+	}
+	if r.FailureAction != nil {
+		s += r.FailureAction.MemSize()
+	}
+	for _, i := range r.PrimarySource {
+		s += i.MemSize()
+	}
+	s += (cap(r.PrimarySource) - len(r.PrimarySource)) * int(unsafe.Sizeof(VerificationResultPrimarySource{}))
+	if r.Attestation != nil {
+		s += r.Attestation.MemSize()
+	}
+	for _, i := range r.Validator {
+		s += i.MemSize()
+	}
+	s += (cap(r.Validator) - len(r.Validator)) * int(unsafe.Sizeof(VerificationResultValidator{}))
+	return s
+}
+func (r VerificationResultPrimarySource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Who != nil {
+		s += r.Who.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.CommunicationMethod {
+		s += i.MemSize()
+	}
+	s += (cap(r.CommunicationMethod) - len(r.CommunicationMethod)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.ValidationStatus != nil {
+		s += r.ValidationStatus.MemSize()
+	}
+	if r.ValidationDate != nil {
+		s += r.ValidationDate.MemSize()
+	}
+	if r.CanPushUpdates != nil {
+		s += r.CanPushUpdates.MemSize()
+	}
+	for _, i := range r.PushTypeAvailable {
+		s += i.MemSize()
+	}
+	s += (cap(r.PushTypeAvailable) - len(r.PushTypeAvailable)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r VerificationResultAttestation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Who != nil {
+		s += r.Who.MemSize()
+	}
+	if r.OnBehalfOf != nil {
+		s += r.OnBehalfOf.MemSize()
+	}
+	if r.CommunicationMethod != nil {
+		s += r.CommunicationMethod.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.SourceIdentityCertificate != nil {
+		s += r.SourceIdentityCertificate.MemSize()
+	}
+	if r.ProxyIdentityCertificate != nil {
+		s += r.ProxyIdentityCertificate.MemSize()
+	}
+	if r.ProxySignature != nil {
+		s += r.ProxySignature.MemSize()
+	}
+	if r.SourceSignature != nil {
+		s += r.SourceSignature.MemSize()
+	}
+	return s
+}
+func (r VerificationResultValidator) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Organization.MemSize() - int(unsafe.Sizeof(r.Organization))
+	if r.IdentityCertificate != nil {
+		s += r.IdentityCertificate.MemSize()
+	}
+	if r.AttestationSignature != nil {
+		s += r.AttestationSignature.MemSize()
+	}
+	return s
 }
 func (r VerificationResult) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

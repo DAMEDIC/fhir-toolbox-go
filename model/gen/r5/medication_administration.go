@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Describes the event of a patient consuming or otherwise being administered a medication.  This may be as simple as swallowing a tablet or it may be a long running infusion. Related resources tie this event to the authorizing prescription, and the specific encounter between patient and health care practitioner. This event can also be used to record waste using a status of not-done and the appropriate statusReason.
@@ -73,6 +74,7 @@ type MedicationAdministration struct {
 	EventHistory []Reference
 }
 type isMedicationAdministrationOccurence interface {
+	model.Element
 	isMedicationAdministrationOccurence()
 }
 
@@ -120,6 +122,7 @@ type MedicationAdministrationDosage struct {
 	Rate isMedicationAdministrationDosageRate
 }
 type isMedicationAdministrationDosageRate interface {
+	model.Element
 	isMedicationAdministrationDosageRate()
 }
 
@@ -136,6 +139,159 @@ func (r MedicationAdministration) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicationAdministration) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.StatusReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Medication.MemSize() - int(unsafe.Sizeof(r.Medication))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	for _, i := range r.SupportingInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	if r.Occurence != nil {
+		s += r.Occurence.MemSize()
+	}
+	if r.Recorded != nil {
+		s += r.Recorded.MemSize()
+	}
+	if r.IsSubPotent != nil {
+		s += r.IsSubPotent.MemSize()
+	}
+	for _, i := range r.SubPotentReason {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubPotentReason) - len(r.SubPotentReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(MedicationAdministrationPerformer{}))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.Request != nil {
+		s += r.Request.MemSize()
+	}
+	for _, i := range r.Device {
+		s += i.MemSize()
+	}
+	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Dosage != nil {
+		s += r.Dosage.MemSize()
+	}
+	for _, i := range r.EventHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.EventHistory) - len(r.EventHistory)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r MedicationAdministrationPerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
+}
+func (r MedicationAdministrationDosage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	if r.Site != nil {
+		s += r.Site.MemSize()
+	}
+	if r.Route != nil {
+		s += r.Route.MemSize()
+	}
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	if r.Dose != nil {
+		s += r.Dose.MemSize()
+	}
+	if r.Rate != nil {
+		s += r.Rate.MemSize()
+	}
+	return s
 }
 func (r MedicationAdministration) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Meta Type: The metadata about a resource. This is content in the resource that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource.
@@ -28,6 +29,38 @@ type Meta struct {
 	Tag []Coding
 }
 
+func (r Meta) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.VersionId != nil {
+		s += r.VersionId.MemSize()
+	}
+	if r.LastUpdated != nil {
+		s += r.LastUpdated.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Security {
+		s += i.MemSize()
+	}
+	s += (cap(r.Security) - len(r.Security)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.Tag {
+		s += i.MemSize()
+	}
+	s += (cap(r.Tag) - len(r.Tag)) * int(unsafe.Sizeof(Coding{}))
+	return s
+}
 func (r Meta) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

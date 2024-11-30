@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Permission resource holds access rules for a given data and context.
@@ -146,6 +147,184 @@ func (r Permission) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Permission) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Asserter != nil {
+		s += r.Asserter.MemSize()
+	}
+	for _, i := range r.Date {
+		s += i.MemSize()
+	}
+	s += (cap(r.Date) - len(r.Date)) * int(unsafe.Sizeof(DateTime{}))
+	if r.Validity != nil {
+		s += r.Validity.MemSize()
+	}
+	if r.Justification != nil {
+		s += r.Justification.MemSize()
+	}
+	s += r.Combining.MemSize() - int(unsafe.Sizeof(r.Combining))
+	for _, i := range r.Rule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rule) - len(r.Rule)) * int(unsafe.Sizeof(PermissionRule{}))
+	return s
+}
+func (r PermissionJustification) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Basis {
+		s += i.MemSize()
+	}
+	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Evidence {
+		s += i.MemSize()
+	}
+	s += (cap(r.Evidence) - len(r.Evidence)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r PermissionRule) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Data {
+		s += i.MemSize()
+	}
+	s += (cap(r.Data) - len(r.Data)) * int(unsafe.Sizeof(PermissionRuleData{}))
+	for _, i := range r.Activity {
+		s += i.MemSize()
+	}
+	s += (cap(r.Activity) - len(r.Activity)) * int(unsafe.Sizeof(PermissionRuleActivity{}))
+	for _, i := range r.Limit {
+		s += i.MemSize()
+	}
+	s += (cap(r.Limit) - len(r.Limit)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
+}
+func (r PermissionRuleData) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Resource {
+		s += i.MemSize()
+	}
+	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(PermissionRuleDataResource{}))
+	for _, i := range r.Security {
+		s += i.MemSize()
+	}
+	s += (cap(r.Security) - len(r.Security)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.Period {
+		s += i.MemSize()
+	}
+	s += (cap(r.Period) - len(r.Period)) * int(unsafe.Sizeof(Period{}))
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	return s
+}
+func (r PermissionRuleDataResource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Meaning.MemSize() - int(unsafe.Sizeof(r.Meaning))
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	return s
+}
+func (r PermissionRuleActivity) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Actor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Purpose {
+		s += i.MemSize()
+	}
+	s += (cap(r.Purpose) - len(r.Purpose)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
 }
 func (r Permission) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

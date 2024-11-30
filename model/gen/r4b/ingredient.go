@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An ingredient of a manufactured item or pharmaceutical product.
@@ -105,6 +106,7 @@ type IngredientSubstanceStrength struct {
 	ReferenceStrength []IngredientSubstanceStrengthReferenceStrength
 }
 type isIngredientSubstanceStrengthPresentation interface {
+	model.Element
 	isIngredientSubstanceStrengthPresentation()
 }
 
@@ -112,6 +114,7 @@ func (r Ratio) isIngredientSubstanceStrengthPresentation()      {}
 func (r RatioRange) isIngredientSubstanceStrengthPresentation() {}
 
 type isIngredientSubstanceStrengthConcentration interface {
+	model.Element
 	isIngredientSubstanceStrengthConcentration()
 }
 
@@ -138,6 +141,7 @@ type IngredientSubstanceStrengthReferenceStrength struct {
 	Country []CodeableConcept
 }
 type isIngredientSubstanceStrengthReferenceStrengthStrength interface {
+	model.Element
 	isIngredientSubstanceStrengthReferenceStrengthStrength()
 }
 
@@ -154,6 +158,164 @@ func (r Ingredient) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Ingredient) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.For {
+		s += i.MemSize()
+	}
+	s += (cap(r.For) - len(r.For)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	for _, i := range r.Function {
+		s += i.MemSize()
+	}
+	s += (cap(r.Function) - len(r.Function)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AllergenicIndicator != nil {
+		s += r.AllergenicIndicator.MemSize()
+	}
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(IngredientManufacturer{}))
+	s += r.Substance.MemSize() - int(unsafe.Sizeof(r.Substance))
+	return s
+}
+func (r IngredientManufacturer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	s += r.Manufacturer.MemSize() - int(unsafe.Sizeof(r.Manufacturer))
+	return s
+}
+func (r IngredientSubstance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.Strength {
+		s += i.MemSize()
+	}
+	s += (cap(r.Strength) - len(r.Strength)) * int(unsafe.Sizeof(IngredientSubstanceStrength{}))
+	return s
+}
+func (r IngredientSubstanceStrength) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Presentation != nil {
+		s += r.Presentation.MemSize()
+	}
+	if r.TextPresentation != nil {
+		s += r.TextPresentation.MemSize()
+	}
+	if r.Concentration != nil {
+		s += r.Concentration.MemSize()
+	}
+	if r.TextConcentration != nil {
+		s += r.TextConcentration.MemSize()
+	}
+	if r.MeasurementPoint != nil {
+		s += r.MeasurementPoint.MemSize()
+	}
+	for _, i := range r.Country {
+		s += i.MemSize()
+	}
+	s += (cap(r.Country) - len(r.Country)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReferenceStrength {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferenceStrength) - len(r.ReferenceStrength)) * int(unsafe.Sizeof(IngredientSubstanceStrengthReferenceStrength{}))
+	return s
+}
+func (r IngredientSubstanceStrengthReferenceStrength) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Substance != nil {
+		s += r.Substance.MemSize()
+	}
+	if r.Strength != nil {
+		s += r.Strength.MemSize()
+	}
+	if r.MeasurementPoint != nil {
+		s += r.MeasurementPoint.MemSize()
+	}
+	for _, i := range r.Country {
+		s += i.MemSize()
+	}
+	s += (cap(r.Country) - len(r.Country)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
 }
 func (r Ingredient) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // functional description of an inventory item used in inventory and supply-related workflows.
@@ -143,6 +144,7 @@ type InventoryItemCharacteristic struct {
 	Value isInventoryItemCharacteristicValue
 }
 type isInventoryItemCharacteristicValue interface {
+	model.Element
 	isInventoryItemCharacteristicValue()
 }
 
@@ -193,6 +195,210 @@ func (r InventoryItem) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r InventoryItem) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(InventoryItemName{}))
+	for _, i := range r.ResponsibleOrganization {
+		s += i.MemSize()
+	}
+	s += (cap(r.ResponsibleOrganization) - len(r.ResponsibleOrganization)) * int(unsafe.Sizeof(InventoryItemResponsibleOrganization{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.InventoryStatus {
+		s += i.MemSize()
+	}
+	s += (cap(r.InventoryStatus) - len(r.InventoryStatus)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.BaseUnit != nil {
+		s += r.BaseUnit.MemSize()
+	}
+	if r.NetContent != nil {
+		s += r.NetContent.MemSize()
+	}
+	for _, i := range r.Association {
+		s += i.MemSize()
+	}
+	s += (cap(r.Association) - len(r.Association)) * int(unsafe.Sizeof(InventoryItemAssociation{}))
+	for _, i := range r.Characteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(unsafe.Sizeof(InventoryItemCharacteristic{}))
+	if r.Instance != nil {
+		s += r.Instance.MemSize()
+	}
+	if r.ProductReference != nil {
+		s += r.ProductReference.MemSize()
+	}
+	return s
+}
+func (r InventoryItemName) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.NameType.MemSize() - int(unsafe.Sizeof(r.NameType))
+	s += r.Language.MemSize() - int(unsafe.Sizeof(r.Language))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	return s
+}
+func (r InventoryItemResponsibleOrganization) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	s += r.Organization.MemSize() - int(unsafe.Sizeof(r.Organization))
+	return s
+}
+func (r InventoryItemDescription) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	return s
+}
+func (r InventoryItemAssociation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.AssociationType.MemSize() - int(unsafe.Sizeof(r.AssociationType))
+	s += r.RelatedItem.MemSize() - int(unsafe.Sizeof(r.RelatedItem))
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	return s
+}
+func (r InventoryItemCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.CharacteristicType.MemSize() - int(unsafe.Sizeof(r.CharacteristicType))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r InventoryItemInstance) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.LotNumber != nil {
+		s += r.LotNumber.MemSize()
+	}
+	if r.Expiry != nil {
+		s += r.Expiry.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	return s
 }
 func (r InventoryItem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

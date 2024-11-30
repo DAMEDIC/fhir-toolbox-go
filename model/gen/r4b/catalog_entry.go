@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Catalog entries are wrappers that contextualize items included in a catalog.
@@ -84,6 +85,96 @@ func (r CatalogEntry) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r CatalogEntry) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	s += r.Orderable.MemSize() - int(unsafe.Sizeof(r.Orderable))
+	s += r.ReferencedItem.MemSize() - int(unsafe.Sizeof(r.ReferencedItem))
+	for _, i := range r.AdditionalIdentifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalIdentifier) - len(r.AdditionalIdentifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.Classification {
+		s += i.MemSize()
+	}
+	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.ValidityPeriod != nil {
+		s += r.ValidityPeriod.MemSize()
+	}
+	if r.ValidTo != nil {
+		s += r.ValidTo.MemSize()
+	}
+	if r.LastUpdated != nil {
+		s += r.LastUpdated.MemSize()
+	}
+	for _, i := range r.AdditionalCharacteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalCharacteristic) - len(r.AdditionalCharacteristic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.AdditionalClassification {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalClassification) - len(r.AdditionalClassification)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.RelatedEntry {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedEntry) - len(r.RelatedEntry)) * int(unsafe.Sizeof(CatalogEntryRelatedEntry{}))
+	return s
+}
+func (r CatalogEntryRelatedEntry) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Relationtype.MemSize() - int(unsafe.Sizeof(r.Relationtype))
+	s += r.Item.MemSize() - int(unsafe.Sizeof(r.Item))
+	return s
 }
 func (r CatalogEntry) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

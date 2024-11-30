@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of a request for a medication, substance or device used in the healthcare setting.
@@ -61,6 +62,7 @@ type SupplyRequest struct {
 	DeliverTo *Reference
 }
 type isSupplyRequestItem interface {
+	model.Element
 	isSupplyRequestItem()
 }
 
@@ -68,6 +70,7 @@ func (r CodeableConcept) isSupplyRequestItem() {}
 func (r Reference) isSupplyRequestItem()       {}
 
 type isSupplyRequestOccurrence interface {
+	model.Element
 	isSupplyRequestOccurrence()
 }
 
@@ -91,6 +94,7 @@ type SupplyRequestParameter struct {
 	Value isSupplyRequestParameterValue
 }
 type isSupplyRequestParameterValue interface {
+	model.Element
 	isSupplyRequestParameterValue()
 }
 
@@ -109,6 +113,107 @@ func (r SupplyRequest) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r SupplyRequest) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Item != nil {
+		s += r.Item.MemSize()
+	}
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(SupplyRequestParameter{}))
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.AuthoredOn != nil {
+		s += r.AuthoredOn.MemSize()
+	}
+	if r.Requester != nil {
+		s += r.Requester.MemSize()
+	}
+	for _, i := range r.Supplier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Supplier) - len(r.Supplier)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ReasonCode {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ReasonReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	if r.DeliverFrom != nil {
+		s += r.DeliverFrom.MemSize()
+	}
+	if r.DeliverTo != nil {
+		s += r.DeliverTo.MemSize()
+	}
+	return s
+}
+func (r SupplyRequestParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r SupplyRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

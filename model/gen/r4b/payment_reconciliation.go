@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource provides the details including amount of a payment and allocates the payment items being paid.
@@ -120,6 +121,142 @@ func (r PaymentReconciliation) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r PaymentReconciliation) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	if r.PaymentIssuer != nil {
+		s += r.PaymentIssuer.MemSize()
+	}
+	if r.Request != nil {
+		s += r.Request.MemSize()
+	}
+	if r.Requestor != nil {
+		s += r.Requestor.MemSize()
+	}
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	if r.Disposition != nil {
+		s += r.Disposition.MemSize()
+	}
+	s += r.PaymentDate.MemSize() - int(unsafe.Sizeof(r.PaymentDate))
+	s += r.PaymentAmount.MemSize() - int(unsafe.Sizeof(r.PaymentAmount))
+	if r.PaymentIdentifier != nil {
+		s += r.PaymentIdentifier.MemSize()
+	}
+	for _, i := range r.Detail {
+		s += i.MemSize()
+	}
+	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(PaymentReconciliationDetail{}))
+	if r.FormCode != nil {
+		s += r.FormCode.MemSize()
+	}
+	for _, i := range r.ProcessNote {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProcessNote) - len(r.ProcessNote)) * int(unsafe.Sizeof(PaymentReconciliationProcessNote{}))
+	return s
+}
+func (r PaymentReconciliationDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Predecessor != nil {
+		s += r.Predecessor.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Request != nil {
+		s += r.Request.MemSize()
+	}
+	if r.Submitter != nil {
+		s += r.Submitter.MemSize()
+	}
+	if r.Response != nil {
+		s += r.Response.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Responsible != nil {
+		s += r.Responsible.MemSize()
+	}
+	if r.Payee != nil {
+		s += r.Payee.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r PaymentReconciliationProcessNote) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	return s
 }
 func (r PaymentReconciliation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

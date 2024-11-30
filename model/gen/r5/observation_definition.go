@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Set of definitional characteristics for a kind of observation or measurement produced or consumed by an orderable health care service.
@@ -107,6 +108,7 @@ type ObservationDefinition struct {
 	Component []ObservationDefinitionComponent
 }
 type isObservationDefinitionVersionAlgorithm interface {
+	model.Element
 	isObservationDefinitionVersionAlgorithm()
 }
 
@@ -180,6 +182,239 @@ func (r ObservationDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ObservationDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.DerivedFromCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFromCanonical) - len(r.DerivedFromCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.DerivedFromUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.PerformerType != nil {
+		s += r.PerformerType.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.PermittedDataType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(unsafe.Sizeof(Code{}))
+	if r.MultipleResultsAllowed != nil {
+		s += r.MultipleResultsAllowed.MemSize()
+	}
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	for _, i := range r.Specimen {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Device {
+		s += i.MemSize()
+	}
+	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	if r.PreferredReportName != nil {
+		s += r.PreferredReportName.MemSize()
+	}
+	for _, i := range r.PermittedUnit {
+		s += i.MemSize()
+	}
+	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.QualifiedValue {
+		s += i.MemSize()
+	}
+	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(unsafe.Sizeof(ObservationDefinitionQualifiedValue{}))
+	for _, i := range r.HasMember {
+		s += i.MemSize()
+	}
+	s += (cap(r.HasMember) - len(r.HasMember)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Component {
+		s += i.MemSize()
+	}
+	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ObservationDefinitionComponent{}))
+	return s
+}
+func (r ObservationDefinitionQualifiedValue) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Context != nil {
+		s += r.Context.MemSize()
+	}
+	for _, i := range r.AppliesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Gender != nil {
+		s += r.Gender.MemSize()
+	}
+	if r.Age != nil {
+		s += r.Age.MemSize()
+	}
+	if r.GestationalAge != nil {
+		s += r.GestationalAge.MemSize()
+	}
+	if r.Condition != nil {
+		s += r.Condition.MemSize()
+	}
+	if r.RangeCategory != nil {
+		s += r.RangeCategory.MemSize()
+	}
+	if r.Range != nil {
+		s += r.Range.MemSize()
+	}
+	if r.ValidCodedValueSet != nil {
+		s += r.ValidCodedValueSet.MemSize()
+	}
+	if r.NormalCodedValueSet != nil {
+		s += r.NormalCodedValueSet.MemSize()
+	}
+	if r.AbnormalCodedValueSet != nil {
+		s += r.AbnormalCodedValueSet.MemSize()
+	}
+	if r.CriticalCodedValueSet != nil {
+		s += r.CriticalCodedValueSet.MemSize()
+	}
+	return s
+}
+func (r ObservationDefinitionComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.PermittedDataType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.PermittedUnit {
+		s += i.MemSize()
+	}
+	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.QualifiedValue {
+		s += i.MemSize()
+	}
+	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(unsafe.Sizeof(ObservationDefinitionQualifiedValue{}))
+	return s
 }
 func (r ObservationDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

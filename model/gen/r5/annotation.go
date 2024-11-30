@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Annotation Type: A  text note which also  contains information about who made the statement and when.
@@ -22,11 +24,30 @@ type Annotation struct {
 	Text Markdown
 }
 type isAnnotationAuthor interface {
+	model.Element
 	isAnnotationAuthor()
 }
 
 func (r Reference) isAnnotationAuthor() {}
 func (r String) isAnnotationAuthor()    {}
+func (r Annotation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	if r.Time != nil {
+		s += r.Time.MemSize()
+	}
+	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	return s
+}
 func (r Annotation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

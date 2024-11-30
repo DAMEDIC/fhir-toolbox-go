@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // date Type: A date or partial date (e.g. just year or year + month). There is no UTC offset. The format is a union of the schema types gYear, gYearMonth and date.  Dates SHALL be valid dates.
@@ -17,6 +18,20 @@ type Date struct {
 	Value *string
 }
 
+func (r Date) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Date) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

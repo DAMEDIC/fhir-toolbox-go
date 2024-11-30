@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // markdown type: A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation engine
@@ -17,6 +18,20 @@ type Markdown struct {
 	Value *string
 }
 
+func (r Markdown) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Markdown) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

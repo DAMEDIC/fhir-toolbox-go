@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.
@@ -191,6 +192,7 @@ type NutritionOrderEnteralFormulaAdministration struct {
 	Rate isNutritionOrderEnteralFormulaAdministrationRate
 }
 type isNutritionOrderEnteralFormulaAdministrationRate interface {
+	model.Element
 	isNutritionOrderEnteralFormulaAdministrationRate()
 }
 
@@ -207,6 +209,268 @@ func (r NutritionOrder) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r NutritionOrder) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.Instantiates {
+		s += i.MemSize()
+	}
+	s += (cap(r.Instantiates) - len(r.Instantiates)) * int(unsafe.Sizeof(Uri{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	s += r.DateTime.MemSize() - int(unsafe.Sizeof(r.DateTime))
+	if r.Orderer != nil {
+		s += r.Orderer.MemSize()
+	}
+	for _, i := range r.AllergyIntolerance {
+		s += i.MemSize()
+	}
+	s += (cap(r.AllergyIntolerance) - len(r.AllergyIntolerance)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.FoodPreferenceModifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.FoodPreferenceModifier) - len(r.FoodPreferenceModifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ExcludeFoodModifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.ExcludeFoodModifier) - len(r.ExcludeFoodModifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.OralDiet != nil {
+		s += r.OralDiet.MemSize()
+	}
+	for _, i := range r.Supplement {
+		s += i.MemSize()
+	}
+	s += (cap(r.Supplement) - len(r.Supplement)) * int(unsafe.Sizeof(NutritionOrderSupplement{}))
+	if r.EnteralFormula != nil {
+		s += r.EnteralFormula.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r NutritionOrderOralDiet) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Schedule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Schedule) - len(r.Schedule)) * int(unsafe.Sizeof(Timing{}))
+	for _, i := range r.Nutrient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Nutrient) - len(r.Nutrient)) * int(unsafe.Sizeof(NutritionOrderOralDietNutrient{}))
+	for _, i := range r.Texture {
+		s += i.MemSize()
+	}
+	s += (cap(r.Texture) - len(r.Texture)) * int(unsafe.Sizeof(NutritionOrderOralDietTexture{}))
+	for _, i := range r.FluidConsistencyType {
+		s += i.MemSize()
+	}
+	s += (cap(r.FluidConsistencyType) - len(r.FluidConsistencyType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Instruction != nil {
+		s += r.Instruction.MemSize()
+	}
+	return s
+}
+func (r NutritionOrderOralDietNutrient) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Modifier != nil {
+		s += r.Modifier.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
+func (r NutritionOrderOralDietTexture) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Modifier != nil {
+		s += r.Modifier.MemSize()
+	}
+	if r.FoodType != nil {
+		s += r.FoodType.MemSize()
+	}
+	return s
+}
+func (r NutritionOrderSupplement) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.ProductName != nil {
+		s += r.ProductName.MemSize()
+	}
+	for _, i := range r.Schedule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Schedule) - len(r.Schedule)) * int(unsafe.Sizeof(Timing{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Instruction != nil {
+		s += r.Instruction.MemSize()
+	}
+	return s
+}
+func (r NutritionOrderEnteralFormula) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.BaseFormulaType != nil {
+		s += r.BaseFormulaType.MemSize()
+	}
+	if r.BaseFormulaProductName != nil {
+		s += r.BaseFormulaProductName.MemSize()
+	}
+	if r.AdditiveType != nil {
+		s += r.AdditiveType.MemSize()
+	}
+	if r.AdditiveProductName != nil {
+		s += r.AdditiveProductName.MemSize()
+	}
+	if r.CaloricDensity != nil {
+		s += r.CaloricDensity.MemSize()
+	}
+	if r.RouteofAdministration != nil {
+		s += r.RouteofAdministration.MemSize()
+	}
+	for _, i := range r.Administration {
+		s += i.MemSize()
+	}
+	s += (cap(r.Administration) - len(r.Administration)) * int(unsafe.Sizeof(NutritionOrderEnteralFormulaAdministration{}))
+	if r.MaxVolumeToDeliver != nil {
+		s += r.MaxVolumeToDeliver.MemSize()
+	}
+	if r.AdministrationInstruction != nil {
+		s += r.AdministrationInstruction.MemSize()
+	}
+	return s
+}
+func (r NutritionOrderEnteralFormulaAdministration) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Schedule != nil {
+		s += r.Schedule.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Rate != nil {
+		s += r.Rate.MemSize()
+	}
+	return s
 }
 func (r NutritionOrder) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

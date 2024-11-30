@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A set of rules of how a particular interoperability or standards problem is solved - typically through the use of FHIR resources. This resource is used to gather all the parts of an implementation guide into a logical whole and to publish a computable definition of all the parts.
@@ -81,6 +82,7 @@ type ImplementationGuide struct {
 	Manifest *ImplementationGuideManifest
 }
 type isImplementationGuideVersionAlgorithm interface {
+	model.Element
 	isImplementationGuideVersionAlgorithm()
 }
 
@@ -209,6 +211,7 @@ type ImplementationGuideDefinitionPage struct {
 	Page []ImplementationGuideDefinitionPage
 }
 type isImplementationGuideDefinitionPageSource interface {
+	model.Element
 	isImplementationGuideDefinitionPageSource()
 }
 
@@ -321,6 +324,385 @@ func (r ImplementationGuide) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ImplementationGuide) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	s += r.PackageId.MemSize() - int(unsafe.Sizeof(r.PackageId))
+	if r.License != nil {
+		s += r.License.MemSize()
+	}
+	for _, i := range r.FhirVersion {
+		s += i.MemSize()
+	}
+	s += (cap(r.FhirVersion) - len(r.FhirVersion)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.DependsOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.DependsOn) - len(r.DependsOn)) * int(unsafe.Sizeof(ImplementationGuideDependsOn{}))
+	for _, i := range r.Global {
+		s += i.MemSize()
+	}
+	s += (cap(r.Global) - len(r.Global)) * int(unsafe.Sizeof(ImplementationGuideGlobal{}))
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	if r.Manifest != nil {
+		s += r.Manifest.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideDependsOn) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Uri.MemSize() - int(unsafe.Sizeof(r.Uri))
+	if r.PackageId != nil {
+		s += r.PackageId.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideGlobal) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Profile.MemSize() - int(unsafe.Sizeof(r.Profile))
+	return s
+}
+func (r ImplementationGuideDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Grouping {
+		s += i.MemSize()
+	}
+	s += (cap(r.Grouping) - len(r.Grouping)) * int(unsafe.Sizeof(ImplementationGuideDefinitionGrouping{}))
+	for _, i := range r.Resource {
+		s += i.MemSize()
+	}
+	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(ImplementationGuideDefinitionResource{}))
+	if r.Page != nil {
+		s += r.Page.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ImplementationGuideDefinitionParameter{}))
+	for _, i := range r.Template {
+		s += i.MemSize()
+	}
+	s += (cap(r.Template) - len(r.Template)) * int(unsafe.Sizeof(ImplementationGuideDefinitionTemplate{}))
+	return s
+}
+func (r ImplementationGuideDefinitionGrouping) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideDefinitionResource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	for _, i := range r.FhirVersion {
+		s += i.MemSize()
+	}
+	s += (cap(r.FhirVersion) - len(r.FhirVersion)) * int(unsafe.Sizeof(Code{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.IsExample != nil {
+		s += r.IsExample.MemSize()
+	}
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	if r.GroupingId != nil {
+		s += r.GroupingId.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideDefinitionPage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += r.Generation.MemSize() - int(unsafe.Sizeof(r.Generation))
+	for _, i := range r.Page {
+		s += i.MemSize()
+	}
+	s += (cap(r.Page) - len(r.Page)) * int(unsafe.Sizeof(ImplementationGuideDefinitionPage{}))
+	return s
+}
+func (r ImplementationGuideDefinitionParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r ImplementationGuideDefinitionTemplate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Source.MemSize() - int(unsafe.Sizeof(r.Source))
+	if r.Scope != nil {
+		s += r.Scope.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideManifest) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Rendering != nil {
+		s += r.Rendering.MemSize()
+	}
+	for _, i := range r.Resource {
+		s += i.MemSize()
+	}
+	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(ImplementationGuideManifestResource{}))
+	for _, i := range r.Page {
+		s += i.MemSize()
+	}
+	s += (cap(r.Page) - len(r.Page)) * int(unsafe.Sizeof(ImplementationGuideManifestPage{}))
+	for _, i := range r.Image {
+		s += i.MemSize()
+	}
+	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Other {
+		s += i.MemSize()
+	}
+	s += (cap(r.Other) - len(r.Other)) * int(unsafe.Sizeof(String{}))
+	return s
+}
+func (r ImplementationGuideManifestResource) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	if r.IsExample != nil {
+		s += r.IsExample.MemSize()
+	}
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	if r.RelativePath != nil {
+		s += r.RelativePath.MemSize()
+	}
+	return s
+}
+func (r ImplementationGuideManifestPage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.Anchor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Anchor) - len(r.Anchor)) * int(unsafe.Sizeof(String{}))
+	return s
 }
 func (r ImplementationGuide) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

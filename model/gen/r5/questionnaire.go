@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A structured set of questions intended to guide the collection of answers from end-users. Questionnaires provide detailed control over order, presentation, phraseology and grouping to allow coherent, consistent data collection.
@@ -81,6 +82,7 @@ type Questionnaire struct {
 	Item []QuestionnaireItem
 }
 type isQuestionnaireVersionAlgorithm interface {
+	model.Element
 	isQuestionnaireVersionAlgorithm()
 }
 
@@ -153,6 +155,7 @@ type QuestionnaireItemEnableWhen struct {
 	Answer isQuestionnaireItemEnableWhenAnswer
 }
 type isQuestionnaireItemEnableWhenAnswer interface {
+	model.Element
 	isQuestionnaireItemEnableWhenAnswer()
 }
 
@@ -183,6 +186,7 @@ type QuestionnaireItemAnswerOption struct {
 	InitialSelected *Boolean
 }
 type isQuestionnaireItemAnswerOptionValue interface {
+	model.Element
 	isQuestionnaireItemAnswerOptionValue()
 }
 
@@ -207,6 +211,7 @@ type QuestionnaireItemInitial struct {
 	Value isQuestionnaireItemInitialValue
 }
 type isQuestionnaireItemInitialValue interface {
+	model.Element
 	isQuestionnaireItemInitialValue()
 }
 
@@ -233,6 +238,245 @@ func (r Questionnaire) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Questionnaire) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	for _, i := range r.DerivedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Canonical{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	for _, i := range r.SubjectType {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubjectType) - len(r.SubjectType)) * int(unsafe.Sizeof(Code{}))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.EffectivePeriod != nil {
+		s += r.EffectivePeriod.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(QuestionnaireItem{}))
+	return s
+}
+func (r QuestionnaireItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.LinkId.MemSize() - int(unsafe.Sizeof(r.LinkId))
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	if r.Prefix != nil {
+		s += r.Prefix.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.EnableWhen {
+		s += i.MemSize()
+	}
+	s += (cap(r.EnableWhen) - len(r.EnableWhen)) * int(unsafe.Sizeof(QuestionnaireItemEnableWhen{}))
+	if r.EnableBehavior != nil {
+		s += r.EnableBehavior.MemSize()
+	}
+	if r.DisabledDisplay != nil {
+		s += r.DisabledDisplay.MemSize()
+	}
+	if r.Required != nil {
+		s += r.Required.MemSize()
+	}
+	if r.Repeats != nil {
+		s += r.Repeats.MemSize()
+	}
+	if r.ReadOnly != nil {
+		s += r.ReadOnly.MemSize()
+	}
+	if r.MaxLength != nil {
+		s += r.MaxLength.MemSize()
+	}
+	if r.AnswerConstraint != nil {
+		s += r.AnswerConstraint.MemSize()
+	}
+	if r.AnswerValueSet != nil {
+		s += r.AnswerValueSet.MemSize()
+	}
+	for _, i := range r.AnswerOption {
+		s += i.MemSize()
+	}
+	s += (cap(r.AnswerOption) - len(r.AnswerOption)) * int(unsafe.Sizeof(QuestionnaireItemAnswerOption{}))
+	for _, i := range r.Initial {
+		s += i.MemSize()
+	}
+	s += (cap(r.Initial) - len(r.Initial)) * int(unsafe.Sizeof(QuestionnaireItemInitial{}))
+	for _, i := range r.Item {
+		s += i.MemSize()
+	}
+	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(QuestionnaireItem{}))
+	return s
+}
+func (r QuestionnaireItemEnableWhen) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Question.MemSize() - int(unsafe.Sizeof(r.Question))
+	s += r.Operator.MemSize() - int(unsafe.Sizeof(r.Operator))
+	if r.Answer != nil {
+		s += r.Answer.MemSize()
+	}
+	return s
+}
+func (r QuestionnaireItemAnswerOption) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.InitialSelected != nil {
+		s += r.InitialSelected.MemSize()
+	}
+	return s
+}
+func (r QuestionnaireItemInitial) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r Questionnaire) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

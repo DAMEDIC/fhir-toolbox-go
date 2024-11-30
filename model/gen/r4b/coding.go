@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Coding Type: A reference to a code defined by a terminology system.
@@ -28,6 +29,32 @@ type Coding struct {
 	UserSelected *Boolean
 }
 
+func (r Coding) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	if r.UserSelected != nil {
+		s += r.UserSelected.MemSize()
+	}
+	return s
+}
 func (r Coding) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

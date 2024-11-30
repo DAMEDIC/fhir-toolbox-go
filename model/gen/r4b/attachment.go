@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Attachment Type: For referring to data content defined in other formats.
@@ -34,6 +35,41 @@ type Attachment struct {
 	Creation *DateTime
 }
 
+func (r Attachment) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ContentType != nil {
+		s += r.ContentType.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Data != nil {
+		s += r.Data.MemSize()
+	}
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Size != nil {
+		s += r.Size.MemSize()
+	}
+	if r.Hash != nil {
+		s += r.Hash.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Creation != nil {
+		s += r.Creation.MemSize()
+	}
+	return s
+}
 func (r Attachment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

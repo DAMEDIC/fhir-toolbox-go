@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Dosage Type: Indicates how the medication is/was taken or should be taken by the patient.
@@ -62,6 +64,7 @@ type DosageDoseAndRate struct {
 	Rate isDosageDoseAndRateRate
 }
 type isDosageDoseAndRateDose interface {
+	model.Element
 	isDosageDoseAndRateDose()
 }
 
@@ -69,12 +72,94 @@ func (r Range) isDosageDoseAndRateDose()    {}
 func (r Quantity) isDosageDoseAndRateDose() {}
 
 type isDosageDoseAndRateRate interface {
+	model.Element
 	isDosageDoseAndRateRate()
 }
 
 func (r Ratio) isDosageDoseAndRateRate()    {}
 func (r Range) isDosageDoseAndRateRate()    {}
 func (r Quantity) isDosageDoseAndRateRate() {}
+func (r Dosage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.AdditionalInstruction {
+		s += i.MemSize()
+	}
+	s += (cap(r.AdditionalInstruction) - len(r.AdditionalInstruction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.PatientInstruction != nil {
+		s += r.PatientInstruction.MemSize()
+	}
+	if r.Timing != nil {
+		s += r.Timing.MemSize()
+	}
+	if r.AsNeeded != nil {
+		s += r.AsNeeded.MemSize()
+	}
+	for _, i := range r.AsNeededFor {
+		s += i.MemSize()
+	}
+	s += (cap(r.AsNeededFor) - len(r.AsNeededFor)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Site != nil {
+		s += r.Site.MemSize()
+	}
+	if r.Route != nil {
+		s += r.Route.MemSize()
+	}
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	for _, i := range r.DoseAndRate {
+		s += i.MemSize()
+	}
+	s += (cap(r.DoseAndRate) - len(r.DoseAndRate)) * int(unsafe.Sizeof(DosageDoseAndRate{}))
+	for _, i := range r.MaxDosePerPeriod {
+		s += i.MemSize()
+	}
+	s += (cap(r.MaxDosePerPeriod) - len(r.MaxDosePerPeriod)) * int(unsafe.Sizeof(Ratio{}))
+	if r.MaxDosePerAdministration != nil {
+		s += r.MaxDosePerAdministration.MemSize()
+	}
+	if r.MaxDosePerLifetime != nil {
+		s += r.MaxDosePerLifetime.MemSize()
+	}
+	return s
+}
+func (r DosageDoseAndRate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Dose != nil {
+		s += r.Dose.MemSize()
+	}
+	if r.Rate != nil {
+		s += r.Rate.MemSize()
+	}
+	return s
+}
 func (r Dosage) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

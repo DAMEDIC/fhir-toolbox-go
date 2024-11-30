@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The Evidence Resource provides a machine-interpretable expression of an evidence concept including the evidence variables (eg population, exposures/interventions, comparators, outcomes, measured variables, confounding variables), the statistics, and the certainty of this evidence.
@@ -81,6 +82,7 @@ type Evidence struct {
 	Certainty []EvidenceCertainty
 }
 type isEvidenceCiteAs interface {
+	model.Element
 	isEvidenceCiteAs()
 }
 
@@ -268,6 +270,365 @@ func (r Evidence) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Evidence) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.CiteAs != nil {
+		s += r.CiteAs.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	if r.ApprovalDate != nil {
+		s += r.ApprovalDate.MemSize()
+	}
+	if r.LastReviewDate != nil {
+		s += r.LastReviewDate.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Editor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Reviewer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.Endorser {
+		s += i.MemSize()
+	}
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	for _, i := range r.RelatedArtifact {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Assertion != nil {
+		s += r.Assertion.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.VariableDefinition {
+		s += i.MemSize()
+	}
+	s += (cap(r.VariableDefinition) - len(r.VariableDefinition)) * int(unsafe.Sizeof(EvidenceVariableDefinition{}))
+	if r.SynthesisType != nil {
+		s += r.SynthesisType.MemSize()
+	}
+	if r.StudyType != nil {
+		s += r.StudyType.MemSize()
+	}
+	for _, i := range r.Statistic {
+		s += i.MemSize()
+	}
+	s += (cap(r.Statistic) - len(r.Statistic)) * int(unsafe.Sizeof(EvidenceStatistic{}))
+	for _, i := range r.Certainty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Certainty) - len(r.Certainty)) * int(unsafe.Sizeof(EvidenceCertainty{}))
+	return s
+}
+func (r EvidenceVariableDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += r.VariableRole.MemSize() - int(unsafe.Sizeof(r.VariableRole))
+	if r.Observed != nil {
+		s += r.Observed.MemSize()
+	}
+	if r.Intended != nil {
+		s += r.Intended.MemSize()
+	}
+	if r.DirectnessMatch != nil {
+		s += r.DirectnessMatch.MemSize()
+	}
+	return s
+}
+func (r EvidenceStatistic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.StatisticType != nil {
+		s += r.StatisticType.MemSize()
+	}
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.NumberOfEvents != nil {
+		s += r.NumberOfEvents.MemSize()
+	}
+	if r.NumberAffected != nil {
+		s += r.NumberAffected.MemSize()
+	}
+	if r.SampleSize != nil {
+		s += r.SampleSize.MemSize()
+	}
+	for _, i := range r.AttributeEstimate {
+		s += i.MemSize()
+	}
+	s += (cap(r.AttributeEstimate) - len(r.AttributeEstimate)) * int(unsafe.Sizeof(EvidenceStatisticAttributeEstimate{}))
+	for _, i := range r.ModelCharacteristic {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModelCharacteristic) - len(r.ModelCharacteristic)) * int(unsafe.Sizeof(EvidenceStatisticModelCharacteristic{}))
+	return s
+}
+func (r EvidenceStatisticSampleSize) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.NumberOfStudies != nil {
+		s += r.NumberOfStudies.MemSize()
+	}
+	if r.NumberOfParticipants != nil {
+		s += r.NumberOfParticipants.MemSize()
+	}
+	if r.KnownDataCount != nil {
+		s += r.KnownDataCount.MemSize()
+	}
+	return s
+}
+func (r EvidenceStatisticAttributeEstimate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.Level != nil {
+		s += r.Level.MemSize()
+	}
+	if r.Range != nil {
+		s += r.Range.MemSize()
+	}
+	for _, i := range r.AttributeEstimate {
+		s += i.MemSize()
+	}
+	s += (cap(r.AttributeEstimate) - len(r.AttributeEstimate)) * int(unsafe.Sizeof(EvidenceStatisticAttributeEstimate{}))
+	return s
+}
+func (r EvidenceStatisticModelCharacteristic) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	for _, i := range r.Variable {
+		s += i.MemSize()
+	}
+	s += (cap(r.Variable) - len(r.Variable)) * int(unsafe.Sizeof(EvidenceStatisticModelCharacteristicVariable{}))
+	for _, i := range r.AttributeEstimate {
+		s += i.MemSize()
+	}
+	s += (cap(r.AttributeEstimate) - len(r.AttributeEstimate)) * int(unsafe.Sizeof(EvidenceStatisticAttributeEstimate{}))
+	return s
+}
+func (r EvidenceStatisticModelCharacteristicVariable) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.VariableDefinition.MemSize() - int(unsafe.Sizeof(r.VariableDefinition))
+	if r.Handling != nil {
+		s += r.Handling.MemSize()
+	}
+	for _, i := range r.ValueCategory {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueCategory) - len(r.ValueCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ValueQuantity {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueQuantity) - len(r.ValueQuantity)) * int(unsafe.Sizeof(Quantity{}))
+	for _, i := range r.ValueRange {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueRange) - len(r.ValueRange)) * int(unsafe.Sizeof(Range{}))
+	return s
+}
+func (r EvidenceCertainty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Rating != nil {
+		s += r.Rating.MemSize()
+	}
+	if r.Rater != nil {
+		s += r.Rater.MemSize()
+	}
+	for _, i := range r.Subcomponent {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subcomponent) - len(r.Subcomponent)) * int(unsafe.Sizeof(EvidenceCertainty{}))
+	return s
 }
 func (r Evidence) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

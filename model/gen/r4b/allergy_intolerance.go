@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance.
@@ -65,6 +66,7 @@ type AllergyIntolerance struct {
 	Reaction []AllergyIntoleranceReaction
 }
 type isAllergyIntoleranceOnset interface {
+	model.Element
 	isAllergyIntoleranceOnset()
 }
 
@@ -111,6 +113,126 @@ func (r AllergyIntolerance) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r AllergyIntolerance) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.ClinicalStatus != nil {
+		s += r.ClinicalStatus.MemSize()
+	}
+	if r.VerificationStatus != nil {
+		s += r.VerificationStatus.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(Code{}))
+	if r.Criticality != nil {
+		s += r.Criticality.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Onset != nil {
+		s += r.Onset.MemSize()
+	}
+	if r.RecordedDate != nil {
+		s += r.RecordedDate.MemSize()
+	}
+	if r.Recorder != nil {
+		s += r.Recorder.MemSize()
+	}
+	if r.Asserter != nil {
+		s += r.Asserter.MemSize()
+	}
+	if r.LastOccurrence != nil {
+		s += r.LastOccurrence.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Reaction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reaction) - len(r.Reaction)) * int(unsafe.Sizeof(AllergyIntoleranceReaction{}))
+	return s
+}
+func (r AllergyIntoleranceReaction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Substance != nil {
+		s += r.Substance.MemSize()
+	}
+	for _, i := range r.Manifestation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manifestation) - len(r.Manifestation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Onset != nil {
+		s += r.Onset.MemSize()
+	}
+	if r.Severity != nil {
+		s += r.Severity.MemSize()
+	}
+	if r.ExposureRoute != nil {
+		s += r.ExposureRoute.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
 }
 func (r AllergyIntolerance) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A formal computable definition of an operation (on the RESTful interface) or a named query (using the search interaction).
@@ -91,6 +92,7 @@ type OperationDefinition struct {
 	Overload []OperationDefinitionOverload
 }
 type isOperationDefinitionVersionAlgorithm interface {
+	model.Element
 	isOperationDefinitionVersionAlgorithm()
 }
 
@@ -194,6 +196,230 @@ func (r OperationDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r OperationDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	if r.AffectsState != nil {
+		s += r.AffectsState.MemSize()
+	}
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	if r.Base != nil {
+		s += r.Base.MemSize()
+	}
+	for _, i := range r.Resource {
+		s += i.MemSize()
+	}
+	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(Code{}))
+	s += r.System.MemSize() - int(unsafe.Sizeof(r.System))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Instance.MemSize() - int(unsafe.Sizeof(r.Instance))
+	if r.InputProfile != nil {
+		s += r.InputProfile.MemSize()
+	}
+	if r.OutputProfile != nil {
+		s += r.OutputProfile.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(OperationDefinitionParameter{}))
+	for _, i := range r.Overload {
+		s += i.MemSize()
+	}
+	s += (cap(r.Overload) - len(r.Overload)) * int(unsafe.Sizeof(OperationDefinitionOverload{}))
+	return s
+}
+func (r OperationDefinitionParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Use.MemSize() - int(unsafe.Sizeof(r.Use))
+	for _, i := range r.Scope {
+		s += i.MemSize()
+	}
+	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(Code{}))
+	s += r.Min.MemSize() - int(unsafe.Sizeof(r.Min))
+	s += r.Max.MemSize() - int(unsafe.Sizeof(r.Max))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.AllowedType {
+		s += i.MemSize()
+	}
+	s += (cap(r.AllowedType) - len(r.AllowedType)) * int(unsafe.Sizeof(Code{}))
+	for _, i := range r.TargetProfile {
+		s += i.MemSize()
+	}
+	s += (cap(r.TargetProfile) - len(r.TargetProfile)) * int(unsafe.Sizeof(Canonical{}))
+	if r.SearchType != nil {
+		s += r.SearchType.MemSize()
+	}
+	if r.Binding != nil {
+		s += r.Binding.MemSize()
+	}
+	for _, i := range r.ReferencedFrom {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReferencedFrom) - len(r.ReferencedFrom)) * int(unsafe.Sizeof(OperationDefinitionParameterReferencedFrom{}))
+	for _, i := range r.Part {
+		s += i.MemSize()
+	}
+	s += (cap(r.Part) - len(r.Part)) * int(unsafe.Sizeof(OperationDefinitionParameter{}))
+	return s
+}
+func (r OperationDefinitionParameterBinding) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Strength.MemSize() - int(unsafe.Sizeof(r.Strength))
+	s += r.ValueSet.MemSize() - int(unsafe.Sizeof(r.ValueSet))
+	return s
+}
+func (r OperationDefinitionParameterReferencedFrom) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Source.MemSize() - int(unsafe.Sizeof(r.Source))
+	if r.SourceId != nil {
+		s += r.SourceId.MemSize()
+	}
+	return s
+}
+func (r OperationDefinitionOverload) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ParameterName {
+		s += i.MemSize()
+	}
+	s += (cap(r.ParameterName) - len(r.ParameterName)) * int(unsafe.Sizeof(String{}))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	return s
 }
 func (r OperationDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

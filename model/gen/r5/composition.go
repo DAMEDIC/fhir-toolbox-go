@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type=document, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).
@@ -146,6 +147,186 @@ func (r Composition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Composition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.Attester {
+		s += i.MemSize()
+	}
+	s += (cap(r.Attester) - len(r.Attester)) * int(unsafe.Sizeof(CompositionAttester{}))
+	if r.Custodian != nil {
+		s += r.Custodian.MemSize()
+	}
+	for _, i := range r.RelatesTo {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	for _, i := range r.Event {
+		s += i.MemSize()
+	}
+	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(CompositionEvent{}))
+	for _, i := range r.Section {
+		s += i.MemSize()
+	}
+	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(CompositionSection{}))
+	return s
+}
+func (r CompositionAttester) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Time != nil {
+		s += r.Time.MemSize()
+	}
+	if r.Party != nil {
+		s += r.Party.MemSize()
+	}
+	return s
+}
+func (r CompositionEvent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.Detail {
+		s += i.MemSize()
+	}
+	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(CodeableReference{}))
+	return s
+}
+func (r CompositionSection) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	for _, i := range r.Author {
+		s += i.MemSize()
+	}
+	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
+	if r.Focus != nil {
+		s += r.Focus.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	if r.OrderedBy != nil {
+		s += r.OrderedBy.MemSize()
+	}
+	for _, i := range r.Entry {
+		s += i.MemSize()
+	}
+	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(Reference{}))
+	if r.EmptyReason != nil {
+		s += r.EmptyReason.MemSize()
+	}
+	for _, i := range r.Section {
+		s += i.MemSize()
+	}
+	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(CompositionSection{}))
+	return s
 }
 func (r Composition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

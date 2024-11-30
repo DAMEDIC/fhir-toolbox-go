@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // An action that is or was performed on or for a patient, practitioner, device, organization, or location. For example, this can be a physical intervention on a patient like an operation, or less invasive like long term services, counseling, or hypnotherapy.  This can be a quality or safety inspection for a location, organization, or device.  This can be an accreditation procedure on a practitioner for licensing.
@@ -87,6 +88,7 @@ type Procedure struct {
 	SupportingInfo []Reference
 }
 type isProcedureOccurrence interface {
+	model.Element
 	isProcedureOccurrence()
 }
 
@@ -98,6 +100,7 @@ func (r Range) isProcedureOccurrence()    {}
 func (r Timing) isProcedureOccurrence()   {}
 
 type isProcedureReported interface {
+	model.Element
 	isProcedureReported()
 }
 
@@ -151,6 +154,178 @@ func (r Procedure) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Procedure) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.StatusReason != nil {
+		s += r.StatusReason.MemSize()
+	}
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Focus != nil {
+		s += r.Focus.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.Recorded != nil {
+		s += r.Recorded.MemSize()
+	}
+	if r.Recorder != nil {
+		s += r.Recorder.MemSize()
+	}
+	if r.Reported != nil {
+		s += r.Reported.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ProcedurePerformer{}))
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Outcome != nil {
+		s += r.Outcome.MemSize()
+	}
+	for _, i := range r.Report {
+		s += i.MemSize()
+	}
+	s += (cap(r.Report) - len(r.Report)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Complication {
+		s += i.MemSize()
+	}
+	s += (cap(r.Complication) - len(r.Complication)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.FollowUp {
+		s += i.MemSize()
+	}
+	s += (cap(r.FollowUp) - len(r.FollowUp)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.FocalDevice {
+		s += i.MemSize()
+	}
+	s += (cap(r.FocalDevice) - len(r.FocalDevice)) * int(unsafe.Sizeof(ProcedureFocalDevice{}))
+	for _, i := range r.Used {
+		s += i.MemSize()
+	}
+	s += (cap(r.Used) - len(r.Used)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ProcedurePerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	if r.OnBehalfOf != nil {
+		s += r.OnBehalfOf.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
+func (r ProcedureFocalDevice) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Action != nil {
+		s += r.Action.MemSize()
+	}
+	s += r.Manipulated.MemSize() - int(unsafe.Sizeof(r.Manipulated))
+	return s
 }
 func (r Procedure) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

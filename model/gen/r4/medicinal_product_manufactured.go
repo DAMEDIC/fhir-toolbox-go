@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The manufactured item as contained in the packaged medicinal product.
@@ -56,6 +57,58 @@ func (r MedicinalProductManufactured) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProductManufactured) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.ManufacturedDoseForm.MemSize() - int(unsafe.Sizeof(r.ManufacturedDoseForm))
+	if r.UnitOfPresentation != nil {
+		s += r.UnitOfPresentation.MemSize()
+	}
+	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Ingredient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(Reference{}))
+	if r.PhysicalCharacteristics != nil {
+		s += r.PhysicalCharacteristics.MemSize()
+	}
+	for _, i := range r.OtherCharacteristics {
+		s += i.MemSize()
+	}
+	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(unsafe.Sizeof(CodeableConcept{}))
+	return s
 }
 func (r MedicinalProductManufactured) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A definition of a condition and information relevant to managing it.
@@ -89,6 +90,7 @@ type ConditionDefinition struct {
 	Plan []ConditionDefinitionPlan
 }
 type isConditionDefinitionVersionAlgorithm interface {
+	model.Element
 	isConditionDefinitionVersionAlgorithm()
 }
 
@@ -145,6 +147,7 @@ type ConditionDefinitionPrecondition struct {
 	Value isConditionDefinitionPreconditionValue
 }
 type isConditionDefinitionPreconditionValue interface {
+	model.Element
 	isConditionDefinitionPreconditionValue()
 }
 
@@ -194,6 +197,230 @@ func (r ConditionDefinition) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ConditionDefinition) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Subtitle != nil {
+		s += r.Subtitle.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Severity != nil {
+		s += r.Severity.MemSize()
+	}
+	if r.BodySite != nil {
+		s += r.BodySite.MemSize()
+	}
+	if r.Stage != nil {
+		s += r.Stage.MemSize()
+	}
+	if r.HasSeverity != nil {
+		s += r.HasSeverity.MemSize()
+	}
+	if r.HasBodySite != nil {
+		s += r.HasBodySite.MemSize()
+	}
+	if r.HasStage != nil {
+		s += r.HasStage.MemSize()
+	}
+	for _, i := range r.Definition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Definition) - len(r.Definition)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.Observation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Observation) - len(r.Observation)) * int(unsafe.Sizeof(ConditionDefinitionObservation{}))
+	for _, i := range r.Medication {
+		s += i.MemSize()
+	}
+	s += (cap(r.Medication) - len(r.Medication)) * int(unsafe.Sizeof(ConditionDefinitionMedication{}))
+	for _, i := range r.Precondition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Precondition) - len(r.Precondition)) * int(unsafe.Sizeof(ConditionDefinitionPrecondition{}))
+	for _, i := range r.Team {
+		s += i.MemSize()
+	}
+	s += (cap(r.Team) - len(r.Team)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Questionnaire {
+		s += i.MemSize()
+	}
+	s += (cap(r.Questionnaire) - len(r.Questionnaire)) * int(unsafe.Sizeof(ConditionDefinitionQuestionnaire{}))
+	for _, i := range r.Plan {
+		s += i.MemSize()
+	}
+	s += (cap(r.Plan) - len(r.Plan)) * int(unsafe.Sizeof(ConditionDefinitionPlan{}))
+	return s
+}
+func (r ConditionDefinitionObservation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	return s
+}
+func (r ConditionDefinitionMedication) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Category != nil {
+		s += r.Category.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	return s
+}
+func (r ConditionDefinitionPrecondition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ConditionDefinitionQuestionnaire) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Purpose.MemSize() - int(unsafe.Sizeof(r.Purpose))
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	return s
+}
+func (r ConditionDefinitionPlan) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	return s
 }
 func (r ConditionDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

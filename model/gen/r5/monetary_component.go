@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // MonetaryComponent Type: Availability data for an {item}.
@@ -24,6 +25,27 @@ type MonetaryComponent struct {
 	Amount *Money
 }
 
+func (r MonetaryComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
+}
 func (r MonetaryComponent) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

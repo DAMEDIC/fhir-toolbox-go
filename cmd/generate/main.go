@@ -43,6 +43,7 @@ func main() {
 		generator.GenerateAll(all, genDir(modelGenTarget, r), r,
 			generator.TypesGenerator{},
 			generator.ImplResourceGenerator{},
+			generator.ImplElementGenerator{},
 			generator.StringerGenerator{},
 			json.MarshalGenerator{},
 			json.UnmarshalGenerator{},

@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // ElementDefinition Type: Captures constraints on each element within the resource, profile, or extension.
@@ -104,6 +106,7 @@ type ElementDefinition struct {
 	Mapping []ElementDefinitionMapping
 }
 type isElementDefinitionDefaultValue interface {
+	model.Element
 	isElementDefinitionDefaultValue()
 }
 
@@ -163,6 +166,7 @@ func (r Dosage) isElementDefinitionDefaultValue()                {}
 func (r Meta) isElementDefinitionDefaultValue()                  {}
 
 type isElementDefinitionFixed interface {
+	model.Element
 	isElementDefinitionFixed()
 }
 
@@ -222,6 +226,7 @@ func (r Dosage) isElementDefinitionFixed()                {}
 func (r Meta) isElementDefinitionFixed()                  {}
 
 type isElementDefinitionPattern interface {
+	model.Element
 	isElementDefinitionPattern()
 }
 
@@ -281,6 +286,7 @@ func (r Dosage) isElementDefinitionPattern()                {}
 func (r Meta) isElementDefinitionPattern()                  {}
 
 type isElementDefinitionMinValue interface {
+	model.Element
 	isElementDefinitionMinValue()
 }
 
@@ -296,6 +302,7 @@ func (r UnsignedInt) isElementDefinitionMinValue() {}
 func (r Quantity) isElementDefinitionMinValue()    {}
 
 type isElementDefinitionMaxValue interface {
+	model.Element
 	isElementDefinitionMaxValue()
 }
 
@@ -382,6 +389,7 @@ type ElementDefinitionExample struct {
 	Value isElementDefinitionExampleValue
 }
 type isElementDefinitionExampleValue interface {
+	model.Element
 	isElementDefinitionExampleValue()
 }
 
@@ -514,6 +522,320 @@ type ElementDefinitionMapping struct {
 	Comment *Markdown
 }
 
+func (r ElementDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	for _, i := range r.Representation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Representation) - len(r.Representation)) * int(unsafe.Sizeof(Code{}))
+	if r.SliceName != nil {
+		s += r.SliceName.MemSize()
+	}
+	if r.SliceIsConstraining != nil {
+		s += r.SliceIsConstraining.MemSize()
+	}
+	if r.Label != nil {
+		s += r.Label.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	if r.Slicing != nil {
+		s += r.Slicing.MemSize()
+	}
+	if r.Short != nil {
+		s += r.Short.MemSize()
+	}
+	if r.Definition != nil {
+		s += r.Definition.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	if r.Requirements != nil {
+		s += r.Requirements.MemSize()
+	}
+	for _, i := range r.Alias {
+		s += i.MemSize()
+	}
+	s += (cap(r.Alias) - len(r.Alias)) * int(unsafe.Sizeof(String{}))
+	if r.Min != nil {
+		s += r.Min.MemSize()
+	}
+	if r.Max != nil {
+		s += r.Max.MemSize()
+	}
+	if r.Base != nil {
+		s += r.Base.MemSize()
+	}
+	if r.ContentReference != nil {
+		s += r.ContentReference.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(ElementDefinitionType{}))
+	if r.DefaultValue != nil {
+		s += r.DefaultValue.MemSize()
+	}
+	if r.MeaningWhenMissing != nil {
+		s += r.MeaningWhenMissing.MemSize()
+	}
+	if r.OrderMeaning != nil {
+		s += r.OrderMeaning.MemSize()
+	}
+	if r.Fixed != nil {
+		s += r.Fixed.MemSize()
+	}
+	if r.Pattern != nil {
+		s += r.Pattern.MemSize()
+	}
+	for _, i := range r.Example {
+		s += i.MemSize()
+	}
+	s += (cap(r.Example) - len(r.Example)) * int(unsafe.Sizeof(ElementDefinitionExample{}))
+	if r.MinValue != nil {
+		s += r.MinValue.MemSize()
+	}
+	if r.MaxValue != nil {
+		s += r.MaxValue.MemSize()
+	}
+	if r.MaxLength != nil {
+		s += r.MaxLength.MemSize()
+	}
+	for _, i := range r.Condition {
+		s += i.MemSize()
+	}
+	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(Id{}))
+	for _, i := range r.Constraint {
+		s += i.MemSize()
+	}
+	s += (cap(r.Constraint) - len(r.Constraint)) * int(unsafe.Sizeof(ElementDefinitionConstraint{}))
+	if r.MustHaveValue != nil {
+		s += r.MustHaveValue.MemSize()
+	}
+	for _, i := range r.ValueAlternatives {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValueAlternatives) - len(r.ValueAlternatives)) * int(unsafe.Sizeof(Canonical{}))
+	if r.MustSupport != nil {
+		s += r.MustSupport.MemSize()
+	}
+	if r.IsModifier != nil {
+		s += r.IsModifier.MemSize()
+	}
+	if r.IsModifierReason != nil {
+		s += r.IsModifierReason.MemSize()
+	}
+	if r.IsSummary != nil {
+		s += r.IsSummary.MemSize()
+	}
+	if r.Binding != nil {
+		s += r.Binding.MemSize()
+	}
+	for _, i := range r.Mapping {
+		s += i.MemSize()
+	}
+	s += (cap(r.Mapping) - len(r.Mapping)) * int(unsafe.Sizeof(ElementDefinitionMapping{}))
+	return s
+}
+func (r ElementDefinitionSlicing) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Discriminator {
+		s += i.MemSize()
+	}
+	s += (cap(r.Discriminator) - len(r.Discriminator)) * int(unsafe.Sizeof(ElementDefinitionSlicingDiscriminator{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Ordered != nil {
+		s += r.Ordered.MemSize()
+	}
+	s += r.Rules.MemSize() - int(unsafe.Sizeof(r.Rules))
+	return s
+}
+func (r ElementDefinitionSlicingDiscriminator) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	return s
+}
+func (r ElementDefinitionBase) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	s += r.Min.MemSize() - int(unsafe.Sizeof(r.Min))
+	s += r.Max.MemSize() - int(unsafe.Sizeof(r.Max))
+	return s
+}
+func (r ElementDefinitionType) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.TargetProfile {
+		s += i.MemSize()
+	}
+	s += (cap(r.TargetProfile) - len(r.TargetProfile)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Aggregation {
+		s += i.MemSize()
+	}
+	s += (cap(r.Aggregation) - len(r.Aggregation)) * int(unsafe.Sizeof(Code{}))
+	if r.Versioning != nil {
+		s += r.Versioning.MemSize()
+	}
+	return s
+}
+func (r ElementDefinitionExample) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Label.MemSize() - int(unsafe.Sizeof(r.Label))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ElementDefinitionConstraint) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
+	if r.Requirements != nil {
+		s += r.Requirements.MemSize()
+	}
+	s += r.Severity.MemSize() - int(unsafe.Sizeof(r.Severity))
+	if r.Suppress != nil {
+		s += r.Suppress.MemSize()
+	}
+	s += r.Human.MemSize() - int(unsafe.Sizeof(r.Human))
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	return s
+}
+func (r ElementDefinitionBinding) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Strength.MemSize() - int(unsafe.Sizeof(r.Strength))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.ValueSet != nil {
+		s += r.ValueSet.MemSize()
+	}
+	for _, i := range r.Additional {
+		s += i.MemSize()
+	}
+	s += (cap(r.Additional) - len(r.Additional)) * int(unsafe.Sizeof(ElementDefinitionBindingAdditional{}))
+	return s
+}
+func (r ElementDefinitionBindingAdditional) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Purpose.MemSize() - int(unsafe.Sizeof(r.Purpose))
+	s += r.ValueSet.MemSize() - int(unsafe.Sizeof(r.ValueSet))
+	if r.Documentation != nil {
+		s += r.Documentation.MemSize()
+	}
+	if r.ShortDoco != nil {
+		s += r.ShortDoco.MemSize()
+	}
+	for _, i := range r.Usage {
+		s += i.MemSize()
+	}
+	s += (cap(r.Usage) - len(r.Usage)) * int(unsafe.Sizeof(UsageContext{}))
+	if r.Any != nil {
+		s += r.Any.MemSize()
+	}
+	return s
+}
+func (r ElementDefinitionMapping) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Identity.MemSize() - int(unsafe.Sizeof(r.Identity))
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	s += r.Map.MemSize() - int(unsafe.Sizeof(r.Map))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	return s
+}
 func (r ElementDefinition) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

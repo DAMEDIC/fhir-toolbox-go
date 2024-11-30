@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Record of transport.
@@ -129,6 +130,7 @@ type TransportInput struct {
 	Value isTransportInputValue
 }
 type isTransportInputValue interface {
+	model.Element
 	isTransportInputValue()
 }
 
@@ -203,6 +205,7 @@ type TransportOutput struct {
 	Value isTransportOutputValue
 }
 type isTransportOutputValue interface {
+	model.Element
 	isTransportOutputValue()
 }
 
@@ -271,6 +274,200 @@ func (r Transport) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Transport) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.InstantiatesCanonical != nil {
+		s += r.InstantiatesCanonical.MemSize()
+	}
+	if r.InstantiatesUri != nil {
+		s += r.InstantiatesUri.MemSize()
+	}
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	if r.GroupIdentifier != nil {
+		s += r.GroupIdentifier.MemSize()
+	}
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.StatusReason != nil {
+		s += r.StatusReason.MemSize()
+	}
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Focus != nil {
+		s += r.Focus.MemSize()
+	}
+	if r.For != nil {
+		s += r.For.MemSize()
+	}
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.CompletionTime != nil {
+		s += r.CompletionTime.MemSize()
+	}
+	if r.AuthoredOn != nil {
+		s += r.AuthoredOn.MemSize()
+	}
+	if r.LastModified != nil {
+		s += r.LastModified.MemSize()
+	}
+	if r.Requester != nil {
+		s += r.Requester.MemSize()
+	}
+	for _, i := range r.PerformerType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PerformerType) - len(r.PerformerType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Owner != nil {
+		s += r.Owner.MemSize()
+	}
+	if r.Location != nil {
+		s += r.Location.MemSize()
+	}
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.RelevantHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	if r.Restriction != nil {
+		s += r.Restriction.MemSize()
+	}
+	for _, i := range r.Input {
+		s += i.MemSize()
+	}
+	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(TransportInput{}))
+	for _, i := range r.Output {
+		s += i.MemSize()
+	}
+	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(TransportOutput{}))
+	s += r.RequestedLocation.MemSize() - int(unsafe.Sizeof(r.RequestedLocation))
+	s += r.CurrentLocation.MemSize() - int(unsafe.Sizeof(r.CurrentLocation))
+	if r.Reason != nil {
+		s += r.Reason.MemSize()
+	}
+	if r.History != nil {
+		s += r.History.MemSize()
+	}
+	return s
+}
+func (r TransportRestriction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Repetitions != nil {
+		s += r.Repetitions.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	for _, i := range r.Recipient {
+		s += i.MemSize()
+	}
+	s += (cap(r.Recipient) - len(r.Recipient)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r TransportInput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r TransportOutput) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
 }
 func (r Transport) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

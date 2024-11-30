@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A container for slots of time that may be available for booking appointments.
@@ -58,6 +59,67 @@ func (r Schedule) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Schedule) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	for _, i := range r.ServiceCategory {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Specialty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Actor {
+		s += i.MemSize()
+	}
+	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(Reference{}))
+	if r.PlanningHorizon != nil {
+		s += r.PlanningHorizon.MemSize()
+	}
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	return s
 }
 func (r Schedule) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

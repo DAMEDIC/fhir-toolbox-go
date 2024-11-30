@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Invoice containing collected ChargeItems from an Account with calculated individual and total price for Billing purpose.
@@ -97,6 +98,7 @@ type InvoiceLineItem struct {
 	PriceComponent []InvoiceLineItemPriceComponent
 }
 type isInvoiceLineItemChargeItem interface {
+	model.Element
 	isInvoiceLineItemChargeItem()
 }
 
@@ -134,6 +136,158 @@ func (r Invoice) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Invoice) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.CancelledReason != nil {
+		s += r.CancelledReason.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	if r.Recipient != nil {
+		s += r.Recipient.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(InvoiceParticipant{}))
+	if r.Issuer != nil {
+		s += r.Issuer.MemSize()
+	}
+	if r.Account != nil {
+		s += r.Account.MemSize()
+	}
+	for _, i := range r.LineItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.LineItem) - len(r.LineItem)) * int(unsafe.Sizeof(InvoiceLineItem{}))
+	for _, i := range r.TotalPriceComponent {
+		s += i.MemSize()
+	}
+	s += (cap(r.TotalPriceComponent) - len(r.TotalPriceComponent)) * int(unsafe.Sizeof(InvoiceLineItemPriceComponent{}))
+	if r.TotalNet != nil {
+		s += r.TotalNet.MemSize()
+	}
+	if r.TotalGross != nil {
+		s += r.TotalGross.MemSize()
+	}
+	if r.PaymentTerms != nil {
+		s += r.PaymentTerms.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	return s
+}
+func (r InvoiceParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
+}
+func (r InvoiceLineItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Sequence != nil {
+		s += r.Sequence.MemSize()
+	}
+	if r.ChargeItem != nil {
+		s += r.ChargeItem.MemSize()
+	}
+	for _, i := range r.PriceComponent {
+		s += i.MemSize()
+	}
+	s += (cap(r.PriceComponent) - len(r.PriceComponent)) * int(unsafe.Sizeof(InvoiceLineItemPriceComponent{}))
+	return s
+}
+func (r InvoiceLineItemPriceComponent) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Amount != nil {
+		s += r.Amount.MemSize()
+	}
+	return s
 }
 func (r Invoice) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

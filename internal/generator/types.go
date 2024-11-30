@@ -62,8 +62,9 @@ func generatePrimitiveEnums(f *File, s ir.Struct) {
 			continue
 		}
 
-		f.Type().Id("is" + s.Name + sf.Name).Interface(
-			Id("is" + s.Name + sf.Name).Params(),
+		f.Type().Id("is"+s.Name+sf.Name).Interface(
+			Qual("fhir-toolbox/model", "Element"),
+			Id("is"+s.Name+sf.Name).Params(),
 		)
 
 		for _, t := range sf.PossibleTypes {

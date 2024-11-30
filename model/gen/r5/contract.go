@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Legally enforceable, formally recorded unilateral or bilateral directive i.e., a policy or agreement.
@@ -97,6 +98,7 @@ type Contract struct {
 	LegallyBinding isContractLegallyBinding
 }
 type isContractTopic interface {
+	model.Element
 	isContractTopic()
 }
 
@@ -104,6 +106,7 @@ func (r CodeableConcept) isContractTopic() {}
 func (r Reference) isContractTopic()       {}
 
 type isContractLegallyBinding interface {
+	model.Element
 	isContractLegallyBinding()
 }
 
@@ -170,6 +173,7 @@ type ContractTerm struct {
 	Group []ContractTerm
 }
 type isContractTermTopic interface {
+	model.Element
 	isContractTermTopic()
 }
 
@@ -258,6 +262,7 @@ type ContractTermOfferAnswer struct {
 	Value isContractTermOfferAnswerValue
 }
 type isContractTermOfferAnswerValue interface {
+	model.Element
 	isContractTermOfferAnswerValue()
 }
 
@@ -374,6 +379,7 @@ type ContractTermAssetValuedItem struct {
 	SecurityLabelNumber []UnsignedInt
 }
 type isContractTermAssetValuedItemEntity interface {
+	model.Element
 	isContractTermAssetValuedItemEntity()
 }
 
@@ -430,6 +436,7 @@ type ContractTermAction struct {
 	SecurityLabelNumber []UnsignedInt
 }
 type isContractTermActionOccurrence interface {
+	model.Element
 	isContractTermActionOccurrence()
 }
 
@@ -485,6 +492,7 @@ type ContractFriendly struct {
 	Content isContractFriendlyContent
 }
 type isContractFriendlyContent interface {
+	model.Element
 	isContractFriendlyContent()
 }
 
@@ -505,6 +513,7 @@ type ContractLegal struct {
 	Content isContractLegalContent
 }
 type isContractLegalContent interface {
+	model.Element
 	isContractLegalContent()
 }
 
@@ -525,6 +534,7 @@ type ContractRule struct {
 	Content isContractRuleContent
 }
 type isContractRuleContent interface {
+	model.Element
 	isContractRuleContent()
 }
 
@@ -541,6 +551,679 @@ func (r Contract) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Contract) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.LegalState != nil {
+		s += r.LegalState.MemSize()
+	}
+	if r.InstantiatesCanonical != nil {
+		s += r.InstantiatesCanonical.MemSize()
+	}
+	if r.InstantiatesUri != nil {
+		s += r.InstantiatesUri.MemSize()
+	}
+	if r.ContentDerivative != nil {
+		s += r.ContentDerivative.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	if r.Applies != nil {
+		s += r.Applies.MemSize()
+	}
+	if r.ExpirationType != nil {
+		s += r.ExpirationType.MemSize()
+	}
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Authority {
+		s += i.MemSize()
+	}
+	s += (cap(r.Authority) - len(r.Authority)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Domain {
+		s += i.MemSize()
+	}
+	s += (cap(r.Domain) - len(r.Domain)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Site {
+		s += i.MemSize()
+	}
+	s += (cap(r.Site) - len(r.Site)) * int(unsafe.Sizeof(Reference{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	if r.Subtitle != nil {
+		s += r.Subtitle.MemSize()
+	}
+	for _, i := range r.Alias {
+		s += i.MemSize()
+	}
+	s += (cap(r.Alias) - len(r.Alias)) * int(unsafe.Sizeof(String{}))
+	if r.Author != nil {
+		s += r.Author.MemSize()
+	}
+	if r.Scope != nil {
+		s += r.Scope.MemSize()
+	}
+	if r.Topic != nil {
+		s += r.Topic.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	for _, i := range r.SubType {
+		s += i.MemSize()
+	}
+	s += (cap(r.SubType) - len(r.SubType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.ContentDefinition != nil {
+		s += r.ContentDefinition.MemSize()
+	}
+	for _, i := range r.Term {
+		s += i.MemSize()
+	}
+	s += (cap(r.Term) - len(r.Term)) * int(unsafe.Sizeof(ContractTerm{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.RelevantHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Signer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Signer) - len(r.Signer)) * int(unsafe.Sizeof(ContractSigner{}))
+	for _, i := range r.Friendly {
+		s += i.MemSize()
+	}
+	s += (cap(r.Friendly) - len(r.Friendly)) * int(unsafe.Sizeof(ContractFriendly{}))
+	for _, i := range r.Legal {
+		s += i.MemSize()
+	}
+	s += (cap(r.Legal) - len(r.Legal)) * int(unsafe.Sizeof(ContractLegal{}))
+	for _, i := range r.Rule {
+		s += i.MemSize()
+	}
+	s += (cap(r.Rule) - len(r.Rule)) * int(unsafe.Sizeof(ContractRule{}))
+	if r.LegallyBinding != nil {
+		s += r.LegallyBinding.MemSize()
+	}
+	return s
+}
+func (r ContractContentDefinition) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	if r.SubType != nil {
+		s += r.SubType.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	if r.PublicationDate != nil {
+		s += r.PublicationDate.MemSize()
+	}
+	s += r.PublicationStatus.MemSize() - int(unsafe.Sizeof(r.PublicationStatus))
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	return s
+}
+func (r ContractTerm) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Issued != nil {
+		s += r.Issued.MemSize()
+	}
+	if r.Applies != nil {
+		s += r.Applies.MemSize()
+	}
+	if r.Topic != nil {
+		s += r.Topic.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.SubType != nil {
+		s += r.SubType.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.SecurityLabel {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(unsafe.Sizeof(ContractTermSecurityLabel{}))
+	s += r.Offer.MemSize() - int(unsafe.Sizeof(r.Offer))
+	for _, i := range r.Asset {
+		s += i.MemSize()
+	}
+	s += (cap(r.Asset) - len(r.Asset)) * int(unsafe.Sizeof(ContractTermAsset{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(ContractTermAction{}))
+	for _, i := range r.Group {
+		s += i.MemSize()
+	}
+	s += (cap(r.Group) - len(r.Group)) * int(unsafe.Sizeof(ContractTerm{}))
+	return s
+}
+func (r ContractTermSecurityLabel) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Number {
+		s += i.MemSize()
+	}
+	s += (cap(r.Number) - len(r.Number)) * int(unsafe.Sizeof(UnsignedInt{}))
+	s += r.Classification.MemSize() - int(unsafe.Sizeof(r.Classification))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(Coding{}))
+	for _, i := range r.Control {
+		s += i.MemSize()
+	}
+	s += (cap(r.Control) - len(r.Control)) * int(unsafe.Sizeof(Coding{}))
+	return s
+}
+func (r ContractTermOffer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.Party {
+		s += i.MemSize()
+	}
+	s += (cap(r.Party) - len(r.Party)) * int(unsafe.Sizeof(ContractTermOfferParty{}))
+	if r.Topic != nil {
+		s += r.Topic.MemSize()
+	}
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Decision != nil {
+		s += r.Decision.MemSize()
+	}
+	for _, i := range r.DecisionMode {
+		s += i.MemSize()
+	}
+	s += (cap(r.DecisionMode) - len(r.DecisionMode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Answer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Answer) - len(r.Answer)) * int(unsafe.Sizeof(ContractTermOfferAnswer{}))
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.LinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.LinkId) - len(r.LinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.SecurityLabelNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabelNumber) - len(r.SecurityLabelNumber)) * int(unsafe.Sizeof(UnsignedInt{}))
+	return s
+}
+func (r ContractTermOfferParty) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Reference {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reference) - len(r.Reference)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	return s
+}
+func (r ContractTermOfferAnswer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ContractTermAsset) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Scope != nil {
+		s += r.Scope.MemSize()
+	}
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.TypeReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.TypeReference) - len(r.TypeReference)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Subtype {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subtype) - len(r.Subtype)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Relationship != nil {
+		s += r.Relationship.MemSize()
+	}
+	for _, i := range r.Context {
+		s += i.MemSize()
+	}
+	s += (cap(r.Context) - len(r.Context)) * int(unsafe.Sizeof(ContractTermAssetContext{}))
+	if r.Condition != nil {
+		s += r.Condition.MemSize()
+	}
+	for _, i := range r.PeriodType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PeriodType) - len(r.PeriodType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Period {
+		s += i.MemSize()
+	}
+	s += (cap(r.Period) - len(r.Period)) * int(unsafe.Sizeof(Period{}))
+	for _, i := range r.UsePeriod {
+		s += i.MemSize()
+	}
+	s += (cap(r.UsePeriod) - len(r.UsePeriod)) * int(unsafe.Sizeof(Period{}))
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.LinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.LinkId) - len(r.LinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Answer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Answer) - len(r.Answer)) * int(unsafe.Sizeof(ContractTermOfferAnswer{}))
+	for _, i := range r.SecurityLabelNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabelNumber) - len(r.SecurityLabelNumber)) * int(unsafe.Sizeof(UnsignedInt{}))
+	for _, i := range r.ValuedItem {
+		s += i.MemSize()
+	}
+	s += (cap(r.ValuedItem) - len(r.ValuedItem)) * int(unsafe.Sizeof(ContractTermAssetValuedItem{}))
+	return s
+}
+func (r ContractTermAssetContext) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Reference != nil {
+		s += r.Reference.MemSize()
+	}
+	for _, i := range r.Code {
+		s += i.MemSize()
+	}
+	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	return s
+}
+func (r ContractTermAssetValuedItem) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Entity != nil {
+		s += r.Entity.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.EffectiveTime != nil {
+		s += r.EffectiveTime.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	if r.UnitPrice != nil {
+		s += r.UnitPrice.MemSize()
+	}
+	if r.Factor != nil {
+		s += r.Factor.MemSize()
+	}
+	if r.Points != nil {
+		s += r.Points.MemSize()
+	}
+	if r.Net != nil {
+		s += r.Net.MemSize()
+	}
+	if r.Payment != nil {
+		s += r.Payment.MemSize()
+	}
+	if r.PaymentDate != nil {
+		s += r.PaymentDate.MemSize()
+	}
+	if r.Responsible != nil {
+		s += r.Responsible.MemSize()
+	}
+	if r.Recipient != nil {
+		s += r.Recipient.MemSize()
+	}
+	for _, i := range r.LinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.LinkId) - len(r.LinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.SecurityLabelNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabelNumber) - len(r.SecurityLabelNumber)) * int(unsafe.Sizeof(UnsignedInt{}))
+	return s
+}
+func (r ContractTermAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.DoNotPerform != nil {
+		s += r.DoNotPerform.MemSize()
+	}
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	for _, i := range r.Subject {
+		s += i.MemSize()
+	}
+	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(ContractTermActionSubject{}))
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	for _, i := range r.LinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.LinkId) - len(r.LinkId)) * int(unsafe.Sizeof(String{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Context != nil {
+		s += r.Context.MemSize()
+	}
+	for _, i := range r.ContextLinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.ContextLinkId) - len(r.ContextLinkId)) * int(unsafe.Sizeof(String{}))
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	for _, i := range r.Requester {
+		s += i.MemSize()
+	}
+	s += (cap(r.Requester) - len(r.Requester)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.RequesterLinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.RequesterLinkId) - len(r.RequesterLinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.PerformerType {
+		s += i.MemSize()
+	}
+	s += (cap(r.PerformerType) - len(r.PerformerType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.PerformerRole != nil {
+		s += r.PerformerRole.MemSize()
+	}
+	if r.Performer != nil {
+		s += r.Performer.MemSize()
+	}
+	for _, i := range r.PerformerLinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.PerformerLinkId) - len(r.PerformerLinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.ReasonLinkId {
+		s += i.MemSize()
+	}
+	s += (cap(r.ReasonLinkId) - len(r.ReasonLinkId)) * int(unsafe.Sizeof(String{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.SecurityLabelNumber {
+		s += i.MemSize()
+	}
+	s += (cap(r.SecurityLabelNumber) - len(r.SecurityLabelNumber)) * int(unsafe.Sizeof(UnsignedInt{}))
+	return s
+}
+func (r ContractTermActionSubject) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Reference {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reference) - len(r.Reference)) * int(unsafe.Sizeof(Reference{}))
+	if r.Role != nil {
+		s += r.Role.MemSize()
+	}
+	return s
+}
+func (r ContractSigner) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Party.MemSize() - int(unsafe.Sizeof(r.Party))
+	for _, i := range r.Signature {
+		s += i.MemSize()
+	}
+	s += (cap(r.Signature) - len(r.Signature)) * int(unsafe.Sizeof(Signature{}))
+	return s
+}
+func (r ContractFriendly) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	return s
+}
+func (r ContractLegal) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	return s
+}
+func (r ContractRule) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Content != nil {
+		s += r.Content.MemSize()
+	}
+	return s
 }
 func (r Contract) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

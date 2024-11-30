@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // This resource is a non-persisted resource used to pass information into and back from an [operation](operations.html). It has no other use, and there is no RESTful endpoint associated with it.
@@ -43,6 +44,7 @@ type ParametersParameter struct {
 	Part []ParametersParameter
 }
 type isParametersParameterValue interface {
+	model.Element
 	isParametersParameterValue()
 }
 
@@ -107,6 +109,53 @@ func (r Parameters) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Parameters) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ParametersParameter{}))
+	return s
+}
+func (r ParametersParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Resource != nil {
+		s += (*r.Resource).MemSize()
+	}
+	s += (*r.Resource).MemSize()
+	for _, i := range r.Part {
+		s += i.MemSize()
+	}
+	s += (cap(r.Part) - len(r.Part)) * int(unsafe.Sizeof(ParametersParameter{}))
+	return s
 }
 func (r Parameters) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

@@ -3,6 +3,7 @@ package r5
 import (
 	"encoding/xml"
 	"fmt"
+	"unsafe"
 )
 
 // decimal Type: A rational number with implicit precision
@@ -15,6 +16,20 @@ type Decimal struct {
 	Value *string
 }
 
+func (r Decimal) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+	}
+	return s
+}
 func (r Decimal) MarshalJSON() ([]byte, error) {
 	return []byte(*r.Value), nil
 }

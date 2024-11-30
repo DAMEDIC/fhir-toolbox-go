@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A structured set of tests against a FHIR server or client implementation to determine compliance against the FHIR specification.
@@ -85,6 +86,7 @@ type TestScript struct {
 	Teardown *TestScriptTeardown
 }
 type isTestScriptVersionAlgorithm interface {
+	model.Element
 	isTestScriptVersionAlgorithm()
 }
 
@@ -417,6 +419,7 @@ type TestScriptSetupActionAssertRequirement struct {
 	Link isTestScriptSetupActionAssertRequirementLink
 }
 type isTestScriptSetupActionAssertRequirementLink interface {
+	model.Element
 	isTestScriptSetupActionAssertRequirementLink()
 }
 
@@ -496,6 +499,627 @@ func (r TestScript) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r TestScript) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.VersionAlgorithm != nil {
+		s += r.VersionAlgorithm.MemSize()
+	}
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.CopyrightLabel != nil {
+		s += r.CopyrightLabel.MemSize()
+	}
+	for _, i := range r.Origin {
+		s += i.MemSize()
+	}
+	s += (cap(r.Origin) - len(r.Origin)) * int(unsafe.Sizeof(TestScriptOrigin{}))
+	for _, i := range r.Destination {
+		s += i.MemSize()
+	}
+	s += (cap(r.Destination) - len(r.Destination)) * int(unsafe.Sizeof(TestScriptDestination{}))
+	if r.Metadata != nil {
+		s += r.Metadata.MemSize()
+	}
+	for _, i := range r.Scope {
+		s += i.MemSize()
+	}
+	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(TestScriptScope{}))
+	for _, i := range r.Fixture {
+		s += i.MemSize()
+	}
+	s += (cap(r.Fixture) - len(r.Fixture)) * int(unsafe.Sizeof(TestScriptFixture{}))
+	for _, i := range r.Profile {
+		s += i.MemSize()
+	}
+	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.Variable {
+		s += i.MemSize()
+	}
+	s += (cap(r.Variable) - len(r.Variable)) * int(unsafe.Sizeof(TestScriptVariable{}))
+	if r.Setup != nil {
+		s += r.Setup.MemSize()
+	}
+	for _, i := range r.Test {
+		s += i.MemSize()
+	}
+	s += (cap(r.Test) - len(r.Test)) * int(unsafe.Sizeof(TestScriptTest{}))
+	if r.Teardown != nil {
+		s += r.Teardown.MemSize()
+	}
+	return s
+}
+func (r TestScriptOrigin) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Index.MemSize() - int(unsafe.Sizeof(r.Index))
+	s += r.Profile.MemSize() - int(unsafe.Sizeof(r.Profile))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	return s
+}
+func (r TestScriptDestination) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Index.MemSize() - int(unsafe.Sizeof(r.Index))
+	s += r.Profile.MemSize() - int(unsafe.Sizeof(r.Profile))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	return s
+}
+func (r TestScriptMetadata) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(TestScriptMetadataLink{}))
+	for _, i := range r.Capability {
+		s += i.MemSize()
+	}
+	s += (cap(r.Capability) - len(r.Capability)) * int(unsafe.Sizeof(TestScriptMetadataCapability{}))
+	return s
+}
+func (r TestScriptMetadataLink) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	return s
+}
+func (r TestScriptMetadataCapability) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Required.MemSize() - int(unsafe.Sizeof(r.Required))
+	s += r.Validated.MemSize() - int(unsafe.Sizeof(r.Validated))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Origin {
+		s += i.MemSize()
+	}
+	s += (cap(r.Origin) - len(r.Origin)) * int(unsafe.Sizeof(Integer{}))
+	if r.Destination != nil {
+		s += r.Destination.MemSize()
+	}
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(Uri{}))
+	s += r.Capabilities.MemSize() - int(unsafe.Sizeof(r.Capabilities))
+	return s
+}
+func (r TestScriptScope) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Artifact.MemSize() - int(unsafe.Sizeof(r.Artifact))
+	if r.Conformance != nil {
+		s += r.Conformance.MemSize()
+	}
+	if r.Phase != nil {
+		s += r.Phase.MemSize()
+	}
+	return s
+}
+func (r TestScriptFixture) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Autocreate.MemSize() - int(unsafe.Sizeof(r.Autocreate))
+	s += r.Autodelete.MemSize() - int(unsafe.Sizeof(r.Autodelete))
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	return s
+}
+func (r TestScriptVariable) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	if r.DefaultValue != nil {
+		s += r.DefaultValue.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	if r.HeaderField != nil {
+		s += r.HeaderField.MemSize()
+	}
+	if r.Hint != nil {
+		s += r.Hint.MemSize()
+	}
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.SourceId != nil {
+		s += r.SourceId.MemSize()
+	}
+	return s
+}
+func (r TestScriptSetup) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(TestScriptSetupAction{}))
+	return s
+}
+func (r TestScriptSetupAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Operation != nil {
+		s += r.Operation.MemSize()
+	}
+	if r.Assert != nil {
+		s += r.Assert.MemSize()
+	}
+	return s
+}
+func (r TestScriptSetupActionOperation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	if r.Label != nil {
+		s += r.Label.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Accept != nil {
+		s += r.Accept.MemSize()
+	}
+	if r.ContentType != nil {
+		s += r.ContentType.MemSize()
+	}
+	if r.Destination != nil {
+		s += r.Destination.MemSize()
+	}
+	s += r.EncodeRequestUrl.MemSize() - int(unsafe.Sizeof(r.EncodeRequestUrl))
+	if r.Method != nil {
+		s += r.Method.MemSize()
+	}
+	if r.Origin != nil {
+		s += r.Origin.MemSize()
+	}
+	if r.Params != nil {
+		s += r.Params.MemSize()
+	}
+	for _, i := range r.RequestHeader {
+		s += i.MemSize()
+	}
+	s += (cap(r.RequestHeader) - len(r.RequestHeader)) * int(unsafe.Sizeof(TestScriptSetupActionOperationRequestHeader{}))
+	if r.RequestId != nil {
+		s += r.RequestId.MemSize()
+	}
+	if r.ResponseId != nil {
+		s += r.ResponseId.MemSize()
+	}
+	if r.SourceId != nil {
+		s += r.SourceId.MemSize()
+	}
+	if r.TargetId != nil {
+		s += r.TargetId.MemSize()
+	}
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	return s
+}
+func (r TestScriptSetupActionOperationRequestHeader) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Field.MemSize() - int(unsafe.Sizeof(r.Field))
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	return s
+}
+func (r TestScriptSetupActionAssert) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Label != nil {
+		s += r.Label.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	if r.Direction != nil {
+		s += r.Direction.MemSize()
+	}
+	if r.CompareToSourceId != nil {
+		s += r.CompareToSourceId.MemSize()
+	}
+	if r.CompareToSourceExpression != nil {
+		s += r.CompareToSourceExpression.MemSize()
+	}
+	if r.CompareToSourcePath != nil {
+		s += r.CompareToSourcePath.MemSize()
+	}
+	if r.ContentType != nil {
+		s += r.ContentType.MemSize()
+	}
+	if r.DefaultManualCompletion != nil {
+		s += r.DefaultManualCompletion.MemSize()
+	}
+	if r.Expression != nil {
+		s += r.Expression.MemSize()
+	}
+	if r.HeaderField != nil {
+		s += r.HeaderField.MemSize()
+	}
+	if r.MinimumId != nil {
+		s += r.MinimumId.MemSize()
+	}
+	if r.NavigationLinks != nil {
+		s += r.NavigationLinks.MemSize()
+	}
+	if r.Operator != nil {
+		s += r.Operator.MemSize()
+	}
+	if r.Path != nil {
+		s += r.Path.MemSize()
+	}
+	if r.RequestMethod != nil {
+		s += r.RequestMethod.MemSize()
+	}
+	if r.RequestUrl != nil {
+		s += r.RequestUrl.MemSize()
+	}
+	if r.Resource != nil {
+		s += r.Resource.MemSize()
+	}
+	if r.Response != nil {
+		s += r.Response.MemSize()
+	}
+	if r.ResponseCode != nil {
+		s += r.ResponseCode.MemSize()
+	}
+	if r.SourceId != nil {
+		s += r.SourceId.MemSize()
+	}
+	s += r.StopTestOnFail.MemSize() - int(unsafe.Sizeof(r.StopTestOnFail))
+	if r.ValidateProfileId != nil {
+		s += r.ValidateProfileId.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	s += r.WarningOnly.MemSize() - int(unsafe.Sizeof(r.WarningOnly))
+	for _, i := range r.Requirement {
+		s += i.MemSize()
+	}
+	s += (cap(r.Requirement) - len(r.Requirement)) * int(unsafe.Sizeof(TestScriptSetupActionAssertRequirement{}))
+	return s
+}
+func (r TestScriptSetupActionAssertRequirement) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Link != nil {
+		s += r.Link.MemSize()
+	}
+	return s
+}
+func (r TestScriptTest) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(TestScriptTestAction{}))
+	return s
+}
+func (r TestScriptTestAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Operation != nil {
+		s += r.Operation.MemSize()
+	}
+	if r.Assert != nil {
+		s += r.Assert.MemSize()
+	}
+	return s
+}
+func (r TestScriptTeardown) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Action {
+		s += i.MemSize()
+	}
+	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(TestScriptTeardownAction{}))
+	return s
+}
+func (r TestScriptTeardownAction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Operation.MemSize() - int(unsafe.Sizeof(r.Operation))
+	return s
 }
 func (r TestScript) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

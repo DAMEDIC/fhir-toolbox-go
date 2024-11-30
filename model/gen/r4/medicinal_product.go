@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Detailed definition of a medicinal product, typically for uses other than direct patient care (e.g. regulatory use).
@@ -173,6 +174,7 @@ type MedicinalProductSpecialDesignation struct {
 	Species *CodeableConcept
 }
 type isMedicinalProductSpecialDesignationIndication interface {
+	model.Element
 	isMedicinalProductSpecialDesignationIndication()
 }
 
@@ -189,6 +191,244 @@ func (r MedicinalProduct) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r MedicinalProduct) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.Domain != nil {
+		s += r.Domain.MemSize()
+	}
+	if r.CombinedPharmaceuticalDoseForm != nil {
+		s += r.CombinedPharmaceuticalDoseForm.MemSize()
+	}
+	if r.LegalStatusOfSupply != nil {
+		s += r.LegalStatusOfSupply.MemSize()
+	}
+	if r.AdditionalMonitoringIndicator != nil {
+		s += r.AdditionalMonitoringIndicator.MemSize()
+	}
+	for _, i := range r.SpecialMeasures {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialMeasures) - len(r.SpecialMeasures)) * int(unsafe.Sizeof(String{}))
+	if r.PaediatricUseIndicator != nil {
+		s += r.PaediatricUseIndicator.MemSize()
+	}
+	for _, i := range r.ProductClassification {
+		s += i.MemSize()
+	}
+	s += (cap(r.ProductClassification) - len(r.ProductClassification)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.MarketingStatus {
+		s += i.MemSize()
+	}
+	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(unsafe.Sizeof(MarketingStatus{}))
+	for _, i := range r.PharmaceuticalProduct {
+		s += i.MemSize()
+	}
+	s += (cap(r.PharmaceuticalProduct) - len(r.PharmaceuticalProduct)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.PackagedMedicinalProduct {
+		s += i.MemSize()
+	}
+	s += (cap(r.PackagedMedicinalProduct) - len(r.PackagedMedicinalProduct)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.AttachedDocument {
+		s += i.MemSize()
+	}
+	s += (cap(r.AttachedDocument) - len(r.AttachedDocument)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.MasterFile {
+		s += i.MemSize()
+	}
+	s += (cap(r.MasterFile) - len(r.MasterFile)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.ClinicalTrial {
+		s += i.MemSize()
+	}
+	s += (cap(r.ClinicalTrial) - len(r.ClinicalTrial)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(MedicinalProductName{}))
+	for _, i := range r.CrossReference {
+		s += i.MemSize()
+	}
+	s += (cap(r.CrossReference) - len(r.CrossReference)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.ManufacturingBusinessOperation {
+		s += i.MemSize()
+	}
+	s += (cap(r.ManufacturingBusinessOperation) - len(r.ManufacturingBusinessOperation)) * int(unsafe.Sizeof(MedicinalProductManufacturingBusinessOperation{}))
+	for _, i := range r.SpecialDesignation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SpecialDesignation) - len(r.SpecialDesignation)) * int(unsafe.Sizeof(MedicinalProductSpecialDesignation{}))
+	return s
+}
+func (r MedicinalProductName) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.ProductName.MemSize() - int(unsafe.Sizeof(r.ProductName))
+	for _, i := range r.NamePart {
+		s += i.MemSize()
+	}
+	s += (cap(r.NamePart) - len(r.NamePart)) * int(unsafe.Sizeof(MedicinalProductNameNamePart{}))
+	for _, i := range r.CountryLanguage {
+		s += i.MemSize()
+	}
+	s += (cap(r.CountryLanguage) - len(r.CountryLanguage)) * int(unsafe.Sizeof(MedicinalProductNameCountryLanguage{}))
+	return s
+}
+func (r MedicinalProductNameNamePart) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Part.MemSize() - int(unsafe.Sizeof(r.Part))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	return s
+}
+func (r MedicinalProductNameCountryLanguage) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Country.MemSize() - int(unsafe.Sizeof(r.Country))
+	if r.Jurisdiction != nil {
+		s += r.Jurisdiction.MemSize()
+	}
+	s += r.Language.MemSize() - int(unsafe.Sizeof(r.Language))
+	return s
+}
+func (r MedicinalProductManufacturingBusinessOperation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.OperationType != nil {
+		s += r.OperationType.MemSize()
+	}
+	if r.AuthorisationReferenceNumber != nil {
+		s += r.AuthorisationReferenceNumber.MemSize()
+	}
+	if r.EffectiveDate != nil {
+		s += r.EffectiveDate.MemSize()
+	}
+	if r.ConfidentialityIndicator != nil {
+		s += r.ConfidentialityIndicator.MemSize()
+	}
+	for _, i := range r.Manufacturer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	if r.Regulator != nil {
+		s += r.Regulator.MemSize()
+	}
+	return s
+}
+func (r MedicinalProductSpecialDesignation) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Type != nil {
+		s += r.Type.MemSize()
+	}
+	if r.IntendedUse != nil {
+		s += r.IntendedUse.MemSize()
+	}
+	if r.Indication != nil {
+		s += r.Indication.MemSize()
+	}
+	if r.Status != nil {
+		s += r.Status.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Species != nil {
+		s += r.Species.MemSize()
+	}
+	return s
 }
 func (r MedicinalProduct) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

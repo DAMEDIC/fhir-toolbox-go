@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A statement of relationships from one set of concepts to one or more other concepts - either concepts in code systems, or data element/data element concepts, or classes in class models.
@@ -67,6 +68,7 @@ type ConceptMap struct {
 	Group []ConceptMapGroup
 }
 type isConceptMapSource interface {
+	model.Element
 	isConceptMapSource()
 }
 
@@ -74,6 +76,7 @@ func (r Uri) isConceptMapSource()       {}
 func (r Canonical) isConceptMapSource() {}
 
 type isConceptMapTarget interface {
+	model.Element
 	isConceptMapTarget()
 }
 
@@ -197,6 +200,234 @@ func (r ConceptMap) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ConceptMap) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	if r.Identifier != nil {
+		s += r.Identifier.MemSize()
+	}
+	if r.Version != nil {
+		s += r.Version.MemSize()
+	}
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	if r.Title != nil {
+		s += r.Title.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.Experimental != nil {
+		s += r.Experimental.MemSize()
+	}
+	if r.Date != nil {
+		s += r.Date.MemSize()
+	}
+	if r.Publisher != nil {
+		s += r.Publisher.MemSize()
+	}
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.UseContext {
+		s += i.MemSize()
+	}
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	for _, i := range r.Jurisdiction {
+		s += i.MemSize()
+	}
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Purpose != nil {
+		s += r.Purpose.MemSize()
+	}
+	if r.Copyright != nil {
+		s += r.Copyright.MemSize()
+	}
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	if r.Target != nil {
+		s += r.Target.MemSize()
+	}
+	for _, i := range r.Group {
+		s += i.MemSize()
+	}
+	s += (cap(r.Group) - len(r.Group)) * int(unsafe.Sizeof(ConceptMapGroup{}))
+	return s
+}
+func (r ConceptMapGroup) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Source != nil {
+		s += r.Source.MemSize()
+	}
+	if r.SourceVersion != nil {
+		s += r.SourceVersion.MemSize()
+	}
+	if r.Target != nil {
+		s += r.Target.MemSize()
+	}
+	if r.TargetVersion != nil {
+		s += r.TargetVersion.MemSize()
+	}
+	for _, i := range r.Element {
+		s += i.MemSize()
+	}
+	s += (cap(r.Element) - len(r.Element)) * int(unsafe.Sizeof(ConceptMapGroupElement{}))
+	if r.Unmapped != nil {
+		s += r.Unmapped.MemSize()
+	}
+	return s
+}
+func (r ConceptMapGroupElement) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	for _, i := range r.Target {
+		s += i.MemSize()
+	}
+	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(ConceptMapGroupElementTarget{}))
+	return s
+}
+func (r ConceptMapGroupElementTarget) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	s += r.Equivalence.MemSize() - int(unsafe.Sizeof(r.Equivalence))
+	if r.Comment != nil {
+		s += r.Comment.MemSize()
+	}
+	for _, i := range r.DependsOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.DependsOn) - len(r.DependsOn)) * int(unsafe.Sizeof(ConceptMapGroupElementTargetDependsOn{}))
+	for _, i := range r.Product {
+		s += i.MemSize()
+	}
+	s += (cap(r.Product) - len(r.Product)) * int(unsafe.Sizeof(ConceptMapGroupElementTargetDependsOn{}))
+	return s
+}
+func (r ConceptMapGroupElementTargetDependsOn) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Property.MemSize() - int(unsafe.Sizeof(r.Property))
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	return s
+}
+func (r ConceptMapGroupUnmapped) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	if r.Display != nil {
+		s += r.Display.MemSize()
+	}
+	if r.Url != nil {
+		s += r.Url.MemSize()
+	}
+	return s
 }
 func (r ConceptMap) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

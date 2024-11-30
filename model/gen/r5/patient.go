@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Demographics and other administrative information about an individual or animal receiving care or other health-related services.
@@ -70,6 +71,7 @@ type Patient struct {
 	Link []PatientLink
 }
 type isPatientDeceased interface {
+	model.Element
 	isPatientDeceased()
 }
 
@@ -77,6 +79,7 @@ func (r Boolean) isPatientDeceased()  {}
 func (r DateTime) isPatientDeceased() {}
 
 type isPatientMultipleBirth interface {
+	model.Element
 	isPatientMultipleBirth()
 }
 
@@ -152,6 +155,169 @@ func (r Patient) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Patient) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	if r.Active != nil {
+		s += r.Active.MemSize()
+	}
+	for _, i := range r.Name {
+		s += i.MemSize()
+	}
+	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(HumanName{}))
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.Gender != nil {
+		s += r.Gender.MemSize()
+	}
+	if r.BirthDate != nil {
+		s += r.BirthDate.MemSize()
+	}
+	if r.Deceased != nil {
+		s += r.Deceased.MemSize()
+	}
+	for _, i := range r.Address {
+		s += i.MemSize()
+	}
+	s += (cap(r.Address) - len(r.Address)) * int(unsafe.Sizeof(Address{}))
+	if r.MaritalStatus != nil {
+		s += r.MaritalStatus.MemSize()
+	}
+	if r.MultipleBirth != nil {
+		s += r.MultipleBirth.MemSize()
+	}
+	for _, i := range r.Photo {
+		s += i.MemSize()
+	}
+	s += (cap(r.Photo) - len(r.Photo)) * int(unsafe.Sizeof(Attachment{}))
+	for _, i := range r.Contact {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(PatientContact{}))
+	for _, i := range r.Communication {
+		s += i.MemSize()
+	}
+	s += (cap(r.Communication) - len(r.Communication)) * int(unsafe.Sizeof(PatientCommunication{}))
+	for _, i := range r.GeneralPractitioner {
+		s += i.MemSize()
+	}
+	s += (cap(r.GeneralPractitioner) - len(r.GeneralPractitioner)) * int(unsafe.Sizeof(Reference{}))
+	if r.ManagingOrganization != nil {
+		s += r.ManagingOrganization.MemSize()
+	}
+	for _, i := range r.Link {
+		s += i.MemSize()
+	}
+	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(PatientLink{}))
+	return s
+}
+func (r PatientContact) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Relationship {
+		s += i.MemSize()
+	}
+	s += (cap(r.Relationship) - len(r.Relationship)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Name != nil {
+		s += r.Name.MemSize()
+	}
+	for _, i := range r.Telecom {
+		s += i.MemSize()
+	}
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	if r.Address != nil {
+		s += r.Address.MemSize()
+	}
+	if r.Gender != nil {
+		s += r.Gender.MemSize()
+	}
+	if r.Organization != nil {
+		s += r.Organization.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
+func (r PatientCommunication) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Language.MemSize() - int(unsafe.Sizeof(r.Language))
+	if r.Preferred != nil {
+		s += r.Preferred.MemSize()
+	}
+	return s
+}
+func (r PatientLink) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Other.MemSize() - int(unsafe.Sizeof(r.Other))
+	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	return s
 }
 func (r Patient) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

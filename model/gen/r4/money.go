@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for Money Type: An amount of economic utility in some recognized currency.
@@ -20,6 +21,23 @@ type Money struct {
 	Currency *Code
 }
 
+func (r Money) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Currency != nil {
+		s += r.Currency.MemSize()
+	}
+	return s
+}
 func (r Money) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

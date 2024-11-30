@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.
@@ -97,6 +98,7 @@ type ServiceRequest struct {
 	RelevantHistory []Reference
 }
 type isServiceRequestQuantity interface {
+	model.Element
 	isServiceRequestQuantity()
 }
 
@@ -105,6 +107,7 @@ func (r Ratio) isServiceRequestQuantity()    {}
 func (r Range) isServiceRequestQuantity()    {}
 
 type isServiceRequestOccurrence interface {
+	model.Element
 	isServiceRequestOccurrence()
 }
 
@@ -113,6 +116,7 @@ func (r Period) isServiceRequestOccurrence()   {}
 func (r Timing) isServiceRequestOccurrence()   {}
 
 type isServiceRequestAsNeeded interface {
+	model.Element
 	isServiceRequestAsNeeded()
 }
 
@@ -151,6 +155,7 @@ type ServiceRequestOrderDetailParameter struct {
 	Value isServiceRequestOrderDetailParameterValue
 }
 type isServiceRequestOrderDetailParameterValue interface {
+	model.Element
 	isServiceRequestOrderDetailParameterValue()
 }
 
@@ -176,6 +181,7 @@ type ServiceRequestPatientInstruction struct {
 	Instruction isServiceRequestPatientInstructionInstruction
 }
 type isServiceRequestPatientInstructionInstruction interface {
+	model.Element
 	isServiceRequestPatientInstructionInstruction()
 }
 
@@ -192,6 +198,208 @@ func (r ServiceRequest) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ServiceRequest) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.InstantiatesCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	for _, i := range r.InstantiatesUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Replaces {
+		s += i.MemSize()
+	}
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	if r.Requisition != nil {
+		s += r.Requisition.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	for _, i := range r.Category {
+		s += i.MemSize()
+	}
+	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.DoNotPerform != nil {
+		s += r.DoNotPerform.MemSize()
+	}
+	if r.Code != nil {
+		s += r.Code.MemSize()
+	}
+	for _, i := range r.OrderDetail {
+		s += i.MemSize()
+	}
+	s += (cap(r.OrderDetail) - len(r.OrderDetail)) * int(unsafe.Sizeof(ServiceRequestOrderDetail{}))
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	for _, i := range r.Focus {
+		s += i.MemSize()
+	}
+	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	if r.AsNeeded != nil {
+		s += r.AsNeeded.MemSize()
+	}
+	if r.AuthoredOn != nil {
+		s += r.AuthoredOn.MemSize()
+	}
+	if r.Requester != nil {
+		s += r.Requester.MemSize()
+	}
+	if r.PerformerType != nil {
+		s += r.PerformerType.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Location {
+		s += i.MemSize()
+	}
+	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Insurance {
+		s += i.MemSize()
+	}
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.SupportingInfo {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Specimen {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.BodySite {
+		s += i.MemSize()
+	}
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.BodyStructure != nil {
+		s += r.BodyStructure.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.PatientInstruction {
+		s += i.MemSize()
+	}
+	s += (cap(r.PatientInstruction) - len(r.PatientInstruction)) * int(unsafe.Sizeof(ServiceRequestPatientInstruction{}))
+	for _, i := range r.RelevantHistory {
+		s += i.MemSize()
+	}
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ServiceRequestOrderDetail) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.ParameterFocus != nil {
+		s += r.ParameterFocus.MemSize()
+	}
+	for _, i := range r.Parameter {
+		s += i.MemSize()
+	}
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ServiceRequestOrderDetailParameter{}))
+	return s
+}
+func (r ServiceRequestOrderDetailParameter) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	return s
+}
+func (r ServiceRequestPatientInstruction) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Instruction != nil {
+		s += r.Instruction.MemSize()
+	}
+	return s
 }
 func (r ServiceRequest) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

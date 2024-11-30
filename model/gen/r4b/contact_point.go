@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Base StructureDefinition for ContactPoint Type: Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc.
@@ -28,6 +29,32 @@ type ContactPoint struct {
 	Period *Period
 }
 
+func (r ContactPoint) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.System != nil {
+		s += r.System.MemSize()
+	}
+	if r.Value != nil {
+		s += r.Value.MemSize()
+	}
+	if r.Use != nil {
+		s += r.Use.MemSize()
+	}
+	if r.Rank != nil {
+		s += r.Rank.MemSize()
+	}
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	return s
+}
 func (r ContactPoint) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

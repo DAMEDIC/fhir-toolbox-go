@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // The resource ChargeItem describes the provision of healthcare provider products for a certain patient, therefore referring not only to the product, but containing in addition details of the provision, like date, time, amounts and participating organizations and persons. Main Usage of the ChargeItem is to enable the billing process and internal cost allocation.
@@ -83,6 +84,7 @@ type ChargeItem struct {
 	SupportingInformation []Reference
 }
 type isChargeItemOccurrence interface {
+	model.Element
 	isChargeItemOccurrence()
 }
 
@@ -117,6 +119,141 @@ func (r ChargeItem) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r ChargeItem) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	for _, i := range r.DefinitionUri {
+		s += i.MemSize()
+	}
+	s += (cap(r.DefinitionUri) - len(r.DefinitionUri)) * int(unsafe.Sizeof(Uri{}))
+	for _, i := range r.DefinitionCanonical {
+		s += i.MemSize()
+	}
+	s += (cap(r.DefinitionCanonical) - len(r.DefinitionCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	for _, i := range r.PartOf {
+		s += i.MemSize()
+	}
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	if r.Encounter != nil {
+		s += r.Encounter.MemSize()
+	}
+	if r.Occurrence != nil {
+		s += r.Occurrence.MemSize()
+	}
+	for _, i := range r.Performer {
+		s += i.MemSize()
+	}
+	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ChargeItemPerformer{}))
+	if r.PerformingOrganization != nil {
+		s += r.PerformingOrganization.MemSize()
+	}
+	if r.RequestingOrganization != nil {
+		s += r.RequestingOrganization.MemSize()
+	}
+	if r.CostCenter != nil {
+		s += r.CostCenter.MemSize()
+	}
+	if r.Quantity != nil {
+		s += r.Quantity.MemSize()
+	}
+	for _, i := range r.Bodysite {
+		s += i.MemSize()
+	}
+	s += (cap(r.Bodysite) - len(r.Bodysite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.UnitPriceComponent != nil {
+		s += r.UnitPriceComponent.MemSize()
+	}
+	if r.TotalPriceComponent != nil {
+		s += r.TotalPriceComponent.MemSize()
+	}
+	if r.OverrideReason != nil {
+		s += r.OverrideReason.MemSize()
+	}
+	if r.Enterer != nil {
+		s += r.Enterer.MemSize()
+	}
+	if r.EnteredDate != nil {
+		s += r.EnteredDate.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.Service {
+		s += i.MemSize()
+	}
+	s += (cap(r.Service) - len(r.Service)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Product {
+		s += i.MemSize()
+	}
+	s += (cap(r.Product) - len(r.Product)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Account {
+		s += i.MemSize()
+	}
+	s += (cap(r.Account) - len(r.Account)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.SupportingInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	return s
+}
+func (r ChargeItemPerformer) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Function != nil {
+		s += r.Function.MemSize()
+	}
+	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	return s
 }
 func (r ChargeItem) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")

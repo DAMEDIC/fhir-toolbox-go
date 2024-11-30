@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // Range Type: A set of ordered Quantities defined by a low and high limit.
@@ -22,6 +23,23 @@ type Range struct {
 	High *Quantity
 }
 
+func (r Range) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Low != nil {
+		s += r.Low.MemSize()
+	}
+	if r.High != nil {
+		s += r.High.MemSize()
+	}
+	return s
+}
 func (r Range) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {

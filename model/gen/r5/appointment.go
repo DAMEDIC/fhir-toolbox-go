@@ -7,6 +7,7 @@ import (
 	model "fhir-toolbox/model"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 // A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s).
@@ -224,6 +225,304 @@ func (r Appointment) ResourceId() (string, bool) {
 		return "", false
 	}
 	return *r.Id.Value, true
+}
+func (r Appointment) MemSize() int {
+	var emptyIface any
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += r.Id.MemSize()
+	}
+	if r.Meta != nil {
+		s += r.Meta.MemSize()
+	}
+	if r.ImplicitRules != nil {
+		s += r.ImplicitRules.MemSize()
+	}
+	if r.Language != nil {
+		s += r.Language.MemSize()
+	}
+	if r.Text != nil {
+		s += r.Text.MemSize()
+	}
+	for _, i := range r.Contained {
+		s += i.MemSize()
+	}
+	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Identifier {
+		s += i.MemSize()
+	}
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	if r.CancellationReason != nil {
+		s += r.CancellationReason.MemSize()
+	}
+	for _, i := range r.Class {
+		s += i.MemSize()
+	}
+	s += (cap(r.Class) - len(r.Class)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceCategory {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	for _, i := range r.ServiceType {
+		s += i.MemSize()
+	}
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.Specialty {
+		s += i.MemSize()
+	}
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.AppointmentType != nil {
+		s += r.AppointmentType.MemSize()
+	}
+	for _, i := range r.Reason {
+		s += i.MemSize()
+	}
+	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	if r.Priority != nil {
+		s += r.Priority.MemSize()
+	}
+	if r.Description != nil {
+		s += r.Description.MemSize()
+	}
+	for _, i := range r.Replaces {
+		s += i.MemSize()
+	}
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.VirtualService {
+		s += i.MemSize()
+	}
+	s += (cap(r.VirtualService) - len(r.VirtualService)) * int(unsafe.Sizeof(VirtualServiceDetail{}))
+	for _, i := range r.SupportingInformation {
+		s += i.MemSize()
+	}
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	if r.PreviousAppointment != nil {
+		s += r.PreviousAppointment.MemSize()
+	}
+	if r.OriginatingAppointment != nil {
+		s += r.OriginatingAppointment.MemSize()
+	}
+	if r.Start != nil {
+		s += r.Start.MemSize()
+	}
+	if r.End != nil {
+		s += r.End.MemSize()
+	}
+	if r.MinutesDuration != nil {
+		s += r.MinutesDuration.MemSize()
+	}
+	for _, i := range r.RequestedPeriod {
+		s += i.MemSize()
+	}
+	s += (cap(r.RequestedPeriod) - len(r.RequestedPeriod)) * int(unsafe.Sizeof(Period{}))
+	for _, i := range r.Slot {
+		s += i.MemSize()
+	}
+	s += (cap(r.Slot) - len(r.Slot)) * int(unsafe.Sizeof(Reference{}))
+	for _, i := range r.Account {
+		s += i.MemSize()
+	}
+	s += (cap(r.Account) - len(r.Account)) * int(unsafe.Sizeof(Reference{}))
+	if r.Created != nil {
+		s += r.Created.MemSize()
+	}
+	if r.CancellationDate != nil {
+		s += r.CancellationDate.MemSize()
+	}
+	for _, i := range r.Note {
+		s += i.MemSize()
+	}
+	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	for _, i := range r.PatientInstruction {
+		s += i.MemSize()
+	}
+	s += (cap(r.PatientInstruction) - len(r.PatientInstruction)) * int(unsafe.Sizeof(CodeableReference{}))
+	for _, i := range r.BasedOn {
+		s += i.MemSize()
+	}
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	if r.Subject != nil {
+		s += r.Subject.MemSize()
+	}
+	for _, i := range r.Participant {
+		s += i.MemSize()
+	}
+	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(AppointmentParticipant{}))
+	if r.RecurrenceId != nil {
+		s += r.RecurrenceId.MemSize()
+	}
+	if r.OccurrenceChanged != nil {
+		s += r.OccurrenceChanged.MemSize()
+	}
+	for _, i := range r.RecurrenceTemplate {
+		s += i.MemSize()
+	}
+	s += (cap(r.RecurrenceTemplate) - len(r.RecurrenceTemplate)) * int(unsafe.Sizeof(AppointmentRecurrenceTemplate{}))
+	return s
+}
+func (r AppointmentParticipant) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.Type {
+		s += i.MemSize()
+	}
+	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	if r.Period != nil {
+		s += r.Period.MemSize()
+	}
+	if r.Actor != nil {
+		s += r.Actor.MemSize()
+	}
+	if r.Required != nil {
+		s += r.Required.MemSize()
+	}
+	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	return s
+}
+func (r AppointmentRecurrenceTemplate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Timezone != nil {
+		s += r.Timezone.MemSize()
+	}
+	s += r.RecurrenceType.MemSize() - int(unsafe.Sizeof(r.RecurrenceType))
+	if r.LastOccurrenceDate != nil {
+		s += r.LastOccurrenceDate.MemSize()
+	}
+	if r.OccurrenceCount != nil {
+		s += r.OccurrenceCount.MemSize()
+	}
+	for _, i := range r.OccurrenceDate {
+		s += i.MemSize()
+	}
+	s += (cap(r.OccurrenceDate) - len(r.OccurrenceDate)) * int(unsafe.Sizeof(Date{}))
+	if r.WeeklyTemplate != nil {
+		s += r.WeeklyTemplate.MemSize()
+	}
+	if r.MonthlyTemplate != nil {
+		s += r.MonthlyTemplate.MemSize()
+	}
+	if r.YearlyTemplate != nil {
+		s += r.YearlyTemplate.MemSize()
+	}
+	for _, i := range r.ExcludingDate {
+		s += i.MemSize()
+	}
+	s += (cap(r.ExcludingDate) - len(r.ExcludingDate)) * int(unsafe.Sizeof(Date{}))
+	for _, i := range r.ExcludingRecurrenceId {
+		s += i.MemSize()
+	}
+	s += (cap(r.ExcludingRecurrenceId) - len(r.ExcludingRecurrenceId)) * int(unsafe.Sizeof(PositiveInt{}))
+	return s
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.Monday != nil {
+		s += r.Monday.MemSize()
+	}
+	if r.Tuesday != nil {
+		s += r.Tuesday.MemSize()
+	}
+	if r.Wednesday != nil {
+		s += r.Wednesday.MemSize()
+	}
+	if r.Thursday != nil {
+		s += r.Thursday.MemSize()
+	}
+	if r.Friday != nil {
+		s += r.Friday.MemSize()
+	}
+	if r.Saturday != nil {
+		s += r.Saturday.MemSize()
+	}
+	if r.Sunday != nil {
+		s += r.Sunday.MemSize()
+	}
+	if r.WeekInterval != nil {
+		s += r.WeekInterval.MemSize()
+	}
+	return s
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	if r.DayOfMonth != nil {
+		s += r.DayOfMonth.MemSize()
+	}
+	if r.NthWeekOfMonth != nil {
+		s += r.NthWeekOfMonth.MemSize()
+	}
+	if r.DayOfWeek != nil {
+		s += r.DayOfWeek.MemSize()
+	}
+	s += r.MonthInterval.MemSize() - int(unsafe.Sizeof(r.MonthInterval))
+	return s
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) MemSize() int {
+	s := int(unsafe.Sizeof(r))
+	if r.Id != nil {
+		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+	}
+	for _, i := range r.Extension {
+		s += i.MemSize()
+	}
+	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	for _, i := range r.ModifierExtension {
+		s += i.MemSize()
+	}
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += r.YearInterval.MemSize() - int(unsafe.Sizeof(r.YearInterval))
+	return s
 }
 func (r Appointment) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
