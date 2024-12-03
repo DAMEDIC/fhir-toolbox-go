@@ -17,7 +17,12 @@ import (
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	err := registerRoutes[R](mux, wrap.Generic[R](backend), config)
+	genericBackend, err := wrap.Generic[R](backend)
+	if err != nil {
+		return nil, err
+	}
+
+	err = registerRoutes[R](mux, genericBackend, config)
 	if err != nil {
 		return nil, err
 	}

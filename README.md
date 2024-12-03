@@ -15,7 +15,10 @@ This includes model types and interfaces modeling capabilities that you can use 
 ## Features
 
 - FHIR® model types with JSON and XML (un)marshalling
-  - R4, R4B & R5 
+  - R4, R4B & R5
+    
+    use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific versions
+    
   - generated from the FHIR® specification
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))

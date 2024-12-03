@@ -2,11 +2,23 @@ package wrap
 
 import (
 	"fhir-toolbox/capabilities"
-	capabilitiesR4 "fhir-toolbox/capabilities/gen/r4"
-	capabilitiesR4B "fhir-toolbox/capabilities/gen/r4b"
-	capabilitiesR5 "fhir-toolbox/capabilities/gen/r5"
 	"fhir-toolbox/model"
+	"fmt"
+	"strings"
 )
+
+var genericR4 = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
+var genericR4B = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
+var genericR5 = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
+
+func disabledErr[R model.Release]() error {
+	r := model.ReleaseName[R]()
+
+	return fmt.Errorf(
+		"release %s disabled by build tag; remove all build tags or add %s",
+		r, strings.ToLower(r),
+	)
+}
 
 // The Generic function wraps a concrete API with generic capabilities methods.
 //
@@ -25,94 +37,24 @@ import (
 //	patient, err := genericAPI.Read(ctx, "Patient", id)
 //
 // ```
-func Generic[R model.Release](api any) capabilities.GenericAPI {
+func Generic[R model.Release](api any) (capabilities.GenericAPI, error) {
 	// if already generic do not wrap it again
 	generic, ok := api.(capabilities.GenericAPI)
 	if ok {
-		return generic
+		return generic, nil
 	}
 
 	var r R
 	switch any(r).(type) {
 	case model.R4:
-		return capabilitiesR4.Generic{Concrete: api}
+		return genericR4(api)
 	case model.R4B:
-		return capabilitiesR4B.Generic{Concrete: api}
+		return genericR4B(api)
 	case model.R5:
-		return capabilitiesR5.Generic{Concrete: api}
+		return genericR5(api)
 	default:
+		// this should never as long as we now all implementations the Release interface
+		// see `Release.isRelease`
 		panic("unsupported release")
 	}
-}
-
-// The ConcreteR4 function wraps a generic API with concrete capabilities methods.
-//
-// # Example
-//
-// A given a generic implementation
-// ```Go
-//
-//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
-//
-// ```
-// can be wrapped and called by its concrete methods
-// ```Go
-//
-//	concreteAPI := wrap.ConcreteR4(genericAPI)
-//	patient, err := concreteAPI.ReadPatient(ctx, id)
-//
-// ```
-//
-// The function is concrete vs. generic over the FHIR release, because it is not possible to return different
-// interfaces depending on generic parameters.
-func ConcreteR4(api capabilities.GenericAPI) capabilitiesR4.ConcreteAPI {
-	return capabilitiesR4.Concrete{Generic: api}
-}
-
-// The ConcreteR4B function wraps a generic API with concrete capabilities methods.
-//
-// # Example
-//
-// A given a generic implementation
-// ```Go
-//
-//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
-//
-// ```
-// can be wrapped and called by its concrete methods
-// ```Go
-//
-//	concreteAPI := wrap.ConcreteR4B(genericAPI)
-//	patient, err := concreteAPI.ReadPatient(ctx, id)
-//
-// ```
-//
-// The function is concrete vs. generic over the FHIR release, because it is not possible to return different
-// interfaces depending on generic parameters.
-func ConcreteR4B(api capabilities.GenericAPI) capabilitiesR4.ConcreteAPI {
-	return capabilitiesR4.Concrete{Generic: api}
-}
-
-// The ConcreteR5 function wraps a generic API with concrete capabilities methods.
-//
-// # Example
-//
-// A given a generic implementation
-// ```Go
-//
-//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
-//
-// ```
-// can be wrapped and called by its concrete methods
-// ```Go
-//
-//	concreteAPI := wrap.ConcreteR5(genericAPI)
-//	patient, err := concreteAPI.ReadPatient(ctx, id)
-//
-// ```
-//
-// The function is concrete vs. generic over the FHIR release, because it is not possible to return different
-// interfaces depending on generic parameters.
-func ConcreteR5(api capabilities.GenericAPI) capabilitiesR4.ConcreteAPI {
-	return capabilitiesR4.Concrete{Generic: api}
 }
