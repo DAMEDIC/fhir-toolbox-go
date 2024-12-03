@@ -1,8 +1,7 @@
 # fhir-toolbox-go
 
-> HL7®, and FHIR® are the registered trademarks of Health Level Seven International.
-> The use of these trademarks does not constitute an endorsement by HL7®.
-> This project is not affiliated with HL7® in any way.
+> FHIR® is the registered trademark of HL7® and is used with the permission of HL7®.
+> Use of the FHIR trademark does not constitute endorsement of the contents of this repository by HL7®.
 
 This project provides a set of packages for working with the HL7® FHIR® standard in Go.
 You only need to implement some interfaces and get a REST implementation out-of-the box.
