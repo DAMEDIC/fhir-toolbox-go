@@ -10,10 +10,29 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
 )
 
+// NewServer returns a http.Handler that serves the supplied backend.
+//
+// # Base URL and routes
+// You have to pass a base URL using the config.
+// This base URL is only used for building response Bundles.
+// For supported interactions, the returned http.Handler has sub-routes installed.
+// These are always installed at the root of this handler.
+// The base URL from the config is not used.
+//
+// Currently, installed patterns are:
+// * capabilities: `GET /metadata`
+// * read: `GET /{type}/{id}`
+// * search: `GET /{type}/`
+//
+// If you do not want your FHIR handlers installed at the root, use something like
+// ```Go
+// mux.Handle("/path/", http.StripPrefix("/path", serverHandler)
+// ```
+// This allows you to implement multiple FHIR REST APIs on the same HTTP server
+// (e.g. for multi-tenancy scenarios).
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
@@ -39,16 +58,6 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericAPI,
 	config Config,
 ) error {
-	baseURL, err := url.Parse(config.Base)
-	if err != nil {
-		return fmt.Errorf("unable to parse base URL: %w", err)
-	}
-
-	basePath := strings.Trim(baseURL.Path, "/ ")
-	if basePath != "" {
-		basePath = "/" + basePath
-	}
-
 	tz, err := time.LoadLocation(config.Timezone)
 	if err != nil {
 		return fmt.Errorf("unable to load timezone: %w", err)
@@ -59,36 +68,32 @@ func registerRoutes[R model.Release](
 		return fmt.Errorf("error parsing date '%s': %w", config.Date, err)
 	}
 
-	mux.Handle(fmt.Sprintf("GET %s/metadata", basePath),
-		metadataHandler[R](backend, config.DefaultFormat, baseURL, date))
-	mux.Handle(fmt.Sprintf("GET %s/{type}/{id}", basePath),
-		readHandler(backend, config.DefaultFormat))
-	mux.Handle(fmt.Sprintf("GET %s/{type}", basePath),
-		searchHandler(backend, config.DefaultFormat, baseURL, tz, config.MaxCount, config.DefaultCount))
+	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
+	mux.Handle("GET /{type}/{id}", readHandler(backend, config))
+	mux.Handle("GET /{type}", searchHandler(backend, config, tz))
 
 	return nil
 }
 
 func metadataHandler[R model.Release](
 	backend capabilities.GenericAPI,
-	defaultFormat Format,
-	baseURL *url.URL,
+	config Config,
 	date time.Time,
 ) http.Handler {
-	capabilityStatement := CapabilityStatement[R](baseURL, backend.AllCapabilities(), date)
+	capabilityStatement := CapabilityStatement[R](config.Base, backend.AllCapabilities(), date)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, defaultFormat)
+		format := detectFormat(r, config.DefaultFormat)
 		returnResult(w, format, http.StatusOK, capabilityStatement)
 	})
 }
 
 func readHandler(
 	backend capabilities.GenericAPI,
-	defaultFormat Format,
+	config Config,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, defaultFormat)
+		format := detectFormat(r, config.DefaultFormat)
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
@@ -116,25 +121,20 @@ func dispatchRead(
 
 func searchHandler(
 	backend capabilities.GenericAPI,
-	defaultFormat Format,
-	baseURL *url.URL,
+	config Config,
 	tz *time.Location,
-	maxCount,
-	defaultCount int,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, defaultFormat)
+		format := detectFormat(r, config.DefaultFormat)
 		resourceType := r.PathValue("type")
 
 		status, resource := dispatchSearch(
 			r.Context(),
 			backend,
+			config,
 			resourceType,
 			r.URL.Query(),
-			baseURL,
 			tz,
-			maxCount,
-			defaultCount,
 		)
 		if status != http.StatusOK {
 			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
@@ -147,16 +147,14 @@ func searchHandler(
 func dispatchSearch(
 	context context.Context,
 	backend capabilities.GenericAPI,
+	config Config,
 	resourceType string,
 	parameters url.Values,
-	baseURL *url.URL,
 	tz *time.Location,
-	maxCount,
-	defaultCount int,
 ) (int, model.Resource) {
 	searchCapabilities, err := backend.SearchCapabilities(resourceType)
 
-	options, err := parseSearchOptions(searchCapabilities, parameters, tz, maxCount, defaultCount)
+	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
@@ -166,7 +164,7 @@ func dispatchSearch(
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	bundle, err := SearchBundle(resourceType, resources, options, searchCapabilities, baseURL)
+	bundle, err := SearchBundle(resourceType, resources, options, searchCapabilities, config.Base)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

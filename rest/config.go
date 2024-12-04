@@ -1,12 +1,14 @@
 package rest
 
 import (
+	"encoding/json"
+	"net/url"
 	"time"
 )
 
 type Config struct {
 	// Base path of the FHIR server, used e.g. for building bundles.
-	Base string `json:"base"`
+	Base *url.URL `json:"base"`
 	// Timezone used for parsing date parameters without timezones.
 	// Defaults to current server timezone.
 	Timezone string `json:"timezone"`
@@ -30,4 +32,37 @@ var DefaultConfig = Config{
 	MaxCount:      500,
 	DefaultCount:  500,
 	DefaultFormat: FormatJSON,
+}
+
+type jsonConfig struct {
+	Base string `json:"base"`
+	jsonConfigInner
+}
+
+// type alias to prevent infinite recursion when (un)marshalling
+type jsonConfigInner Config
+
+func (c Config) MarshalJSON() ([]byte, error) {
+	return json.Marshal(jsonConfig{
+		Base:            c.Base.String(),
+		jsonConfigInner: jsonConfigInner(c),
+	})
+}
+
+func (c *Config) UnmarshalJSON(b []byte) error {
+	jc := jsonConfig{
+		jsonConfigInner: jsonConfigInner(*c),
+	}
+
+	err := json.Unmarshal(b, &jc)
+	if err != nil {
+		return err
+	}
+
+	c.Base, err = url.Parse(jc.Base)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

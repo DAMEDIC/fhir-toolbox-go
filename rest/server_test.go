@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -218,7 +219,7 @@ func TestCapabilityStatement(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
-			config.Base = "http://example.com"
+			config.Base, _ = url.Parse("http://example.com")
 			config.Date = tt.date
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
@@ -408,7 +409,7 @@ func TestHandleRead(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
-			config.Base = "http://example.com"
+			config.Base, _ = url.Parse("http://example.com")
 
 			server, err := rest.NewServer[model.R4](tt.backend, config)
 			assert.NoError(t, err)
@@ -902,7 +903,7 @@ func TestHandleSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
-			config.Base = "http://example.com"
+			config.Base, _ = url.Parse("http://example.com")
 
 			server, err := rest.NewServer[model.R4](tt.backend, config)
 			assert.NoError(t, err)
