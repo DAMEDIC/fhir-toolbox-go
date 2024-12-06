@@ -52,7 +52,11 @@ func matchFormat(requested string) Format {
 func encodeJSON[T any](w http.ResponseWriter, status int, v T) error {
 	w.Header().Set("Content-Type", "application/fhir+json")
 	w.WriteHeader(status)
-	if err := json.NewEncoder(w).Encode(v); err != nil {
+
+	encoder := json.NewEncoder(w)
+	encoder.SetEscapeHTML(false)
+
+	if err := encoder.Encode(v); err != nil {
 		return fmt.Errorf("encode json: %w", err)
 	}
 	return nil
