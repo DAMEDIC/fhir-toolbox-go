@@ -18,18 +18,13 @@ func init() {
 // # Example
 //
 // A given a generic implementation
-// ```Go
 //
 //	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
 //
-// ```
 // can be wrapped and called by its concrete methods
-// ```Go
 //
 //	concreteAPI := wrap.ConcreteR4B(genericAPI)
 //	patient, err := concreteAPI.ReadPatient(ctx, id)
-//
-// ```
 //
 // The function is concrete vs. generic over the FHIR release, because it is not possible to return different
 // interfaces depending on generic parameters.

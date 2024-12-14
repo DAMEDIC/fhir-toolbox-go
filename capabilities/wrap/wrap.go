@@ -1,4 +1,6 @@
-// Package wrap package provides wrapper functions to wrap a concrete into the generic API:
+// Package wrap provides conversion between concrete and generic APIs.
+//
+// To wrap a concrete into the generic API:
 //
 //	genericAPI := wrap.Generic[model.R4](concreteAPI)
 //
@@ -32,18 +34,13 @@ func disabledErr[R model.Release]() error {
 // # Example
 //
 // A given a concrete implementation
-// ```Go
 //
 //	func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {}
 //
-// ```
 // can be wrapped and called by its concrete methods
-// ```Go
 //
 //	genericAPI := wrap.Generic[model.R4](concreteAPI)
 //	patient, err := genericAPI.Read(ctx, "Patient", id)
-//
-// ```
 func Generic[R model.Release](api any) (capabilities.GenericAPI, error) {
 	// if already generic do not wrap it again
 	generic, ok := api.(capabilities.GenericAPI)
