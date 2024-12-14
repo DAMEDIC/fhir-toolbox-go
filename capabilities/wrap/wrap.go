@@ -1,9 +1,9 @@
 package wrap
 
 import (
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/model"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"strings"
 )
 

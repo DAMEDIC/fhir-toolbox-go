@@ -1,9 +1,9 @@
 package model_test
 
 import (
-	"fhir-toolbox/model"
-	"fhir-toolbox/model/gen/r4"
-	"fhir-toolbox/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"unsafe"

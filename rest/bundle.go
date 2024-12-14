@@ -1,12 +1,12 @@
 package rest
 
 import (
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model"
-	"fhir-toolbox/model/gen/r4"
-	"fhir-toolbox/utils"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/url"
 	"strings"
 )

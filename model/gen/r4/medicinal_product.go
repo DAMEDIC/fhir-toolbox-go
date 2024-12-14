@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
-	model "fhir-toolbox/model"
 	"fmt"
+	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
 	"unsafe"
 )

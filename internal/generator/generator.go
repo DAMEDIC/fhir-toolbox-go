@@ -5,12 +5,14 @@
 package generator
 
 import (
-	"fhir-toolbox/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
 	"github.com/dave/jennifer/jen"
 	"log"
 	"os"
 	"path/filepath"
 )
+
+const moduleName = "github.com/DAMEDIC/fhir-toolbox-go"
 
 // The Generator can be used to implement code generation.
 type Generator interface {

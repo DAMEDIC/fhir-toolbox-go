@@ -2,10 +2,10 @@ package rest
 
 import (
 	"cmp"
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/model"
-	"fhir-toolbox/model/gen/r4"
-	"fhir-toolbox/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/url"
 	"slices"
 	"time"

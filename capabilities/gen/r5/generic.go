@@ -2,9 +2,9 @@ package capabilitiesR5
 
 import (
 	"context"
-	capabilities "fhir-toolbox/capabilities"
-	search "fhir-toolbox/capabilities/search"
-	model "fhir-toolbox/model"
+	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 )
 
 type Generic struct {

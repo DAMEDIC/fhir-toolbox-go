@@ -2,8 +2,8 @@ package capabilitiesR5
 
 import (
 	"context"
-	capabilities "fhir-toolbox/capabilities"
-	r5 "fhir-toolbox/model/gen/r5"
+	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 )
 
 type AccountRead interface {

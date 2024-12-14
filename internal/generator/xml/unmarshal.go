@@ -1,8 +1,8 @@
 package xml
 
 import (
-	"fhir-toolbox/internal/generator"
-	"fhir-toolbox/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
 	. "github.com/dave/jennifer/jen"
 	"strings"
 )

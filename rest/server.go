@@ -2,11 +2,11 @@ package rest
 
 import (
 	"context"
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/capabilities/wrap"
-	"fhir-toolbox/model"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/wrap"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"log/slog"
 	"net/http"
 	"net/url"

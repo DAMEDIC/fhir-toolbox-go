@@ -4,9 +4,9 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model/gen/r5"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"log"
 	"log/slog"
 	"net/http"
@@ -14,9 +14,9 @@ import (
 	"os"
 	"strings"
 
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/model"
-	"fhir-toolbox/rest"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 )
 
 func main() {

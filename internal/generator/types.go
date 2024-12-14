@@ -1,7 +1,7 @@
 package generator
 
 import (
-	"fhir-toolbox/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -47,7 +47,7 @@ func generateStruct(f *File, s ir.Struct) {
 				t := f.PossibleTypes[0]
 
 				if t.IsNestedResource {
-					stmt.Qual("fhir-toolbox/model", "Resource")
+					stmt.Qual(moduleName+"/model", "Resource")
 				} else {
 					stmt.Id(t.Name)
 				}
@@ -63,7 +63,7 @@ func generatePrimitiveEnums(f *File, s ir.Struct) {
 		}
 
 		f.Type().Id("is"+s.Name+sf.Name).Interface(
-			Qual("fhir-toolbox/model", "Element"),
+			Qual(moduleName+"/model", "Element"),
 			Id("is"+s.Name+sf.Name).Params(),
 		)
 
@@ -75,6 +75,6 @@ func generatePrimitiveEnums(f *File, s ir.Struct) {
 
 func implementContainedResource(f *File) *Statement {
 	return f.Type().Id("ContainedResource").Struct(
-		Qual("fhir-toolbox/model", "Resource"),
+		Qual(moduleName+"/model", "Resource"),
 	)
 }

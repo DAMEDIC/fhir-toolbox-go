@@ -3,18 +3,18 @@ package main
 
 import (
 	"context"
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model/gen/r5"
-	"fhir-toolbox/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log"
 	"log/slog"
 	"net/http"
 	"os"
 	"time"
 
-	"fhir-toolbox/model"
-	"fhir-toolbox/rest"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 )
 
 func main() {

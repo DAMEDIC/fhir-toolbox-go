@@ -3,19 +3,19 @@ package model_test
 import (
 	"encoding/json"
 	"encoding/xml"
-	"fhir-toolbox/model"
-	"fhir-toolbox/model/gen/r4"
-	"fhir-toolbox/model/gen/r4b"
-	"fhir-toolbox/model/gen/r5"
-	"fhir-toolbox/testdata/assertjson"
-	"fhir-toolbox/testdata/assertxml"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertjson"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertxml"
 	"slices"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"fhir-toolbox/testdata"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
 )
 
 var testReleases = []string{"R4", "R4B", "R5"}

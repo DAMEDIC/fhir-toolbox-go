@@ -3,8 +3,8 @@
 package wrap
 
 import (
-	"fhir-toolbox/capabilities"
-	capabilitiesR4 "fhir-toolbox/capabilities/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	capabilitiesR4 "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r4"
 )
 
 func init() {

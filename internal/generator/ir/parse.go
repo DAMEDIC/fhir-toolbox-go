@@ -1,8 +1,8 @@
 package ir
 
 import (
-	"fhir-toolbox/internal/generator/model"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/model"
 	"slices"
 	"strings"
 )

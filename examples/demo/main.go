@@ -3,15 +3,15 @@ package main
 
 import (
 	"context"
-	"fhir-toolbox/capabilities"
-	"fhir-toolbox/model/gen/r5"
-	"fhir-toolbox/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log"
 	"net/http"
 	"time"
 
-	"fhir-toolbox/model"
-	"fhir-toolbox/rest"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 )
 
 // 1. Define our backend

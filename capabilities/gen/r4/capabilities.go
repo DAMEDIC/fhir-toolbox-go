@@ -1,8 +1,8 @@
 package capabilitiesR4
 
 import (
-	capabilities "fhir-toolbox/capabilities"
-	search "fhir-toolbox/capabilities/search"
+	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
 func AllCapabilities(api any) capabilities.Capabilities {

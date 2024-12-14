@@ -1,7 +1,7 @@
 package generator
 
 import (
-	"fhir-toolbox/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -34,7 +34,7 @@ func generateGenericWrapperStruct(f *File) {
 }
 
 func anyReadReturn(_, _ string) *Statement {
-	return Qual("fhir-toolbox/model", "Resource")
+	return Qual(moduleName+"/model", "Resource")
 }
 
 func generateGeneric(f *File, release string, resources []ir.ResourceOrType, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
@@ -56,7 +56,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 	f.Func().Params(Id("w").Id(genericWrapperName)).Id(interactionName).
 		Params(allParams...).
-		Params(returnFunc("", ""), Qual("fhir-toolbox/capabilities", "FHIRError")).
+		Params(returnFunc("", ""), Qual(moduleName+"/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
@@ -85,7 +85,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
 	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
 		Params(Id("resourceType").String()).
-		Params(searchCapabilitiesReturn, Qual("fhir-toolbox/capabilities", "FHIRError")).
+		Params(searchCapabilitiesReturn, Qual(moduleName+"/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
@@ -105,7 +105,7 @@ func generateGenericSearchCapabilities(release string, resources []ir.ResourceOr
 
 func generateWrapperAllCapabilities(f *File, release string) {
 	f.Func().Params(Id("w").Id(genericWrapperName)).Id("AllCapabilities").Params().
-		Params(Qual("fhir-toolbox/capabilities", "Capabilities")).
+		Params(Qual(moduleName+"/capabilities", "Capabilities")).
 		Block(
 			Return(Id("AllCapabilities").
 				Call(Id("w").Dot("Concrete"))),
@@ -123,7 +123,7 @@ func generateConcreteIface(f *File, resources []ir.ResourceOrType) {
 
 func generateConcreteWrapperStruct(f *File) {
 	f.Type().Id(concreteWrapperName).Struct(
-		Id("Generic").Qual("fhir-toolbox/capabilities", "GenericAPI"),
+		Id("Generic").Qual(moduleName+"/capabilities", "GenericAPI"),
 	)
 }
 
@@ -143,9 +143,9 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 
 		var returnTypeId *Statement
 		if interaction == "search" {
-			returnTypeId = Qual("fhir-toolbox/capabilities/search", "Result")
+			returnTypeId = Qual(moduleName+"/capabilities/search", "Result")
 		} else {
-			returnTypeId = Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), r.Name)
+			returnTypeId = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
 		}
 
 		if interaction == "search" {
@@ -154,14 +154,14 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 
 		f.Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+r.Name).
 			Params(allParams...).
-			Params(returnTypeId, Qual("fhir-toolbox/capabilities", "FHIRError")).
+			Params(returnTypeId, Qual(moduleName+"/capabilities", "FHIRError")).
 			BlockFunc(func(g *Group) {
 				g.List(Id("v"), Id("err")).Op(":=").Id("w.Generic." + interactionName).Params(passParams...)
 				g.If(Id("err").Op("!=").Nil()).Block(Return(returnTypeId.Clone().Block(), Id("err")))
 
 				if interaction == "read" {
 					g.List(Id("contained"), Id("ok")).Op(":=").Id("v").Assert(
-						Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), "ContainedResource"),
+						Qual(moduleName+"/model/gen/"+strings.ToLower(release), "ContainedResource"),
 					)
 					g.If(Id("ok")).Block(
 						Id("v").Op("=").Id("contained.Resource"),
@@ -179,7 +179,7 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 }
 
 func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
-	returnId := Qual("fhir-toolbox/capabilities/search", "Capabilities")
+	returnId := Qual(moduleName+"/capabilities/search", "Capabilities")
 	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities" + r.Name).
 		Params().
 		Params(returnId).
@@ -191,20 +191,20 @@ func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 }
 
 func returnNotImplementedError(interaction, resourceType string, defaultReturn Code) Code {
-	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "NotImplementedError").Values(
+	return Return(defaultReturn, Qual(moduleName+"/capabilities", "NotImplementedError").Values(
 		Id("Interaction").Op(":").Lit(strings.ToLower(interaction)),
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }
 
 func returnUnknownError(resourceType string, defaultReturn Code) Code {
-	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "UnknownResourceError").Values(
+	return Return(defaultReturn, Qual(moduleName+"/capabilities", "UnknownResourceError").Values(
 		Id("ResourceType").Op(":").Id(resourceType)),
 	)
 }
 
 func returnInvalidError(resourceType string, defaultReturn Code) Code {
-	return Return(defaultReturn, Qual("fhir-toolbox/capabilities", "InvalidResourceError").Values(
+	return Return(defaultReturn, Qual(moduleName+"/capabilities", "InvalidResourceError").Values(
 		Id("ResourceType").Op(":").Lit(resourceType)),
 	)
 }

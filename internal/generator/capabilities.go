@@ -1,7 +1,7 @@
 package generator
 
 import (
-	"fhir-toolbox/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -24,19 +24,19 @@ var (
 		Id("id"): String(),
 	}
 	searchParams = map[Code]Code{
-		Id("options"): Qual("fhir-toolbox/capabilities/search", "Options"),
+		Id("options"): Qual(moduleName+"/capabilities/search", "Options"),
 	}
-	searchCapabilitiesReturn = Qual("fhir-toolbox/capabilities/search", "Capabilities")
+	searchCapabilitiesReturn = Qual(moduleName+"/capabilities/search", "Capabilities")
 )
 
 type returnTypeFunc = func(typeName, releaseLower string) *Statement
 
 func readReturn(typeName, release string) *Statement {
-	return Qual("fhir-toolbox/model/gen/"+strings.ToLower(release), typeName)
+	return Qual(moduleName+"/model/gen/"+strings.ToLower(release), typeName)
 }
 
 func searchReturn(_, _ string) *Statement {
-	return Qual("fhir-toolbox/capabilities/search", "Result")
+	return Qual(moduleName+"/capabilities/search", "Result")
 }
 
 func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
@@ -53,15 +53,15 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 				g.Id("SearchCapabilities" + r.Name).Params().Params(searchCapabilitiesReturn)
 			}
 
-			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Qual("fhir-toolbox/capabilities", "FHIRError"))
+			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Qual(moduleName+"/capabilities", "FHIRError"))
 		})
 	}
 }
 
 func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceOrType) {
-	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(Qual("fhir-toolbox/capabilities", "Capabilities")).BlockFunc(func(g *Group) {
+	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(Qual(moduleName+"/capabilities", "Capabilities")).BlockFunc(func(g *Group) {
 		g.Id("read").Op(":=").Index().String().Values()
-		g.Id("search").Op(":=").Map(String()).Qual("fhir-toolbox/capabilities/search", "Capabilities").Values()
+		g.Id("search").Op(":=").Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities").Values()
 
 		for _, r := range resources {
 			g.If(
@@ -83,7 +83,7 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 			)
 		}
 
-		g.Return(Qual("fhir-toolbox/capabilities", "Capabilities").Values(Dict{
+		g.Return(Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
 			Id("ReadInteractions"):   Id("read"),
 			Id("SearchCapabilities"): Id("search"),
 		}))

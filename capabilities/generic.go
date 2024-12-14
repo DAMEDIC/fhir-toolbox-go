@@ -2,8 +2,8 @@ package capabilities
 
 import (
 	"context"
-	"fhir-toolbox/capabilities/search"
-	"fhir-toolbox/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 )
 
 // A GenericAPI irrespective of the capabilities of the underlying concrete implementation.

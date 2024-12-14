@@ -7,7 +7,7 @@
 // # Example
 // ```Go
 //
-//	import "fhir-toolbox/capabilities/search"
+//	import "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 //
 //	func (b *myAPI) SearchCapabilitiesObservation() search.Capabilities {
 //		   // return supported search capabilities
@@ -29,8 +29,8 @@
 package search
 
 import (
-	"fhir-toolbox/model"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"net/url"
 	"slices"
 	"strconv"

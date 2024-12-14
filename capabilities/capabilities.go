@@ -1,7 +1,7 @@
 package capabilities
 
 import (
-	"fhir-toolbox/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
 type Capabilities struct {
