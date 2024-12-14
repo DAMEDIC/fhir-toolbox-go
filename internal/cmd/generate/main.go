@@ -41,6 +41,7 @@ func main() {
 		log.Println("Generating structs and implementations...")
 
 		generator.GenerateAll(all, genDir(modelGenTarget, r), r,
+			generator.ModelPkgDocGenerator{},
 			generator.TypesGenerator{},
 			generator.ImplResourceGenerator{},
 			generator.ImplElementGenerator{},
@@ -52,6 +53,7 @@ func main() {
 		)
 
 		generator.GenerateAll(all, genDir(capabilitiesGenTarget, r), r,
+			generator.CapabilityPkgDocGenerator{},
 			generator.CapabilitiesGenerator{},
 			generator.CapabilitiesWrapperGenerator{},
 		)

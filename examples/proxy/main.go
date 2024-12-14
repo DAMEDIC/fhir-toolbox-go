@@ -1,4 +1,4 @@
-// This is a simple examples of a FHIR server that reads resources from another FHIR server.
+// A FHIR server that serves resources from another FHIR server.
 package main
 
 import (

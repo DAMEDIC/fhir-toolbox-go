@@ -26,6 +26,7 @@ type Config struct {
 	DefaultFormat Format `json:"defaultFormat"`
 }
 
+// DefaultConfig sets reasonable defaults that can be used by the package user.
 var DefaultConfig = Config{
 	Timezone:      time.Now().Location().String(),
 	Date:          time.Now().Format(time.RFC3339),

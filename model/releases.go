@@ -2,6 +2,7 @@ package model
 
 import "fmt"
 
+// Release is a FHIR Release with version.
 type Release interface {
 	fmt.Stringer
 	Version() string

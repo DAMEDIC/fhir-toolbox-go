@@ -1,3 +1,35 @@
+// Package rest provides a FHIR REST API.
+//
+// Capabilities are detected by type assertion, a generated CapabilityStatement is served at the "/metadata" endpoint.
+//
+// Following interactions are currently supported:
+//   - read
+//   - search (parameters are passed down to the supplied backend implementation)
+//
+// # Base URL and routes
+//
+// You have to pass a base URL using the config.
+// This base URL is only used for building response Bundles.
+// For supported interactions, the returned http.Handler has sub-routes installed.
+// These are always installed at the root of this handler.
+// The base URL from the config is not used.
+//
+// Currently, installed patterns are:
+//   - capabilities: "GET /metadata"
+//   - read: "GET /{type}/{id}"
+//   - search: "GET /{type}/"
+//
+// If you do not want your FHIR handlers installed at the root, use something like
+//
+//	mux.Handle("/path/", http.StripPrefix("/path", serverHandler)
+//
+// This allows you to implement multiple FHIR REST APIs on the same HTTP server
+// (e.g. for multi-tenancy scenarios).
+//
+// # Pagination
+//
+// Cursor-based pagination can be implemented by the backend.
+// Therefor the parameters "_count" and "_cursor" are passed down to the backend.
 package rest
 
 import (
@@ -14,25 +46,6 @@ import (
 )
 
 // NewServer returns a http.Handler that serves the supplied backend.
-//
-// # Base URL and routes
-// You have to pass a base URL using the config.
-// This base URL is only used for building response Bundles.
-// For supported interactions, the returned http.Handler has sub-routes installed.
-// These are always installed at the root of this handler.
-// The base URL from the config is not used.
-//
-// Currently, installed patterns are:
-// * capabilities: `GET /metadata`
-// * read: `GET /{type}/{id}`
-// * search: `GET /{type}/`
-//
-// If you do not want your FHIR handlers installed at the root, use something like
-// ```Go
-// mux.Handle("/path/", http.StripPrefix("/path", serverHandler)
-// ```
-// This allows you to implement multiple FHIR REST APIs on the same HTTP server
-// (e.g. for multi-tenancy scenarios).
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 

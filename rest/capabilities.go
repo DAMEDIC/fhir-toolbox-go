@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// CapabilityStatement building from provided capabilities.
 func CapabilityStatement[R model.Release](
 	baseURL *url.URL,
 	capabilities capabilities.Capabilities,

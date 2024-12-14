@@ -1,3 +1,10 @@
+// Package wrap package provides wrapper functions to wrap a concrete into the generic API:
+//
+//	genericAPI := wrap.Generic[model.R4](concreteAPI)
+//
+// and vice versa:
+//
+//	concreteAPI := wrap.ConcreteR4(genericAPI)
 package wrap
 
 import (

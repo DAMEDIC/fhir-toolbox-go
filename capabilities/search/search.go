@@ -5,25 +5,22 @@
 // Parameters for offset based pagination might be added eventually if there is demand.
 //
 // # Example
-// ```Go
 //
 //	import "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 //
 //	func (b *myAPI) SearchCapabilitiesObservation() search.Capabilities {
-//		   // return supported search capabilities
-//		   return search.Capabilities{
-//		       Params: map[string]search.ParamDesc{
-//	           "_id": {Type: search.Token},
-//		       },
-//	   }
+//		// return supported search capabilities
+//		return search.Capabilities{
+//			Params: map[string]search.ParamDesc{
+//				"_id": {Type: search.Token},
+//			},
+//		}
 //	}
 //
 //	func (b *myAPI) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-//		   // return the search result
-//		   return search.Result{ ... }, nil
+//		// return the search result
+//		return search.Result{ ... }, nil
 //	}
-//
-// ```
 //
 // [FHIR Search]: https://hl7.org/fhir/search.html
 package search

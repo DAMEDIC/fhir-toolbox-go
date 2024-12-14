@@ -7,12 +7,16 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 )
 
+// FHIRError is an error that can be returned by an operation.
+//
+// This custom error interface allows returning a HTTP StatusCode and a FHIR OperationOutcome.
 type FHIRError interface {
 	error
 	StatusCode() int
 	OperationOutcome() model.Resource
 }
 
+// NotImplementedError means that the requested Interaction is not supported on requested ResourceType.
 type NotImplementedError struct {
 	Interaction  string
 	ResourceType string
@@ -38,6 +42,7 @@ func (e NotImplementedError) OperationOutcome() model.Resource {
 	}
 }
 
+// UnknownResourceError means that the requested ResourceType is not supported.
 type UnknownResourceError struct {
 	ResourceType string
 }
@@ -62,6 +67,7 @@ func (e UnknownResourceError) OperationOutcome() model.Resource {
 	}
 }
 
+// InvalidResourceError means that the requested ResourceType is not a valid FHIR resource.
 type InvalidResourceError struct {
 	ResourceType string
 }
@@ -86,6 +92,7 @@ func (e InvalidResourceError) OperationOutcome() model.Resource {
 	}
 }
 
+// NotFoundError means that the ResourceType with requested ID was not found.
 type NotFoundError struct {
 	ResourceType string
 	ID           string

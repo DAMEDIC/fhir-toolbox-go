@@ -1,4 +1,4 @@
-// This is a simple examples of a FHIR server that reads resources from another FHIR server.
+// Short demo that serves a mock Observation resource (only read interaction).
 package main
 
 import (

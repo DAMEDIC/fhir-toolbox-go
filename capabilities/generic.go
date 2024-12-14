@@ -9,7 +9,7 @@ import (
 // A GenericAPI irrespective of the capabilities of the underlying concrete implementation.
 //
 // This can be used to build adapters, clients or generic servers.
-// See [fhir-toolbox/capabilities/wrap] for conversion between concrete to generic APIs and vice versa.
+// See [github.com/DAMEDIC/fhir-toolbox/capabilities/wrap] for conversion between concrete to generic APIs and vice versa.
 type GenericAPI interface {
 	GenericRead
 	GenericSearch
