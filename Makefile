@@ -17,4 +17,5 @@ generate-antlr:
 	sed -i '' \
 		-e 's/\([ 	&]\)Fhirpath/\1FHIRPath/g' \
 		-e 's/\([a-z]\)fhirpath/\1FHIRPath/g' \
+		-e 's/fhirpathParser\([ )]\)/FHIRPathParser\1/g' \
 		fhirpath/parser/gen/*
