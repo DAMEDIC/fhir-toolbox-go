@@ -114,6 +114,10 @@ func TestCapabilityStatement(t *testing.T) {
 						  "type": "token"
 						},
 						{
+						  "name": "pre",
+						  "type": "token"
+						},
+						{
 						  "name": "sa7",
 						  "type": "token"
 						}
@@ -204,6 +208,10 @@ func TestCapabilityStatement(t *testing.T) {
 					  </searchParam>
 					  <searchParam>
 						<name value='ne2'/>
+						<type value='token'/>
+					  </searchParam>
+					  <searchParam>
+						<name value='pre'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
@@ -898,6 +906,44 @@ func TestHandleSearch(t *testing.T) {
 				]
 			}`,
 		},
+		{
+			name:         "search with modifier",
+			resourceType: "Patient",
+			queryString:  "_count=1&pre:above=x",
+			backend: mockBackend{
+				nextCursor: "2",
+				mockPatients: []r4.Patient{
+					{Id: &r4.Id{Value: utils.Ptr("1")}},
+				},
+			},
+			expectedStatus: http.StatusOK,
+			expectedBody: `{
+				"resourceType":"Bundle",
+				"type":"searchset",
+				"entry":[
+					{
+						"fullUrl":"http://example.com/Patient/1",
+						"resource":{
+							"resourceType":"Patient",
+							"id":"1"
+						},
+						"search":{
+							"mode":"match"
+						}
+					}
+				],
+				"link":[
+					{
+						"relation":"self",
+						"url":"http://example.com/Patient?pre%3Aabove=x&_count=1"
+					},
+					{
+						"relation":"next",
+						"url":"http://example.com/Patient?pre%3Aabove=x&_cursor=2&_count=1"
+					}
+				]
+			}`,
+		},
 	}
 
 	for _, tt := range tests {
@@ -949,6 +995,7 @@ func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 			"le6":  {Type: search.Token},
 			"sa7":  {Type: search.Token},
 			"eb8":  {Type: search.Token},
+			"pre":  {Type: search.Token, Modifiers: []search.Modifier{search.ModifierAbove}},
 		},
 	}
 }
@@ -960,6 +1007,13 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 		for _, and := range options.Params["_id"] {
 			for _, or := range and {
 				assert.Emptyf(t, or.Prefix, "prefix must be empty for all except number, date, and quantity")
+			}
+		}
+	}
+	if options.Params["pre"] != nil {
+		for _, and := range options.Params["pre"] {
+			for _, or := range and {
+				assert.Equal(t, search.ModifierAbove, or.Modifier)
 			}
 		}
 	}

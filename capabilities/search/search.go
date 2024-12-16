@@ -60,7 +60,8 @@ type Capabilities struct {
 
 // ParamDesc describes a parameter that is supported by the implementation.
 type ParamDesc struct {
-	Type ParamType
+	Type      ParamType
+	Modifiers []Modifier
 }
 
 // ParamType is the type of the parameter
@@ -78,6 +79,44 @@ const (
 	Special   ParamType = "special"
 )
 
+// Modifier supported by an implementation.
+type Modifier string
+
+const (
+	// ModifierAbove on reference, token, uri: Tests whether the value in a resource is or subsumes the supplied parameter value (is-a, or hierarchical relationships).
+	ModifierAbove Modifier = "above"
+	// ModifierBelow on reference, token, uri: Tests whether the value in a resource is or is subsumed by the supplied parameter value (is-a, or hierarchical relationships).
+	ModifierBelow Modifier = "below"
+	// ModifierCodeText on reference, token: Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.
+	ModifierCodeText Modifier = "code-text"
+	// ModifierContains on string, uri: Tests whether the value in a resource includes the supplied parameter value anywhere within the field being searched.
+	ModifierContains Modifier = "contains"
+	// ModifierExact on string: Tests whether the value in a resource exactly matches the supplied parameter value (the whole string, including casing and accents).
+	ModifierExact Modifier = "exact"
+	// ModifierIdentifier on reference: Tests whether the Reference.identifier in a resource (rather than the Reference.reference) matches the supplied parameter value.
+	ModifierIdentifier Modifier = "identifier"
+	// ModifierInModifier on token: Tests whether the value in a resource is a member of the supplied parameter ValueSet.
+	ModifierInModifier = "in"
+	// ModifierIterate Not allowed anywhere by default: The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.
+	ModifierIterate Modifier = "iterate"
+	// ModifierMissing on date, number, quantity, reference, string, token, uri: Tests whether the value in a resource is present (when the supplied parameter value is true) or absent (when the supplied parameter value is false).
+	ModifierMissing Modifier = "missing"
+	// ModifierNot on token: Tests whether the value in a resource does not match the specified parameter value. Note that this includes resources that have no value for the parameter.
+	ModifierNot Modifier = "not"
+	// ModifierNotIn on reference, token: Tests whether the value in a resource is not a member of the supplied parameter ValueSet.
+	ModifierNotIn Modifier = "not-in"
+	// ModifierOfType on token (only Identifier): Tests whether the Identifier value in a resource matches the supplied parameter value.
+	ModifierOfType Modifier = "of-type"
+	// ModifierText on reference, token: Tests whether the textual value in a resource (e.g., CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display) matches the supplied parameter value using basic string matching (begins with or is, case-insensitive).
+	//
+	//on string: The search parameter value should be processed as input to a search with advanced text handling.
+	ModifierText Modifier = "text"
+	// ModifierTextAdvancedModifier on reference, token: Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.
+	ModifierTextAdvancedModifier = "text-advanced"
+	// ModifierType on reference: Tests whether the value in a resource points to a resource of the supplied parameter type. Note: a concrete ResourceType is specified as the modifier (e.g., not the literal :[type], but a value such as :Patient).
+	ModifierType Modifier = "[type]"
+)
+
 // Options passed to a search implementation.
 type Options struct {
 	Params   Params
@@ -93,6 +132,7 @@ type OrList []Value
 // A Value to search for.
 type Value struct {
 	Prefix        Prefix
+	Modifier      Modifier
 	DatePrecision DatePrecision
 	Value         any
 }
@@ -217,20 +257,29 @@ func (o Options) QueryString() string {
 func (p Params) Query() url.Values {
 	values := url.Values{}
 
-	for key, ands := range p {
-		value := make([]string, 0, len(ands))
-
+	for name, ands := range p {
 		for _, ors := range ands {
+			if len(ors) == 0 {
+				continue
+			}
+
+			// we assume that all OR values use the same modifier
+			modifier := ors[0].Modifier
+			key := name
+			if modifier != "" {
+				key = fmt.Sprintf("%s:%s", name, modifier)
+			}
+
 			s := make([]string, 0, len(ors))
 			for _, or := range ors {
 				s = append(s, or.String())
 			}
 			slices.Sort(s)
-			value = append(value, strings.Join(s, ","))
+
+			values.Add(key, strings.Join(s, ","))
+			slices.Sort(values[key])
 		}
 
-		slices.Sort(value)
-		values[key] = value
 	}
 
 	return values
@@ -283,18 +332,25 @@ func ParseOptions(
 		case "_contained", "_elements", "_graph", "_maxresults", "_revinclude", "_score", "_summary", "_total":
 
 		default:
-			desc, ok := searchCapabilities.Params[k]
+			splits := strings.Split(k, ":")
+			param := splits[0]
+			var modifier Modifier
+			if len(splits) > 1 {
+				modifier = Modifier(splits[1])
+			}
+
+			desc, ok := searchCapabilities.Params[param]
 			if !ok {
 				// only known parameters are forwarded
 				continue
 			}
 
-			ands, err := parseSearchParam(v, desc, tz, k)
+			ands, err := parseSearchParam(param, modifier, v, desc, tz)
 			if err != nil {
 				return Options{}, err
 			}
 
-			options.Params[k] = ands
+			options.Params[param] = ands
 		}
 	}
 
@@ -319,16 +375,20 @@ func parseCursor(values []string) (Cursor, error) {
 	return Cursor(values[0]), nil
 }
 
-func parseSearchParam(values []string, desc ParamDesc, tz *time.Location, k string) (AndList, error) {
+func parseSearchParam(param string, modifier Modifier, values []string, desc ParamDesc, tz *time.Location) (AndList, error) {
+	if modifier != "" && !slices.Contains(desc.Modifiers, modifier) {
+		return nil, fmt.Errorf("unsupported modifier for parameter %s:%s, supported are: %s", param, modifier, desc.Modifiers)
+	}
+
 	ands := make(AndList, 0, len(values))
 	for _, ors := range values {
 		splitStrings := strings.Split(ors, ",")
 
 		ors := make(OrList, 0, len(splitStrings))
 		for _, s := range splitStrings {
-			value, err := parseSearchValue(desc.Type, s, tz)
+			value, err := parseSearchValue(desc.Type, s, modifier, tz)
 			if err != nil {
-				return nil, fmt.Errorf("invalid search value for parameter %s: %w", k, err)
+				return nil, fmt.Errorf("invalid search value for parameter %s: %w", param, err)
 			}
 			ors = append(ors, value)
 		}
@@ -338,7 +398,7 @@ func parseSearchParam(values []string, desc ParamDesc, tz *time.Location, k stri
 	return ands, nil
 }
 
-func parseSearchValue(typ ParamType, value string, tz *time.Location) (Value, error) {
+func parseSearchValue(typ ParamType, value string, modifier Modifier, tz *time.Location) (Value, error) {
 	prefix := parseSearchValuePrefix(typ, value)
 	if prefix != "" {
 		// all prefixes have a width of 2
@@ -350,7 +410,7 @@ func parseSearchValue(typ ParamType, value string, tz *time.Location) (Value, er
 		return Value{}, err
 	}
 
-	return Value{Prefix: prefix, DatePrecision: datePrecision, Value: valueAny}, nil
+	return Value{Prefix: prefix, Modifier: modifier, DatePrecision: datePrecision, Value: valueAny}, nil
 }
 
 func parseSearchValuePrefix(typ ParamType, value string) string {
