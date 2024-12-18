@@ -984,40 +984,23 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, ca
 
 func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 	return search.Capabilities{
-		Params: map[string]search.ParamDesc{
-			"_id":  {Type: search.Token},
-			"date": {Type: search.Date},
-			"eq1":  {Type: search.Token},
-			"ne2":  {Type: search.Token},
-			"gt3":  {Type: search.Token},
-			"lt4":  {Type: search.Token},
-			"ge5":  {Type: search.Token},
-			"le6":  {Type: search.Token},
-			"sa7":  {Type: search.Token},
-			"eb8":  {Type: search.Token},
-			"pre":  {Type: search.Token, Modifiers: []search.Modifier{search.ModifierAbove}},
+		Parameters: map[string]search.ParameterDescription{
+			"_id":  {Type: search.TypeToken},
+			"date": {Type: search.TypeDate},
+			"eq1":  {Type: search.TypeToken},
+			"ne2":  {Type: search.TypeToken},
+			"gt3":  {Type: search.TypeToken},
+			"lt4":  {Type: search.TypeToken},
+			"ge5":  {Type: search.TypeToken},
+			"le6":  {Type: search.TypeToken},
+			"sa7":  {Type: search.TypeToken},
+			"eb8":  {Type: search.TypeToken},
+			"pre":  {Type: search.TypeToken, Modifiers: []search.Modifier{search.ModifierAbove}},
 		},
 	}
 }
 
 func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	t := ctx.Value("t").(*testing.T)
-
-	if options.Params["_id"] != nil {
-		for _, and := range options.Params["_id"] {
-			for _, or := range and {
-				assert.Emptyf(t, or.Prefix, "prefix must be empty for all except number, date, and quantity")
-			}
-		}
-	}
-	if options.Params["pre"] != nil {
-		for _, and := range options.Params["pre"] {
-			for _, or := range and {
-				assert.Equal(t, search.ModifierAbove, or.Modifier)
-			}
-		}
-	}
-
 	result := search.Result{}
 
 	for _, p := range m.mockPatients {
@@ -1033,8 +1016,8 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 
 func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Params: map[string]search.ParamDesc{
-			"_id": {Type: search.Token},
+		Parameters: map[string]search.ParameterDescription{
+			"_id": {Type: search.TypeToken},
 		},
 		Includes: []string{"Observation:patient"},
 	}

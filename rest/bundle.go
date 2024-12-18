@@ -8,6 +8,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/url"
+	"slices"
 	"strings"
 )
 
@@ -151,10 +152,15 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Params = make(search.Params, len(options.Params))
-	for key, ands := range options.Params {
-		if _, ok := searchCapabilities.Params[key]; ok {
-			usedOptions.Params[key] = ands
+	usedOptions.Parameters = make(search.Parameters, len(options.Parameters))
+	for key, ands := range options.Parameters {
+		p, ok := searchCapabilities.Parameters[key.Name]
+		if !ok {
+			continue
+		}
+
+		if key.Modifier == "" || slices.Contains(p.Modifiers, key.Modifier) {
+			usedOptions.Parameters[key] = ands
 		}
 	}
 
