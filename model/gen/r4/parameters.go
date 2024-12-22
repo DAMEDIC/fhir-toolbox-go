@@ -39,7 +39,7 @@ type ParametersParameter struct {
 	// If the parameter is a data type.
 	Value isParametersParameterValue
 	// If the parameter is a whole resource.
-	Resource *model.Resource
+	Resource model.Resource
 	// A named part of a multi-part parameter.
 	Part []ParametersParameter
 }
@@ -148,9 +148,8 @@ func (r ParametersParameter) MemSize() int {
 		s += r.Value.MemSize()
 	}
 	if r.Resource != nil {
-		s += (*r.Resource).MemSize()
+		s += (r.Resource).MemSize()
 	}
-	s += (*r.Resource).MemSize()
 	for _, i := range r.Part {
 		s += i.MemSize()
 	}
@@ -3592,7 +3591,7 @@ func (r ParametersParameter) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		err = ContainedResource{*r.Resource}.marshalJSON(w)
+		err = ContainedResource{r.Resource}.marshalJSON(w)
 		if err != nil {
 			return err
 		}
@@ -4707,7 +4706,7 @@ func (r *ParametersParameter) unmarshalJSON(d *json.Decoder) error {
 			if err != nil {
 				return err
 			}
-			r.Resource = &v.Resource
+			r.Resource = v.Resource
 		case "part":
 			t, err = d.Token()
 			if err != nil {
@@ -5057,7 +5056,7 @@ func (r ParametersParameter) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		}
 	}
 	if r.Resource != nil {
-		v := ContainedResource{*r.Resource}
+		v := ContainedResource{r.Resource}
 		err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "resource"}})
 		if err != nil {
 			return err
@@ -5689,7 +5688,7 @@ func (r *ParametersParameter) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 				if err != nil {
 					return err
 				}
-				r.Resource = &c.Resource
+				r.Resource = c.Resource
 			case "part":
 				var v ParametersParameter
 				err := d.DecodeElement(&v, &t)

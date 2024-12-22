@@ -196,7 +196,7 @@ func unmarshalField(g *Group, f ir.StructField) {
 				if f.Multiple {
 					g.Id("r."+f.Name).Op("=").Append(Id("r."+f.Name), Id("c.Resource"))
 				} else {
-					g.Id("r." + f.Name).Op("=").Id("&c.Resource")
+					g.Id("r." + f.Name).Op("=").Id("c.Resource")
 				}
 			} else {
 				g.Var().Id("v").Id(t.Name)

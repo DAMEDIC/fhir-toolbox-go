@@ -146,7 +146,7 @@ func implementNestedResource(g *Group, f ir.StructField) {
 	} else {
 		g.If(Id("r." + f.Name).Op("!=").Nil()).BlockFunc(func(g *Group) {
 			writeKey(g, f.MarshalName)
-			g.Err().Op("=").Id("ContainedResource").Values(Id("*r." + f.Name)).
+			g.Err().Op("=").Id("ContainedResource").Values(Id("r." + f.Name)).
 				Dot("marshalJSON").Call(Id("w"))
 			g.If(Err().Op("!=").Nil()).Block(
 				Return(Err()),

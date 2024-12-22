@@ -69,7 +69,7 @@ type BundleEntry struct {
 	// * Results from operations might involve resources that are not identified.
 	FullUrl *Uri
 	// The Resource for the entry. The purpose/meaning of the resource is determined by the Bundle.type.
-	Resource *model.Resource
+	Resource model.Resource
 	// Information about the search process that lead to the creation of this entry.
 	Search *BundleEntrySearch
 	// Additional information about how this entry should be processed as part of a transaction or batch.  For history, it shows how the entry was processed to create the version contained in the entry.
@@ -137,7 +137,7 @@ type BundleEntryResponse struct {
 	// The date/time that the resource was modified on the server.
 	LastModified *Instant
 	// An OperationOutcome containing hints and warnings produced as part of processing this entry in a batch or transaction.
-	Outcome *model.Resource
+	Outcome model.Resource
 }
 
 func (r Bundle) ResourceType() string {
@@ -227,9 +227,8 @@ func (r BundleEntry) MemSize() int {
 		s += r.FullUrl.MemSize()
 	}
 	if r.Resource != nil {
-		s += (*r.Resource).MemSize()
+		s += (r.Resource).MemSize()
 	}
-	s += (*r.Resource).MemSize()
 	if r.Search != nil {
 		s += r.Search.MemSize()
 	}
@@ -315,9 +314,8 @@ func (r BundleEntryResponse) MemSize() int {
 		s += r.LastModified.MemSize()
 	}
 	if r.Outcome != nil {
-		s += (*r.Outcome).MemSize()
+		s += (r.Outcome).MemSize()
 	}
-	s += (*r.Outcome).MemSize()
 	return s
 }
 func (r Bundle) String() string {
@@ -1122,7 +1120,7 @@ func (r BundleEntry) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		err = ContainedResource{*r.Resource}.marshalJSON(w)
+		err = ContainedResource{r.Resource}.marshalJSON(w)
 		if err != nil {
 			return err
 		}
@@ -2039,7 +2037,7 @@ func (r BundleEntryResponse) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		err = ContainedResource{*r.Outcome}.marshalJSON(w)
+		err = ContainedResource{r.Outcome}.marshalJSON(w)
 		if err != nil {
 			return err
 		}
@@ -2512,7 +2510,7 @@ func (r *BundleEntry) unmarshalJSON(d *json.Decoder) error {
 			if err != nil {
 				return err
 			}
-			r.Resource = &v.Resource
+			r.Resource = v.Resource
 		case "search":
 			var v BundleEntrySearch
 			err := v.unmarshalJSON(d)
@@ -3026,7 +3024,7 @@ func (r *BundleEntryResponse) unmarshalJSON(d *json.Decoder) error {
 			if err != nil {
 				return err
 			}
-			r.Outcome = &v.Resource
+			r.Outcome = v.Resource
 		default:
 			return fmt.Errorf("invalid field: %s in BundleEntryResponse", f)
 		}
@@ -3162,7 +3160,7 @@ func (r BundleEntry) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	if r.Resource != nil {
-		v := ContainedResource{*r.Resource}
+		v := ContainedResource{r.Resource}
 		err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "resource"}})
 		if err != nil {
 			return err
@@ -3304,7 +3302,7 @@ func (r BundleEntryResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		return err
 	}
 	if r.Outcome != nil {
-		v := ContainedResource{*r.Outcome}
+		v := ContainedResource{r.Outcome}
 		err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "outcome"}})
 		if err != nil {
 			return err
@@ -3540,7 +3538,7 @@ func (r *BundleEntry) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 				if err != nil {
 					return err
 				}
-				r.Resource = &c.Resource
+				r.Resource = c.Resource
 			case "search":
 				var v BundleEntrySearch
 				err := d.DecodeElement(&v, &t)
@@ -3787,7 +3785,7 @@ func (r *BundleEntryResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 				if err != nil {
 					return err
 				}
-				r.Outcome = &c.Resource
+				r.Outcome = c.Resource
 			}
 		case xml.EndElement:
 			return nil

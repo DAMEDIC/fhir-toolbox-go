@@ -124,7 +124,7 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (r4.Bun
 	}
 
 	return r4.BundleEntry{
-		Resource: &resource,
+		Resource: resource,
 		FullUrl:  &r4.Uri{Value: utils.Ptr(fullURL.String())},
 		Search: &r4.BundleEntrySearch{
 			Mode: &r4.Code{Value: &searchMode},

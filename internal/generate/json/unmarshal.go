@@ -208,7 +208,7 @@ func unmarshalCaseNonPolymorph(g *Group, s ir.Struct, f ir.StructField) {
 			unmarshalToValue(g, s, f, t)
 
 			if t.IsNestedResource {
-				g.Id("r." + f.Name).Op("=").Id("&v").Dot("Resource")
+				g.Id("r." + f.Name).Op("=").Id("v").Dot("Resource")
 			} else if f.Optional {
 				if t.IsPrimitive {
 					g.If(Id("r." + f.Name).Op("==").Nil()).Block(

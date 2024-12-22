@@ -135,7 +135,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 
 	resources := make([]model.Resource, 0, len(bundle.Entry))
 	for _, entry := range bundle.Entry {
-		resources = append(resources, *entry.Resource)
+		resources = append(resources, entry.Resource)
 	}
 
 	return search.Result{

@@ -35,16 +35,17 @@ func generateStruct(f *File, s ir.Struct) {
 			}
 
 			stmt := g.Id(f.Name)
-			if f.Multiple {
-				stmt.Index()
-			} else if f.Optional && !f.Polymorph {
-				stmt.Op("*")
-			}
 
 			if f.Polymorph {
 				stmt.Id("is" + s.Name + f.Name)
 			} else {
 				t := f.PossibleTypes[0]
+
+				if f.Multiple {
+					stmt.Index()
+				} else if f.Optional && !f.Polymorph && !t.IsNestedResource {
+					stmt.Op("*")
+				}
 
 				if t.IsNestedResource {
 					stmt.Qual(moduleName+"/model", "Resource")

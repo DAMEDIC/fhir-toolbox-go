@@ -191,7 +191,7 @@ func encodeContainedResource(g *Group, f ir.StructField) {
 		)
 	} else {
 		g.If(Id("r."+f.Name).Op("!=").Nil()).Block(
-			Id("v").Op(":=").Id("ContainedResource").Values(Id("*r."+f.Name)),
+			Id("v").Op(":=").Id("ContainedResource").Values(Id("r."+f.Name)),
 			Err().Op("=").Id("e.EncodeElement").Call(
 				Id("v"),
 				Qual("encoding/xml", "StartElement").Values(Dict{

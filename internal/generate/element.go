@@ -53,7 +53,7 @@ func implementMemSize(f *File, s ir.Struct) {
 					)
 				} else if t.IsNestedResource {
 					g.If(Id("r").Dot(f.Name).Op("!=").Nil()).Block(
-						g.Id("s").Op("+=").Parens(Op("*").Id("r").Dot(f.Name)).Dot("MemSize").Call(),
+						Id("s").Op("+=").Parens(Id("r").Dot(f.Name)).Dot("MemSize").Call(),
 					)
 				} else {
 					g.If(Id("r").Dot(f.Name).Op("!=").Nil()).Block(

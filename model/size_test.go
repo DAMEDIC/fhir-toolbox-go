@@ -52,6 +52,19 @@ func TestMemSizeR4(t *testing.T) {
 				// unused capacity is counted as well
 				2*unsafe.Sizeof(r4.Extension{})) + len("http://example.com"),
 		},
+		{
+			name: "bundle with entry",
+			element: &r4.Bundle{
+				Entry: []r4.BundleEntry{
+					{
+						Resource: &r4.Account{},
+					},
+				},
+			},
+			want: int(unsafe.Sizeof(r4.Bundle{}) +
+				unsafe.Sizeof(r4.BundleEntry{}) +
+				unsafe.Sizeof(r4.Account{})),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
