@@ -29,3 +29,35 @@ func format(input string) string {
 
 	return buf.String()
 }
+
+type Value struct {
+	Map    *map[string]Value
+	String *string
+	// to keep decimal precision when round-tripping
+	Raw json.RawMessage
+}
+
+func (v Value) MarshalJSON() ([]byte, error) {
+	if v.Map != nil {
+		return json.Marshal(*v.Map)
+	}
+	if v.String != nil {
+		return json.Marshal(*v.String)
+	}
+	return json.Marshal(v.Raw)
+}
+
+func (v *Value) UnmarshalJSON(data []byte) error {
+	err := json.Unmarshal(data, &v.Map)
+	if err == nil {
+		return nil
+	}
+
+	// can not handle string as raw message because of escaping
+	err = json.Unmarshal(data, &v.String)
+	if err == nil {
+		return nil
+	}
+
+	return json.Unmarshal(data, &v.Raw)
+}

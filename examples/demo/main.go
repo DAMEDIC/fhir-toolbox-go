@@ -6,6 +6,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/cockroachdb/apd/v3"
 	"log"
 	"net/http"
 	"net/url"
@@ -31,7 +32,7 @@ func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 			}},
 		},
 		Effective: &r5.DateTime{Value: utils.Ptr(time.Now().Format(time.RFC3339))},
-		Value:     &r5.Quantity{Value: &r5.Decimal{Value: utils.Ptr("120.0")}, Unit: &r5.String{Value: utils.Ptr("mmHg")}},
+		Value:     &r5.Quantity{Value: &r5.Decimal{Value: apd.New(120, 0)}, Unit: &r5.String{Value: utils.Ptr("mmHg")}},
 	}, nil
 }
 

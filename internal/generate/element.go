@@ -43,7 +43,11 @@ func implementMemSize(f *File, s ir.Struct) {
 					).Op("*").Add(size(Id(t.Name).Values()))
 				}
 			} else if f.Optional || f.Polymorph {
-				if t.Name == "string" {
+				if s.Name == "Decimal" && f.Name == "Value" {
+					g.If(Id("r").Dot(f.Name)).Op("!=").Nil().Block(
+						Id("s").Op("+=").Int().Call(Id("r").Dot(f.Name).Dot("Size").Call()),
+					)
+				} else if t.Name == "string" {
 					g.If(Id("r").Dot(f.Name)).Op("!=").Nil().Block(
 						Id("s").Op("+=").Len(Op("*").Id("r").Dot(f.Name)).Op("+").Add(size(Op("*").Id("r").Dot(f.Name))),
 					)

@@ -112,6 +112,12 @@ func unmarshalPrimitiveValueAttr(g *Group, s ir.Struct) {
 				)),
 			)
 			g.Id("r.Value").Op("=").Id("&v")
+		} else if s.Name == "Decimal" {
+			g.List(Id("d"), Id("_"), Id("err")).Op(":=").Qual("github.com/cockroachdb/apd/v3", "NewFromString").Call(Id("a.Value"))
+			g.If(Err().Op("!=").Nil()).Block(
+				Return(Id("err")),
+			)
+			g.Id("r.Value").Op("=").Id("d")
 		} else if s.Name == "Integer" {
 			g.List(Id("i"), Id("err")).Op(":=").Qual("strconv", "ParseInt").Call(Id("a.Value"), Lit(10), Lit(0))
 			g.If(Err().Op("!=").Nil()).Block(

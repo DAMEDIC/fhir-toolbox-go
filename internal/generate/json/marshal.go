@@ -43,7 +43,10 @@ func implementPrimitiveElement(f *File) *Statement {
 func implementMarshalPrimitive(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("MarshalJSON").Params().Params(Index().Byte(), Error()).BlockFunc(func(g *Group) {
 		if s.Name == "Decimal" {
-			g.Return(Index().Byte().Params(Op("*").Id("r").Op(".").Id("Value")), Nil())
+			g.If(Id("r").Op(".").Id("Value").Op("==").Nil()).BlockFunc(func(g *Group) {
+				g.Return(Index().Byte().Call(Lit("null")), Nil())
+			})
+			g.Return(Index().Byte().Call(Id("r").Op(".").Id("Value").Dot("Text").Call(LitRune('G'))), Nil())
 		} else {
 			if s.Name == "Integer64" {
 				g.Var().Id("v").Op("*").String()

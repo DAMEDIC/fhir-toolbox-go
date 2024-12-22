@@ -42,13 +42,15 @@ func implementUnmarshalExternal(f *File, s ir.Struct) {
 }
 
 func implementUnmarshalPrimitive(f *File, s ir.Struct) {
-	var ty string
+	var ty *Statement
 	if s.Name == "Integer64" {
-		ty = "string"
+		ty = Id("string")
+	} else if s.Name == "Decimal" {
+		ty = Qual("github.com/cockroachdb/apd/v3", "Decimal")
 	} else {
 		for _, field := range s.Fields {
 			if field.Name == "Value" {
-				ty = field.PossibleTypes[0].Name
+				ty = Id(field.PossibleTypes[0].Name)
 				break
 			}
 		}
@@ -56,7 +58,11 @@ func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 
 	var unmarshal Code
 	if s.Name == "Decimal" {
-		unmarshal = Id("v").Op("=").String().Params(Id("b"))
+		unmarshal = If(
+			Id("err").Op(":=").Id("v").Dot("UnmarshalText").Call(Id("b")),
+			Id("err").Op("!=").Nil()).Block(
+			Return(Id("err")),
+		)
 	} else {
 		unmarshal = If(
 			Id("err").Op(":=").Qual("encoding/json", "Unmarshal").Params(Id("b"), Op("&").Id("v")),
@@ -83,7 +89,7 @@ func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 	).Id("UnmarshalJSON").Params(
 		Id("b").Index().Byte(),
 	).Params(Error()).Block(
-		Var().Id("v").Id(ty),
+		Var().Id("v").Add(ty),
 		unmarshal,
 		assign,
 		Return().Nil(),

@@ -3,6 +3,7 @@ module github.com/DAMEDIC/fhir-toolbox-go
 go 1.22
 
 require (
+	github.com/cockroachdb/apd/v3 v3.2.1
 	github.com/dave/jennifer v1.7.1
 	github.com/dustin/go-humanize v1.0.1
 	github.com/google/uuid v1.6.0

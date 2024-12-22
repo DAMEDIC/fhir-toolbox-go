@@ -7,6 +7,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/cockroachdb/apd/v3"
 	"log"
 	"log/slog"
 	"net/http"
@@ -109,7 +110,7 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 							}},
 						},
 						Value: &r5.Quantity{
-							Value:  &r5.Decimal{Value: utils.Ptr("120.0")},
+							Value:  &r5.Decimal{Value: apd.New(120, 0)},
 							Unit:   &r5.String{Value: utils.Ptr("mmHg")},
 							System: &r5.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
 							Code:   &r5.Code{Value: utils.Ptr("mm[Hg]")},
@@ -124,7 +125,7 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 							}},
 						},
 						Value: &r5.Quantity{
-							Value:  &r5.Decimal{Value: utils.Ptr("600")},
+							Value:  &r5.Decimal{Value: apd.New(600, 0)},
 							Unit:   &r5.String{Value: utils.Ptr("mmHg")},
 							System: &r5.Uri{Value: utils.Ptr("http://unitsofmeasure.org")},
 							Code:   &r5.Code{Value: utils.Ptr("mm[Hg]")},

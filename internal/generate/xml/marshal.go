@@ -120,6 +120,15 @@ func marshalPrimitiveValueAttr(g *Group, s ir.Struct) {
 				Id("Value"): Qual("strconv", "FormatBool").Call(Id("*r.Value")),
 			})),
 		)
+	} else if s.Name == "Decimal" {
+		g.If(Id("r.Value").Op("!=").Nil()).Block(
+			Id("start.Attr").Op("=").Append(Id("start.Attr"), Qual("encoding/xml", "Attr").Values(Dict{
+				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+					Id("Local"): Lit("value"),
+				}),
+				Id("Value"): Id("r.Value").Dot("Text").Call(LitRune('G')),
+			})),
+		)
 	} else if slices.Contains([]string{"Integer", "Integer64", "PositiveInt", "UnsignedInt"}, s.Name) {
 		g.If(Id("r.Value").Op("!=").Nil()).Block(
 			Id("start.Attr").Op("=").Append(Id("start.Attr"), Qual("encoding/xml", "Attr").Values(Dict{

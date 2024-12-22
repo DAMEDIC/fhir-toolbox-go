@@ -2,6 +2,7 @@ package basic
 
 import (
 	"encoding/xml"
+	"github.com/cockroachdb/apd/v3"
 	"unsafe"
 )
 
@@ -12,7 +13,7 @@ type Decimal struct {
 	// May be used to represent additional information that is not part of the basic definition of the resource. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
 	Extension []Extension
 	// The actual value
-	Value *string
+	Value *apd.Decimal
 }
 
 func (r Decimal) MemSize() int {
@@ -25,12 +26,15 @@ func (r Decimal) MemSize() int {
 	}
 	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
 	if r.Value != nil {
-		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+		s += int(r.Value.Size())
 	}
 	return s
 }
 func (r Decimal) MarshalJSON() ([]byte, error) {
-	return []byte(*r.Value), nil
+	if r.Value == nil {
+		return []byte("null"), nil
+	}
+	return []byte(r.Value.Text('G')), nil
 }
 func (r Decimal) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
@@ -42,7 +46,7 @@ func (r Decimal) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Value != nil {
 		start.Attr = append(start.Attr, xml.Attr{
 			Name:  xml.Name{Local: "value"},
-			Value: *r.Value,
+			Value: r.Value.Text('G'),
 		})
 	}
 	err := e.EncodeToken(start)

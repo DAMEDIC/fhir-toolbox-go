@@ -27,6 +27,10 @@ func (g TypesGenerator) GenerateAdditional(f func(fileName string, pkgName strin
 }
 
 func generateStruct(f *File, s ir.Struct) {
+	if s.Name == "Decimal" {
+		f.ImportName("github.com/cockroachdb/apd/v3", "apd")
+	}
+
 	for _, line := range strings.Split(s.DocComment, "\n") {
 		f.Comment(line)
 	}
@@ -52,6 +56,8 @@ func generateStruct(f *File, s ir.Struct) {
 
 				if t.IsNestedResource {
 					stmt.Qual(moduleName+"/model", "Resource")
+				} else if s.Name == "Decimal" && f.Name == "Value" {
+					stmt.Qual("github.com/cockroachdb/apd/v3", "Decimal")
 				} else {
 					stmt.Id(t.Name)
 				}
