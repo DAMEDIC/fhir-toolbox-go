@@ -52,7 +52,9 @@ func main() {
 	// Create the REST server.
 	// You can plug in any backend you want here.
 	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
-	server, err := rest.NewServer[model.R5](&genericClient, rest.DefaultConfig)
+	cfg := rest.DefaultConfig
+	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
+	server, err := rest.NewServer[model.R5](&genericClient, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
@@ -66,7 +68,7 @@ type Client struct {
 	url string
 }
 
-func AllCapabilities() capabilities.Capabilities {
+func (c *Client) AllCapabilities() capabilities.Capabilities {
 	// TODO: this should call the remote service for its capabilities
 	return capabilities.Capabilities{}
 }
