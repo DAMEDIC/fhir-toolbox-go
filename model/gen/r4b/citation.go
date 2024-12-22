@@ -1428,14 +1428,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1487,14 +1482,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ImplicitRules)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1529,14 +1519,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Language)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1693,14 +1678,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Url)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1770,14 +1750,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Version)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1812,14 +1787,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1854,14 +1824,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Title)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1896,14 +1861,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Status)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1938,14 +1898,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Experimental)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1980,14 +1935,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Date)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2022,14 +1972,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Publisher)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2099,14 +2044,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Description)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2211,14 +2151,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Purpose)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2253,14 +2188,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Copyright)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2295,14 +2225,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ApprovalDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2337,14 +2262,9 @@ func (r Citation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.LastReviewDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2784,14 +2704,9 @@ func (r CitationSummary) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2895,14 +2810,9 @@ func (r CitationSummary) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Text)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2958,14 +2868,9 @@ func (r CitationClassification) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3125,14 +3030,9 @@ func (r CitationStatusDate) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3234,14 +3134,9 @@ func (r CitationStatusDate) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Actual)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3312,14 +3207,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3458,14 +3348,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -3501,14 +3386,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -3543,14 +3423,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3566,14 +3441,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3589,14 +3459,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3612,14 +3477,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3635,14 +3495,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3658,14 +3513,9 @@ func (r CitationRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3703,14 +3553,9 @@ func (r CitationCitedArtifact) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3867,14 +3712,9 @@ func (r CitationCitedArtifact) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.DateAccessed)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4296,14 +4136,9 @@ func (r CitationCitedArtifactVersion) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4390,14 +4225,9 @@ func (r CitationCitedArtifactVersion) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Value)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4470,14 +4300,9 @@ func (r CitationCitedArtifactStatusDate) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4579,14 +4404,9 @@ func (r CitationCitedArtifactStatusDate) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Actual)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4657,14 +4477,9 @@ func (r CitationCitedArtifactTitle) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4803,14 +4618,9 @@ func (r CitationCitedArtifactTitle) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Text)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4866,14 +4676,9 @@ func (r CitationCitedArtifactAbstract) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4994,14 +4799,9 @@ func (r CitationCitedArtifactAbstract) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Text)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5036,14 +4836,9 @@ func (r CitationCitedArtifactAbstract) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Copyright)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5099,14 +4894,9 @@ func (r CitationCitedArtifactPart) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5210,14 +5000,9 @@ func (r CitationCitedArtifactPart) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Value)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5290,14 +5075,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5436,14 +5216,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -5479,14 +5254,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -5521,14 +5291,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5544,14 +5309,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5567,14 +5327,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5590,14 +5345,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5613,14 +5363,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5636,14 +5381,9 @@ func (r CitationCitedArtifactRelatesTo) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(v)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5681,14 +5421,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5809,14 +5544,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ArticleDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5851,14 +5581,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.LastRevisionDate)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5928,14 +5653,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.AccessionNumber)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -5970,14 +5690,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.PageString)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6012,14 +5727,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.FirstPage)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6054,14 +5764,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.LastPage)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6096,14 +5801,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.PageCount)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6138,14 +5838,9 @@ func (r CitationCitedArtifactPublicationForm) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Copyright)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6201,14 +5896,9 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) marshalJSON(w io.Writer
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6347,14 +6037,9 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) marshalJSON(w io.Writer
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Title)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6406,14 +6091,9 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) marshalJSON(w io.Writer
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.PublisherLocation)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6469,14 +6149,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) marshalJSON(w io.Wr
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6580,14 +6255,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) marshalJSON(w io.Wr
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Volume)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6622,14 +6292,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) marshalJSON(w io.Wr
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Issue)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6702,14 +6367,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6796,14 +6456,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Date)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6838,14 +6493,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Year)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6880,14 +6530,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Month)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6922,14 +6567,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Day)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -6964,14 +6604,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Season)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7006,14 +6641,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ma
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Text)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7069,14 +6699,9 @@ func (r CitationCitedArtifactWebLocation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7180,14 +6805,9 @@ func (r CitationCitedArtifactWebLocation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Url)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7243,14 +6863,9 @@ func (r CitationCitedArtifactClassification) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7427,14 +7042,9 @@ func (r CitationCitedArtifactClassificationWhoClassified) marshalJSON(w io.Write
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7572,14 +7182,9 @@ func (r CitationCitedArtifactClassificationWhoClassified) marshalJSON(w io.Write
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ClassifierCopyright)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7614,14 +7219,9 @@ func (r CitationCitedArtifactClassificationWhoClassified) marshalJSON(w io.Write
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.FreeToShare)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7677,14 +7277,9 @@ func (r CitationCitedArtifactContributorship) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7771,14 +7366,9 @@ func (r CitationCitedArtifactContributorship) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Complete)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -7904,14 +7494,9 @@ func (r CitationCitedArtifactContributorshipEntry) marshalJSON(w io.Writer) erro
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8015,14 +7600,9 @@ func (r CitationCitedArtifactContributorshipEntry) marshalJSON(w io.Writer) erro
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Initials)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8057,14 +7637,9 @@ func (r CitationCitedArtifactContributorshipEntry) marshalJSON(w io.Writer) erro
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.CollectiveName)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8326,14 +7901,9 @@ func (r CitationCitedArtifactContributorshipEntry) marshalJSON(w io.Writer) erro
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.CorrespondingContact)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8368,14 +7938,9 @@ func (r CitationCitedArtifactContributorshipEntry) marshalJSON(w io.Writer) erro
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ListOrder)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8431,14 +7996,9 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) marshalJSON(w 
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8525,14 +8085,9 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) marshalJSON(w 
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Affiliation)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8567,14 +8122,9 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) marshalJSON(w 
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Role)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8665,14 +8215,9 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) marshalJS
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8774,14 +8319,9 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) marshalJS
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Time)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8837,14 +8377,9 @@ func (r CitationCitedArtifactContributorshipSummary) marshalJSON(w io.Writer) er
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -8982,14 +8517,9 @@ func (r CitationCitedArtifactContributorshipSummary) marshalJSON(w io.Writer) er
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Value)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -13533,13 +13063,19 @@ func (r Citation) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if err != nil {
 		return err
 	}
-	v := make([]ContainedResource, 0, len(r.Contained))
 	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
+		err := e.EncodeToken(xml.StartElement{Name: xml.Name{Local: "contained"}})
+		if err != nil {
+			return err
+		}
+		err = e.EncodeElement(c, xml.StartElement{Name: xml.Name{Local: "__contained__"}})
+		if err != nil {
+			return err
+		}
+		err = e.EncodeToken(xml.EndElement{Name: xml.Name{Local: "contained"}})
+		if err != nil {
+			return err
+		}
 	}
 	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
 	if err != nil {

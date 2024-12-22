@@ -143,14 +143,9 @@ func (r Availability) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -293,14 +288,9 @@ func (r AvailabilityAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -360,14 +350,9 @@ func (r AvailabilityAvailableTime) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(r.DaysOfWeek)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -442,14 +427,9 @@ func (r AvailabilityAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.AllDay)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -484,14 +464,9 @@ func (r AvailabilityAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.AvailableStartTime)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -526,14 +501,9 @@ func (r AvailabilityAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.AvailableEndTime)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -589,14 +559,9 @@ func (r AvailabilityNotAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -648,14 +613,9 @@ func (r AvailabilityNotAvailableTime) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Description)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}

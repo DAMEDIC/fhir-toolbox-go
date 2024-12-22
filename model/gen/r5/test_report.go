@@ -546,14 +546,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -605,14 +600,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.ImplicitRules)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -647,14 +637,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Language)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -828,14 +813,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -870,14 +850,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Status)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -912,14 +887,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.TestScript)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -954,14 +924,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Result)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -996,14 +961,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Score)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1038,14 +998,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Tester)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1080,14 +1035,9 @@ func (r TestReport) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Issued)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1247,14 +1197,9 @@ func (r TestReportParticipant) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1341,14 +1286,9 @@ func (r TestReportParticipant) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Type)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1383,14 +1323,9 @@ func (r TestReportParticipant) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Uri)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1425,14 +1360,9 @@ func (r TestReportParticipant) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Display)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1488,14 +1418,9 @@ func (r TestReportSetup) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1638,14 +1563,9 @@ func (r TestReportSetupAction) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1787,14 +1707,9 @@ func (r TestReportSetupActionOperation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1881,14 +1796,9 @@ func (r TestReportSetupActionOperation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Result)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1923,14 +1833,9 @@ func (r TestReportSetupActionOperation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Message)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -1965,14 +1870,9 @@ func (r TestReportSetupActionOperation) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Detail)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2028,14 +1928,9 @@ func (r TestReportSetupActionAssert) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2122,14 +2017,9 @@ func (r TestReportSetupActionAssert) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Result)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2164,14 +2054,9 @@ func (r TestReportSetupActionAssert) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Message)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2206,14 +2091,9 @@ func (r TestReportSetupActionAssert) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Detail)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2304,14 +2184,9 @@ func (r TestReportSetupActionAssertRequirement) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2400,14 +2275,9 @@ func (r TestReportSetupActionAssertRequirement) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -2443,14 +2313,9 @@ func (r TestReportSetupActionAssertRequirement) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -2486,14 +2351,9 @@ func (r TestReportSetupActionAssertRequirement) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -2529,14 +2389,9 @@ func (r TestReportSetupActionAssertRequirement) marshalJSON(w io.Writer) error {
 			if err != nil {
 				return err
 			}
-			var b bytes.Buffer
-			enc := json.NewEncoder(&b)
+			enc := json.NewEncoder(w)
 			enc.SetEscapeHTML(false)
 			err := enc.Encode(v)
-			if err != nil {
-				return err
-			}
-			_, err = w.Write(b.Bytes())
 			if err != nil {
 				return err
 			}
@@ -2593,14 +2448,9 @@ func (r TestReportTest) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2687,14 +2537,9 @@ func (r TestReportTest) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Name)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2729,14 +2574,9 @@ func (r TestReportTest) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Description)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2827,14 +2667,9 @@ func (r TestReportTestAction) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -2976,14 +2811,9 @@ func (r TestReportTeardown) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -3126,14 +2956,9 @@ func (r TestReportTeardownAction) marshalJSON(w io.Writer) error {
 		if err != nil {
 			return err
 		}
-		var b bytes.Buffer
-		enc := json.NewEncoder(&b)
+		enc := json.NewEncoder(w)
 		enc.SetEscapeHTML(false)
 		err := enc.Encode(r.Id)
-		if err != nil {
-			return err
-		}
-		_, err = w.Write(b.Bytes())
 		if err != nil {
 			return err
 		}
@@ -4882,13 +4707,19 @@ func (r TestReport) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if err != nil {
 		return err
 	}
-	v := make([]ContainedResource, 0, len(r.Contained))
 	for _, c := range r.Contained {
-		v = append(v, ContainedResource{c})
-	}
-	err = e.EncodeElement(v, xml.StartElement{Name: xml.Name{Local: "contained"}})
-	if err != nil {
-		return err
+		err := e.EncodeToken(xml.StartElement{Name: xml.Name{Local: "contained"}})
+		if err != nil {
+			return err
+		}
+		err = e.EncodeElement(c, xml.StartElement{Name: xml.Name{Local: "__contained__"}})
+		if err != nil {
+			return err
+		}
+		err = e.EncodeToken(xml.EndElement{Name: xml.Name{Local: "contained"}})
+		if err != nil {
+			return err
+		}
 	}
 	err = e.EncodeElement(r.Extension, xml.StartElement{Name: xml.Name{Local: "extension"}})
 	if err != nil {

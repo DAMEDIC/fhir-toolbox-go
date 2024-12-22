@@ -3,7 +3,7 @@ package capabilities
 import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 )
 
@@ -31,12 +31,12 @@ func (e NotImplementedError) StatusCode() int {
 }
 
 func (e NotImplementedError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("fatal")},
-				Code:        r4.Code{Value: utils.Ptr("not-supported")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}
@@ -56,12 +56,12 @@ func (e UnknownResourceError) StatusCode() int {
 }
 
 func (e UnknownResourceError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("fatal")},
-				Code:        r4.Code{Value: utils.Ptr("not-supported")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}
@@ -81,12 +81,12 @@ func (e InvalidResourceError) StatusCode() int {
 }
 
 func (e InvalidResourceError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("fatal")},
-				Code:        r4.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}
@@ -107,12 +107,12 @@ func (e NotFoundError) StatusCode() int {
 }
 
 func (e NotFoundError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("error")},
-				Code:        r4.Code{Value: utils.Ptr("not-found")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("error")},
+				Code:        basic.Code{Value: utils.Ptr("not-found")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}
@@ -136,12 +136,12 @@ func (e SearchError) StatusCode() int {
 }
 
 func (e SearchError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("fatal")},
-				Code:        r4.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}

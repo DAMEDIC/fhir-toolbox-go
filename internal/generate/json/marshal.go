@@ -7,7 +7,9 @@ import (
 	"strings"
 )
 
-type MarshalGenerator struct{}
+type MarshalGenerator struct {
+	ContainedResource bool
+}
 
 func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 	for _, t := range rt.Structs {
@@ -15,7 +17,7 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 			implementMarshalPrimitive(f, t)
 		} else {
 			implementMarshalExternal(f, t)
-			implementMarshalInternal(f, t)
+			implementMarshalInternal(f, t, g.ContainedResource)
 		}
 	}
 
@@ -23,8 +25,10 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
-	implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	if g.ContainedResource {
+		implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
+		implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	}
 	implementPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 	implementMarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 }
@@ -73,7 +77,7 @@ func implementMarshalExternal(f *File, s ir.Struct) {
 	)
 }
 
-func implementMarshalInternal(f *File, s ir.Struct) {
+func implementMarshalInternal(f *File, s ir.Struct, useContained bool) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("marshalJSON").Params(
 		Id("w").Qual("io", "Writer"),
 	).Params(Error()).BlockFunc(func(g *Group) {
@@ -100,7 +104,7 @@ func implementMarshalInternal(f *File, s ir.Struct) {
 				t := f.PossibleTypes[0]
 
 				if t.IsNestedResource {
-					implementNestedResource(g, f)
+					implementNestedResource(g, f, useContained)
 				} else if !s.IsResource && f.Name == "Id" {
 					g.If(Id("r." + f.Name).Op("!=").Nil()).BlockFunc(func(g *Group) {
 						writeKey(g, f.MarshalName)
@@ -125,7 +129,7 @@ func implementMarshalInternal(f *File, s ir.Struct) {
 	})
 }
 
-func implementNestedResource(g *Group, f ir.StructField) {
+func implementNestedResource(g *Group, f ir.StructField, useContained bool) {
 	if f.Multiple {
 		g.If(Len(Id("r." + f.Name)).Op(">").Lit(0)).BlockFunc(func(g *Group) {
 			writeKey(g, f.MarshalName)
@@ -134,11 +138,20 @@ func implementNestedResource(g *Group, f ir.StructField) {
 			g.Id("setComma").Op("=").False()
 			g.For(Id("_, c").Op(":=").Range().Id("r." + f.Name)).BlockFunc(func(g *Group) {
 				checkWriteComma(g)
-				g.Err().Op("=").Id("ContainedResource").Values(Id("c")).
-					Dot("marshalJSON").Call(Id("w"))
-				g.If(Err().Op("!=").Nil()).Block(
-					Return(Err()),
-				)
+				if useContained {
+					g.Err().Op("=").Id("ContainedResource").Values(Id("c")).
+						Dot("marshalJSON").Call(Id("w"))
+					g.If(Err().Op("!=").Nil()).Block(
+						Return(Err()),
+					)
+				} else {
+					g.Id("enc").Op(":=").Qual("encoding/json", "NewEncoder").Call(Id("w"))
+					g.Id("enc").Dot("SetEscapeHTML").Call(False())
+					g.Err().Op(":=").Id("enc").Dot("Encode").Call(Id("c"))
+					g.If(Err().Op("!=").Nil()).Block(
+						Return(Err()),
+					)
+				}
 			})
 
 			write(g, "]")
@@ -146,11 +159,20 @@ func implementNestedResource(g *Group, f ir.StructField) {
 	} else {
 		g.If(Id("r." + f.Name).Op("!=").Nil()).BlockFunc(func(g *Group) {
 			writeKey(g, f.MarshalName)
-			g.Err().Op("=").Id("ContainedResource").Values(Id("r." + f.Name)).
-				Dot("marshalJSON").Call(Id("w"))
-			g.If(Err().Op("!=").Nil()).Block(
-				Return(Err()),
-			)
+			if useContained {
+				g.Err().Op("=").Id("ContainedResource").Values(Id("r." + f.Name)).
+					Dot("marshalJSON").Call(Id("w"))
+				g.If(Err().Op("!=").Nil()).Block(
+					Return(Err()),
+				)
+			} else {
+				g.Id("enc").Op(":=").Qual("encoding/json", "NewEncoder").Call(Id("w"))
+				g.Id("enc").Dot("SetEscapeHTML").Call(False())
+				g.Err().Op(":=").Id("enc").Dot("Encode").Call(Id("r." + f.Name))
+				g.If(Err().Op("!=").Nil()).Block(
+					Return(Err()),
+				)
+			}
 		})
 	}
 }
@@ -316,14 +338,9 @@ func writeElementValue(g *Group, value string) {
 }
 
 func writePrimitiveValue(g *Group, value string) {
-	g.Var().Id("b").Qual("bytes", "Buffer")
-	g.Id("enc").Op(":=").Qual("encoding/json", "NewEncoder").Call(Id("&b"))
+	g.Id("enc").Op(":=").Qual("encoding/json", "NewEncoder").Call(Id("w"))
 	g.Id("enc").Dot("SetEscapeHTML").Call(False())
 	g.Err().Op(":=").Id("enc").Dot("Encode").Call(Id(value))
-	g.If(Err().Op("!=").Nil()).Block(
-		Return(Err()),
-	)
-	g.List(Id("_"), Err()).Op("=").Id("w").Dot("Write").Call(Id("b").Dot("Bytes").Call())
 	g.If(Err().Op("!=").Nil()).Block(
 		Return(Err()),
 	)

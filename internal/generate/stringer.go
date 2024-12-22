@@ -8,6 +8,7 @@ import (
 
 type StringerGenerator struct {
 	NoOpGenerator
+	ContainedResource bool
 }
 
 func (g StringerGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
@@ -25,7 +26,9 @@ func (g StringerGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g StringerGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementStringerForContained(f("contained_resource", strings.ToLower(release)))
+	if g.ContainedResource {
+		implementStringerForContained(f("contained_resource", strings.ToLower(release)))
+	}
 }
 
 func implementStringerForContained(f *File) {

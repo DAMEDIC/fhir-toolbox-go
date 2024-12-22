@@ -5,7 +5,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/url"
 	"strings"
@@ -25,12 +25,12 @@ func (e MissingIdError) StatusCode() int {
 }
 
 func (e MissingIdError) OperationOutcome() model.Resource {
-	return r4.OperationOutcome{
-		Issue: []r4.OperationOutcomeIssue{
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    r4.Code{Value: utils.Ptr("fatal")},
-				Code:        r4.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &r4.String{Value: utils.Ptr(e.Error())},
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
 		},
 	}
@@ -46,17 +46,17 @@ func SearchBundle(
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-) (r4.Bundle, capabilities.FHIRError) {
+) (basic.Bundle, capabilities.FHIRError) {
 	entries, err := entries(result, baseURL)
 	if err != nil {
-		return r4.Bundle{}, err
+		return basic.Bundle{}, err
 	}
 
-	bundle := r4.Bundle{
-		Type: r4.Code{Value: utils.Ptr("searchset")},
-		Link: []r4.BundleLink{
+	bundle := basic.Bundle{
+		Type: basic.Code{Value: utils.Ptr("searchset")},
+		Link: []basic.BundleLink{
 			{
-				Relation: r4.String{Value: utils.Ptr("self")},
+				Relation: basic.String{Value: utils.Ptr("self")},
 				Url: relationLink(
 					resourceType,
 					usedOptions,
@@ -72,8 +72,8 @@ func SearchBundle(
 		nextOptions := usedOptions
 		nextOptions.Cursor = result.Next
 
-		bundle.Link = append(bundle.Link, r4.BundleLink{
-			Relation: r4.String{Value: utils.Ptr("next")},
+		bundle.Link = append(bundle.Link, basic.BundleLink{
+			Relation: basic.String{Value: utils.Ptr("next")},
 			Url: relationLink(
 				resourceType,
 				nextOptions,
@@ -87,8 +87,8 @@ func SearchBundle(
 	return bundle, nil
 }
 
-func entries(result search.Result, baseURL *url.URL) ([]r4.BundleEntry, capabilities.FHIRError) {
-	entries := make([]r4.BundleEntry, 0, len(result.Resources)+len(result.Included))
+func entries(result search.Result, baseURL *url.URL) ([]basic.BundleEntry, capabilities.FHIRError) {
+	entries := make([]basic.BundleEntry, 0, len(result.Resources)+len(result.Included))
 
 	for _, r := range result.Resources {
 		entry, err := entry(r, "match", baseURL)
@@ -109,11 +109,11 @@ func entries(result search.Result, baseURL *url.URL) ([]r4.BundleEntry, capabili
 	return entries, nil
 }
 
-func entry(resource model.Resource, searchMode string, baseURL *url.URL) (r4.BundleEntry, capabilities.FHIRError) {
+func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.BundleEntry, capabilities.FHIRError) {
 	resourceType := resource.ResourceType()
 	resourceID, ok := resource.ResourceId()
 	if !ok {
-		return r4.BundleEntry{}, MissingIdError{ResourceType: resourceType}
+		return basic.BundleEntry{}, MissingIdError{ResourceType: resourceType}
 	}
 
 	path := strings.Trim(baseURL.Path, "/ ")
@@ -123,11 +123,11 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (r4.Bun
 		Path:   fmt.Sprintf("%s/%s/%s", path, resourceType, resourceID),
 	}
 
-	return r4.BundleEntry{
+	return basic.BundleEntry{
 		Resource: resource,
-		FullUrl:  &r4.Uri{Value: utils.Ptr(fullURL.String())},
-		Search: &r4.BundleEntrySearch{
-			Mode: &r4.Code{Value: &searchMode},
+		FullUrl:  &basic.Uri{Value: utils.Ptr(fullURL.String())},
+		Search: &basic.BundleEntrySearch{
+			Mode: &basic.Code{Value: &searchMode},
 		},
 	}, nil
 }
@@ -141,7 +141,7 @@ func relationLink(
 	options search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-) r4.Uri {
+) basic.Uri {
 	path := strings.Trim(baseURL.Path, "/ ")
 	link := url.URL{
 		Scheme: baseURL.Scheme,
@@ -160,5 +160,5 @@ func relationLink(
 
 	link.RawQuery = usedOptions.QueryString()
 
-	return r4.Uri{Value: utils.Ptr(link.String())}
+	return basic.Uri{Value: utils.Ptr(link.String())}
 }

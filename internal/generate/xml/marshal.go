@@ -16,6 +16,7 @@ var (
 
 type MarshalGenerator struct {
 	generate.NoOpGenerator
+	ContainedResource bool
 }
 
 func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
@@ -27,7 +28,9 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementMarshalContained(f("contained_resource", strings.ToLower(release)))
+	if g.ContainedResource {
+		implementMarshalContained(f("contained_resource", strings.ToLower(release)))
+	}
 }
 
 func implementMarshal(f *File, s ir.Struct) {
@@ -174,32 +177,63 @@ func marshalCase(g *Group, f ir.StructField, t ir.FieldType) {
 
 func encodeContainedResource(g *Group, f ir.StructField) {
 	if f.Multiple {
-		g.Id("v").Op(":=").Id("make").Params(Id("[]ContainedResource"), Lit(0), Len(Id("r."+f.Name)))
-		g.For(Id("_, c").Op(":=").Range().Id("r." + f.Name)).Block(
-			Id("v").Op("=").Append(Id("v"), Id("ContainedResource").Values(Id("c"))),
-		)
-		g.Err().Op("=").Id("e.EncodeElement").Call(
-			Id("v"),
-			Qual("encoding/xml", "StartElement").Values(Dict{
+		g.For(Id("_, c").Op(":=").Range().Id("r."+f.Name)).Block(
+			Err().Op(":=").Id("e.EncodeToken").Params(Qual("encoding/xml", "StartElement").Values(Dict{
 				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
 					Id("Local"): Lit(f.MarshalName),
 				}),
-			}),
-		)
-		g.If(Err().Op("!=").Nil()).Block(
-			Return(Err()),
+			})),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Err().Op("=").Id("e.EncodeElement").Params(
+				Id("c"),
+				Qual("encoding/xml", "StartElement").Values(Dict{
+					Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+						Id("Local"): Lit("__contained__"),
+					}),
+				})),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Err().Op("=").Id("e.EncodeToken").Params(Qual("encoding/xml", "EndElement").Values(Dict{
+				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+					Id("Local"): Lit(f.MarshalName),
+				}),
+			})),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
 		)
 	} else {
 		g.If(Id("r."+f.Name).Op("!=").Nil()).Block(
-			Id("v").Op(":=").Id("ContainedResource").Values(Id("r."+f.Name)),
-			Err().Op("=").Id("e.EncodeElement").Call(
-				Id("v"),
+			Err().Op(":=").Id("e.EncodeToken").Params(Qual("encoding/xml", "StartElement").Values(Dict{
+				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+					Id("Local"): Lit(f.MarshalName),
+				}),
+			})),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
+			),
+
+			Err().Op("=").Id("e.EncodeElement").Params(
+				Id("r."+f.Name),
 				Qual("encoding/xml", "StartElement").Values(Dict{
 					Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
-						Id("Local"): Lit(f.MarshalName),
+						Id("Local"): Lit("__contained__"),
 					}),
-				}),
+				})),
+			If(Err().Op("!=").Nil()).Block(
+				Return(Err()),
 			),
+
+			Err().Op("=").Id("e.EncodeToken").Params(Qual("encoding/xml", "EndElement").Values(Dict{
+				Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
+					Id("Local"): Lit(f.MarshalName),
+				}),
+			})),
 			If(Err().Op("!=").Nil()).Block(
 				Return(Err()),
 			),

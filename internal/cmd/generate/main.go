@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
@@ -9,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 )
 
@@ -17,10 +17,11 @@ var (
 	definitionsURLFmtStr  = "http://hl7.org/fhir/%s/definitions.json.zip"
 	modelGenTarget        = "model/gen"
 	capabilitiesGenTarget = "capabilities/gen"
+	basicResources        = []string{"OperationOutcome", "Bundle", "CapabilityStatement"}
 )
 
 func main() {
-	fmt.Println("Running code generation...")
+	log.Println("Running code generation...")
 	if err := os.RemoveAll(modelGenTarget); err != nil {
 		panic(err)
 	}
@@ -28,38 +29,82 @@ func main() {
 		panic(err)
 	}
 
+	releaseTypes := loadTypes(buildReleases)
+	basicTypes := collectBasicTypes(releaseTypes)
+
 	for _, r := range buildReleases {
 		log.Printf("Generating for FHIR %v ...\n", r)
 
-		zipPath := downloadDefinitions(r)
-		bundles := readJSONFromZIP(zipPath)
-
-		types := ir.Parse(&bundles.types)
-		resources := ir.Parse(&bundles.resources)
-		all := append(types, resources...)
-
 		log.Println("Generating structs and implementations...")
 
-		generate.GenerateAll(all, genDir(modelGenTarget, r), r,
+		generate.GenerateAll(releaseTypes[r], genDir(modelGenTarget, r), r,
 			generate.ModelPkgDocGenerator{},
-			generate.TypesGenerator{},
+			generate.TypesGenerator{ContainedResource: true},
 			generate.ImplResourceGenerator{},
 			generate.ImplElementGenerator{},
-			generate.StringerGenerator{},
-			json.MarshalGenerator{},
+			generate.StringerGenerator{ContainedResource: true},
+			json.MarshalGenerator{ContainedResource: true},
 			json.UnmarshalGenerator{},
-			xml.MarshalGenerator{},
+			xml.MarshalGenerator{ContainedResource: true},
 			xml.UnmarshalGenerator{},
 		)
 
-		generate.GenerateAll(all, genDir(capabilitiesGenTarget, r), r,
+		generate.GenerateAll(releaseTypes[r], genDir(capabilitiesGenTarget, r), r,
 			generate.CapabilityPkgDocGenerator{},
 			generate.CapabilitiesGenerator{},
 			generate.CapabilitiesWrapperGenerator{},
 		)
 	}
 
+	log.Println("Generating basic types...")
+
+	generate.GenerateAll(basicTypes, genDir(modelGenTarget, "basic"), "basic",
+		generate.BasicDocGenerator{},
+		generate.TypesGenerator{ContainedResource: false},
+		generate.ImplResourceGenerator{},
+		generate.ImplElementGenerator{},
+		generate.StringerGenerator{ContainedResource: false},
+		json.MarshalGenerator{ContainedResource: false},
+		xml.MarshalGenerator{ContainedResource: false},
+	)
+
 	log.Println("Code generation done.")
+}
+
+func loadTypes(releases []string) map[string][]ir.ResourceOrType {
+	types := map[string][]ir.ResourceOrType{}
+	for _, r := range releases {
+		zipPath := downloadDefinitions(r)
+		bundles := readJSONFromZIP(zipPath)
+
+		types[r] = append(ir.Parse(&bundles.types), ir.Parse(&bundles.resources)...)
+	}
+	return types
+}
+
+func collectBasicTypes(releaseTypes map[string][]ir.ResourceOrType) []ir.ResourceOrType {
+	var basicTypes []ir.ResourceOrType
+	for _, r4t := range releaseTypes["R4"] {
+		if !slices.Contains(basicResources, r4t.Name) && r4t.IsResource {
+			continue
+		}
+
+		var other []ir.ResourceOrType
+		for k, v := range releaseTypes {
+			if k == "R4" {
+				continue
+			}
+
+			for _, ot := range v {
+				if ot.Name == r4t.Name {
+					other = append(other, ot)
+				}
+			}
+		}
+		basicTypes = append(basicTypes, ir.CollectBasic(r4t, other))
+	}
+
+	return basicTypes
 }
 
 func genDir(genTarget, release string) string {
