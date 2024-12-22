@@ -1,14 +1,14 @@
 package xml
 
 import (
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	. "github.com/dave/jennifer/jen"
 	"strings"
 )
 
 type UnmarshalGenerator struct {
-	generator.NoOpGenerator
+	generate.NoOpGenerator
 }
 
 func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {

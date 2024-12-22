@@ -2,7 +2,7 @@ package ir
 
 import (
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/model"
 	"slices"
 	"strings"
 )

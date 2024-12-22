@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/json"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/xml"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/xml"
 	"log"
 	"os"
 	"path/filepath"
@@ -40,22 +40,22 @@ func main() {
 
 		log.Println("Generating structs and implementations...")
 
-		generator.GenerateAll(all, genDir(modelGenTarget, r), r,
-			generator.ModelPkgDocGenerator{},
-			generator.TypesGenerator{},
-			generator.ImplResourceGenerator{},
-			generator.ImplElementGenerator{},
-			generator.StringerGenerator{},
+		generate.GenerateAll(all, genDir(modelGenTarget, r), r,
+			generate.ModelPkgDocGenerator{},
+			generate.TypesGenerator{},
+			generate.ImplResourceGenerator{},
+			generate.ImplElementGenerator{},
+			generate.StringerGenerator{},
 			json.MarshalGenerator{},
 			json.UnmarshalGenerator{},
 			xml.MarshalGenerator{},
 			xml.UnmarshalGenerator{},
 		)
 
-		generator.GenerateAll(all, genDir(capabilitiesGenTarget, r), r,
-			generator.CapabilityPkgDocGenerator{},
-			generator.CapabilitiesGenerator{},
-			generator.CapabilitiesWrapperGenerator{},
+		generate.GenerateAll(all, genDir(capabilitiesGenTarget, r), r,
+			generate.CapabilityPkgDocGenerator{},
+			generate.CapabilitiesGenerator{},
+			generate.CapabilitiesWrapperGenerator{},
 		)
 	}
 

@@ -1,11 +1,11 @@
-// Package generator contains the code generation for this module.
+// Package generate contains the code generation for this module.
 //
 // By implementing the visitor pattern, the api allows different generators to
 // emit source code into the same source files.
-package generator
+package generate
 
 import (
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	"github.com/dave/jennifer/jen"
 	"log"
 	"os"

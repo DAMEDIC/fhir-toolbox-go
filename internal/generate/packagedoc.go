@@ -1,8 +1,8 @@
-package generator
+package generate
 
 import (
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generator/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
