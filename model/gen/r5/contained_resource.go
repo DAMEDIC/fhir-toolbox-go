@@ -1955,23 +1955,7 @@ func (cr *ContainedResource) unmarshalJSON(d *json.Decoder) error {
 	}
 }
 func (r ContainedResource) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	if len(start.Name.Local) > 0 && unicode.IsUpper(rune(start.Name.Local[0])) {
-		return e.Encode(r.Resource)
-	} else {
-		err := e.EncodeToken(start)
-		if err != nil {
-			return err
-		}
-		err = e.EncodeElement(r.Resource, xml.StartElement{Name: xml.Name{Local: "__contained__"}})
-		if err != nil {
-			return err
-		}
-		err = e.EncodeToken(start.End())
-		if err != nil {
-			return err
-		}
-		return nil
-	}
+	return e.Encode(r.Resource)
 }
 func (cr *ContainedResource) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if unicode.IsLower(rune(start.Name.Local[0])) {

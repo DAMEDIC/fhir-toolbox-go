@@ -281,34 +281,6 @@ func implementMarshalContained(f *File) {
 		Id("e").Op("*").Qual("encoding/xml", "Encoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
 	).Error().Block(
-		If(
-			Len(Id("start.Name.Local")).Op(">").Lit(0).Op("&&").
-				Qual("unicode", "IsUpper").Call(Rune().Call(Id("start.Name.Local").Index(Lit(0)))),
-		).Block(
-			Return(Id("e").Op(".").Id("Encode").Params(Id("r.Resource"))),
-		).Else().Block(
-			Err().Op(":=").Id("e.EncodeToken").Params(Id("start")),
-			If(Err().Op("!=").Nil()).Block(
-				Return(Err()),
-			),
-
-			Err().Op("=").Id("e.EncodeElement").Params(
-				Id("r.Resource"),
-				Qual("encoding/xml", "StartElement").Values(Dict{
-					Id("Name"): Qual("encoding/xml", "Name").Values(Dict{
-						Id("Local"): Lit("__contained__"),
-					}),
-				})),
-			If(Err().Op("!=").Nil()).Block(
-				Return(Err()),
-			),
-
-			Err().Op("=").Id("e.EncodeToken").Params(Id("start.End()")),
-			If(Err().Op("!=").Nil()).Block(
-				Return(Err()),
-			),
-
-			Return(Nil()),
-		),
+		Return(Id("e").Op(".").Id("Encode").Params(Id("r.Resource"))),
 	)
 }
