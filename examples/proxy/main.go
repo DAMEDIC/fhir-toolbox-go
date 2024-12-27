@@ -99,25 +99,14 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	// TODO: These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
-		Params: map[string]search.ParamDesc{
-			"_id": {Type: search.String},
+		Parameters: map[string]search.ParameterDescription{
+			"_id": {Type: search.TypeString},
 		},
 	}, nil
 }
 
 func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
-	params := url.Values{}
-	for key, ands := range options.Params {
-		for _, and := range ands {
-			orStrings := make([]string, 0, len(and))
-			for _, or := range and {
-				orStrings = append(orStrings, or.String())
-			}
-			params.Add(key, strings.Join(orStrings, ","))
-		}
-	}
-
-	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, params.Encode())
+	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
 	log.Printf("forwarding GET %s", url)
 
 	resp, err := http.Get(url)

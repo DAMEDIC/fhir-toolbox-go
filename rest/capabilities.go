@@ -72,7 +72,7 @@ func rest(
 			)
 		}
 
-		for paramName, paramProps := range capability.Params {
+		for paramName, paramProps := range capability.Parameters {
 			r.SearchParam = append(
 				r.SearchParam,
 				basic.CapabilityStatementRestResourceSearchParam{

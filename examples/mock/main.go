@@ -49,8 +49,8 @@ type mockBackend struct{}
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
 	// forward single resource read to a search for the specific id
 	result, err := b.SearchObservation(ctx, search.Options{
-		Params: search.Params{
-			"_id": search.AndList{search.OrList{{Value: id}}},
+		Parameters: search.Parameters{
+			search.ParameterKey{Name: "_id"}: search.All{search.OneOf{search.String(id)}},
 		},
 		Count: 1,
 	})
@@ -68,8 +68,8 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
 func (b *mockBackend) SearchCapabilitiesObservation() search.Capabilities {
 	return search.Capabilities{
-		Params: map[string]search.ParamDesc{
-			"_id": {Type: search.Token},
+		Parameters: map[string]search.ParameterDescription{
+			"_id": {Type: search.TypeToken},
 		},
 	}
 }
@@ -139,8 +139,8 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 
 func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, capabilities.FHIRError) {
 	result, err := b.SearchComposition(ctx, search.Options{
-		Params: search.Params{
-			"_id": search.AndList{search.OrList{{Value: id}}},
+		Parameters: search.Parameters{
+			search.ParameterKey{Name: "_id"}: search.All{search.OneOf{search.String(id)}},
 		},
 		Count: 1,
 	})
@@ -158,8 +158,8 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
 func (b *mockBackend) SearchCapabilitiesComposition() search.Capabilities {
 	return search.Capabilities{
-		Params: map[string]search.ParamDesc{
-			"_id": {Type: search.Token},
+		Parameters: map[string]search.ParameterDescription{
+			"_id": {Type: search.TypeToken},
 		},
 	}
 }
