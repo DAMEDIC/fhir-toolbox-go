@@ -229,13 +229,13 @@ func evalLiteral(
 		i, err := strconv.Atoi(s)
 		return Collection{Integer(i)}, err
 	case *parser.DateLiteralContext:
-		d, err := parseDate(s)
+		d, err := ParseDate(s)
 		return Collection{d}, err
 	case *parser.TimeLiteralContext:
-		t, err := parseTime(s, false)
+		t, err := ParseTime(s)
 		return Collection{t}, err
 	case *parser.DateTimeLiteralContext:
-		dt, err := parseDateTime(s)
+		dt, err := ParseDateTime(s)
 		return Collection{dt}, err
 	case *parser.QuantityLiteralContext:
 		q := tt.Quantity()

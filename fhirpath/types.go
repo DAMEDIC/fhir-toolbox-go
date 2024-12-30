@@ -440,7 +440,7 @@ func (s String) ToDecimal(explicit bool) (*Decimal, error) {
 }
 func (s String) ToDate(explicit bool) (*Date, error) {
 	if explicit {
-		d, err := parseDate(string(s))
+		d, err := ParseDate(string(s))
 		if err != nil {
 			return nil, nil
 		}
@@ -460,7 +460,7 @@ func (s String) ToTime(explicit bool) (*Time, error) {
 }
 func (s String) ToDateTime(explicit bool) (*DateTime, error) {
 	if explicit {
-		d, err := parseDateTime(string(s))
+		d, err := ParseDateTime(string(s))
 		if err != nil {
 			return nil, nil
 		}
@@ -469,19 +469,11 @@ func (s String) ToDateTime(explicit bool) (*DateTime, error) {
 	return nil, conversionError[String, DateTime]()
 }
 func (s String) ToQuantity(explicit bool) (*Quantity, error) {
-	parser, err := parse(string(s))
+	q, err := ParseQuantity(string(s))
 	if err != nil {
 		return nil, nil
 	}
-
-	q := parser.Quantity()
-	v, _, err := apd.NewFromString(q.NUMBER().GetText())
-	u := q.Unit().GetText()
-	if err != nil {
-		return nil, nil
-	}
-
-	return &Quantity{Value: Decimal{v}, Unit: String(u)}, nil
+	return &q, nil
 }
 func (s String) Type() TypeInfo {
 	return SimpleTypeInfo{
@@ -859,7 +851,7 @@ const (
 	TimeFormatFullTZ       = "15:04:05.999999999Z07:00"
 )
 
-func parseDate(s string) (Date, error) {
+func ParseDate(s string) (Date, error) {
 	ds := strings.TrimLeft(s, "@")
 
 	d, err := time.Parse(DateFormatOnlyYear, ds)
@@ -876,6 +868,10 @@ func parseDate(s string) (Date, error) {
 	}
 
 	return Date{}, fmt.Errorf("invalid Date format: %s", s)
+}
+
+func ParseTime(s string) (Time, error) {
+	return parseTime(s, false)
 }
 
 func parseTime(s string, withTZ bool) (Time, error) {
@@ -915,12 +911,12 @@ func parseTime(s string, withTZ bool) (Time, error) {
 	return Time{}, fmt.Errorf("invalid Date format: %s", s)
 }
 
-func parseDateTime(s string) (DateTime, error) {
+func ParseDateTime(s string) (DateTime, error) {
 	splits := strings.Split(s, "T")
 	ds := splits[0]
 	ts := splits[1]
 
-	d, err := parseDate(ds)
+	d, err := ParseDate(ds)
 	if err != nil {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (date part): %s", s)
 	}
@@ -1004,12 +1000,28 @@ func (q Quantity) String() string {
 	return fmt.Sprintf("%s '%s'", q.Value.String(), q.Unit)
 }
 
+func ParseQuantity(s string) (Quantity, error) {
+	parser, err := parse(s)
+	if err != nil {
+		return Quantity{}, err
+	}
+
+	q := parser.Quantity()
+	v, _, err := apd.NewFromString(q.NUMBER().GetText())
+	u := q.Unit().GetText()
+	if err != nil {
+		return Quantity{}, err
+	}
+
+	return Quantity{Value: Decimal{v}, Unit: String(u)}, nil
+}
+
 func conversionError[F Element, T Element]() error {
 	var (
 		f F
 		t T
 	)
-	return fmt.Errorf("primitive %v of type %T can not be converted to type %T", f, t)
+	return fmt.Errorf("primitive %v of type %T can not be converted to type %T", f, f, t)
 }
 
 func implicitConversionError[F Element, T Element]() error {
@@ -1017,5 +1029,5 @@ func implicitConversionError[F Element, T Element]() error {
 		f F
 		t T
 	)
-	return fmt.Errorf("primitive %v of type %T can not be implicitly converted to type %T", f, t)
+	return fmt.Errorf("primitive %v of type %T can not be implicitly converted to type %T", f, f, t)
 }

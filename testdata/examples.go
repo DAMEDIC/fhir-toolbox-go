@@ -9,7 +9,7 @@ import (
 
 func GetExamples(release, format string) map[string][]byte {
 	downloadExamples(release, format)
-	path := zipFilePath(release, format)
+	path := examplesZIPFilePath(release, format)
 
 	log.Println("opening zip archive...")
 	zip, err := zip.OpenReader(path)
