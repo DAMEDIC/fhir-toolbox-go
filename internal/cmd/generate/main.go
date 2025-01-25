@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/xml"
@@ -42,6 +43,7 @@ func main() {
 			generate.TypesGenerator{ContainedResource: true},
 			generate.ImplResourceGenerator{},
 			generate.ImplElementGenerator{},
+			fhirpath.FHIRPathGenerator{},
 			generate.StringerGenerator{ContainedResource: true},
 			json.MarshalGenerator{ContainedResource: true},
 			json.UnmarshalGenerator{},

@@ -48,7 +48,7 @@ func (i SimpleTypeInfo) BaseTypeName() (TypeSpecifier, bool) {
 
 type ClassInfo struct {
 	SimpleTypeInfo
-	element []ClassInfoElement
+	Element []ClassInfoElement
 }
 
 func (i ClassInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -931,7 +931,7 @@ func (q Quantity) Type() TypeInfo {
 			Name:      "Quantity",
 			BaseType:  TypeSpecifier{"System", "Any"},
 		},
-		element: []ClassInfoElement{
+		Element: []ClassInfoElement{
 			{Name: "Value", Type: "System.Decimal"},
 			{Name: "Unit", Type: "System.String"},
 		},

@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	r4 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 )
 
 func main() {
 	fmt.Println(fhirpath.Evaluate(
-		fhirpath.FHIRContext(),
+		r4.Context(),
 		object{"Patient"}, fhirpath.MustParse("3 is String"),
 	))
 }
