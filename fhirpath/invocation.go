@@ -9,7 +9,7 @@ import (
 
 func evalInvocation(
 	ctx context.Context,
-	root, target Collection,
+	root Element, target Collection,
 	tree parser.IInvocationContext,
 	isRoot bool,
 ) (Collection, error) {
@@ -21,13 +21,9 @@ func evalInvocation(
 		}
 
 		if isRoot {
-			if len(root) != 1 {
-				return nil, fmt.Errorf("expected single root node, no collection")
-			}
-
 			expectedType, ok := resolveType(ctx, TypeSpecifier{Name: ident})
 			if ok {
-				rootType := root[0].Type()
+				rootType := root.Type()
 				if !subTypeOf(ctx, rootType, expectedType) {
 					return nil, fmt.Errorf("expected element of type %s, got %s", expectedType, rootType)
 				}
@@ -35,7 +31,11 @@ func evalInvocation(
 			}
 		}
 
-		return target.Member(ident), nil
+		var members Collection
+		for _, e := range target {
+			members = append(members, e.Member(ident)...)
+		}
+		return members, nil
 	case *parser.FunctionInvocationContext:
 		return evalFunc(ctx, root, target, t.Function())
 	case *parser.ThisInvocationContext:
@@ -89,7 +89,7 @@ func evalIdentifier(tree parser.IIdentifierContext) (string, error) {
 
 func evalFunc(
 	ctx context.Context,
-	root, target Collection,
+	root Element, target Collection,
 	tree parser.IFunctionContext,
 ) (Collection, error) {
 	ident, err := evalIdentifier(tree.Identifier())
@@ -107,7 +107,7 @@ func evalFunc(
 
 func callFunc(
 	ctx context.Context,
-	root, target Collection,
+	root Element, target Collection,
 	ident string, params ...parser.IExpressionContext,
 ) (Collection, error) {
 	fn, ok := getFunction(ctx, ident)
@@ -133,7 +133,7 @@ func callFunc(
 			args[position] = arg
 		}
 
-		result, err := fn(ctx, root, target, args...)
+		result, err := fn(ctx, root, elem, args...)
 		if err != nil {
 			return nil, fmt.Errorf("failed to evaluate function \"%s\" on element %v (index %v): %w", ident, elem, index, err)
 		}

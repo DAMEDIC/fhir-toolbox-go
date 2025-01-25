@@ -33,16 +33,6 @@ type TypeInfo interface {
 	BaseTypeName() (TypeSpecifier, bool)
 }
 
-type TypeInfos []TypeInfo
-
-func (t TypeInfos) QualifiedName() (TypeSpecifier, bool) {
-	return TypeSpecifier{}, false
-}
-
-func (t TypeInfos) BaseTypeName() (TypeSpecifier, bool) {
-	return TypeSpecifier{}, false
-}
-
 type SimpleTypeInfo struct {
 	Namespace string
 	Name      string
@@ -282,54 +272,6 @@ func ElementTo[T Element](e Element, explicit bool) (*T, error) {
 }
 
 type Collection []Element
-
-func (c Collection) Member(name string) Collection {
-	var members Collection
-	for _, e := range c {
-		members = append(members, e.Member(name)...)
-	}
-	return members
-}
-
-func CollectionTo[T Element](c Collection, explicit bool) (*T, error) {
-	var v T
-	if len(c) > 1 {
-		return nil, fmt.Errorf("can not convert collection to %T, collection contains more than one element", v)
-	}
-	return ElementTo[T](c[0], explicit)
-}
-func (c Collection) ToBoolean(explicit bool) (*Boolean, error) {
-	return CollectionTo[Boolean](c, explicit)
-}
-func (c Collection) ToString(explicit bool) (*String, error) {
-	return CollectionTo[String](c, explicit)
-}
-func (c Collection) ToInteger(explicit bool) (*Integer, error) {
-	return CollectionTo[Integer](c, explicit)
-}
-func (c Collection) ToDecimal(explicit bool) (*Decimal, error) {
-	return CollectionTo[Decimal](c, explicit)
-}
-func (c Collection) ToDate(explicit bool) (*Date, error) {
-	return CollectionTo[Date](c, explicit)
-}
-func (c Collection) ToTime(explicit bool) (*Time, error) {
-	return CollectionTo[Time](c, explicit)
-}
-func (c Collection) ToDateTime(explicit bool) (*DateTime, error) {
-	return CollectionTo[DateTime](c, explicit)
-}
-func (c Collection) ToQuantity(explicit bool) (*Quantity, error) {
-	return CollectionTo[Quantity](c, explicit)
-}
-
-func (c Collection) Type() TypeInfo {
-	types := make(TypeInfos, 0, len(c))
-	for _, e := range c {
-		types = append(types, e.Type())
-	}
-	return types
-}
 
 type Boolean bool
 

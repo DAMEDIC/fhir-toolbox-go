@@ -79,17 +79,12 @@ func parse(path string) (*parser.FHIRPathParser, error) {
 }
 
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
-	targetCollection, ok := target.(Collection)
-	if !ok {
-		targetCollection = Collection{target}
-	}
-
-	ctx = WithEnv(ctx, "context", targetCollection)
+	ctx = WithEnv(ctx, "context", target)
 	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
 
 	return evalExpression(
 		ctx,
-		targetCollection, targetCollection,
+		target, Collection{target},
 		expr.tree,
 		true,
 	)
@@ -97,7 +92,7 @@ func Evaluate(ctx context.Context, target Element, expr Expression) (Collection,
 
 func evalExpression(
 	ctx context.Context,
-	root, target Collection,
+	root Element, target Collection,
 	tree parser.IExpressionContext,
 	isRoot bool,
 ) (Collection, error) {
@@ -183,7 +178,7 @@ func evalExpression(
 
 func evalTerm(
 	ctx context.Context,
-	root, target Collection,
+	root Element, target Collection,
 	tree parser.ITermContext,
 	isRoot bool,
 ) (Collection, error) {
@@ -250,15 +245,11 @@ func evalLiteral(
 type envKey string
 
 func WithEnv(ctx context.Context, name string, value Element) context.Context {
-	valCollection, ok := value.(Collection)
-	if !ok {
-		valCollection = Collection{value}
-	}
-	return context.WithValue(ctx, envKey(name), valCollection)
+	return context.WithValue(ctx, envKey(name), value)
 }
 
-func envValue(ctx context.Context, name string) (Collection, error) {
-	val, ok := ctx.Value(envKey(name)).(Collection)
+func envValue(ctx context.Context, name string) (Element, error) {
+	val, ok := ctx.Value(envKey(name)).(Element)
 	if !ok {
 		return nil, fmt.Errorf("environment variable %q undefined", name)
 	}
@@ -270,7 +261,11 @@ func evalExternalConstant(
 	tree parser.IExternalConstantContext,
 ) (Collection, error) {
 	name := strings.TrimLeft(tree.GetText(), "%")
-	return envValue(ctx, name)
+	value, err := envValue(ctx, name)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{value}, nil
 }
 
 func Singleton[T Element](c Collection) (*T, error) {
@@ -281,7 +276,7 @@ func Singleton[T Element](c Collection) (*T, error) {
 	}
 
 	// convert to input type
-	v, err := ElementTo[T](c, false)
+	v, err := ElementTo[T](c[0], false)
 
 	// if not convertible but contains a single value, evaluate to true
 	if _, wantBool := any(v).(Boolean); err != nil && wantBool {
