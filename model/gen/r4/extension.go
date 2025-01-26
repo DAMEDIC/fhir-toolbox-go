@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4483,5 +4486,76 @@ func (r *Extension) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Extension) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, fhirpath.String(r.Url))
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r Extension) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Extension to Boolean")
+}
+func (r Extension) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Extension to String")
+}
+func (r Extension) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Extension to Integer")
+}
+func (r Extension) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Extension to Decimal")
+}
+func (r Extension) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Extension to Date")
+}
+func (r Extension) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Extension to Time")
+}
+func (r Extension) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Extension to DateTime")
+}
+func (r Extension) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Extension to Quantity")
+}
+func (r Extension) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.string",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Extension",
+			Namespace: "FHIR",
+		},
 	}
 }

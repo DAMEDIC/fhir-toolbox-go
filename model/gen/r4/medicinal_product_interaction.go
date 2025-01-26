@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1492,5 +1495,237 @@ func (r *MedicinalProductInteractionInteractant) UnmarshalXML(d *xml.Decoder, st
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MedicinalProductInteraction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interactant") {
+		for _, v := range r.Interactant {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effect") {
+		if r.Effect != nil {
+			children = append(children, *r.Effect)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "incidence") {
+		if r.Incidence != nil {
+			children = append(children, *r.Incidence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "management") {
+		if r.Management != nil {
+			children = append(children, *r.Management)
+		}
+	}
+	return children
+}
+func (r MedicinalProductInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Boolean")
+}
+func (r MedicinalProductInteraction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to String")
+}
+func (r MedicinalProductInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Integer")
+}
+func (r MedicinalProductInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Decimal")
+}
+func (r MedicinalProductInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Date")
+}
+func (r MedicinalProductInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Time")
+}
+func (r MedicinalProductInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to DateTime")
+}
+func (r MedicinalProductInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductInteraction to Quantity")
+}
+func (r MedicinalProductInteraction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Interactant",
+			Type: "List<FHIR.MedicinalProductInteractionInteractant>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Effect",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Incidence",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Management",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductInteraction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicinalProductInteractionInteractant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "item") {
+		children = append(children, r.Item)
+	}
+	return children
+}
+func (r MedicinalProductInteractionInteractant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Boolean")
+}
+func (r MedicinalProductInteractionInteractant) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to String")
+}
+func (r MedicinalProductInteractionInteractant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Integer")
+}
+func (r MedicinalProductInteractionInteractant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Decimal")
+}
+func (r MedicinalProductInteractionInteractant) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Date")
+}
+func (r MedicinalProductInteractionInteractant) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Time")
+}
+func (r MedicinalProductInteractionInteractant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to DateTime")
+}
+func (r MedicinalProductInteractionInteractant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Quantity")
+}
+func (r MedicinalProductInteractionInteractant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Item",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductInteractionInteractant",
+			Namespace: "FHIR",
+		},
 	}
 }

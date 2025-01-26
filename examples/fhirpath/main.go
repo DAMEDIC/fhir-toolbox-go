@@ -8,51 +8,13 @@ import (
 )
 
 func main() {
-	fmt.Println(fhirpath.Evaluate(
-		r4.Context(),
-		object{"Patient"}, fhirpath.MustParse("3 is String"),
-	))
-}
-
-type object struct {
-	name string
-}
-
-func (o object) Type() fhirpath.TypeInfo {
-	return fhirpath.ClassInfo{
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			Namespace: "FHIR",
-			Name:      o.name,
-		},
+	patient := r4.Patient{
+		Name: []r4.HumanName{{
+			Given:  []r4.String{{Value: utils.Ptr("Donald")}},
+			Family: &r4.String{Value: utils.Ptr("Duck")},
+		}},
 	}
-}
 
-func (object) Member(s string) fhirpath.Collection {
-	fmt.Println("get member", s)
-	return fhirpath.Collection{object{name: s}}
-}
-
-func (object) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return utils.Ptr(fhirpath.Boolean(false)), fmt.Errorf("not a boolean")
-}
-func (object) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, nil
-}
-func (object) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, nil
-}
-func (object) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, nil
-}
-func (object) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, nil
-}
-func (object) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, nil
-}
-func (object) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, nil
-}
-func (object) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, nil
+	res, err := fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given"))
+	fmt.Println(res, err)
 }

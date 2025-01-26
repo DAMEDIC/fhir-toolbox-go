@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1840,5 +1843,285 @@ func (r *DocumentManifestRelated) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r DocumentManifest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "masterIdentifier") {
+		if r.MasterIdentifier != nil {
+			children = append(children, *r.MasterIdentifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		if r.Created != nil {
+			children = append(children, *r.Created)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recipient") {
+		for _, v := range r.Recipient {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		for _, v := range r.Content {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "related") {
+		for _, v := range r.Related {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DocumentManifest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DocumentManifest to Boolean")
+}
+func (r DocumentManifest) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DocumentManifest to String")
+}
+func (r DocumentManifest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DocumentManifest to Integer")
+}
+func (r DocumentManifest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DocumentManifest to Decimal")
+}
+func (r DocumentManifest) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DocumentManifest to Date")
+}
+func (r DocumentManifest) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DocumentManifest to Time")
+}
+func (r DocumentManifest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DocumentManifest to DateTime")
+}
+func (r DocumentManifest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DocumentManifest to Quantity")
+}
+func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "MasterIdentifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Created",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Recipient",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Content",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Related",
+			Type: "List<FHIR.DocumentManifestRelated>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "DocumentManifest",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DocumentManifestRelated) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ref") {
+		if r.Ref != nil {
+			children = append(children, *r.Ref)
+		}
+	}
+	return children
+}
+func (r DocumentManifestRelated) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Boolean")
+}
+func (r DocumentManifestRelated) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to String")
+}
+func (r DocumentManifestRelated) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Integer")
+}
+func (r DocumentManifestRelated) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Decimal")
+}
+func (r DocumentManifestRelated) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Date")
+}
+func (r DocumentManifestRelated) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Time")
+}
+func (r DocumentManifestRelated) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to DateTime")
+}
+func (r DocumentManifestRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DocumentManifestRelated to Quantity")
+}
+func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Ref",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DocumentManifestRelated",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5703,5 +5706,772 @@ func (r *SpecimenDefinitionTypeTestedHandling) UnmarshalXML(d *xml.Decoder, star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SpecimenDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "derivedFromCanonical") {
+		for _, v := range r.DerivedFromCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "derivedFromUri") {
+		for _, v := range r.DerivedFromUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "typeCollected") {
+		if r.TypeCollected != nil {
+			children = append(children, *r.TypeCollected)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patientPreparation") {
+		for _, v := range r.PatientPreparation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timeAspect") {
+		if r.TimeAspect != nil {
+			children = append(children, *r.TimeAspect)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collection") {
+		for _, v := range r.Collection {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "typeTested") {
+		for _, v := range r.TypeTested {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SpecimenDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Boolean")
+}
+func (r SpecimenDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to String")
+}
+func (r SpecimenDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Integer")
+}
+func (r SpecimenDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Decimal")
+}
+func (r SpecimenDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Date")
+}
+func (r SpecimenDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Time")
+}
+func (r SpecimenDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to DateTime")
+}
+func (r SpecimenDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenDefinition to Quantity")
+}
+func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "DerivedFromCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "DerivedFromUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "TypeCollected",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PatientPreparation",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "TimeAspect",
+			Type: "FHIR.String",
+		}, {
+			Name: "Collection",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "TypeTested",
+			Type: "List<FHIR.SpecimenDefinitionTypeTested>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenDefinitionTypeTested) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isDerived") {
+		if r.IsDerived != nil {
+			children = append(children, *r.IsDerived)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preference") {
+		children = append(children, r.Preference)
+	}
+	if len(name) == 0 || slices.Contains(name, "container") {
+		if r.Container != nil {
+			children = append(children, *r.Container)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requirement") {
+		if r.Requirement != nil {
+			children = append(children, *r.Requirement)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "retentionTime") {
+		if r.RetentionTime != nil {
+			children = append(children, *r.RetentionTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "singleUse") {
+		if r.SingleUse != nil {
+			children = append(children, *r.SingleUse)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rejectionCriterion") {
+		for _, v := range r.RejectionCriterion {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "handling") {
+		for _, v := range r.Handling {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "testingDestination") {
+		for _, v := range r.TestingDestination {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SpecimenDefinitionTypeTested) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Boolean")
+}
+func (r SpecimenDefinitionTypeTested) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to String")
+}
+func (r SpecimenDefinitionTypeTested) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Integer")
+}
+func (r SpecimenDefinitionTypeTested) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Decimal")
+}
+func (r SpecimenDefinitionTypeTested) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Date")
+}
+func (r SpecimenDefinitionTypeTested) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Time")
+}
+func (r SpecimenDefinitionTypeTested) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to DateTime")
+}
+func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
+}
+func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "IsDerived",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Preference",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Container",
+			Type: "FHIR.SpecimenDefinitionTypeTestedContainer",
+		}, {
+			Name: "Requirement",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "RetentionTime",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "SingleUse",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "RejectionCriterion",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Handling",
+			Type: "List<FHIR.SpecimenDefinitionTypeTestedHandling>",
+		}, {
+			Name: "TestingDestination",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenDefinitionTypeTested",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenDefinitionTypeTestedContainer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "material") {
+		if r.Material != nil {
+			children = append(children, *r.Material)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cap") {
+		if r.Cap != nil {
+			children = append(children, *r.Cap)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "capacity") {
+		if r.Capacity != nil {
+			children = append(children, *r.Capacity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "minimumVolume") {
+		if r.MinimumVolume != nil {
+			children = append(children, r.MinimumVolume)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additive") {
+		for _, v := range r.Additive {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preparation") {
+		if r.Preparation != nil {
+			children = append(children, *r.Preparation)
+		}
+	}
+	return children
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Boolean")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to String")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Integer")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Decimal")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Date")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Time")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to DateTime")
+}
+func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
+}
+func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Material",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Cap",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Capacity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MinimumVolume",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Additive",
+			Type: "List<FHIR.SpecimenDefinitionTypeTestedContainerAdditive>",
+		}, {
+			Name: "Preparation",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenDefinitionTypeTestedContainer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additive") {
+		children = append(children, r.Additive)
+	}
+	return children
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Boolean")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to String")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Integer")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Decimal")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Date")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Time")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to DateTime")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Additive",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenDefinitionTypeTestedContainerAdditive",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenDefinitionTypeTestedHandling) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "temperatureQualifier") {
+		if r.TemperatureQualifier != nil {
+			children = append(children, *r.TemperatureQualifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "temperatureRange") {
+		if r.TemperatureRange != nil {
+			children = append(children, *r.TemperatureRange)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDuration") {
+		if r.MaxDuration != nil {
+			children = append(children, *r.MaxDuration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instruction") {
+		if r.Instruction != nil {
+			children = append(children, *r.Instruction)
+		}
+	}
+	return children
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Boolean")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to String")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Integer")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Decimal")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Date")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Time")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to DateTime")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
+}
+func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "TemperatureQualifier",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "TemperatureRange",
+			Type: "FHIR.Range",
+		}, {
+			Name: "MaxDuration",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "Instruction",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenDefinitionTypeTestedHandling",
+			Namespace: "FHIR",
+		},
 	}
 }

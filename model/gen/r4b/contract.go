@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -16215,5 +16218,2089 @@ func (r *ContractRule) UnmarshalXML(d *xml.Decoder, start xml.StartElement) erro
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Contract) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "legalState") {
+		if r.LegalState != nil {
+			children = append(children, *r.LegalState)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		if r.InstantiatesCanonical != nil {
+			children = append(children, *r.InstantiatesCanonical)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		if r.InstantiatesUri != nil {
+			children = append(children, *r.InstantiatesUri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contentDerivative") {
+		if r.ContentDerivative != nil {
+			children = append(children, *r.ContentDerivative)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issued") {
+		if r.Issued != nil {
+			children = append(children, *r.Issued)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "applies") {
+		if r.Applies != nil {
+			children = append(children, *r.Applies)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expirationType") {
+		if r.ExpirationType != nil {
+			children = append(children, *r.ExpirationType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authority") {
+		for _, v := range r.Authority {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "domain") {
+		for _, v := range r.Domain {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "site") {
+		for _, v := range r.Site {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subtitle") {
+		if r.Subtitle != nil {
+			children = append(children, *r.Subtitle)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "alias") {
+		for _, v := range r.Alias {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, *r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scope") {
+		if r.Scope != nil {
+			children = append(children, *r.Scope)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		if r.Topic != nil {
+			children = append(children, r.Topic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subType") {
+		for _, v := range r.SubType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contentDefinition") {
+		if r.ContentDefinition != nil {
+			children = append(children, *r.ContentDefinition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "term") {
+		for _, v := range r.Term {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInfo") {
+		for _, v := range r.SupportingInfo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relevantHistory") {
+		for _, v := range r.RelevantHistory {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "signer") {
+		for _, v := range r.Signer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "friendly") {
+		for _, v := range r.Friendly {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "legal") {
+		for _, v := range r.Legal {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rule") {
+		for _, v := range r.Rule {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "legallyBinding") {
+		if r.LegallyBinding != nil {
+			children = append(children, r.LegallyBinding)
+		}
+	}
+	return children
+}
+func (r Contract) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Contract to Boolean")
+}
+func (r Contract) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Contract to String")
+}
+func (r Contract) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Contract to Integer")
+}
+func (r Contract) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Contract to Decimal")
+}
+func (r Contract) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Contract to Date")
+}
+func (r Contract) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Contract to Time")
+}
+func (r Contract) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Contract to DateTime")
+}
+func (r Contract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Contract to Quantity")
+}
+func (r Contract) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "LegalState",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "ContentDerivative",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Issued",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Applies",
+			Type: "FHIR.Period",
+		}, {
+			Name: "ExpirationType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Authority",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Domain",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Site",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Subtitle",
+			Type: "FHIR.String",
+		}, {
+			Name: "Alias",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Author",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Scope",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Topic",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "SubType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ContentDefinition",
+			Type: "FHIR.ContractContentDefinition",
+		}, {
+			Name: "Term",
+			Type: "List<FHIR.ContractTerm>",
+		}, {
+			Name: "SupportingInfo",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "RelevantHistory",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Signer",
+			Type: "List<FHIR.ContractSigner>",
+		}, {
+			Name: "Friendly",
+			Type: "List<FHIR.ContractFriendly>",
+		}, {
+			Name: "Legal",
+			Type: "List<FHIR.ContractLegal>",
+		}, {
+			Name: "Rule",
+			Type: "List<FHIR.ContractRule>",
+		}, {
+			Name: "LegallyBinding",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Contract",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractContentDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "subType") {
+		if r.SubType != nil {
+			children = append(children, *r.SubType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationDate") {
+		if r.PublicationDate != nil {
+			children = append(children, *r.PublicationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationStatus") {
+		children = append(children, r.PublicationStatus)
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	return children
+}
+func (r ContractContentDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Boolean")
+}
+func (r ContractContentDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to String")
+}
+func (r ContractContentDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Integer")
+}
+func (r ContractContentDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Decimal")
+}
+func (r ContractContentDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Date")
+}
+func (r ContractContentDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Time")
+}
+func (r ContractContentDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to DateTime")
+}
+func (r ContractContentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractContentDefinition to Quantity")
+}
+func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "SubType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PublicationDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "PublicationStatus",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractContentDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTerm) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issued") {
+		if r.Issued != nil {
+			children = append(children, *r.Issued)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "applies") {
+		if r.Applies != nil {
+			children = append(children, *r.Applies)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		if r.Topic != nil {
+			children = append(children, r.Topic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subType") {
+		if r.SubType != nil {
+			children = append(children, *r.SubType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabel") {
+		for _, v := range r.SecurityLabel {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "offer") {
+		children = append(children, r.Offer)
+	}
+	if len(name) == 0 || slices.Contains(name, "asset") {
+		for _, v := range r.Asset {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "group") {
+		for _, v := range r.Group {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTerm) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTerm to Boolean")
+}
+func (r ContractTerm) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTerm to String")
+}
+func (r ContractTerm) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTerm to Integer")
+}
+func (r ContractTerm) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTerm to Decimal")
+}
+func (r ContractTerm) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTerm to Date")
+}
+func (r ContractTerm) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTerm to Time")
+}
+func (r ContractTerm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTerm to DateTime")
+}
+func (r ContractTerm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTerm to Quantity")
+}
+func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Issued",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Applies",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Topic",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "SubType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}, {
+			Name: "SecurityLabel",
+			Type: "List<FHIR.ContractTermSecurityLabel>",
+		}, {
+			Name: "Offer",
+			Type: "FHIR.ContractTermOffer",
+		}, {
+			Name: "Asset",
+			Type: "List<FHIR.ContractTermAsset>",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.ContractTermAction>",
+		}, {
+			Name: "Group",
+			Type: "List<FHIR.ContractTerm>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTerm",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermSecurityLabel) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "number") {
+		for _, v := range r.Number {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		children = append(children, r.Classification)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "control") {
+		for _, v := range r.Control {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTermSecurityLabel) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Boolean")
+}
+func (r ContractTermSecurityLabel) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to String")
+}
+func (r ContractTermSecurityLabel) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Integer")
+}
+func (r ContractTermSecurityLabel) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Decimal")
+}
+func (r ContractTermSecurityLabel) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Date")
+}
+func (r ContractTermSecurityLabel) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Time")
+}
+func (r ContractTermSecurityLabel) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to DateTime")
+}
+func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermSecurityLabel to Quantity")
+}
+func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Number",
+			Type: "List<FHIR.UnsignedInt>",
+		}, {
+			Name: "Classification",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Control",
+			Type: "List<FHIR.Coding>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermSecurityLabel",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermOffer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "party") {
+		for _, v := range r.Party {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		if r.Topic != nil {
+			children = append(children, *r.Topic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "decision") {
+		if r.Decision != nil {
+			children = append(children, *r.Decision)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "decisionMode") {
+		for _, v := range r.DecisionMode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "answer") {
+		for _, v := range r.Answer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		for _, v := range r.LinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabelNumber") {
+		for _, v := range r.SecurityLabelNumber {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTermOffer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Boolean")
+}
+func (r ContractTermOffer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermOffer to String")
+}
+func (r ContractTermOffer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Integer")
+}
+func (r ContractTermOffer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Decimal")
+}
+func (r ContractTermOffer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Date")
+}
+func (r ContractTermOffer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Time")
+}
+func (r ContractTermOffer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermOffer to DateTime")
+}
+func (r ContractTermOffer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermOffer to Quantity")
+}
+func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Party",
+			Type: "List<FHIR.ContractTermOfferParty>",
+		}, {
+			Name: "Topic",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Decision",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "DecisionMode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Answer",
+			Type: "List<FHIR.ContractTermOfferAnswer>",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}, {
+			Name: "LinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "SecurityLabelNumber",
+			Type: "List<FHIR.UnsignedInt>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermOffer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermOfferParty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		for _, v := range r.Reference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		children = append(children, r.Role)
+	}
+	return children
+}
+func (r ContractTermOfferParty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Boolean")
+}
+func (r ContractTermOfferParty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to String")
+}
+func (r ContractTermOfferParty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Integer")
+}
+func (r ContractTermOfferParty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Decimal")
+}
+func (r ContractTermOfferParty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Date")
+}
+func (r ContractTermOfferParty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Time")
+}
+func (r ContractTermOfferParty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to DateTime")
+}
+func (r ContractTermOfferParty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermOfferParty to Quantity")
+}
+func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Reference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermOfferParty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermOfferAnswer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ContractTermOfferAnswer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Boolean")
+}
+func (r ContractTermOfferAnswer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to String")
+}
+func (r ContractTermOfferAnswer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Integer")
+}
+func (r ContractTermOfferAnswer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Decimal")
+}
+func (r ContractTermOfferAnswer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Date")
+}
+func (r ContractTermOfferAnswer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Time")
+}
+func (r ContractTermOfferAnswer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to DateTime")
+}
+func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermOfferAnswer to Quantity")
+}
+func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermOfferAnswer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermAsset) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scope") {
+		if r.Scope != nil {
+			children = append(children, *r.Scope)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "typeReference") {
+		for _, v := range r.TypeReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subtype") {
+		for _, v := range r.Subtype {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relationship") {
+		if r.Relationship != nil {
+			children = append(children, *r.Relationship)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		for _, v := range r.Context {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		if r.Condition != nil {
+			children = append(children, *r.Condition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "periodType") {
+		for _, v := range r.PeriodType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		for _, v := range r.Period {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "usePeriod") {
+		for _, v := range r.UsePeriod {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		for _, v := range r.LinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "answer") {
+		for _, v := range r.Answer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabelNumber") {
+		for _, v := range r.SecurityLabelNumber {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valuedItem") {
+		for _, v := range r.ValuedItem {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTermAsset) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Boolean")
+}
+func (r ContractTermAsset) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermAsset to String")
+}
+func (r ContractTermAsset) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Integer")
+}
+func (r ContractTermAsset) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Decimal")
+}
+func (r ContractTermAsset) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Date")
+}
+func (r ContractTermAsset) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Time")
+}
+func (r ContractTermAsset) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermAsset to DateTime")
+}
+func (r ContractTermAsset) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermAsset to Quantity")
+}
+func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Scope",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "TypeReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Subtype",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Relationship",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Context",
+			Type: "List<FHIR.ContractTermAssetContext>",
+		}, {
+			Name: "Condition",
+			Type: "FHIR.String",
+		}, {
+			Name: "PeriodType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Period",
+			Type: "List<FHIR.Period>",
+		}, {
+			Name: "UsePeriod",
+			Type: "List<FHIR.Period>",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}, {
+			Name: "LinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Answer",
+			Type: "List<FHIR.ContractTermOfferAnswer>",
+		}, {
+			Name: "SecurityLabelNumber",
+			Type: "List<FHIR.UnsignedInt>",
+		}, {
+			Name: "ValuedItem",
+			Type: "List<FHIR.ContractTermAssetValuedItem>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermAsset",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermAssetContext) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		if r.Reference != nil {
+			children = append(children, *r.Reference)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	return children
+}
+func (r ContractTermAssetContext) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Boolean")
+}
+func (r ContractTermAssetContext) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to String")
+}
+func (r ContractTermAssetContext) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Integer")
+}
+func (r ContractTermAssetContext) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Decimal")
+}
+func (r ContractTermAssetContext) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Date")
+}
+func (r ContractTermAssetContext) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Time")
+}
+func (r ContractTermAssetContext) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to DateTime")
+}
+func (r ContractTermAssetContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermAssetContext to Quantity")
+}
+func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermAssetContext",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermAssetValuedItem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "entity") {
+		if r.Entity != nil {
+			children = append(children, r.Entity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectiveTime") {
+		if r.EffectiveTime != nil {
+			children = append(children, *r.EffectiveTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unitPrice") {
+		if r.UnitPrice != nil {
+			children = append(children, *r.UnitPrice)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "factor") {
+		if r.Factor != nil {
+			children = append(children, *r.Factor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "points") {
+		if r.Points != nil {
+			children = append(children, *r.Points)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "net") {
+		if r.Net != nil {
+			children = append(children, *r.Net)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "payment") {
+		if r.Payment != nil {
+			children = append(children, *r.Payment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "paymentDate") {
+		if r.PaymentDate != nil {
+			children = append(children, *r.PaymentDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "responsible") {
+		if r.Responsible != nil {
+			children = append(children, *r.Responsible)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recipient") {
+		if r.Recipient != nil {
+			children = append(children, *r.Recipient)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		for _, v := range r.LinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabelNumber") {
+		for _, v := range r.SecurityLabelNumber {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTermAssetValuedItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Boolean")
+}
+func (r ContractTermAssetValuedItem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to String")
+}
+func (r ContractTermAssetValuedItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Integer")
+}
+func (r ContractTermAssetValuedItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Decimal")
+}
+func (r ContractTermAssetValuedItem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Date")
+}
+func (r ContractTermAssetValuedItem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Time")
+}
+func (r ContractTermAssetValuedItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to DateTime")
+}
+func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
+}
+func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Entity",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "EffectiveTime",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "UnitPrice",
+			Type: "FHIR.Money",
+		}, {
+			Name: "Factor",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Points",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Net",
+			Type: "FHIR.Money",
+		}, {
+			Name: "Payment",
+			Type: "FHIR.String",
+		}, {
+			Name: "PaymentDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Responsible",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Recipient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "LinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "SecurityLabelNumber",
+			Type: "List<FHIR.UnsignedInt>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermAssetValuedItem",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermAction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doNotPerform") {
+		if r.DoNotPerform != nil {
+			children = append(children, *r.DoNotPerform)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "intent") {
+		children = append(children, r.Intent)
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		for _, v := range r.LinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		if r.Context != nil {
+			children = append(children, *r.Context)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contextLinkId") {
+		for _, v := range r.ContextLinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requester") {
+		for _, v := range r.Requester {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requesterLinkId") {
+		for _, v := range r.RequesterLinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performerType") {
+		for _, v := range r.PerformerType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performerRole") {
+		if r.PerformerRole != nil {
+			children = append(children, *r.PerformerRole)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		if r.Performer != nil {
+			children = append(children, *r.Performer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performerLinkId") {
+		for _, v := range r.PerformerLinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonCode") {
+		for _, v := range r.ReasonCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonReference") {
+		for _, v := range r.ReasonReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonLinkId") {
+		for _, v := range r.ReasonLinkId {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabelNumber") {
+		for _, v := range r.SecurityLabelNumber {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractTermAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermAction to Boolean")
+}
+func (r ContractTermAction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermAction to String")
+}
+func (r ContractTermAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermAction to Integer")
+}
+func (r ContractTermAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermAction to Decimal")
+}
+func (r ContractTermAction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermAction to Date")
+}
+func (r ContractTermAction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermAction to Time")
+}
+func (r ContractTermAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermAction to DateTime")
+}
+func (r ContractTermAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermAction to Quantity")
+}
+func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DoNotPerform",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.ContractTermActionSubject>",
+		}, {
+			Name: "Intent",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "LinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Context",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ContextLinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Requester",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "RequesterLinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "PerformerType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "PerformerRole",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Performer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PerformerLinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "ReasonCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ReasonReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "ReasonLinkId",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "SecurityLabelNumber",
+			Type: "List<FHIR.UnsignedInt>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermAction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractTermActionSubject) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		for _, v := range r.Reference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	return children
+}
+func (r ContractTermActionSubject) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Boolean")
+}
+func (r ContractTermActionSubject) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to String")
+}
+func (r ContractTermActionSubject) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Integer")
+}
+func (r ContractTermActionSubject) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Decimal")
+}
+func (r ContractTermActionSubject) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Date")
+}
+func (r ContractTermActionSubject) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Time")
+}
+func (r ContractTermActionSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to DateTime")
+}
+func (r ContractTermActionSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractTermActionSubject to Quantity")
+}
+func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Reference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractTermActionSubject",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractSigner) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "party") {
+		children = append(children, r.Party)
+	}
+	if len(name) == 0 || slices.Contains(name, "signature") {
+		for _, v := range r.Signature {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContractSigner) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractSigner to Boolean")
+}
+func (r ContractSigner) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractSigner to String")
+}
+func (r ContractSigner) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractSigner to Integer")
+}
+func (r ContractSigner) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractSigner to Decimal")
+}
+func (r ContractSigner) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractSigner to Date")
+}
+func (r ContractSigner) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractSigner to Time")
+}
+func (r ContractSigner) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractSigner to DateTime")
+}
+func (r ContractSigner) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractSigner to Quantity")
+}
+func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Party",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Signature",
+			Type: "List<FHIR.Signature>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractSigner",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractFriendly) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		children = append(children, r.Content)
+	}
+	return children
+}
+func (r ContractFriendly) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractFriendly to Boolean")
+}
+func (r ContractFriendly) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractFriendly to String")
+}
+func (r ContractFriendly) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractFriendly to Integer")
+}
+func (r ContractFriendly) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractFriendly to Decimal")
+}
+func (r ContractFriendly) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractFriendly to Date")
+}
+func (r ContractFriendly) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractFriendly to Time")
+}
+func (r ContractFriendly) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractFriendly to DateTime")
+}
+func (r ContractFriendly) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractFriendly to Quantity")
+}
+func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Content",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractFriendly",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractLegal) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		children = append(children, r.Content)
+	}
+	return children
+}
+func (r ContractLegal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractLegal to Boolean")
+}
+func (r ContractLegal) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractLegal to String")
+}
+func (r ContractLegal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractLegal to Integer")
+}
+func (r ContractLegal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractLegal to Decimal")
+}
+func (r ContractLegal) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractLegal to Date")
+}
+func (r ContractLegal) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractLegal to Time")
+}
+func (r ContractLegal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractLegal to DateTime")
+}
+func (r ContractLegal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractLegal to Quantity")
+}
+func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Content",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractLegal",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ContractRule) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		children = append(children, r.Content)
+	}
+	return children
+}
+func (r ContractRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContractRule to Boolean")
+}
+func (r ContractRule) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContractRule to String")
+}
+func (r ContractRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContractRule to Integer")
+}
+func (r ContractRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContractRule to Decimal")
+}
+func (r ContractRule) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContractRule to Date")
+}
+func (r ContractRule) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContractRule to Time")
+}
+func (r ContractRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContractRule to DateTime")
+}
+func (r ContractRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContractRule to Quantity")
+}
+func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Content",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContractRule",
+			Namespace: "FHIR",
+		},
 	}
 }

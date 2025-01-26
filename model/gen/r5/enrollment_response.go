@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1177,5 +1180,174 @@ func (r *EnrollmentResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r EnrollmentResponse) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		if r.Request != nil {
+			children = append(children, *r.Request)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, *r.Outcome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "disposition") {
+		if r.Disposition != nil {
+			children = append(children, *r.Disposition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		if r.Created != nil {
+			children = append(children, *r.Created)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		if r.Organization != nil {
+			children = append(children, *r.Organization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requestProvider") {
+		if r.RequestProvider != nil {
+			children = append(children, *r.RequestProvider)
+		}
+	}
+	return children
+}
+func (r EnrollmentResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Boolean")
+}
+func (r EnrollmentResponse) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to String")
+}
+func (r EnrollmentResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Integer")
+}
+func (r EnrollmentResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Decimal")
+}
+func (r EnrollmentResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Date")
+}
+func (r EnrollmentResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Time")
+}
+func (r EnrollmentResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to DateTime")
+}
+func (r EnrollmentResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EnrollmentResponse to Quantity")
+}
+func (r EnrollmentResponse) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Request",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Disposition",
+			Type: "FHIR.String",
+		}, {
+			Name: "Created",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Organization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "RequestProvider",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "EnrollmentResponse",
+			Namespace: "FHIR",
+		},
 	}
 }

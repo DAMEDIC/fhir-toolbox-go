@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -6460,5 +6463,850 @@ func (r *MeasureReportGroupStratifierStratumPopulation) UnmarshalXML(d *xml.Deco
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MeasureReport) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "dataUpdateType") {
+		if r.DataUpdateType != nil {
+			children = append(children, *r.DataUpdateType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "measure") {
+		if r.Measure != nil {
+			children = append(children, *r.Measure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reporter") {
+		if r.Reporter != nil {
+			children = append(children, *r.Reporter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reportingVendor") {
+		if r.ReportingVendor != nil {
+			children = append(children, *r.ReportingVendor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		children = append(children, r.Period)
+	}
+	if len(name) == 0 || slices.Contains(name, "inputParameters") {
+		if r.InputParameters != nil {
+			children = append(children, *r.InputParameters)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scoring") {
+		if r.Scoring != nil {
+			children = append(children, *r.Scoring)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "improvementNotation") {
+		if r.ImprovementNotation != nil {
+			children = append(children, *r.ImprovementNotation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "group") {
+		for _, v := range r.Group {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supplementalData") {
+		for _, v := range r.SupplementalData {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "evaluatedResource") {
+		for _, v := range r.EvaluatedResource {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MeasureReport) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReport to Boolean")
+}
+func (r MeasureReport) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReport to String")
+}
+func (r MeasureReport) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReport to Integer")
+}
+func (r MeasureReport) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReport to Decimal")
+}
+func (r MeasureReport) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReport to Date")
+}
+func (r MeasureReport) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReport to Time")
+}
+func (r MeasureReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReport to DateTime")
+}
+func (r MeasureReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReport to Quantity")
+}
+func (r MeasureReport) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "DataUpdateType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Measure",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Reporter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ReportingVendor",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "InputParameters",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Scoring",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ImprovementNotation",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Group",
+			Type: "List<FHIR.MeasureReportGroup>",
+		}, {
+			Name: "SupplementalData",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "EvaluatedResource",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReport",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroup) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "population") {
+		for _, v := range r.Population {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "measureScore") {
+		if r.MeasureScore != nil {
+			children = append(children, r.MeasureScore)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stratifier") {
+		for _, v := range r.Stratifier {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MeasureReportGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Boolean")
+}
+func (r MeasureReportGroup) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to String")
+}
+func (r MeasureReportGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Integer")
+}
+func (r MeasureReportGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Decimal")
+}
+func (r MeasureReportGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Date")
+}
+func (r MeasureReportGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Time")
+}
+func (r MeasureReportGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to DateTime")
+}
+func (r MeasureReportGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroup to Quantity")
+}
+func (r MeasureReportGroup) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Population",
+			Type: "List<FHIR.MeasureReportGroupPopulation>",
+		}, {
+			Name: "MeasureScore",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Stratifier",
+			Type: "List<FHIR.MeasureReportGroupStratifier>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroup",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroupPopulation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "count") {
+		if r.Count != nil {
+			children = append(children, *r.Count)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjectResults") {
+		if r.SubjectResults != nil {
+			children = append(children, *r.SubjectResults)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjectReport") {
+		for _, v := range r.SubjectReport {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjects") {
+		if r.Subjects != nil {
+			children = append(children, *r.Subjects)
+		}
+	}
+	return children
+}
+func (r MeasureReportGroupPopulation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Boolean")
+}
+func (r MeasureReportGroupPopulation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to String")
+}
+func (r MeasureReportGroupPopulation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Integer")
+}
+func (r MeasureReportGroupPopulation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Decimal")
+}
+func (r MeasureReportGroupPopulation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Date")
+}
+func (r MeasureReportGroupPopulation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Time")
+}
+func (r MeasureReportGroupPopulation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to DateTime")
+}
+func (r MeasureReportGroupPopulation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroupPopulation to Quantity")
+}
+func (r MeasureReportGroupPopulation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Count",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "SubjectResults",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "SubjectReport",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Subjects",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroupPopulation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroupStratifier) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stratum") {
+		for _, v := range r.Stratum {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MeasureReportGroupStratifier) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Boolean")
+}
+func (r MeasureReportGroupStratifier) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to String")
+}
+func (r MeasureReportGroupStratifier) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Integer")
+}
+func (r MeasureReportGroupStratifier) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Decimal")
+}
+func (r MeasureReportGroupStratifier) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Date")
+}
+func (r MeasureReportGroupStratifier) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Time")
+}
+func (r MeasureReportGroupStratifier) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to DateTime")
+}
+func (r MeasureReportGroupStratifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifier to Quantity")
+}
+func (r MeasureReportGroupStratifier) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Stratum",
+			Type: "List<FHIR.MeasureReportGroupStratifierStratum>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroupStratifier",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroupStratifierStratum) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "component") {
+		for _, v := range r.Component {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "population") {
+		for _, v := range r.Population {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "measureScore") {
+		if r.MeasureScore != nil {
+			children = append(children, r.MeasureScore)
+		}
+	}
+	return children
+}
+func (r MeasureReportGroupStratifierStratum) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Boolean")
+}
+func (r MeasureReportGroupStratifierStratum) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to String")
+}
+func (r MeasureReportGroupStratifierStratum) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Integer")
+}
+func (r MeasureReportGroupStratifierStratum) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Decimal")
+}
+func (r MeasureReportGroupStratifierStratum) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Date")
+}
+func (r MeasureReportGroupStratifierStratum) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Time")
+}
+func (r MeasureReportGroupStratifierStratum) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to DateTime")
+}
+func (r MeasureReportGroupStratifierStratum) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Quantity")
+}
+func (r MeasureReportGroupStratifierStratum) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Component",
+			Type: "List<FHIR.MeasureReportGroupStratifierStratumComponent>",
+		}, {
+			Name: "Population",
+			Type: "List<FHIR.MeasureReportGroupStratifierStratumPopulation>",
+		}, {
+			Name: "MeasureScore",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroupStratifierStratum",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroupStratifierStratumComponent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Boolean")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to String")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Integer")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Decimal")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Date")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Time")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to DateTime")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Quantity")
+}
+func (r MeasureReportGroupStratifierStratumComponent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroupStratifierStratumComponent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MeasureReportGroupStratifierStratumPopulation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "count") {
+		if r.Count != nil {
+			children = append(children, *r.Count)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjectResults") {
+		if r.SubjectResults != nil {
+			children = append(children, *r.SubjectResults)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjectReport") {
+		for _, v := range r.SubjectReport {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjects") {
+		if r.Subjects != nil {
+			children = append(children, *r.Subjects)
+		}
+	}
+	return children
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Boolean")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to String")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Integer")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Decimal")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Date")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Time")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to DateTime")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Quantity")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Count",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "SubjectResults",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "SubjectReport",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Subjects",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MeasureReportGroupStratifierStratumPopulation",
+			Namespace: "FHIR",
+		},
 	}
 }

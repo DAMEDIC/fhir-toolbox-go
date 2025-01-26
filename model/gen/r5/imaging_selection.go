@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4021,5 +4024,592 @@ func (r *ImagingSelectionInstanceImageRegion3D) UnmarshalXML(d *xml.Decoder, sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ImagingSelection) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issued") {
+		if r.Issued != nil {
+			children = append(children, *r.Issued)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "studyUid") {
+		if r.StudyUid != nil {
+			children = append(children, *r.StudyUid)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "derivedFrom") {
+		for _, v := range r.DerivedFrom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "seriesUid") {
+		if r.SeriesUid != nil {
+			children = append(children, *r.SeriesUid)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "seriesNumber") {
+		if r.SeriesNumber != nil {
+			children = append(children, *r.SeriesNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frameOfReferenceUid") {
+		if r.FrameOfReferenceUid != nil {
+			children = append(children, *r.FrameOfReferenceUid)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		if r.BodySite != nil {
+			children = append(children, *r.BodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		for _, v := range r.Focus {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		for _, v := range r.Instance {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingSelection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingSelection to Boolean")
+}
+func (r ImagingSelection) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingSelection to String")
+}
+func (r ImagingSelection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingSelection to Integer")
+}
+func (r ImagingSelection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingSelection to Decimal")
+}
+func (r ImagingSelection) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingSelection to Date")
+}
+func (r ImagingSelection) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingSelection to Time")
+}
+func (r ImagingSelection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingSelection to DateTime")
+}
+func (r ImagingSelection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingSelection to Quantity")
+}
+func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Issued",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.ImagingSelectionPerformer>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "StudyUid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "DerivedFrom",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "SeriesUid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "SeriesNumber",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "FrameOfReferenceUid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "BodySite",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "Focus",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Instance",
+			Type: "List<FHIR.ImagingSelectionInstance>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingSelection",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingSelectionPerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		if r.Actor != nil {
+			children = append(children, *r.Actor)
+		}
+	}
+	return children
+}
+func (r ImagingSelectionPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Boolean")
+}
+func (r ImagingSelectionPerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to String")
+}
+func (r ImagingSelectionPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Integer")
+}
+func (r ImagingSelectionPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Decimal")
+}
+func (r ImagingSelectionPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Date")
+}
+func (r ImagingSelectionPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Time")
+}
+func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to DateTime")
+}
+func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingSelectionPerformer to Quantity")
+}
+func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingSelectionPerformer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingSelectionInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uid") {
+		children = append(children, r.Uid)
+	}
+	if len(name) == 0 || slices.Contains(name, "number") {
+		if r.Number != nil {
+			children = append(children, *r.Number)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sopClass") {
+		if r.SopClass != nil {
+			children = append(children, *r.SopClass)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subset") {
+		for _, v := range r.Subset {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "imageRegion2D") {
+		for _, v := range r.ImageRegion2D {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "imageRegion3D") {
+		for _, v := range r.ImageRegion3D {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingSelectionInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Boolean")
+}
+func (r ImagingSelectionInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to String")
+}
+func (r ImagingSelectionInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Integer")
+}
+func (r ImagingSelectionInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Decimal")
+}
+func (r ImagingSelectionInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Date")
+}
+func (r ImagingSelectionInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Time")
+}
+func (r ImagingSelectionInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to DateTime")
+}
+func (r ImagingSelectionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstance to Quantity")
+}
+func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Uid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Number",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "SopClass",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Subset",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "ImageRegion2D",
+			Type: "List<FHIR.ImagingSelectionInstanceImageRegion2D>",
+		}, {
+			Name: "ImageRegion3D",
+			Type: "List<FHIR.ImagingSelectionInstanceImageRegion3D>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingSelectionInstance",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingSelectionInstanceImageRegion2D) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regionType") {
+		children = append(children, r.RegionType)
+	}
+	if len(name) == 0 || slices.Contains(name, "coordinate") {
+		for _, v := range r.Coordinate {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Boolean")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to String")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Integer")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Decimal")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Date")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Time")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to DateTime")
+}
+func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
+}
+func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "RegionType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Coordinate",
+			Type: "List<FHIR.Decimal>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingSelectionInstanceImageRegion2D",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingSelectionInstanceImageRegion3D) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regionType") {
+		children = append(children, r.RegionType)
+	}
+	if len(name) == 0 || slices.Contains(name, "coordinate") {
+		for _, v := range r.Coordinate {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Boolean")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to String")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Integer")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Decimal")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Date")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Time")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to DateTime")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
+}
+func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "RegionType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Coordinate",
+			Type: "List<FHIR.Decimal>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingSelectionInstanceImageRegion3D",
+			Namespace: "FHIR",
+		},
 	}
 }

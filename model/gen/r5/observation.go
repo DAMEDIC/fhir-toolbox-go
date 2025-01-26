@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -6587,5 +6590,631 @@ func (r *ObservationComponent) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Observation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiates") {
+		if r.Instantiates != nil {
+			children = append(children, r.Instantiates)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "triggeredBy") {
+		for _, v := range r.TriggeredBy {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		for _, v := range r.Focus {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effective") {
+		if r.Effective != nil {
+			children = append(children, r.Effective)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issued") {
+		if r.Issued != nil {
+			children = append(children, *r.Issued)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dataAbsentReason") {
+		if r.DataAbsentReason != nil {
+			children = append(children, *r.DataAbsentReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interpretation") {
+		for _, v := range r.Interpretation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		if r.BodySite != nil {
+			children = append(children, *r.BodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodyStructure") {
+		if r.BodyStructure != nil {
+			children = append(children, *r.BodyStructure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimen") {
+		if r.Specimen != nil {
+			children = append(children, *r.Specimen)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceRange") {
+		for _, v := range r.ReferenceRange {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hasMember") {
+		for _, v := range r.HasMember {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "derivedFrom") {
+		for _, v := range r.DerivedFrom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "component") {
+		for _, v := range r.Component {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Observation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Observation to Boolean")
+}
+func (r Observation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Observation to String")
+}
+func (r Observation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Observation to Integer")
+}
+func (r Observation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Observation to Decimal")
+}
+func (r Observation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Observation to Date")
+}
+func (r Observation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Observation to Time")
+}
+func (r Observation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Observation to DateTime")
+}
+func (r Observation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Observation to Quantity")
+}
+func (r Observation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Instantiates",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "TriggeredBy",
+			Type: "List<FHIR.ObservationTriggeredBy>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Focus",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Effective",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Issued",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "DataAbsentReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Interpretation",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "BodySite",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "BodyStructure",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Specimen",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ReferenceRange",
+			Type: "List<FHIR.ObservationReferenceRange>",
+		}, {
+			Name: "HasMember",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "DerivedFrom",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Component",
+			Type: "List<FHIR.ObservationComponent>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Observation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ObservationTriggeredBy) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "observation") {
+		children = append(children, r.Observation)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		if r.Reason != nil {
+			children = append(children, *r.Reason)
+		}
+	}
+	return children
+}
+func (r ObservationTriggeredBy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Boolean")
+}
+func (r ObservationTriggeredBy) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to String")
+}
+func (r ObservationTriggeredBy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Integer")
+}
+func (r ObservationTriggeredBy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Decimal")
+}
+func (r ObservationTriggeredBy) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Date")
+}
+func (r ObservationTriggeredBy) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Time")
+}
+func (r ObservationTriggeredBy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to DateTime")
+}
+func (r ObservationTriggeredBy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationTriggeredBy to Quantity")
+}
+func (r ObservationTriggeredBy) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Observation",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Reason",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationTriggeredBy",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ObservationReferenceRange) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "low") {
+		if r.Low != nil {
+			children = append(children, *r.Low)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "high") {
+		if r.High != nil {
+			children = append(children, *r.High)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "normalValue") {
+		if r.NormalValue != nil {
+			children = append(children, *r.NormalValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "appliesTo") {
+		for _, v := range r.AppliesTo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "age") {
+		if r.Age != nil {
+			children = append(children, *r.Age)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	return children
+}
+func (r ObservationReferenceRange) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Boolean")
+}
+func (r ObservationReferenceRange) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to String")
+}
+func (r ObservationReferenceRange) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Integer")
+}
+func (r ObservationReferenceRange) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Decimal")
+}
+func (r ObservationReferenceRange) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Date")
+}
+func (r ObservationReferenceRange) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Time")
+}
+func (r ObservationReferenceRange) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to DateTime")
+}
+func (r ObservationReferenceRange) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationReferenceRange to Quantity")
+}
+func (r ObservationReferenceRange) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Low",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "High",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "NormalValue",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "AppliesTo",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Age",
+			Type: "FHIR.Range",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationReferenceRange",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ObservationComponent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dataAbsentReason") {
+		if r.DataAbsentReason != nil {
+			children = append(children, *r.DataAbsentReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interpretation") {
+		for _, v := range r.Interpretation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceRange") {
+		for _, v := range r.ReferenceRange {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ObservationComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationComponent to Boolean")
+}
+func (r ObservationComponent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationComponent to String")
+}
+func (r ObservationComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationComponent to Integer")
+}
+func (r ObservationComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationComponent to Decimal")
+}
+func (r ObservationComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationComponent to Date")
+}
+func (r ObservationComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationComponent to Time")
+}
+func (r ObservationComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationComponent to DateTime")
+}
+func (r ObservationComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationComponent to Quantity")
+}
+func (r ObservationComponent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "DataAbsentReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Interpretation",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ReferenceRange",
+			Type: "List<FHIR.ObservationReferenceRange>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationComponent",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -361,4 +364,101 @@ func (r Coding) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Coding) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "userSelected") {
+		if r.UserSelected != nil {
+			children = append(children, *r.UserSelected)
+		}
+	}
+	return children
+}
+func (r Coding) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Coding to Boolean")
+}
+func (r Coding) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Coding to String")
+}
+func (r Coding) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Coding to Integer")
+}
+func (r Coding) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Coding to Decimal")
+}
+func (r Coding) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Coding to Date")
+}
+func (r Coding) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Coding to Time")
+}
+func (r Coding) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Coding to DateTime")
+}
+func (r Coding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Coding to Quantity")
+}
+func (r Coding) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "System",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "UserSelected",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Coding",
+			Namespace: "FHIR",
+		},
+	}
 }

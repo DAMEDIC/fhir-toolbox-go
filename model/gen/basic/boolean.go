@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -69,4 +72,64 @@ func (r Boolean) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Boolean) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Boolean) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Boolean to Boolean")
+}
+func (r Boolean) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Boolean to String")
+}
+func (r Boolean) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Boolean to Integer")
+}
+func (r Boolean) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Boolean to Decimal")
+}
+func (r Boolean) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Boolean to Date")
+}
+func (r Boolean) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Boolean to Time")
+}
+func (r Boolean) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Boolean to DateTime")
+}
+func (r Boolean) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Boolean to Quantity")
+}
+func (r Boolean) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.bool",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Boolean",
+			Namespace: "FHIR",
+		},
+	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -618,5 +621,94 @@ func (r *ProductShelfLife) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ProductShelfLife) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specialPrecautionsForStorage") {
+		for _, v := range r.SpecialPrecautionsForStorage {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ProductShelfLife) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Boolean")
+}
+func (r ProductShelfLife) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ProductShelfLife to String")
+}
+func (r ProductShelfLife) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Integer")
+}
+func (r ProductShelfLife) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Decimal")
+}
+func (r ProductShelfLife) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Date")
+}
+func (r ProductShelfLife) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Time")
+}
+func (r ProductShelfLife) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ProductShelfLife to DateTime")
+}
+func (r ProductShelfLife) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ProductShelfLife to Quantity")
+}
+func (r ProductShelfLife) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Period",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "SpecialPrecautionsForStorage",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ProductShelfLife",
+			Namespace: "FHIR",
+		},
 	}
 }

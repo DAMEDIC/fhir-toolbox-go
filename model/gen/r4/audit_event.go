@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4754,5 +4757,725 @@ func (r *AuditEventEntityDetail) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r AuditEvent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "subtype") {
+		for _, v := range r.Subtype {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		if r.Action != nil {
+			children = append(children, *r.Action)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recorded") {
+		children = append(children, r.Recorded)
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, *r.Outcome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcomeDesc") {
+		if r.OutcomeDesc != nil {
+			children = append(children, *r.OutcomeDesc)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purposeOfEvent") {
+		for _, v := range r.PurposeOfEvent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "agent") {
+		for _, v := range r.Agent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		children = append(children, r.Source)
+	}
+	if len(name) == 0 || slices.Contains(name, "entity") {
+		for _, v := range r.Entity {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AuditEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEvent to Boolean")
+}
+func (r AuditEvent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEvent to String")
+}
+func (r AuditEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEvent to Integer")
+}
+func (r AuditEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEvent to Decimal")
+}
+func (r AuditEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEvent to Date")
+}
+func (r AuditEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEvent to Time")
+}
+func (r AuditEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEvent to DateTime")
+}
+func (r AuditEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEvent to Quantity")
+}
+func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Subtype",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Action",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Recorded",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.Code",
+		}, {
+			Name: "OutcomeDesc",
+			Type: "FHIR.String",
+		}, {
+			Name: "PurposeOfEvent",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Agent",
+			Type: "List<FHIR.AuditEventAgent>",
+		}, {
+			Name: "Source",
+			Type: "FHIR.AuditEventSource",
+		}, {
+			Name: "Entity",
+			Type: "List<FHIR.AuditEventEntity>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEvent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AuditEventAgent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		for _, v := range r.Role {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "altId") {
+		if r.AltId != nil {
+			children = append(children, *r.AltId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requestor") {
+		children = append(children, r.Requestor)
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "policy") {
+		for _, v := range r.Policy {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "media") {
+		if r.Media != nil {
+			children = append(children, *r.Media)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "network") {
+		if r.Network != nil {
+			children = append(children, *r.Network)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purposeOfUse") {
+		for _, v := range r.PurposeOfUse {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AuditEventAgent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Boolean")
+}
+func (r AuditEventAgent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEventAgent to String")
+}
+func (r AuditEventAgent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Integer")
+}
+func (r AuditEventAgent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Decimal")
+}
+func (r AuditEventAgent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Date")
+}
+func (r AuditEventAgent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Time")
+}
+func (r AuditEventAgent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEventAgent to DateTime")
+}
+func (r AuditEventAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEventAgent to Quantity")
+}
+func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Role",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Who",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AltId",
+			Type: "FHIR.String",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Requestor",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Policy",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "Media",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Network",
+			Type: "FHIR.AuditEventAgentNetwork",
+		}, {
+			Name: "PurposeOfUse",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEventAgent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AuditEventAgentNetwork) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		if r.Address != nil {
+			children = append(children, *r.Address)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	return children
+}
+func (r AuditEventAgentNetwork) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Boolean")
+}
+func (r AuditEventAgentNetwork) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to String")
+}
+func (r AuditEventAgentNetwork) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Integer")
+}
+func (r AuditEventAgentNetwork) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Decimal")
+}
+func (r AuditEventAgentNetwork) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Date")
+}
+func (r AuditEventAgentNetwork) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Time")
+}
+func (r AuditEventAgentNetwork) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to DateTime")
+}
+func (r AuditEventAgentNetwork) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEventAgentNetwork to Quantity")
+}
+func (r AuditEventAgentNetwork) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Address",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEventAgentNetwork",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AuditEventSource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "site") {
+		if r.Site != nil {
+			children = append(children, *r.Site)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "observer") {
+		children = append(children, r.Observer)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AuditEventSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEventSource to Boolean")
+}
+func (r AuditEventSource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEventSource to String")
+}
+func (r AuditEventSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEventSource to Integer")
+}
+func (r AuditEventSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEventSource to Decimal")
+}
+func (r AuditEventSource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEventSource to Date")
+}
+func (r AuditEventSource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEventSource to Time")
+}
+func (r AuditEventSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEventSource to DateTime")
+}
+func (r AuditEventSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEventSource to Quantity")
+}
+func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Site",
+			Type: "FHIR.String",
+		}, {
+			Name: "Observer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.Coding>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEventSource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AuditEventEntity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "what") {
+		if r.What != nil {
+			children = append(children, *r.What)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lifecycle") {
+		if r.Lifecycle != nil {
+			children = append(children, *r.Lifecycle)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabel") {
+		for _, v := range r.SecurityLabel {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "query") {
+		if r.Query != nil {
+			children = append(children, *r.Query)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detail") {
+		for _, v := range r.Detail {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AuditEventEntity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Boolean")
+}
+func (r AuditEventEntity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEventEntity to String")
+}
+func (r AuditEventEntity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Integer")
+}
+func (r AuditEventEntity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Decimal")
+}
+func (r AuditEventEntity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Date")
+}
+func (r AuditEventEntity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Time")
+}
+func (r AuditEventEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEventEntity to DateTime")
+}
+func (r AuditEventEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEventEntity to Quantity")
+}
+func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "What",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Role",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Lifecycle",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "SecurityLabel",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Query",
+			Type: "FHIR.Base64Binary",
+		}, {
+			Name: "Detail",
+			Type: "List<FHIR.AuditEventEntityDetail>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEventEntity",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AuditEventEntityDetail) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r AuditEventEntityDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Boolean")
+}
+func (r AuditEventEntityDetail) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to String")
+}
+func (r AuditEventEntityDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Integer")
+}
+func (r AuditEventEntityDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Decimal")
+}
+func (r AuditEventEntityDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Date")
+}
+func (r AuditEventEntityDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Time")
+}
+func (r AuditEventEntityDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to DateTime")
+}
+func (r AuditEventEntityDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AuditEventEntityDetail to Quantity")
+}
+func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AuditEventEntityDetail",
+			Namespace: "FHIR",
+		},
 	}
 }

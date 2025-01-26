@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5310,5 +5313,726 @@ func (r *InventoryItemInstance) UnmarshalXML(d *xml.Decoder, start xml.StartElem
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r InventoryItem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		for _, v := range r.Name {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "responsibleOrganization") {
+		for _, v := range r.ResponsibleOrganization {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inventoryStatus") {
+		for _, v := range r.InventoryStatus {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "baseUnit") {
+		if r.BaseUnit != nil {
+			children = append(children, *r.BaseUnit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "netContent") {
+		if r.NetContent != nil {
+			children = append(children, *r.NetContent)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "association") {
+		for _, v := range r.Association {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characteristic") {
+		for _, v := range r.Characteristic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		if r.Instance != nil {
+			children = append(children, *r.Instance)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "productReference") {
+		if r.ProductReference != nil {
+			children = append(children, *r.ProductReference)
+		}
+	}
+	return children
+}
+func (r InventoryItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItem to Boolean")
+}
+func (r InventoryItem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItem to String")
+}
+func (r InventoryItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItem to Integer")
+}
+func (r InventoryItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItem to Decimal")
+}
+func (r InventoryItem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItem to Date")
+}
+func (r InventoryItem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItem to Time")
+}
+func (r InventoryItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItem to DateTime")
+}
+func (r InventoryItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItem to Quantity")
+}
+func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Name",
+			Type: "List<FHIR.InventoryItemName>",
+		}, {
+			Name: "ResponsibleOrganization",
+			Type: "List<FHIR.InventoryItemResponsibleOrganization>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.InventoryItemDescription",
+		}, {
+			Name: "InventoryStatus",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "BaseUnit",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "NetContent",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Association",
+			Type: "List<FHIR.InventoryItemAssociation>",
+		}, {
+			Name: "Characteristic",
+			Type: "List<FHIR.InventoryItemCharacteristic>",
+		}, {
+			Name: "Instance",
+			Type: "FHIR.InventoryItemInstance",
+		}, {
+			Name: "ProductReference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItem",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemName) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nameType") {
+		children = append(children, r.NameType)
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		children = append(children, r.Language)
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	return children
+}
+func (r InventoryItemName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemName to Boolean")
+}
+func (r InventoryItemName) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemName to String")
+}
+func (r InventoryItemName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemName to Integer")
+}
+func (r InventoryItemName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemName to Decimal")
+}
+func (r InventoryItemName) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemName to Date")
+}
+func (r InventoryItemName) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemName to Time")
+}
+func (r InventoryItemName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemName to DateTime")
+}
+func (r InventoryItemName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemName to Quantity")
+}
+func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "NameType",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemName",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemResponsibleOrganization) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		children = append(children, r.Role)
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		children = append(children, r.Organization)
+	}
+	return children
+}
+func (r InventoryItemResponsibleOrganization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Boolean")
+}
+func (r InventoryItemResponsibleOrganization) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to String")
+}
+func (r InventoryItemResponsibleOrganization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Integer")
+}
+func (r InventoryItemResponsibleOrganization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Decimal")
+}
+func (r InventoryItemResponsibleOrganization) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Date")
+}
+func (r InventoryItemResponsibleOrganization) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Time")
+}
+func (r InventoryItemResponsibleOrganization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to DateTime")
+}
+func (r InventoryItemResponsibleOrganization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Quantity")
+}
+func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Organization",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemResponsibleOrganization",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemDescription) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	return children
+}
+func (r InventoryItemDescription) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Boolean")
+}
+func (r InventoryItemDescription) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to String")
+}
+func (r InventoryItemDescription) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Integer")
+}
+func (r InventoryItemDescription) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Decimal")
+}
+func (r InventoryItemDescription) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Date")
+}
+func (r InventoryItemDescription) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Time")
+}
+func (r InventoryItemDescription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to DateTime")
+}
+func (r InventoryItemDescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemDescription to Quantity")
+}
+func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemDescription",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemAssociation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "associationType") {
+		children = append(children, r.AssociationType)
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedItem") {
+		children = append(children, r.RelatedItem)
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		children = append(children, r.Quantity)
+	}
+	return children
+}
+func (r InventoryItemAssociation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Boolean")
+}
+func (r InventoryItemAssociation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to String")
+}
+func (r InventoryItemAssociation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Integer")
+}
+func (r InventoryItemAssociation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Decimal")
+}
+func (r InventoryItemAssociation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Date")
+}
+func (r InventoryItemAssociation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Time")
+}
+func (r InventoryItemAssociation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to DateTime")
+}
+func (r InventoryItemAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemAssociation to Quantity")
+}
+func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "AssociationType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "RelatedItem",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Ratio",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemAssociation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemCharacteristic) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characteristicType") {
+		children = append(children, r.CharacteristicType)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r InventoryItemCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Boolean")
+}
+func (r InventoryItemCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to String")
+}
+func (r InventoryItemCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Integer")
+}
+func (r InventoryItemCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Decimal")
+}
+func (r InventoryItemCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Date")
+}
+func (r InventoryItemCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Time")
+}
+func (r InventoryItemCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to DateTime")
+}
+func (r InventoryItemCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemCharacteristic to Quantity")
+}
+func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "CharacteristicType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemCharacteristic",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InventoryItemInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lotNumber") {
+		if r.LotNumber != nil {
+			children = append(children, *r.LotNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expiry") {
+		if r.Expiry != nil {
+			children = append(children, *r.Expiry)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	return children
+}
+func (r InventoryItemInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Boolean")
+}
+func (r InventoryItemInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to String")
+}
+func (r InventoryItemInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Integer")
+}
+func (r InventoryItemInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Decimal")
+}
+func (r InventoryItemInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Date")
+}
+func (r InventoryItemInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Time")
+}
+func (r InventoryItemInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to DateTime")
+}
+func (r InventoryItemInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InventoryItemInstance to Quantity")
+}
+func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "LotNumber",
+			Type: "FHIR.String",
+		}, {
+			Name: "Expiry",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InventoryItemInstance",
+			Namespace: "FHIR",
+		},
 	}
 }

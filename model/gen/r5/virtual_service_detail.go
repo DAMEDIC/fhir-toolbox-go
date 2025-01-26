@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -953,5 +956,102 @@ func (r *VirtualServiceDetail) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r VirtualServiceDetail) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "channelType") {
+		if r.ChannelType != nil {
+			children = append(children, *r.ChannelType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		if r.Address != nil {
+			children = append(children, r.Address)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalInfo") {
+		for _, v := range r.AdditionalInfo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxParticipants") {
+		if r.MaxParticipants != nil {
+			children = append(children, *r.MaxParticipants)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sessionKey") {
+		if r.SessionKey != nil {
+			children = append(children, *r.SessionKey)
+		}
+	}
+	return children
+}
+func (r VirtualServiceDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Boolean")
+}
+func (r VirtualServiceDetail) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to String")
+}
+func (r VirtualServiceDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Integer")
+}
+func (r VirtualServiceDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Decimal")
+}
+func (r VirtualServiceDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Date")
+}
+func (r VirtualServiceDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Time")
+}
+func (r VirtualServiceDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to DateTime")
+}
+func (r VirtualServiceDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VirtualServiceDetail to Quantity")
+}
+func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ChannelType",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Address",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "AdditionalInfo",
+			Type: "List<FHIR.Url>",
+		}, {
+			Name: "MaxParticipants",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "SessionKey",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VirtualServiceDetail",
+			Namespace: "FHIR",
+		},
 	}
 }

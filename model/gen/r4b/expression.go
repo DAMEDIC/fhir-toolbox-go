@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -590,5 +593,100 @@ func (r *Expression) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Expression) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		children = append(children, r.Language)
+	}
+	if len(name) == 0 || slices.Contains(name, "expression") {
+		if r.Expression != nil {
+			children = append(children, *r.Expression)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		if r.Reference != nil {
+			children = append(children, *r.Reference)
+		}
+	}
+	return children
+}
+func (r Expression) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Expression to Boolean")
+}
+func (r Expression) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Expression to String")
+}
+func (r Expression) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Expression to Integer")
+}
+func (r Expression) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Expression to Decimal")
+}
+func (r Expression) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Expression to Date")
+}
+func (r Expression) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Expression to Time")
+}
+func (r Expression) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Expression to DateTime")
+}
+func (r Expression) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Expression to Quantity")
+}
+func (r Expression) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Expression",
+			Type: "FHIR.String",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Expression",
+			Namespace: "FHIR",
+		},
 	}
 }

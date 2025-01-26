@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3732,5 +3735,562 @@ func (r *BiologicallyDerivedProductStorage) UnmarshalXML(d *xml.Decoder, start x
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r BiologicallyDerivedProduct) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "productCategory") {
+		if r.ProductCategory != nil {
+			children = append(children, *r.ProductCategory)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "productCode") {
+		if r.ProductCode != nil {
+			children = append(children, *r.ProductCode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		for _, v := range r.Request {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parent") {
+		for _, v := range r.Parent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collection") {
+		if r.Collection != nil {
+			children = append(children, *r.Collection)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "processing") {
+		for _, v := range r.Processing {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manipulation") {
+		if r.Manipulation != nil {
+			children = append(children, *r.Manipulation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "storage") {
+		for _, v := range r.Storage {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r BiologicallyDerivedProduct) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Boolean")
+}
+func (r BiologicallyDerivedProduct) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to String")
+}
+func (r BiologicallyDerivedProduct) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Integer")
+}
+func (r BiologicallyDerivedProduct) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Decimal")
+}
+func (r BiologicallyDerivedProduct) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Date")
+}
+func (r BiologicallyDerivedProduct) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Time")
+}
+func (r BiologicallyDerivedProduct) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to DateTime")
+}
+func (r BiologicallyDerivedProduct) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProduct to Quantity")
+}
+func (r BiologicallyDerivedProduct) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "ProductCategory",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ProductCode",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Request",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Parent",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Collection",
+			Type: "FHIR.BiologicallyDerivedProductCollection",
+		}, {
+			Name: "Processing",
+			Type: "List<FHIR.BiologicallyDerivedProductProcessing>",
+		}, {
+			Name: "Manipulation",
+			Type: "FHIR.BiologicallyDerivedProductManipulation",
+		}, {
+			Name: "Storage",
+			Type: "List<FHIR.BiologicallyDerivedProductStorage>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "BiologicallyDerivedProduct",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BiologicallyDerivedProductCollection) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collector") {
+		if r.Collector != nil {
+			children = append(children, *r.Collector)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collected") {
+		if r.Collected != nil {
+			children = append(children, r.Collected)
+		}
+	}
+	return children
+}
+func (r BiologicallyDerivedProductCollection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Boolean")
+}
+func (r BiologicallyDerivedProductCollection) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to String")
+}
+func (r BiologicallyDerivedProductCollection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Integer")
+}
+func (r BiologicallyDerivedProductCollection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Decimal")
+}
+func (r BiologicallyDerivedProductCollection) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Date")
+}
+func (r BiologicallyDerivedProductCollection) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Time")
+}
+func (r BiologicallyDerivedProductCollection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to DateTime")
+}
+func (r BiologicallyDerivedProductCollection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Quantity")
+}
+func (r BiologicallyDerivedProductCollection) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Collector",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Collected",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BiologicallyDerivedProductCollection",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BiologicallyDerivedProductProcessing) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "procedure") {
+		if r.Procedure != nil {
+			children = append(children, *r.Procedure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additive") {
+		if r.Additive != nil {
+			children = append(children, *r.Additive)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, r.Time)
+		}
+	}
+	return children
+}
+func (r BiologicallyDerivedProductProcessing) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Boolean")
+}
+func (r BiologicallyDerivedProductProcessing) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to String")
+}
+func (r BiologicallyDerivedProductProcessing) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Integer")
+}
+func (r BiologicallyDerivedProductProcessing) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Decimal")
+}
+func (r BiologicallyDerivedProductProcessing) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Date")
+}
+func (r BiologicallyDerivedProductProcessing) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Time")
+}
+func (r BiologicallyDerivedProductProcessing) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to DateTime")
+}
+func (r BiologicallyDerivedProductProcessing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Quantity")
+}
+func (r BiologicallyDerivedProductProcessing) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Procedure",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Additive",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Time",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BiologicallyDerivedProductProcessing",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BiologicallyDerivedProductManipulation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, r.Time)
+		}
+	}
+	return children
+}
+func (r BiologicallyDerivedProductManipulation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Boolean")
+}
+func (r BiologicallyDerivedProductManipulation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to String")
+}
+func (r BiologicallyDerivedProductManipulation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Integer")
+}
+func (r BiologicallyDerivedProductManipulation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Decimal")
+}
+func (r BiologicallyDerivedProductManipulation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Date")
+}
+func (r BiologicallyDerivedProductManipulation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Time")
+}
+func (r BiologicallyDerivedProductManipulation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to DateTime")
+}
+func (r BiologicallyDerivedProductManipulation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Quantity")
+}
+func (r BiologicallyDerivedProductManipulation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Time",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BiologicallyDerivedProductManipulation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BiologicallyDerivedProductStorage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "temperature") {
+		if r.Temperature != nil {
+			children = append(children, *r.Temperature)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scale") {
+		if r.Scale != nil {
+			children = append(children, *r.Scale)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "duration") {
+		if r.Duration != nil {
+			children = append(children, *r.Duration)
+		}
+	}
+	return children
+}
+func (r BiologicallyDerivedProductStorage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Boolean")
+}
+func (r BiologicallyDerivedProductStorage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to String")
+}
+func (r BiologicallyDerivedProductStorage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Integer")
+}
+func (r BiologicallyDerivedProductStorage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Decimal")
+}
+func (r BiologicallyDerivedProductStorage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Date")
+}
+func (r BiologicallyDerivedProductStorage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Time")
+}
+func (r BiologicallyDerivedProductStorage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to DateTime")
+}
+func (r BiologicallyDerivedProductStorage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Quantity")
+}
+func (r BiologicallyDerivedProductStorage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Temperature",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Scale",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Duration",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BiologicallyDerivedProductStorage",
+			Namespace: "FHIR",
+		},
 	}
 }

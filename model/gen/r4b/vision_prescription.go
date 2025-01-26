@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2818,5 +2821,414 @@ func (r *VisionPrescriptionLensSpecificationPrism) UnmarshalXML(d *xml.Decoder, 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r VisionPrescription) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		children = append(children, r.Created)
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		children = append(children, r.Patient)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dateWritten") {
+		children = append(children, r.DateWritten)
+	}
+	if len(name) == 0 || slices.Contains(name, "prescriber") {
+		children = append(children, r.Prescriber)
+	}
+	if len(name) == 0 || slices.Contains(name, "lensSpecification") {
+		for _, v := range r.LensSpecification {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VisionPrescription) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VisionPrescription to Boolean")
+}
+func (r VisionPrescription) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VisionPrescription to String")
+}
+func (r VisionPrescription) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VisionPrescription to Integer")
+}
+func (r VisionPrescription) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VisionPrescription to Decimal")
+}
+func (r VisionPrescription) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VisionPrescription to Date")
+}
+func (r VisionPrescription) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VisionPrescription to Time")
+}
+func (r VisionPrescription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VisionPrescription to DateTime")
+}
+func (r VisionPrescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VisionPrescription to Quantity")
+}
+func (r VisionPrescription) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Created",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "DateWritten",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Prescriber",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "LensSpecification",
+			Type: "List<FHIR.VisionPrescriptionLensSpecification>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "VisionPrescription",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r VisionPrescriptionLensSpecification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "product") {
+		children = append(children, r.Product)
+	}
+	if len(name) == 0 || slices.Contains(name, "eye") {
+		children = append(children, r.Eye)
+	}
+	if len(name) == 0 || slices.Contains(name, "sphere") {
+		if r.Sphere != nil {
+			children = append(children, *r.Sphere)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cylinder") {
+		if r.Cylinder != nil {
+			children = append(children, *r.Cylinder)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "axis") {
+		if r.Axis != nil {
+			children = append(children, *r.Axis)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "prism") {
+		for _, v := range r.Prism {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "add") {
+		if r.Add != nil {
+			children = append(children, *r.Add)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "power") {
+		if r.Power != nil {
+			children = append(children, *r.Power)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "backCurve") {
+		if r.BackCurve != nil {
+			children = append(children, *r.BackCurve)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "diameter") {
+		if r.Diameter != nil {
+			children = append(children, *r.Diameter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "duration") {
+		if r.Duration != nil {
+			children = append(children, *r.Duration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "color") {
+		if r.Color != nil {
+			children = append(children, *r.Color)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "brand") {
+		if r.Brand != nil {
+			children = append(children, *r.Brand)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VisionPrescriptionLensSpecification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Boolean")
+}
+func (r VisionPrescriptionLensSpecification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to String")
+}
+func (r VisionPrescriptionLensSpecification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Integer")
+}
+func (r VisionPrescriptionLensSpecification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Decimal")
+}
+func (r VisionPrescriptionLensSpecification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Date")
+}
+func (r VisionPrescriptionLensSpecification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Time")
+}
+func (r VisionPrescriptionLensSpecification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to DateTime")
+}
+func (r VisionPrescriptionLensSpecification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Quantity")
+}
+func (r VisionPrescriptionLensSpecification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Product",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Eye",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Sphere",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Cylinder",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Axis",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Prism",
+			Type: "List<FHIR.VisionPrescriptionLensSpecificationPrism>",
+		}, {
+			Name: "Add",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Power",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "BackCurve",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Diameter",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Duration",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Color",
+			Type: "FHIR.String",
+		}, {
+			Name: "Brand",
+			Type: "FHIR.String",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VisionPrescriptionLensSpecification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r VisionPrescriptionLensSpecificationPrism) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		children = append(children, r.Amount)
+	}
+	if len(name) == 0 || slices.Contains(name, "base") {
+		children = append(children, r.Base)
+	}
+	return children
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Boolean")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to String")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Integer")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Decimal")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Date")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Time")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to DateTime")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Quantity")
+}
+func (r VisionPrescriptionLensSpecificationPrism) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Base",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VisionPrescriptionLensSpecificationPrism",
+			Namespace: "FHIR",
+		},
 	}
 }

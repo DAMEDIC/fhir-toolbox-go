@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -499,4 +502,125 @@ func (r Attachment) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Attachment) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contentType") {
+		if r.ContentType != nil {
+			children = append(children, *r.ContentType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		if r.Data != nil {
+			children = append(children, *r.Data)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "size") {
+		if r.Size != nil {
+			children = append(children, *r.Size)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hash") {
+		if r.Hash != nil {
+			children = append(children, *r.Hash)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "creation") {
+		if r.Creation != nil {
+			children = append(children, *r.Creation)
+		}
+	}
+	return children
+}
+func (r Attachment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Attachment to Boolean")
+}
+func (r Attachment) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Attachment to String")
+}
+func (r Attachment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Attachment to Integer")
+}
+func (r Attachment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Attachment to Decimal")
+}
+func (r Attachment) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Attachment to Date")
+}
+func (r Attachment) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Attachment to Time")
+}
+func (r Attachment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Attachment to DateTime")
+}
+func (r Attachment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Attachment to Quantity")
+}
+func (r Attachment) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ContentType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Data",
+			Type: "FHIR.Base64Binary",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Url",
+		}, {
+			Name: "Size",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Hash",
+			Type: "FHIR.Base64Binary",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Creation",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Attachment",
+			Namespace: "FHIR",
+		},
+	}
 }

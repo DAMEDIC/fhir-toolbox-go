@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -7609,5 +7612,1164 @@ func (r *TerminologyCapabilitiesClosure) UnmarshalXML(d *xml.Decoder, start xml.
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r TerminologyCapabilities) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		children = append(children, r.Date)
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "kind") {
+		children = append(children, r.Kind)
+	}
+	if len(name) == 0 || slices.Contains(name, "software") {
+		if r.Software != nil {
+			children = append(children, *r.Software)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implementation") {
+		if r.Implementation != nil {
+			children = append(children, *r.Implementation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lockedDate") {
+		if r.LockedDate != nil {
+			children = append(children, *r.LockedDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "codeSystem") {
+		for _, v := range r.CodeSystem {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expansion") {
+		if r.Expansion != nil {
+			children = append(children, *r.Expansion)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "codeSearch") {
+		if r.CodeSearch != nil {
+			children = append(children, *r.CodeSearch)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validateCode") {
+		if r.ValidateCode != nil {
+			children = append(children, *r.ValidateCode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "translation") {
+		if r.Translation != nil {
+			children = append(children, *r.Translation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "closure") {
+		if r.Closure != nil {
+			children = append(children, *r.Closure)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilities) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Boolean")
+}
+func (r TerminologyCapabilities) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to String")
+}
+func (r TerminologyCapabilities) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Integer")
+}
+func (r TerminologyCapabilities) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Decimal")
+}
+func (r TerminologyCapabilities) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Date")
+}
+func (r TerminologyCapabilities) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Time")
+}
+func (r TerminologyCapabilities) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to DateTime")
+}
+func (r TerminologyCapabilities) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilities to Quantity")
+}
+func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "Kind",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Software",
+			Type: "FHIR.TerminologyCapabilitiesSoftware",
+		}, {
+			Name: "Implementation",
+			Type: "FHIR.TerminologyCapabilitiesImplementation",
+		}, {
+			Name: "LockedDate",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "CodeSystem",
+			Type: "List<FHIR.TerminologyCapabilitiesCodeSystem>",
+		}, {
+			Name: "Expansion",
+			Type: "FHIR.TerminologyCapabilitiesExpansion",
+		}, {
+			Name: "CodeSearch",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ValidateCode",
+			Type: "FHIR.TerminologyCapabilitiesValidateCode",
+		}, {
+			Name: "Translation",
+			Type: "FHIR.TerminologyCapabilitiesTranslation",
+		}, {
+			Name: "Closure",
+			Type: "FHIR.TerminologyCapabilitiesClosure",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilities",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesSoftware) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesSoftware) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Boolean")
+}
+func (r TerminologyCapabilitiesSoftware) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to String")
+}
+func (r TerminologyCapabilitiesSoftware) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Integer")
+}
+func (r TerminologyCapabilitiesSoftware) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Decimal")
+}
+func (r TerminologyCapabilitiesSoftware) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Date")
+}
+func (r TerminologyCapabilitiesSoftware) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Time")
+}
+func (r TerminologyCapabilitiesSoftware) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to DateTime")
+}
+func (r TerminologyCapabilitiesSoftware) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Quantity")
+}
+func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesSoftware",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesImplementation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		children = append(children, r.Description)
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesImplementation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Boolean")
+}
+func (r TerminologyCapabilitiesImplementation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to String")
+}
+func (r TerminologyCapabilitiesImplementation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Integer")
+}
+func (r TerminologyCapabilitiesImplementation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Decimal")
+}
+func (r TerminologyCapabilitiesImplementation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Date")
+}
+func (r TerminologyCapabilitiesImplementation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Time")
+}
+func (r TerminologyCapabilitiesImplementation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to DateTime")
+}
+func (r TerminologyCapabilitiesImplementation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Quantity")
+}
+func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Url",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesImplementation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesCodeSystem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		if r.Uri != nil {
+			children = append(children, *r.Uri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		for _, v := range r.Version {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		children = append(children, r.Content)
+	}
+	if len(name) == 0 || slices.Contains(name, "subsumption") {
+		if r.Subsumption != nil {
+			children = append(children, *r.Subsumption)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesCodeSystem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Boolean")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to String")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Integer")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Decimal")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Date")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Time")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to DateTime")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Quantity")
+}
+func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Version",
+			Type: "List<FHIR.TerminologyCapabilitiesCodeSystemVersion>",
+		}, {
+			Name: "Content",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Subsumption",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesCodeSystem",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isDefault") {
+		if r.IsDefault != nil {
+			children = append(children, *r.IsDefault)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "compositional") {
+		if r.Compositional != nil {
+			children = append(children, *r.Compositional)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		for _, v := range r.Language {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "filter") {
+		for _, v := range r.Filter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Boolean")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to String")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Integer")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Decimal")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Date")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Time")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to DateTime")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Quantity")
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.String",
+		}, {
+			Name: "IsDefault",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Compositional",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Language",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "Filter",
+			Type: "List<FHIR.TerminologyCapabilitiesCodeSystemVersionFilter>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.Code>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesCodeSystemVersion",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "op") {
+		for _, v := range r.Op {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Boolean")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to String")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Integer")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Decimal")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Date")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Time")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to DateTime")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Quantity")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Op",
+			Type: "List<FHIR.Code>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesCodeSystemVersionFilter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesExpansion) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hierarchical") {
+		if r.Hierarchical != nil {
+			children = append(children, *r.Hierarchical)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "paging") {
+		if r.Paging != nil {
+			children = append(children, *r.Paging)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "incomplete") {
+		if r.Incomplete != nil {
+			children = append(children, *r.Incomplete)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parameter") {
+		for _, v := range r.Parameter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "textFilter") {
+		if r.TextFilter != nil {
+			children = append(children, *r.TextFilter)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesExpansion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Boolean")
+}
+func (r TerminologyCapabilitiesExpansion) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to String")
+}
+func (r TerminologyCapabilitiesExpansion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Integer")
+}
+func (r TerminologyCapabilitiesExpansion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Decimal")
+}
+func (r TerminologyCapabilitiesExpansion) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Date")
+}
+func (r TerminologyCapabilitiesExpansion) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Time")
+}
+func (r TerminologyCapabilitiesExpansion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to DateTime")
+}
+func (r TerminologyCapabilitiesExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Quantity")
+}
+func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Hierarchical",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Paging",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Incomplete",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Parameter",
+			Type: "List<FHIR.TerminologyCapabilitiesExpansionParameter>",
+		}, {
+			Name: "TextFilter",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesExpansion",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesExpansionParameter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Boolean")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to String")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Integer")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Decimal")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Date")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Time")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to DateTime")
+}
+func (r TerminologyCapabilitiesExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Quantity")
+}
+func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesExpansionParameter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesValidateCode) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "translations") {
+		children = append(children, r.Translations)
+	}
+	return children
+}
+func (r TerminologyCapabilitiesValidateCode) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Boolean")
+}
+func (r TerminologyCapabilitiesValidateCode) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to String")
+}
+func (r TerminologyCapabilitiesValidateCode) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Integer")
+}
+func (r TerminologyCapabilitiesValidateCode) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Decimal")
+}
+func (r TerminologyCapabilitiesValidateCode) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Date")
+}
+func (r TerminologyCapabilitiesValidateCode) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Time")
+}
+func (r TerminologyCapabilitiesValidateCode) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to DateTime")
+}
+func (r TerminologyCapabilitiesValidateCode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Quantity")
+}
+func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Translations",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesValidateCode",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesTranslation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "needsMap") {
+		children = append(children, r.NeedsMap)
+	}
+	return children
+}
+func (r TerminologyCapabilitiesTranslation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Boolean")
+}
+func (r TerminologyCapabilitiesTranslation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to String")
+}
+func (r TerminologyCapabilitiesTranslation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Integer")
+}
+func (r TerminologyCapabilitiesTranslation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Decimal")
+}
+func (r TerminologyCapabilitiesTranslation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Date")
+}
+func (r TerminologyCapabilitiesTranslation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Time")
+}
+func (r TerminologyCapabilitiesTranslation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to DateTime")
+}
+func (r TerminologyCapabilitiesTranslation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Quantity")
+}
+func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "NeedsMap",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesTranslation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TerminologyCapabilitiesClosure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "translation") {
+		if r.Translation != nil {
+			children = append(children, *r.Translation)
+		}
+	}
+	return children
+}
+func (r TerminologyCapabilitiesClosure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Boolean")
+}
+func (r TerminologyCapabilitiesClosure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to String")
+}
+func (r TerminologyCapabilitiesClosure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Integer")
+}
+func (r TerminologyCapabilitiesClosure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Decimal")
+}
+func (r TerminologyCapabilitiesClosure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Date")
+}
+func (r TerminologyCapabilitiesClosure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Time")
+}
+func (r TerminologyCapabilitiesClosure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to DateTime")
+}
+func (r TerminologyCapabilitiesClosure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Quantity")
+}
+func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Translation",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TerminologyCapabilitiesClosure",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2790,5 +2793,355 @@ func (r *CommunicationPayload) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Communication) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		for _, v := range r.InstantiatesCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		for _, v := range r.InstantiatesUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inResponseTo") {
+		for _, v := range r.InResponseTo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "statusReason") {
+		if r.StatusReason != nil {
+			children = append(children, *r.StatusReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "priority") {
+		if r.Priority != nil {
+			children = append(children, *r.Priority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "medium") {
+		for _, v := range r.Medium {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		if r.Topic != nil {
+			children = append(children, *r.Topic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "about") {
+		for _, v := range r.About {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sent") {
+		if r.Sent != nil {
+			children = append(children, *r.Sent)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "received") {
+		if r.Received != nil {
+			children = append(children, *r.Received)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recipient") {
+		for _, v := range r.Recipient {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sender") {
+		if r.Sender != nil {
+			children = append(children, *r.Sender)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "payload") {
+		for _, v := range r.Payload {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Communication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Communication to Boolean")
+}
+func (r Communication) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Communication to String")
+}
+func (r Communication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Communication to Integer")
+}
+func (r Communication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Communication to Decimal")
+}
+func (r Communication) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Communication to Date")
+}
+func (r Communication) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Communication to Time")
+}
+func (r Communication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Communication to DateTime")
+}
+func (r Communication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Communication to Quantity")
+}
+func (r Communication) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "InResponseTo",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "StatusReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Priority",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Medium",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Topic",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "About",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Sent",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Received",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Recipient",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Sender",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Payload",
+			Type: "List<FHIR.CommunicationPayload>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Communication",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CommunicationPayload) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		children = append(children, r.Content)
+	}
+	return children
+}
+func (r CommunicationPayload) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Boolean")
+}
+func (r CommunicationPayload) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CommunicationPayload to String")
+}
+func (r CommunicationPayload) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Integer")
+}
+func (r CommunicationPayload) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Decimal")
+}
+func (r CommunicationPayload) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Date")
+}
+func (r CommunicationPayload) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Time")
+}
+func (r CommunicationPayload) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CommunicationPayload to DateTime")
+}
+func (r CommunicationPayload) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CommunicationPayload to Quantity")
+}
+func (r CommunicationPayload) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Content",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CommunicationPayload",
+			Namespace: "FHIR",
+		},
 	}
 }

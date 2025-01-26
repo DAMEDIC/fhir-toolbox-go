@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -7224,5 +7227,899 @@ func (r *EvidenceVariableCategory) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r EvidenceVariable) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "shortTitle") {
+		if r.ShortTitle != nil {
+			children = append(children, *r.ShortTitle)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "editor") {
+		for _, v := range r.Editor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reviewer") {
+		for _, v := range r.Reviewer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endorser") {
+		for _, v := range r.Endorser {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedArtifact") {
+		for _, v := range r.RelatedArtifact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actual") {
+		if r.Actual != nil {
+			children = append(children, *r.Actual)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characteristic") {
+		for _, v := range r.Characteristic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "handling") {
+		if r.Handling != nil {
+			children = append(children, *r.Handling)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EvidenceVariable) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Boolean")
+}
+func (r EvidenceVariable) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariable to String")
+}
+func (r EvidenceVariable) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Integer")
+}
+func (r EvidenceVariable) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Decimal")
+}
+func (r EvidenceVariable) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Date")
+}
+func (r EvidenceVariable) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Time")
+}
+func (r EvidenceVariable) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariable to DateTime")
+}
+func (r EvidenceVariable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariable to Quantity")
+}
+func (r EvidenceVariable) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "ShortTitle",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Editor",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Reviewer",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Endorser",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "RelatedArtifact",
+			Type: "List<FHIR.RelatedArtifact>",
+		}, {
+			Name: "Actual",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Characteristic",
+			Type: "List<FHIR.EvidenceVariableCharacteristic>",
+		}, {
+			Name: "Handling",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.EvidenceVariableCategory>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariable",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EvidenceVariableCharacteristic) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "linkId") {
+		if r.LinkId != nil {
+			children = append(children, *r.LinkId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exclude") {
+		if r.Exclude != nil {
+			children = append(children, *r.Exclude)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionReference") {
+		if r.DefinitionReference != nil {
+			children = append(children, *r.DefinitionReference)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionCanonical") {
+		if r.DefinitionCanonical != nil {
+			children = append(children, *r.DefinitionCanonical)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionCodeableConcept") {
+		if r.DefinitionCodeableConcept != nil {
+			children = append(children, *r.DefinitionCodeableConcept)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionExpression") {
+		if r.DefinitionExpression != nil {
+			children = append(children, *r.DefinitionExpression)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionId") {
+		if r.DefinitionId != nil {
+			children = append(children, *r.DefinitionId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionByTypeAndValue") {
+		if r.DefinitionByTypeAndValue != nil {
+			children = append(children, *r.DefinitionByTypeAndValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionByCombination") {
+		if r.DefinitionByCombination != nil {
+			children = append(children, *r.DefinitionByCombination)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instances") {
+		if r.Instances != nil {
+			children = append(children, r.Instances)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "duration") {
+		if r.Duration != nil {
+			children = append(children, r.Duration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timeFromEvent") {
+		for _, v := range r.TimeFromEvent {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EvidenceVariableCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Boolean")
+}
+func (r EvidenceVariableCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to String")
+}
+func (r EvidenceVariableCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Integer")
+}
+func (r EvidenceVariableCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Decimal")
+}
+func (r EvidenceVariableCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Date")
+}
+func (r EvidenceVariableCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Time")
+}
+func (r EvidenceVariableCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to DateTime")
+}
+func (r EvidenceVariableCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Quantity")
+}
+func (r EvidenceVariableCharacteristic) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LinkId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Exclude",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "DefinitionReference",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "DefinitionCanonical",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "DefinitionCodeableConcept",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "DefinitionExpression",
+			Type: "FHIR.Expression",
+		}, {
+			Name: "DefinitionId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "DefinitionByTypeAndValue",
+			Type: "FHIR.EvidenceVariableCharacteristicDefinitionByTypeAndValue",
+		}, {
+			Name: "DefinitionByCombination",
+			Type: "FHIR.EvidenceVariableCharacteristicDefinitionByCombination",
+		}, {
+			Name: "Instances",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Duration",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "TimeFromEvent",
+			Type: "List<FHIR.EvidenceVariableCharacteristicTimeFromEvent>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariableCharacteristic",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		for _, v := range r.Method {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	if len(name) == 0 || slices.Contains(name, "offset") {
+		if r.Offset != nil {
+			children = append(children, *r.Offset)
+		}
+	}
+	return children
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Boolean")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to String")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Integer")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Decimal")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Date")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Time")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to DateTime")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Quantity")
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Method",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Offset",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariableCharacteristicDefinitionByTypeAndValue",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "threshold") {
+		if r.Threshold != nil {
+			children = append(children, *r.Threshold)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characteristic") {
+		for _, v := range r.Characteristic {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Boolean")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to String")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Integer")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Decimal")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Date")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Time")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to DateTime")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Quantity")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Threshold",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Characteristic",
+			Type: "List<FHIR.EvidenceVariableCharacteristic>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariableCharacteristicDefinitionByCombination",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "event") {
+		if r.Event != nil {
+			children = append(children, r.Event)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "range") {
+		if r.Range != nil {
+			children = append(children, *r.Range)
+		}
+	}
+	return children
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Boolean")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to String")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Integer")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Decimal")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Date")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Time")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to DateTime")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Quantity")
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Event",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Range",
+			Type: "FHIR.Range",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariableCharacteristicTimeFromEvent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EvidenceVariableCategory) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r EvidenceVariableCategory) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Boolean")
+}
+func (r EvidenceVariableCategory) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to String")
+}
+func (r EvidenceVariableCategory) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Integer")
+}
+func (r EvidenceVariableCategory) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Decimal")
+}
+func (r EvidenceVariableCategory) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Date")
+}
+func (r EvidenceVariableCategory) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Time")
+}
+func (r EvidenceVariableCategory) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to DateTime")
+}
+func (r EvidenceVariableCategory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EvidenceVariableCategory to Quantity")
+}
+func (r EvidenceVariableCategory) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EvidenceVariableCategory",
+			Namespace: "FHIR",
+		},
 	}
 }

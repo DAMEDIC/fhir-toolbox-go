@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3152,5 +3155,428 @@ func (r *AllergyIntoleranceReaction) UnmarshalXML(d *xml.Decoder, start xml.Star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r AllergyIntolerance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "clinicalStatus") {
+		if r.ClinicalStatus != nil {
+			children = append(children, *r.ClinicalStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "verificationStatus") {
+		if r.VerificationStatus != nil {
+			children = append(children, *r.VerificationStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "criticality") {
+		if r.Criticality != nil {
+			children = append(children, *r.Criticality)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		children = append(children, r.Patient)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onset") {
+		if r.Onset != nil {
+			children = append(children, r.Onset)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recordedDate") {
+		if r.RecordedDate != nil {
+			children = append(children, *r.RecordedDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "participant") {
+		for _, v := range r.Participant {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastOccurrence") {
+		if r.LastOccurrence != nil {
+			children = append(children, *r.LastOccurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reaction") {
+		for _, v := range r.Reaction {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AllergyIntolerance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Boolean")
+}
+func (r AllergyIntolerance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to String")
+}
+func (r AllergyIntolerance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Integer")
+}
+func (r AllergyIntolerance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Decimal")
+}
+func (r AllergyIntolerance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Date")
+}
+func (r AllergyIntolerance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Time")
+}
+func (r AllergyIntolerance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to DateTime")
+}
+func (r AllergyIntolerance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AllergyIntolerance to Quantity")
+}
+func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "ClinicalStatus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "VerificationStatus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "Criticality",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Onset",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "RecordedDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Participant",
+			Type: "List<FHIR.AllergyIntoleranceParticipant>",
+		}, {
+			Name: "LastOccurrence",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Reaction",
+			Type: "List<FHIR.AllergyIntoleranceReaction>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "AllergyIntolerance",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AllergyIntoleranceParticipant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		children = append(children, r.Actor)
+	}
+	return children
+}
+func (r AllergyIntoleranceParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Boolean")
+}
+func (r AllergyIntoleranceParticipant) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to String")
+}
+func (r AllergyIntoleranceParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Integer")
+}
+func (r AllergyIntoleranceParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Decimal")
+}
+func (r AllergyIntoleranceParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Date")
+}
+func (r AllergyIntoleranceParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Time")
+}
+func (r AllergyIntoleranceParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to DateTime")
+}
+func (r AllergyIntoleranceParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Quantity")
+}
+func (r AllergyIntoleranceParticipant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AllergyIntoleranceParticipant",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AllergyIntoleranceReaction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "substance") {
+		if r.Substance != nil {
+			children = append(children, *r.Substance)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manifestation") {
+		for _, v := range r.Manifestation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onset") {
+		if r.Onset != nil {
+			children = append(children, *r.Onset)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "severity") {
+		if r.Severity != nil {
+			children = append(children, *r.Severity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exposureRoute") {
+		if r.ExposureRoute != nil {
+			children = append(children, *r.ExposureRoute)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AllergyIntoleranceReaction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Boolean")
+}
+func (r AllergyIntoleranceReaction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to String")
+}
+func (r AllergyIntoleranceReaction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Integer")
+}
+func (r AllergyIntoleranceReaction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Decimal")
+}
+func (r AllergyIntoleranceReaction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Date")
+}
+func (r AllergyIntoleranceReaction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Time")
+}
+func (r AllergyIntoleranceReaction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to DateTime")
+}
+func (r AllergyIntoleranceReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AllergyIntoleranceReaction to Quantity")
+}
+func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Substance",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Manifestation",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Onset",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Severity",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ExposureRoute",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AllergyIntoleranceReaction",
+			Namespace: "FHIR",
+		},
 	}
 }

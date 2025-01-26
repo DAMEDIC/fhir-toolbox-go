@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -12388,5 +12391,1496 @@ func (r *ValueSetScope) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ValueSet) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "immutable") {
+		if r.Immutable != nil {
+			children = append(children, *r.Immutable)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		for _, v := range r.Topic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "editor") {
+		for _, v := range r.Editor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reviewer") {
+		for _, v := range r.Reviewer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endorser") {
+		for _, v := range r.Endorser {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedArtifact") {
+		for _, v := range r.RelatedArtifact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "compose") {
+		if r.Compose != nil {
+			children = append(children, *r.Compose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expansion") {
+		if r.Expansion != nil {
+			children = append(children, *r.Expansion)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scope") {
+		if r.Scope != nil {
+			children = append(children, *r.Scope)
+		}
+	}
+	return children
+}
+func (r ValueSet) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSet to Boolean")
+}
+func (r ValueSet) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSet to String")
+}
+func (r ValueSet) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSet to Integer")
+}
+func (r ValueSet) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSet to Decimal")
+}
+func (r ValueSet) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSet to Date")
+}
+func (r ValueSet) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSet to Time")
+}
+func (r ValueSet) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSet to DateTime")
+}
+func (r ValueSet) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSet to Quantity")
+}
+func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Immutable",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Topic",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Editor",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Reviewer",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Endorser",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "RelatedArtifact",
+			Type: "List<FHIR.RelatedArtifact>",
+		}, {
+			Name: "Compose",
+			Type: "FHIR.ValueSetCompose",
+		}, {
+			Name: "Expansion",
+			Type: "FHIR.ValueSetExpansion",
+		}, {
+			Name: "Scope",
+			Type: "FHIR.ValueSetScope",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSet",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetCompose) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lockedDate") {
+		if r.LockedDate != nil {
+			children = append(children, *r.LockedDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inactive") {
+		if r.Inactive != nil {
+			children = append(children, *r.Inactive)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "include") {
+		for _, v := range r.Include {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exclude") {
+		for _, v := range r.Exclude {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ValueSetCompose) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Boolean")
+}
+func (r ValueSetCompose) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetCompose to String")
+}
+func (r ValueSetCompose) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Integer")
+}
+func (r ValueSetCompose) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Decimal")
+}
+func (r ValueSetCompose) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Date")
+}
+func (r ValueSetCompose) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Time")
+}
+func (r ValueSetCompose) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetCompose to DateTime")
+}
+func (r ValueSetCompose) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetCompose to Quantity")
+}
+func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LockedDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "Inactive",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Include",
+			Type: "List<FHIR.ValueSetComposeInclude>",
+		}, {
+			Name: "Exclude",
+			Type: "List<FHIR.ValueSetComposeInclude>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.String>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetCompose",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetComposeInclude) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "concept") {
+		for _, v := range r.Concept {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "filter") {
+		for _, v := range r.Filter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		for _, v := range r.ValueSet {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	return children
+}
+func (r ValueSetComposeInclude) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Boolean")
+}
+func (r ValueSetComposeInclude) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to String")
+}
+func (r ValueSetComposeInclude) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Integer")
+}
+func (r ValueSetComposeInclude) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Decimal")
+}
+func (r ValueSetComposeInclude) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Date")
+}
+func (r ValueSetComposeInclude) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Time")
+}
+func (r ValueSetComposeInclude) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to DateTime")
+}
+func (r ValueSetComposeInclude) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetComposeInclude to Quantity")
+}
+func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "System",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Concept",
+			Type: "List<FHIR.ValueSetComposeIncludeConcept>",
+		}, {
+			Name: "Filter",
+			Type: "List<FHIR.ValueSetComposeIncludeFilter>",
+		}, {
+			Name: "ValueSet",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetComposeInclude",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetComposeIncludeConcept) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "designation") {
+		for _, v := range r.Designation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ValueSetComposeIncludeConcept) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Boolean")
+}
+func (r ValueSetComposeIncludeConcept) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to String")
+}
+func (r ValueSetComposeIncludeConcept) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Integer")
+}
+func (r ValueSetComposeIncludeConcept) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Decimal")
+}
+func (r ValueSetComposeIncludeConcept) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Date")
+}
+func (r ValueSetComposeIncludeConcept) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Time")
+}
+func (r ValueSetComposeIncludeConcept) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to DateTime")
+}
+func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
+}
+func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "Designation",
+			Type: "List<FHIR.ValueSetComposeIncludeConceptDesignation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetComposeIncludeConcept",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetComposeIncludeConceptDesignation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		if r.Use != nil {
+			children = append(children, *r.Use)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalUse") {
+		for _, v := range r.AdditionalUse {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Boolean")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to String")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Integer")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Decimal")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Date")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Time")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to DateTime")
+}
+func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
+}
+func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "AdditionalUse",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetComposeIncludeConceptDesignation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetComposeIncludeFilter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		children = append(children, r.Property)
+	}
+	if len(name) == 0 || slices.Contains(name, "op") {
+		children = append(children, r.Op)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ValueSetComposeIncludeFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Boolean")
+}
+func (r ValueSetComposeIncludeFilter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to String")
+}
+func (r ValueSetComposeIncludeFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Integer")
+}
+func (r ValueSetComposeIncludeFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Decimal")
+}
+func (r ValueSetComposeIncludeFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Date")
+}
+func (r ValueSetComposeIncludeFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Time")
+}
+func (r ValueSetComposeIncludeFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to DateTime")
+}
+func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
+}
+func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Property",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Op",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetComposeIncludeFilter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansion) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "next") {
+		if r.Next != nil {
+			children = append(children, *r.Next)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timestamp") {
+		children = append(children, r.Timestamp)
+	}
+	if len(name) == 0 || slices.Contains(name, "total") {
+		if r.Total != nil {
+			children = append(children, *r.Total)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "offset") {
+		if r.Offset != nil {
+			children = append(children, *r.Offset)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parameter") {
+		for _, v := range r.Parameter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contains") {
+		for _, v := range r.Contains {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ValueSetExpansion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Boolean")
+}
+func (r ValueSetExpansion) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to String")
+}
+func (r ValueSetExpansion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Integer")
+}
+func (r ValueSetExpansion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Decimal")
+}
+func (r ValueSetExpansion) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Date")
+}
+func (r ValueSetExpansion) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Time")
+}
+func (r ValueSetExpansion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to DateTime")
+}
+func (r ValueSetExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansion to Quantity")
+}
+func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Next",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Timestamp",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Total",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Offset",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Parameter",
+			Type: "List<FHIR.ValueSetExpansionParameter>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.ValueSetExpansionProperty>",
+		}, {
+			Name: "Contains",
+			Type: "List<FHIR.ValueSetExpansionContains>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansion",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansionParameter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r ValueSetExpansionParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Boolean")
+}
+func (r ValueSetExpansionParameter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to String")
+}
+func (r ValueSetExpansionParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Integer")
+}
+func (r ValueSetExpansionParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Decimal")
+}
+func (r ValueSetExpansionParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Date")
+}
+func (r ValueSetExpansionParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Time")
+}
+func (r ValueSetExpansionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to DateTime")
+}
+func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansionParameter to Quantity")
+}
+func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansionParameter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansionProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		if r.Uri != nil {
+			children = append(children, *r.Uri)
+		}
+	}
+	return children
+}
+func (r ValueSetExpansionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Boolean")
+}
+func (r ValueSetExpansionProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to String")
+}
+func (r ValueSetExpansionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Integer")
+}
+func (r ValueSetExpansionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Decimal")
+}
+func (r ValueSetExpansionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Date")
+}
+func (r ValueSetExpansionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Time")
+}
+func (r ValueSetExpansionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to DateTime")
+}
+func (r ValueSetExpansionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansionProperty to Quantity")
+}
+func (r ValueSetExpansionProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansionProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansionContains) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "abstract") {
+		if r.Abstract != nil {
+			children = append(children, *r.Abstract)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inactive") {
+		if r.Inactive != nil {
+			children = append(children, *r.Inactive)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "designation") {
+		for _, v := range r.Designation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contains") {
+		for _, v := range r.Contains {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ValueSetExpansionContains) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Boolean")
+}
+func (r ValueSetExpansionContains) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to String")
+}
+func (r ValueSetExpansionContains) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Integer")
+}
+func (r ValueSetExpansionContains) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Decimal")
+}
+func (r ValueSetExpansionContains) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Date")
+}
+func (r ValueSetExpansionContains) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Time")
+}
+func (r ValueSetExpansionContains) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to DateTime")
+}
+func (r ValueSetExpansionContains) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContains to Quantity")
+}
+func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "System",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Abstract",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Inactive",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "Designation",
+			Type: "List<FHIR.ValueSetComposeIncludeConceptDesignation>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.ValueSetExpansionContainsProperty>",
+		}, {
+			Name: "Contains",
+			Type: "List<FHIR.ValueSetExpansionContains>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansionContains",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansionContainsProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	if len(name) == 0 || slices.Contains(name, "subProperty") {
+		for _, v := range r.SubProperty {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ValueSetExpansionContainsProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Boolean")
+}
+func (r ValueSetExpansionContainsProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to String")
+}
+func (r ValueSetExpansionContainsProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Integer")
+}
+func (r ValueSetExpansionContainsProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Decimal")
+}
+func (r ValueSetExpansionContainsProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Date")
+}
+func (r ValueSetExpansionContainsProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Time")
+}
+func (r ValueSetExpansionContainsProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to DateTime")
+}
+func (r ValueSetExpansionContainsProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Quantity")
+}
+func (r ValueSetExpansionContainsProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "SubProperty",
+			Type: "List<FHIR.ValueSetExpansionContainsPropertySubProperty>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansionContainsProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetExpansionContainsPropertySubProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Boolean")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to String")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Integer")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Decimal")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Date")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Time")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to DateTime")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Quantity")
+}
+func (r ValueSetExpansionContainsPropertySubProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetExpansionContainsPropertySubProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ValueSetScope) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inclusionCriteria") {
+		if r.InclusionCriteria != nil {
+			children = append(children, *r.InclusionCriteria)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exclusionCriteria") {
+		if r.ExclusionCriteria != nil {
+			children = append(children, *r.ExclusionCriteria)
+		}
+	}
+	return children
+}
+func (r ValueSetScope) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ValueSetScope to Boolean")
+}
+func (r ValueSetScope) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ValueSetScope to String")
+}
+func (r ValueSetScope) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ValueSetScope to Integer")
+}
+func (r ValueSetScope) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ValueSetScope to Decimal")
+}
+func (r ValueSetScope) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ValueSetScope to Date")
+}
+func (r ValueSetScope) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ValueSetScope to Time")
+}
+func (r ValueSetScope) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ValueSetScope to DateTime")
+}
+func (r ValueSetScope) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ValueSetScope to Quantity")
+}
+func (r ValueSetScope) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "InclusionCriteria",
+			Type: "FHIR.String",
+		}, {
+			Name: "ExclusionCriteria",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ValueSetScope",
+			Namespace: "FHIR",
+		},
 	}
 }

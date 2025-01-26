@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -335,4 +338,73 @@ func (r UsageContext) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r UsageContext) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r UsageContext) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert UsageContext to Boolean")
+}
+func (r UsageContext) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert UsageContext to String")
+}
+func (r UsageContext) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert UsageContext to Integer")
+}
+func (r UsageContext) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert UsageContext to Decimal")
+}
+func (r UsageContext) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert UsageContext to Date")
+}
+func (r UsageContext) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert UsageContext to Time")
+}
+func (r UsageContext) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert UsageContext to DateTime")
+}
+func (r UsageContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert UsageContext to Quantity")
+}
+func (r UsageContext) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "UsageContext",
+			Namespace: "FHIR",
+		},
+	}
 }

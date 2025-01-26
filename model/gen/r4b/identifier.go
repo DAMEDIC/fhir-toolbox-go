@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -572,5 +575,110 @@ func (r *Identifier) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Identifier) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		if r.Use != nil {
+			children = append(children, *r.Use)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "assigner") {
+		if r.Assigner != nil {
+			children = append(children, *r.Assigner)
+		}
+	}
+	return children
+}
+func (r Identifier) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Identifier to Boolean")
+}
+func (r Identifier) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Identifier to String")
+}
+func (r Identifier) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Identifier to Integer")
+}
+func (r Identifier) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Identifier to Decimal")
+}
+func (r Identifier) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Identifier to Date")
+}
+func (r Identifier) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Identifier to Time")
+}
+func (r Identifier) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Identifier to DateTime")
+}
+func (r Identifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Identifier to Quantity")
+}
+func (r Identifier) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "System",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Assigner",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Identifier",
+			Namespace: "FHIR",
+		},
 	}
 }

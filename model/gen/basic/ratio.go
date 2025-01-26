@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -183,4 +186,77 @@ func (r Ratio) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Ratio) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numerator") {
+		if r.Numerator != nil {
+			children = append(children, *r.Numerator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "denominator") {
+		if r.Denominator != nil {
+			children = append(children, *r.Denominator)
+		}
+	}
+	return children
+}
+func (r Ratio) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Ratio to Boolean")
+}
+func (r Ratio) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Ratio to String")
+}
+func (r Ratio) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Ratio to Integer")
+}
+func (r Ratio) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Ratio to Decimal")
+}
+func (r Ratio) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Ratio to Date")
+}
+func (r Ratio) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Ratio to Time")
+}
+func (r Ratio) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Ratio to DateTime")
+}
+func (r Ratio) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Ratio to Quantity")
+}
+func (r Ratio) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Numerator",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Denominator",
+			Type: "FHIR.Quantity",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Ratio",
+			Namespace: "FHIR",
+		},
+	}
 }

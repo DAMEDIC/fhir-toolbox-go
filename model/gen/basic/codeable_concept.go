@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -222,4 +225,77 @@ func (r CodeableConcept) MarshalXML(e *xml.Encoder, start xml.StartElement) erro
 		return err
 	}
 	return nil
+}
+func (r CodeableConcept) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coding") {
+		for _, v := range r.Coding {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	return children
+}
+func (r CodeableConcept) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CodeableConcept to Boolean")
+}
+func (r CodeableConcept) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CodeableConcept to String")
+}
+func (r CodeableConcept) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CodeableConcept to Integer")
+}
+func (r CodeableConcept) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CodeableConcept to Decimal")
+}
+func (r CodeableConcept) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CodeableConcept to Date")
+}
+func (r CodeableConcept) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CodeableConcept to Time")
+}
+func (r CodeableConcept) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CodeableConcept to DateTime")
+}
+func (r CodeableConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CodeableConcept to Quantity")
+}
+func (r CodeableConcept) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Coding",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CodeableConcept",
+			Namespace: "FHIR",
+		},
+	}
 }

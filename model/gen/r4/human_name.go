@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -957,5 +960,118 @@ func (r *HumanName) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r HumanName) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		if r.Use != nil {
+			children = append(children, *r.Use)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "family") {
+		if r.Family != nil {
+			children = append(children, *r.Family)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "given") {
+		for _, v := range r.Given {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "prefix") {
+		for _, v := range r.Prefix {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "suffix") {
+		for _, v := range r.Suffix {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r HumanName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert HumanName to Boolean")
+}
+func (r HumanName) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert HumanName to String")
+}
+func (r HumanName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert HumanName to Integer")
+}
+func (r HumanName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert HumanName to Decimal")
+}
+func (r HumanName) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert HumanName to Date")
+}
+func (r HumanName) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert HumanName to Time")
+}
+func (r HumanName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert HumanName to DateTime")
+}
+func (r HumanName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert HumanName to Quantity")
+}
+func (r HumanName) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}, {
+			Name: "Family",
+			Type: "FHIR.String",
+		}, {
+			Name: "Given",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Prefix",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Suffix",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "HumanName",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2834,5 +2837,453 @@ func (r *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandma
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r BodyStructure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "active") {
+		if r.Active != nil {
+			children = append(children, *r.Active)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "morphology") {
+		if r.Morphology != nil {
+			children = append(children, *r.Morphology)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "includedStructure") {
+		for _, v := range r.IncludedStructure {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "excludedStructure") {
+		for _, v := range r.ExcludedStructure {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "image") {
+		for _, v := range r.Image {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		children = append(children, r.Patient)
+	}
+	return children
+}
+func (r BodyStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BodyStructure to Boolean")
+}
+func (r BodyStructure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BodyStructure to String")
+}
+func (r BodyStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BodyStructure to Integer")
+}
+func (r BodyStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BodyStructure to Decimal")
+}
+func (r BodyStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BodyStructure to Date")
+}
+func (r BodyStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BodyStructure to Time")
+}
+func (r BodyStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BodyStructure to DateTime")
+}
+func (r BodyStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BodyStructure to Quantity")
+}
+func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Active",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Morphology",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "IncludedStructure",
+			Type: "List<FHIR.BodyStructureIncludedStructure>",
+		}, {
+			Name: "ExcludedStructure",
+			Type: "List<FHIR.BodyStructureIncludedStructure>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Image",
+			Type: "List<FHIR.Attachment>",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "BodyStructure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BodyStructureIncludedStructure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structure") {
+		children = append(children, r.Structure)
+	}
+	if len(name) == 0 || slices.Contains(name, "laterality") {
+		if r.Laterality != nil {
+			children = append(children, *r.Laterality)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodyLandmarkOrientation") {
+		for _, v := range r.BodyLandmarkOrientation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "spatialReference") {
+		for _, v := range r.SpatialReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "qualifier") {
+		for _, v := range r.Qualifier {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r BodyStructureIncludedStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Boolean")
+}
+func (r BodyStructureIncludedStructure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to String")
+}
+func (r BodyStructureIncludedStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Integer")
+}
+func (r BodyStructureIncludedStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Decimal")
+}
+func (r BodyStructureIncludedStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Date")
+}
+func (r BodyStructureIncludedStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Time")
+}
+func (r BodyStructureIncludedStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to DateTime")
+}
+func (r BodyStructureIncludedStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructure to Quantity")
+}
+func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Structure",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Laterality",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "BodyLandmarkOrientation",
+			Type: "List<FHIR.BodyStructureIncludedStructureBodyLandmarkOrientation>",
+		}, {
+			Name: "SpatialReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Qualifier",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BodyStructureIncludedStructure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "landmarkDescription") {
+		for _, v := range r.LandmarkDescription {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "clockFacePosition") {
+		for _, v := range r.ClockFacePosition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "distanceFromLandmark") {
+		for _, v := range r.DistanceFromLandmark {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "surfaceOrientation") {
+		for _, v := range r.SurfaceOrientation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Boolean")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to String")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Integer")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Decimal")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Date")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Time")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to DateTime")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Quantity")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LandmarkDescription",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ClockFacePosition",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "DistanceFromLandmark",
+			Type: "List<FHIR.BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark>",
+		}, {
+			Name: "SurfaceOrientation",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BodyStructureIncludedStructureBodyLandmarkOrientation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		for _, v := range r.Device {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		for _, v := range r.Value {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Boolean")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to String")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Integer")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Decimal")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Date")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Time")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to DateTime")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Quantity")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Device",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Value",
+			Type: "List<FHIR.Quantity>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -12323,5 +12326,1084 @@ func (r *StructureMapGroupRuleDependent) UnmarshalXML(d *xml.Decoder, start xml.
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r StructureMap) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structure") {
+		for _, v := range r.Structure {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "import") {
+		for _, v := range r.Import {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "group") {
+		for _, v := range r.Group {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r StructureMap) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMap to Boolean")
+}
+func (r StructureMap) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMap to String")
+}
+func (r StructureMap) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMap to Integer")
+}
+func (r StructureMap) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMap to Decimal")
+}
+func (r StructureMap) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMap to Date")
+}
+func (r StructureMap) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMap to Time")
+}
+func (r StructureMap) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMap to DateTime")
+}
+func (r StructureMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMap to Quantity")
+}
+func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Structure",
+			Type: "List<FHIR.StructureMapStructure>",
+		}, {
+			Name: "Import",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Group",
+			Type: "List<FHIR.StructureMapGroup>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMap",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapStructure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "alias") {
+		if r.Alias != nil {
+			children = append(children, *r.Alias)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r StructureMapStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Boolean")
+}
+func (r StructureMapStructure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapStructure to String")
+}
+func (r StructureMapStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Integer")
+}
+func (r StructureMapStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Decimal")
+}
+func (r StructureMapStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Date")
+}
+func (r StructureMapStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Time")
+}
+func (r StructureMapStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapStructure to DateTime")
+}
+func (r StructureMapStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapStructure to Quantity")
+}
+func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Alias",
+			Type: "FHIR.String",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapStructure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroup) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "extends") {
+		if r.Extends != nil {
+			children = append(children, *r.Extends)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "typeMode") {
+		children = append(children, r.TypeMode)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "input") {
+		for _, v := range r.Input {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rule") {
+		for _, v := range r.Rule {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r StructureMapGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Boolean")
+}
+func (r StructureMapGroup) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroup to String")
+}
+func (r StructureMapGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Integer")
+}
+func (r StructureMapGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Decimal")
+}
+func (r StructureMapGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Date")
+}
+func (r StructureMapGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Time")
+}
+func (r StructureMapGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroup to DateTime")
+}
+func (r StructureMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroup to Quantity")
+}
+func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Extends",
+			Type: "FHIR.Id",
+		}, {
+			Name: "TypeMode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}, {
+			Name: "Input",
+			Type: "List<FHIR.StructureMapGroupInput>",
+		}, {
+			Name: "Rule",
+			Type: "List<FHIR.StructureMapGroupRule>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroup",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupInput) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r StructureMapGroupInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Boolean")
+}
+func (r StructureMapGroupInput) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to String")
+}
+func (r StructureMapGroupInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Integer")
+}
+func (r StructureMapGroupInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Decimal")
+}
+func (r StructureMapGroupInput) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Date")
+}
+func (r StructureMapGroupInput) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Time")
+}
+func (r StructureMapGroupInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to DateTime")
+}
+func (r StructureMapGroupInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupInput to Quantity")
+}
+func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Type",
+			Type: "FHIR.String",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupInput",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupRule) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		for _, v := range r.Source {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		for _, v := range r.Target {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rule") {
+		for _, v := range r.Rule {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dependent") {
+		for _, v := range r.Dependent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r StructureMapGroupRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Boolean")
+}
+func (r StructureMapGroupRule) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to String")
+}
+func (r StructureMapGroupRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Integer")
+}
+func (r StructureMapGroupRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Decimal")
+}
+func (r StructureMapGroupRule) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Date")
+}
+func (r StructureMapGroupRule) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Time")
+}
+func (r StructureMapGroupRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to DateTime")
+}
+func (r StructureMapGroupRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupRule to Quantity")
+}
+func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Source",
+			Type: "List<FHIR.StructureMapGroupRuleSource>",
+		}, {
+			Name: "Target",
+			Type: "List<FHIR.StructureMapGroupRuleTarget>",
+		}, {
+			Name: "Rule",
+			Type: "List<FHIR.StructureMapGroupRule>",
+		}, {
+			Name: "Dependent",
+			Type: "List<FHIR.StructureMapGroupRuleDependent>",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupRule",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupRuleSource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		children = append(children, r.Context)
+	}
+	if len(name) == 0 || slices.Contains(name, "min") {
+		if r.Min != nil {
+			children = append(children, *r.Min)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "max") {
+		if r.Max != nil {
+			children = append(children, *r.Max)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "defaultValue") {
+		if r.DefaultValue != nil {
+			children = append(children, r.DefaultValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "element") {
+		if r.Element != nil {
+			children = append(children, *r.Element)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "listMode") {
+		if r.ListMode != nil {
+			children = append(children, *r.ListMode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variable") {
+		if r.Variable != nil {
+			children = append(children, *r.Variable)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		if r.Condition != nil {
+			children = append(children, *r.Condition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "check") {
+		if r.Check != nil {
+			children = append(children, *r.Check)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "logMessage") {
+		if r.LogMessage != nil {
+			children = append(children, *r.LogMessage)
+		}
+	}
+	return children
+}
+func (r StructureMapGroupRuleSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Boolean")
+}
+func (r StructureMapGroupRuleSource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to String")
+}
+func (r StructureMapGroupRuleSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Integer")
+}
+func (r StructureMapGroupRuleSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Decimal")
+}
+func (r StructureMapGroupRuleSource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Date")
+}
+func (r StructureMapGroupRuleSource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Time")
+}
+func (r StructureMapGroupRuleSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to DateTime")
+}
+func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
+}
+func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Context",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Min",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Max",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.String",
+		}, {
+			Name: "DefaultValue",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Element",
+			Type: "FHIR.String",
+		}, {
+			Name: "ListMode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Variable",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Condition",
+			Type: "FHIR.String",
+		}, {
+			Name: "Check",
+			Type: "FHIR.String",
+		}, {
+			Name: "LogMessage",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupRuleSource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupRuleTarget) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		if r.Context != nil {
+			children = append(children, *r.Context)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contextType") {
+		if r.ContextType != nil {
+			children = append(children, *r.ContextType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "element") {
+		if r.Element != nil {
+			children = append(children, *r.Element)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variable") {
+		if r.Variable != nil {
+			children = append(children, *r.Variable)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "listMode") {
+		for _, v := range r.ListMode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "listRuleId") {
+		if r.ListRuleId != nil {
+			children = append(children, *r.ListRuleId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "transform") {
+		if r.Transform != nil {
+			children = append(children, *r.Transform)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parameter") {
+		for _, v := range r.Parameter {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r StructureMapGroupRuleTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Boolean")
+}
+func (r StructureMapGroupRuleTarget) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to String")
+}
+func (r StructureMapGroupRuleTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Integer")
+}
+func (r StructureMapGroupRuleTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Decimal")
+}
+func (r StructureMapGroupRuleTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Date")
+}
+func (r StructureMapGroupRuleTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Time")
+}
+func (r StructureMapGroupRuleTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to DateTime")
+}
+func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
+}
+func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Context",
+			Type: "FHIR.Id",
+		}, {
+			Name: "ContextType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Element",
+			Type: "FHIR.String",
+		}, {
+			Name: "Variable",
+			Type: "FHIR.Id",
+		}, {
+			Name: "ListMode",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "ListRuleId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Transform",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Parameter",
+			Type: "List<FHIR.StructureMapGroupRuleTargetParameter>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupRuleTarget",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupRuleTargetParameter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r StructureMapGroupRuleTargetParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Boolean")
+}
+func (r StructureMapGroupRuleTargetParameter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to String")
+}
+func (r StructureMapGroupRuleTargetParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Integer")
+}
+func (r StructureMapGroupRuleTargetParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Decimal")
+}
+func (r StructureMapGroupRuleTargetParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Date")
+}
+func (r StructureMapGroupRuleTargetParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Time")
+}
+func (r StructureMapGroupRuleTargetParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to DateTime")
+}
+func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
+}
+func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupRuleTargetParameter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r StructureMapGroupRuleDependent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "variable") {
+		for _, v := range r.Variable {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r StructureMapGroupRuleDependent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Boolean")
+}
+func (r StructureMapGroupRuleDependent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to String")
+}
+func (r StructureMapGroupRuleDependent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Integer")
+}
+func (r StructureMapGroupRuleDependent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Decimal")
+}
+func (r StructureMapGroupRuleDependent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Date")
+}
+func (r StructureMapGroupRuleDependent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Time")
+}
+func (r StructureMapGroupRuleDependent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to DateTime")
+}
+func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
+}
+func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Variable",
+			Type: "List<FHIR.String>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "StructureMapGroupRuleDependent",
+			Namespace: "FHIR",
+		},
 	}
 }

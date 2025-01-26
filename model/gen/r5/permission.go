@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3664,5 +3667,603 @@ func (r *PermissionRuleActivity) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Permission) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "asserter") {
+		if r.Asserter != nil {
+			children = append(children, *r.Asserter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		for _, v := range r.Date {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validity") {
+		if r.Validity != nil {
+			children = append(children, *r.Validity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "justification") {
+		if r.Justification != nil {
+			children = append(children, *r.Justification)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "combining") {
+		children = append(children, r.Combining)
+	}
+	if len(name) == 0 || slices.Contains(name, "rule") {
+		for _, v := range r.Rule {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Permission) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Permission to Boolean")
+}
+func (r Permission) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Permission to String")
+}
+func (r Permission) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Permission to Integer")
+}
+func (r Permission) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Permission to Decimal")
+}
+func (r Permission) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Permission to Date")
+}
+func (r Permission) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Permission to Time")
+}
+func (r Permission) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Permission to DateTime")
+}
+func (r Permission) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Permission to Quantity")
+}
+func (r Permission) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Asserter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Date",
+			Type: "List<FHIR.DateTime>",
+		}, {
+			Name: "Validity",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Justification",
+			Type: "FHIR.PermissionJustification",
+		}, {
+			Name: "Combining",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Rule",
+			Type: "List<FHIR.PermissionRule>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Permission",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PermissionJustification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basis") {
+		for _, v := range r.Basis {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "evidence") {
+		for _, v := range r.Evidence {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PermissionJustification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PermissionJustification to Boolean")
+}
+func (r PermissionJustification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PermissionJustification to String")
+}
+func (r PermissionJustification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PermissionJustification to Integer")
+}
+func (r PermissionJustification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PermissionJustification to Decimal")
+}
+func (r PermissionJustification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PermissionJustification to Date")
+}
+func (r PermissionJustification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PermissionJustification to Time")
+}
+func (r PermissionJustification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PermissionJustification to DateTime")
+}
+func (r PermissionJustification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PermissionJustification to Quantity")
+}
+func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Basis",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Evidence",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PermissionJustification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PermissionRule) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		for _, v := range r.Data {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "activity") {
+		for _, v := range r.Activity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "limit") {
+		for _, v := range r.Limit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PermissionRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PermissionRule to Boolean")
+}
+func (r PermissionRule) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PermissionRule to String")
+}
+func (r PermissionRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PermissionRule to Integer")
+}
+func (r PermissionRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PermissionRule to Decimal")
+}
+func (r PermissionRule) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PermissionRule to Date")
+}
+func (r PermissionRule) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PermissionRule to Time")
+}
+func (r PermissionRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PermissionRule to DateTime")
+}
+func (r PermissionRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PermissionRule to Quantity")
+}
+func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Data",
+			Type: "List<FHIR.PermissionRuleData>",
+		}, {
+			Name: "Activity",
+			Type: "List<FHIR.PermissionRuleActivity>",
+		}, {
+			Name: "Limit",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PermissionRule",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PermissionRuleData) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		for _, v := range r.Resource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "security") {
+		for _, v := range r.Security {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		for _, v := range r.Period {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expression") {
+		if r.Expression != nil {
+			children = append(children, *r.Expression)
+		}
+	}
+	return children
+}
+func (r PermissionRuleData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Boolean")
+}
+func (r PermissionRuleData) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PermissionRuleData to String")
+}
+func (r PermissionRuleData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Integer")
+}
+func (r PermissionRuleData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Decimal")
+}
+func (r PermissionRuleData) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Date")
+}
+func (r PermissionRuleData) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Time")
+}
+func (r PermissionRuleData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PermissionRuleData to DateTime")
+}
+func (r PermissionRuleData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PermissionRuleData to Quantity")
+}
+func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Resource",
+			Type: "List<FHIR.PermissionRuleDataResource>",
+		}, {
+			Name: "Security",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Period",
+			Type: "List<FHIR.Period>",
+		}, {
+			Name: "Expression",
+			Type: "FHIR.Expression",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PermissionRuleData",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PermissionRuleDataResource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meaning") {
+		children = append(children, r.Meaning)
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	return children
+}
+func (r PermissionRuleDataResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Boolean")
+}
+func (r PermissionRuleDataResource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to String")
+}
+func (r PermissionRuleDataResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Integer")
+}
+func (r PermissionRuleDataResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Decimal")
+}
+func (r PermissionRuleDataResource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Date")
+}
+func (r PermissionRuleDataResource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Time")
+}
+func (r PermissionRuleDataResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to DateTime")
+}
+func (r PermissionRuleDataResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PermissionRuleDataResource to Quantity")
+}
+func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Meaning",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PermissionRuleDataResource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PermissionRuleActivity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		for _, v := range r.Actor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		for _, v := range r.Purpose {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PermissionRuleActivity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Boolean")
+}
+func (r PermissionRuleActivity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to String")
+}
+func (r PermissionRuleActivity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Integer")
+}
+func (r PermissionRuleActivity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Decimal")
+}
+func (r PermissionRuleActivity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Date")
+}
+func (r PermissionRuleActivity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Time")
+}
+func (r PermissionRuleActivity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to DateTime")
+}
+func (r PermissionRuleActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PermissionRuleActivity to Quantity")
+}
+func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Actor",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PermissionRuleActivity",
+			Namespace: "FHIR",
+		},
 	}
 }

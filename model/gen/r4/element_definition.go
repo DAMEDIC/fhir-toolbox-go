@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -25612,5 +25615,1006 @@ func (r *ElementDefinitionMapping) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ElementDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		children = append(children, r.Path)
+	}
+	if len(name) == 0 || slices.Contains(name, "representation") {
+		for _, v := range r.Representation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sliceName") {
+		if r.SliceName != nil {
+			children = append(children, *r.SliceName)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sliceIsConstraining") {
+		if r.SliceIsConstraining != nil {
+			children = append(children, *r.SliceIsConstraining)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "label") {
+		if r.Label != nil {
+			children = append(children, *r.Label)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "slicing") {
+		if r.Slicing != nil {
+			children = append(children, *r.Slicing)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "short") {
+		if r.Short != nil {
+			children = append(children, *r.Short)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		if r.Definition != nil {
+			children = append(children, *r.Definition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "comment") {
+		if r.Comment != nil {
+			children = append(children, *r.Comment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requirements") {
+		if r.Requirements != nil {
+			children = append(children, *r.Requirements)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "alias") {
+		for _, v := range r.Alias {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "min") {
+		if r.Min != nil {
+			children = append(children, *r.Min)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "max") {
+		if r.Max != nil {
+			children = append(children, *r.Max)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "base") {
+		if r.Base != nil {
+			children = append(children, *r.Base)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contentReference") {
+		if r.ContentReference != nil {
+			children = append(children, *r.ContentReference)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "defaultValue") {
+		if r.DefaultValue != nil {
+			children = append(children, r.DefaultValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meaningWhenMissing") {
+		if r.MeaningWhenMissing != nil {
+			children = append(children, *r.MeaningWhenMissing)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orderMeaning") {
+		if r.OrderMeaning != nil {
+			children = append(children, *r.OrderMeaning)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fixed") {
+		if r.Fixed != nil {
+			children = append(children, r.Fixed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pattern") {
+		if r.Pattern != nil {
+			children = append(children, r.Pattern)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "example") {
+		for _, v := range r.Example {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "minValue") {
+		if r.MinValue != nil {
+			children = append(children, r.MinValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxValue") {
+		if r.MaxValue != nil {
+			children = append(children, r.MaxValue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxLength") {
+		if r.MaxLength != nil {
+			children = append(children, *r.MaxLength)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		for _, v := range r.Condition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "constraint") {
+		for _, v := range r.Constraint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mustSupport") {
+		if r.MustSupport != nil {
+			children = append(children, *r.MustSupport)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isModifier") {
+		if r.IsModifier != nil {
+			children = append(children, *r.IsModifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isModifierReason") {
+		if r.IsModifierReason != nil {
+			children = append(children, *r.IsModifierReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isSummary") {
+		if r.IsSummary != nil {
+			children = append(children, *r.IsSummary)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "binding") {
+		if r.Binding != nil {
+			children = append(children, *r.Binding)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mapping") {
+		for _, v := range r.Mapping {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ElementDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinition to Boolean")
+}
+func (r ElementDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinition to String")
+}
+func (r ElementDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinition to Integer")
+}
+func (r ElementDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinition to Decimal")
+}
+func (r ElementDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinition to Date")
+}
+func (r ElementDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinition to Time")
+}
+func (r ElementDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinition to DateTime")
+}
+func (r ElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinition to Quantity")
+}
+func (r ElementDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "Representation",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "SliceName",
+			Type: "FHIR.String",
+		}, {
+			Name: "SliceIsConstraining",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Label",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Slicing",
+			Type: "FHIR.ElementDefinitionSlicing",
+		}, {
+			Name: "Short",
+			Type: "FHIR.String",
+		}, {
+			Name: "Definition",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Comment",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Requirements",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Alias",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Min",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Max",
+			Type: "FHIR.String",
+		}, {
+			Name: "Base",
+			Type: "FHIR.ElementDefinitionBase",
+		}, {
+			Name: "ContentReference",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.ElementDefinitionType>",
+		}, {
+			Name: "DefaultValue",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "MeaningWhenMissing",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "OrderMeaning",
+			Type: "FHIR.String",
+		}, {
+			Name: "Fixed",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Pattern",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Example",
+			Type: "List<FHIR.ElementDefinitionExample>",
+		}, {
+			Name: "MinValue",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "MaxValue",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "MaxLength",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Condition",
+			Type: "List<FHIR.Id>",
+		}, {
+			Name: "Constraint",
+			Type: "List<FHIR.ElementDefinitionConstraint>",
+		}, {
+			Name: "MustSupport",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "IsModifier",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "IsModifierReason",
+			Type: "FHIR.String",
+		}, {
+			Name: "IsSummary",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Binding",
+			Type: "FHIR.ElementDefinitionBinding",
+		}, {
+			Name: "Mapping",
+			Type: "List<FHIR.ElementDefinitionMapping>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionSlicing) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "discriminator") {
+		for _, v := range r.Discriminator {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ordered") {
+		if r.Ordered != nil {
+			children = append(children, *r.Ordered)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rules") {
+		children = append(children, r.Rules)
+	}
+	return children
+}
+func (r ElementDefinitionSlicing) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Boolean")
+}
+func (r ElementDefinitionSlicing) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to String")
+}
+func (r ElementDefinitionSlicing) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Integer")
+}
+func (r ElementDefinitionSlicing) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Decimal")
+}
+func (r ElementDefinitionSlicing) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Date")
+}
+func (r ElementDefinitionSlicing) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Time")
+}
+func (r ElementDefinitionSlicing) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to DateTime")
+}
+func (r ElementDefinitionSlicing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicing to Quantity")
+}
+func (r ElementDefinitionSlicing) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Discriminator",
+			Type: "List<FHIR.ElementDefinitionSlicingDiscriminator>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Ordered",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Rules",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionSlicing",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionSlicingDiscriminator) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		children = append(children, r.Path)
+	}
+	return children
+}
+func (r ElementDefinitionSlicingDiscriminator) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Boolean")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to String")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Integer")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Decimal")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Date")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Time")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to DateTime")
+}
+func (r ElementDefinitionSlicingDiscriminator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Quantity")
+}
+func (r ElementDefinitionSlicingDiscriminator) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionSlicingDiscriminator",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionBase) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		children = append(children, r.Path)
+	}
+	if len(name) == 0 || slices.Contains(name, "min") {
+		children = append(children, r.Min)
+	}
+	if len(name) == 0 || slices.Contains(name, "max") {
+		children = append(children, r.Max)
+	}
+	return children
+}
+func (r ElementDefinitionBase) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Boolean")
+}
+func (r ElementDefinitionBase) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to String")
+}
+func (r ElementDefinitionBase) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Integer")
+}
+func (r ElementDefinitionBase) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Decimal")
+}
+func (r ElementDefinitionBase) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Date")
+}
+func (r ElementDefinitionBase) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Time")
+}
+func (r ElementDefinitionBase) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to DateTime")
+}
+func (r ElementDefinitionBase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionBase to Quantity")
+}
+func (r ElementDefinitionBase) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "Min",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Max",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionBase",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionType) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		for _, v := range r.Profile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetProfile") {
+		for _, v := range r.TargetProfile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "aggregation") {
+		for _, v := range r.Aggregation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versioning") {
+		if r.Versioning != nil {
+			children = append(children, *r.Versioning)
+		}
+	}
+	return children
+}
+func (r ElementDefinitionType) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Boolean")
+}
+func (r ElementDefinitionType) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to String")
+}
+func (r ElementDefinitionType) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Integer")
+}
+func (r ElementDefinitionType) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Decimal")
+}
+func (r ElementDefinitionType) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Date")
+}
+func (r ElementDefinitionType) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Time")
+}
+func (r ElementDefinitionType) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to DateTime")
+}
+func (r ElementDefinitionType) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionType to Quantity")
+}
+func (r ElementDefinitionType) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Profile",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "TargetProfile",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Aggregation",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "Versioning",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionType",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionExample) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "label") {
+		children = append(children, r.Label)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ElementDefinitionExample) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Boolean")
+}
+func (r ElementDefinitionExample) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to String")
+}
+func (r ElementDefinitionExample) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Integer")
+}
+func (r ElementDefinitionExample) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Decimal")
+}
+func (r ElementDefinitionExample) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Date")
+}
+func (r ElementDefinitionExample) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Time")
+}
+func (r ElementDefinitionExample) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to DateTime")
+}
+func (r ElementDefinitionExample) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionExample to Quantity")
+}
+func (r ElementDefinitionExample) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Label",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionExample",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionConstraint) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "key") {
+		children = append(children, r.Key)
+	}
+	if len(name) == 0 || slices.Contains(name, "requirements") {
+		if r.Requirements != nil {
+			children = append(children, *r.Requirements)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "severity") {
+		children = append(children, r.Severity)
+	}
+	if len(name) == 0 || slices.Contains(name, "human") {
+		children = append(children, r.Human)
+	}
+	if len(name) == 0 || slices.Contains(name, "expression") {
+		if r.Expression != nil {
+			children = append(children, *r.Expression)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "xpath") {
+		if r.Xpath != nil {
+			children = append(children, *r.Xpath)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	return children
+}
+func (r ElementDefinitionConstraint) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Boolean")
+}
+func (r ElementDefinitionConstraint) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to String")
+}
+func (r ElementDefinitionConstraint) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Integer")
+}
+func (r ElementDefinitionConstraint) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Decimal")
+}
+func (r ElementDefinitionConstraint) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Date")
+}
+func (r ElementDefinitionConstraint) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Time")
+}
+func (r ElementDefinitionConstraint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to DateTime")
+}
+func (r ElementDefinitionConstraint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionConstraint to Quantity")
+}
+func (r ElementDefinitionConstraint) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Key",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Requirements",
+			Type: "FHIR.String",
+		}, {
+			Name: "Severity",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Human",
+			Type: "FHIR.String",
+		}, {
+			Name: "Expression",
+			Type: "FHIR.String",
+		}, {
+			Name: "Xpath",
+			Type: "FHIR.String",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionConstraint",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionBinding) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "strength") {
+		children = append(children, r.Strength)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	return children
+}
+func (r ElementDefinitionBinding) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Boolean")
+}
+func (r ElementDefinitionBinding) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to String")
+}
+func (r ElementDefinitionBinding) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Integer")
+}
+func (r ElementDefinitionBinding) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Decimal")
+}
+func (r ElementDefinitionBinding) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Date")
+}
+func (r ElementDefinitionBinding) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Time")
+}
+func (r ElementDefinitionBinding) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to DateTime")
+}
+func (r ElementDefinitionBinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionBinding to Quantity")
+}
+func (r ElementDefinitionBinding) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Strength",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionBinding",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ElementDefinitionMapping) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identity") {
+		children = append(children, r.Identity)
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "map") {
+		children = append(children, r.Map)
+	}
+	if len(name) == 0 || slices.Contains(name, "comment") {
+		if r.Comment != nil {
+			children = append(children, *r.Comment)
+		}
+	}
+	return children
+}
+func (r ElementDefinitionMapping) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Boolean")
+}
+func (r ElementDefinitionMapping) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to String")
+}
+func (r ElementDefinitionMapping) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Integer")
+}
+func (r ElementDefinitionMapping) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Decimal")
+}
+func (r ElementDefinitionMapping) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Date")
+}
+func (r ElementDefinitionMapping) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Time")
+}
+func (r ElementDefinitionMapping) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to DateTime")
+}
+func (r ElementDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ElementDefinitionMapping to Quantity")
+}
+func (r ElementDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identity",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Map",
+			Type: "FHIR.String",
+		}, {
+			Name: "Comment",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ElementDefinitionMapping",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4872,5 +4875,767 @@ func (r *GenomicStudyAnalysisDevice) UnmarshalXML(d *xml.Decoder, start xml.Star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r GenomicStudy) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "startDate") {
+		if r.StartDate != nil {
+			children = append(children, *r.StartDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referrer") {
+		if r.Referrer != nil {
+			children = append(children, *r.Referrer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interpreter") {
+		for _, v := range r.Interpreter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		if r.InstantiatesCanonical != nil {
+			children = append(children, *r.InstantiatesCanonical)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		if r.InstantiatesUri != nil {
+			children = append(children, *r.InstantiatesUri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "analysis") {
+		for _, v := range r.Analysis {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r GenomicStudy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudy to Boolean")
+}
+func (r GenomicStudy) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudy to String")
+}
+func (r GenomicStudy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudy to Integer")
+}
+func (r GenomicStudy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudy to Decimal")
+}
+func (r GenomicStudy) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudy to Date")
+}
+func (r GenomicStudy) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudy to Time")
+}
+func (r GenomicStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudy to DateTime")
+}
+func (r GenomicStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudy to Quantity")
+}
+func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "StartDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Referrer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Interpreter",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Analysis",
+			Type: "List<FHIR.GenomicStudyAnalysis>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudy",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GenomicStudyAnalysis) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "methodType") {
+		for _, v := range r.MethodType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "changeType") {
+		for _, v := range r.ChangeType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "genomeBuild") {
+		if r.GenomeBuild != nil {
+			children = append(children, *r.GenomeBuild)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		if r.InstantiatesCanonical != nil {
+			children = append(children, *r.InstantiatesCanonical)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		if r.InstantiatesUri != nil {
+			children = append(children, *r.InstantiatesUri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		for _, v := range r.Focus {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimen") {
+		for _, v := range r.Specimen {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "protocolPerformed") {
+		if r.ProtocolPerformed != nil {
+			children = append(children, *r.ProtocolPerformed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regionsStudied") {
+		for _, v := range r.RegionsStudied {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regionsCalled") {
+		for _, v := range r.RegionsCalled {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "input") {
+		for _, v := range r.Input {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "output") {
+		for _, v := range r.Output {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		for _, v := range r.Device {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r GenomicStudyAnalysis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Boolean")
+}
+func (r GenomicStudyAnalysis) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to String")
+}
+func (r GenomicStudyAnalysis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Integer")
+}
+func (r GenomicStudyAnalysis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Decimal")
+}
+func (r GenomicStudyAnalysis) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Date")
+}
+func (r GenomicStudyAnalysis) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Time")
+}
+func (r GenomicStudyAnalysis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to DateTime")
+}
+func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysis to Quantity")
+}
+func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "MethodType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ChangeType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "GenomeBuild",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Focus",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Specimen",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "ProtocolPerformed",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "RegionsStudied",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "RegionsCalled",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Input",
+			Type: "List<FHIR.GenomicStudyAnalysisInput>",
+		}, {
+			Name: "Output",
+			Type: "List<FHIR.GenomicStudyAnalysisOutput>",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.GenomicStudyAnalysisPerformer>",
+		}, {
+			Name: "Device",
+			Type: "List<FHIR.GenomicStudyAnalysisDevice>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudyAnalysis",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GenomicStudyAnalysisInput) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "file") {
+		if r.File != nil {
+			children = append(children, *r.File)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "generatedBy") {
+		if r.GeneratedBy != nil {
+			children = append(children, r.GeneratedBy)
+		}
+	}
+	return children
+}
+func (r GenomicStudyAnalysisInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Boolean")
+}
+func (r GenomicStudyAnalysisInput) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to String")
+}
+func (r GenomicStudyAnalysisInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Integer")
+}
+func (r GenomicStudyAnalysisInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Decimal")
+}
+func (r GenomicStudyAnalysisInput) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Date")
+}
+func (r GenomicStudyAnalysisInput) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Time")
+}
+func (r GenomicStudyAnalysisInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to DateTime")
+}
+func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
+}
+func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "File",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "GeneratedBy",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudyAnalysisInput",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GenomicStudyAnalysisOutput) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "file") {
+		if r.File != nil {
+			children = append(children, *r.File)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	return children
+}
+func (r GenomicStudyAnalysisOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Boolean")
+}
+func (r GenomicStudyAnalysisOutput) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to String")
+}
+func (r GenomicStudyAnalysisOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Integer")
+}
+func (r GenomicStudyAnalysisOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Decimal")
+}
+func (r GenomicStudyAnalysisOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Date")
+}
+func (r GenomicStudyAnalysisOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Time")
+}
+func (r GenomicStudyAnalysisOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to DateTime")
+}
+func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
+}
+func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "File",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudyAnalysisOutput",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GenomicStudyAnalysisPerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		if r.Actor != nil {
+			children = append(children, *r.Actor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	return children
+}
+func (r GenomicStudyAnalysisPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Boolean")
+}
+func (r GenomicStudyAnalysisPerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to String")
+}
+func (r GenomicStudyAnalysisPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Integer")
+}
+func (r GenomicStudyAnalysisPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Decimal")
+}
+func (r GenomicStudyAnalysisPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Date")
+}
+func (r GenomicStudyAnalysisPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Time")
+}
+func (r GenomicStudyAnalysisPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to DateTime")
+}
+func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
+}
+func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudyAnalysisPerformer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GenomicStudyAnalysisDevice) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	return children
+}
+func (r GenomicStudyAnalysisDevice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Boolean")
+}
+func (r GenomicStudyAnalysisDevice) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to String")
+}
+func (r GenomicStudyAnalysisDevice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Integer")
+}
+func (r GenomicStudyAnalysisDevice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Decimal")
+}
+func (r GenomicStudyAnalysisDevice) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Date")
+}
+func (r GenomicStudyAnalysisDevice) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Time")
+}
+func (r GenomicStudyAnalysisDevice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to DateTime")
+}
+func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
+}
+func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GenomicStudyAnalysisDevice",
+			Namespace: "FHIR",
+		},
 	}
 }

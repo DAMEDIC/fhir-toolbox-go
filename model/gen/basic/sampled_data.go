@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -381,4 +384,105 @@ func (r SampledData) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r SampledData) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "origin") {
+		children = append(children, r.Origin)
+	}
+	if len(name) == 0 || slices.Contains(name, "factor") {
+		if r.Factor != nil {
+			children = append(children, *r.Factor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lowerLimit") {
+		if r.LowerLimit != nil {
+			children = append(children, *r.LowerLimit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "upperLimit") {
+		if r.UpperLimit != nil {
+			children = append(children, *r.UpperLimit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dimensions") {
+		children = append(children, r.Dimensions)
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		if r.Data != nil {
+			children = append(children, *r.Data)
+		}
+	}
+	return children
+}
+func (r SampledData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SampledData to Boolean")
+}
+func (r SampledData) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SampledData to String")
+}
+func (r SampledData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SampledData to Integer")
+}
+func (r SampledData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SampledData to Decimal")
+}
+func (r SampledData) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SampledData to Date")
+}
+func (r SampledData) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SampledData to Time")
+}
+func (r SampledData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SampledData to DateTime")
+}
+func (r SampledData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SampledData to Quantity")
+}
+func (r SampledData) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Origin",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Factor",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "LowerLimit",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "UpperLimit",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Dimensions",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Data",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SampledData",
+			Namespace: "FHIR",
+		},
+	}
 }

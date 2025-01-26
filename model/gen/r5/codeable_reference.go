@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -310,5 +313,78 @@ func (r *CodeableReference) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r CodeableReference) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "concept") {
+		if r.Concept != nil {
+			children = append(children, *r.Concept)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		if r.Reference != nil {
+			children = append(children, *r.Reference)
+		}
+	}
+	return children
+}
+func (r CodeableReference) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CodeableReference to Boolean")
+}
+func (r CodeableReference) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CodeableReference to String")
+}
+func (r CodeableReference) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CodeableReference to Integer")
+}
+func (r CodeableReference) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CodeableReference to Decimal")
+}
+func (r CodeableReference) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CodeableReference to Date")
+}
+func (r CodeableReference) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CodeableReference to Time")
+}
+func (r CodeableReference) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CodeableReference to DateTime")
+}
+func (r CodeableReference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CodeableReference to Quantity")
+}
+func (r CodeableReference) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Concept",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CodeableReference",
+			Namespace: "FHIR",
+		},
 	}
 }

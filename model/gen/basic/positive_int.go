@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -69,4 +72,64 @@ func (r PositiveInt) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r PositiveInt) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PositiveInt) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PositiveInt to Boolean")
+}
+func (r PositiveInt) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PositiveInt to String")
+}
+func (r PositiveInt) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PositiveInt to Integer")
+}
+func (r PositiveInt) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PositiveInt to Decimal")
+}
+func (r PositiveInt) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PositiveInt to Date")
+}
+func (r PositiveInt) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PositiveInt to Time")
+}
+func (r PositiveInt) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PositiveInt to DateTime")
+}
+func (r PositiveInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PositiveInt to Quantity")
+}
+func (r PositiveInt) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.uint32",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "PositiveInt",
+			Namespace: "FHIR",
+		},
+	}
 }

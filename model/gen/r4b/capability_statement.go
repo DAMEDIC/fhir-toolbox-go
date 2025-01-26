@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -11037,5 +11040,1571 @@ func (r *CapabilityStatementDocument) UnmarshalXML(d *xml.Decoder, start xml.Sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r CapabilityStatement) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		children = append(children, r.Date)
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "kind") {
+		children = append(children, r.Kind)
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiates") {
+		for _, v := range r.Instantiates {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "imports") {
+		for _, v := range r.Imports {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "software") {
+		if r.Software != nil {
+			children = append(children, *r.Software)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implementation") {
+		if r.Implementation != nil {
+			children = append(children, *r.Implementation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fhirVersion") {
+		children = append(children, r.FhirVersion)
+	}
+	if len(name) == 0 || slices.Contains(name, "format") {
+		for _, v := range r.Format {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patchFormat") {
+		for _, v := range r.PatchFormat {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implementationGuide") {
+		for _, v := range r.ImplementationGuide {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rest") {
+		for _, v := range r.Rest {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "messaging") {
+		for _, v := range r.Messaging {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "document") {
+		for _, v := range r.Document {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CapabilityStatement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Boolean")
+}
+func (r CapabilityStatement) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatement to String")
+}
+func (r CapabilityStatement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Integer")
+}
+func (r CapabilityStatement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Decimal")
+}
+func (r CapabilityStatement) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Date")
+}
+func (r CapabilityStatement) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Time")
+}
+func (r CapabilityStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatement to DateTime")
+}
+func (r CapabilityStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatement to Quantity")
+}
+func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Kind",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Instantiates",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Imports",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Software",
+			Type: "FHIR.CapabilityStatementSoftware",
+		}, {
+			Name: "Implementation",
+			Type: "FHIR.CapabilityStatementImplementation",
+		}, {
+			Name: "FhirVersion",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Format",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "PatchFormat",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "ImplementationGuide",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Rest",
+			Type: "List<FHIR.CapabilityStatementRest>",
+		}, {
+			Name: "Messaging",
+			Type: "List<FHIR.CapabilityStatementMessaging>",
+		}, {
+			Name: "Document",
+			Type: "List<FHIR.CapabilityStatementDocument>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatement",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementSoftware) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "releaseDate") {
+		if r.ReleaseDate != nil {
+			children = append(children, *r.ReleaseDate)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementSoftware) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Boolean")
+}
+func (r CapabilityStatementSoftware) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to String")
+}
+func (r CapabilityStatementSoftware) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Integer")
+}
+func (r CapabilityStatementSoftware) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Decimal")
+}
+func (r CapabilityStatementSoftware) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Date")
+}
+func (r CapabilityStatementSoftware) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Time")
+}
+func (r CapabilityStatementSoftware) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to DateTime")
+}
+func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementSoftware to Quantity")
+}
+func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "ReleaseDate",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementSoftware",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementImplementation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		children = append(children, r.Description)
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "custodian") {
+		if r.Custodian != nil {
+			children = append(children, *r.Custodian)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementImplementation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Boolean")
+}
+func (r CapabilityStatementImplementation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to String")
+}
+func (r CapabilityStatementImplementation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Integer")
+}
+func (r CapabilityStatementImplementation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Decimal")
+}
+func (r CapabilityStatementImplementation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Date")
+}
+func (r CapabilityStatementImplementation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Time")
+}
+func (r CapabilityStatementImplementation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to DateTime")
+}
+func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementImplementation to Quantity")
+}
+func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Url",
+		}, {
+			Name: "Custodian",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementImplementation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "security") {
+		if r.Security != nil {
+			children = append(children, *r.Security)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		for _, v := range r.Resource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interaction") {
+		for _, v := range r.Interaction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchParam") {
+		for _, v := range r.SearchParam {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		for _, v := range r.Operation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "compartment") {
+		for _, v := range r.Compartment {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Boolean")
+}
+func (r CapabilityStatementRest) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to String")
+}
+func (r CapabilityStatementRest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Integer")
+}
+func (r CapabilityStatementRest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Decimal")
+}
+func (r CapabilityStatementRest) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Date")
+}
+func (r CapabilityStatementRest) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Time")
+}
+func (r CapabilityStatementRest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to DateTime")
+}
+func (r CapabilityStatementRest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRest to Quantity")
+}
+func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Security",
+			Type: "FHIR.CapabilityStatementRestSecurity",
+		}, {
+			Name: "Resource",
+			Type: "List<FHIR.CapabilityStatementRestResource>",
+		}, {
+			Name: "Interaction",
+			Type: "List<FHIR.CapabilityStatementRestInteraction>",
+		}, {
+			Name: "SearchParam",
+			Type: "List<FHIR.CapabilityStatementRestResourceSearchParam>",
+		}, {
+			Name: "Operation",
+			Type: "List<FHIR.CapabilityStatementRestResourceOperation>",
+		}, {
+			Name: "Compartment",
+			Type: "List<FHIR.Canonical>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRest",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestSecurity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cors") {
+		if r.Cors != nil {
+			children = append(children, *r.Cors)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "service") {
+		for _, v := range r.Service {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestSecurity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Boolean")
+}
+func (r CapabilityStatementRestSecurity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to String")
+}
+func (r CapabilityStatementRestSecurity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Integer")
+}
+func (r CapabilityStatementRestSecurity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Decimal")
+}
+func (r CapabilityStatementRestSecurity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Date")
+}
+func (r CapabilityStatementRestSecurity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Time")
+}
+func (r CapabilityStatementRestSecurity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to DateTime")
+}
+func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
+}
+func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Cors",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Service",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestSecurity",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestResource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		if r.Profile != nil {
+			children = append(children, *r.Profile)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportedProfile") {
+		for _, v := range r.SupportedProfile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "interaction") {
+		for _, v := range r.Interaction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versioning") {
+		if r.Versioning != nil {
+			children = append(children, *r.Versioning)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "readHistory") {
+		if r.ReadHistory != nil {
+			children = append(children, *r.ReadHistory)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "updateCreate") {
+		if r.UpdateCreate != nil {
+			children = append(children, *r.UpdateCreate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "conditionalCreate") {
+		if r.ConditionalCreate != nil {
+			children = append(children, *r.ConditionalCreate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "conditionalRead") {
+		if r.ConditionalRead != nil {
+			children = append(children, *r.ConditionalRead)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "conditionalUpdate") {
+		if r.ConditionalUpdate != nil {
+			children = append(children, *r.ConditionalUpdate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "conditionalDelete") {
+		if r.ConditionalDelete != nil {
+			children = append(children, *r.ConditionalDelete)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referencePolicy") {
+		for _, v := range r.ReferencePolicy {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchInclude") {
+		for _, v := range r.SearchInclude {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchRevInclude") {
+		for _, v := range r.SearchRevInclude {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchParam") {
+		for _, v := range r.SearchParam {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		for _, v := range r.Operation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Boolean")
+}
+func (r CapabilityStatementRestResource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to String")
+}
+func (r CapabilityStatementRestResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Integer")
+}
+func (r CapabilityStatementRestResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Decimal")
+}
+func (r CapabilityStatementRestResource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Date")
+}
+func (r CapabilityStatementRestResource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Time")
+}
+func (r CapabilityStatementRestResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to DateTime")
+}
+func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResource to Quantity")
+}
+func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Profile",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "SupportedProfile",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Interaction",
+			Type: "List<FHIR.CapabilityStatementRestResourceInteraction>",
+		}, {
+			Name: "Versioning",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ReadHistory",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "UpdateCreate",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ConditionalCreate",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ConditionalRead",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ConditionalUpdate",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ConditionalDelete",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ReferencePolicy",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "SearchInclude",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "SearchRevInclude",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "SearchParam",
+			Type: "List<FHIR.CapabilityStatementRestResourceSearchParam>",
+		}, {
+			Name: "Operation",
+			Type: "List<FHIR.CapabilityStatementRestResourceOperation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestResource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestResourceInteraction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestResourceInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Boolean")
+}
+func (r CapabilityStatementRestResourceInteraction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to String")
+}
+func (r CapabilityStatementRestResourceInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Integer")
+}
+func (r CapabilityStatementRestResourceInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Decimal")
+}
+func (r CapabilityStatementRestResourceInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Date")
+}
+func (r CapabilityStatementRestResourceInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Time")
+}
+func (r CapabilityStatementRestResourceInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to DateTime")
+}
+func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
+}
+func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestResourceInteraction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestResourceSearchParam) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		if r.Definition != nil {
+			children = append(children, *r.Definition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestResourceSearchParam) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Boolean")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to String")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Integer")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Decimal")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Date")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Time")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to DateTime")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
+}
+func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Definition",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestResourceSearchParam",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestResourceOperation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		children = append(children, r.Definition)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestResourceOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Boolean")
+}
+func (r CapabilityStatementRestResourceOperation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to String")
+}
+func (r CapabilityStatementRestResourceOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Integer")
+}
+func (r CapabilityStatementRestResourceOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Decimal")
+}
+func (r CapabilityStatementRestResourceOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Date")
+}
+func (r CapabilityStatementRestResourceOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Time")
+}
+func (r CapabilityStatementRestResourceOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to DateTime")
+}
+func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
+}
+func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Definition",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestResourceOperation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementRestInteraction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementRestInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Boolean")
+}
+func (r CapabilityStatementRestInteraction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to String")
+}
+func (r CapabilityStatementRestInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Integer")
+}
+func (r CapabilityStatementRestInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Decimal")
+}
+func (r CapabilityStatementRestInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Date")
+}
+func (r CapabilityStatementRestInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Time")
+}
+func (r CapabilityStatementRestInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to DateTime")
+}
+func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
+}
+func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementRestInteraction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementMessaging) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reliableCache") {
+		if r.ReliableCache != nil {
+			children = append(children, *r.ReliableCache)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportedMessage") {
+		for _, v := range r.SupportedMessage {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CapabilityStatementMessaging) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Boolean")
+}
+func (r CapabilityStatementMessaging) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to String")
+}
+func (r CapabilityStatementMessaging) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Integer")
+}
+func (r CapabilityStatementMessaging) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Decimal")
+}
+func (r CapabilityStatementMessaging) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Date")
+}
+func (r CapabilityStatementMessaging) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Time")
+}
+func (r CapabilityStatementMessaging) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to DateTime")
+}
+func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessaging to Quantity")
+}
+func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.CapabilityStatementMessagingEndpoint>",
+		}, {
+			Name: "ReliableCache",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "SupportedMessage",
+			Type: "List<FHIR.CapabilityStatementMessagingSupportedMessage>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementMessaging",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementMessagingEndpoint) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "protocol") {
+		children = append(children, r.Protocol)
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		children = append(children, r.Address)
+	}
+	return children
+}
+func (r CapabilityStatementMessagingEndpoint) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Boolean")
+}
+func (r CapabilityStatementMessagingEndpoint) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to String")
+}
+func (r CapabilityStatementMessagingEndpoint) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Integer")
+}
+func (r CapabilityStatementMessagingEndpoint) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Decimal")
+}
+func (r CapabilityStatementMessagingEndpoint) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Date")
+}
+func (r CapabilityStatementMessagingEndpoint) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Time")
+}
+func (r CapabilityStatementMessagingEndpoint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to DateTime")
+}
+func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
+}
+func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Protocol",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Address",
+			Type: "FHIR.Url",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementMessagingEndpoint",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementMessagingSupportedMessage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		children = append(children, r.Definition)
+	}
+	return children
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Boolean")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to String")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Integer")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Decimal")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Date")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Time")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to DateTime")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
+}
+func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Definition",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementMessagingSupportedMessage",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CapabilityStatementDocument) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		children = append(children, r.Profile)
+	}
+	return children
+}
+func (r CapabilityStatementDocument) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Boolean")
+}
+func (r CapabilityStatementDocument) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to String")
+}
+func (r CapabilityStatementDocument) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Integer")
+}
+func (r CapabilityStatementDocument) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Decimal")
+}
+func (r CapabilityStatementDocument) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Date")
+}
+func (r CapabilityStatementDocument) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Time")
+}
+func (r CapabilityStatementDocument) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to DateTime")
+}
+func (r CapabilityStatementDocument) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CapabilityStatementDocument to Quantity")
+}
+func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Profile",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CapabilityStatementDocument",
+			Namespace: "FHIR",
+		},
 	}
 }

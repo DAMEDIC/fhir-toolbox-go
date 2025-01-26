@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -9612,5 +9615,1154 @@ func (r *ConceptMapGroupUnmapped) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ConceptMap) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		for _, v := range r.Topic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "editor") {
+		for _, v := range r.Editor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reviewer") {
+		for _, v := range r.Reviewer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endorser") {
+		for _, v := range r.Endorser {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedArtifact") {
+		for _, v := range r.RelatedArtifact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalAttribute") {
+		for _, v := range r.AdditionalAttribute {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceScope") {
+		if r.SourceScope != nil {
+			children = append(children, r.SourceScope)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetScope") {
+		if r.TargetScope != nil {
+			children = append(children, r.TargetScope)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "group") {
+		for _, v := range r.Group {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ConceptMap) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMap to Boolean")
+}
+func (r ConceptMap) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMap to String")
+}
+func (r ConceptMap) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMap to Integer")
+}
+func (r ConceptMap) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMap to Decimal")
+}
+func (r ConceptMap) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMap to Date")
+}
+func (r ConceptMap) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMap to Time")
+}
+func (r ConceptMap) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMap to DateTime")
+}
+func (r ConceptMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMap to Quantity")
+}
+func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Topic",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Editor",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Reviewer",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Endorser",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "RelatedArtifact",
+			Type: "List<FHIR.RelatedArtifact>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.ConceptMapProperty>",
+		}, {
+			Name: "AdditionalAttribute",
+			Type: "List<FHIR.ConceptMapAdditionalAttribute>",
+		}, {
+			Name: "SourceScope",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "TargetScope",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Group",
+			Type: "List<FHIR.ConceptMapGroup>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMap",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		if r.Uri != nil {
+			children = append(children, *r.Uri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	return children
+}
+func (r ConceptMapProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Boolean")
+}
+func (r ConceptMapProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to String")
+}
+func (r ConceptMapProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Integer")
+}
+func (r ConceptMapProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Decimal")
+}
+func (r ConceptMapProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Date")
+}
+func (r ConceptMapProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Time")
+}
+func (r ConceptMapProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to DateTime")
+}
+func (r ConceptMapProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapProperty to Quantity")
+}
+func (r ConceptMapProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "System",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapAdditionalAttribute) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		if r.Uri != nil {
+			children = append(children, *r.Uri)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	return children
+}
+func (r ConceptMapAdditionalAttribute) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Boolean")
+}
+func (r ConceptMapAdditionalAttribute) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to String")
+}
+func (r ConceptMapAdditionalAttribute) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Integer")
+}
+func (r ConceptMapAdditionalAttribute) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Decimal")
+}
+func (r ConceptMapAdditionalAttribute) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Date")
+}
+func (r ConceptMapAdditionalAttribute) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Time")
+}
+func (r ConceptMapAdditionalAttribute) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to DateTime")
+}
+func (r ConceptMapAdditionalAttribute) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Quantity")
+}
+func (r ConceptMapAdditionalAttribute) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapAdditionalAttribute",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroup) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		if r.Target != nil {
+			children = append(children, *r.Target)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "element") {
+		for _, v := range r.Element {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unmapped") {
+		if r.Unmapped != nil {
+			children = append(children, *r.Unmapped)
+		}
+	}
+	return children
+}
+func (r ConceptMapGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Boolean")
+}
+func (r ConceptMapGroup) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to String")
+}
+func (r ConceptMapGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Integer")
+}
+func (r ConceptMapGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Decimal")
+}
+func (r ConceptMapGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Date")
+}
+func (r ConceptMapGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Time")
+}
+func (r ConceptMapGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to DateTime")
+}
+func (r ConceptMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroup to Quantity")
+}
+func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Target",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Element",
+			Type: "List<FHIR.ConceptMapGroupElement>",
+		}, {
+			Name: "Unmapped",
+			Type: "FHIR.ConceptMapGroupUnmapped",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroup",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroupElement) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "noMap") {
+		if r.NoMap != nil {
+			children = append(children, *r.NoMap)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		for _, v := range r.Target {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ConceptMapGroupElement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Boolean")
+}
+func (r ConceptMapGroupElement) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to String")
+}
+func (r ConceptMapGroupElement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Integer")
+}
+func (r ConceptMapGroupElement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Decimal")
+}
+func (r ConceptMapGroupElement) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Date")
+}
+func (r ConceptMapGroupElement) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Time")
+}
+func (r ConceptMapGroupElement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to DateTime")
+}
+func (r ConceptMapGroupElement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElement to Quantity")
+}
+func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "NoMap",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Target",
+			Type: "List<FHIR.ConceptMapGroupElementTarget>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroupElement",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroupElementTarget) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relationship") {
+		children = append(children, r.Relationship)
+	}
+	if len(name) == 0 || slices.Contains(name, "comment") {
+		if r.Comment != nil {
+			children = append(children, *r.Comment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dependsOn") {
+		for _, v := range r.DependsOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "product") {
+		for _, v := range r.Product {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ConceptMapGroupElementTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Boolean")
+}
+func (r ConceptMapGroupElementTarget) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to String")
+}
+func (r ConceptMapGroupElementTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Integer")
+}
+func (r ConceptMapGroupElementTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Decimal")
+}
+func (r ConceptMapGroupElementTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Date")
+}
+func (r ConceptMapGroupElementTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Time")
+}
+func (r ConceptMapGroupElementTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to DateTime")
+}
+func (r ConceptMapGroupElementTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Quantity")
+}
+func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Relationship",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Comment",
+			Type: "FHIR.String",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.ConceptMapGroupElementTargetProperty>",
+		}, {
+			Name: "DependsOn",
+			Type: "List<FHIR.ConceptMapGroupElementTargetDependsOn>",
+		}, {
+			Name: "Product",
+			Type: "List<FHIR.ConceptMapGroupElementTargetDependsOn>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroupElementTarget",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroupElementTargetProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ConceptMapGroupElementTargetProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Boolean")
+}
+func (r ConceptMapGroupElementTargetProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to String")
+}
+func (r ConceptMapGroupElementTargetProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Integer")
+}
+func (r ConceptMapGroupElementTargetProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Decimal")
+}
+func (r ConceptMapGroupElementTargetProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Date")
+}
+func (r ConceptMapGroupElementTargetProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Time")
+}
+func (r ConceptMapGroupElementTargetProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to DateTime")
+}
+func (r ConceptMapGroupElementTargetProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Quantity")
+}
+func (r ConceptMapGroupElementTargetProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroupElementTargetProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroupElementTargetDependsOn) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attribute") {
+		children = append(children, r.Attribute)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	return children
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Boolean")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to String")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Integer")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Decimal")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Date")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Time")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to DateTime")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Quantity")
+}
+func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Attribute",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroupElementTargetDependsOn",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConceptMapGroupUnmapped) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relationship") {
+		if r.Relationship != nil {
+			children = append(children, *r.Relationship)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "otherMap") {
+		if r.OtherMap != nil {
+			children = append(children, *r.OtherMap)
+		}
+	}
+	return children
+}
+func (r ConceptMapGroupUnmapped) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Boolean")
+}
+func (r ConceptMapGroupUnmapped) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to String")
+}
+func (r ConceptMapGroupUnmapped) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Integer")
+}
+func (r ConceptMapGroupUnmapped) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Decimal")
+}
+func (r ConceptMapGroupUnmapped) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Date")
+}
+func (r ConceptMapGroupUnmapped) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Time")
+}
+func (r ConceptMapGroupUnmapped) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to DateTime")
+}
+func (r ConceptMapGroupUnmapped) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Quantity")
+}
+func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Relationship",
+			Type: "FHIR.Code",
+		}, {
+			Name: "OtherMap",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConceptMapGroupUnmapped",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -68,4 +71,64 @@ func (r Markdown) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Markdown) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Markdown) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Markdown to Boolean")
+}
+func (r Markdown) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Markdown to String")
+}
+func (r Markdown) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Markdown to Integer")
+}
+func (r Markdown) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Markdown to Decimal")
+}
+func (r Markdown) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Markdown to Date")
+}
+func (r Markdown) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Markdown to Time")
+}
+func (r Markdown) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Markdown to DateTime")
+}
+func (r Markdown) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Markdown to Quantity")
+}
+func (r Markdown) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Markdown",
+			Namespace: "FHIR",
+		},
+	}
 }

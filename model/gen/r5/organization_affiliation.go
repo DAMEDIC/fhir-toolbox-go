@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1482,5 +1485,206 @@ func (r *OrganizationAffiliation) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r OrganizationAffiliation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "active") {
+		if r.Active != nil {
+			children = append(children, *r.Active)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		if r.Organization != nil {
+			children = append(children, *r.Organization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "participatingOrganization") {
+		if r.ParticipatingOrganization != nil {
+			children = append(children, *r.ParticipatingOrganization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "network") {
+		for _, v := range r.Network {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specialty") {
+		for _, v := range r.Specialty {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		for _, v := range r.Location {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "healthcareService") {
+		for _, v := range r.HealthcareService {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r OrganizationAffiliation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Boolean")
+}
+func (r OrganizationAffiliation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to String")
+}
+func (r OrganizationAffiliation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Integer")
+}
+func (r OrganizationAffiliation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Decimal")
+}
+func (r OrganizationAffiliation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Date")
+}
+func (r OrganizationAffiliation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Time")
+}
+func (r OrganizationAffiliation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to DateTime")
+}
+func (r OrganizationAffiliation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert OrganizationAffiliation to Quantity")
+}
+func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Active",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Organization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ParticipatingOrganization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Network",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Specialty",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Location",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "HealthcareService",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ExtendedContactDetail>",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "OrganizationAffiliation",
+			Namespace: "FHIR",
+		},
 	}
 }

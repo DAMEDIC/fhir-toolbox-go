@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5182,5 +5185,181 @@ func (r *ParametersParameter) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Parameters) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parameter") {
+		for _, v := range r.Parameter {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Parameters) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Parameters to Boolean")
+}
+func (r Parameters) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Parameters to String")
+}
+func (r Parameters) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Parameters to Integer")
+}
+func (r Parameters) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Parameters to Decimal")
+}
+func (r Parameters) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Parameters to Date")
+}
+func (r Parameters) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Parameters to Time")
+}
+func (r Parameters) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Parameters to DateTime")
+}
+func (r Parameters) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Parameters to Quantity")
+}
+func (r Parameters) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Parameter",
+			Type: "List<FHIR.ParametersParameter>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Parameters",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ParametersParameter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		if r.Resource != nil {
+			children = append(children, r.Resource)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "part") {
+		for _, v := range r.Part {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ParametersParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ParametersParameter to Boolean")
+}
+func (r ParametersParameter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ParametersParameter to String")
+}
+func (r ParametersParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ParametersParameter to Integer")
+}
+func (r ParametersParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ParametersParameter to Decimal")
+}
+func (r ParametersParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ParametersParameter to Date")
+}
+func (r ParametersParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ParametersParameter to Time")
+}
+func (r ParametersParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ParametersParameter to DateTime")
+}
+func (r ParametersParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ParametersParameter to Quantity")
+}
+func (r ParametersParameter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Resource",
+			Type: "FHIR.",
+		}, {
+			Name: "Part",
+			Type: "List<FHIR.ParametersParameter>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ParametersParameter",
+			Namespace: "FHIR",
+		},
 	}
 }

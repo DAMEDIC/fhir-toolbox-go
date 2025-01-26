@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3856,5 +3859,579 @@ func (r *ImagingStudySeriesInstance) UnmarshalXML(d *xml.Decoder, start xml.Star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ImagingStudy) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "modality") {
+		for _, v := range r.Modality {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "started") {
+		if r.Started != nil {
+			children = append(children, *r.Started)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referrer") {
+		if r.Referrer != nil {
+			children = append(children, *r.Referrer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfSeries") {
+		if r.NumberOfSeries != nil {
+			children = append(children, *r.NumberOfSeries)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfInstances") {
+		if r.NumberOfInstances != nil {
+			children = append(children, *r.NumberOfInstances)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "procedure") {
+		for _, v := range r.Procedure {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "series") {
+		for _, v := range r.Series {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingStudy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingStudy to Boolean")
+}
+func (r ImagingStudy) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingStudy to String")
+}
+func (r ImagingStudy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingStudy to Integer")
+}
+func (r ImagingStudy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingStudy to Decimal")
+}
+func (r ImagingStudy) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingStudy to Date")
+}
+func (r ImagingStudy) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingStudy to Time")
+}
+func (r ImagingStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingStudy to DateTime")
+}
+func (r ImagingStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingStudy to Quantity")
+}
+func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Modality",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Started",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Referrer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "NumberOfSeries",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "NumberOfInstances",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Procedure",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Series",
+			Type: "List<FHIR.ImagingStudySeries>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingStudy",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingStudySeries) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uid") {
+		children = append(children, r.Uid)
+	}
+	if len(name) == 0 || slices.Contains(name, "number") {
+		if r.Number != nil {
+			children = append(children, *r.Number)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modality") {
+		children = append(children, r.Modality)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfInstances") {
+		if r.NumberOfInstances != nil {
+			children = append(children, *r.NumberOfInstances)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		if r.BodySite != nil {
+			children = append(children, *r.BodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "laterality") {
+		if r.Laterality != nil {
+			children = append(children, *r.Laterality)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimen") {
+		for _, v := range r.Specimen {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "started") {
+		if r.Started != nil {
+			children = append(children, *r.Started)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		for _, v := range r.Instance {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImagingStudySeries) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Boolean")
+}
+func (r ImagingStudySeries) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to String")
+}
+func (r ImagingStudySeries) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Integer")
+}
+func (r ImagingStudySeries) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Decimal")
+}
+func (r ImagingStudySeries) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Date")
+}
+func (r ImagingStudySeries) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Time")
+}
+func (r ImagingStudySeries) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to DateTime")
+}
+func (r ImagingStudySeries) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingStudySeries to Quantity")
+}
+func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Uid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Number",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Modality",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "NumberOfInstances",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "BodySite",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "Laterality",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Specimen",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Started",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.ImagingStudySeriesPerformer>",
+		}, {
+			Name: "Instance",
+			Type: "List<FHIR.ImagingStudySeriesInstance>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingStudySeries",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingStudySeriesPerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		children = append(children, r.Actor)
+	}
+	return children
+}
+func (r ImagingStudySeriesPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Boolean")
+}
+func (r ImagingStudySeriesPerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to String")
+}
+func (r ImagingStudySeriesPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Integer")
+}
+func (r ImagingStudySeriesPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Decimal")
+}
+func (r ImagingStudySeriesPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Date")
+}
+func (r ImagingStudySeriesPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Time")
+}
+func (r ImagingStudySeriesPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to DateTime")
+}
+func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
+}
+func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingStudySeriesPerformer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImagingStudySeriesInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uid") {
+		children = append(children, r.Uid)
+	}
+	if len(name) == 0 || slices.Contains(name, "sopClass") {
+		children = append(children, r.SopClass)
+	}
+	if len(name) == 0 || slices.Contains(name, "number") {
+		if r.Number != nil {
+			children = append(children, *r.Number)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	return children
+}
+func (r ImagingStudySeriesInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Boolean")
+}
+func (r ImagingStudySeriesInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to String")
+}
+func (r ImagingStudySeriesInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Integer")
+}
+func (r ImagingStudySeriesInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Decimal")
+}
+func (r ImagingStudySeriesInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Date")
+}
+func (r ImagingStudySeriesInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Time")
+}
+func (r ImagingStudySeriesInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to DateTime")
+}
+func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
+}
+func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Uid",
+			Type: "FHIR.Id",
+		}, {
+			Name: "SopClass",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Number",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImagingStudySeriesInstance",
+			Namespace: "FHIR",
+		},
 	}
 }

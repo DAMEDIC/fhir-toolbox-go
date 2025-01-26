@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4926,5 +4929,741 @@ func (r *ConditionDefinitionPlan) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ConditionDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subtitle") {
+		if r.Subtitle != nil {
+			children = append(children, *r.Subtitle)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "severity") {
+		if r.Severity != nil {
+			children = append(children, *r.Severity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		if r.BodySite != nil {
+			children = append(children, *r.BodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stage") {
+		if r.Stage != nil {
+			children = append(children, *r.Stage)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hasSeverity") {
+		if r.HasSeverity != nil {
+			children = append(children, *r.HasSeverity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hasBodySite") {
+		if r.HasBodySite != nil {
+			children = append(children, *r.HasBodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hasStage") {
+		if r.HasStage != nil {
+			children = append(children, *r.HasStage)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		for _, v := range r.Definition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "observation") {
+		for _, v := range r.Observation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "medication") {
+		for _, v := range r.Medication {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "precondition") {
+		for _, v := range r.Precondition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "team") {
+		for _, v := range r.Team {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "questionnaire") {
+		for _, v := range r.Questionnaire {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "plan") {
+		for _, v := range r.Plan {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ConditionDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Boolean")
+}
+func (r ConditionDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinition to String")
+}
+func (r ConditionDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Integer")
+}
+func (r ConditionDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Decimal")
+}
+func (r ConditionDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Date")
+}
+func (r ConditionDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Time")
+}
+func (r ConditionDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinition to DateTime")
+}
+func (r ConditionDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinition to Quantity")
+}
+func (r ConditionDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Subtitle",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Severity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "BodySite",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Stage",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "HasSeverity",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "HasBodySite",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "HasStage",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Definition",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "Observation",
+			Type: "List<FHIR.ConditionDefinitionObservation>",
+		}, {
+			Name: "Medication",
+			Type: "List<FHIR.ConditionDefinitionMedication>",
+		}, {
+			Name: "Precondition",
+			Type: "List<FHIR.ConditionDefinitionPrecondition>",
+		}, {
+			Name: "Team",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Questionnaire",
+			Type: "List<FHIR.ConditionDefinitionQuestionnaire>",
+		}, {
+			Name: "Plan",
+			Type: "List<FHIR.ConditionDefinitionPlan>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConditionDefinitionObservation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		if r.Category != nil {
+			children = append(children, *r.Category)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	return children
+}
+func (r ConditionDefinitionObservation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Boolean")
+}
+func (r ConditionDefinitionObservation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to String")
+}
+func (r ConditionDefinitionObservation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Integer")
+}
+func (r ConditionDefinitionObservation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Decimal")
+}
+func (r ConditionDefinitionObservation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Date")
+}
+func (r ConditionDefinitionObservation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Time")
+}
+func (r ConditionDefinitionObservation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to DateTime")
+}
+func (r ConditionDefinitionObservation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinitionObservation to Quantity")
+}
+func (r ConditionDefinitionObservation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Category",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinitionObservation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConditionDefinitionMedication) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		if r.Category != nil {
+			children = append(children, *r.Category)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	return children
+}
+func (r ConditionDefinitionMedication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Boolean")
+}
+func (r ConditionDefinitionMedication) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to String")
+}
+func (r ConditionDefinitionMedication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Integer")
+}
+func (r ConditionDefinitionMedication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Decimal")
+}
+func (r ConditionDefinitionMedication) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Date")
+}
+func (r ConditionDefinitionMedication) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Time")
+}
+func (r ConditionDefinitionMedication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to DateTime")
+}
+func (r ConditionDefinitionMedication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinitionMedication to Quantity")
+}
+func (r ConditionDefinitionMedication) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Category",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinitionMedication",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConditionDefinitionPrecondition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r ConditionDefinitionPrecondition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Boolean")
+}
+func (r ConditionDefinitionPrecondition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to String")
+}
+func (r ConditionDefinitionPrecondition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Integer")
+}
+func (r ConditionDefinitionPrecondition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Decimal")
+}
+func (r ConditionDefinitionPrecondition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Date")
+}
+func (r ConditionDefinitionPrecondition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Time")
+}
+func (r ConditionDefinitionPrecondition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to DateTime")
+}
+func (r ConditionDefinitionPrecondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Quantity")
+}
+func (r ConditionDefinitionPrecondition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinitionPrecondition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConditionDefinitionQuestionnaire) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		children = append(children, r.Purpose)
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	return children
+}
+func (r ConditionDefinitionQuestionnaire) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Boolean")
+}
+func (r ConditionDefinitionQuestionnaire) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to String")
+}
+func (r ConditionDefinitionQuestionnaire) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Integer")
+}
+func (r ConditionDefinitionQuestionnaire) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Decimal")
+}
+func (r ConditionDefinitionQuestionnaire) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Date")
+}
+func (r ConditionDefinitionQuestionnaire) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Time")
+}
+func (r ConditionDefinitionQuestionnaire) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to DateTime")
+}
+func (r ConditionDefinitionQuestionnaire) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Quantity")
+}
+func (r ConditionDefinitionQuestionnaire) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinitionQuestionnaire",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConditionDefinitionPlan) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	return children
+}
+func (r ConditionDefinitionPlan) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Boolean")
+}
+func (r ConditionDefinitionPlan) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to String")
+}
+func (r ConditionDefinitionPlan) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Integer")
+}
+func (r ConditionDefinitionPlan) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Decimal")
+}
+func (r ConditionDefinitionPlan) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Date")
+}
+func (r ConditionDefinitionPlan) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Time")
+}
+func (r ConditionDefinitionPlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to DateTime")
+}
+func (r ConditionDefinitionPlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConditionDefinitionPlan to Quantity")
+}
+func (r ConditionDefinitionPlan) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConditionDefinitionPlan",
+			Namespace: "FHIR",
+		},
 	}
 }

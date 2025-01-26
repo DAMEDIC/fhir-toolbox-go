@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1933,5 +1936,287 @@ func (r *CatalogEntryRelatedEntry) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r CatalogEntry) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orderable") {
+		children = append(children, r.Orderable)
+	}
+	if len(name) == 0 || slices.Contains(name, "referencedItem") {
+		children = append(children, r.ReferencedItem)
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalIdentifier") {
+		for _, v := range r.AdditionalIdentifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		for _, v := range r.Classification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validityPeriod") {
+		if r.ValidityPeriod != nil {
+			children = append(children, *r.ValidityPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validTo") {
+		if r.ValidTo != nil {
+			children = append(children, *r.ValidTo)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastUpdated") {
+		if r.LastUpdated != nil {
+			children = append(children, *r.LastUpdated)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalCharacteristic") {
+		for _, v := range r.AdditionalCharacteristic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalClassification") {
+		for _, v := range r.AdditionalClassification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedEntry") {
+		for _, v := range r.RelatedEntry {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CatalogEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CatalogEntry to Boolean")
+}
+func (r CatalogEntry) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CatalogEntry to String")
+}
+func (r CatalogEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CatalogEntry to Integer")
+}
+func (r CatalogEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CatalogEntry to Decimal")
+}
+func (r CatalogEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CatalogEntry to Date")
+}
+func (r CatalogEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CatalogEntry to Time")
+}
+func (r CatalogEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CatalogEntry to DateTime")
+}
+func (r CatalogEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CatalogEntry to Quantity")
+}
+func (r CatalogEntry) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Orderable",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ReferencedItem",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AdditionalIdentifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Classification",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ValidityPeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "ValidTo",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "LastUpdated",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "AdditionalCharacteristic",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "AdditionalClassification",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "RelatedEntry",
+			Type: "List<FHIR.CatalogEntryRelatedEntry>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "CatalogEntry",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CatalogEntryRelatedEntry) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relationtype") {
+		children = append(children, r.Relationtype)
+	}
+	if len(name) == 0 || slices.Contains(name, "item") {
+		children = append(children, r.Item)
+	}
+	return children
+}
+func (r CatalogEntryRelatedEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Boolean")
+}
+func (r CatalogEntryRelatedEntry) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to String")
+}
+func (r CatalogEntryRelatedEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Integer")
+}
+func (r CatalogEntryRelatedEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Decimal")
+}
+func (r CatalogEntryRelatedEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Date")
+}
+func (r CatalogEntryRelatedEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Time")
+}
+func (r CatalogEntryRelatedEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to DateTime")
+}
+func (r CatalogEntryRelatedEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Quantity")
+}
+func (r CatalogEntryRelatedEntry) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Relationtype",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Item",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CatalogEntryRelatedEntry",
+			Namespace: "FHIR",
+		},
 	}
 }

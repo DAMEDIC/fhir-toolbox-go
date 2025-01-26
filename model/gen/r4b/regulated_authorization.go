@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2137,5 +2140,327 @@ func (r *RegulatedAuthorizationCase) UnmarshalXML(d *xml.Decoder, start xml.Star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r RegulatedAuthorization) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "region") {
+		for _, v := range r.Region {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		if r.StatusDate != nil {
+			children = append(children, *r.StatusDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validityPeriod") {
+		if r.ValidityPeriod != nil {
+			children = append(children, *r.ValidityPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "indication") {
+		if r.Indication != nil {
+			children = append(children, *r.Indication)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "intendedUse") {
+		if r.IntendedUse != nil {
+			children = append(children, *r.IntendedUse)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basis") {
+		for _, v := range r.Basis {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "holder") {
+		if r.Holder != nil {
+			children = append(children, *r.Holder)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regulator") {
+		if r.Regulator != nil {
+			children = append(children, *r.Regulator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "case") {
+		if r.Case != nil {
+			children = append(children, *r.Case)
+		}
+	}
+	return children
+}
+func (r RegulatedAuthorization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Boolean")
+}
+func (r RegulatedAuthorization) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to String")
+}
+func (r RegulatedAuthorization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Integer")
+}
+func (r RegulatedAuthorization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Decimal")
+}
+func (r RegulatedAuthorization) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Date")
+}
+func (r RegulatedAuthorization) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Time")
+}
+func (r RegulatedAuthorization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to DateTime")
+}
+func (r RegulatedAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RegulatedAuthorization to Quantity")
+}
+func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Region",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "StatusDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "ValidityPeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Indication",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "IntendedUse",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Basis",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Holder",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Regulator",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Case",
+			Type: "FHIR.RegulatedAuthorizationCase",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "RegulatedAuthorization",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r RegulatedAuthorizationCase) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "application") {
+		for _, v := range r.Application {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r RegulatedAuthorizationCase) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Boolean")
+}
+func (r RegulatedAuthorizationCase) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to String")
+}
+func (r RegulatedAuthorizationCase) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Integer")
+}
+func (r RegulatedAuthorizationCase) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Decimal")
+}
+func (r RegulatedAuthorizationCase) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Date")
+}
+func (r RegulatedAuthorizationCase) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Time")
+}
+func (r RegulatedAuthorizationCase) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to DateTime")
+}
+func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
+}
+func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Date",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Application",
+			Type: "List<FHIR.RegulatedAuthorizationCase>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "RegulatedAuthorizationCase",
+			Namespace: "FHIR",
+		},
 	}
 }

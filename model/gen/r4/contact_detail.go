@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -379,5 +382,78 @@ func (r *ContactDetail) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ContactDetail) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "telecom") {
+		for _, v := range r.Telecom {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ContactDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContactDetail to Boolean")
+}
+func (r ContactDetail) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContactDetail to String")
+}
+func (r ContactDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContactDetail to Integer")
+}
+func (r ContactDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContactDetail to Decimal")
+}
+func (r ContactDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContactDetail to Date")
+}
+func (r ContactDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContactDetail to Time")
+}
+func (r ContactDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContactDetail to DateTime")
+}
+func (r ContactDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContactDetail to Quantity")
+}
+func (r ContactDetail) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Telecom",
+			Type: "List<FHIR.ContactPoint>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContactDetail",
+			Namespace: "FHIR",
+		},
 	}
 }

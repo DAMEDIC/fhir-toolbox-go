@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1268,5 +1271,211 @@ func (r *LinkageItem) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Linkage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "active") {
+		if r.Active != nil {
+			children = append(children, *r.Active)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, *r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "item") {
+		for _, v := range r.Item {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Linkage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Linkage to Boolean")
+}
+func (r Linkage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Linkage to String")
+}
+func (r Linkage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Linkage to Integer")
+}
+func (r Linkage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Linkage to Decimal")
+}
+func (r Linkage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Linkage to Date")
+}
+func (r Linkage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Linkage to Time")
+}
+func (r Linkage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Linkage to DateTime")
+}
+func (r Linkage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Linkage to Quantity")
+}
+func (r Linkage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Active",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Author",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Item",
+			Type: "List<FHIR.LinkageItem>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Linkage",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r LinkageItem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		children = append(children, r.Resource)
+	}
+	return children
+}
+func (r LinkageItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert LinkageItem to Boolean")
+}
+func (r LinkageItem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert LinkageItem to String")
+}
+func (r LinkageItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert LinkageItem to Integer")
+}
+func (r LinkageItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert LinkageItem to Decimal")
+}
+func (r LinkageItem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert LinkageItem to Date")
+}
+func (r LinkageItem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert LinkageItem to Time")
+}
+func (r LinkageItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert LinkageItem to DateTime")
+}
+func (r LinkageItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert LinkageItem to Quantity")
+}
+func (r LinkageItem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Resource",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "LinkageItem",
+			Namespace: "FHIR",
+		},
 	}
 }

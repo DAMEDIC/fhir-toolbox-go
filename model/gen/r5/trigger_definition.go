@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -979,5 +982,116 @@ func (r *TriggerDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r TriggerDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subscriptionTopic") {
+		if r.SubscriptionTopic != nil {
+			children = append(children, *r.SubscriptionTopic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timing") {
+		if r.Timing != nil {
+			children = append(children, r.Timing)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		for _, v := range r.Data {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		if r.Condition != nil {
+			children = append(children, *r.Condition)
+		}
+	}
+	return children
+}
+func (r TriggerDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Boolean")
+}
+func (r TriggerDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TriggerDefinition to String")
+}
+func (r TriggerDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Integer")
+}
+func (r TriggerDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Decimal")
+}
+func (r TriggerDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Date")
+}
+func (r TriggerDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Time")
+}
+func (r TriggerDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TriggerDefinition to DateTime")
+}
+func (r TriggerDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TriggerDefinition to Quantity")
+}
+func (r TriggerDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "SubscriptionTopic",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Timing",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Data",
+			Type: "List<FHIR.DataRequirement>",
+		}, {
+			Name: "Condition",
+			Type: "FHIR.Expression",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TriggerDefinition",
+			Namespace: "FHIR",
+		},
 	}
 }

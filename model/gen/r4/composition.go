@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3911,5 +3914,620 @@ func (r *CompositionSection) UnmarshalXML(d *xml.Decoder, start xml.StartElement
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Composition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		children = append(children, r.Date)
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "confidentiality") {
+		if r.Confidentiality != nil {
+			children = append(children, *r.Confidentiality)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attester") {
+		for _, v := range r.Attester {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "custodian") {
+		if r.Custodian != nil {
+			children = append(children, *r.Custodian)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatesTo") {
+		for _, v := range r.RelatesTo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "event") {
+		for _, v := range r.Event {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "section") {
+		for _, v := range r.Section {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Composition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Composition to Boolean")
+}
+func (r Composition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Composition to String")
+}
+func (r Composition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Composition to Integer")
+}
+func (r Composition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Composition to Decimal")
+}
+func (r Composition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Composition to Date")
+}
+func (r Composition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Composition to Time")
+}
+func (r Composition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Composition to DateTime")
+}
+func (r Composition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Composition to Quantity")
+}
+func (r Composition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Confidentiality",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Attester",
+			Type: "List<FHIR.CompositionAttester>",
+		}, {
+			Name: "Custodian",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "RelatesTo",
+			Type: "List<FHIR.CompositionRelatesTo>",
+		}, {
+			Name: "Event",
+			Type: "List<FHIR.CompositionEvent>",
+		}, {
+			Name: "Section",
+			Type: "List<FHIR.CompositionSection>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Composition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CompositionAttester) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		children = append(children, r.Mode)
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, *r.Time)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "party") {
+		if r.Party != nil {
+			children = append(children, *r.Party)
+		}
+	}
+	return children
+}
+func (r CompositionAttester) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CompositionAttester to Boolean")
+}
+func (r CompositionAttester) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CompositionAttester to String")
+}
+func (r CompositionAttester) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CompositionAttester to Integer")
+}
+func (r CompositionAttester) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CompositionAttester to Decimal")
+}
+func (r CompositionAttester) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CompositionAttester to Date")
+}
+func (r CompositionAttester) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CompositionAttester to Time")
+}
+func (r CompositionAttester) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CompositionAttester to DateTime")
+}
+func (r CompositionAttester) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CompositionAttester to Quantity")
+}
+func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Time",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Party",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CompositionAttester",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CompositionRelatesTo) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		children = append(children, r.Target)
+	}
+	return children
+}
+func (r CompositionRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Boolean")
+}
+func (r CompositionRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to String")
+}
+func (r CompositionRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Integer")
+}
+func (r CompositionRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Decimal")
+}
+func (r CompositionRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Date")
+}
+func (r CompositionRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Time")
+}
+func (r CompositionRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to DateTime")
+}
+func (r CompositionRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CompositionRelatesTo to Quantity")
+}
+func (r CompositionRelatesTo) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Target",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CompositionRelatesTo",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CompositionEvent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detail") {
+		for _, v := range r.Detail {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CompositionEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CompositionEvent to Boolean")
+}
+func (r CompositionEvent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CompositionEvent to String")
+}
+func (r CompositionEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CompositionEvent to Integer")
+}
+func (r CompositionEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CompositionEvent to Decimal")
+}
+func (r CompositionEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CompositionEvent to Date")
+}
+func (r CompositionEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CompositionEvent to Time")
+}
+func (r CompositionEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CompositionEvent to DateTime")
+}
+func (r CompositionEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CompositionEvent to Quantity")
+}
+func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Detail",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CompositionEvent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CompositionSection) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		if r.Focus != nil {
+			children = append(children, *r.Focus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		if r.Mode != nil {
+			children = append(children, *r.Mode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orderedBy") {
+		if r.OrderedBy != nil {
+			children = append(children, *r.OrderedBy)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "entry") {
+		for _, v := range r.Entry {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "emptyReason") {
+		if r.EmptyReason != nil {
+			children = append(children, *r.EmptyReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "section") {
+		for _, v := range r.Section {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CompositionSection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CompositionSection to Boolean")
+}
+func (r CompositionSection) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CompositionSection to String")
+}
+func (r CompositionSection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CompositionSection to Integer")
+}
+func (r CompositionSection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CompositionSection to Decimal")
+}
+func (r CompositionSection) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CompositionSection to Date")
+}
+func (r CompositionSection) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CompositionSection to Time")
+}
+func (r CompositionSection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CompositionSection to DateTime")
+}
+func (r CompositionSection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CompositionSection to Quantity")
+}
+func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Focus",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "OrderedBy",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Entry",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "EmptyReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Section",
+			Type: "List<FHIR.CompositionSection>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CompositionSection",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -566,5 +569,84 @@ func (r *Annotation) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Annotation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, *r.Time)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		children = append(children, r.Text)
+	}
+	return children
+}
+func (r Annotation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Annotation to Boolean")
+}
+func (r Annotation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Annotation to String")
+}
+func (r Annotation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Annotation to Integer")
+}
+func (r Annotation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Annotation to Decimal")
+}
+func (r Annotation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Annotation to Date")
+}
+func (r Annotation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Annotation to Time")
+}
+func (r Annotation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Annotation to DateTime")
+}
+func (r Annotation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Annotation to Quantity")
+}
+func (r Annotation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Author",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Time",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Annotation",
+			Namespace: "FHIR",
+		},
 	}
 }

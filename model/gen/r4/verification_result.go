@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3493,5 +3496,557 @@ func (r *VerificationResultValidator) UnmarshalXML(d *xml.Decoder, start xml.Sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r VerificationResult) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		for _, v := range r.Target {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetLocation") {
+		for _, v := range r.TargetLocation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "need") {
+		if r.Need != nil {
+			children = append(children, *r.Need)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		if r.StatusDate != nil {
+			children = append(children, *r.StatusDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationType") {
+		if r.ValidationType != nil {
+			children = append(children, *r.ValidationType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationProcess") {
+		for _, v := range r.ValidationProcess {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frequency") {
+		if r.Frequency != nil {
+			children = append(children, *r.Frequency)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastPerformed") {
+		if r.LastPerformed != nil {
+			children = append(children, *r.LastPerformed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nextScheduled") {
+		if r.NextScheduled != nil {
+			children = append(children, *r.NextScheduled)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "failureAction") {
+		if r.FailureAction != nil {
+			children = append(children, *r.FailureAction)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "primarySource") {
+		for _, v := range r.PrimarySource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attestation") {
+		if r.Attestation != nil {
+			children = append(children, *r.Attestation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validator") {
+		for _, v := range r.Validator {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VerificationResult) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VerificationResult to Boolean")
+}
+func (r VerificationResult) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VerificationResult to String")
+}
+func (r VerificationResult) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VerificationResult to Integer")
+}
+func (r VerificationResult) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VerificationResult to Decimal")
+}
+func (r VerificationResult) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VerificationResult to Date")
+}
+func (r VerificationResult) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VerificationResult to Time")
+}
+func (r VerificationResult) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VerificationResult to DateTime")
+}
+func (r VerificationResult) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VerificationResult to Quantity")
+}
+func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Target",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "TargetLocation",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Need",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "StatusDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "ValidationType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ValidationProcess",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Frequency",
+			Type: "FHIR.Timing",
+		}, {
+			Name: "LastPerformed",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "NextScheduled",
+			Type: "FHIR.Date",
+		}, {
+			Name: "FailureAction",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PrimarySource",
+			Type: "List<FHIR.VerificationResultPrimarySource>",
+		}, {
+			Name: "Attestation",
+			Type: "FHIR.VerificationResultAttestation",
+		}, {
+			Name: "Validator",
+			Type: "List<FHIR.VerificationResultValidator>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "VerificationResult",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r VerificationResultPrimarySource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "communicationMethod") {
+		for _, v := range r.CommunicationMethod {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationStatus") {
+		if r.ValidationStatus != nil {
+			children = append(children, *r.ValidationStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationDate") {
+		if r.ValidationDate != nil {
+			children = append(children, *r.ValidationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "canPushUpdates") {
+		if r.CanPushUpdates != nil {
+			children = append(children, *r.CanPushUpdates)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pushTypeAvailable") {
+		for _, v := range r.PushTypeAvailable {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VerificationResultPrimarySource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Boolean")
+}
+func (r VerificationResultPrimarySource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to String")
+}
+func (r VerificationResultPrimarySource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Integer")
+}
+func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Decimal")
+}
+func (r VerificationResultPrimarySource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Date")
+}
+func (r VerificationResultPrimarySource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Time")
+}
+func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to DateTime")
+}
+func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VerificationResultPrimarySource to Quantity")
+}
+func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Who",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "CommunicationMethod",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ValidationStatus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ValidationDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "CanPushUpdates",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PushTypeAvailable",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VerificationResultPrimarySource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r VerificationResultAttestation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onBehalfOf") {
+		if r.OnBehalfOf != nil {
+			children = append(children, *r.OnBehalfOf)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "communicationMethod") {
+		if r.CommunicationMethod != nil {
+			children = append(children, *r.CommunicationMethod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceIdentityCertificate") {
+		if r.SourceIdentityCertificate != nil {
+			children = append(children, *r.SourceIdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "proxyIdentityCertificate") {
+		if r.ProxyIdentityCertificate != nil {
+			children = append(children, *r.ProxyIdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "proxySignature") {
+		if r.ProxySignature != nil {
+			children = append(children, *r.ProxySignature)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceSignature") {
+		if r.SourceSignature != nil {
+			children = append(children, *r.SourceSignature)
+		}
+	}
+	return children
+}
+func (r VerificationResultAttestation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Boolean")
+}
+func (r VerificationResultAttestation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to String")
+}
+func (r VerificationResultAttestation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Integer")
+}
+func (r VerificationResultAttestation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Decimal")
+}
+func (r VerificationResultAttestation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Date")
+}
+func (r VerificationResultAttestation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Time")
+}
+func (r VerificationResultAttestation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to DateTime")
+}
+func (r VerificationResultAttestation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VerificationResultAttestation to Quantity")
+}
+func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Who",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OnBehalfOf",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "CommunicationMethod",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Date",
+			Type: "FHIR.Date",
+		}, {
+			Name: "SourceIdentityCertificate",
+			Type: "FHIR.String",
+		}, {
+			Name: "ProxyIdentityCertificate",
+			Type: "FHIR.String",
+		}, {
+			Name: "ProxySignature",
+			Type: "FHIR.Signature",
+		}, {
+			Name: "SourceSignature",
+			Type: "FHIR.Signature",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VerificationResultAttestation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r VerificationResultValidator) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		children = append(children, r.Organization)
+	}
+	if len(name) == 0 || slices.Contains(name, "identityCertificate") {
+		if r.IdentityCertificate != nil {
+			children = append(children, *r.IdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attestationSignature") {
+		if r.AttestationSignature != nil {
+			children = append(children, *r.AttestationSignature)
+		}
+	}
+	return children
+}
+func (r VerificationResultValidator) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Boolean")
+}
+func (r VerificationResultValidator) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to String")
+}
+func (r VerificationResultValidator) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Integer")
+}
+func (r VerificationResultValidator) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Decimal")
+}
+func (r VerificationResultValidator) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Date")
+}
+func (r VerificationResultValidator) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Time")
+}
+func (r VerificationResultValidator) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to DateTime")
+}
+func (r VerificationResultValidator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert VerificationResultValidator to Quantity")
+}
+func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Organization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "IdentityCertificate",
+			Type: "FHIR.String",
+		}, {
+			Name: "AttestationSignature",
+			Type: "FHIR.Signature",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "VerificationResultValidator",
+			Namespace: "FHIR",
+		},
 	}
 }

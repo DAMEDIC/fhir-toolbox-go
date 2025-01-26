@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1371,4 +1374,270 @@ func (r TimingRepeat) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Timing) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "event") {
+		for _, v := range r.Event {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repeat") {
+		if r.Repeat != nil {
+			children = append(children, *r.Repeat)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	return children
+}
+func (r Timing) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Timing to Boolean")
+}
+func (r Timing) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Timing to String")
+}
+func (r Timing) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Timing to Integer")
+}
+func (r Timing) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Timing to Decimal")
+}
+func (r Timing) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Timing to Date")
+}
+func (r Timing) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Timing to Time")
+}
+func (r Timing) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Timing to DateTime")
+}
+func (r Timing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Timing to Quantity")
+}
+func (r Timing) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Event",
+			Type: "List<FHIR.DateTime>",
+		}, {
+			Name: "Repeat",
+			Type: "FHIR.TimingRepeat",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Timing",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TimingRepeat) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bounds") {
+		if r.Bounds != nil {
+			children = append(children, r.Bounds)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "count") {
+		if r.Count != nil {
+			children = append(children, *r.Count)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "countMax") {
+		if r.CountMax != nil {
+			children = append(children, *r.CountMax)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "duration") {
+		if r.Duration != nil {
+			children = append(children, *r.Duration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "durationMax") {
+		if r.DurationMax != nil {
+			children = append(children, *r.DurationMax)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "durationUnit") {
+		if r.DurationUnit != nil {
+			children = append(children, *r.DurationUnit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frequency") {
+		if r.Frequency != nil {
+			children = append(children, *r.Frequency)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frequencyMax") {
+		if r.FrequencyMax != nil {
+			children = append(children, *r.FrequencyMax)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "periodMax") {
+		if r.PeriodMax != nil {
+			children = append(children, *r.PeriodMax)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "periodUnit") {
+		if r.PeriodUnit != nil {
+			children = append(children, *r.PeriodUnit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dayOfWeek") {
+		for _, v := range r.DayOfWeek {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timeOfDay") {
+		for _, v := range r.TimeOfDay {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "when") {
+		for _, v := range r.When {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "offset") {
+		if r.Offset != nil {
+			children = append(children, *r.Offset)
+		}
+	}
+	return children
+}
+func (r TimingRepeat) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TimingRepeat to Boolean")
+}
+func (r TimingRepeat) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TimingRepeat to String")
+}
+func (r TimingRepeat) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TimingRepeat to Integer")
+}
+func (r TimingRepeat) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TimingRepeat to Decimal")
+}
+func (r TimingRepeat) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TimingRepeat to Date")
+}
+func (r TimingRepeat) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TimingRepeat to Time")
+}
+func (r TimingRepeat) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TimingRepeat to DateTime")
+}
+func (r TimingRepeat) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TimingRepeat to Quantity")
+}
+func (r TimingRepeat) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Bounds",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Count",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "CountMax",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Duration",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "DurationMax",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "DurationUnit",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Frequency",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "FrequencyMax",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "PeriodMax",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "PeriodUnit",
+			Type: "FHIR.Code",
+		}, {
+			Name: "DayOfWeek",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "TimeOfDay",
+			Type: "List<FHIR.Time>",
+		}, {
+			Name: "When",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "Offset",
+			Type: "FHIR.UnsignedInt",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TimingRepeat",
+			Namespace: "FHIR",
+		},
+	}
 }

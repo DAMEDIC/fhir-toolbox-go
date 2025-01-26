@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -730,5 +733,114 @@ func (r *ParameterDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ParameterDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		children = append(children, r.Use)
+	}
+	if len(name) == 0 || slices.Contains(name, "min") {
+		if r.Min != nil {
+			children = append(children, *r.Min)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "max") {
+		if r.Max != nil {
+			children = append(children, *r.Max)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentation") {
+		if r.Documentation != nil {
+			children = append(children, *r.Documentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		if r.Profile != nil {
+			children = append(children, *r.Profile)
+		}
+	}
+	return children
+}
+func (r ParameterDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Boolean")
+}
+func (r ParameterDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ParameterDefinition to String")
+}
+func (r ParameterDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Integer")
+}
+func (r ParameterDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Decimal")
+}
+func (r ParameterDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Date")
+}
+func (r ParameterDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Time")
+}
+func (r ParameterDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ParameterDefinition to DateTime")
+}
+func (r ParameterDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ParameterDefinition to Quantity")
+}
+func (r ParameterDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Min",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Max",
+			Type: "FHIR.String",
+		}, {
+			Name: "Documentation",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Profile",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ParameterDefinition",
+			Namespace: "FHIR",
+		},
 	}
 }

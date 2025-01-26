@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3068,5 +3071,391 @@ func (r *ChargeItemPerformer) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ChargeItem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionUri") {
+		for _, v := range r.DefinitionUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitionCanonical") {
+		for _, v := range r.DefinitionCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		if r.Context != nil {
+			children = append(children, *r.Context)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performingOrganization") {
+		if r.PerformingOrganization != nil {
+			children = append(children, *r.PerformingOrganization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requestingOrganization") {
+		if r.RequestingOrganization != nil {
+			children = append(children, *r.RequestingOrganization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "costCenter") {
+		if r.CostCenter != nil {
+			children = append(children, *r.CostCenter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodysite") {
+		for _, v := range r.Bodysite {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "factorOverride") {
+		if r.FactorOverride != nil {
+			children = append(children, *r.FactorOverride)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "priceOverride") {
+		if r.PriceOverride != nil {
+			children = append(children, *r.PriceOverride)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "overrideReason") {
+		if r.OverrideReason != nil {
+			children = append(children, *r.OverrideReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "enterer") {
+		if r.Enterer != nil {
+			children = append(children, *r.Enterer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "enteredDate") {
+		if r.EnteredDate != nil {
+			children = append(children, *r.EnteredDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "service") {
+		for _, v := range r.Service {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "product") {
+		if r.Product != nil {
+			children = append(children, r.Product)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "account") {
+		for _, v := range r.Account {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInformation") {
+		for _, v := range r.SupportingInformation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ChargeItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItem to Boolean")
+}
+func (r ChargeItem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItem to String")
+}
+func (r ChargeItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItem to Integer")
+}
+func (r ChargeItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItem to Decimal")
+}
+func (r ChargeItem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItem to Date")
+}
+func (r ChargeItem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItem to Time")
+}
+func (r ChargeItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItem to DateTime")
+}
+func (r ChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItem to Quantity")
+}
+func (r ChargeItem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "DefinitionUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "DefinitionCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Context",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.ChargeItemPerformer>",
+		}, {
+			Name: "PerformingOrganization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "RequestingOrganization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "CostCenter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Bodysite",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "FactorOverride",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "PriceOverride",
+			Type: "FHIR.Money",
+		}, {
+			Name: "OverrideReason",
+			Type: "FHIR.String",
+		}, {
+			Name: "Enterer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "EnteredDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Service",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Product",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Account",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "SupportingInformation",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItem",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ChargeItemPerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		children = append(children, r.Actor)
+	}
+	return children
+}
+func (r ChargeItemPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Boolean")
+}
+func (r ChargeItemPerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to String")
+}
+func (r ChargeItemPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Integer")
+}
+func (r ChargeItemPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Decimal")
+}
+func (r ChargeItemPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Date")
+}
+func (r ChargeItemPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Time")
+}
+func (r ChargeItemPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to DateTime")
+}
+func (r ChargeItemPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItemPerformer to Quantity")
+}
+func (r ChargeItemPerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItemPerformer",
+			Namespace: "FHIR",
+		},
 	}
 }

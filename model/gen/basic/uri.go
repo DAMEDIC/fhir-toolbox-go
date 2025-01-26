@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -68,4 +71,64 @@ func (r Uri) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Uri) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Uri) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Uri to Boolean")
+}
+func (r Uri) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Uri to String")
+}
+func (r Uri) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Uri to Integer")
+}
+func (r Uri) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Uri to Decimal")
+}
+func (r Uri) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Uri to Date")
+}
+func (r Uri) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Uri to Time")
+}
+func (r Uri) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Uri to DateTime")
+}
+func (r Uri) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Uri to Quantity")
+}
+func (r Uri) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Uri",
+			Namespace: "FHIR",
+		},
+	}
 }

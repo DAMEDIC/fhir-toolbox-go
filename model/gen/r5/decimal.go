@@ -2,8 +2,11 @@ package r5
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/cockroachdb/apd/v3"
+	"slices"
 	"unsafe"
 )
 
@@ -114,5 +117,65 @@ func (r *Decimal) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Decimal) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Decimal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Decimal to Boolean")
+}
+func (r Decimal) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Decimal to String")
+}
+func (r Decimal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Decimal to Integer")
+}
+func (r Decimal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Decimal to Decimal")
+}
+func (r Decimal) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Decimal to Date")
+}
+func (r Decimal) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Decimal to Time")
+}
+func (r Decimal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Decimal to DateTime")
+}
+func (r Decimal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Decimal to Quantity")
+}
+func (r Decimal) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Decimal",
+			Namespace: "FHIR",
+		},
 	}
 }

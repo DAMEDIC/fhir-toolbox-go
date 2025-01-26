@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -116,5 +119,65 @@ func (r *Canonical) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Canonical) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Canonical) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Canonical to Boolean")
+}
+func (r Canonical) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Canonical to String")
+}
+func (r Canonical) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Canonical to Integer")
+}
+func (r Canonical) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Canonical to Decimal")
+}
+func (r Canonical) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Canonical to Date")
+}
+func (r Canonical) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Canonical to Time")
+}
+func (r Canonical) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Canonical to DateTime")
+}
+func (r Canonical) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Canonical to Quantity")
+}
+func (r Canonical) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Canonical",
+			Namespace: "FHIR",
+		},
 	}
 }

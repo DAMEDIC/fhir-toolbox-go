@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1715,5 +1718,265 @@ func (r *DeviceMetricCalibration) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r DeviceMetric) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "unit") {
+		if r.Unit != nil {
+			children = append(children, *r.Unit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		children = append(children, r.Device)
+	}
+	if len(name) == 0 || slices.Contains(name, "operationalStatus") {
+		if r.OperationalStatus != nil {
+			children = append(children, *r.OperationalStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "color") {
+		if r.Color != nil {
+			children = append(children, *r.Color)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		children = append(children, r.Category)
+	}
+	if len(name) == 0 || slices.Contains(name, "measurementFrequency") {
+		if r.MeasurementFrequency != nil {
+			children = append(children, *r.MeasurementFrequency)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "calibration") {
+		for _, v := range r.Calibration {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DeviceMetric) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceMetric to Boolean")
+}
+func (r DeviceMetric) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceMetric to String")
+}
+func (r DeviceMetric) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceMetric to Integer")
+}
+func (r DeviceMetric) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceMetric to Decimal")
+}
+func (r DeviceMetric) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceMetric to Date")
+}
+func (r DeviceMetric) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceMetric to Time")
+}
+func (r DeviceMetric) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceMetric to DateTime")
+}
+func (r DeviceMetric) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceMetric to Quantity")
+}
+func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Unit",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OperationalStatus",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Color",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "FHIR.Code",
+		}, {
+			Name: "MeasurementFrequency",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Calibration",
+			Type: "List<FHIR.DeviceMetricCalibration>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceMetric",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceMetricCalibration) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "state") {
+		if r.State != nil {
+			children = append(children, *r.State)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, *r.Time)
+		}
+	}
+	return children
+}
+func (r DeviceMetricCalibration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Boolean")
+}
+func (r DeviceMetricCalibration) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to String")
+}
+func (r DeviceMetricCalibration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Integer")
+}
+func (r DeviceMetricCalibration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Decimal")
+}
+func (r DeviceMetricCalibration) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Date")
+}
+func (r DeviceMetricCalibration) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Time")
+}
+func (r DeviceMetricCalibration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to DateTime")
+}
+func (r DeviceMetricCalibration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceMetricCalibration to Quantity")
+}
+func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "State",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Time",
+			Type: "FHIR.Instant",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceMetricCalibration",
+			Namespace: "FHIR",
+		},
 	}
 }

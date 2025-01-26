@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -448,5 +451,92 @@ func (r *MonetaryComponent) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MonetaryComponent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "factor") {
+		if r.Factor != nil {
+			children = append(children, *r.Factor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, *r.Amount)
+		}
+	}
+	return children
+}
+func (r MonetaryComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Boolean")
+}
+func (r MonetaryComponent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MonetaryComponent to String")
+}
+func (r MonetaryComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Integer")
+}
+func (r MonetaryComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Decimal")
+}
+func (r MonetaryComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Date")
+}
+func (r MonetaryComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Time")
+}
+func (r MonetaryComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MonetaryComponent to DateTime")
+}
+func (r MonetaryComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MonetaryComponent to Quantity")
+}
+func (r MonetaryComponent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Factor",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.Money",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MonetaryComponent",
+			Namespace: "FHIR",
+		},
 	}
 }

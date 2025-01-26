@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4430,5 +4433,591 @@ func (r *GraphDefinitionLinkCompartment) UnmarshalXML(d *xml.Decoder, start xml.
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r GraphDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "node") {
+		for _, v := range r.Node {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "link") {
+		for _, v := range r.Link {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r GraphDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GraphDefinition to Boolean")
+}
+func (r GraphDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GraphDefinition to String")
+}
+func (r GraphDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GraphDefinition to Integer")
+}
+func (r GraphDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GraphDefinition to Decimal")
+}
+func (r GraphDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GraphDefinition to Date")
+}
+func (r GraphDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GraphDefinition to Time")
+}
+func (r GraphDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GraphDefinition to DateTime")
+}
+func (r GraphDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GraphDefinition to Quantity")
+}
+func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "Start",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Node",
+			Type: "List<FHIR.GraphDefinitionNode>",
+		}, {
+			Name: "Link",
+			Type: "List<FHIR.GraphDefinitionLink>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "GraphDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GraphDefinitionNode) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nodeId") {
+		children = append(children, r.NodeId)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		if r.Profile != nil {
+			children = append(children, *r.Profile)
+		}
+	}
+	return children
+}
+func (r GraphDefinitionNode) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Boolean")
+}
+func (r GraphDefinitionNode) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to String")
+}
+func (r GraphDefinitionNode) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Integer")
+}
+func (r GraphDefinitionNode) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Decimal")
+}
+func (r GraphDefinitionNode) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Date")
+}
+func (r GraphDefinitionNode) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Time")
+}
+func (r GraphDefinitionNode) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to DateTime")
+}
+func (r GraphDefinitionNode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GraphDefinitionNode to Quantity")
+}
+func (r GraphDefinitionNode) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "NodeId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Profile",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GraphDefinitionNode",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GraphDefinitionLink) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "min") {
+		if r.Min != nil {
+			children = append(children, *r.Min)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "max") {
+		if r.Max != nil {
+			children = append(children, *r.Max)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceId") {
+		children = append(children, r.SourceId)
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		if r.Path != nil {
+			children = append(children, *r.Path)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sliceName") {
+		if r.SliceName != nil {
+			children = append(children, *r.SliceName)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetId") {
+		children = append(children, r.TargetId)
+	}
+	if len(name) == 0 || slices.Contains(name, "params") {
+		if r.Params != nil {
+			children = append(children, *r.Params)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "compartment") {
+		for _, v := range r.Compartment {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r GraphDefinitionLink) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Boolean")
+}
+func (r GraphDefinitionLink) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to String")
+}
+func (r GraphDefinitionLink) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Integer")
+}
+func (r GraphDefinitionLink) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Decimal")
+}
+func (r GraphDefinitionLink) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Date")
+}
+func (r GraphDefinitionLink) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Time")
+}
+func (r GraphDefinitionLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to DateTime")
+}
+func (r GraphDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GraphDefinitionLink to Quantity")
+}
+func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Min",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Max",
+			Type: "FHIR.String",
+		}, {
+			Name: "SourceId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "SliceName",
+			Type: "FHIR.String",
+		}, {
+			Name: "TargetId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Params",
+			Type: "FHIR.String",
+		}, {
+			Name: "Compartment",
+			Type: "List<FHIR.GraphDefinitionLinkCompartment>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GraphDefinitionLink",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r GraphDefinitionLinkCompartment) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		children = append(children, r.Use)
+	}
+	if len(name) == 0 || slices.Contains(name, "rule") {
+		children = append(children, r.Rule)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "expression") {
+		if r.Expression != nil {
+			children = append(children, *r.Expression)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	return children
+}
+func (r GraphDefinitionLinkCompartment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Boolean")
+}
+func (r GraphDefinitionLinkCompartment) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to String")
+}
+func (r GraphDefinitionLinkCompartment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Integer")
+}
+func (r GraphDefinitionLinkCompartment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Decimal")
+}
+func (r GraphDefinitionLinkCompartment) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Date")
+}
+func (r GraphDefinitionLinkCompartment) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Time")
+}
+func (r GraphDefinitionLinkCompartment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to DateTime")
+}
+func (r GraphDefinitionLinkCompartment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Quantity")
+}
+func (r GraphDefinitionLinkCompartment) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Rule",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Expression",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "GraphDefinitionLinkCompartment",
+			Namespace: "FHIR",
+		},
 	}
 }

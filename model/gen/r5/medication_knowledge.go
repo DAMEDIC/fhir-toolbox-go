@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -11211,5 +11214,1806 @@ func (r *MedicationKnowledgeDefinitionalDrugCharacteristic) UnmarshalXML(d *xml.
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MedicationKnowledge) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, *r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "intendedJurisdiction") {
+		for _, v := range r.IntendedJurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		for _, v := range r.Name {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedMedicationKnowledge") {
+		for _, v := range r.RelatedMedicationKnowledge {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "associatedMedication") {
+		for _, v := range r.AssociatedMedication {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "productType") {
+		for _, v := range r.ProductType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monograph") {
+		for _, v := range r.Monograph {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preparationInstruction") {
+		if r.PreparationInstruction != nil {
+			children = append(children, *r.PreparationInstruction)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cost") {
+		for _, v := range r.Cost {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monitoringProgram") {
+		for _, v := range r.MonitoringProgram {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "indicationGuideline") {
+		for _, v := range r.IndicationGuideline {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "medicineClassification") {
+		for _, v := range r.MedicineClassification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "packaging") {
+		for _, v := range r.Packaging {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "clinicalUseIssue") {
+		for _, v := range r.ClinicalUseIssue {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "storageGuideline") {
+		for _, v := range r.StorageGuideline {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regulatory") {
+		for _, v := range r.Regulatory {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definitional") {
+		if r.Definitional != nil {
+			children = append(children, *r.Definitional)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledge) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Boolean")
+}
+func (r MedicationKnowledge) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to String")
+}
+func (r MedicationKnowledge) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Integer")
+}
+func (r MedicationKnowledge) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Decimal")
+}
+func (r MedicationKnowledge) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Date")
+}
+func (r MedicationKnowledge) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Time")
+}
+func (r MedicationKnowledge) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to DateTime")
+}
+func (r MedicationKnowledge) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledge to Quantity")
+}
+func (r MedicationKnowledge) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Author",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "IntendedJurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Name",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "RelatedMedicationKnowledge",
+			Type: "List<FHIR.MedicationKnowledgeRelatedMedicationKnowledge>",
+		}, {
+			Name: "AssociatedMedication",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "ProductType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Monograph",
+			Type: "List<FHIR.MedicationKnowledgeMonograph>",
+		}, {
+			Name: "PreparationInstruction",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Cost",
+			Type: "List<FHIR.MedicationKnowledgeCost>",
+		}, {
+			Name: "MonitoringProgram",
+			Type: "List<FHIR.MedicationKnowledgeMonitoringProgram>",
+		}, {
+			Name: "IndicationGuideline",
+			Type: "List<FHIR.MedicationKnowledgeIndicationGuideline>",
+		}, {
+			Name: "MedicineClassification",
+			Type: "List<FHIR.MedicationKnowledgeMedicineClassification>",
+		}, {
+			Name: "Packaging",
+			Type: "List<FHIR.MedicationKnowledgePackaging>",
+		}, {
+			Name: "ClinicalUseIssue",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "StorageGuideline",
+			Type: "List<FHIR.MedicationKnowledgeStorageGuideline>",
+		}, {
+			Name: "Regulatory",
+			Type: "List<FHIR.MedicationKnowledgeRegulatory>",
+		}, {
+			Name: "Definitional",
+			Type: "FHIR.MedicationKnowledgeDefinitional",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledge",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		for _, v := range r.Reference {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Boolean")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to String")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Integer")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Decimal")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Date")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Time")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to DateTime")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Quantity")
+}
+func (r MedicationKnowledgeRelatedMedicationKnowledge) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Reference",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeRelatedMedicationKnowledge",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeMonograph) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeMonograph) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Boolean")
+}
+func (r MedicationKnowledgeMonograph) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to String")
+}
+func (r MedicationKnowledgeMonograph) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Integer")
+}
+func (r MedicationKnowledgeMonograph) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Decimal")
+}
+func (r MedicationKnowledgeMonograph) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Date")
+}
+func (r MedicationKnowledgeMonograph) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Time")
+}
+func (r MedicationKnowledgeMonograph) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to DateTime")
+}
+func (r MedicationKnowledgeMonograph) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Quantity")
+}
+func (r MedicationKnowledgeMonograph) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeMonograph",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeCost) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectiveDate") {
+		for _, v := range r.EffectiveDate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cost") {
+		children = append(children, r.Cost)
+	}
+	return children
+}
+func (r MedicationKnowledgeCost) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Boolean")
+}
+func (r MedicationKnowledgeCost) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to String")
+}
+func (r MedicationKnowledgeCost) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Integer")
+}
+func (r MedicationKnowledgeCost) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Decimal")
+}
+func (r MedicationKnowledgeCost) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Date")
+}
+func (r MedicationKnowledgeCost) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Time")
+}
+func (r MedicationKnowledgeCost) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to DateTime")
+}
+func (r MedicationKnowledgeCost) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeCost to Quantity")
+}
+func (r MedicationKnowledgeCost) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "EffectiveDate",
+			Type: "List<FHIR.Period>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Source",
+			Type: "FHIR.String",
+		}, {
+			Name: "Cost",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeCost",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeMonitoringProgram) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeMonitoringProgram) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Boolean")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to String")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Integer")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Decimal")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Date")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Time")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to DateTime")
+}
+func (r MedicationKnowledgeMonitoringProgram) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Quantity")
+}
+func (r MedicationKnowledgeMonitoringProgram) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeMonitoringProgram",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeIndicationGuideline) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "indication") {
+		for _, v := range r.Indication {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dosingGuideline") {
+		for _, v := range r.DosingGuideline {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeIndicationGuideline) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Boolean")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to String")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Integer")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Decimal")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Date")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Time")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to DateTime")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Quantity")
+}
+func (r MedicationKnowledgeIndicationGuideline) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Indication",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "DosingGuideline",
+			Type: "List<FHIR.MedicationKnowledgeIndicationGuidelineDosingGuideline>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeIndicationGuideline",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "treatmentIntent") {
+		if r.TreatmentIntent != nil {
+			children = append(children, *r.TreatmentIntent)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dosage") {
+		for _, v := range r.Dosage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "administrationTreatment") {
+		if r.AdministrationTreatment != nil {
+			children = append(children, *r.AdministrationTreatment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patientCharacteristic") {
+		for _, v := range r.PatientCharacteristic {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Boolean")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to String")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Integer")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Decimal")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Date")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Time")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to DateTime")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Quantity")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "TreatmentIntent",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Dosage",
+			Type: "List<FHIR.MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage>",
+		}, {
+			Name: "AdministrationTreatment",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PatientCharacteristic",
+			Type: "List<FHIR.MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeIndicationGuidelineDosingGuideline",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "dosage") {
+		for _, v := range r.Dosage {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Boolean")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to String")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Integer")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Decimal")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Date")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Time")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to DateTime")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Quantity")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Dosage",
+			Type: "List<FHIR.Dosage>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Boolean")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to String")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Integer")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Decimal")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Date")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Time")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to DateTime")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Quantity")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeMedicineClassification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		for _, v := range r.Classification {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeMedicineClassification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Boolean")
+}
+func (r MedicationKnowledgeMedicineClassification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to String")
+}
+func (r MedicationKnowledgeMedicineClassification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Integer")
+}
+func (r MedicationKnowledgeMedicineClassification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Decimal")
+}
+func (r MedicationKnowledgeMedicineClassification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Date")
+}
+func (r MedicationKnowledgeMedicineClassification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Time")
+}
+func (r MedicationKnowledgeMedicineClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to DateTime")
+}
+func (r MedicationKnowledgeMedicineClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Quantity")
+}
+func (r MedicationKnowledgeMedicineClassification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Source",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Classification",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeMedicineClassification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgePackaging) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cost") {
+		for _, v := range r.Cost {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "packagedProduct") {
+		if r.PackagedProduct != nil {
+			children = append(children, *r.PackagedProduct)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgePackaging) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Boolean")
+}
+func (r MedicationKnowledgePackaging) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to String")
+}
+func (r MedicationKnowledgePackaging) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Integer")
+}
+func (r MedicationKnowledgePackaging) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Decimal")
+}
+func (r MedicationKnowledgePackaging) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Date")
+}
+func (r MedicationKnowledgePackaging) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Time")
+}
+func (r MedicationKnowledgePackaging) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to DateTime")
+}
+func (r MedicationKnowledgePackaging) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgePackaging to Quantity")
+}
+func (r MedicationKnowledgePackaging) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Cost",
+			Type: "List<FHIR.MedicationKnowledgeCost>",
+		}, {
+			Name: "PackagedProduct",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgePackaging",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeStorageGuideline) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		if r.Reference != nil {
+			children = append(children, *r.Reference)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stabilityDuration") {
+		if r.StabilityDuration != nil {
+			children = append(children, *r.StabilityDuration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "environmentalSetting") {
+		for _, v := range r.EnvironmentalSetting {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeStorageGuideline) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Boolean")
+}
+func (r MedicationKnowledgeStorageGuideline) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to String")
+}
+func (r MedicationKnowledgeStorageGuideline) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Integer")
+}
+func (r MedicationKnowledgeStorageGuideline) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Decimal")
+}
+func (r MedicationKnowledgeStorageGuideline) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Date")
+}
+func (r MedicationKnowledgeStorageGuideline) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Time")
+}
+func (r MedicationKnowledgeStorageGuideline) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to DateTime")
+}
+func (r MedicationKnowledgeStorageGuideline) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Quantity")
+}
+func (r MedicationKnowledgeStorageGuideline) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "StabilityDuration",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "EnvironmentalSetting",
+			Type: "List<FHIR.MedicationKnowledgeStorageGuidelineEnvironmentalSetting>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeStorageGuideline",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Boolean")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to String")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Integer")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Decimal")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Date")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Time")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to DateTime")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Quantity")
+}
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeStorageGuidelineEnvironmentalSetting",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeRegulatory) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "regulatoryAuthority") {
+		children = append(children, r.RegulatoryAuthority)
+	}
+	if len(name) == 0 || slices.Contains(name, "substitution") {
+		for _, v := range r.Substitution {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "schedule") {
+		for _, v := range r.Schedule {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDispense") {
+		if r.MaxDispense != nil {
+			children = append(children, *r.MaxDispense)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeRegulatory) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Boolean")
+}
+func (r MedicationKnowledgeRegulatory) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to String")
+}
+func (r MedicationKnowledgeRegulatory) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Integer")
+}
+func (r MedicationKnowledgeRegulatory) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Decimal")
+}
+func (r MedicationKnowledgeRegulatory) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Date")
+}
+func (r MedicationKnowledgeRegulatory) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Time")
+}
+func (r MedicationKnowledgeRegulatory) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to DateTime")
+}
+func (r MedicationKnowledgeRegulatory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Quantity")
+}
+func (r MedicationKnowledgeRegulatory) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "RegulatoryAuthority",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Substitution",
+			Type: "List<FHIR.MedicationKnowledgeRegulatorySubstitution>",
+		}, {
+			Name: "Schedule",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "MaxDispense",
+			Type: "FHIR.MedicationKnowledgeRegulatoryMaxDispense",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeRegulatory",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeRegulatorySubstitution) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "allowed") {
+		children = append(children, r.Allowed)
+	}
+	return children
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Boolean")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to String")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Integer")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Decimal")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Date")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Time")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to DateTime")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Quantity")
+}
+func (r MedicationKnowledgeRegulatorySubstitution) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Allowed",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeRegulatorySubstitution",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		children = append(children, r.Quantity)
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Boolean")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to String")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Integer")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Decimal")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Date")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Time")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to DateTime")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Quantity")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Duration",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeRegulatoryMaxDispense",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeDefinitional) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		for _, v := range r.Definition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doseForm") {
+		if r.DoseForm != nil {
+			children = append(children, *r.DoseForm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "intendedRoute") {
+		for _, v := range r.IntendedRoute {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ingredient") {
+		for _, v := range r.Ingredient {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "drugCharacteristic") {
+		for _, v := range r.DrugCharacteristic {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeDefinitional) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Boolean")
+}
+func (r MedicationKnowledgeDefinitional) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to String")
+}
+func (r MedicationKnowledgeDefinitional) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Integer")
+}
+func (r MedicationKnowledgeDefinitional) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Decimal")
+}
+func (r MedicationKnowledgeDefinitional) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Date")
+}
+func (r MedicationKnowledgeDefinitional) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Time")
+}
+func (r MedicationKnowledgeDefinitional) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to DateTime")
+}
+func (r MedicationKnowledgeDefinitional) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Quantity")
+}
+func (r MedicationKnowledgeDefinitional) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Definition",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "DoseForm",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "IntendedRoute",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Ingredient",
+			Type: "List<FHIR.MedicationKnowledgeDefinitionalIngredient>",
+		}, {
+			Name: "DrugCharacteristic",
+			Type: "List<FHIR.MedicationKnowledgeDefinitionalDrugCharacteristic>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeDefinitional",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeDefinitionalIngredient) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "item") {
+		children = append(children, r.Item)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "strength") {
+		if r.Strength != nil {
+			children = append(children, r.Strength)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Boolean")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to String")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Integer")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Decimal")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Date")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Time")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to DateTime")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Quantity")
+}
+func (r MedicationKnowledgeDefinitionalIngredient) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Item",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Strength",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeDefinitionalIngredient",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Boolean")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to String")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Integer")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Decimal")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Date")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Time")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to DateTime")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Quantity")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicationKnowledgeDefinitionalDrugCharacteristic",
+			Namespace: "FHIR",
+		},
 	}
 }

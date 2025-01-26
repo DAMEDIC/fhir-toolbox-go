@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -527,5 +530,104 @@ func (r *MarketingStatus) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MarketingStatus) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "country") {
+		children = append(children, r.Country)
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		if r.Jurisdiction != nil {
+			children = append(children, *r.Jurisdiction)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "dateRange") {
+		children = append(children, r.DateRange)
+	}
+	if len(name) == 0 || slices.Contains(name, "restoreDate") {
+		if r.RestoreDate != nil {
+			children = append(children, *r.RestoreDate)
+		}
+	}
+	return children
+}
+func (r MarketingStatus) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MarketingStatus to Boolean")
+}
+func (r MarketingStatus) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MarketingStatus to String")
+}
+func (r MarketingStatus) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MarketingStatus to Integer")
+}
+func (r MarketingStatus) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MarketingStatus to Decimal")
+}
+func (r MarketingStatus) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MarketingStatus to Date")
+}
+func (r MarketingStatus) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MarketingStatus to Time")
+}
+func (r MarketingStatus) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MarketingStatus to DateTime")
+}
+func (r MarketingStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MarketingStatus to Quantity")
+}
+func (r MarketingStatus) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Country",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Jurisdiction",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "DateRange",
+			Type: "FHIR.Period",
+		}, {
+			Name: "RestoreDate",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MarketingStatus",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2887,5 +2890,377 @@ func (r *CarePlanActivity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r CarePlan) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		for _, v := range r.InstantiatesCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		for _, v := range r.InstantiatesUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "replaces") {
+		for _, v := range r.Replaces {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "intent") {
+		children = append(children, r.Intent)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		if r.Created != nil {
+			children = append(children, *r.Created)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "custodian") {
+		if r.Custodian != nil {
+			children = append(children, *r.Custodian)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributor") {
+		for _, v := range r.Contributor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "careTeam") {
+		for _, v := range r.CareTeam {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "addresses") {
+		for _, v := range r.Addresses {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInfo") {
+		for _, v := range r.SupportingInfo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "goal") {
+		for _, v := range r.Goal {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "activity") {
+		for _, v := range r.Activity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CarePlan) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CarePlan to Boolean")
+}
+func (r CarePlan) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CarePlan to String")
+}
+func (r CarePlan) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CarePlan to Integer")
+}
+func (r CarePlan) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CarePlan to Decimal")
+}
+func (r CarePlan) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CarePlan to Date")
+}
+func (r CarePlan) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CarePlan to Time")
+}
+func (r CarePlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CarePlan to DateTime")
+}
+func (r CarePlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CarePlan to Quantity")
+}
+func (r CarePlan) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Replaces",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Intent",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Created",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Custodian",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Contributor",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "CareTeam",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Addresses",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "SupportingInfo",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Goal",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Activity",
+			Type: "List<FHIR.CarePlanActivity>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "CarePlan",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CarePlanActivity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performedActivity") {
+		for _, v := range r.PerformedActivity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "progress") {
+		for _, v := range r.Progress {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "plannedActivityReference") {
+		if r.PlannedActivityReference != nil {
+			children = append(children, *r.PlannedActivityReference)
+		}
+	}
+	return children
+}
+func (r CarePlanActivity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Boolean")
+}
+func (r CarePlanActivity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CarePlanActivity to String")
+}
+func (r CarePlanActivity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Integer")
+}
+func (r CarePlanActivity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Decimal")
+}
+func (r CarePlanActivity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Date")
+}
+func (r CarePlanActivity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Time")
+}
+func (r CarePlanActivity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CarePlanActivity to DateTime")
+}
+func (r CarePlanActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CarePlanActivity to Quantity")
+}
+func (r CarePlanActivity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "PerformedActivity",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Progress",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "PlannedActivityReference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CarePlanActivity",
+			Namespace: "FHIR",
+		},
 	}
 }

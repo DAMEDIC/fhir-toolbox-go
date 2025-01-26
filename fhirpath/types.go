@@ -16,7 +16,10 @@ import (
 )
 
 type Element interface {
-	Member(name string) Collection
+	// Children returns all child nodes with given names.
+	//
+	// If no name is passed, all children are returned.
+	Children(name ...string) Collection
 	ToBoolean(explicit bool) (*Boolean, error)
 	ToString(explicit bool) (*String, error)
 	ToInteger(explicit bool) (*Integer, error)
@@ -25,7 +28,7 @@ type Element interface {
 	ToTime(explicit bool) (*Time, error)
 	ToDateTime(explicit bool) (*DateTime, error)
 	ToQuantity(explicit bool) (*Quantity, error)
-	Type() TypeInfo
+	TypeInfo() TypeInfo
 }
 
 type TypeInfo interface {
@@ -138,7 +141,7 @@ func WithTypes(
 		}
 		typeMap[qual] = t
 	}
-	return context.WithValue(ctx, knownTypesKey{}, types)
+	return context.WithValue(ctx, knownTypesKey{}, typeMap)
 }
 
 func knownTypes(ctx context.Context) map[TypeSpecifier]TypeInfo {
@@ -151,14 +154,14 @@ func knownTypes(ctx context.Context) map[TypeSpecifier]TypeInfo {
 
 var (
 	systemTypes = []TypeInfo{
-		Boolean(false).Type(),
-		String("").Type(),
-		Integer(0).Type(),
-		Decimal{}.Type(),
-		Date{}.Type(),
-		Time{}.Type(),
-		DateTime{}.Type(),
-		Quantity{}.Type(),
+		Boolean(false).TypeInfo(),
+		String("").TypeInfo(),
+		Integer(0).TypeInfo(),
+		Decimal{}.TypeInfo(),
+		Date{}.TypeInfo(),
+		Time{}.TypeInfo(),
+		DateTime{}.TypeInfo(),
+		Quantity{}.TypeInfo(),
 	}
 	systemTypesMap = sync.OnceValue(func() map[TypeSpecifier]TypeInfo {
 		m := map[TypeSpecifier]TypeInfo{}
@@ -224,7 +227,7 @@ func isType(ctx context.Context, target Element, isOf TypeSpecifier) (Element, e
 	if !ok {
 		return nil, fmt.Errorf("can not resolve type `%s`", isOf)
 	}
-	return Boolean(subTypeOf(ctx, target.Type(), typ)), nil
+	return Boolean(subTypeOf(ctx, target.TypeInfo(), typ)), nil
 }
 
 func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Element, error) {
@@ -232,7 +235,7 @@ func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Element, e
 	if !ok {
 		return nil, fmt.Errorf("can not resolve type `%s`", asOf)
 	}
-	if subTypeOf(ctx, target.Type(), typ) {
+	if subTypeOf(ctx, target.TypeInfo(), typ) {
 		return target, nil
 	} else {
 		return nil, nil
@@ -275,7 +278,7 @@ type Collection []Element
 
 type Boolean bool
 
-func (b Boolean) Member(name string) Collection {
+func (b Boolean) Children(name ...string) Collection {
 	return nil
 }
 
@@ -327,7 +330,7 @@ func (b Boolean) ToQuantity(explicit bool) (*Quantity, error) {
 	}
 	return nil, conversionError[Boolean, Quantity]()
 }
-func (b Boolean) Type() TypeInfo {
+func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Boolean",
@@ -341,7 +344,7 @@ func (b Boolean) String() string {
 
 type String string
 
-func (s String) Member(name string) Collection {
+func (s String) Children(name ...string) Collection {
 	return nil
 }
 
@@ -417,7 +420,7 @@ func (s String) ToQuantity(explicit bool) (*Quantity, error) {
 	}
 	return &q, nil
 }
-func (s String) Type() TypeInfo {
+func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "String",
@@ -452,7 +455,7 @@ func unescape(s string) (string, error) {
 
 type Integer uint
 
-func (i Integer) Member(name string) Collection {
+func (i Integer) Children(name ...string) Collection {
 	return nil
 }
 
@@ -495,7 +498,7 @@ func (i Integer) ToQuantity(explicit bool) (*Quantity, error) {
 		Unit: "1",
 	}, nil
 }
-func (i Integer) Type() TypeInfo {
+func (i Integer) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Integer",
@@ -511,7 +514,7 @@ type Decimal struct {
 	Value *apd.Decimal
 }
 
-func (d Decimal) Member(name string) Collection {
+func (d Decimal) Children(name ...string) Collection {
 	return nil
 }
 
@@ -552,7 +555,7 @@ func (d Decimal) ToQuantity(explicit bool) (*Quantity, error) {
 	}, nil
 }
 
-func (d Decimal) Type() TypeInfo {
+func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Decimal",
@@ -577,7 +580,7 @@ const (
 	DatePrecisionFull  = "full"
 )
 
-func (d Date) Member(name string) Collection {
+func (d Date) Children(name ...string) Collection {
 	return nil
 }
 
@@ -609,7 +612,7 @@ func (d Date) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[Date, Quantity]()
 }
 
-func (d Date) Type() TypeInfo {
+func (d Date) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Date",
@@ -643,7 +646,7 @@ const (
 	TimePrecisionFull   = "full"
 )
 
-func (t Time) Member(name string) Collection {
+func (t Time) Children(name ...string) Collection {
 	return nil
 }
 
@@ -671,7 +674,7 @@ func (t Time) ToDateTime(explicit bool) (*DateTime, error) {
 func (t Time) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[Time, Quantity]()
 }
-func (t Time) Type() TypeInfo {
+func (t Time) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Time",
@@ -708,7 +711,7 @@ const (
 	DateTimePrecisionFull   = "full"
 )
 
-func (dt DateTime) Member(name string) Collection {
+func (dt DateTime) Children(name ...string) Collection {
 	return nil
 }
 
@@ -746,7 +749,7 @@ func (dt DateTime) ToDateTime(explicit bool) (*DateTime, error) {
 func (dt DateTime) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[DateTime, Quantity]()
 }
-func (dt DateTime) Type() TypeInfo {
+func (dt DateTime) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "DateTime",
@@ -889,15 +892,15 @@ type Quantity struct {
 	Unit  String
 }
 
-func (q Quantity) Member(name string) Collection {
-	switch name {
-	case "value":
-		return Collection{q.Value}
-	case "unit":
-		return Collection{q.Unit}
-	default:
-		return nil
+func (q Quantity) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, q.Value)
 	}
+	if len(name) == 0 || slices.Contains(name, "unit") {
+		children = append(children, q.Unit)
+	}
+	return children
 }
 
 func (q Quantity) ToBoolean(explicit bool) (*Boolean, error) {
@@ -924,7 +927,7 @@ func (q Quantity) ToDateTime(explicit bool) (*DateTime, error) {
 func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
 	return &q, nil
 }
-func (q Quantity) Type() TypeInfo {
+func (q Quantity) TypeInfo() TypeInfo {
 	return ClassInfo{
 		SimpleTypeInfo: SimpleTypeInfo{
 			Namespace: "System",

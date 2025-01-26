@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -341,4 +344,101 @@ func (r ContactPoint) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r ContactPoint) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		if r.Use != nil {
+			children = append(children, *r.Use)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rank") {
+		if r.Rank != nil {
+			children = append(children, *r.Rank)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r ContactPoint) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ContactPoint to Boolean")
+}
+func (r ContactPoint) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ContactPoint to String")
+}
+func (r ContactPoint) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ContactPoint to Integer")
+}
+func (r ContactPoint) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ContactPoint to Decimal")
+}
+func (r ContactPoint) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ContactPoint to Date")
+}
+func (r ContactPoint) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ContactPoint to Time")
+}
+func (r ContactPoint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ContactPoint to DateTime")
+}
+func (r ContactPoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ContactPoint to Quantity")
+}
+func (r ContactPoint) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "System",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Rank",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ContactPoint",
+			Namespace: "FHIR",
+		},
+	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2945,5 +2948,526 @@ func (r *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdra
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MedicinalProductPharmaceutical) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "administrableDoseForm") {
+		children = append(children, r.AdministrableDoseForm)
+	}
+	if len(name) == 0 || slices.Contains(name, "unitOfPresentation") {
+		if r.UnitOfPresentation != nil {
+			children = append(children, *r.UnitOfPresentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ingredient") {
+		for _, v := range r.Ingredient {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		for _, v := range r.Device {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characteristics") {
+		for _, v := range r.Characteristics {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "routeOfAdministration") {
+		for _, v := range r.RouteOfAdministration {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicinalProductPharmaceutical) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Boolean")
+}
+func (r MedicinalProductPharmaceutical) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to String")
+}
+func (r MedicinalProductPharmaceutical) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Integer")
+}
+func (r MedicinalProductPharmaceutical) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Decimal")
+}
+func (r MedicinalProductPharmaceutical) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Date")
+}
+func (r MedicinalProductPharmaceutical) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Time")
+}
+func (r MedicinalProductPharmaceutical) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to DateTime")
+}
+func (r MedicinalProductPharmaceutical) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Quantity")
+}
+func (r MedicinalProductPharmaceutical) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "AdministrableDoseForm",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "UnitOfPresentation",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Ingredient",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Device",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Characteristics",
+			Type: "List<FHIR.MedicinalProductPharmaceuticalCharacteristics>",
+		}, {
+			Name: "RouteOfAdministration",
+			Type: "List<FHIR.MedicinalProductPharmaceuticalRouteOfAdministration>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductPharmaceutical",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	return children
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Boolean")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to String")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Integer")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Decimal")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Date")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Time")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to DateTime")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Quantity")
+}
+func (r MedicinalProductPharmaceuticalCharacteristics) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductPharmaceuticalCharacteristics",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "firstDose") {
+		if r.FirstDose != nil {
+			children = append(children, *r.FirstDose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxSingleDose") {
+		if r.MaxSingleDose != nil {
+			children = append(children, *r.MaxSingleDose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDosePerDay") {
+		if r.MaxDosePerDay != nil {
+			children = append(children, *r.MaxDosePerDay)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDosePerTreatmentPeriod") {
+		if r.MaxDosePerTreatmentPeriod != nil {
+			children = append(children, *r.MaxDosePerTreatmentPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxTreatmentPeriod") {
+		if r.MaxTreatmentPeriod != nil {
+			children = append(children, *r.MaxTreatmentPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetSpecies") {
+		for _, v := range r.TargetSpecies {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Boolean")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to String")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Integer")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Decimal")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Date")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Time")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to DateTime")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Quantity")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "FirstDose",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxSingleDose",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxDosePerDay",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxDosePerTreatmentPeriod",
+			Type: "FHIR.Ratio",
+		}, {
+			Name: "MaxTreatmentPeriod",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "TargetSpecies",
+			Type: "List<FHIR.MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductPharmaceuticalRouteOfAdministration",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "withdrawalPeriod") {
+		for _, v := range r.WithdrawalPeriod {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Boolean")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to String")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Integer")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Decimal")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Date")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Time")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to DateTime")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Quantity")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "WithdrawalPeriod",
+			Type: "List<FHIR.MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "tissue") {
+		children = append(children, r.Tissue)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInformation") {
+		if r.SupportingInformation != nil {
+			children = append(children, *r.SupportingInformation)
+		}
+	}
+	return children
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Boolean")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to String")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Date")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Time")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to DateTime")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Tissue",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "SupportingInformation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod",
+			Namespace: "FHIR",
+		},
 	}
 }

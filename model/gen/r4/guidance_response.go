@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1840,5 +1843,226 @@ func (r *GuidanceResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r GuidanceResponse) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requestIdentifier") {
+		if r.RequestIdentifier != nil {
+			children = append(children, *r.RequestIdentifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "module") {
+		children = append(children, r.Module)
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrenceDateTime") {
+		if r.OccurrenceDateTime != nil {
+			children = append(children, *r.OccurrenceDateTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		if r.Performer != nil {
+			children = append(children, *r.Performer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonCode") {
+		for _, v := range r.ReasonCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonReference") {
+		for _, v := range r.ReasonReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "evaluationMessage") {
+		for _, v := range r.EvaluationMessage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outputParameters") {
+		if r.OutputParameters != nil {
+			children = append(children, *r.OutputParameters)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "result") {
+		if r.Result != nil {
+			children = append(children, *r.Result)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dataRequirement") {
+		for _, v := range r.DataRequirement {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r GuidanceResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Boolean")
+}
+func (r GuidanceResponse) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert GuidanceResponse to String")
+}
+func (r GuidanceResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Integer")
+}
+func (r GuidanceResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Decimal")
+}
+func (r GuidanceResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Date")
+}
+func (r GuidanceResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Time")
+}
+func (r GuidanceResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert GuidanceResponse to DateTime")
+}
+func (r GuidanceResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert GuidanceResponse to Quantity")
+}
+func (r GuidanceResponse) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "RequestIdentifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Module",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OccurrenceDateTime",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Performer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ReasonCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ReasonReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "EvaluationMessage",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "OutputParameters",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Result",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "DataRequirement",
+			Type: "List<FHIR.DataRequirement>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "GuidanceResponse",
+			Namespace: "FHIR",
+		},
 	}
 }

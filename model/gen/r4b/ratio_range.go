@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -350,5 +353,86 @@ func (r *RatioRange) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r RatioRange) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lowNumerator") {
+		if r.LowNumerator != nil {
+			children = append(children, *r.LowNumerator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "highNumerator") {
+		if r.HighNumerator != nil {
+			children = append(children, *r.HighNumerator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "denominator") {
+		if r.Denominator != nil {
+			children = append(children, *r.Denominator)
+		}
+	}
+	return children
+}
+func (r RatioRange) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RatioRange to Boolean")
+}
+func (r RatioRange) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RatioRange to String")
+}
+func (r RatioRange) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RatioRange to Integer")
+}
+func (r RatioRange) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RatioRange to Decimal")
+}
+func (r RatioRange) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RatioRange to Date")
+}
+func (r RatioRange) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RatioRange to Time")
+}
+func (r RatioRange) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RatioRange to DateTime")
+}
+func (r RatioRange) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RatioRange to Quantity")
+}
+func (r RatioRange) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "LowNumerator",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "HighNumerator",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Denominator",
+			Type: "FHIR.Quantity",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "RatioRange",
+			Namespace: "FHIR",
+		},
 	}
 }

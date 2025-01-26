@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -755,5 +758,110 @@ func (r *Meta) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Meta) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionId") {
+		if r.VersionId != nil {
+			children = append(children, *r.VersionId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastUpdated") {
+		if r.LastUpdated != nil {
+			children = append(children, *r.LastUpdated)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		for _, v := range r.Profile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "security") {
+		for _, v := range r.Security {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "tag") {
+		for _, v := range r.Tag {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Meta) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Meta to Boolean")
+}
+func (r Meta) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Meta to String")
+}
+func (r Meta) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Meta to Integer")
+}
+func (r Meta) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Meta to Decimal")
+}
+func (r Meta) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Meta to Date")
+}
+func (r Meta) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Meta to Time")
+}
+func (r Meta) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Meta to DateTime")
+}
+func (r Meta) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Meta to Quantity")
+}
+func (r Meta) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "VersionId",
+			Type: "FHIR.Id",
+		}, {
+			Name: "LastUpdated",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Source",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Profile",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Security",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Tag",
+			Type: "List<FHIR.Coding>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Meta",
+			Namespace: "FHIR",
+		},
 	}
 }

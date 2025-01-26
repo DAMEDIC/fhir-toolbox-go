@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1127,5 +1130,168 @@ func (r *ResearchSubject) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ResearchSubject) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "study") {
+		children = append(children, r.Study)
+	}
+	if len(name) == 0 || slices.Contains(name, "individual") {
+		children = append(children, r.Individual)
+	}
+	if len(name) == 0 || slices.Contains(name, "assignedArm") {
+		if r.AssignedArm != nil {
+			children = append(children, *r.AssignedArm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actualArm") {
+		if r.ActualArm != nil {
+			children = append(children, *r.ActualArm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "consent") {
+		if r.Consent != nil {
+			children = append(children, *r.Consent)
+		}
+	}
+	return children
+}
+func (r ResearchSubject) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ResearchSubject to Boolean")
+}
+func (r ResearchSubject) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ResearchSubject to String")
+}
+func (r ResearchSubject) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ResearchSubject to Integer")
+}
+func (r ResearchSubject) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ResearchSubject to Decimal")
+}
+func (r ResearchSubject) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ResearchSubject to Date")
+}
+func (r ResearchSubject) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ResearchSubject to Time")
+}
+func (r ResearchSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ResearchSubject to DateTime")
+}
+func (r ResearchSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ResearchSubject to Quantity")
+}
+func (r ResearchSubject) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Study",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Individual",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AssignedArm",
+			Type: "FHIR.String",
+		}, {
+			Name: "ActualArm",
+			Type: "FHIR.String",
+		}, {
+			Name: "Consent",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ResearchSubject",
+			Namespace: "FHIR",
+		},
 	}
 }

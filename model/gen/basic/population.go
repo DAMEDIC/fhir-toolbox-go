@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -352,4 +355,101 @@ func (r Population) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Population) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "age") {
+		if r.Age != nil {
+			children = append(children, r.Age)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "gender") {
+		if r.Gender != nil {
+			children = append(children, *r.Gender)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "race") {
+		if r.Race != nil {
+			children = append(children, *r.Race)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "physiologicalCondition") {
+		if r.PhysiologicalCondition != nil {
+			children = append(children, *r.PhysiologicalCondition)
+		}
+	}
+	return children
+}
+func (r Population) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Population to Boolean")
+}
+func (r Population) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Population to String")
+}
+func (r Population) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Population to Integer")
+}
+func (r Population) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Population to Decimal")
+}
+func (r Population) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Population to Date")
+}
+func (r Population) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Population to Time")
+}
+func (r Population) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Population to DateTime")
+}
+func (r Population) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Population to Quantity")
+}
+func (r Population) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Age",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Gender",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Race",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PhysiologicalCondition",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Population",
+			Namespace: "FHIR",
+		},
+	}
 }

@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -639,4 +642,157 @@ func (r ProdCharacteristic) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 		return err
 	}
 	return nil
+}
+func (r ProdCharacteristic) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "height") {
+		if r.Height != nil {
+			children = append(children, *r.Height)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "width") {
+		if r.Width != nil {
+			children = append(children, *r.Width)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "depth") {
+		if r.Depth != nil {
+			children = append(children, *r.Depth)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "weight") {
+		if r.Weight != nil {
+			children = append(children, *r.Weight)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nominalVolume") {
+		if r.NominalVolume != nil {
+			children = append(children, *r.NominalVolume)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "externalDiameter") {
+		if r.ExternalDiameter != nil {
+			children = append(children, *r.ExternalDiameter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "shape") {
+		if r.Shape != nil {
+			children = append(children, *r.Shape)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "color") {
+		for _, v := range r.Color {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "imprint") {
+		for _, v := range r.Imprint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "image") {
+		for _, v := range r.Image {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "scoring") {
+		if r.Scoring != nil {
+			children = append(children, *r.Scoring)
+		}
+	}
+	return children
+}
+func (r ProdCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Boolean")
+}
+func (r ProdCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to String")
+}
+func (r ProdCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Integer")
+}
+func (r ProdCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Decimal")
+}
+func (r ProdCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Date")
+}
+func (r ProdCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Time")
+}
+func (r ProdCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to DateTime")
+}
+func (r ProdCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ProdCharacteristic to Quantity")
+}
+func (r ProdCharacteristic) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Height",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Width",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Depth",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Weight",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "NominalVolume",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "ExternalDiameter",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Shape",
+			Type: "FHIR.String",
+		}, {
+			Name: "Color",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Imprint",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Image",
+			Type: "List<FHIR.Attachment>",
+		}, {
+			Name: "Scoring",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ProdCharacteristic",
+			Namespace: "FHIR",
+		},
+	}
 }

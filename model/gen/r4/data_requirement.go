@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2514,5 +2517,363 @@ func (r *DataRequirementSort) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r DataRequirement) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		for _, v := range r.Profile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mustSupport") {
+		for _, v := range r.MustSupport {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "codeFilter") {
+		for _, v := range r.CodeFilter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dateFilter") {
+		for _, v := range r.DateFilter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "limit") {
+		if r.Limit != nil {
+			children = append(children, *r.Limit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sort") {
+		for _, v := range r.Sort {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DataRequirement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DataRequirement to Boolean")
+}
+func (r DataRequirement) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DataRequirement to String")
+}
+func (r DataRequirement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DataRequirement to Integer")
+}
+func (r DataRequirement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DataRequirement to Decimal")
+}
+func (r DataRequirement) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DataRequirement to Date")
+}
+func (r DataRequirement) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DataRequirement to Time")
+}
+func (r DataRequirement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DataRequirement to DateTime")
+}
+func (r DataRequirement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DataRequirement to Quantity")
+}
+func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Profile",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "MustSupport",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "CodeFilter",
+			Type: "List<FHIR.DataRequirementCodeFilter>",
+		}, {
+			Name: "DateFilter",
+			Type: "List<FHIR.DataRequirementDateFilter>",
+		}, {
+			Name: "Limit",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Sort",
+			Type: "List<FHIR.DataRequirementSort>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DataRequirement",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DataRequirementCodeFilter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		if r.Path != nil {
+			children = append(children, *r.Path)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchParam") {
+		if r.SearchParam != nil {
+			children = append(children, *r.SearchParam)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueSet") {
+		if r.ValueSet != nil {
+			children = append(children, *r.ValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DataRequirementCodeFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Boolean")
+}
+func (r DataRequirementCodeFilter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to String")
+}
+func (r DataRequirementCodeFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Integer")
+}
+func (r DataRequirementCodeFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Decimal")
+}
+func (r DataRequirementCodeFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Date")
+}
+func (r DataRequirementCodeFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Time")
+}
+func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to DateTime")
+}
+func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DataRequirementCodeFilter to Quantity")
+}
+func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "SearchParam",
+			Type: "FHIR.String",
+		}, {
+			Name: "ValueSet",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.Coding>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DataRequirementCodeFilter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DataRequirementDateFilter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		if r.Path != nil {
+			children = append(children, *r.Path)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "searchParam") {
+		if r.SearchParam != nil {
+			children = append(children, *r.SearchParam)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r DataRequirementDateFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Boolean")
+}
+func (r DataRequirementDateFilter) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to String")
+}
+func (r DataRequirementDateFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Integer")
+}
+func (r DataRequirementDateFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Decimal")
+}
+func (r DataRequirementDateFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Date")
+}
+func (r DataRequirementDateFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Time")
+}
+func (r DataRequirementDateFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to DateTime")
+}
+func (r DataRequirementDateFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DataRequirementDateFilter to Quantity")
+}
+func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "SearchParam",
+			Type: "FHIR.String",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DataRequirementDateFilter",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DataRequirementSort) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "path") {
+		children = append(children, r.Path)
+	}
+	if len(name) == 0 || slices.Contains(name, "direction") {
+		children = append(children, r.Direction)
+	}
+	return children
+}
+func (r DataRequirementSort) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Boolean")
+}
+func (r DataRequirementSort) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DataRequirementSort to String")
+}
+func (r DataRequirementSort) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Integer")
+}
+func (r DataRequirementSort) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Decimal")
+}
+func (r DataRequirementSort) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Date")
+}
+func (r DataRequirementSort) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Time")
+}
+func (r DataRequirementSort) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DataRequirementSort to DateTime")
+}
+func (r DataRequirementSort) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DataRequirementSort to Quantity")
+}
+func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Path",
+			Type: "FHIR.String",
+		}, {
+			Name: "Direction",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DataRequirementSort",
+			Namespace: "FHIR",
+		},
 	}
 }

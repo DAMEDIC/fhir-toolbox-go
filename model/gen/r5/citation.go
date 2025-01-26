@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -13718,5 +13721,2198 @@ func (r *CitationCitedArtifactContributorshipSummary) UnmarshalXML(d *xml.Decode
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Citation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "editor") {
+		for _, v := range r.Editor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reviewer") {
+		for _, v := range r.Reviewer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endorser") {
+		for _, v := range r.Endorser {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "summary") {
+		for _, v := range r.Summary {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		for _, v := range r.Classification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "currentState") {
+		for _, v := range r.CurrentState {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		for _, v := range r.StatusDate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedArtifact") {
+		for _, v := range r.RelatedArtifact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "citedArtifact") {
+		if r.CitedArtifact != nil {
+			children = append(children, *r.CitedArtifact)
+		}
+	}
+	return children
+}
+func (r Citation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Citation to Boolean")
+}
+func (r Citation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Citation to String")
+}
+func (r Citation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Citation to Integer")
+}
+func (r Citation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Citation to Decimal")
+}
+func (r Citation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Citation to Date")
+}
+func (r Citation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Citation to Time")
+}
+func (r Citation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Citation to DateTime")
+}
+func (r Citation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Citation to Quantity")
+}
+func (r Citation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Editor",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Reviewer",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Endorser",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Summary",
+			Type: "List<FHIR.CitationSummary>",
+		}, {
+			Name: "Classification",
+			Type: "List<FHIR.CitationClassification>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "CurrentState",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "StatusDate",
+			Type: "List<FHIR.CitationStatusDate>",
+		}, {
+			Name: "RelatedArtifact",
+			Type: "List<FHIR.RelatedArtifact>",
+		}, {
+			Name: "CitedArtifact",
+			Type: "FHIR.CitationCitedArtifact",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Citation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationSummary) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "style") {
+		if r.Style != nil {
+			children = append(children, *r.Style)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		children = append(children, r.Text)
+	}
+	return children
+}
+func (r CitationSummary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationSummary to Boolean")
+}
+func (r CitationSummary) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationSummary to String")
+}
+func (r CitationSummary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationSummary to Integer")
+}
+func (r CitationSummary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationSummary to Decimal")
+}
+func (r CitationSummary) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationSummary to Date")
+}
+func (r CitationSummary) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationSummary to Time")
+}
+func (r CitationSummary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationSummary to DateTime")
+}
+func (r CitationSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationSummary to Quantity")
+}
+func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Style",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationSummary",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationClassification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classifier") {
+		for _, v := range r.Classifier {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CitationClassification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationClassification to Boolean")
+}
+func (r CitationClassification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationClassification to String")
+}
+func (r CitationClassification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationClassification to Integer")
+}
+func (r CitationClassification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationClassification to Decimal")
+}
+func (r CitationClassification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationClassification to Date")
+}
+func (r CitationClassification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationClassification to Time")
+}
+func (r CitationClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationClassification to DateTime")
+}
+func (r CitationClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationClassification to Quantity")
+}
+func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Classifier",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationClassification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationStatusDate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "activity") {
+		children = append(children, r.Activity)
+	}
+	if len(name) == 0 || slices.Contains(name, "actual") {
+		if r.Actual != nil {
+			children = append(children, *r.Actual)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		children = append(children, r.Period)
+	}
+	return children
+}
+func (r CitationStatusDate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Boolean")
+}
+func (r CitationStatusDate) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationStatusDate to String")
+}
+func (r CitationStatusDate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Integer")
+}
+func (r CitationStatusDate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Decimal")
+}
+func (r CitationStatusDate) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Date")
+}
+func (r CitationStatusDate) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Time")
+}
+func (r CitationStatusDate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationStatusDate to DateTime")
+}
+func (r CitationStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationStatusDate to Quantity")
+}
+func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Activity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actual",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationStatusDate",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifact) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedIdentifier") {
+		for _, v := range r.RelatedIdentifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dateAccessed") {
+		if r.DateAccessed != nil {
+			children = append(children, *r.DateAccessed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "currentState") {
+		for _, v := range r.CurrentState {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		for _, v := range r.StatusDate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		for _, v := range r.Title {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "abstract") {
+		for _, v := range r.Abstract {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "part") {
+		if r.Part != nil {
+			children = append(children, *r.Part)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatesTo") {
+		for _, v := range r.RelatesTo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationForm") {
+		for _, v := range r.PublicationForm {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "webLocation") {
+		for _, v := range r.WebLocation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		for _, v := range r.Classification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributorship") {
+		if r.Contributorship != nil {
+			children = append(children, *r.Contributorship)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifact) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Boolean")
+}
+func (r CitationCitedArtifact) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to String")
+}
+func (r CitationCitedArtifact) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Integer")
+}
+func (r CitationCitedArtifact) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Decimal")
+}
+func (r CitationCitedArtifact) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Date")
+}
+func (r CitationCitedArtifact) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Time")
+}
+func (r CitationCitedArtifact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to DateTime")
+}
+func (r CitationCitedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifact to Quantity")
+}
+func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "RelatedIdentifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "DateAccessed",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Version",
+			Type: "FHIR.CitationCitedArtifactVersion",
+		}, {
+			Name: "CurrentState",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "StatusDate",
+			Type: "List<FHIR.CitationCitedArtifactStatusDate>",
+		}, {
+			Name: "Title",
+			Type: "List<FHIR.CitationCitedArtifactTitle>",
+		}, {
+			Name: "Abstract",
+			Type: "List<FHIR.CitationCitedArtifactAbstract>",
+		}, {
+			Name: "Part",
+			Type: "FHIR.CitationCitedArtifactPart",
+		}, {
+			Name: "RelatesTo",
+			Type: "List<FHIR.CitationCitedArtifactRelatesTo>",
+		}, {
+			Name: "PublicationForm",
+			Type: "List<FHIR.CitationCitedArtifactPublicationForm>",
+		}, {
+			Name: "WebLocation",
+			Type: "List<FHIR.CitationCitedArtifactWebLocation>",
+		}, {
+			Name: "Classification",
+			Type: "List<FHIR.CitationCitedArtifactClassification>",
+		}, {
+			Name: "Contributorship",
+			Type: "FHIR.CitationCitedArtifactContributorship",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifact",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactVersion) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	if len(name) == 0 || slices.Contains(name, "baseCitation") {
+		if r.BaseCitation != nil {
+			children = append(children, *r.BaseCitation)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactVersion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Boolean")
+}
+func (r CitationCitedArtifactVersion) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to String")
+}
+func (r CitationCitedArtifactVersion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Integer")
+}
+func (r CitationCitedArtifactVersion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Decimal")
+}
+func (r CitationCitedArtifactVersion) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Date")
+}
+func (r CitationCitedArtifactVersion) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Time")
+}
+func (r CitationCitedArtifactVersion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to DateTime")
+}
+func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
+}
+func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}, {
+			Name: "BaseCitation",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactVersion",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactStatusDate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "activity") {
+		children = append(children, r.Activity)
+	}
+	if len(name) == 0 || slices.Contains(name, "actual") {
+		if r.Actual != nil {
+			children = append(children, *r.Actual)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		children = append(children, r.Period)
+	}
+	return children
+}
+func (r CitationCitedArtifactStatusDate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Boolean")
+}
+func (r CitationCitedArtifactStatusDate) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to String")
+}
+func (r CitationCitedArtifactStatusDate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Integer")
+}
+func (r CitationCitedArtifactStatusDate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Decimal")
+}
+func (r CitationCitedArtifactStatusDate) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Date")
+}
+func (r CitationCitedArtifactStatusDate) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Time")
+}
+func (r CitationCitedArtifactStatusDate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to DateTime")
+}
+func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
+}
+func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Activity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actual",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactStatusDate",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactTitle) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		children = append(children, r.Text)
+	}
+	return children
+}
+func (r CitationCitedArtifactTitle) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Boolean")
+}
+func (r CitationCitedArtifactTitle) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to String")
+}
+func (r CitationCitedArtifactTitle) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Integer")
+}
+func (r CitationCitedArtifactTitle) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Decimal")
+}
+func (r CitationCitedArtifactTitle) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Date")
+}
+func (r CitationCitedArtifactTitle) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Time")
+}
+func (r CitationCitedArtifactTitle) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to DateTime")
+}
+func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
+}
+func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Language",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactTitle",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactAbstract) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		children = append(children, r.Text)
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactAbstract) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Boolean")
+}
+func (r CitationCitedArtifactAbstract) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to String")
+}
+func (r CitationCitedArtifactAbstract) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Integer")
+}
+func (r CitationCitedArtifactAbstract) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Decimal")
+}
+func (r CitationCitedArtifactAbstract) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Date")
+}
+func (r CitationCitedArtifactAbstract) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Time")
+}
+func (r CitationCitedArtifactAbstract) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to DateTime")
+}
+func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
+}
+func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Language",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactAbstract",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactPart) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "baseCitation") {
+		if r.BaseCitation != nil {
+			children = append(children, *r.BaseCitation)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactPart) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Boolean")
+}
+func (r CitationCitedArtifactPart) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to String")
+}
+func (r CitationCitedArtifactPart) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Integer")
+}
+func (r CitationCitedArtifactPart) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Decimal")
+}
+func (r CitationCitedArtifactPart) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Date")
+}
+func (r CitationCitedArtifactPart) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Time")
+}
+func (r CitationCitedArtifactPart) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to DateTime")
+}
+func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPart to Quantity")
+}
+func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.String",
+		}, {
+			Name: "BaseCitation",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactPart",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactRelatesTo) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "classifier") {
+		for _, v := range r.Classifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "label") {
+		if r.Label != nil {
+			children = append(children, *r.Label)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "citation") {
+		if r.Citation != nil {
+			children = append(children, *r.Citation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "document") {
+		if r.Document != nil {
+			children = append(children, *r.Document)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		if r.Resource != nil {
+			children = append(children, *r.Resource)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resourceReference") {
+		if r.ResourceReference != nil {
+			children = append(children, *r.ResourceReference)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Boolean")
+}
+func (r CitationCitedArtifactRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to String")
+}
+func (r CitationCitedArtifactRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Integer")
+}
+func (r CitationCitedArtifactRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Decimal")
+}
+func (r CitationCitedArtifactRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Date")
+}
+func (r CitationCitedArtifactRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Time")
+}
+func (r CitationCitedArtifactRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to DateTime")
+}
+func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
+}
+func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Classifier",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Label",
+			Type: "FHIR.String",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "Citation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Document",
+			Type: "FHIR.Attachment",
+		}, {
+			Name: "Resource",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "ResourceReference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactRelatesTo",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactPublicationForm) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publishedIn") {
+		if r.PublishedIn != nil {
+			children = append(children, *r.PublishedIn)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "citedMedium") {
+		if r.CitedMedium != nil {
+			children = append(children, *r.CitedMedium)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "volume") {
+		if r.Volume != nil {
+			children = append(children, *r.Volume)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issue") {
+		if r.Issue != nil {
+			children = append(children, *r.Issue)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "articleDate") {
+		if r.ArticleDate != nil {
+			children = append(children, *r.ArticleDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationDateText") {
+		if r.PublicationDateText != nil {
+			children = append(children, *r.PublicationDateText)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationDateSeason") {
+		if r.PublicationDateSeason != nil {
+			children = append(children, *r.PublicationDateSeason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastRevisionDate") {
+		if r.LastRevisionDate != nil {
+			children = append(children, *r.LastRevisionDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		for _, v := range r.Language {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "accessionNumber") {
+		if r.AccessionNumber != nil {
+			children = append(children, *r.AccessionNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pageString") {
+		if r.PageString != nil {
+			children = append(children, *r.PageString)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "firstPage") {
+		if r.FirstPage != nil {
+			children = append(children, *r.FirstPage)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastPage") {
+		if r.LastPage != nil {
+			children = append(children, *r.LastPage)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pageCount") {
+		if r.PageCount != nil {
+			children = append(children, *r.PageCount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactPublicationForm) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Boolean")
+}
+func (r CitationCitedArtifactPublicationForm) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to String")
+}
+func (r CitationCitedArtifactPublicationForm) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Integer")
+}
+func (r CitationCitedArtifactPublicationForm) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Decimal")
+}
+func (r CitationCitedArtifactPublicationForm) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Date")
+}
+func (r CitationCitedArtifactPublicationForm) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Time")
+}
+func (r CitationCitedArtifactPublicationForm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to DateTime")
+}
+func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
+}
+func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "PublishedIn",
+			Type: "FHIR.CitationCitedArtifactPublicationFormPublishedIn",
+		}, {
+			Name: "CitedMedium",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Volume",
+			Type: "FHIR.String",
+		}, {
+			Name: "Issue",
+			Type: "FHIR.String",
+		}, {
+			Name: "ArticleDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "PublicationDateText",
+			Type: "FHIR.String",
+		}, {
+			Name: "PublicationDateSeason",
+			Type: "FHIR.String",
+		}, {
+			Name: "LastRevisionDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Language",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "AccessionNumber",
+			Type: "FHIR.String",
+		}, {
+			Name: "PageString",
+			Type: "FHIR.String",
+		}, {
+			Name: "FirstPage",
+			Type: "FHIR.String",
+		}, {
+			Name: "LastPage",
+			Type: "FHIR.String",
+		}, {
+			Name: "PageCount",
+			Type: "FHIR.String",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactPublicationForm",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisherLocation") {
+		if r.PublisherLocation != nil {
+			children = append(children, *r.PublisherLocation)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Boolean")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to String")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Integer")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Decimal")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Date")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Time")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to DateTime")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PublisherLocation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactPublicationFormPublishedIn",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactWebLocation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classifier") {
+		for _, v := range r.Classifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactWebLocation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Boolean")
+}
+func (r CitationCitedArtifactWebLocation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to String")
+}
+func (r CitationCitedArtifactWebLocation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Integer")
+}
+func (r CitationCitedArtifactWebLocation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Decimal")
+}
+func (r CitationCitedArtifactWebLocation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Date")
+}
+func (r CitationCitedArtifactWebLocation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Time")
+}
+func (r CitationCitedArtifactWebLocation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to DateTime")
+}
+func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
+}
+func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Classifier",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactWebLocation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactClassification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classifier") {
+		for _, v := range r.Classifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "artifactAssessment") {
+		for _, v := range r.ArtifactAssessment {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactClassification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Boolean")
+}
+func (r CitationCitedArtifactClassification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to String")
+}
+func (r CitationCitedArtifactClassification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Integer")
+}
+func (r CitationCitedArtifactClassification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Decimal")
+}
+func (r CitationCitedArtifactClassification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Date")
+}
+func (r CitationCitedArtifactClassification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Time")
+}
+func (r CitationCitedArtifactClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to DateTime")
+}
+func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
+}
+func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Classifier",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ArtifactAssessment",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactClassification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactContributorship) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "complete") {
+		if r.Complete != nil {
+			children = append(children, *r.Complete)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "entry") {
+		for _, v := range r.Entry {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "summary") {
+		for _, v := range r.Summary {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactContributorship) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Boolean")
+}
+func (r CitationCitedArtifactContributorship) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to String")
+}
+func (r CitationCitedArtifactContributorship) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Integer")
+}
+func (r CitationCitedArtifactContributorship) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Decimal")
+}
+func (r CitationCitedArtifactContributorship) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Date")
+}
+func (r CitationCitedArtifactContributorship) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Time")
+}
+func (r CitationCitedArtifactContributorship) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to DateTime")
+}
+func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
+}
+func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Complete",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Entry",
+			Type: "List<FHIR.CitationCitedArtifactContributorshipEntry>",
+		}, {
+			Name: "Summary",
+			Type: "List<FHIR.CitationCitedArtifactContributorshipSummary>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactContributorship",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactContributorshipEntry) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributor") {
+		children = append(children, r.Contributor)
+	}
+	if len(name) == 0 || slices.Contains(name, "forenameInitials") {
+		if r.ForenameInitials != nil {
+			children = append(children, *r.ForenameInitials)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "affiliation") {
+		for _, v := range r.Affiliation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributionType") {
+		for _, v := range r.ContributionType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributionInstance") {
+		for _, v := range r.ContributionInstance {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "correspondingContact") {
+		if r.CorrespondingContact != nil {
+			children = append(children, *r.CorrespondingContact)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rankingOrder") {
+		if r.RankingOrder != nil {
+			children = append(children, *r.RankingOrder)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactContributorshipEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Boolean")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to String")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Integer")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Decimal")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Date")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Time")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to DateTime")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
+}
+func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Contributor",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ForenameInitials",
+			Type: "FHIR.String",
+		}, {
+			Name: "Affiliation",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "ContributionType",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ContributionInstance",
+			Type: "List<FHIR.CitationCitedArtifactContributorshipEntryContributionInstance>",
+		}, {
+			Name: "CorrespondingContact",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "RankingOrder",
+			Type: "FHIR.PositiveInt",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactContributorshipEntry",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, *r.Time)
+		}
+	}
+	return children
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Boolean")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to String")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Integer")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Decimal")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Date")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Time")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to DateTime")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Time",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactContributorshipEntryContributionInstance",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r CitationCitedArtifactContributorshipSummary) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "style") {
+		if r.Style != nil {
+			children = append(children, *r.Style)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, *r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r CitationCitedArtifactContributorshipSummary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Boolean")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to String")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Integer")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Decimal")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Date")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Time")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to DateTime")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
+}
+func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Style",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Source",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "CitationCitedArtifactContributorshipSummary",
+			Namespace: "FHIR",
+		},
 	}
 }

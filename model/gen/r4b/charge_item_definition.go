@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4019,5 +4022,555 @@ func (r *ChargeItemDefinitionPropertyGroupPriceComponent) UnmarshalXML(d *xml.De
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ChargeItemDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "derivedFromUri") {
+		for _, v := range r.DerivedFromUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "replaces") {
+		for _, v := range r.Replaces {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		for _, v := range r.Instance {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "applicability") {
+		for _, v := range r.Applicability {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "propertyGroup") {
+		for _, v := range r.PropertyGroup {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ChargeItemDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Boolean")
+}
+func (r ChargeItemDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to String")
+}
+func (r ChargeItemDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Integer")
+}
+func (r ChargeItemDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Decimal")
+}
+func (r ChargeItemDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Date")
+}
+func (r ChargeItemDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Time")
+}
+func (r ChargeItemDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to DateTime")
+}
+func (r ChargeItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItemDefinition to Quantity")
+}
+func (r ChargeItemDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "DerivedFromUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Replaces",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Instance",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Applicability",
+			Type: "List<FHIR.ChargeItemDefinitionApplicability>",
+		}, {
+			Name: "PropertyGroup",
+			Type: "List<FHIR.ChargeItemDefinitionPropertyGroup>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItemDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ChargeItemDefinitionApplicability) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expression") {
+		if r.Expression != nil {
+			children = append(children, *r.Expression)
+		}
+	}
+	return children
+}
+func (r ChargeItemDefinitionApplicability) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Boolean")
+}
+func (r ChargeItemDefinitionApplicability) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to String")
+}
+func (r ChargeItemDefinitionApplicability) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Integer")
+}
+func (r ChargeItemDefinitionApplicability) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Decimal")
+}
+func (r ChargeItemDefinitionApplicability) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Date")
+}
+func (r ChargeItemDefinitionApplicability) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Time")
+}
+func (r ChargeItemDefinitionApplicability) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to DateTime")
+}
+func (r ChargeItemDefinitionApplicability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Quantity")
+}
+func (r ChargeItemDefinitionApplicability) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Language",
+			Type: "FHIR.String",
+		}, {
+			Name: "Expression",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItemDefinitionApplicability",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ChargeItemDefinitionPropertyGroup) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "applicability") {
+		for _, v := range r.Applicability {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "priceComponent") {
+		for _, v := range r.PriceComponent {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ChargeItemDefinitionPropertyGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Boolean")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to String")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Integer")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Decimal")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Date")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Time")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to DateTime")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Quantity")
+}
+func (r ChargeItemDefinitionPropertyGroup) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Applicability",
+			Type: "List<FHIR.ChargeItemDefinitionApplicability>",
+		}, {
+			Name: "PriceComponent",
+			Type: "List<FHIR.ChargeItemDefinitionPropertyGroupPriceComponent>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItemDefinitionPropertyGroup",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "factor") {
+		if r.Factor != nil {
+			children = append(children, *r.Factor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, *r.Amount)
+		}
+	}
+	return children
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Boolean")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to String")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Integer")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Decimal")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Date")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Time")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to DateTime")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Quantity")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Factor",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.Money",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ChargeItemDefinitionPropertyGroupPriceComponent",
+			Namespace: "FHIR",
+		},
 	}
 }

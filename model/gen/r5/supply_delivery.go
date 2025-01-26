@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2014,5 +2017,279 @@ func (r *SupplyDeliverySuppliedItem) UnmarshalXML(d *xml.Decoder, start xml.Star
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SupplyDelivery) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		if r.Patient != nil {
+			children = append(children, *r.Patient)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "suppliedItem") {
+		for _, v := range r.SuppliedItem {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supplier") {
+		if r.Supplier != nil {
+			children = append(children, *r.Supplier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "destination") {
+		if r.Destination != nil {
+			children = append(children, *r.Destination)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "receiver") {
+		for _, v := range r.Receiver {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SupplyDelivery) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Boolean")
+}
+func (r SupplyDelivery) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SupplyDelivery to String")
+}
+func (r SupplyDelivery) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Integer")
+}
+func (r SupplyDelivery) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Decimal")
+}
+func (r SupplyDelivery) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Date")
+}
+func (r SupplyDelivery) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Time")
+}
+func (r SupplyDelivery) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SupplyDelivery to DateTime")
+}
+func (r SupplyDelivery) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SupplyDelivery to Quantity")
+}
+func (r SupplyDelivery) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "SuppliedItem",
+			Type: "List<FHIR.SupplyDeliverySuppliedItem>",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Supplier",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Destination",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Receiver",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "SupplyDelivery",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SupplyDeliverySuppliedItem) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "item") {
+		if r.Item != nil {
+			children = append(children, r.Item)
+		}
+	}
+	return children
+}
+func (r SupplyDeliverySuppliedItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Boolean")
+}
+func (r SupplyDeliverySuppliedItem) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to String")
+}
+func (r SupplyDeliverySuppliedItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Integer")
+}
+func (r SupplyDeliverySuppliedItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Decimal")
+}
+func (r SupplyDeliverySuppliedItem) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Date")
+}
+func (r SupplyDeliverySuppliedItem) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Time")
+}
+func (r SupplyDeliverySuppliedItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to DateTime")
+}
+func (r SupplyDeliverySuppliedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Quantity")
+}
+func (r SupplyDeliverySuppliedItem) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Item",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SupplyDeliverySuppliedItem",
+			Namespace: "FHIR",
+		},
 	}
 }

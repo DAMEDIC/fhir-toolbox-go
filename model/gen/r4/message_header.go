@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2979,5 +2982,477 @@ func (r *MessageHeaderResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElem
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MessageHeader) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "event") {
+		children = append(children, r.Event)
+	}
+	if len(name) == 0 || slices.Contains(name, "destination") {
+		for _, v := range r.Destination {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sender") {
+		if r.Sender != nil {
+			children = append(children, *r.Sender)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "enterer") {
+		if r.Enterer != nil {
+			children = append(children, *r.Enterer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, *r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		children = append(children, r.Source)
+	}
+	if len(name) == 0 || slices.Contains(name, "responsible") {
+		if r.Responsible != nil {
+			children = append(children, *r.Responsible)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		if r.Reason != nil {
+			children = append(children, *r.Reason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "response") {
+		if r.Response != nil {
+			children = append(children, *r.Response)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		for _, v := range r.Focus {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		if r.Definition != nil {
+			children = append(children, *r.Definition)
+		}
+	}
+	return children
+}
+func (r MessageHeader) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MessageHeader to Boolean")
+}
+func (r MessageHeader) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MessageHeader to String")
+}
+func (r MessageHeader) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MessageHeader to Integer")
+}
+func (r MessageHeader) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MessageHeader to Decimal")
+}
+func (r MessageHeader) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MessageHeader to Date")
+}
+func (r MessageHeader) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MessageHeader to Time")
+}
+func (r MessageHeader) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MessageHeader to DateTime")
+}
+func (r MessageHeader) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MessageHeader to Quantity")
+}
+func (r MessageHeader) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Event",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Destination",
+			Type: "List<FHIR.MessageHeaderDestination>",
+		}, {
+			Name: "Sender",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Enterer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Author",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Source",
+			Type: "FHIR.MessageHeaderSource",
+		}, {
+			Name: "Responsible",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Response",
+			Type: "FHIR.MessageHeaderResponse",
+		}, {
+			Name: "Focus",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Definition",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MessageHeader",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MessageHeaderDestination) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		if r.Target != nil {
+			children = append(children, *r.Target)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		children = append(children, r.Endpoint)
+	}
+	if len(name) == 0 || slices.Contains(name, "receiver") {
+		if r.Receiver != nil {
+			children = append(children, *r.Receiver)
+		}
+	}
+	return children
+}
+func (r MessageHeaderDestination) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Boolean")
+}
+func (r MessageHeaderDestination) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to String")
+}
+func (r MessageHeaderDestination) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Integer")
+}
+func (r MessageHeaderDestination) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Decimal")
+}
+func (r MessageHeaderDestination) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Date")
+}
+func (r MessageHeaderDestination) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Time")
+}
+func (r MessageHeaderDestination) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to DateTime")
+}
+func (r MessageHeaderDestination) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MessageHeaderDestination to Quantity")
+}
+func (r MessageHeaderDestination) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Target",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Endpoint",
+			Type: "FHIR.Url",
+		}, {
+			Name: "Receiver",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MessageHeaderDestination",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MessageHeaderSource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "software") {
+		if r.Software != nil {
+			children = append(children, *r.Software)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		if r.Contact != nil {
+			children = append(children, *r.Contact)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		children = append(children, r.Endpoint)
+	}
+	return children
+}
+func (r MessageHeaderSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Boolean")
+}
+func (r MessageHeaderSource) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to String")
+}
+func (r MessageHeaderSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Integer")
+}
+func (r MessageHeaderSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Decimal")
+}
+func (r MessageHeaderSource) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Date")
+}
+func (r MessageHeaderSource) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Time")
+}
+func (r MessageHeaderSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to DateTime")
+}
+func (r MessageHeaderSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MessageHeaderSource to Quantity")
+}
+func (r MessageHeaderSource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Software",
+			Type: "FHIR.String",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "FHIR.ContactPoint",
+		}, {
+			Name: "Endpoint",
+			Type: "FHIR.Url",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MessageHeaderSource",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r MessageHeaderResponse) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		children = append(children, r.Identifier)
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "details") {
+		if r.Details != nil {
+			children = append(children, *r.Details)
+		}
+	}
+	return children
+}
+func (r MessageHeaderResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Boolean")
+}
+func (r MessageHeaderResponse) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to String")
+}
+func (r MessageHeaderResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Integer")
+}
+func (r MessageHeaderResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Decimal")
+}
+func (r MessageHeaderResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Date")
+}
+func (r MessageHeaderResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Time")
+}
+func (r MessageHeaderResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to DateTime")
+}
+func (r MessageHeaderResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MessageHeaderResponse to Quantity")
+}
+func (r MessageHeaderResponse) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Details",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "MessageHeaderResponse",
+			Namespace: "FHIR",
+		},
 	}
 }

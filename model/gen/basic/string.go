@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -68,4 +71,64 @@ func (r String) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r String) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r String) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert String to Boolean")
+}
+func (r String) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert String to String")
+}
+func (r String) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert String to Integer")
+}
+func (r String) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert String to Decimal")
+}
+func (r String) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert String to Date")
+}
+func (r String) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert String to Time")
+}
+func (r String) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert String to DateTime")
+}
+func (r String) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert String to Quantity")
+}
+func (r String) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "String",
+			Namespace: "FHIR",
+		},
+	}
 }

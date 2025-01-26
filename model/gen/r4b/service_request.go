@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3507,5 +3510,368 @@ func (r *ServiceRequest) UnmarshalXML(d *xml.Decoder, start xml.StartElement) er
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ServiceRequest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		for _, v := range r.InstantiatesCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		for _, v := range r.InstantiatesUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "replaces") {
+		for _, v := range r.Replaces {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requisition") {
+		if r.Requisition != nil {
+			children = append(children, *r.Requisition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "intent") {
+		children = append(children, r.Intent)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "priority") {
+		if r.Priority != nil {
+			children = append(children, *r.Priority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doNotPerform") {
+		if r.DoNotPerform != nil {
+			children = append(children, *r.DoNotPerform)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orderDetail") {
+		for _, v := range r.OrderDetail {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "asNeeded") {
+		if r.AsNeeded != nil {
+			children = append(children, r.AsNeeded)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authoredOn") {
+		if r.AuthoredOn != nil {
+			children = append(children, *r.AuthoredOn)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requester") {
+		if r.Requester != nil {
+			children = append(children, *r.Requester)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performerType") {
+		if r.PerformerType != nil {
+			children = append(children, *r.PerformerType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "locationCode") {
+		for _, v := range r.LocationCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "locationReference") {
+		for _, v := range r.LocationReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonCode") {
+		for _, v := range r.ReasonCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonReference") {
+		for _, v := range r.ReasonReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "insurance") {
+		for _, v := range r.Insurance {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInfo") {
+		for _, v := range r.SupportingInfo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimen") {
+		for _, v := range r.Specimen {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		for _, v := range r.BodySite {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patientInstruction") {
+		if r.PatientInstruction != nil {
+			children = append(children, *r.PatientInstruction)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relevantHistory") {
+		for _, v := range r.RelevantHistory {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ServiceRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ServiceRequest to Boolean")
+}
+func (r ServiceRequest) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ServiceRequest to String")
+}
+func (r ServiceRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ServiceRequest to Integer")
+}
+func (r ServiceRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ServiceRequest to Decimal")
+}
+func (r ServiceRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ServiceRequest to Date")
+}
+func (r ServiceRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ServiceRequest to Time")
+}
+func (r ServiceRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ServiceRequest to DateTime")
+}
+func (r ServiceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ServiceRequest to Quantity")
+}
+func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Replaces",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Requisition",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Intent",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Priority",
+			Type: "FHIR.Code",
+		}, {
+			Name: "DoNotPerform",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "OrderDetail",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "AsNeeded",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "AuthoredOn",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Requester",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PerformerType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "LocationCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "LocationReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "ReasonCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ReasonReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Insurance",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "SupportingInfo",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Specimen",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "BodySite",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "PatientInstruction",
+			Type: "FHIR.String",
+		}, {
+			Name: "RelevantHistory",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ServiceRequest",
+			Namespace: "FHIR",
+		},
 	}
 }

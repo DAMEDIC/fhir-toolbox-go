@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1811,5 +1814,271 @@ func (r *SubstanceProteinSubunit) UnmarshalXML(d *xml.Decoder, start xml.StartEl
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SubstanceProtein) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sequenceType") {
+		if r.SequenceType != nil {
+			children = append(children, *r.SequenceType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfSubunits") {
+		if r.NumberOfSubunits != nil {
+			children = append(children, *r.NumberOfSubunits)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "disulfideLinkage") {
+		for _, v := range r.DisulfideLinkage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subunit") {
+		for _, v := range r.Subunit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceProtein) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Boolean")
+}
+func (r SubstanceProtein) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceProtein to String")
+}
+func (r SubstanceProtein) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Integer")
+}
+func (r SubstanceProtein) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Decimal")
+}
+func (r SubstanceProtein) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Date")
+}
+func (r SubstanceProtein) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Time")
+}
+func (r SubstanceProtein) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceProtein to DateTime")
+}
+func (r SubstanceProtein) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceProtein to Quantity")
+}
+func (r SubstanceProtein) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "SequenceType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "NumberOfSubunits",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "DisulfideLinkage",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Subunit",
+			Type: "List<FHIR.SubstanceProteinSubunit>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceProtein",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceProteinSubunit) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subunit") {
+		if r.Subunit != nil {
+			children = append(children, *r.Subunit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sequence") {
+		if r.Sequence != nil {
+			children = append(children, *r.Sequence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "length") {
+		if r.Length != nil {
+			children = append(children, *r.Length)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sequenceAttachment") {
+		if r.SequenceAttachment != nil {
+			children = append(children, *r.SequenceAttachment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nTerminalModificationId") {
+		if r.NTerminalModificationId != nil {
+			children = append(children, *r.NTerminalModificationId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nTerminalModification") {
+		if r.NTerminalModification != nil {
+			children = append(children, *r.NTerminalModification)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cTerminalModificationId") {
+		if r.CTerminalModificationId != nil {
+			children = append(children, *r.CTerminalModificationId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cTerminalModification") {
+		if r.CTerminalModification != nil {
+			children = append(children, *r.CTerminalModification)
+		}
+	}
+	return children
+}
+func (r SubstanceProteinSubunit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Boolean")
+}
+func (r SubstanceProteinSubunit) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to String")
+}
+func (r SubstanceProteinSubunit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Integer")
+}
+func (r SubstanceProteinSubunit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Decimal")
+}
+func (r SubstanceProteinSubunit) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Date")
+}
+func (r SubstanceProteinSubunit) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Time")
+}
+func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to DateTime")
+}
+func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceProteinSubunit to Quantity")
+}
+func (r SubstanceProteinSubunit) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Subunit",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "Sequence",
+			Type: "FHIR.String",
+		}, {
+			Name: "Length",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "SequenceAttachment",
+			Type: "FHIR.Attachment",
+		}, {
+			Name: "NTerminalModificationId",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "NTerminalModification",
+			Type: "FHIR.String",
+		}, {
+			Name: "CTerminalModificationId",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "CTerminalModification",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceProteinSubunit",
+			Namespace: "FHIR",
+		},
 	}
 }

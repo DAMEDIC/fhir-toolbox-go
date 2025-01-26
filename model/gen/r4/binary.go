@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -589,5 +592,100 @@ func (r *Binary) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Binary) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contentType") {
+		children = append(children, r.ContentType)
+	}
+	if len(name) == 0 || slices.Contains(name, "securityContext") {
+		if r.SecurityContext != nil {
+			children = append(children, *r.SecurityContext)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		if r.Data != nil {
+			children = append(children, *r.Data)
+		}
+	}
+	return children
+}
+func (r Binary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Binary to Boolean")
+}
+func (r Binary) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Binary to String")
+}
+func (r Binary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Binary to Integer")
+}
+func (r Binary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Binary to Decimal")
+}
+func (r Binary) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Binary to Date")
+}
+func (r Binary) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Binary to Time")
+}
+func (r Binary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Binary to DateTime")
+}
+func (r Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Binary to Quantity")
+}
+func (r Binary) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "ContentType",
+			Type: "FHIR.Code",
+		}, {
+			Name: "SecurityContext",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Data",
+			Type: "FHIR.Base64Binary",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Binary",
+			Namespace: "FHIR",
+		},
 	}
 }

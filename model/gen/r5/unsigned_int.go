@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -122,5 +125,65 @@ func (r *UnsignedInt) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r UnsignedInt) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r UnsignedInt) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert UnsignedInt to Boolean")
+}
+func (r UnsignedInt) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert UnsignedInt to String")
+}
+func (r UnsignedInt) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert UnsignedInt to Integer")
+}
+func (r UnsignedInt) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert UnsignedInt to Decimal")
+}
+func (r UnsignedInt) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert UnsignedInt to Date")
+}
+func (r UnsignedInt) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert UnsignedInt to Time")
+}
+func (r UnsignedInt) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert UnsignedInt to DateTime")
+}
+func (r UnsignedInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert UnsignedInt to Quantity")
+}
+func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.uint32",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "UnsignedInt",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2991,5 +2994,428 @@ func (r *LocationHoursOfOperation) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Location) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operationalStatus") {
+		if r.OperationalStatus != nil {
+			children = append(children, *r.OperationalStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "alias") {
+		for _, v := range r.Alias {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		if r.Mode != nil {
+			children = append(children, *r.Mode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "telecom") {
+		for _, v := range r.Telecom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		if r.Address != nil {
+			children = append(children, *r.Address)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "physicalType") {
+		if r.PhysicalType != nil {
+			children = append(children, *r.PhysicalType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "position") {
+		if r.Position != nil {
+			children = append(children, *r.Position)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "managingOrganization") {
+		if r.ManagingOrganization != nil {
+			children = append(children, *r.ManagingOrganization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		if r.PartOf != nil {
+			children = append(children, *r.PartOf)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "hoursOfOperation") {
+		for _, v := range r.HoursOfOperation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availabilityExceptions") {
+		if r.AvailabilityExceptions != nil {
+			children = append(children, *r.AvailabilityExceptions)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Location) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Location to Boolean")
+}
+func (r Location) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Location to String")
+}
+func (r Location) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Location to Integer")
+}
+func (r Location) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Location to Decimal")
+}
+func (r Location) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Location to Date")
+}
+func (r Location) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Location to Time")
+}
+func (r Location) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Location to DateTime")
+}
+func (r Location) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Location to Quantity")
+}
+func (r Location) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "OperationalStatus",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Alias",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Telecom",
+			Type: "List<FHIR.ContactPoint>",
+		}, {
+			Name: "Address",
+			Type: "FHIR.Address",
+		}, {
+			Name: "PhysicalType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Position",
+			Type: "FHIR.LocationPosition",
+		}, {
+			Name: "ManagingOrganization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PartOf",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "HoursOfOperation",
+			Type: "List<FHIR.LocationHoursOfOperation>",
+		}, {
+			Name: "AvailabilityExceptions",
+			Type: "FHIR.String",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Location",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r LocationPosition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "longitude") {
+		children = append(children, r.Longitude)
+	}
+	if len(name) == 0 || slices.Contains(name, "latitude") {
+		children = append(children, r.Latitude)
+	}
+	if len(name) == 0 || slices.Contains(name, "altitude") {
+		if r.Altitude != nil {
+			children = append(children, *r.Altitude)
+		}
+	}
+	return children
+}
+func (r LocationPosition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert LocationPosition to Boolean")
+}
+func (r LocationPosition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert LocationPosition to String")
+}
+func (r LocationPosition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert LocationPosition to Integer")
+}
+func (r LocationPosition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert LocationPosition to Decimal")
+}
+func (r LocationPosition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert LocationPosition to Date")
+}
+func (r LocationPosition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert LocationPosition to Time")
+}
+func (r LocationPosition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert LocationPosition to DateTime")
+}
+func (r LocationPosition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert LocationPosition to Quantity")
+}
+func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Longitude",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Latitude",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Altitude",
+			Type: "FHIR.Decimal",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "LocationPosition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r LocationHoursOfOperation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "daysOfWeek") {
+		for _, v := range r.DaysOfWeek {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "allDay") {
+		if r.AllDay != nil {
+			children = append(children, *r.AllDay)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "openingTime") {
+		if r.OpeningTime != nil {
+			children = append(children, *r.OpeningTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "closingTime") {
+		if r.ClosingTime != nil {
+			children = append(children, *r.ClosingTime)
+		}
+	}
+	return children
+}
+func (r LocationHoursOfOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Boolean")
+}
+func (r LocationHoursOfOperation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to String")
+}
+func (r LocationHoursOfOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Integer")
+}
+func (r LocationHoursOfOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Decimal")
+}
+func (r LocationHoursOfOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Date")
+}
+func (r LocationHoursOfOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Time")
+}
+func (r LocationHoursOfOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to DateTime")
+}
+func (r LocationHoursOfOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert LocationHoursOfOperation to Quantity")
+}
+func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DaysOfWeek",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "AllDay",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "OpeningTime",
+			Type: "FHIR.Time",
+		}, {
+			Name: "ClosingTime",
+			Type: "FHIR.Time",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "LocationHoursOfOperation",
+			Namespace: "FHIR",
+		},
 	}
 }

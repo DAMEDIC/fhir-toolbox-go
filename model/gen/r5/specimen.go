@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4123,5 +4126,636 @@ func (r *SpecimenContainer) UnmarshalXML(d *xml.Decoder, start xml.StartElement)
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Specimen) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "accessionIdentifier") {
+		if r.AccessionIdentifier != nil {
+			children = append(children, *r.AccessionIdentifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "receivedTime") {
+		if r.ReceivedTime != nil {
+			children = append(children, *r.ReceivedTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parent") {
+		for _, v := range r.Parent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		for _, v := range r.Request {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "combined") {
+		if r.Combined != nil {
+			children = append(children, *r.Combined)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		for _, v := range r.Role {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "feature") {
+		for _, v := range r.Feature {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collection") {
+		if r.Collection != nil {
+			children = append(children, *r.Collection)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "processing") {
+		for _, v := range r.Processing {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "container") {
+		for _, v := range r.Container {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		for _, v := range r.Condition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Specimen) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Specimen to Boolean")
+}
+func (r Specimen) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Specimen to String")
+}
+func (r Specimen) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Specimen to Integer")
+}
+func (r Specimen) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Specimen to Decimal")
+}
+func (r Specimen) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Specimen to Date")
+}
+func (r Specimen) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Specimen to Time")
+}
+func (r Specimen) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Specimen to DateTime")
+}
+func (r Specimen) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Specimen to Quantity")
+}
+func (r Specimen) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "AccessionIdentifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ReceivedTime",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Parent",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Request",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Combined",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Role",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Feature",
+			Type: "List<FHIR.SpecimenFeature>",
+		}, {
+			Name: "Collection",
+			Type: "FHIR.SpecimenCollection",
+		}, {
+			Name: "Processing",
+			Type: "List<FHIR.SpecimenProcessing>",
+		}, {
+			Name: "Container",
+			Type: "List<FHIR.SpecimenContainer>",
+		}, {
+			Name: "Condition",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Specimen",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenFeature) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		children = append(children, r.Description)
+	}
+	return children
+}
+func (r SpecimenFeature) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Boolean")
+}
+func (r SpecimenFeature) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenFeature to String")
+}
+func (r SpecimenFeature) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Integer")
+}
+func (r SpecimenFeature) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Decimal")
+}
+func (r SpecimenFeature) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Date")
+}
+func (r SpecimenFeature) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Time")
+}
+func (r SpecimenFeature) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenFeature to DateTime")
+}
+func (r SpecimenFeature) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenFeature to Quantity")
+}
+func (r SpecimenFeature) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenFeature",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenCollection) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collector") {
+		if r.Collector != nil {
+			children = append(children, *r.Collector)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "collected") {
+		if r.Collected != nil {
+			children = append(children, r.Collected)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "duration") {
+		if r.Duration != nil {
+			children = append(children, *r.Duration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "procedure") {
+		if r.Procedure != nil {
+			children = append(children, *r.Procedure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		if r.BodySite != nil {
+			children = append(children, *r.BodySite)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fastingStatus") {
+		if r.FastingStatus != nil {
+			children = append(children, r.FastingStatus)
+		}
+	}
+	return children
+}
+func (r SpecimenCollection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Boolean")
+}
+func (r SpecimenCollection) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenCollection to String")
+}
+func (r SpecimenCollection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Integer")
+}
+func (r SpecimenCollection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Decimal")
+}
+func (r SpecimenCollection) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Date")
+}
+func (r SpecimenCollection) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Time")
+}
+func (r SpecimenCollection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenCollection to DateTime")
+}
+func (r SpecimenCollection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenCollection to Quantity")
+}
+func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Collector",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Collected",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Duration",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Device",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "Procedure",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "BodySite",
+			Type: "FHIR.CodeableReference",
+		}, {
+			Name: "FastingStatus",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenCollection",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenProcessing) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additive") {
+		for _, v := range r.Additive {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "time") {
+		if r.Time != nil {
+			children = append(children, r.Time)
+		}
+	}
+	return children
+}
+func (r SpecimenProcessing) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Boolean")
+}
+func (r SpecimenProcessing) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to String")
+}
+func (r SpecimenProcessing) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Integer")
+}
+func (r SpecimenProcessing) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Decimal")
+}
+func (r SpecimenProcessing) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Date")
+}
+func (r SpecimenProcessing) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Time")
+}
+func (r SpecimenProcessing) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to DateTime")
+}
+func (r SpecimenProcessing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenProcessing to Quantity")
+}
+func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Additive",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Time",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenProcessing",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SpecimenContainer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		children = append(children, r.Device)
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimenQuantity") {
+		if r.SpecimenQuantity != nil {
+			children = append(children, *r.SpecimenQuantity)
+		}
+	}
+	return children
+}
+func (r SpecimenContainer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Boolean")
+}
+func (r SpecimenContainer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SpecimenContainer to String")
+}
+func (r SpecimenContainer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Integer")
+}
+func (r SpecimenContainer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Decimal")
+}
+func (r SpecimenContainer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Date")
+}
+func (r SpecimenContainer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Time")
+}
+func (r SpecimenContainer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SpecimenContainer to DateTime")
+}
+func (r SpecimenContainer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SpecimenContainer to Quantity")
+}
+func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "SpecimenQuantity",
+			Type: "FHIR.Quantity",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SpecimenContainer",
+			Namespace: "FHIR",
+		},
 	}
 }

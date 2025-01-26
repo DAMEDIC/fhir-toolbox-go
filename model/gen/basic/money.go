@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -221,4 +224,77 @@ func (r Money) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Money) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "currency") {
+		if r.Currency != nil {
+			children = append(children, *r.Currency)
+		}
+	}
+	return children
+}
+func (r Money) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Money to Boolean")
+}
+func (r Money) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Money to String")
+}
+func (r Money) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Money to Integer")
+}
+func (r Money) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Money to Decimal")
+}
+func (r Money) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Money to Date")
+}
+func (r Money) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Money to Time")
+}
+func (r Money) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Money to DateTime")
+}
+func (r Money) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Money to Quantity")
+}
+func (r Money) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Currency",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Money",
+			Namespace: "FHIR",
+		},
+	}
 }

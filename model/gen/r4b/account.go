@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2204,5 +2207,362 @@ func (r *AccountGuarantor) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Account) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "servicePeriod") {
+		if r.ServicePeriod != nil {
+			children = append(children, *r.ServicePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coverage") {
+		for _, v := range r.Coverage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "owner") {
+		if r.Owner != nil {
+			children = append(children, *r.Owner)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "guarantor") {
+		for _, v := range r.Guarantor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		if r.PartOf != nil {
+			children = append(children, *r.PartOf)
+		}
+	}
+	return children
+}
+func (r Account) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Account to Boolean")
+}
+func (r Account) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Account to String")
+}
+func (r Account) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Account to Integer")
+}
+func (r Account) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Account to Decimal")
+}
+func (r Account) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Account to Date")
+}
+func (r Account) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Account to Time")
+}
+func (r Account) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Account to DateTime")
+}
+func (r Account) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Account to Quantity")
+}
+func (r Account) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "ServicePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Coverage",
+			Type: "List<FHIR.AccountCoverage>",
+		}, {
+			Name: "Owner",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Guarantor",
+			Type: "List<FHIR.AccountGuarantor>",
+		}, {
+			Name: "PartOf",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Account",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AccountCoverage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coverage") {
+		children = append(children, r.Coverage)
+	}
+	if len(name) == 0 || slices.Contains(name, "priority") {
+		if r.Priority != nil {
+			children = append(children, *r.Priority)
+		}
+	}
+	return children
+}
+func (r AccountCoverage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AccountCoverage to Boolean")
+}
+func (r AccountCoverage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AccountCoverage to String")
+}
+func (r AccountCoverage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AccountCoverage to Integer")
+}
+func (r AccountCoverage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AccountCoverage to Decimal")
+}
+func (r AccountCoverage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AccountCoverage to Date")
+}
+func (r AccountCoverage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AccountCoverage to Time")
+}
+func (r AccountCoverage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AccountCoverage to DateTime")
+}
+func (r AccountCoverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AccountCoverage to Quantity")
+}
+func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Coverage",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Priority",
+			Type: "FHIR.PositiveInt",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AccountCoverage",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AccountGuarantor) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "party") {
+		children = append(children, r.Party)
+	}
+	if len(name) == 0 || slices.Contains(name, "onHold") {
+		if r.OnHold != nil {
+			children = append(children, *r.OnHold)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r AccountGuarantor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Boolean")
+}
+func (r AccountGuarantor) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AccountGuarantor to String")
+}
+func (r AccountGuarantor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Integer")
+}
+func (r AccountGuarantor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Decimal")
+}
+func (r AccountGuarantor) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Date")
+}
+func (r AccountGuarantor) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Time")
+}
+func (r AccountGuarantor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AccountGuarantor to DateTime")
+}
+func (r AccountGuarantor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AccountGuarantor to Quantity")
+}
+func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Party",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OnHold",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AccountGuarantor",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -87,4 +90,56 @@ func (r *Xhtml) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	}
 	r.Value = v.V
 	return nil
+}
+func (r Xhtml) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	return children
+}
+func (r Xhtml) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Xhtml to Boolean")
+}
+func (r Xhtml) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Xhtml to String")
+}
+func (r Xhtml) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Xhtml to Integer")
+}
+func (r Xhtml) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Xhtml to Decimal")
+}
+func (r Xhtml) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Xhtml to Date")
+}
+func (r Xhtml) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Xhtml to Time")
+}
+func (r Xhtml) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Xhtml to DateTime")
+}
+func (r Xhtml) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Xhtml to Quantity")
+}
+func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Value",
+			Type: "FHIR.string",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Xhtml",
+			Namespace: "FHIR",
+		},
+	}
 }

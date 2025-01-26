@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2759,5 +2762,438 @@ func (r *ObservationDefinitionQualifiedInterval) UnmarshalXML(d *xml.Decoder, st
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ObservationDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "permittedDataType") {
+		for _, v := range r.PermittedDataType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "multipleResultsAllowed") {
+		if r.MultipleResultsAllowed != nil {
+			children = append(children, *r.MultipleResultsAllowed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preferredReportName") {
+		if r.PreferredReportName != nil {
+			children = append(children, *r.PreferredReportName)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantitativeDetails") {
+		if r.QuantitativeDetails != nil {
+			children = append(children, *r.QuantitativeDetails)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "qualifiedInterval") {
+		for _, v := range r.QualifiedInterval {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validCodedValueSet") {
+		if r.ValidCodedValueSet != nil {
+			children = append(children, *r.ValidCodedValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "normalCodedValueSet") {
+		if r.NormalCodedValueSet != nil {
+			children = append(children, *r.NormalCodedValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "abnormalCodedValueSet") {
+		if r.AbnormalCodedValueSet != nil {
+			children = append(children, *r.AbnormalCodedValueSet)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "criticalCodedValueSet") {
+		if r.CriticalCodedValueSet != nil {
+			children = append(children, *r.CriticalCodedValueSet)
+		}
+	}
+	return children
+}
+func (r ObservationDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Boolean")
+}
+func (r ObservationDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationDefinition to String")
+}
+func (r ObservationDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Integer")
+}
+func (r ObservationDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Decimal")
+}
+func (r ObservationDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Date")
+}
+func (r ObservationDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Time")
+}
+func (r ObservationDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationDefinition to DateTime")
+}
+func (r ObservationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationDefinition to Quantity")
+}
+func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "PermittedDataType",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "MultipleResultsAllowed",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PreferredReportName",
+			Type: "FHIR.String",
+		}, {
+			Name: "QuantitativeDetails",
+			Type: "FHIR.ObservationDefinitionQuantitativeDetails",
+		}, {
+			Name: "QualifiedInterval",
+			Type: "List<FHIR.ObservationDefinitionQualifiedInterval>",
+		}, {
+			Name: "ValidCodedValueSet",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "NormalCodedValueSet",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AbnormalCodedValueSet",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "CriticalCodedValueSet",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ObservationDefinitionQuantitativeDetails) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "customaryUnit") {
+		if r.CustomaryUnit != nil {
+			children = append(children, *r.CustomaryUnit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unit") {
+		if r.Unit != nil {
+			children = append(children, *r.Unit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "conversionFactor") {
+		if r.ConversionFactor != nil {
+			children = append(children, *r.ConversionFactor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "decimalPrecision") {
+		if r.DecimalPrecision != nil {
+			children = append(children, *r.DecimalPrecision)
+		}
+	}
+	return children
+}
+func (r ObservationDefinitionQuantitativeDetails) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Boolean")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to String")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Integer")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Decimal")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Date")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Time")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to DateTime")
+}
+func (r ObservationDefinitionQuantitativeDetails) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Quantity")
+}
+func (r ObservationDefinitionQuantitativeDetails) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "CustomaryUnit",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Unit",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ConversionFactor",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "DecimalPrecision",
+			Type: "FHIR.Integer",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationDefinitionQuantitativeDetails",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ObservationDefinitionQualifiedInterval) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		if r.Category != nil {
+			children = append(children, *r.Category)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "range") {
+		if r.Range != nil {
+			children = append(children, *r.Range)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "context") {
+		if r.Context != nil {
+			children = append(children, *r.Context)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "appliesTo") {
+		for _, v := range r.AppliesTo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "gender") {
+		if r.Gender != nil {
+			children = append(children, *r.Gender)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "age") {
+		if r.Age != nil {
+			children = append(children, *r.Age)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "gestationalAge") {
+		if r.GestationalAge != nil {
+			children = append(children, *r.GestationalAge)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		if r.Condition != nil {
+			children = append(children, *r.Condition)
+		}
+	}
+	return children
+}
+func (r ObservationDefinitionQualifiedInterval) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Boolean")
+}
+func (r ObservationDefinitionQualifiedInterval) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to String")
+}
+func (r ObservationDefinitionQualifiedInterval) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Integer")
+}
+func (r ObservationDefinitionQualifiedInterval) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Decimal")
+}
+func (r ObservationDefinitionQualifiedInterval) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Date")
+}
+func (r ObservationDefinitionQualifiedInterval) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Time")
+}
+func (r ObservationDefinitionQualifiedInterval) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to DateTime")
+}
+func (r ObservationDefinitionQualifiedInterval) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Quantity")
+}
+func (r ObservationDefinitionQualifiedInterval) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Category",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Range",
+			Type: "FHIR.Range",
+		}, {
+			Name: "Context",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "AppliesTo",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Gender",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Age",
+			Type: "FHIR.Range",
+		}, {
+			Name: "GestationalAge",
+			Type: "FHIR.Range",
+		}, {
+			Name: "Condition",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ObservationDefinitionQualifiedInterval",
+			Namespace: "FHIR",
+		},
 	}
 }

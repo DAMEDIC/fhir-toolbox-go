@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5059,5 +5062,778 @@ func (r *DeviceDefinitionMaterial) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r DeviceDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "udiDeviceIdentifier") {
+		for _, v := range r.UdiDeviceIdentifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manufacturer") {
+		if r.Manufacturer != nil {
+			children = append(children, r.Manufacturer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "deviceName") {
+		for _, v := range r.DeviceName {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modelNumber") {
+		if r.ModelNumber != nil {
+			children = append(children, *r.ModelNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specialization") {
+		for _, v := range r.Specialization {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		for _, v := range r.Version {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "safety") {
+		for _, v := range r.Safety {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "shelfLifeStorage") {
+		for _, v := range r.ShelfLifeStorage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "physicalCharacteristics") {
+		if r.PhysicalCharacteristics != nil {
+			children = append(children, *r.PhysicalCharacteristics)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "languageCode") {
+		for _, v := range r.LanguageCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "capability") {
+		for _, v := range r.Capability {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "owner") {
+		if r.Owner != nil {
+			children = append(children, *r.Owner)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onlineInformation") {
+		if r.OnlineInformation != nil {
+			children = append(children, *r.OnlineInformation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parentDevice") {
+		if r.ParentDevice != nil {
+			children = append(children, *r.ParentDevice)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "material") {
+		for _, v := range r.Material {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DeviceDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Boolean")
+}
+func (r DeviceDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinition to String")
+}
+func (r DeviceDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Integer")
+}
+func (r DeviceDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Decimal")
+}
+func (r DeviceDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Date")
+}
+func (r DeviceDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Time")
+}
+func (r DeviceDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinition to DateTime")
+}
+func (r DeviceDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinition to Quantity")
+}
+func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "UdiDeviceIdentifier",
+			Type: "List<FHIR.DeviceDefinitionUdiDeviceIdentifier>",
+		}, {
+			Name: "Manufacturer",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "DeviceName",
+			Type: "List<FHIR.DeviceDefinitionDeviceName>",
+		}, {
+			Name: "ModelNumber",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Specialization",
+			Type: "List<FHIR.DeviceDefinitionSpecialization>",
+		}, {
+			Name: "Version",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Safety",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ShelfLifeStorage",
+			Type: "List<FHIR.ProductShelfLife>",
+		}, {
+			Name: "PhysicalCharacteristics",
+			Type: "FHIR.ProdCharacteristic",
+		}, {
+			Name: "LanguageCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Capability",
+			Type: "List<FHIR.DeviceDefinitionCapability>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.DeviceDefinitionProperty>",
+		}, {
+			Name: "Owner",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactPoint>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "OnlineInformation",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Quantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "ParentDevice",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Material",
+			Type: "List<FHIR.DeviceDefinitionMaterial>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "deviceIdentifier") {
+		children = append(children, r.DeviceIdentifier)
+	}
+	if len(name) == 0 || slices.Contains(name, "issuer") {
+		children = append(children, r.Issuer)
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		children = append(children, r.Jurisdiction)
+	}
+	return children
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Boolean")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to String")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Integer")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Decimal")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Date")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Time")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to DateTime")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Quantity")
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DeviceIdentifier",
+			Type: "FHIR.String",
+		}, {
+			Name: "Issuer",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Jurisdiction",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionUdiDeviceIdentifier",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionDeviceName) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	return children
+}
+func (r DeviceDefinitionDeviceName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Boolean")
+}
+func (r DeviceDefinitionDeviceName) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to String")
+}
+func (r DeviceDefinitionDeviceName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Integer")
+}
+func (r DeviceDefinitionDeviceName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Decimal")
+}
+func (r DeviceDefinitionDeviceName) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Date")
+}
+func (r DeviceDefinitionDeviceName) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Time")
+}
+func (r DeviceDefinitionDeviceName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to DateTime")
+}
+func (r DeviceDefinitionDeviceName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Quantity")
+}
+func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionDeviceName",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionSpecialization) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "systemType") {
+		children = append(children, r.SystemType)
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	return children
+}
+func (r DeviceDefinitionSpecialization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Boolean")
+}
+func (r DeviceDefinitionSpecialization) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to String")
+}
+func (r DeviceDefinitionSpecialization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Integer")
+}
+func (r DeviceDefinitionSpecialization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Decimal")
+}
+func (r DeviceDefinitionSpecialization) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Date")
+}
+func (r DeviceDefinitionSpecialization) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Time")
+}
+func (r DeviceDefinitionSpecialization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to DateTime")
+}
+func (r DeviceDefinitionSpecialization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionSpecialization to Quantity")
+}
+func (r DeviceDefinitionSpecialization) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "SystemType",
+			Type: "FHIR.String",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionSpecialization",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionCapability) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		for _, v := range r.Description {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DeviceDefinitionCapability) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Boolean")
+}
+func (r DeviceDefinitionCapability) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to String")
+}
+func (r DeviceDefinitionCapability) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Integer")
+}
+func (r DeviceDefinitionCapability) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Decimal")
+}
+func (r DeviceDefinitionCapability) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Date")
+}
+func (r DeviceDefinitionCapability) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Time")
+}
+func (r DeviceDefinitionCapability) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to DateTime")
+}
+func (r DeviceDefinitionCapability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionCapability to Quantity")
+}
+func (r DeviceDefinitionCapability) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionCapability",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "valueQuantity") {
+		for _, v := range r.ValueQuantity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "valueCode") {
+		for _, v := range r.ValueCode {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r DeviceDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Boolean")
+}
+func (r DeviceDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to String")
+}
+func (r DeviceDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Integer")
+}
+func (r DeviceDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Decimal")
+}
+func (r DeviceDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Date")
+}
+func (r DeviceDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Time")
+}
+func (r DeviceDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to DateTime")
+}
+func (r DeviceDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionProperty to Quantity")
+}
+func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ValueQuantity",
+			Type: "List<FHIR.Quantity>",
+		}, {
+			Name: "ValueCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r DeviceDefinitionMaterial) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "substance") {
+		children = append(children, r.Substance)
+	}
+	if len(name) == 0 || slices.Contains(name, "alternate") {
+		if r.Alternate != nil {
+			children = append(children, *r.Alternate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "allergenicIndicator") {
+		if r.AllergenicIndicator != nil {
+			children = append(children, *r.AllergenicIndicator)
+		}
+	}
+	return children
+}
+func (r DeviceDefinitionMaterial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Boolean")
+}
+func (r DeviceDefinitionMaterial) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to String")
+}
+func (r DeviceDefinitionMaterial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Integer")
+}
+func (r DeviceDefinitionMaterial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Decimal")
+}
+func (r DeviceDefinitionMaterial) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Date")
+}
+func (r DeviceDefinitionMaterial) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Time")
+}
+func (r DeviceDefinitionMaterial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to DateTime")
+}
+func (r DeviceDefinitionMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert DeviceDefinitionMaterial to Quantity")
+}
+func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Substance",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Alternate",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "AllergenicIndicator",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "DeviceDefinitionMaterial",
+			Namespace: "FHIR",
+		},
 	}
 }

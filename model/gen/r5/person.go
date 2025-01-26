@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2581,5 +2584,372 @@ func (r *PersonLink) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Person) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "active") {
+		if r.Active != nil {
+			children = append(children, *r.Active)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		for _, v := range r.Name {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "telecom") {
+		for _, v := range r.Telecom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "gender") {
+		if r.Gender != nil {
+			children = append(children, *r.Gender)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "birthDate") {
+		if r.BirthDate != nil {
+			children = append(children, *r.BirthDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "deceased") {
+		if r.Deceased != nil {
+			children = append(children, r.Deceased)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		for _, v := range r.Address {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maritalStatus") {
+		if r.MaritalStatus != nil {
+			children = append(children, *r.MaritalStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "photo") {
+		for _, v := range r.Photo {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "communication") {
+		for _, v := range r.Communication {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "managingOrganization") {
+		if r.ManagingOrganization != nil {
+			children = append(children, *r.ManagingOrganization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "link") {
+		for _, v := range r.Link {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Person) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Person to Boolean")
+}
+func (r Person) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Person to String")
+}
+func (r Person) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Person to Integer")
+}
+func (r Person) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Person to Decimal")
+}
+func (r Person) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Person to Date")
+}
+func (r Person) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Person to Time")
+}
+func (r Person) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Person to DateTime")
+}
+func (r Person) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Person to Quantity")
+}
+func (r Person) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Active",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Name",
+			Type: "List<FHIR.HumanName>",
+		}, {
+			Name: "Telecom",
+			Type: "List<FHIR.ContactPoint>",
+		}, {
+			Name: "Gender",
+			Type: "FHIR.Code",
+		}, {
+			Name: "BirthDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "Deceased",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Address",
+			Type: "List<FHIR.Address>",
+		}, {
+			Name: "MaritalStatus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Photo",
+			Type: "List<FHIR.Attachment>",
+		}, {
+			Name: "Communication",
+			Type: "List<FHIR.PersonCommunication>",
+		}, {
+			Name: "ManagingOrganization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Link",
+			Type: "List<FHIR.PersonLink>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Person",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PersonCommunication) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		children = append(children, r.Language)
+	}
+	if len(name) == 0 || slices.Contains(name, "preferred") {
+		if r.Preferred != nil {
+			children = append(children, *r.Preferred)
+		}
+	}
+	return children
+}
+func (r PersonCommunication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PersonCommunication to Boolean")
+}
+func (r PersonCommunication) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PersonCommunication to String")
+}
+func (r PersonCommunication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PersonCommunication to Integer")
+}
+func (r PersonCommunication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PersonCommunication to Decimal")
+}
+func (r PersonCommunication) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PersonCommunication to Date")
+}
+func (r PersonCommunication) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PersonCommunication to Time")
+}
+func (r PersonCommunication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PersonCommunication to DateTime")
+}
+func (r PersonCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PersonCommunication to Quantity")
+}
+func (r PersonCommunication) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Language",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Preferred",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PersonCommunication",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PersonLink) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		children = append(children, r.Target)
+	}
+	if len(name) == 0 || slices.Contains(name, "assurance") {
+		if r.Assurance != nil {
+			children = append(children, *r.Assurance)
+		}
+	}
+	return children
+}
+func (r PersonLink) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PersonLink to Boolean")
+}
+func (r PersonLink) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PersonLink to String")
+}
+func (r PersonLink) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PersonLink to Integer")
+}
+func (r PersonLink) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PersonLink to Decimal")
+}
+func (r PersonLink) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PersonLink to Date")
+}
+func (r PersonLink) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PersonLink to Time")
+}
+func (r PersonLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PersonLink to DateTime")
+}
+func (r PersonLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PersonLink to Quantity")
+}
+func (r PersonLink) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Target",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Assurance",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PersonLink",
+			Namespace: "FHIR",
+		},
 	}
 }

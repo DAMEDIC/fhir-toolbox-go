@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -132,5 +135,65 @@ func (r *Integer64) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Integer64) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Integer64) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Integer64 to Boolean")
+}
+func (r Integer64) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Integer64 to String")
+}
+func (r Integer64) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Integer64 to Integer")
+}
+func (r Integer64) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Integer64 to Decimal")
+}
+func (r Integer64) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Integer64 to Date")
+}
+func (r Integer64) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Integer64 to Time")
+}
+func (r Integer64) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Integer64 to DateTime")
+}
+func (r Integer64) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Integer64 to Quantity")
+}
+func (r Integer64) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.int64",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "PrimitiveType",
+				Namespace: "FHIR",
+			},
+			Name:      "Integer64",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -706,5 +709,116 @@ func (r *RelatedArtifact) UnmarshalXML(d *xml.Decoder, start xml.StartElement) e
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r RelatedArtifact) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "label") {
+		if r.Label != nil {
+			children = append(children, *r.Label)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "citation") {
+		if r.Citation != nil {
+			children = append(children, *r.Citation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "document") {
+		if r.Document != nil {
+			children = append(children, *r.Document)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		if r.Resource != nil {
+			children = append(children, *r.Resource)
+		}
+	}
+	return children
+}
+func (r RelatedArtifact) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Boolean")
+}
+func (r RelatedArtifact) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RelatedArtifact to String")
+}
+func (r RelatedArtifact) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Integer")
+}
+func (r RelatedArtifact) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Decimal")
+}
+func (r RelatedArtifact) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Date")
+}
+func (r RelatedArtifact) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Time")
+}
+func (r RelatedArtifact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RelatedArtifact to DateTime")
+}
+func (r RelatedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RelatedArtifact to Quantity")
+}
+func (r RelatedArtifact) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Label",
+			Type: "FHIR.String",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}, {
+			Name: "Citation",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Url",
+		}, {
+			Name: "Document",
+			Type: "FHIR.Attachment",
+		}, {
+			Name: "Resource",
+			Type: "FHIR.Canonical",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "RelatedArtifact",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4015,5 +4018,504 @@ func (r *ProcedureFocalDevice) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Procedure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesCanonical") {
+		for _, v := range r.InstantiatesCanonical {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instantiatesUri") {
+		for _, v := range r.InstantiatesUri {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "partOf") {
+		for _, v := range r.PartOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "statusReason") {
+		if r.StatusReason != nil {
+			children = append(children, *r.StatusReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		if r.Focus != nil {
+			children = append(children, *r.Focus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recorded") {
+		if r.Recorded != nil {
+			children = append(children, *r.Recorded)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recorder") {
+		if r.Recorder != nil {
+			children = append(children, *r.Recorder)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reported") {
+		if r.Reported != nil {
+			children = append(children, r.Reported)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "bodySite") {
+		for _, v := range r.BodySite {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, *r.Outcome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "report") {
+		for _, v := range r.Report {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "complication") {
+		for _, v := range r.Complication {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "followUp") {
+		for _, v := range r.FollowUp {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focalDevice") {
+		for _, v := range r.FocalDevice {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "used") {
+		for _, v := range r.Used {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInfo") {
+		for _, v := range r.SupportingInfo {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Procedure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Procedure to Boolean")
+}
+func (r Procedure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Procedure to String")
+}
+func (r Procedure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Procedure to Integer")
+}
+func (r Procedure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Procedure to Decimal")
+}
+func (r Procedure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Procedure to Date")
+}
+func (r Procedure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Procedure to Time")
+}
+func (r Procedure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Procedure to DateTime")
+}
+func (r Procedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Procedure to Quantity")
+}
+func (r Procedure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "InstantiatesCanonical",
+			Type: "List<FHIR.Canonical>",
+		}, {
+			Name: "InstantiatesUri",
+			Type: "List<FHIR.Uri>",
+		}, {
+			Name: "BasedOn",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "PartOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "StatusReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Focus",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Recorded",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Recorder",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reported",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.ProcedurePerformer>",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "BodySite",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Report",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Complication",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "FollowUp",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "FocalDevice",
+			Type: "List<FHIR.ProcedureFocalDevice>",
+		}, {
+			Name: "Used",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "SupportingInfo",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Procedure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ProcedurePerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		children = append(children, r.Actor)
+	}
+	if len(name) == 0 || slices.Contains(name, "onBehalfOf") {
+		if r.OnBehalfOf != nil {
+			children = append(children, *r.OnBehalfOf)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r ProcedurePerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Boolean")
+}
+func (r ProcedurePerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to String")
+}
+func (r ProcedurePerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Integer")
+}
+func (r ProcedurePerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Decimal")
+}
+func (r ProcedurePerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Date")
+}
+func (r ProcedurePerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Time")
+}
+func (r ProcedurePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to DateTime")
+}
+func (r ProcedurePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ProcedurePerformer to Quantity")
+}
+func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OnBehalfOf",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ProcedurePerformer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ProcedureFocalDevice) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		if r.Action != nil {
+			children = append(children, *r.Action)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manipulated") {
+		children = append(children, r.Manipulated)
+	}
+	return children
+}
+func (r ProcedureFocalDevice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Boolean")
+}
+func (r ProcedureFocalDevice) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to String")
+}
+func (r ProcedureFocalDevice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Integer")
+}
+func (r ProcedureFocalDevice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Decimal")
+}
+func (r ProcedureFocalDevice) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Date")
+}
+func (r ProcedureFocalDevice) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Time")
+}
+func (r ProcedureFocalDevice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to DateTime")
+}
+func (r ProcedureFocalDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ProcedureFocalDevice to Quantity")
+}
+func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Action",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Manipulated",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ProcedureFocalDevice",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -7556,5 +7559,1100 @@ func (r *ExampleScenarioProcessStepAlternative) UnmarshalXML(d *xml.Decoder, sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ExampleScenario) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		for _, v := range r.Actor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		for _, v := range r.Instance {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "process") {
+		for _, v := range r.Process {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ExampleScenario) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenario to Boolean")
+}
+func (r ExampleScenario) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenario to String")
+}
+func (r ExampleScenario) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenario to Integer")
+}
+func (r ExampleScenario) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenario to Decimal")
+}
+func (r ExampleScenario) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenario to Date")
+}
+func (r ExampleScenario) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenario to Time")
+}
+func (r ExampleScenario) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenario to DateTime")
+}
+func (r ExampleScenario) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenario to Quantity")
+}
+func (r ExampleScenario) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionAlgorithm",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Experimental",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "CopyrightLabel",
+			Type: "FHIR.String",
+		}, {
+			Name: "Actor",
+			Type: "List<FHIR.ExampleScenarioActor>",
+		}, {
+			Name: "Instance",
+			Type: "List<FHIR.ExampleScenarioInstance>",
+		}, {
+			Name: "Process",
+			Type: "List<FHIR.ExampleScenarioProcess>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenario",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioActor) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "key") {
+		children = append(children, r.Key)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioActor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Boolean")
+}
+func (r ExampleScenarioActor) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to String")
+}
+func (r ExampleScenarioActor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Integer")
+}
+func (r ExampleScenarioActor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Decimal")
+}
+func (r ExampleScenarioActor) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Date")
+}
+func (r ExampleScenarioActor) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Time")
+}
+func (r ExampleScenarioActor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to DateTime")
+}
+func (r ExampleScenarioActor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioActor to Quantity")
+}
+func (r ExampleScenarioActor) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Key",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioActor",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "key") {
+		children = append(children, r.Key)
+	}
+	if len(name) == 0 || slices.Contains(name, "structureType") {
+		children = append(children, r.StructureType)
+	}
+	if len(name) == 0 || slices.Contains(name, "structureVersion") {
+		if r.StructureVersion != nil {
+			children = append(children, *r.StructureVersion)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structureProfile") {
+		if r.StructureProfile != nil {
+			children = append(children, r.StructureProfile)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		if r.Content != nil {
+			children = append(children, *r.Content)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		for _, v := range r.Version {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "containedInstance") {
+		for _, v := range r.ContainedInstance {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Boolean")
+}
+func (r ExampleScenarioInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to String")
+}
+func (r ExampleScenarioInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Integer")
+}
+func (r ExampleScenarioInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Decimal")
+}
+func (r ExampleScenarioInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Date")
+}
+func (r ExampleScenarioInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Time")
+}
+func (r ExampleScenarioInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to DateTime")
+}
+func (r ExampleScenarioInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstance to Quantity")
+}
+func (r ExampleScenarioInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Key",
+			Type: "FHIR.String",
+		}, {
+			Name: "StructureType",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "StructureVersion",
+			Type: "FHIR.String",
+		}, {
+			Name: "StructureProfile",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Content",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Version",
+			Type: "List<FHIR.ExampleScenarioInstanceVersion>",
+		}, {
+			Name: "ContainedInstance",
+			Type: "List<FHIR.ExampleScenarioInstanceContainedInstance>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioInstance",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioInstanceVersion) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "key") {
+		children = append(children, r.Key)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "content") {
+		if r.Content != nil {
+			children = append(children, *r.Content)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioInstanceVersion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Boolean")
+}
+func (r ExampleScenarioInstanceVersion) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to String")
+}
+func (r ExampleScenarioInstanceVersion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Integer")
+}
+func (r ExampleScenarioInstanceVersion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Decimal")
+}
+func (r ExampleScenarioInstanceVersion) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Date")
+}
+func (r ExampleScenarioInstanceVersion) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Time")
+}
+func (r ExampleScenarioInstanceVersion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to DateTime")
+}
+func (r ExampleScenarioInstanceVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Quantity")
+}
+func (r ExampleScenarioInstanceVersion) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Key",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Content",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioInstanceVersion",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioInstanceContainedInstance) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instanceReference") {
+		children = append(children, r.InstanceReference)
+	}
+	if len(name) == 0 || slices.Contains(name, "versionReference") {
+		if r.VersionReference != nil {
+			children = append(children, *r.VersionReference)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioInstanceContainedInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Boolean")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to String")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Integer")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Decimal")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Date")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Time")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to DateTime")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Quantity")
+}
+func (r ExampleScenarioInstanceContainedInstance) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "InstanceReference",
+			Type: "FHIR.String",
+		}, {
+			Name: "VersionReference",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioInstanceContainedInstance",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioProcess) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preConditions") {
+		if r.PreConditions != nil {
+			children = append(children, *r.PreConditions)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "postConditions") {
+		if r.PostConditions != nil {
+			children = append(children, *r.PostConditions)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "step") {
+		for _, v := range r.Step {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioProcess) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Boolean")
+}
+func (r ExampleScenarioProcess) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to String")
+}
+func (r ExampleScenarioProcess) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Integer")
+}
+func (r ExampleScenarioProcess) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Decimal")
+}
+func (r ExampleScenarioProcess) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Date")
+}
+func (r ExampleScenarioProcess) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Time")
+}
+func (r ExampleScenarioProcess) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to DateTime")
+}
+func (r ExampleScenarioProcess) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcess to Quantity")
+}
+func (r ExampleScenarioProcess) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "PreConditions",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "PostConditions",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Step",
+			Type: "List<FHIR.ExampleScenarioProcessStep>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioProcess",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioProcessStep) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "number") {
+		if r.Number != nil {
+			children = append(children, *r.Number)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "process") {
+		if r.Process != nil {
+			children = append(children, *r.Process)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "workflow") {
+		if r.Workflow != nil {
+			children = append(children, *r.Workflow)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		if r.Operation != nil {
+			children = append(children, *r.Operation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "alternative") {
+		for _, v := range r.Alternative {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pause") {
+		if r.Pause != nil {
+			children = append(children, *r.Pause)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioProcessStep) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Boolean")
+}
+func (r ExampleScenarioProcessStep) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to String")
+}
+func (r ExampleScenarioProcessStep) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Integer")
+}
+func (r ExampleScenarioProcessStep) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Decimal")
+}
+func (r ExampleScenarioProcessStep) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Date")
+}
+func (r ExampleScenarioProcessStep) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Time")
+}
+func (r ExampleScenarioProcessStep) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to DateTime")
+}
+func (r ExampleScenarioProcessStep) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStep to Quantity")
+}
+func (r ExampleScenarioProcessStep) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Number",
+			Type: "FHIR.String",
+		}, {
+			Name: "Process",
+			Type: "FHIR.ExampleScenarioProcess",
+		}, {
+			Name: "Workflow",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Operation",
+			Type: "FHIR.ExampleScenarioProcessStepOperation",
+		}, {
+			Name: "Alternative",
+			Type: "List<FHIR.ExampleScenarioProcessStepAlternative>",
+		}, {
+			Name: "Pause",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioProcessStep",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioProcessStepOperation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "initiator") {
+		if r.Initiator != nil {
+			children = append(children, *r.Initiator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "receiver") {
+		if r.Receiver != nil {
+			children = append(children, *r.Receiver)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "initiatorActive") {
+		if r.InitiatorActive != nil {
+			children = append(children, *r.InitiatorActive)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "receiverActive") {
+		if r.ReceiverActive != nil {
+			children = append(children, *r.ReceiverActive)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		if r.Request != nil {
+			children = append(children, *r.Request)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "response") {
+		if r.Response != nil {
+			children = append(children, *r.Response)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioProcessStepOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Boolean")
+}
+func (r ExampleScenarioProcessStepOperation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to String")
+}
+func (r ExampleScenarioProcessStepOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Integer")
+}
+func (r ExampleScenarioProcessStepOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Decimal")
+}
+func (r ExampleScenarioProcessStepOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Date")
+}
+func (r ExampleScenarioProcessStepOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Time")
+}
+func (r ExampleScenarioProcessStepOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to DateTime")
+}
+func (r ExampleScenarioProcessStepOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Quantity")
+}
+func (r ExampleScenarioProcessStepOperation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Coding",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Initiator",
+			Type: "FHIR.String",
+		}, {
+			Name: "Receiver",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "InitiatorActive",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ReceiverActive",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Request",
+			Type: "FHIR.ExampleScenarioInstanceContainedInstance",
+		}, {
+			Name: "Response",
+			Type: "FHIR.ExampleScenarioInstanceContainedInstance",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioProcessStepOperation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ExampleScenarioProcessStepAlternative) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "step") {
+		for _, v := range r.Step {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ExampleScenarioProcessStepAlternative) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Boolean")
+}
+func (r ExampleScenarioProcessStepAlternative) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to String")
+}
+func (r ExampleScenarioProcessStepAlternative) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Integer")
+}
+func (r ExampleScenarioProcessStepAlternative) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Decimal")
+}
+func (r ExampleScenarioProcessStepAlternative) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Date")
+}
+func (r ExampleScenarioProcessStepAlternative) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Time")
+}
+func (r ExampleScenarioProcessStepAlternative) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to DateTime")
+}
+func (r ExampleScenarioProcessStepAlternative) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Quantity")
+}
+func (r ExampleScenarioProcessStepAlternative) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Step",
+			Type: "List<FHIR.ExampleScenarioProcessStep>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ExampleScenarioProcessStepAlternative",
+			Namespace: "FHIR",
+		},
 	}
 }

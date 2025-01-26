@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -600,5 +603,102 @@ func (r *Quantity) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Quantity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "comparator") {
+		if r.Comparator != nil {
+			children = append(children, *r.Comparator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unit") {
+		if r.Unit != nil {
+			children = append(children, *r.Unit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "system") {
+		if r.System != nil {
+			children = append(children, *r.System)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	return children
+}
+func (r Quantity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Quantity to Boolean")
+}
+func (r Quantity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Quantity to String")
+}
+func (r Quantity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Quantity to Integer")
+}
+func (r Quantity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Quantity to Decimal")
+}
+func (r Quantity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Quantity to Date")
+}
+func (r Quantity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Quantity to Time")
+}
+func (r Quantity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Quantity to DateTime")
+}
+func (r Quantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Quantity to Quantity")
+}
+func (r Quantity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Comparator",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Unit",
+			Type: "FHIR.String",
+		}, {
+			Name: "System",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Code",
+			Type: "FHIR.Code",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Quantity",
+			Namespace: "FHIR",
+		},
 	}
 }

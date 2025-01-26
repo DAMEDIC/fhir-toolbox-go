@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2210,4 +2213,614 @@ func (r BundleEntryResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		return err
 	}
 	return nil
+}
+func (r Bundle) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "timestamp") {
+		if r.Timestamp != nil {
+			children = append(children, *r.Timestamp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "total") {
+		if r.Total != nil {
+			children = append(children, *r.Total)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "link") {
+		for _, v := range r.Link {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "entry") {
+		for _, v := range r.Entry {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "signature") {
+		if r.Signature != nil {
+			children = append(children, *r.Signature)
+		}
+	}
+	return children
+}
+func (r Bundle) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Bundle to Boolean")
+}
+func (r Bundle) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Bundle to String")
+}
+func (r Bundle) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Bundle to Integer")
+}
+func (r Bundle) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Bundle to Decimal")
+}
+func (r Bundle) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Bundle to Date")
+}
+func (r Bundle) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Bundle to Time")
+}
+func (r Bundle) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Bundle to DateTime")
+}
+func (r Bundle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Bundle to Quantity")
+}
+func (r Bundle) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Timestamp",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Total",
+			Type: "FHIR.UnsignedInt",
+		}, {
+			Name: "Link",
+			Type: "List<FHIR.BundleLink>",
+		}, {
+			Name: "Entry",
+			Type: "List<FHIR.BundleEntry>",
+		}, {
+			Name: "Signature",
+			Type: "FHIR.Signature",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Bundle",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BundleLink) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relation") {
+		children = append(children, r.Relation)
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	return children
+}
+func (r BundleLink) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BundleLink to Boolean")
+}
+func (r BundleLink) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BundleLink to String")
+}
+func (r BundleLink) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BundleLink to Integer")
+}
+func (r BundleLink) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BundleLink to Decimal")
+}
+func (r BundleLink) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BundleLink to Date")
+}
+func (r BundleLink) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BundleLink to Time")
+}
+func (r BundleLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BundleLink to DateTime")
+}
+func (r BundleLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BundleLink to Quantity")
+}
+func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Relation",
+			Type: "FHIR.String",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BundleLink",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BundleEntry) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "link") {
+		for _, v := range r.Link {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fullUrl") {
+		if r.FullUrl != nil {
+			children = append(children, *r.FullUrl)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		if r.Resource != nil {
+			children = append(children, r.Resource)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "search") {
+		if r.Search != nil {
+			children = append(children, *r.Search)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		if r.Request != nil {
+			children = append(children, *r.Request)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "response") {
+		if r.Response != nil {
+			children = append(children, *r.Response)
+		}
+	}
+	return children
+}
+func (r BundleEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BundleEntry to Boolean")
+}
+func (r BundleEntry) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BundleEntry to String")
+}
+func (r BundleEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BundleEntry to Integer")
+}
+func (r BundleEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BundleEntry to Decimal")
+}
+func (r BundleEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BundleEntry to Date")
+}
+func (r BundleEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BundleEntry to Time")
+}
+func (r BundleEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BundleEntry to DateTime")
+}
+func (r BundleEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BundleEntry to Quantity")
+}
+func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Link",
+			Type: "List<FHIR.BundleLink>",
+		}, {
+			Name: "FullUrl",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Resource",
+			Type: "FHIR.",
+		}, {
+			Name: "Search",
+			Type: "FHIR.BundleEntrySearch",
+		}, {
+			Name: "Request",
+			Type: "FHIR.BundleEntryRequest",
+		}, {
+			Name: "Response",
+			Type: "FHIR.BundleEntryResponse",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BundleEntry",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BundleEntrySearch) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mode") {
+		if r.Mode != nil {
+			children = append(children, *r.Mode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "score") {
+		if r.Score != nil {
+			children = append(children, *r.Score)
+		}
+	}
+	return children
+}
+func (r BundleEntrySearch) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Boolean")
+}
+func (r BundleEntrySearch) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to String")
+}
+func (r BundleEntrySearch) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Integer")
+}
+func (r BundleEntrySearch) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Decimal")
+}
+func (r BundleEntrySearch) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Date")
+}
+func (r BundleEntrySearch) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Time")
+}
+func (r BundleEntrySearch) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to DateTime")
+}
+func (r BundleEntrySearch) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BundleEntrySearch to Quantity")
+}
+func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Mode",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Score",
+			Type: "FHIR.Decimal",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BundleEntrySearch",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BundleEntryRequest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		children = append(children, r.Method)
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	if len(name) == 0 || slices.Contains(name, "ifNoneMatch") {
+		if r.IfNoneMatch != nil {
+			children = append(children, *r.IfNoneMatch)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ifModifiedSince") {
+		if r.IfModifiedSince != nil {
+			children = append(children, *r.IfModifiedSince)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ifMatch") {
+		if r.IfMatch != nil {
+			children = append(children, *r.IfMatch)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ifNoneExist") {
+		if r.IfNoneExist != nil {
+			children = append(children, *r.IfNoneExist)
+		}
+	}
+	return children
+}
+func (r BundleEntryRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Boolean")
+}
+func (r BundleEntryRequest) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to String")
+}
+func (r BundleEntryRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Integer")
+}
+func (r BundleEntryRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Decimal")
+}
+func (r BundleEntryRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Date")
+}
+func (r BundleEntryRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Time")
+}
+func (r BundleEntryRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to DateTime")
+}
+func (r BundleEntryRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BundleEntryRequest to Quantity")
+}
+func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Method",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "IfNoneMatch",
+			Type: "FHIR.String",
+		}, {
+			Name: "IfModifiedSince",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "IfMatch",
+			Type: "FHIR.String",
+		}, {
+			Name: "IfNoneExist",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BundleEntryRequest",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r BundleEntryResponse) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "etag") {
+		if r.Etag != nil {
+			children = append(children, *r.Etag)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastModified") {
+		if r.LastModified != nil {
+			children = append(children, *r.LastModified)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, r.Outcome)
+		}
+	}
+	return children
+}
+func (r BundleEntryResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Boolean")
+}
+func (r BundleEntryResponse) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to String")
+}
+func (r BundleEntryResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Integer")
+}
+func (r BundleEntryResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Decimal")
+}
+func (r BundleEntryResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Date")
+}
+func (r BundleEntryResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Time")
+}
+func (r BundleEntryResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to DateTime")
+}
+func (r BundleEntryResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert BundleEntryResponse to Quantity")
+}
+func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.String",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Etag",
+			Type: "FHIR.String",
+		}, {
+			Name: "LastModified",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "BundleEntryResponse",
+			Namespace: "FHIR",
+		},
+	}
 }

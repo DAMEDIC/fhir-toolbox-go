@@ -3,7 +3,9 @@ package fhirpath_test
 import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -24,18 +26,18 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 				}
 
 				t.Run(name, func(t *testing.T) {
-					_, err := fhirpath.Parse(test.Expression.Expression)
+					expr, err := fhirpath.Parse(test.Expression.Expression)
 					if err != nil && test.Expression.Invalid != "" {
 						return
 					}
 
-					//result, err := fhirpath.Evaluate(
-					//	fhirpath.FHIRContext(),
-					//	test.InputResource,
-					//	expr,
-					//)
-					//assert.NoError(t, err)
-					//assert.Equal(t, test.OutputCollection(), result)
+					result, err := fhirpath.Evaluate(
+						r4.Context(),
+						test.InputResource,
+						expr,
+					)
+					assert.NoError(t, err)
+					assert.Equal(t, test.OutputCollection(), result)
 				})
 			}
 		})

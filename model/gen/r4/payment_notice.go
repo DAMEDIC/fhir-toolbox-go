@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1275,5 +1278,196 @@ func (r *PaymentNotice) UnmarshalXML(d *xml.Decoder, start xml.StartElement) err
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r PaymentNotice) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "request") {
+		if r.Request != nil {
+			children = append(children, *r.Request)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "response") {
+		if r.Response != nil {
+			children = append(children, *r.Response)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		children = append(children, r.Created)
+	}
+	if len(name) == 0 || slices.Contains(name, "provider") {
+		if r.Provider != nil {
+			children = append(children, *r.Provider)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "payment") {
+		children = append(children, r.Payment)
+	}
+	if len(name) == 0 || slices.Contains(name, "paymentDate") {
+		if r.PaymentDate != nil {
+			children = append(children, *r.PaymentDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "payee") {
+		if r.Payee != nil {
+			children = append(children, *r.Payee)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recipient") {
+		children = append(children, r.Recipient)
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		children = append(children, r.Amount)
+	}
+	if len(name) == 0 || slices.Contains(name, "paymentStatus") {
+		if r.PaymentStatus != nil {
+			children = append(children, *r.PaymentStatus)
+		}
+	}
+	return children
+}
+func (r PaymentNotice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PaymentNotice to Boolean")
+}
+func (r PaymentNotice) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PaymentNotice to String")
+}
+func (r PaymentNotice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PaymentNotice to Integer")
+}
+func (r PaymentNotice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PaymentNotice to Decimal")
+}
+func (r PaymentNotice) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PaymentNotice to Date")
+}
+func (r PaymentNotice) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PaymentNotice to Time")
+}
+func (r PaymentNotice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PaymentNotice to DateTime")
+}
+func (r PaymentNotice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PaymentNotice to Quantity")
+}
+func (r PaymentNotice) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Request",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Response",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Created",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Provider",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Payment",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "PaymentDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "Payee",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Recipient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.Money",
+		}, {
+			Name: "PaymentStatus",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "PaymentNotice",
+			Namespace: "FHIR",
+		},
 	}
 }

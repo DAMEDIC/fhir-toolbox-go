@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2696,5 +2699,398 @@ func (r *PractitionerRoleNotAvailable) UnmarshalXML(d *xml.Decoder, start xml.St
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r PractitionerRole) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "active") {
+		if r.Active != nil {
+			children = append(children, *r.Active)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "practitioner") {
+		if r.Practitioner != nil {
+			children = append(children, *r.Practitioner)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		if r.Organization != nil {
+			children = append(children, *r.Organization)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specialty") {
+		for _, v := range r.Specialty {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		for _, v := range r.Location {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "healthcareService") {
+		for _, v := range r.HealthcareService {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "telecom") {
+		for _, v := range r.Telecom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableTime") {
+		for _, v := range r.AvailableTime {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "notAvailable") {
+		for _, v := range r.NotAvailable {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availabilityExceptions") {
+		if r.AvailabilityExceptions != nil {
+			children = append(children, *r.AvailabilityExceptions)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PractitionerRole) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PractitionerRole to Boolean")
+}
+func (r PractitionerRole) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PractitionerRole to String")
+}
+func (r PractitionerRole) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PractitionerRole to Integer")
+}
+func (r PractitionerRole) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PractitionerRole to Decimal")
+}
+func (r PractitionerRole) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PractitionerRole to Date")
+}
+func (r PractitionerRole) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PractitionerRole to Time")
+}
+func (r PractitionerRole) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PractitionerRole to DateTime")
+}
+func (r PractitionerRole) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PractitionerRole to Quantity")
+}
+func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Active",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Practitioner",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Organization",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Specialty",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Location",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "HealthcareService",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Telecom",
+			Type: "List<FHIR.ContactPoint>",
+		}, {
+			Name: "AvailableTime",
+			Type: "List<FHIR.PractitionerRoleAvailableTime>",
+		}, {
+			Name: "NotAvailable",
+			Type: "List<FHIR.PractitionerRoleNotAvailable>",
+		}, {
+			Name: "AvailabilityExceptions",
+			Type: "FHIR.String",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "PractitionerRole",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PractitionerRoleAvailableTime) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "daysOfWeek") {
+		for _, v := range r.DaysOfWeek {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "allDay") {
+		if r.AllDay != nil {
+			children = append(children, *r.AllDay)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableStartTime") {
+		if r.AvailableStartTime != nil {
+			children = append(children, *r.AvailableStartTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableEndTime") {
+		if r.AvailableEndTime != nil {
+			children = append(children, *r.AvailableEndTime)
+		}
+	}
+	return children
+}
+func (r PractitionerRoleAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Boolean")
+}
+func (r PractitionerRoleAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to String")
+}
+func (r PractitionerRoleAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Integer")
+}
+func (r PractitionerRoleAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Decimal")
+}
+func (r PractitionerRoleAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Date")
+}
+func (r PractitionerRoleAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Time")
+}
+func (r PractitionerRoleAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to DateTime")
+}
+func (r PractitionerRoleAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Quantity")
+}
+func (r PractitionerRoleAvailableTime) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DaysOfWeek",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "AllDay",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "AvailableStartTime",
+			Type: "FHIR.Time",
+		}, {
+			Name: "AvailableEndTime",
+			Type: "FHIR.Time",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PractitionerRoleAvailableTime",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r PractitionerRoleNotAvailable) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		children = append(children, r.Description)
+	}
+	if len(name) == 0 || slices.Contains(name, "during") {
+		if r.During != nil {
+			children = append(children, *r.During)
+		}
+	}
+	return children
+}
+func (r PractitionerRoleNotAvailable) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Boolean")
+}
+func (r PractitionerRoleNotAvailable) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to String")
+}
+func (r PractitionerRoleNotAvailable) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Integer")
+}
+func (r PractitionerRoleNotAvailable) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Decimal")
+}
+func (r PractitionerRoleNotAvailable) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Date")
+}
+func (r PractitionerRoleNotAvailable) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Time")
+}
+func (r PractitionerRoleNotAvailable) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to DateTime")
+}
+func (r PractitionerRoleNotAvailable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Quantity")
+}
+func (r PractitionerRoleNotAvailable) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "During",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "PractitionerRoleNotAvailable",
+			Namespace: "FHIR",
+		},
 	}
 }

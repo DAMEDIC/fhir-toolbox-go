@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1706,5 +1709,257 @@ func (r *SubscriptionStatusNotificationEvent) UnmarshalXML(d *xml.Decoder, start
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SubscriptionStatus) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "eventsSinceSubscriptionStart") {
+		if r.EventsSinceSubscriptionStart != nil {
+			children = append(children, *r.EventsSinceSubscriptionStart)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "notificationEvent") {
+		for _, v := range r.NotificationEvent {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subscription") {
+		children = append(children, r.Subscription)
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		if r.Topic != nil {
+			children = append(children, *r.Topic)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "error") {
+		for _, v := range r.Error {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubscriptionStatus) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Boolean")
+}
+func (r SubscriptionStatus) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to String")
+}
+func (r SubscriptionStatus) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Integer")
+}
+func (r SubscriptionStatus) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Decimal")
+}
+func (r SubscriptionStatus) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Date")
+}
+func (r SubscriptionStatus) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Time")
+}
+func (r SubscriptionStatus) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to DateTime")
+}
+func (r SubscriptionStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubscriptionStatus to Quantity")
+}
+func (r SubscriptionStatus) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "EventsSinceSubscriptionStart",
+			Type: "FHIR.Integer64",
+		}, {
+			Name: "NotificationEvent",
+			Type: "List<FHIR.SubscriptionStatusNotificationEvent>",
+		}, {
+			Name: "Subscription",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Topic",
+			Type: "FHIR.Canonical",
+		}, {
+			Name: "Error",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "SubscriptionStatus",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubscriptionStatusNotificationEvent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "eventNumber") {
+		children = append(children, r.EventNumber)
+	}
+	if len(name) == 0 || slices.Contains(name, "timestamp") {
+		if r.Timestamp != nil {
+			children = append(children, *r.Timestamp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "focus") {
+		if r.Focus != nil {
+			children = append(children, *r.Focus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "additionalContext") {
+		for _, v := range r.AdditionalContext {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubscriptionStatusNotificationEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Boolean")
+}
+func (r SubscriptionStatusNotificationEvent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to String")
+}
+func (r SubscriptionStatusNotificationEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Integer")
+}
+func (r SubscriptionStatusNotificationEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Decimal")
+}
+func (r SubscriptionStatusNotificationEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Date")
+}
+func (r SubscriptionStatusNotificationEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Time")
+}
+func (r SubscriptionStatusNotificationEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to DateTime")
+}
+func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
+}
+func (r SubscriptionStatusNotificationEvent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "EventNumber",
+			Type: "FHIR.Integer64",
+		}, {
+			Name: "Timestamp",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Focus",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AdditionalContext",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubscriptionStatusNotificationEvent",
+			Namespace: "FHIR",
+		},
 	}
 }

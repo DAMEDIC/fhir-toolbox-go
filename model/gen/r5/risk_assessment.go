@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2564,5 +2567,347 @@ func (r *RiskAssessmentPrediction) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r RiskAssessment) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		if r.BasedOn != nil {
+			children = append(children, *r.BasedOn)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parent") {
+		if r.Parent != nil {
+			children = append(children, *r.Parent)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		if r.Occurrence != nil {
+			children = append(children, r.Occurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "condition") {
+		if r.Condition != nil {
+			children = append(children, *r.Condition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		if r.Performer != nil {
+			children = append(children, *r.Performer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basis") {
+		for _, v := range r.Basis {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "prediction") {
+		for _, v := range r.Prediction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "mitigation") {
+		if r.Mitigation != nil {
+			children = append(children, *r.Mitigation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r RiskAssessment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RiskAssessment to Boolean")
+}
+func (r RiskAssessment) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RiskAssessment to String")
+}
+func (r RiskAssessment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RiskAssessment to Integer")
+}
+func (r RiskAssessment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RiskAssessment to Decimal")
+}
+func (r RiskAssessment) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RiskAssessment to Date")
+}
+func (r RiskAssessment) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RiskAssessment to Time")
+}
+func (r RiskAssessment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RiskAssessment to DateTime")
+}
+func (r RiskAssessment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RiskAssessment to Quantity")
+}
+func (r RiskAssessment) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "BasedOn",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Parent",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Condition",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Performer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reason",
+			Type: "List<FHIR.CodeableReference>",
+		}, {
+			Name: "Basis",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Prediction",
+			Type: "List<FHIR.RiskAssessmentPrediction>",
+		}, {
+			Name: "Mitigation",
+			Type: "FHIR.String",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "RiskAssessment",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r RiskAssessmentPrediction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, *r.Outcome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "probability") {
+		if r.Probability != nil {
+			children = append(children, r.Probability)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "qualitativeRisk") {
+		if r.QualitativeRisk != nil {
+			children = append(children, *r.QualitativeRisk)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relativeRisk") {
+		if r.RelativeRisk != nil {
+			children = append(children, *r.RelativeRisk)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "when") {
+		if r.When != nil {
+			children = append(children, r.When)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rationale") {
+		if r.Rationale != nil {
+			children = append(children, *r.Rationale)
+		}
+	}
+	return children
+}
+func (r RiskAssessmentPrediction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Boolean")
+}
+func (r RiskAssessmentPrediction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to String")
+}
+func (r RiskAssessmentPrediction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Integer")
+}
+func (r RiskAssessmentPrediction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Decimal")
+}
+func (r RiskAssessmentPrediction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Date")
+}
+func (r RiskAssessmentPrediction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Time")
+}
+func (r RiskAssessmentPrediction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to DateTime")
+}
+func (r RiskAssessmentPrediction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert RiskAssessmentPrediction to Quantity")
+}
+func (r RiskAssessmentPrediction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Probability",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "QualitativeRisk",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "RelativeRisk",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "When",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Rationale",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "RiskAssessmentPrediction",
+			Namespace: "FHIR",
+		},
 	}
 }

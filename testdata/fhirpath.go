@@ -88,7 +88,7 @@ type FHIRPathTest struct {
 	Output        []FHIRPathTestOutput   `xml:"output"`
 }
 
-func (t FHIRPathTest) OutputCollection() interface{} {
+func (t FHIRPathTest) OutputCollection() fhirpath.Collection {
 	var c fhirpath.Collection
 	for _, o := range t.Output {
 		c = append(c, o)
@@ -106,7 +106,7 @@ type FHIRPathTestOutput struct {
 	Output     string `xml:",innerxml"`
 }
 
-func (o FHIRPathTestOutput) Member(name string) fhirpath.Collection {
+func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {
 	return nil
 }
 
@@ -194,7 +194,7 @@ func (o FHIRPathTestOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return &q, nil
 }
 
-func (o FHIRPathTestOutput) Type() fhirpath.TypeInfo {
+func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.SimpleTypeInfo{
 		Namespace: "System",
 		Name:      strings.Title(o.Output),

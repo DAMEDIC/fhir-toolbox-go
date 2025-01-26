@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1836,5 +1839,204 @@ func (r *ImmunizationEvaluation) UnmarshalXML(d *xml.Decoder, start xml.StartEle
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ImmunizationEvaluation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		children = append(children, r.Patient)
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authority") {
+		if r.Authority != nil {
+			children = append(children, *r.Authority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetDisease") {
+		children = append(children, r.TargetDisease)
+	}
+	if len(name) == 0 || slices.Contains(name, "immunizationEvent") {
+		children = append(children, r.ImmunizationEvent)
+	}
+	if len(name) == 0 || slices.Contains(name, "doseStatus") {
+		children = append(children, r.DoseStatus)
+	}
+	if len(name) == 0 || slices.Contains(name, "doseStatusReason") {
+		for _, v := range r.DoseStatusReason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "series") {
+		if r.Series != nil {
+			children = append(children, *r.Series)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doseNumber") {
+		if r.DoseNumber != nil {
+			children = append(children, r.DoseNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "seriesDoses") {
+		if r.SeriesDoses != nil {
+			children = append(children, r.SeriesDoses)
+		}
+	}
+	return children
+}
+func (r ImmunizationEvaluation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Boolean")
+}
+func (r ImmunizationEvaluation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to String")
+}
+func (r ImmunizationEvaluation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Integer")
+}
+func (r ImmunizationEvaluation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Decimal")
+}
+func (r ImmunizationEvaluation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Date")
+}
+func (r ImmunizationEvaluation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Time")
+}
+func (r ImmunizationEvaluation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to DateTime")
+}
+func (r ImmunizationEvaluation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImmunizationEvaluation to Quantity")
+}
+func (r ImmunizationEvaluation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Authority",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "TargetDisease",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ImmunizationEvent",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "DoseStatus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "DoseStatusReason",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Series",
+			Type: "FHIR.String",
+		}, {
+			Name: "DoseNumber",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "SeriesDoses",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "ImmunizationEvaluation",
+			Namespace: "FHIR",
+		},
 	}
 }

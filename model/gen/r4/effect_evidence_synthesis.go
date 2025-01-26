@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -6058,5 +6061,936 @@ func (r *EffectEvidenceSynthesisCertaintyCertaintySubcomponent) UnmarshalXML(d *
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r EffectEvidenceSynthesis) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "approvalDate") {
+		if r.ApprovalDate != nil {
+			children = append(children, *r.ApprovalDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastReviewDate") {
+		if r.LastReviewDate != nil {
+			children = append(children, *r.LastReviewDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectivePeriod") {
+		if r.EffectivePeriod != nil {
+			children = append(children, *r.EffectivePeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "topic") {
+		for _, v := range r.Topic {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		for _, v := range r.Author {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "editor") {
+		for _, v := range r.Editor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reviewer") {
+		for _, v := range r.Reviewer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endorser") {
+		for _, v := range r.Endorser {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relatedArtifact") {
+		for _, v := range r.RelatedArtifact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "synthesisType") {
+		if r.SynthesisType != nil {
+			children = append(children, *r.SynthesisType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "studyType") {
+		if r.StudyType != nil {
+			children = append(children, *r.StudyType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "population") {
+		children = append(children, r.Population)
+	}
+	if len(name) == 0 || slices.Contains(name, "exposure") {
+		children = append(children, r.Exposure)
+	}
+	if len(name) == 0 || slices.Contains(name, "exposureAlternative") {
+		children = append(children, r.ExposureAlternative)
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		children = append(children, r.Outcome)
+	}
+	if len(name) == 0 || slices.Contains(name, "sampleSize") {
+		if r.SampleSize != nil {
+			children = append(children, *r.SampleSize)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resultsByExposure") {
+		for _, v := range r.ResultsByExposure {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "effectEstimate") {
+		for _, v := range r.EffectEstimate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "certainty") {
+		for _, v := range r.Certainty {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Boolean")
+}
+func (r EffectEvidenceSynthesis) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to String")
+}
+func (r EffectEvidenceSynthesis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Integer")
+}
+func (r EffectEvidenceSynthesis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Decimal")
+}
+func (r EffectEvidenceSynthesis) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Date")
+}
+func (r EffectEvidenceSynthesis) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Time")
+}
+func (r EffectEvidenceSynthesis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to DateTime")
+}
+func (r EffectEvidenceSynthesis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesis to Quantity")
+}
+func (r EffectEvidenceSynthesis) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Url",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Title",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Publisher",
+			Type: "FHIR.String",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "UseContext",
+			Type: "List<FHIR.UsageContext>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Copyright",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "ApprovalDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "LastReviewDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "EffectivePeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Topic",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Author",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Editor",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Reviewer",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "Endorser",
+			Type: "List<FHIR.ContactDetail>",
+		}, {
+			Name: "RelatedArtifact",
+			Type: "List<FHIR.RelatedArtifact>",
+		}, {
+			Name: "SynthesisType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "StudyType",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Population",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Exposure",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "ExposureAlternative",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "SampleSize",
+			Type: "FHIR.EffectEvidenceSynthesisSampleSize",
+		}, {
+			Name: "ResultsByExposure",
+			Type: "List<FHIR.EffectEvidenceSynthesisResultsByExposure>",
+		}, {
+			Name: "EffectEstimate",
+			Type: "List<FHIR.EffectEvidenceSynthesisEffectEstimate>",
+		}, {
+			Name: "Certainty",
+			Type: "List<FHIR.EffectEvidenceSynthesisCertainty>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesis",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisSampleSize) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfStudies") {
+		if r.NumberOfStudies != nil {
+			children = append(children, *r.NumberOfStudies)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfParticipants") {
+		if r.NumberOfParticipants != nil {
+			children = append(children, *r.NumberOfParticipants)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisSampleSize) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Boolean")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to String")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Integer")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Decimal")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Date")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Time")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to DateTime")
+}
+func (r EffectEvidenceSynthesisSampleSize) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Quantity")
+}
+func (r EffectEvidenceSynthesisSampleSize) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "NumberOfStudies",
+			Type: "FHIR.Integer",
+		}, {
+			Name: "NumberOfParticipants",
+			Type: "FHIR.Integer",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisSampleSize",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisResultsByExposure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exposureState") {
+		if r.ExposureState != nil {
+			children = append(children, *r.ExposureState)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variantState") {
+		if r.VariantState != nil {
+			children = append(children, *r.VariantState)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "riskEvidenceSynthesis") {
+		children = append(children, r.RiskEvidenceSynthesis)
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Boolean")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to String")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Integer")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Decimal")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Date")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Time")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to DateTime")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Quantity")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "ExposureState",
+			Type: "FHIR.Code",
+		}, {
+			Name: "VariantState",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "RiskEvidenceSynthesis",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisResultsByExposure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisEffectEstimate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variantState") {
+		if r.VariantState != nil {
+			children = append(children, *r.VariantState)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unitOfMeasure") {
+		if r.UnitOfMeasure != nil {
+			children = append(children, *r.UnitOfMeasure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "precisionEstimate") {
+		for _, v := range r.PrecisionEstimate {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Boolean")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to String")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Integer")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Decimal")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Date")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Time")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to DateTime")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Quantity")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "VariantState",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "UnitOfMeasure",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "PrecisionEstimate",
+			Type: "List<FHIR.EffectEvidenceSynthesisEffectEstimatePrecisionEstimate>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisEffectEstimate",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "level") {
+		if r.Level != nil {
+			children = append(children, *r.Level)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "from") {
+		if r.From != nil {
+			children = append(children, *r.From)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "to") {
+		if r.To != nil {
+			children = append(children, *r.To)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Boolean")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to String")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Integer")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Decimal")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Date")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Time")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to DateTime")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Quantity")
+}
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Level",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "From",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "To",
+			Type: "FHIR.Decimal",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisEffectEstimatePrecisionEstimate",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisCertainty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rating") {
+		for _, v := range r.Rating {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "certaintySubcomponent") {
+		for _, v := range r.CertaintySubcomponent {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisCertainty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Boolean")
+}
+func (r EffectEvidenceSynthesisCertainty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to String")
+}
+func (r EffectEvidenceSynthesisCertainty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Integer")
+}
+func (r EffectEvidenceSynthesisCertainty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Decimal")
+}
+func (r EffectEvidenceSynthesisCertainty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Date")
+}
+func (r EffectEvidenceSynthesisCertainty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Time")
+}
+func (r EffectEvidenceSynthesisCertainty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to DateTime")
+}
+func (r EffectEvidenceSynthesisCertainty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Quantity")
+}
+func (r EffectEvidenceSynthesisCertainty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Rating",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "CertaintySubcomponent",
+			Type: "List<FHIR.EffectEvidenceSynthesisCertaintyCertaintySubcomponent>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisCertainty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rating") {
+		for _, v := range r.Rating {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Boolean")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to String")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Integer")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Decimal")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Date")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Time")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to DateTime")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Quantity")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Rating",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "EffectEvidenceSynthesisCertaintyCertaintySubcomponent",
+			Namespace: "FHIR",
+		},
 	}
 }

@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -3571,5 +3574,558 @@ func (r *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdra
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r AdministrableProductDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "formOf") {
+		for _, v := range r.FormOf {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "administrableDoseForm") {
+		if r.AdministrableDoseForm != nil {
+			children = append(children, *r.AdministrableDoseForm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "unitOfPresentation") {
+		if r.UnitOfPresentation != nil {
+			children = append(children, *r.UnitOfPresentation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "producedFrom") {
+		for _, v := range r.ProducedFrom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ingredient") {
+		for _, v := range r.Ingredient {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "routeOfAdministration") {
+		for _, v := range r.RouteOfAdministration {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AdministrableProductDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Boolean")
+}
+func (r AdministrableProductDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to String")
+}
+func (r AdministrableProductDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Integer")
+}
+func (r AdministrableProductDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Decimal")
+}
+func (r AdministrableProductDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Date")
+}
+func (r AdministrableProductDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Time")
+}
+func (r AdministrableProductDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to DateTime")
+}
+func (r AdministrableProductDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinition to Quantity")
+}
+func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "FormOf",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "AdministrableDoseForm",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "UnitOfPresentation",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ProducedFrom",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Ingredient",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Device",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.AdministrableProductDefinitionProperty>",
+		}, {
+			Name: "RouteOfAdministration",
+			Type: "List<FHIR.AdministrableProductDefinitionRouteOfAdministration>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "AdministrableProductDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdministrableProductDefinitionProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	return children
+}
+func (r AdministrableProductDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Boolean")
+}
+func (r AdministrableProductDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to String")
+}
+func (r AdministrableProductDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Integer")
+}
+func (r AdministrableProductDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Decimal")
+}
+func (r AdministrableProductDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Date")
+}
+func (r AdministrableProductDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Time")
+}
+func (r AdministrableProductDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to DateTime")
+}
+func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
+}
+func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdministrableProductDefinitionProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "firstDose") {
+		if r.FirstDose != nil {
+			children = append(children, *r.FirstDose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxSingleDose") {
+		if r.MaxSingleDose != nil {
+			children = append(children, *r.MaxSingleDose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDosePerDay") {
+		if r.MaxDosePerDay != nil {
+			children = append(children, *r.MaxDosePerDay)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxDosePerTreatmentPeriod") {
+		if r.MaxDosePerTreatmentPeriod != nil {
+			children = append(children, *r.MaxDosePerTreatmentPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "maxTreatmentPeriod") {
+		if r.MaxTreatmentPeriod != nil {
+			children = append(children, *r.MaxTreatmentPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetSpecies") {
+		for _, v := range r.TargetSpecies {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Boolean")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to String")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Integer")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Decimal")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Date")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Time")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to DateTime")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "FirstDose",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxSingleDose",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxDosePerDay",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "MaxDosePerTreatmentPeriod",
+			Type: "FHIR.Ratio",
+		}, {
+			Name: "MaxTreatmentPeriod",
+			Type: "FHIR.Duration",
+		}, {
+			Name: "TargetSpecies",
+			Type: "List<FHIR.AdministrableProductDefinitionRouteOfAdministrationTargetSpecies>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdministrableProductDefinitionRouteOfAdministration",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "withdrawalPeriod") {
+		for _, v := range r.WithdrawalPeriod {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Boolean")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to String")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Integer")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Decimal")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Date")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Time")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to DateTime")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "WithdrawalPeriod",
+			Type: "List<FHIR.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "tissue") {
+		children = append(children, r.Tissue)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInformation") {
+		if r.SupportingInformation != nil {
+			children = append(children, *r.SupportingInformation)
+		}
+	}
+	return children
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Boolean")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to String")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Date")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Time")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to DateTime")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Tissue",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "SupportingInformation",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod",
+			Namespace: "FHIR",
+		},
 	}
 }

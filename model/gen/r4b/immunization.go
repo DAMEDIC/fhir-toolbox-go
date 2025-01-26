@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5009,5 +5012,694 @@ func (r *ImmunizationProtocolApplied) UnmarshalXML(d *xml.Decoder, start xml.Sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Immunization) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "statusReason") {
+		if r.StatusReason != nil {
+			children = append(children, *r.StatusReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "vaccineCode") {
+		children = append(children, r.VaccineCode)
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		children = append(children, r.Patient)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrence") {
+		children = append(children, r.Occurrence)
+	}
+	if len(name) == 0 || slices.Contains(name, "recorded") {
+		if r.Recorded != nil {
+			children = append(children, *r.Recorded)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "primarySource") {
+		if r.PrimarySource != nil {
+			children = append(children, *r.PrimarySource)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reportOrigin") {
+		if r.ReportOrigin != nil {
+			children = append(children, *r.ReportOrigin)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manufacturer") {
+		if r.Manufacturer != nil {
+			children = append(children, *r.Manufacturer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lotNumber") {
+		if r.LotNumber != nil {
+			children = append(children, *r.LotNumber)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "expirationDate") {
+		if r.ExpirationDate != nil {
+			children = append(children, *r.ExpirationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "site") {
+		if r.Site != nil {
+			children = append(children, *r.Site)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "route") {
+		if r.Route != nil {
+			children = append(children, *r.Route)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doseQuantity") {
+		if r.DoseQuantity != nil {
+			children = append(children, *r.DoseQuantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonCode") {
+		for _, v := range r.ReasonCode {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reasonReference") {
+		for _, v := range r.ReasonReference {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isSubpotent") {
+		if r.IsSubpotent != nil {
+			children = append(children, *r.IsSubpotent)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subpotentReason") {
+		for _, v := range r.SubpotentReason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "education") {
+		for _, v := range r.Education {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "programEligibility") {
+		for _, v := range r.ProgramEligibility {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fundingSource") {
+		if r.FundingSource != nil {
+			children = append(children, *r.FundingSource)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reaction") {
+		for _, v := range r.Reaction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "protocolApplied") {
+		for _, v := range r.ProtocolApplied {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Immunization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Immunization to Boolean")
+}
+func (r Immunization) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Immunization to String")
+}
+func (r Immunization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Immunization to Integer")
+}
+func (r Immunization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Immunization to Decimal")
+}
+func (r Immunization) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Immunization to Date")
+}
+func (r Immunization) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Immunization to Time")
+}
+func (r Immunization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Immunization to DateTime")
+}
+func (r Immunization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Immunization to Quantity")
+}
+func (r Immunization) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "StatusReason",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "VaccineCode",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Occurrence",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Recorded",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "PrimarySource",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "ReportOrigin",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Manufacturer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "LotNumber",
+			Type: "FHIR.String",
+		}, {
+			Name: "ExpirationDate",
+			Type: "FHIR.Date",
+		}, {
+			Name: "Site",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Route",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "DoseQuantity",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.ImmunizationPerformer>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "ReasonCode",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "ReasonReference",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "IsSubpotent",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "SubpotentReason",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Education",
+			Type: "List<FHIR.ImmunizationEducation>",
+		}, {
+			Name: "ProgramEligibility",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "FundingSource",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Reaction",
+			Type: "List<FHIR.ImmunizationReaction>",
+		}, {
+			Name: "ProtocolApplied",
+			Type: "List<FHIR.ImmunizationProtocolApplied>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Immunization",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImmunizationPerformer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "function") {
+		if r.Function != nil {
+			children = append(children, *r.Function)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		children = append(children, r.Actor)
+	}
+	return children
+}
+func (r ImmunizationPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Boolean")
+}
+func (r ImmunizationPerformer) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to String")
+}
+func (r ImmunizationPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Integer")
+}
+func (r ImmunizationPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Decimal")
+}
+func (r ImmunizationPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Date")
+}
+func (r ImmunizationPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Time")
+}
+func (r ImmunizationPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to DateTime")
+}
+func (r ImmunizationPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImmunizationPerformer to Quantity")
+}
+func (r ImmunizationPerformer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Function",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Actor",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImmunizationPerformer",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImmunizationEducation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "documentType") {
+		if r.DocumentType != nil {
+			children = append(children, *r.DocumentType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		if r.Reference != nil {
+			children = append(children, *r.Reference)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publicationDate") {
+		if r.PublicationDate != nil {
+			children = append(children, *r.PublicationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "presentationDate") {
+		if r.PresentationDate != nil {
+			children = append(children, *r.PresentationDate)
+		}
+	}
+	return children
+}
+func (r ImmunizationEducation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Boolean")
+}
+func (r ImmunizationEducation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to String")
+}
+func (r ImmunizationEducation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Integer")
+}
+func (r ImmunizationEducation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Decimal")
+}
+func (r ImmunizationEducation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Date")
+}
+func (r ImmunizationEducation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Time")
+}
+func (r ImmunizationEducation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to DateTime")
+}
+func (r ImmunizationEducation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImmunizationEducation to Quantity")
+}
+func (r ImmunizationEducation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DocumentType",
+			Type: "FHIR.String",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "PublicationDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "PresentationDate",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImmunizationEducation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImmunizationReaction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detail") {
+		if r.Detail != nil {
+			children = append(children, *r.Detail)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reported") {
+		if r.Reported != nil {
+			children = append(children, *r.Reported)
+		}
+	}
+	return children
+}
+func (r ImmunizationReaction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Boolean")
+}
+func (r ImmunizationReaction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to String")
+}
+func (r ImmunizationReaction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Integer")
+}
+func (r ImmunizationReaction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Decimal")
+}
+func (r ImmunizationReaction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Date")
+}
+func (r ImmunizationReaction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Time")
+}
+func (r ImmunizationReaction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to DateTime")
+}
+func (r ImmunizationReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImmunizationReaction to Quantity")
+}
+func (r ImmunizationReaction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Detail",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Reported",
+			Type: "FHIR.Boolean",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImmunizationReaction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ImmunizationProtocolApplied) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "series") {
+		if r.Series != nil {
+			children = append(children, *r.Series)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authority") {
+		if r.Authority != nil {
+			children = append(children, *r.Authority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetDisease") {
+		for _, v := range r.TargetDisease {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "doseNumber") {
+		children = append(children, r.DoseNumber)
+	}
+	if len(name) == 0 || slices.Contains(name, "seriesDoses") {
+		if r.SeriesDoses != nil {
+			children = append(children, r.SeriesDoses)
+		}
+	}
+	return children
+}
+func (r ImmunizationProtocolApplied) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Boolean")
+}
+func (r ImmunizationProtocolApplied) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to String")
+}
+func (r ImmunizationProtocolApplied) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Integer")
+}
+func (r ImmunizationProtocolApplied) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Decimal")
+}
+func (r ImmunizationProtocolApplied) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Date")
+}
+func (r ImmunizationProtocolApplied) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Time")
+}
+func (r ImmunizationProtocolApplied) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to DateTime")
+}
+func (r ImmunizationProtocolApplied) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ImmunizationProtocolApplied to Quantity")
+}
+func (r ImmunizationProtocolApplied) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Series",
+			Type: "FHIR.String",
+		}, {
+			Name: "Authority",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "TargetDisease",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "DoseNumber",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "SeriesDoses",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ImmunizationProtocolApplied",
+			Namespace: "FHIR",
+		},
 	}
 }

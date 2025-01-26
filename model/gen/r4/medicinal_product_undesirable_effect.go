@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -956,5 +959,150 @@ func (r *MedicinalProductUndesirableEffect) UnmarshalXML(d *xml.Decoder, start x
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MedicinalProductUndesirableEffect) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		for _, v := range r.Subject {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "symptomConditionEffect") {
+		if r.SymptomConditionEffect != nil {
+			children = append(children, *r.SymptomConditionEffect)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		if r.Classification != nil {
+			children = append(children, *r.Classification)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frequencyOfOccurrence") {
+		if r.FrequencyOfOccurrence != nil {
+			children = append(children, *r.FrequencyOfOccurrence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "population") {
+		for _, v := range r.Population {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MedicinalProductUndesirableEffect) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Boolean")
+}
+func (r MedicinalProductUndesirableEffect) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to String")
+}
+func (r MedicinalProductUndesirableEffect) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Integer")
+}
+func (r MedicinalProductUndesirableEffect) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Decimal")
+}
+func (r MedicinalProductUndesirableEffect) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Date")
+}
+func (r MedicinalProductUndesirableEffect) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Time")
+}
+func (r MedicinalProductUndesirableEffect) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to DateTime")
+}
+func (r MedicinalProductUndesirableEffect) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Quantity")
+}
+func (r MedicinalProductUndesirableEffect) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Subject",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "SymptomConditionEffect",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Classification",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "FrequencyOfOccurrence",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Population",
+			Type: "List<FHIR.Population>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "MedicinalProductUndesirableEffect",
+			Namespace: "FHIR",
+		},
 	}
 }

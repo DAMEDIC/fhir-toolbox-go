@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -620,4 +623,141 @@ func (r Address) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Address) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "use") {
+		if r.Use != nil {
+			children = append(children, *r.Use)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "line") {
+		for _, v := range r.Line {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "city") {
+		if r.City != nil {
+			children = append(children, *r.City)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "district") {
+		if r.District != nil {
+			children = append(children, *r.District)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "state") {
+		if r.State != nil {
+			children = append(children, *r.State)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "postalCode") {
+		if r.PostalCode != nil {
+			children = append(children, *r.PostalCode)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "country") {
+		if r.Country != nil {
+			children = append(children, *r.Country)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	return children
+}
+func (r Address) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Address to Boolean")
+}
+func (r Address) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Address to String")
+}
+func (r Address) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Address to Integer")
+}
+func (r Address) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Address to Decimal")
+}
+func (r Address) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Address to Date")
+}
+func (r Address) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Address to Time")
+}
+func (r Address) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Address to DateTime")
+}
+func (r Address) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Address to Quantity")
+}
+func (r Address) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Use",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.String",
+		}, {
+			Name: "Line",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "City",
+			Type: "FHIR.String",
+		}, {
+			Name: "District",
+			Type: "FHIR.String",
+		}, {
+			Name: "State",
+			Type: "FHIR.String",
+		}, {
+			Name: "PostalCode",
+			Type: "FHIR.String",
+		}, {
+			Name: "Country",
+			Type: "FHIR.String",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Address",
+			Namespace: "FHIR",
+		},
+	}
 }

@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -681,5 +684,118 @@ func (r *Signature) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Signature) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "when") {
+		if r.When != nil {
+			children = append(children, *r.When)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onBehalfOf") {
+		if r.OnBehalfOf != nil {
+			children = append(children, *r.OnBehalfOf)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetFormat") {
+		if r.TargetFormat != nil {
+			children = append(children, *r.TargetFormat)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sigFormat") {
+		if r.SigFormat != nil {
+			children = append(children, *r.SigFormat)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		if r.Data != nil {
+			children = append(children, *r.Data)
+		}
+	}
+	return children
+}
+func (r Signature) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Signature to Boolean")
+}
+func (r Signature) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Signature to String")
+}
+func (r Signature) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Signature to Integer")
+}
+func (r Signature) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Signature to Decimal")
+}
+func (r Signature) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Signature to Date")
+}
+func (r Signature) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Signature to Time")
+}
+func (r Signature) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Signature to DateTime")
+}
+func (r Signature) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Signature to Quantity")
+}
+func (r Signature) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "When",
+			Type: "FHIR.Instant",
+		}, {
+			Name: "Who",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "OnBehalfOf",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "TargetFormat",
+			Type: "FHIR.Code",
+		}, {
+			Name: "SigFormat",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Data",
+			Type: "FHIR.Base64Binary",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Signature",
+			Namespace: "FHIR",
+		},
 	}
 }

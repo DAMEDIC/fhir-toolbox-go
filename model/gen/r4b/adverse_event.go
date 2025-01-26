@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -2742,5 +2745,442 @@ func (r *AdverseEventSuspectEntityCausality) UnmarshalXML(d *xml.Decoder, start 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r AdverseEvent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actuality") {
+		children = append(children, r.Actuality)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "event") {
+		if r.Event != nil {
+			children = append(children, *r.Event)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		children = append(children, r.Subject)
+	}
+	if len(name) == 0 || slices.Contains(name, "encounter") {
+		if r.Encounter != nil {
+			children = append(children, *r.Encounter)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detected") {
+		if r.Detected != nil {
+			children = append(children, *r.Detected)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recordedDate") {
+		if r.RecordedDate != nil {
+			children = append(children, *r.RecordedDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resultingCondition") {
+		for _, v := range r.ResultingCondition {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "location") {
+		if r.Location != nil {
+			children = append(children, *r.Location)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "seriousness") {
+		if r.Seriousness != nil {
+			children = append(children, *r.Seriousness)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "severity") {
+		if r.Severity != nil {
+			children = append(children, *r.Severity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outcome") {
+		if r.Outcome != nil {
+			children = append(children, *r.Outcome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recorder") {
+		if r.Recorder != nil {
+			children = append(children, *r.Recorder)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contributor") {
+		for _, v := range r.Contributor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "suspectEntity") {
+		for _, v := range r.SuspectEntity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subjectMedicalHistory") {
+		for _, v := range r.SubjectMedicalHistory {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceDocument") {
+		for _, v := range r.ReferenceDocument {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "study") {
+		for _, v := range r.Study {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AdverseEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdverseEvent to Boolean")
+}
+func (r AdverseEvent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdverseEvent to String")
+}
+func (r AdverseEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdverseEvent to Integer")
+}
+func (r AdverseEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdverseEvent to Decimal")
+}
+func (r AdverseEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdverseEvent to Date")
+}
+func (r AdverseEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdverseEvent to Time")
+}
+func (r AdverseEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdverseEvent to DateTime")
+}
+func (r AdverseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdverseEvent to Quantity")
+}
+func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Actuality",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Event",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Subject",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Encounter",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Detected",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "RecordedDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "ResultingCondition",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Location",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Seriousness",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Severity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Outcome",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Recorder",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Contributor",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "SuspectEntity",
+			Type: "List<FHIR.AdverseEventSuspectEntity>",
+		}, {
+			Name: "SubjectMedicalHistory",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "ReferenceDocument",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Study",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "AdverseEvent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdverseEventSuspectEntity) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "instance") {
+		children = append(children, r.Instance)
+	}
+	if len(name) == 0 || slices.Contains(name, "causality") {
+		for _, v := range r.Causality {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AdverseEventSuspectEntity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Boolean")
+}
+func (r AdverseEventSuspectEntity) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to String")
+}
+func (r AdverseEventSuspectEntity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Integer")
+}
+func (r AdverseEventSuspectEntity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Decimal")
+}
+func (r AdverseEventSuspectEntity) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Date")
+}
+func (r AdverseEventSuspectEntity) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Time")
+}
+func (r AdverseEventSuspectEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to DateTime")
+}
+func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
+}
+func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Instance",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Causality",
+			Type: "List<FHIR.AdverseEventSuspectEntityCausality>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdverseEventSuspectEntity",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AdverseEventSuspectEntityCausality) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "assessment") {
+		if r.Assessment != nil {
+			children = append(children, *r.Assessment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "productRelatedness") {
+		if r.ProductRelatedness != nil {
+			children = append(children, *r.ProductRelatedness)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "author") {
+		if r.Author != nil {
+			children = append(children, *r.Author)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	return children
+}
+func (r AdverseEventSuspectEntityCausality) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Boolean")
+}
+func (r AdverseEventSuspectEntityCausality) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to String")
+}
+func (r AdverseEventSuspectEntityCausality) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Integer")
+}
+func (r AdverseEventSuspectEntityCausality) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Decimal")
+}
+func (r AdverseEventSuspectEntityCausality) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Date")
+}
+func (r AdverseEventSuspectEntityCausality) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Time")
+}
+func (r AdverseEventSuspectEntityCausality) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to DateTime")
+}
+func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
+}
+func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Assessment",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "ProductRelatedness",
+			Type: "FHIR.String",
+		}, {
+			Name: "Author",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AdverseEventSuspectEntityCausality",
+			Namespace: "FHIR",
+		},
 	}
 }

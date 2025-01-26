@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -6030,5 +6033,1037 @@ func (r *InsurancePlanPlanSpecificCostBenefitCost) UnmarshalXML(d *xml.Decoder, 
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r InsurancePlan) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "alias") {
+		for _, v := range r.Alias {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ownedBy") {
+		if r.OwnedBy != nil {
+			children = append(children, *r.OwnedBy)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "administeredBy") {
+		if r.AdministeredBy != nil {
+			children = append(children, *r.AdministeredBy)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coverageArea") {
+		for _, v := range r.CoverageArea {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "endpoint") {
+		for _, v := range r.Endpoint {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "network") {
+		for _, v := range r.Network {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coverage") {
+		for _, v := range r.Coverage {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "plan") {
+		for _, v := range r.Plan {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlan) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlan to Boolean")
+}
+func (r InsurancePlan) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlan to String")
+}
+func (r InsurancePlan) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlan to Integer")
+}
+func (r InsurancePlan) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlan to Decimal")
+}
+func (r InsurancePlan) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlan to Date")
+}
+func (r InsurancePlan) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlan to Time")
+}
+func (r InsurancePlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlan to DateTime")
+}
+func (r InsurancePlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlan to Quantity")
+}
+func (r InsurancePlan) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Type",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Alias",
+			Type: "List<FHIR.String>",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "OwnedBy",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "AdministeredBy",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "CoverageArea",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Contact",
+			Type: "List<FHIR.InsurancePlanContact>",
+		}, {
+			Name: "Endpoint",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Network",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Coverage",
+			Type: "List<FHIR.InsurancePlanCoverage>",
+		}, {
+			Name: "Plan",
+			Type: "List<FHIR.InsurancePlanPlan>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlan",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanContact) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "telecom") {
+		for _, v := range r.Telecom {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "address") {
+		if r.Address != nil {
+			children = append(children, *r.Address)
+		}
+	}
+	return children
+}
+func (r InsurancePlanContact) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Boolean")
+}
+func (r InsurancePlanContact) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to String")
+}
+func (r InsurancePlanContact) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Integer")
+}
+func (r InsurancePlanContact) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Decimal")
+}
+func (r InsurancePlanContact) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Date")
+}
+func (r InsurancePlanContact) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Time")
+}
+func (r InsurancePlanContact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to DateTime")
+}
+func (r InsurancePlanContact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanContact to Quantity")
+}
+func (r InsurancePlanContact) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Purpose",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Name",
+			Type: "FHIR.HumanName",
+		}, {
+			Name: "Telecom",
+			Type: "List<FHIR.ContactPoint>",
+		}, {
+			Name: "Address",
+			Type: "FHIR.Address",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanContact",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanCoverage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "network") {
+		for _, v := range r.Network {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "benefit") {
+		for _, v := range r.Benefit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlanCoverage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Boolean")
+}
+func (r InsurancePlanCoverage) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to String")
+}
+func (r InsurancePlanCoverage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Integer")
+}
+func (r InsurancePlanCoverage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Decimal")
+}
+func (r InsurancePlanCoverage) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Date")
+}
+func (r InsurancePlanCoverage) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Time")
+}
+func (r InsurancePlanCoverage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to DateTime")
+}
+func (r InsurancePlanCoverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverage to Quantity")
+}
+func (r InsurancePlanCoverage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Network",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Benefit",
+			Type: "List<FHIR.InsurancePlanCoverageBenefit>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanCoverage",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanCoverageBenefit) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "requirement") {
+		if r.Requirement != nil {
+			children = append(children, *r.Requirement)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "limit") {
+		for _, v := range r.Limit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlanCoverageBenefit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Boolean")
+}
+func (r InsurancePlanCoverageBenefit) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to String")
+}
+func (r InsurancePlanCoverageBenefit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Integer")
+}
+func (r InsurancePlanCoverageBenefit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Decimal")
+}
+func (r InsurancePlanCoverageBenefit) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Date")
+}
+func (r InsurancePlanCoverageBenefit) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Time")
+}
+func (r InsurancePlanCoverageBenefit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to DateTime")
+}
+func (r InsurancePlanCoverageBenefit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefit to Quantity")
+}
+func (r InsurancePlanCoverageBenefit) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Requirement",
+			Type: "FHIR.String",
+		}, {
+			Name: "Limit",
+			Type: "List<FHIR.InsurancePlanCoverageBenefitLimit>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanCoverageBenefit",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanCoverageBenefitLimit) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	return children
+}
+func (r InsurancePlanCoverageBenefitLimit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Boolean")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to String")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Integer")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Decimal")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Date")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Time")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to DateTime")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Quantity")
+}
+func (r InsurancePlanCoverageBenefitLimit) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Quantity",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanCoverageBenefitLimit",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanPlan) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coverageArea") {
+		for _, v := range r.CoverageArea {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "network") {
+		for _, v := range r.Network {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "generalCost") {
+		for _, v := range r.GeneralCost {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specificCost") {
+		for _, v := range r.SpecificCost {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlanPlan) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Boolean")
+}
+func (r InsurancePlanPlan) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to String")
+}
+func (r InsurancePlanPlan) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Integer")
+}
+func (r InsurancePlanPlan) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Decimal")
+}
+func (r InsurancePlanPlan) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Date")
+}
+func (r InsurancePlanPlan) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Time")
+}
+func (r InsurancePlanPlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to DateTime")
+}
+func (r InsurancePlanPlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanPlan to Quantity")
+}
+func (r InsurancePlanPlan) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "CoverageArea",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Network",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "GeneralCost",
+			Type: "List<FHIR.InsurancePlanPlanGeneralCost>",
+		}, {
+			Name: "SpecificCost",
+			Type: "List<FHIR.InsurancePlanPlanSpecificCost>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanPlan",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanPlanGeneralCost) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "groupSize") {
+		if r.GroupSize != nil {
+			children = append(children, *r.GroupSize)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cost") {
+		if r.Cost != nil {
+			children = append(children, *r.Cost)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "comment") {
+		if r.Comment != nil {
+			children = append(children, *r.Comment)
+		}
+	}
+	return children
+}
+func (r InsurancePlanPlanGeneralCost) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Boolean")
+}
+func (r InsurancePlanPlanGeneralCost) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to String")
+}
+func (r InsurancePlanPlanGeneralCost) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Integer")
+}
+func (r InsurancePlanPlanGeneralCost) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Decimal")
+}
+func (r InsurancePlanPlanGeneralCost) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Date")
+}
+func (r InsurancePlanPlanGeneralCost) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Time")
+}
+func (r InsurancePlanPlanGeneralCost) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to DateTime")
+}
+func (r InsurancePlanPlanGeneralCost) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanGeneralCost to Quantity")
+}
+func (r InsurancePlanPlanGeneralCost) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "GroupSize",
+			Type: "FHIR.PositiveInt",
+		}, {
+			Name: "Cost",
+			Type: "FHIR.Money",
+		}, {
+			Name: "Comment",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanPlanGeneralCost",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanPlanSpecificCost) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		children = append(children, r.Category)
+	}
+	if len(name) == 0 || slices.Contains(name, "benefit") {
+		for _, v := range r.Benefit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlanPlanSpecificCost) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Boolean")
+}
+func (r InsurancePlanPlanSpecificCost) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to String")
+}
+func (r InsurancePlanPlanSpecificCost) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Integer")
+}
+func (r InsurancePlanPlanSpecificCost) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Decimal")
+}
+func (r InsurancePlanPlanSpecificCost) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Date")
+}
+func (r InsurancePlanPlanSpecificCost) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Time")
+}
+func (r InsurancePlanPlanSpecificCost) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to DateTime")
+}
+func (r InsurancePlanPlanSpecificCost) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCost to Quantity")
+}
+func (r InsurancePlanPlanSpecificCost) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Category",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Benefit",
+			Type: "List<FHIR.InsurancePlanPlanSpecificCostBenefit>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanPlanSpecificCost",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanPlanSpecificCostBenefit) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "cost") {
+		for _, v := range r.Cost {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Boolean")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to String")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Integer")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Decimal")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Date")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Time")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to DateTime")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Quantity")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Cost",
+			Type: "List<FHIR.InsurancePlanPlanSpecificCostBenefitCost>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanPlanSpecificCostBenefit",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "applicability") {
+		if r.Applicability != nil {
+			children = append(children, *r.Applicability)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "qualifiers") {
+		for _, v := range r.Qualifiers {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, *r.Value)
+		}
+	}
+	return children
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Boolean")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to String")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Integer")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Decimal")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Date")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Time")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to DateTime")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Quantity")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Applicability",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Qualifiers",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Value",
+			Type: "FHIR.Quantity",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "InsurancePlanPlanSpecificCostBenefitCost",
+			Namespace: "FHIR",
+		},
 	}
 }

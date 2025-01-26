@@ -23,7 +23,7 @@ func evalInvocation(
 		if isRoot {
 			expectedType, ok := resolveType(ctx, TypeSpecifier{Name: ident})
 			if ok {
-				rootType := root.Type()
+				rootType := root.TypeInfo()
 				if !subTypeOf(ctx, rootType, expectedType) {
 					return nil, fmt.Errorf("expected element of type %s, got %s", expectedType, rootType)
 				}
@@ -33,7 +33,7 @@ func evalInvocation(
 
 		var members Collection
 		for _, e := range target {
-			members = append(members, e.Member(ident)...)
+			members = append(members, e.Children(ident)...)
 		}
 		return members, nil
 	case *parser.FunctionInvocationContext:

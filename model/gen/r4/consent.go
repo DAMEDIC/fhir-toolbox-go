@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -4275,5 +4278,685 @@ func (r *ConsentProvisionData) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Consent) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "scope") {
+		children = append(children, r.Scope)
+	}
+	if len(name) == 0 || slices.Contains(name, "category") {
+		for _, v := range r.Category {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		if r.Patient != nil {
+			children = append(children, *r.Patient)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dateTime") {
+		if r.DateTime != nil {
+			children = append(children, *r.DateTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		for _, v := range r.Performer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		for _, v := range r.Organization {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "policy") {
+		for _, v := range r.Policy {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "policyRule") {
+		if r.PolicyRule != nil {
+			children = append(children, *r.PolicyRule)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "verification") {
+		for _, v := range r.Verification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "provision") {
+		if r.Provision != nil {
+			children = append(children, *r.Provision)
+		}
+	}
+	return children
+}
+func (r Consent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Consent to Boolean")
+}
+func (r Consent) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Consent to String")
+}
+func (r Consent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Consent to Integer")
+}
+func (r Consent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Consent to Decimal")
+}
+func (r Consent) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Consent to Date")
+}
+func (r Consent) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Consent to Time")
+}
+func (r Consent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Consent to DateTime")
+}
+func (r Consent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Consent to Quantity")
+}
+func (r Consent) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Scope",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Category",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Patient",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "DateTime",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Performer",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Organization",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Source",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Policy",
+			Type: "List<FHIR.ConsentPolicy>",
+		}, {
+			Name: "PolicyRule",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Verification",
+			Type: "List<FHIR.ConsentVerification>",
+		}, {
+			Name: "Provision",
+			Type: "FHIR.ConsentProvision",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "Consent",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConsentPolicy) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authority") {
+		if r.Authority != nil {
+			children = append(children, *r.Authority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		if r.Uri != nil {
+			children = append(children, *r.Uri)
+		}
+	}
+	return children
+}
+func (r ConsentPolicy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Boolean")
+}
+func (r ConsentPolicy) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConsentPolicy to String")
+}
+func (r ConsentPolicy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Integer")
+}
+func (r ConsentPolicy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Decimal")
+}
+func (r ConsentPolicy) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Date")
+}
+func (r ConsentPolicy) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Time")
+}
+func (r ConsentPolicy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConsentPolicy to DateTime")
+}
+func (r ConsentPolicy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConsentPolicy to Quantity")
+}
+func (r ConsentPolicy) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Authority",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConsentPolicy",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConsentVerification) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "verified") {
+		children = append(children, r.Verified)
+	}
+	if len(name) == 0 || slices.Contains(name, "verifiedWith") {
+		if r.VerifiedWith != nil {
+			children = append(children, *r.VerifiedWith)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "verificationDate") {
+		if r.VerificationDate != nil {
+			children = append(children, *r.VerificationDate)
+		}
+	}
+	return children
+}
+func (r ConsentVerification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConsentVerification to Boolean")
+}
+func (r ConsentVerification) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConsentVerification to String")
+}
+func (r ConsentVerification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConsentVerification to Integer")
+}
+func (r ConsentVerification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConsentVerification to Decimal")
+}
+func (r ConsentVerification) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConsentVerification to Date")
+}
+func (r ConsentVerification) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConsentVerification to Time")
+}
+func (r ConsentVerification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConsentVerification to DateTime")
+}
+func (r ConsentVerification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConsentVerification to Quantity")
+}
+func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Verified",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "VerifiedWith",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "VerificationDate",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConsentVerification",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConsentProvision) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		for _, v := range r.Actor {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "securityLabel") {
+		for _, v := range r.SecurityLabel {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		for _, v := range r.Purpose {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "class") {
+		for _, v := range r.Class {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dataPeriod") {
+		if r.DataPeriod != nil {
+			children = append(children, *r.DataPeriod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "data") {
+		for _, v := range r.Data {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "provision") {
+		for _, v := range r.Provision {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ConsentProvision) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConsentProvision to Boolean")
+}
+func (r ConsentProvision) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConsentProvision to String")
+}
+func (r ConsentProvision) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConsentProvision to Integer")
+}
+func (r ConsentProvision) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConsentProvision to Decimal")
+}
+func (r ConsentProvision) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConsentProvision to Date")
+}
+func (r ConsentProvision) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConsentProvision to Time")
+}
+func (r ConsentProvision) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConsentProvision to DateTime")
+}
+func (r ConsentProvision) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConsentProvision to Quantity")
+}
+func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Period",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Actor",
+			Type: "List<FHIR.ConsentProvisionActor>",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "SecurityLabel",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Purpose",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Class",
+			Type: "List<FHIR.Coding>",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "DataPeriod",
+			Type: "FHIR.Period",
+		}, {
+			Name: "Data",
+			Type: "List<FHIR.ConsentProvisionData>",
+		}, {
+			Name: "Provision",
+			Type: "List<FHIR.ConsentProvision>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConsentProvision",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConsentProvisionActor) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		children = append(children, r.Role)
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	return children
+}
+func (r ConsentProvisionActor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Boolean")
+}
+func (r ConsentProvisionActor) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to String")
+}
+func (r ConsentProvisionActor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Integer")
+}
+func (r ConsentProvisionActor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Decimal")
+}
+func (r ConsentProvisionActor) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Date")
+}
+func (r ConsentProvisionActor) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Time")
+}
+func (r ConsentProvisionActor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to DateTime")
+}
+func (r ConsentProvisionActor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConsentProvisionActor to Quantity")
+}
+func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConsentProvisionActor",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r ConsentProvisionData) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meaning") {
+		children = append(children, r.Meaning)
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	return children
+}
+func (r ConsentProvisionData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Boolean")
+}
+func (r ConsentProvisionData) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to String")
+}
+func (r ConsentProvisionData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Integer")
+}
+func (r ConsentProvisionData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Decimal")
+}
+func (r ConsentProvisionData) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Date")
+}
+func (r ConsentProvisionData) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Time")
+}
+func (r ConsentProvisionData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to DateTime")
+}
+func (r ConsentProvisionData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert ConsentProvisionData to Quantity")
+}
+func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Meaning",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Reference",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "ConsentProvisionData",
+			Namespace: "FHIR",
+		},
 	}
 }

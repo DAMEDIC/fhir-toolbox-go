@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -9553,5 +9556,1489 @@ func (r *SubstanceDefinitionSourceMaterial) UnmarshalXML(d *xml.Decoder, start x
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SubstanceDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "classification") {
+		for _, v := range r.Classification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "domain") {
+		if r.Domain != nil {
+			children = append(children, *r.Domain)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "grade") {
+		for _, v := range r.Grade {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "informationSource") {
+		for _, v := range r.InformationSource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manufacturer") {
+		for _, v := range r.Manufacturer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supplier") {
+		for _, v := range r.Supplier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "moiety") {
+		for _, v := range r.Moiety {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "characterization") {
+		for _, v := range r.Characterization {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "property") {
+		for _, v := range r.Property {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceInformation") {
+		if r.ReferenceInformation != nil {
+			children = append(children, *r.ReferenceInformation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "molecularWeight") {
+		for _, v := range r.MolecularWeight {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structure") {
+		if r.Structure != nil {
+			children = append(children, *r.Structure)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		for _, v := range r.Code {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		for _, v := range r.Name {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relationship") {
+		for _, v := range r.Relationship {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nucleicAcid") {
+		if r.NucleicAcid != nil {
+			children = append(children, *r.NucleicAcid)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "polymer") {
+		if r.Polymer != nil {
+			children = append(children, *r.Polymer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "protein") {
+		if r.Protein != nil {
+			children = append(children, *r.Protein)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceMaterial") {
+		if r.SourceMaterial != nil {
+			children = append(children, *r.SourceMaterial)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Boolean")
+}
+func (r SubstanceDefinition) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to String")
+}
+func (r SubstanceDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Integer")
+}
+func (r SubstanceDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Decimal")
+}
+func (r SubstanceDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Date")
+}
+func (r SubstanceDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Time")
+}
+func (r SubstanceDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to DateTime")
+}
+func (r SubstanceDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinition to Quantity")
+}
+func (r SubstanceDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "List<FHIR.Identifier>",
+		}, {
+			Name: "Version",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Classification",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Domain",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Grade",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "InformationSource",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Manufacturer",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Supplier",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Moiety",
+			Type: "List<FHIR.SubstanceDefinitionMoiety>",
+		}, {
+			Name: "Characterization",
+			Type: "List<FHIR.SubstanceDefinitionCharacterization>",
+		}, {
+			Name: "Property",
+			Type: "List<FHIR.SubstanceDefinitionProperty>",
+		}, {
+			Name: "ReferenceInformation",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "MolecularWeight",
+			Type: "List<FHIR.SubstanceDefinitionMolecularWeight>",
+		}, {
+			Name: "Structure",
+			Type: "FHIR.SubstanceDefinitionStructure",
+		}, {
+			Name: "Code",
+			Type: "List<FHIR.SubstanceDefinitionCode>",
+		}, {
+			Name: "Name",
+			Type: "List<FHIR.SubstanceDefinitionName>",
+		}, {
+			Name: "Relationship",
+			Type: "List<FHIR.SubstanceDefinitionRelationship>",
+		}, {
+			Name: "NucleicAcid",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Polymer",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Protein",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "SourceMaterial",
+			Type: "FHIR.SubstanceDefinitionSourceMaterial",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinition",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionMoiety) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "role") {
+		if r.Role != nil {
+			children = append(children, *r.Role)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stereochemistry") {
+		if r.Stereochemistry != nil {
+			children = append(children, *r.Stereochemistry)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "opticalActivity") {
+		if r.OpticalActivity != nil {
+			children = append(children, *r.OpticalActivity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "molecularFormula") {
+		if r.MolecularFormula != nil {
+			children = append(children, *r.MolecularFormula)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, r.Amount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "measurementType") {
+		if r.MeasurementType != nil {
+			children = append(children, *r.MeasurementType)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionMoiety) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Boolean")
+}
+func (r SubstanceDefinitionMoiety) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to String")
+}
+func (r SubstanceDefinitionMoiety) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Integer")
+}
+func (r SubstanceDefinitionMoiety) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Decimal")
+}
+func (r SubstanceDefinitionMoiety) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Date")
+}
+func (r SubstanceDefinitionMoiety) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Time")
+}
+func (r SubstanceDefinitionMoiety) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to DateTime")
+}
+func (r SubstanceDefinitionMoiety) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Quantity")
+}
+func (r SubstanceDefinitionMoiety) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Role",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Stereochemistry",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "OpticalActivity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "MolecularFormula",
+			Type: "FHIR.String",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "MeasurementType",
+			Type: "FHIR.CodeableConcept",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionMoiety",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionCharacterization) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "technique") {
+		if r.Technique != nil {
+			children = append(children, *r.Technique)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "form") {
+		if r.Form != nil {
+			children = append(children, *r.Form)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "file") {
+		for _, v := range r.File {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionCharacterization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Boolean")
+}
+func (r SubstanceDefinitionCharacterization) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to String")
+}
+func (r SubstanceDefinitionCharacterization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Integer")
+}
+func (r SubstanceDefinitionCharacterization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Decimal")
+}
+func (r SubstanceDefinitionCharacterization) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Date")
+}
+func (r SubstanceDefinitionCharacterization) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Time")
+}
+func (r SubstanceDefinitionCharacterization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to DateTime")
+}
+func (r SubstanceDefinitionCharacterization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCharacterization to Quantity")
+}
+func (r SubstanceDefinitionCharacterization) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Technique",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Form",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Description",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "File",
+			Type: "List<FHIR.Attachment>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionCharacterization",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionProperty) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		if r.Value != nil {
+			children = append(children, r.Value)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Boolean")
+}
+func (r SubstanceDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to String")
+}
+func (r SubstanceDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Integer")
+}
+func (r SubstanceDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Decimal")
+}
+func (r SubstanceDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Date")
+}
+func (r SubstanceDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Time")
+}
+func (r SubstanceDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to DateTime")
+}
+func (r SubstanceDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionProperty to Quantity")
+}
+func (r SubstanceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Value",
+			Type: "FHIR.PrimitiveElement",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionProperty",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionMolecularWeight) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		children = append(children, r.Amount)
+	}
+	return children
+}
+func (r SubstanceDefinitionMolecularWeight) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Boolean")
+}
+func (r SubstanceDefinitionMolecularWeight) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to String")
+}
+func (r SubstanceDefinitionMolecularWeight) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Integer")
+}
+func (r SubstanceDefinitionMolecularWeight) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Decimal")
+}
+func (r SubstanceDefinitionMolecularWeight) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Date")
+}
+func (r SubstanceDefinitionMolecularWeight) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Time")
+}
+func (r SubstanceDefinitionMolecularWeight) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to DateTime")
+}
+func (r SubstanceDefinitionMolecularWeight) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Quantity")
+}
+func (r SubstanceDefinitionMolecularWeight) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Method",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.Quantity",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionMolecularWeight",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionStructure) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "stereochemistry") {
+		if r.Stereochemistry != nil {
+			children = append(children, *r.Stereochemistry)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "opticalActivity") {
+		if r.OpticalActivity != nil {
+			children = append(children, *r.OpticalActivity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "molecularFormula") {
+		if r.MolecularFormula != nil {
+			children = append(children, *r.MolecularFormula)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "molecularFormulaByMoiety") {
+		if r.MolecularFormulaByMoiety != nil {
+			children = append(children, *r.MolecularFormulaByMoiety)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "molecularWeight") {
+		if r.MolecularWeight != nil {
+			children = append(children, *r.MolecularWeight)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "technique") {
+		for _, v := range r.Technique {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceDocument") {
+		for _, v := range r.SourceDocument {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "representation") {
+		for _, v := range r.Representation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Boolean")
+}
+func (r SubstanceDefinitionStructure) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to String")
+}
+func (r SubstanceDefinitionStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Integer")
+}
+func (r SubstanceDefinitionStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Decimal")
+}
+func (r SubstanceDefinitionStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Date")
+}
+func (r SubstanceDefinitionStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Time")
+}
+func (r SubstanceDefinitionStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to DateTime")
+}
+func (r SubstanceDefinitionStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructure to Quantity")
+}
+func (r SubstanceDefinitionStructure) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Stereochemistry",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "OpticalActivity",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "MolecularFormula",
+			Type: "FHIR.String",
+		}, {
+			Name: "MolecularFormulaByMoiety",
+			Type: "FHIR.String",
+		}, {
+			Name: "MolecularWeight",
+			Type: "FHIR.SubstanceDefinitionMolecularWeight",
+		}, {
+			Name: "Technique",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "SourceDocument",
+			Type: "List<FHIR.Reference>",
+		}, {
+			Name: "Representation",
+			Type: "List<FHIR.SubstanceDefinitionStructureRepresentation>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionStructure",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionStructureRepresentation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "representation") {
+		if r.Representation != nil {
+			children = append(children, *r.Representation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "format") {
+		if r.Format != nil {
+			children = append(children, *r.Format)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "document") {
+		if r.Document != nil {
+			children = append(children, *r.Document)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionStructureRepresentation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Boolean")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to String")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Integer")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Decimal")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Date")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Time")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to DateTime")
+}
+func (r SubstanceDefinitionStructureRepresentation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Quantity")
+}
+func (r SubstanceDefinitionStructureRepresentation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Representation",
+			Type: "FHIR.String",
+		}, {
+			Name: "Format",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Document",
+			Type: "FHIR.Reference",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionStructureRepresentation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionCode) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		if r.Code != nil {
+			children = append(children, *r.Code)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		if r.StatusDate != nil {
+			children = append(children, *r.StatusDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		for _, v := range r.Source {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionCode) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Boolean")
+}
+func (r SubstanceDefinitionCode) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to String")
+}
+func (r SubstanceDefinitionCode) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Integer")
+}
+func (r SubstanceDefinitionCode) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Decimal")
+}
+func (r SubstanceDefinitionCode) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Date")
+}
+func (r SubstanceDefinitionCode) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Time")
+}
+func (r SubstanceDefinitionCode) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to DateTime")
+}
+func (r SubstanceDefinitionCode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionCode to Quantity")
+}
+func (r SubstanceDefinitionCode) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Code",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "StatusDate",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Note",
+			Type: "List<FHIR.Annotation>",
+		}, {
+			Name: "Source",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionCode",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionName) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "preferred") {
+		if r.Preferred != nil {
+			children = append(children, *r.Preferred)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		for _, v := range r.Language {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "domain") {
+		for _, v := range r.Domain {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "synonym") {
+		for _, v := range r.Synonym {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "translation") {
+		for _, v := range r.Translation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "official") {
+		for _, v := range r.Official {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		for _, v := range r.Source {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Boolean")
+}
+func (r SubstanceDefinitionName) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to String")
+}
+func (r SubstanceDefinitionName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Integer")
+}
+func (r SubstanceDefinitionName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Decimal")
+}
+func (r SubstanceDefinitionName) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Date")
+}
+func (r SubstanceDefinitionName) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Time")
+}
+func (r SubstanceDefinitionName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to DateTime")
+}
+func (r SubstanceDefinitionName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionName to Quantity")
+}
+func (r SubstanceDefinitionName) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Preferred",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Language",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Domain",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Jurisdiction",
+			Type: "List<FHIR.CodeableConcept>",
+		}, {
+			Name: "Synonym",
+			Type: "List<FHIR.SubstanceDefinitionName>",
+		}, {
+			Name: "Translation",
+			Type: "List<FHIR.SubstanceDefinitionName>",
+		}, {
+			Name: "Official",
+			Type: "List<FHIR.SubstanceDefinitionNameOfficial>",
+		}, {
+			Name: "Source",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionName",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionNameOfficial) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "authority") {
+		if r.Authority != nil {
+			children = append(children, *r.Authority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		if r.Status != nil {
+			children = append(children, *r.Status)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionNameOfficial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Boolean")
+}
+func (r SubstanceDefinitionNameOfficial) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to String")
+}
+func (r SubstanceDefinitionNameOfficial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Integer")
+}
+func (r SubstanceDefinitionNameOfficial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Decimal")
+}
+func (r SubstanceDefinitionNameOfficial) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Date")
+}
+func (r SubstanceDefinitionNameOfficial) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Time")
+}
+func (r SubstanceDefinitionNameOfficial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to DateTime")
+}
+func (r SubstanceDefinitionNameOfficial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Quantity")
+}
+func (r SubstanceDefinitionNameOfficial) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Authority",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Status",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Date",
+			Type: "FHIR.DateTime",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionNameOfficial",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionRelationship) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "substanceDefinition") {
+		if r.SubstanceDefinition != nil {
+			children = append(children, r.SubstanceDefinition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "isDefining") {
+		if r.IsDefining != nil {
+			children = append(children, *r.IsDefining)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, r.Amount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ratioHighLimitAmount") {
+		if r.RatioHighLimitAmount != nil {
+			children = append(children, *r.RatioHighLimitAmount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "comparator") {
+		if r.Comparator != nil {
+			children = append(children, *r.Comparator)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		for _, v := range r.Source {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionRelationship) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Boolean")
+}
+func (r SubstanceDefinitionRelationship) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to String")
+}
+func (r SubstanceDefinitionRelationship) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Integer")
+}
+func (r SubstanceDefinitionRelationship) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Decimal")
+}
+func (r SubstanceDefinitionRelationship) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Date")
+}
+func (r SubstanceDefinitionRelationship) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Time")
+}
+func (r SubstanceDefinitionRelationship) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to DateTime")
+}
+func (r SubstanceDefinitionRelationship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Quantity")
+}
+func (r SubstanceDefinitionRelationship) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "SubstanceDefinition",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "IsDefining",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "Amount",
+			Type: "FHIR.PrimitiveElement",
+		}, {
+			Name: "RatioHighLimitAmount",
+			Type: "FHIR.Ratio",
+		}, {
+			Name: "Comparator",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Source",
+			Type: "List<FHIR.Reference>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionRelationship",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r SubstanceDefinitionSourceMaterial) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "genus") {
+		if r.Genus != nil {
+			children = append(children, *r.Genus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "species") {
+		if r.Species != nil {
+			children = append(children, *r.Species)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "part") {
+		if r.Part != nil {
+			children = append(children, *r.Part)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "countryOfOrigin") {
+		for _, v := range r.CountryOfOrigin {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstanceDefinitionSourceMaterial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Boolean")
+}
+func (r SubstanceDefinitionSourceMaterial) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to String")
+}
+func (r SubstanceDefinitionSourceMaterial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Integer")
+}
+func (r SubstanceDefinitionSourceMaterial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Decimal")
+}
+func (r SubstanceDefinitionSourceMaterial) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Date")
+}
+func (r SubstanceDefinitionSourceMaterial) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Time")
+}
+func (r SubstanceDefinitionSourceMaterial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to DateTime")
+}
+func (r SubstanceDefinitionSourceMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Quantity")
+}
+func (r SubstanceDefinitionSourceMaterial) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Genus",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Species",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "Part",
+			Type: "FHIR.CodeableConcept",
+		}, {
+			Name: "CountryOfOrigin",
+			Type: "List<FHIR.CodeableConcept>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "SubstanceDefinitionSourceMaterial",
+			Namespace: "FHIR",
+		},
 	}
 }

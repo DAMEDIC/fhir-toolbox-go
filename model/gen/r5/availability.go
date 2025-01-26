@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -1297,5 +1300,240 @@ func (r *AvailabilityNotAvailableTime) UnmarshalXML(d *xml.Decoder, start xml.St
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Availability) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableTime") {
+		for _, v := range r.AvailableTime {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "notAvailableTime") {
+		for _, v := range r.NotAvailableTime {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Availability) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert Availability to Boolean")
+}
+func (r Availability) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert Availability to String")
+}
+func (r Availability) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert Availability to Integer")
+}
+func (r Availability) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert Availability to Decimal")
+}
+func (r Availability) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert Availability to Date")
+}
+func (r Availability) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert Availability to Time")
+}
+func (r Availability) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert Availability to DateTime")
+}
+func (r Availability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert Availability to Quantity")
+}
+func (r Availability) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "AvailableTime",
+			Type: "List<FHIR.AvailabilityAvailableTime>",
+		}, {
+			Name: "NotAvailableTime",
+			Type: "List<FHIR.AvailabilityNotAvailableTime>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "Availability",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AvailabilityAvailableTime) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "daysOfWeek") {
+		for _, v := range r.DaysOfWeek {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "allDay") {
+		if r.AllDay != nil {
+			children = append(children, *r.AllDay)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableStartTime") {
+		if r.AvailableStartTime != nil {
+			children = append(children, *r.AvailableStartTime)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "availableEndTime") {
+		if r.AvailableEndTime != nil {
+			children = append(children, *r.AvailableEndTime)
+		}
+	}
+	return children
+}
+func (r AvailabilityAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Boolean")
+}
+func (r AvailabilityAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to String")
+}
+func (r AvailabilityAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Integer")
+}
+func (r AvailabilityAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Decimal")
+}
+func (r AvailabilityAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Date")
+}
+func (r AvailabilityAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Time")
+}
+func (r AvailabilityAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to DateTime")
+}
+func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AvailabilityAvailableTime to Quantity")
+}
+func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "DaysOfWeek",
+			Type: "List<FHIR.Code>",
+		}, {
+			Name: "AllDay",
+			Type: "FHIR.Boolean",
+		}, {
+			Name: "AvailableStartTime",
+			Type: "FHIR.Time",
+		}, {
+			Name: "AvailableEndTime",
+			Type: "FHIR.Time",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AvailabilityAvailableTime",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r AvailabilityNotAvailableTime) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "during") {
+		if r.During != nil {
+			children = append(children, *r.During)
+		}
+	}
+	return children
+}
+func (r AvailabilityNotAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Boolean")
+}
+func (r AvailabilityNotAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to String")
+}
+func (r AvailabilityNotAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Integer")
+}
+func (r AvailabilityNotAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Decimal")
+}
+func (r AvailabilityNotAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Date")
+}
+func (r AvailabilityNotAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Time")
+}
+func (r AvailabilityNotAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to DateTime")
+}
+func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
+}
+func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "During",
+			Type: "FHIR.Period",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "AvailabilityNotAvailableTime",
+			Namespace: "FHIR",
+		},
 	}
 }

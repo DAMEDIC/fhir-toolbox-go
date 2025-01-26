@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -5242,5 +5245,927 @@ func (r *TestReportTeardownAction) UnmarshalXML(d *xml.Decoder, start xml.StartE
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r TestReport) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		if r.Identifier != nil {
+			children = append(children, *r.Identifier)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "testScript") {
+		children = append(children, r.TestScript)
+	}
+	if len(name) == 0 || slices.Contains(name, "result") {
+		children = append(children, r.Result)
+	}
+	if len(name) == 0 || slices.Contains(name, "score") {
+		if r.Score != nil {
+			children = append(children, *r.Score)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "tester") {
+		if r.Tester != nil {
+			children = append(children, *r.Tester)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "issued") {
+		if r.Issued != nil {
+			children = append(children, *r.Issued)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "participant") {
+		for _, v := range r.Participant {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "setup") {
+		if r.Setup != nil {
+			children = append(children, *r.Setup)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "test") {
+		for _, v := range r.Test {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "teardown") {
+		if r.Teardown != nil {
+			children = append(children, *r.Teardown)
+		}
+	}
+	return children
+}
+func (r TestReport) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReport to Boolean")
+}
+func (r TestReport) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReport to String")
+}
+func (r TestReport) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReport to Integer")
+}
+func (r TestReport) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReport to Decimal")
+}
+func (r TestReport) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReport to Date")
+}
+func (r TestReport) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReport to Time")
+}
+func (r TestReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReport to DateTime")
+}
+func (r TestReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReport to Quantity")
+}
+func (r TestReport) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.Id",
+		}, {
+			Name: "Meta",
+			Type: "FHIR.Meta",
+		}, {
+			Name: "ImplicitRules",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Language",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Text",
+			Type: "FHIR.Narrative",
+		}, {
+			Name: "Contained",
+			Type: "List<FHIR.>",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Identifier",
+			Type: "FHIR.Identifier",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Status",
+			Type: "FHIR.Code",
+		}, {
+			Name: "TestScript",
+			Type: "FHIR.Reference",
+		}, {
+			Name: "Result",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Score",
+			Type: "FHIR.Decimal",
+		}, {
+			Name: "Tester",
+			Type: "FHIR.String",
+		}, {
+			Name: "Issued",
+			Type: "FHIR.DateTime",
+		}, {
+			Name: "Participant",
+			Type: "List<FHIR.TestReportParticipant>",
+		}, {
+			Name: "Setup",
+			Type: "FHIR.TestReportSetup",
+		}, {
+			Name: "Test",
+			Type: "List<FHIR.TestReportTest>",
+		}, {
+			Name: "Teardown",
+			Type: "FHIR.TestReportTeardown",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DomainResource",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReport",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportParticipant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		children = append(children, r.Uri)
+	}
+	if len(name) == 0 || slices.Contains(name, "display") {
+		if r.Display != nil {
+			children = append(children, *r.Display)
+		}
+	}
+	return children
+}
+func (r TestReportParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Boolean")
+}
+func (r TestReportParticipant) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportParticipant to String")
+}
+func (r TestReportParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Integer")
+}
+func (r TestReportParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Decimal")
+}
+func (r TestReportParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Date")
+}
+func (r TestReportParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Time")
+}
+func (r TestReportParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportParticipant to DateTime")
+}
+func (r TestReportParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportParticipant to Quantity")
+}
+func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Type",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Uri",
+			Type: "FHIR.Uri",
+		}, {
+			Name: "Display",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportParticipant",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportSetup) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r TestReportSetup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportSetup to Boolean")
+}
+func (r TestReportSetup) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportSetup to String")
+}
+func (r TestReportSetup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportSetup to Integer")
+}
+func (r TestReportSetup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportSetup to Decimal")
+}
+func (r TestReportSetup) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportSetup to Date")
+}
+func (r TestReportSetup) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportSetup to Time")
+}
+func (r TestReportSetup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportSetup to DateTime")
+}
+func (r TestReportSetup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportSetup to Quantity")
+}
+func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.TestReportSetupAction>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportSetup",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportSetupAction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		if r.Operation != nil {
+			children = append(children, *r.Operation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "assert") {
+		if r.Assert != nil {
+			children = append(children, *r.Assert)
+		}
+	}
+	return children
+}
+func (r TestReportSetupAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Boolean")
+}
+func (r TestReportSetupAction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to String")
+}
+func (r TestReportSetupAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Integer")
+}
+func (r TestReportSetupAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Decimal")
+}
+func (r TestReportSetupAction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Date")
+}
+func (r TestReportSetupAction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Time")
+}
+func (r TestReportSetupAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to DateTime")
+}
+func (r TestReportSetupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportSetupAction to Quantity")
+}
+func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Operation",
+			Type: "FHIR.TestReportSetupActionOperation",
+		}, {
+			Name: "Assert",
+			Type: "FHIR.TestReportSetupActionAssert",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportSetupAction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportSetupActionOperation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "result") {
+		children = append(children, r.Result)
+	}
+	if len(name) == 0 || slices.Contains(name, "message") {
+		if r.Message != nil {
+			children = append(children, *r.Message)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detail") {
+		if r.Detail != nil {
+			children = append(children, *r.Detail)
+		}
+	}
+	return children
+}
+func (r TestReportSetupActionOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Boolean")
+}
+func (r TestReportSetupActionOperation) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to String")
+}
+func (r TestReportSetupActionOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Integer")
+}
+func (r TestReportSetupActionOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Decimal")
+}
+func (r TestReportSetupActionOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Date")
+}
+func (r TestReportSetupActionOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Time")
+}
+func (r TestReportSetupActionOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to DateTime")
+}
+func (r TestReportSetupActionOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportSetupActionOperation to Quantity")
+}
+func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Result",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Message",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Detail",
+			Type: "FHIR.Uri",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportSetupActionOperation",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportSetupActionAssert) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "result") {
+		children = append(children, r.Result)
+	}
+	if len(name) == 0 || slices.Contains(name, "message") {
+		if r.Message != nil {
+			children = append(children, *r.Message)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "detail") {
+		if r.Detail != nil {
+			children = append(children, *r.Detail)
+		}
+	}
+	return children
+}
+func (r TestReportSetupActionAssert) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Boolean")
+}
+func (r TestReportSetupActionAssert) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to String")
+}
+func (r TestReportSetupActionAssert) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Integer")
+}
+func (r TestReportSetupActionAssert) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Decimal")
+}
+func (r TestReportSetupActionAssert) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Date")
+}
+func (r TestReportSetupActionAssert) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Time")
+}
+func (r TestReportSetupActionAssert) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to DateTime")
+}
+func (r TestReportSetupActionAssert) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportSetupActionAssert to Quantity")
+}
+func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Result",
+			Type: "FHIR.Code",
+		}, {
+			Name: "Message",
+			Type: "FHIR.Markdown",
+		}, {
+			Name: "Detail",
+			Type: "FHIR.String",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportSetupActionAssert",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportTest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r TestReportTest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportTest to Boolean")
+}
+func (r TestReportTest) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportTest to String")
+}
+func (r TestReportTest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportTest to Integer")
+}
+func (r TestReportTest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportTest to Decimal")
+}
+func (r TestReportTest) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportTest to Date")
+}
+func (r TestReportTest) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportTest to Time")
+}
+func (r TestReportTest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportTest to DateTime")
+}
+func (r TestReportTest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportTest to Quantity")
+}
+func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Name",
+			Type: "FHIR.String",
+		}, {
+			Name: "Description",
+			Type: "FHIR.String",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.TestReportTestAction>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportTest",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportTestAction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		if r.Operation != nil {
+			children = append(children, *r.Operation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "assert") {
+		if r.Assert != nil {
+			children = append(children, *r.Assert)
+		}
+	}
+	return children
+}
+func (r TestReportTestAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Boolean")
+}
+func (r TestReportTestAction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportTestAction to String")
+}
+func (r TestReportTestAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Integer")
+}
+func (r TestReportTestAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Decimal")
+}
+func (r TestReportTestAction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Date")
+}
+func (r TestReportTestAction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Time")
+}
+func (r TestReportTestAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportTestAction to DateTime")
+}
+func (r TestReportTestAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportTestAction to Quantity")
+}
+func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Operation",
+			Type: "FHIR.TestReportSetupActionOperation",
+		}, {
+			Name: "Assert",
+			Type: "FHIR.TestReportSetupActionAssert",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportTestAction",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportTeardown) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "action") {
+		for _, v := range r.Action {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r TestReportTeardown) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Boolean")
+}
+func (r TestReportTeardown) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportTeardown to String")
+}
+func (r TestReportTeardown) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Integer")
+}
+func (r TestReportTeardown) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Decimal")
+}
+func (r TestReportTeardown) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Date")
+}
+func (r TestReportTeardown) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Time")
+}
+func (r TestReportTeardown) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportTeardown to DateTime")
+}
+func (r TestReportTeardown) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportTeardown to Quantity")
+}
+func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Action",
+			Type: "List<FHIR.TestReportTeardownAction>",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportTeardown",
+			Namespace: "FHIR",
+		},
+	}
+}
+func (r TestReportTeardownAction) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "operation") {
+		children = append(children, r.Operation)
+	}
+	return children
+}
+func (r TestReportTeardownAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Boolean")
+}
+func (r TestReportTeardownAction) ToString(explicit bool) (*fhirpath.String, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to String")
+}
+func (r TestReportTeardownAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Integer")
+}
+func (r TestReportTeardownAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Decimal")
+}
+func (r TestReportTeardownAction) ToDate(explicit bool) (*fhirpath.Date, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Date")
+}
+func (r TestReportTeardownAction) ToTime(explicit bool) (*fhirpath.Time, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Time")
+}
+func (r TestReportTeardownAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to DateTime")
+}
+func (r TestReportTeardownAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+	return nil, errors.New("can not convert TestReportTeardownAction to Quantity")
+}
+func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: "FHIR.string",
+		}, {
+			Name: "Extension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "ModifierExtension",
+			Type: "List<FHIR.Extension>",
+		}, {
+			Name: "Operation",
+			Type: "FHIR.TestReportSetupActionOperation",
+		}},
+		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+			BaseType: fhirpath.TypeSpecifier{
+				Name:      "DataType",
+				Namespace: "FHIR",
+			},
+			Name:      "TestReportTeardownAction",
+			Namespace: "FHIR",
+		},
 	}
 }
