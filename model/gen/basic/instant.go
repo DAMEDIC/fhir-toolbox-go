@@ -105,7 +105,12 @@ func (r Instant) ToTime(explicit bool) (*fhirpath.Time, error) {
 	return nil, errors.New("can not convert Instant to Time")
 }
 func (r Instant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Instant to DateTime")
+	if r.Value != nil {
+		v, err := fhirpath.ParseDateTime(*r.Value)
+		return &v, err
+	} else {
+		return nil, nil
+	}
 }
 func (r Instant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Instant to Quantity")

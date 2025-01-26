@@ -139,7 +139,12 @@ func (r Uuid) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
 	return nil, errors.New("can not convert Uuid to Boolean")
 }
 func (r Uuid) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Uuid to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Uuid) ToInteger(explicit bool) (*fhirpath.Integer, error) {
 	return nil, errors.New("can not convert Uuid to Integer")

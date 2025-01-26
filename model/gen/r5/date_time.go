@@ -154,7 +154,12 @@ func (r DateTime) ToTime(explicit bool) (*fhirpath.Time, error) {
 	return nil, errors.New("can not convert DateTime to Time")
 }
 func (r DateTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DateTime to DateTime")
+	if r.Value != nil {
+		v, err := fhirpath.ParseDateTime(*r.Value)
+		return &v, err
+	} else {
+		return nil, nil
+	}
 }
 func (r DateTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DateTime to Quantity")

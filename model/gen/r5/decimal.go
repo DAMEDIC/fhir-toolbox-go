@@ -143,7 +143,12 @@ func (r Decimal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
 	return nil, errors.New("can not convert Decimal to Integer")
 }
 func (r Decimal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Decimal to Decimal")
+	if r.Value != nil {
+		v := fhirpath.Decimal{Value: r.Value}
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Decimal) ToDate(explicit bool) (*fhirpath.Date, error) {
 	return nil, errors.New("can not convert Decimal to Date")

@@ -2,6 +2,7 @@ package fhirpath
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
@@ -9,6 +10,7 @@ import (
 )
 
 const fhirpathModuleName = "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+const ucumSystem = "http://unitsofmeasure.org"
 
 type FHIRPathGenerator struct{}
 
@@ -83,94 +85,159 @@ func generateChildrenFunc(f *File, s ir.Struct) {
 }
 
 func generateToBooleanFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToBoolean").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Boolean"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Boolean", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if s.Name == "Boolean" {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Id("v").Op(":=").Qual(fhirpathModuleName, "Boolean").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Nil(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Boolean", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToStringFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToString").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "String"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to String", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if slices.Contains([]string{"String", "Uri", "Code", "Oid", "Id", "Uuid", "Markdown", "Base64Binary"}, s.Name) {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Id("v").Op(":=").Qual(fhirpathModuleName, "String").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Nil(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to String", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToIntegerFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToInteger").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Integer"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Integer", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if slices.Contains([]string{"Integer", "UnsignedInteger", "PositiveInteger"}, s.Name) {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Id("v").Op(":=").Qual(fhirpathModuleName, "Integer").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Nil(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Integer", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToDecimalFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDecimal").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Decimal"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Decimal", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if s.Name == "Decimal" {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Id("v").Op(":=").Qual(fhirpathModuleName, "Decimal").Values(Dict{
+					Id("Value"): Id("r").Dot("Value"),
+				}),
+				Return(
+					Op("&").Id("v"),
+					Nil(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Decimal", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToDateFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDate").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Date"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Date", s.Name))),
-		),
-	)
+	).Block(Return(
+		Nil(),
+		Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Date", s.Name))),
+	))
 }
 
 func generateToTimeFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToTime").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Time"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Time", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if s.Name == "Time" {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseTime").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Err(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Time", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToDateTimeFunc(f *File, s ir.Struct) {
-	// TODO
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDateTime").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "DateTime"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to DateTime", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if slices.Contains([]string{"Date", "DateTime", "Instant"}, s.Name) {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseDateTime").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Err(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to DateTime", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToQuantityFunc(f *File, s ir.Struct) {
@@ -178,12 +245,48 @@ func generateToQuantityFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToQuantity").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Quantity"),
 		Error(),
-	).Block(
-		Return(
-			Nil(),
-			Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity", s.Name))),
-		),
-	)
+	).BlockFunc(func(g *Group) {
+		if s.Name == "Quantity" {
+			g.If(Id("r").Dot("System").Op("==").Nil().Op("||").
+				Id("r").Dot("System").Dot("Value").Op("==").Nil().Op("||").
+				Op("*").Id("r").Dot("System").Dot("Value").Op("!=").Lit(ucumSystem)).Block(
+				Return(
+					Nil(),
+					Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity, no UCUM system", s.Name))),
+				),
+			).Else().If(Id("r").Dot("Value").Op("==").Nil()).Block(
+				Return(Nil(), Nil()),
+			)
+
+			g.Var().Id("unit").String()
+			g.If(Id("r").Dot("Unit").Op("!=").Nil().Op("&&").
+				Id("r").Dot("Unit").Dot("Value").Op("!=").Nil()).Block(
+				Switch(Op("*").Id("r").Dot("Unit").Dot("Value")).Block(
+					Case(Lit("a")).Id("unit").Op("=").Lit("year"),
+					Case(Lit("mo")).Id("unit").Op("=").Lit("month"),
+					Case(Lit("d")).Id("unit").Op("=").Lit("day"),
+					Case(Lit("h")).Id("unit").Op("=").Lit("hour"),
+					Case(Lit("min")).Id("unit").Op("=").Lit("minute"),
+					Case(Lit("s")).Id("unit").Op("=").Lit("second"),
+				),
+			)
+
+			g.Return(
+				Op("&").Qual(fhirpathModuleName, "Quantity").Values(Dict{
+					Id("Value"): Qual(fhirpathModuleName, "Decimal").Values(Dict{
+						Id("Value"): Id("r").Dot("Value").Dot("Value"),
+					}),
+					Id("Unit"): Qual(fhirpathModuleName, "String").Call(Id("unit")),
+				}),
+				Nil(),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity", s.Name))),
+			)
+		}
+	})
 }
 
 func generateTypeInfoFunc(f *File, s ir.Struct) {

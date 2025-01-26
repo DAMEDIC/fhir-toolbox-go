@@ -102,7 +102,12 @@ func (r Time) ToDate(explicit bool) (*fhirpath.Date, error) {
 	return nil, errors.New("can not convert Time to Date")
 }
 func (r Time) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Time to Time")
+	if r.Value != nil {
+		v, err := fhirpath.ParseTime(*r.Value)
+		return &v, err
+	} else {
+		return nil, nil
+	}
 }
 func (r Time) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 	return nil, errors.New("can not convert Time to DateTime")

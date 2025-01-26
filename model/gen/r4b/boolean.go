@@ -145,7 +145,12 @@ func (r Boolean) Children(name ...string) fhirpath.Collection {
 	return children
 }
 func (r Boolean) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Boolean to Boolean")
+	if r.Value != nil {
+		v := fhirpath.Boolean(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Boolean) ToString(explicit bool) (*fhirpath.String, error) {
 	return nil, errors.New("can not convert Boolean to String")

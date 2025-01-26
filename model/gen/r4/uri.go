@@ -139,7 +139,12 @@ func (r Uri) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
 	return nil, errors.New("can not convert Uri to Boolean")
 }
 func (r Uri) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Uri to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Uri) ToInteger(explicit bool) (*fhirpath.Integer, error) {
 	return nil, errors.New("can not convert Uri to Integer")

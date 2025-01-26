@@ -90,7 +90,12 @@ func (r Code) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
 	return nil, errors.New("can not convert Code to Boolean")
 }
 func (r Code) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Code to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Code) ToInteger(explicit bool) (*fhirpath.Integer, error) {
 	return nil, errors.New("can not convert Code to Integer")

@@ -90,7 +90,12 @@ func (r Markdown) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
 	return nil, errors.New("can not convert Markdown to Boolean")
 }
 func (r Markdown) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Markdown to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Markdown) ToInteger(explicit bool) (*fhirpath.Integer, error) {
 	return nil, errors.New("can not convert Markdown to Integer")

@@ -666,7 +666,32 @@ func (r Quantity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 	return nil, errors.New("can not convert Quantity to DateTime")
 }
 func (r Quantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Quantity to Quantity")
+	if r.System == nil || r.System.Value == nil || *r.System.Value != "http://unitsofmeasure.org" {
+		return nil, errors.New("can not convert Quantity to Quantity, no UCUM system")
+	} else if r.Value == nil {
+		return nil, nil
+	}
+	var unit string
+	if r.Unit != nil && r.Unit.Value != nil {
+		switch *r.Unit.Value {
+		case "a":
+			unit = "year"
+		case "mo":
+			unit = "month"
+		case "d":
+			unit = "day"
+		case "h":
+			unit = "hour"
+		case "min":
+			unit = "minute"
+		case "s":
+			unit = "second"
+		}
+	}
+	return &fhirpath.Quantity{
+		Unit:  fhirpath.String(unit),
+		Value: fhirpath.Decimal{Value: r.Value.Value},
+	}, nil
 }
 func (r Quantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

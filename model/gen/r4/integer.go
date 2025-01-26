@@ -148,7 +148,12 @@ func (r Integer) ToString(explicit bool) (*fhirpath.String, error) {
 	return nil, errors.New("can not convert Integer to String")
 }
 func (r Integer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Integer to Integer")
+	if r.Value != nil {
+		v := fhirpath.Integer(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r Integer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
 	return nil, errors.New("can not convert Integer to Decimal")
