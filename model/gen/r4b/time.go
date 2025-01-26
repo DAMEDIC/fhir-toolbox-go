@@ -172,9 +172,6 @@ func (r Time) TypeInfo() fhirpath.TypeInfo {
 		}, {
 			Name: "Extension",
 			Type: "List<FHIR.Extension>",
-		}, {
-			Name: "Value",
-			Type: "FHIR.string",
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

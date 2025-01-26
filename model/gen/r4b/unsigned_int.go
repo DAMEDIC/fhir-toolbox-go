@@ -173,9 +173,6 @@ func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
 		}, {
 			Name: "Extension",
 			Type: "List<FHIR.Extension>",
-		}, {
-			Name: "Value",
-			Type: "FHIR.uint32",
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

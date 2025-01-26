@@ -178,9 +178,6 @@ func (r Integer) TypeInfo() fhirpath.TypeInfo {
 		}, {
 			Name: "Extension",
 			Type: "List<FHIR.Extension>",
-		}, {
-			Name: "Value",
-			Type: "FHIR.int32",
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

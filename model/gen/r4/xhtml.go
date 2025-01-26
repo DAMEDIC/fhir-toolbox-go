@@ -129,9 +129,6 @@ func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: "FHIR.string",
-		}, {
-			Name: "Value",
-			Type: "FHIR.string",
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

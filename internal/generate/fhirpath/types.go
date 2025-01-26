@@ -40,6 +40,10 @@ func generateType(g *Group, s ir.Struct) {
 
 	elements := Index().Qual(fhirpathModuleName, "ClassInfoElement").ValuesFunc(func(g *Group) {
 		for _, f := range s.Fields {
+			if s.IsPrimitive && f.Name == "Value" {
+				continue
+			}
+
 			var t string
 			if f.Polymorph {
 				t = "FHIR.PrimitiveElement"

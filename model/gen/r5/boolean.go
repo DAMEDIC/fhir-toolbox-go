@@ -181,9 +181,6 @@ func (r Boolean) TypeInfo() fhirpath.TypeInfo {
 		}, {
 			Name: "Extension",
 			Type: "List<FHIR.Extension>",
-		}, {
-			Name: "Value",
-			Type: "FHIR.bool",
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

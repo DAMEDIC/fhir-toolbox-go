@@ -132,9 +132,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -151,9 +148,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.bool",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -170,9 +164,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -189,9 +180,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -208,9 +196,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -227,9 +212,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -246,9 +228,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -265,9 +244,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -284,9 +260,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -303,9 +276,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.int32",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -322,9 +292,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -341,9 +308,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -360,9 +324,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.uint32",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -379,9 +340,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -398,9 +356,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -417,9 +372,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.uint32",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -436,9 +388,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -455,9 +404,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -474,9 +420,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 	}, {
 		Name: "Extension",
 		Type: "List<FHIR.Extension>",
-	}, {
-		Name: "Value",
-		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 		BaseType: fhirpath.TypeSpecifier{
@@ -489,9 +432,6 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 }, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
-		Type: "FHIR.string",
-	}, {
-		Name: "Value",
 		Type: "FHIR.string",
 	}},
 	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
