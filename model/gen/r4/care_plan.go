@@ -395,6 +395,20 @@ func (r CarePlan) String() string {
 	}
 	return string(buf)
 }
+func (r CarePlanActivity) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r CarePlanActivityDetail) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r CarePlan) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

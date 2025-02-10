@@ -432,6 +432,41 @@ func (r ConditionDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r ConditionDefinitionObservation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConditionDefinitionMedication) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConditionDefinitionPrecondition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConditionDefinitionQuestionnaire) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConditionDefinitionPlan) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ConditionDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -687,6 +687,62 @@ func (r ConceptMap) String() string {
 	}
 	return string(buf)
 }
+func (r ConceptMapProperty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapAdditionalAttribute) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroup) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroupElement) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroupElementTarget) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroupElementTargetProperty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroupElementTargetDependsOn) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ConceptMapGroupUnmapped) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -229,6 +229,13 @@ func (r ClinicalImpression) String() string {
 	}
 	return string(buf)
 }
+func (r ClinicalImpressionFinding) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

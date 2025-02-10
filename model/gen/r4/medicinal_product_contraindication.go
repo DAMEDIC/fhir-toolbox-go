@@ -167,6 +167,13 @@ func (r MedicinalProductContraindication) String() string {
 	}
 	return string(buf)
 }
+func (r MedicinalProductContraindicationOtherTherapy) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductContraindication) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

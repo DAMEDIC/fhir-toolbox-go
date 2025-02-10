@@ -29,6 +29,7 @@ type Element interface {
 	ToDateTime(explicit bool) (*DateTime, error)
 	ToQuantity(explicit bool) (*Quantity, error)
 	TypeInfo() TypeInfo
+	fmt.Stringer
 }
 
 type TypeInfo interface {
@@ -276,6 +277,24 @@ func ElementTo[T Element](e Element, explicit bool) (*T, error) {
 
 type Collection []Element
 
+func (c Collection) String() string {
+	if len(c) == 0 {
+		return "{ }"
+	}
+
+	var b strings.Builder
+	b.WriteString("{ ")
+
+	for _, e := range c[:len(c)-1] {
+		// strings.Builder Write implementation does not return error
+		_, _ = fmt.Fprint(&b, e, ", ")
+	}
+	_, _ = fmt.Fprint(&b, c[len(c)-1])
+
+	b.WriteString(" }")
+	return b.String()
+}
+
 type Boolean bool
 
 func (b Boolean) Children(name ...string) Collection {
@@ -426,6 +445,9 @@ func (s String) TypeInfo() TypeInfo {
 		Name:      "String",
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
+}
+func (s String) String() string {
+	return string(s)
 }
 
 var (

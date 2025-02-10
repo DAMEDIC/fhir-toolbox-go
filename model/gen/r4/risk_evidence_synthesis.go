@@ -488,6 +488,41 @@ func (r RiskEvidenceSynthesis) String() string {
 	}
 	return string(buf)
 }
+func (r RiskEvidenceSynthesisSampleSize) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r RiskEvidenceSynthesisRiskEstimate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r RiskEvidenceSynthesisCertainty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

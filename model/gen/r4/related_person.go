@@ -188,6 +188,13 @@ func (r RelatedPerson) String() string {
 	}
 	return string(buf)
 }
+func (r RelatedPersonCommunication) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r RelatedPerson) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

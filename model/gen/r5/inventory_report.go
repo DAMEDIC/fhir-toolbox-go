@@ -219,6 +219,20 @@ func (r InventoryReport) String() string {
 	}
 	return string(buf)
 }
+func (r InventoryReportInventoryListing) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r InventoryReportInventoryListingItem) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r InventoryReport) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

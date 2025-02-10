@@ -246,6 +246,20 @@ func (r VisionPrescription) String() string {
 	}
 	return string(buf)
 }
+func (r VisionPrescriptionLensSpecification) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r VisionPrescriptionLensSpecificationPrism) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

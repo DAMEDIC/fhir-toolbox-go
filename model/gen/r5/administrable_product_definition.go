@@ -332,6 +332,34 @@ func (r AdministrableProductDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r AdministrableProductDefinitionProperty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

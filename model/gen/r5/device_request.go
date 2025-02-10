@@ -274,6 +274,13 @@ func (r DeviceRequest) String() string {
 	}
 	return string(buf)
 }
+func (r DeviceRequestParameter) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

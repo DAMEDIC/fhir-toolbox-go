@@ -188,6 +188,13 @@ func (r Organization) String() string {
 	}
 	return string(buf)
 }
+func (r OrganizationQualification) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Organization) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

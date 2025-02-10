@@ -170,6 +170,13 @@ func (r Parameters) String() string {
 	}
 	return string(buf)
 }
+func (r ParametersParameter) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Parameters) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -361,6 +361,20 @@ func (r PaymentReconciliation) String() string {
 	}
 	return string(buf)
 }
+func (r PaymentReconciliationAllocation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r PaymentReconciliationProcessNote) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

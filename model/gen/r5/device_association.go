@@ -172,6 +172,13 @@ func (r DeviceAssociation) String() string {
 	}
 	return string(buf)
 }
+func (r DeviceAssociationOperation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r DeviceAssociation) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

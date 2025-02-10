@@ -309,6 +309,34 @@ func (r MedicinalProductIngredient) String() string {
 	}
 	return string(buf)
 }
+func (r MedicinalProductIngredientSpecifiedSubstance) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductIngredientSpecifiedSubstanceStrength) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductIngredientSubstance) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductIngredient) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

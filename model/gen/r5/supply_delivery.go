@@ -197,6 +197,13 @@ func (r SupplyDelivery) String() string {
 	}
 	return string(buf)
 }
+func (r SupplyDeliverySuppliedItem) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

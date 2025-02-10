@@ -185,6 +185,13 @@ func (r ResearchSubject) String() string {
 	}
 	return string(buf)
 }
+func (r ResearchSubjectProgress) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

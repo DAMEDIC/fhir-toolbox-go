@@ -1,6 +1,7 @@
 package basic
 
 import (
+	"encoding/json"
 	"encoding/xml"
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
@@ -32,6 +33,13 @@ func (r Decimal) MemSize() int {
 		s += int(r.Value.Size())
 	}
 	return s
+}
+func (r Decimal) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Decimal) MarshalJSON() ([]byte, error) {
 	if r.Value == nil {

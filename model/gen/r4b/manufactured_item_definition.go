@@ -165,6 +165,13 @@ func (r ManufacturedItemDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r ManufacturedItemDefinitionProperty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

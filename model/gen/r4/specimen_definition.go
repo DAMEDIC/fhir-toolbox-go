@@ -347,6 +347,34 @@ func (r SpecimenDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r SpecimenDefinitionTypeTested) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SpecimenDefinitionTypeTestedContainer) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SpecimenDefinitionTypeTestedContainerAdditive) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SpecimenDefinitionTypeTestedHandling) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -225,6 +225,13 @@ func (r SupplyRequest) String() string {
 	}
 	return string(buf)
 }
+func (r SupplyRequestParameter) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

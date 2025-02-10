@@ -272,6 +272,20 @@ func (r AdverseEvent) String() string {
 	}
 	return string(buf)
 }
+func (r AdverseEventSuspectEntity) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AdverseEventSuspectEntityCausality) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

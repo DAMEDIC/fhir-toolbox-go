@@ -316,6 +316,13 @@ func (r EvidenceVariable) String() string {
 	}
 	return string(buf)
 }
+func (r EvidenceVariableCharacteristic) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

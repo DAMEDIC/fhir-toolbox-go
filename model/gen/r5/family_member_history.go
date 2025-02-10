@@ -366,6 +366,27 @@ func (r FamilyMemberHistory) String() string {
 	}
 	return string(buf)
 }
+func (r FamilyMemberHistoryParticipant) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r FamilyMemberHistoryCondition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r FamilyMemberHistoryProcedure) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

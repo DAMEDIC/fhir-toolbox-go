@@ -165,6 +165,13 @@ func (r SubscriptionStatus) String() string {
 	}
 	return string(buf)
 }
+func (r SubscriptionStatusNotificationEvent) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

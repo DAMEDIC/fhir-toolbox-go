@@ -270,6 +270,20 @@ func (r ObservationDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r ObservationDefinitionQuantitativeDetails) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ObservationDefinitionQualifiedInterval) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

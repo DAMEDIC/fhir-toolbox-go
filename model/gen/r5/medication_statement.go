@@ -219,6 +219,13 @@ func (r MedicationStatement) String() string {
 	}
 	return string(buf)
 }
+func (r MedicationStatementAdherence) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

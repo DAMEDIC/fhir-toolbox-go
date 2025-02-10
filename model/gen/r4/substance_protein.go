@@ -175,6 +175,13 @@ func (r SubstanceProtein) String() string {
 	}
 	return string(buf)
 }
+func (r SubstanceProteinSubunit) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

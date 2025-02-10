@@ -34,6 +34,13 @@ func (r Markdown) MemSize() int {
 	}
 	return s
 }
+func (r Markdown) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Markdown) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

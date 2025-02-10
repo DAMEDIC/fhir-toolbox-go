@@ -277,6 +277,20 @@ func (r DiagnosticReport) String() string {
 	}
 	return string(buf)
 }
+func (r DiagnosticReportSupportingInfo) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r DiagnosticReportMedia) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

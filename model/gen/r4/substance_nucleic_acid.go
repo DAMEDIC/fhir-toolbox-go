@@ -270,6 +270,27 @@ func (r SubstanceNucleicAcid) String() string {
 	}
 	return string(buf)
 }
+func (r SubstanceNucleicAcidSubunit) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstanceNucleicAcidSubunitLinkage) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstanceNucleicAcidSubunitSugar) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

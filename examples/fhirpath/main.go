@@ -13,8 +13,9 @@ func main() {
 			Given:  []r4.String{{Value: utils.Ptr("Donald")}},
 			Family: &r4.String{Value: utils.Ptr("Duck")},
 		}},
+		MultipleBirth: r4.Integer{Value: utils.Ptr[int32](3)},
 	}
 
-	res, err := fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given"))
-	fmt.Println(res, err)
+	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given")))
+	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.multipleBirth")))
 }

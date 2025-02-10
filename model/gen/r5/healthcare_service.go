@@ -254,6 +254,13 @@ func (r HealthcareService) String() string {
 	}
 	return string(buf)
 }
+func (r HealthcareServiceEligibility) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r HealthcareService) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

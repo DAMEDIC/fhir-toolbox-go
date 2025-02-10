@@ -250,6 +250,20 @@ func (r PractitionerRole) String() string {
 	}
 	return string(buf)
 }
+func (r PractitionerRoleAvailableTime) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r PractitionerRoleNotAvailable) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

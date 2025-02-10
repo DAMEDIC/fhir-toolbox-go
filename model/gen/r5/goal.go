@@ -234,6 +234,13 @@ func (r Goal) String() string {
 	}
 	return string(buf)
 }
+func (r GoalTarget) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r Goal) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -333,6 +333,27 @@ func (r ChargeItemDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r ChargeItemDefinitionApplicability) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ChargeItemDefinitionPropertyGroup) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

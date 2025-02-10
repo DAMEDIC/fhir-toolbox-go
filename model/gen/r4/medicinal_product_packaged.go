@@ -264,6 +264,20 @@ func (r MedicinalProductPackaged) String() string {
 	}
 	return string(buf)
 }
+func (r MedicinalProductPackagedBatchIdentifier) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductPackagedPackageItem) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductPackaged) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

@@ -186,6 +186,13 @@ func (r DocumentManifest) String() string {
 	}
 	return string(buf)
 }
+func (r DocumentManifestRelated) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

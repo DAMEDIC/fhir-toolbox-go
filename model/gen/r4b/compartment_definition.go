@@ -190,6 +190,13 @@ func (r CompartmentDefinition) String() string {
 	}
 	return string(buf)
 }
+func (r CompartmentDefinitionResource) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

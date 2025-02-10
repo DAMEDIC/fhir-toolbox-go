@@ -35,6 +35,13 @@ func (r String) MemSize() int {
 	}
 	return s
 }
+func (r String) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r String) MarshalJSON() ([]byte, error) {
 	v := r.Value
 	var b bytes.Buffer

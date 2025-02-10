@@ -249,6 +249,20 @@ func (r QuestionnaireResponse) String() string {
 	}
 	return string(buf)
 }
+func (r QuestionnaireResponseItem) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r QuestionnaireResponseItemAnswer) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r QuestionnaireResponse) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

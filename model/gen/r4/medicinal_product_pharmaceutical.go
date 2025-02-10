@@ -294,6 +294,34 @@ func (r MedicinalProductPharmaceutical) String() string {
 	}
 	return string(buf)
 }
+func (r MedicinalProductPharmaceuticalCharacteristics) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r MedicinalProductPharmaceutical) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

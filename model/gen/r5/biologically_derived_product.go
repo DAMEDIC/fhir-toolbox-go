@@ -253,6 +253,20 @@ func (r BiologicallyDerivedProduct) String() string {
 	}
 	return string(buf)
 }
+func (r BiologicallyDerivedProductCollection) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r BiologicallyDerivedProductProperty) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)
