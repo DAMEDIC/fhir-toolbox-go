@@ -12536,6 +12536,38 @@ func (r StructureMap) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r StructureMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMap to Quantity")
 }
+func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMap
+	switch other := other.(type) {
+	case StructureMap:
+		o = other
+	case *StructureMap:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMap
+	switch other := other.(type) {
+	case StructureMap:
+		o = other
+	case *StructureMap:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12686,6 +12718,38 @@ func (r StructureMapStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r StructureMapStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapStructure to Quantity")
 }
+func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapStructure
+	switch other := other.(type) {
+	case StructureMapStructure:
+		o = other
+	case *StructureMapStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapStructure
+	switch other := other.(type) {
+	case StructureMapStructure:
+		o = other
+	case *StructureMapStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12789,6 +12853,38 @@ func (r StructureMapGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r StructureMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroup to Quantity")
 }
+func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroup
+	switch other := other.(type) {
+	case StructureMapGroup:
+		o = other
+	case *StructureMapGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroup
+	switch other := other.(type) {
+	case StructureMapGroup:
+		o = other
+	case *StructureMapGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12887,6 +12983,38 @@ func (r StructureMapGroupInput) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r StructureMapGroupInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupInput to Quantity")
+}
+func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupInput
+	switch other := other.(type) {
+	case StructureMapGroupInput:
+		o = other
+	case *StructureMapGroupInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupInput
+	switch other := other.(type) {
+	case StructureMapGroupInput:
+		o = other
+	case *StructureMapGroupInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12992,6 +13120,38 @@ func (r StructureMapGroupRule) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r StructureMapGroupRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupRule to Quantity")
+}
+func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRule
+	switch other := other.(type) {
+	case StructureMapGroupRule:
+		o = other
+	case *StructureMapGroupRule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRule
+	switch other := other.(type) {
+	case StructureMapGroupRule:
+		o = other
+	case *StructureMapGroupRule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13128,6 +13288,38 @@ func (r StructureMapGroupRuleSource) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
+}
+func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleSource
+	switch other := other.(type) {
+	case StructureMapGroupRuleSource:
+		o = other
+	case *StructureMapGroupRuleSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleSource
+	switch other := other.(type) {
+	case StructureMapGroupRuleSource:
+		o = other
+	case *StructureMapGroupRuleSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13267,6 +13459,38 @@ func (r StructureMapGroupRuleTarget) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
 }
+func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleTarget
+	switch other := other.(type) {
+	case StructureMapGroupRuleTarget:
+		o = other
+	case *StructureMapGroupRuleTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleTarget
+	switch other := other.(type) {
+	case StructureMapGroupRuleTarget:
+		o = other
+	case *StructureMapGroupRuleTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13359,6 +13583,38 @@ func (r StructureMapGroupRuleTargetParameter) ToDateTime(explicit bool) (*fhirpa
 func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
 }
+func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleTargetParameter
+	switch other := other.(type) {
+	case StructureMapGroupRuleTargetParameter:
+		o = other
+	case *StructureMapGroupRuleTargetParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleTargetParameter
+	switch other := other.(type) {
+	case StructureMapGroupRuleTargetParameter:
+		o = other
+	case *StructureMapGroupRuleTargetParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13434,6 +13690,38 @@ func (r StructureMapGroupRuleDependent) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
+}
+func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleDependent
+	switch other := other.(type) {
+	case StructureMapGroupRuleDependent:
+		o = other
+	case *StructureMapGroupRuleDependent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureMapGroupRuleDependent
+	switch other := other.(type) {
+	case StructureMapGroupRuleDependent:
+		o = other
+	case *StructureMapGroupRuleDependent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

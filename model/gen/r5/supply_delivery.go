@@ -2149,6 +2149,38 @@ func (r SupplyDelivery) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r SupplyDelivery) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SupplyDelivery to Quantity")
 }
+func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SupplyDelivery
+	switch other := other.(type) {
+	case SupplyDelivery:
+		o = other
+	case *SupplyDelivery:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SupplyDelivery) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SupplyDelivery
+	switch other := other.(type) {
+	case SupplyDelivery:
+		o = other
+	case *SupplyDelivery:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SupplyDelivery) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2271,6 +2303,38 @@ func (r SupplyDeliverySuppliedItem) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r SupplyDeliverySuppliedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Quantity")
+}
+func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SupplyDeliverySuppliedItem
+	switch other := other.(type) {
+	case SupplyDeliverySuppliedItem:
+		o = other
+	case *SupplyDeliverySuppliedItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SupplyDeliverySuppliedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SupplyDeliverySuppliedItem
+	switch other := other.(type) {
+	case SupplyDeliverySuppliedItem:
+		o = other
+	case *SupplyDeliverySuppliedItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SupplyDeliverySuppliedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

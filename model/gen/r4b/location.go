@@ -3163,6 +3163,38 @@ func (r Location) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Location) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Location to Quantity")
 }
+func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Location
+	switch other := other.(type) {
+	case Location:
+		o = other
+	case *Location:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Location
+	switch other := other.(type) {
+	case Location:
+		o = other
+	case *Location:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Location) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3305,6 +3337,38 @@ func (r LocationPosition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r LocationPosition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert LocationPosition to Quantity")
 }
+func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o LocationPosition
+	switch other := other.(type) {
+	case LocationPosition:
+		o = other
+	case *LocationPosition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o LocationPosition
+	switch other := other.(type) {
+	case LocationPosition:
+		o = other
+	case *LocationPosition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3398,6 +3462,38 @@ func (r LocationHoursOfOperation) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r LocationHoursOfOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert LocationHoursOfOperation to Quantity")
+}
+func (r LocationHoursOfOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o LocationHoursOfOperation
+	switch other := other.(type) {
+	case LocationHoursOfOperation:
+		o = other
+	case *LocationHoursOfOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r LocationHoursOfOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o LocationHoursOfOperation
+	switch other := other.(type) {
+	case LocationHoursOfOperation:
+		o = other
+	case *LocationHoursOfOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -1528,6 +1528,38 @@ func (r Slot) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Slot) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Slot to Quantity")
 }
+func (r Slot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Slot
+	switch other := other.(type) {
+	case Slot:
+		o = other
+	case *Slot:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Slot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Slot
+	switch other := other.(type) {
+	case Slot:
+		o = other
+	case *Slot:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Slot) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

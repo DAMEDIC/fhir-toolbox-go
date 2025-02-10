@@ -3737,6 +3737,38 @@ func (r ManufacturedItemDefinition) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
+func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinition
+	switch other := other.(type) {
+	case ManufacturedItemDefinition:
+		o = other
+	case *ManufacturedItemDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinition
+	switch other := other.(type) {
+	case ManufacturedItemDefinition:
+		o = other
+	case *ManufacturedItemDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3855,6 +3887,38 @@ func (r ManufacturedItemDefinitionProperty) ToDateTime(explicit bool) (*fhirpath
 func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
 }
+func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionProperty
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionProperty:
+		o = other
+	case *ManufacturedItemDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionProperty
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionProperty:
+		o = other
+	case *ManufacturedItemDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3953,6 +4017,38 @@ func (r ManufacturedItemDefinitionComponent) ToDateTime(explicit bool) (*fhirpat
 }
 func (r ManufacturedItemDefinitionComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinitionComponent to Quantity")
+}
+func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionComponent
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionComponent:
+		o = other
+	case *ManufacturedItemDefinitionComponent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinitionComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionComponent
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionComponent:
+		o = other
+	case *ManufacturedItemDefinitionComponent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ManufacturedItemDefinitionComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4056,6 +4152,38 @@ func (r ManufacturedItemDefinitionComponentConstituent) ToDateTime(explicit bool
 }
 func (r ManufacturedItemDefinitionComponentConstituent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Quantity")
+}
+func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionComponentConstituent
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionComponentConstituent:
+		o = other
+	case *ManufacturedItemDefinitionComponentConstituent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinitionComponentConstituent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionComponentConstituent
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionComponentConstituent:
+		o = other
+	case *ManufacturedItemDefinitionComponentConstituent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ManufacturedItemDefinitionComponentConstituent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

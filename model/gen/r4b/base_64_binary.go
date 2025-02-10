@@ -171,6 +171,72 @@ func (r Base64Binary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Base64Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Base64Binary to Quantity")
 }
+func (r Base64Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Base64Binary
+	switch other := other.(type) {
+	case Base64Binary:
+		o = other
+	case *Base64Binary:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToString(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToString(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Base64Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Base64Binary
+	switch other := other.(type) {
+	case Base64Binary:
+		o = other
+	case *Base64Binary:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToString(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToString(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Base64Binary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

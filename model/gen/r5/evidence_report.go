@@ -5451,6 +5451,38 @@ func (r EvidenceReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r EvidenceReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReport to Quantity")
 }
+func (r EvidenceReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReport
+	switch other := other.(type) {
+	case EvidenceReport:
+		o = other
+	case *EvidenceReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReport
+	switch other := other.(type) {
+	case EvidenceReport:
+		o = other
+	case *EvidenceReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5595,6 +5627,38 @@ func (r EvidenceReportSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r EvidenceReportSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReportSubject to Quantity")
 }
+func (r EvidenceReportSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSubject
+	switch other := other.(type) {
+	case EvidenceReportSubject:
+		o = other
+	case *EvidenceReportSubject:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReportSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSubject
+	switch other := other.(type) {
+	case EvidenceReportSubject:
+		o = other
+	case *EvidenceReportSubject:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceReportSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5682,6 +5746,38 @@ func (r EvidenceReportSubjectCharacteristic) ToDateTime(explicit bool) (*fhirpat
 func (r EvidenceReportSubjectCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReportSubjectCharacteristic to Quantity")
 }
+func (r EvidenceReportSubjectCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSubjectCharacteristic
+	switch other := other.(type) {
+	case EvidenceReportSubjectCharacteristic:
+		o = other
+	case *EvidenceReportSubjectCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReportSubjectCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSubjectCharacteristic
+	switch other := other.(type) {
+	case EvidenceReportSubjectCharacteristic:
+		o = other
+	case *EvidenceReportSubjectCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceReportSubjectCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5764,6 +5860,38 @@ func (r EvidenceReportRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r EvidenceReportRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReportRelatesTo to Quantity")
+}
+func (r EvidenceReportRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportRelatesTo
+	switch other := other.(type) {
+	case EvidenceReportRelatesTo:
+		o = other
+	case *EvidenceReportRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReportRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportRelatesTo
+	switch other := other.(type) {
+	case EvidenceReportRelatesTo:
+		o = other
+	case *EvidenceReportRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EvidenceReportRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5855,6 +5983,38 @@ func (r EvidenceReportRelatesToTarget) ToDateTime(explicit bool) (*fhirpath.Date
 }
 func (r EvidenceReportRelatesToTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReportRelatesToTarget to Quantity")
+}
+func (r EvidenceReportRelatesToTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportRelatesToTarget
+	switch other := other.(type) {
+	case EvidenceReportRelatesToTarget:
+		o = other
+	case *EvidenceReportRelatesToTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReportRelatesToTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportRelatesToTarget
+	switch other := other.(type) {
+	case EvidenceReportRelatesToTarget:
+		o = other
+	case *EvidenceReportRelatesToTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EvidenceReportRelatesToTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5992,6 +6152,38 @@ func (r EvidenceReportSection) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r EvidenceReportSection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReportSection to Quantity")
+}
+func (r EvidenceReportSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSection
+	switch other := other.(type) {
+	case EvidenceReportSection:
+		o = other
+	case *EvidenceReportSection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceReportSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceReportSection
+	switch other := other.(type) {
+	case EvidenceReportSection:
+		o = other
+	case *EvidenceReportSection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EvidenceReportSection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

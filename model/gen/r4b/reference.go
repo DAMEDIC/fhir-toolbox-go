@@ -555,6 +555,38 @@ func (r Reference) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Reference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Reference to Quantity")
 }
+func (r Reference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Reference
+	switch other := other.(type) {
+	case Reference:
+		o = other
+	case *Reference:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Reference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Reference
+	switch other := other.(type) {
+	case Reference:
+		o = other
+	case *Reference:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Reference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

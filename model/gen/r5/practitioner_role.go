@@ -1775,6 +1775,38 @@ func (r PractitionerRole) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r PractitionerRole) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PractitionerRole to Quantity")
 }
+func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PractitionerRole
+	switch other := other.(type) {
+	case PractitionerRole:
+		o = other
+	case *PractitionerRole:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PractitionerRole) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PractitionerRole
+	switch other := other.(type) {
+	case PractitionerRole:
+		o = other
+	case *PractitionerRole:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

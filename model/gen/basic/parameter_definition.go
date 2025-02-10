@@ -520,6 +520,38 @@ func (r ParameterDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r ParameterDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ParameterDefinition to Quantity")
 }
+func (r ParameterDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ParameterDefinition
+	switch other := other.(type) {
+	case ParameterDefinition:
+		o = other
+	case *ParameterDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ParameterDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ParameterDefinition
+	switch other := other.(type) {
+	case ParameterDefinition:
+		o = other
+	case *ParameterDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ParameterDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -3098,6 +3098,38 @@ func (r Subscription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Subscription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Subscription to Quantity")
 }
+func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Subscription
+	switch other := other.(type) {
+	case Subscription:
+		o = other
+	case *Subscription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Subscription
+	switch other := other.(type) {
+	case Subscription:
+		o = other
+	case *Subscription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Subscription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3250,6 +3282,38 @@ func (r SubscriptionFilterBy) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r SubscriptionFilterBy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubscriptionFilterBy to Quantity")
 }
+func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionFilterBy
+	switch other := other.(type) {
+	case SubscriptionFilterBy:
+		o = other
+	case *SubscriptionFilterBy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubscriptionFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionFilterBy
+	switch other := other.(type) {
+	case SubscriptionFilterBy:
+		o = other
+	case *SubscriptionFilterBy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubscriptionFilterBy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3335,6 +3399,38 @@ func (r SubscriptionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r SubscriptionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubscriptionParameter to Quantity")
+}
+func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionParameter
+	switch other := other.(type) {
+	case SubscriptionParameter:
+		o = other
+	case *SubscriptionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubscriptionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionParameter
+	switch other := other.(type) {
+	case SubscriptionParameter:
+		o = other
+	case *SubscriptionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubscriptionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

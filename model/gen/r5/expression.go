@@ -666,6 +666,38 @@ func (r Expression) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Expression) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Expression to Quantity")
 }
+func (r Expression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Expression
+	switch other := other.(type) {
+	case Expression:
+		o = other
+	case *Expression:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Expression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Expression
+	switch other := other.(type) {
+	case Expression:
+		o = other
+	case *Expression:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Expression) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

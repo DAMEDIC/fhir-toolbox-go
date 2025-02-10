@@ -177,6 +177,72 @@ func (r Integer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Integer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Integer to Quantity")
 }
+func (r Integer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Integer
+	switch other := other.(type) {
+	case Integer:
+		o = other
+	case *Integer:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToInteger(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToInteger(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Integer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Integer
+	switch other := other.(type) {
+	case Integer:
+		o = other
+	case *Integer:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToInteger(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToInteger(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Integer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

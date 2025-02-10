@@ -118,6 +118,60 @@ func (r PositiveInt) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r PositiveInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PositiveInt to Quantity")
 }
+func (r PositiveInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PositiveInt
+	switch other := other.(type) {
+	case PositiveInt:
+		o = other
+	case *PositiveInt:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PositiveInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PositiveInt
+	switch other := other.(type) {
+	case PositiveInt:
+		o = other
+	case *PositiveInt:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PositiveInt) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

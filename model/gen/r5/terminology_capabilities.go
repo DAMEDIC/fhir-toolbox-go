@@ -7881,6 +7881,38 @@ func (r TerminologyCapabilities) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r TerminologyCapabilities) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilities to Quantity")
 }
+func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilities
+	switch other := other.(type) {
+	case TerminologyCapabilities:
+		o = other
+	case *TerminologyCapabilities:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilities) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilities
+	switch other := other.(type) {
+	case TerminologyCapabilities:
+		o = other
+	case *TerminologyCapabilities:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8050,6 +8082,38 @@ func (r TerminologyCapabilitiesSoftware) ToDateTime(explicit bool) (*fhirpath.Da
 func (r TerminologyCapabilitiesSoftware) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Quantity")
 }
+func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesSoftware
+	switch other := other.(type) {
+	case TerminologyCapabilitiesSoftware:
+		o = other
+	case *TerminologyCapabilitiesSoftware:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesSoftware
+	switch other := other.(type) {
+	case TerminologyCapabilitiesSoftware:
+		o = other
+	case *TerminologyCapabilitiesSoftware:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8128,6 +8192,38 @@ func (r TerminologyCapabilitiesImplementation) ToDateTime(explicit bool) (*fhirp
 }
 func (r TerminologyCapabilitiesImplementation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Quantity")
+}
+func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesImplementation
+	switch other := other.(type) {
+	case TerminologyCapabilitiesImplementation:
+		o = other
+	case *TerminologyCapabilitiesImplementation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesImplementation
+	switch other := other.(type) {
+	case TerminologyCapabilitiesImplementation:
+		o = other
+	case *TerminologyCapabilitiesImplementation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8217,6 +8313,38 @@ func (r TerminologyCapabilitiesCodeSystem) ToDateTime(explicit bool) (*fhirpath.
 }
 func (r TerminologyCapabilitiesCodeSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Quantity")
+}
+func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystem
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystem:
+		o = other
+	case *TerminologyCapabilitiesCodeSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystem
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystem:
+		o = other
+	case *TerminologyCapabilitiesCodeSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8325,6 +8453,38 @@ func (r TerminologyCapabilitiesCodeSystemVersion) ToDateTime(explicit bool) (*fh
 func (r TerminologyCapabilitiesCodeSystemVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Quantity")
 }
+func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystemVersion
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystemVersion:
+		o = other
+	case *TerminologyCapabilitiesCodeSystemVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystemVersion
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystemVersion:
+		o = other
+	case *TerminologyCapabilitiesCodeSystemVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8415,6 +8575,38 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDateTime(explicit bool
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Quantity")
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystemVersionFilter
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystemVersionFilter:
+		o = other
+	case *TerminologyCapabilitiesCodeSystemVersionFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesCodeSystemVersionFilter
+	switch other := other.(type) {
+	case TerminologyCapabilitiesCodeSystemVersionFilter:
+		o = other
+	case *TerminologyCapabilitiesCodeSystemVersionFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8512,6 +8704,38 @@ func (r TerminologyCapabilitiesExpansion) ToDateTime(explicit bool) (*fhirpath.D
 func (r TerminologyCapabilitiesExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Quantity")
 }
+func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesExpansion
+	switch other := other.(type) {
+	case TerminologyCapabilitiesExpansion:
+		o = other
+	case *TerminologyCapabilitiesExpansion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesExpansion
+	switch other := other.(type) {
+	case TerminologyCapabilitiesExpansion:
+		o = other
+	case *TerminologyCapabilitiesExpansion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8600,6 +8824,38 @@ func (r TerminologyCapabilitiesExpansionParameter) ToDateTime(explicit bool) (*f
 func (r TerminologyCapabilitiesExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Quantity")
 }
+func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesExpansionParameter
+	switch other := other.(type) {
+	case TerminologyCapabilitiesExpansionParameter:
+		o = other
+	case *TerminologyCapabilitiesExpansionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesExpansionParameter
+	switch other := other.(type) {
+	case TerminologyCapabilitiesExpansionParameter:
+		o = other
+	case *TerminologyCapabilitiesExpansionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8674,6 +8930,38 @@ func (r TerminologyCapabilitiesValidateCode) ToDateTime(explicit bool) (*fhirpat
 func (r TerminologyCapabilitiesValidateCode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Quantity")
 }
+func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesValidateCode
+	switch other := other.(type) {
+	case TerminologyCapabilitiesValidateCode:
+		o = other
+	case *TerminologyCapabilitiesValidateCode:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesValidateCode
+	switch other := other.(type) {
+	case TerminologyCapabilitiesValidateCode:
+		o = other
+	case *TerminologyCapabilitiesValidateCode:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8744,6 +9032,38 @@ func (r TerminologyCapabilitiesTranslation) ToDateTime(explicit bool) (*fhirpath
 }
 func (r TerminologyCapabilitiesTranslation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Quantity")
+}
+func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesTranslation
+	switch other := other.(type) {
+	case TerminologyCapabilitiesTranslation:
+		o = other
+	case *TerminologyCapabilitiesTranslation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesTranslation
+	switch other := other.(type) {
+	case TerminologyCapabilitiesTranslation:
+		o = other
+	case *TerminologyCapabilitiesTranslation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8817,6 +9137,38 @@ func (r TerminologyCapabilitiesClosure) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r TerminologyCapabilitiesClosure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Quantity")
+}
+func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesClosure
+	switch other := other.(type) {
+	case TerminologyCapabilitiesClosure:
+		o = other
+	case *TerminologyCapabilitiesClosure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TerminologyCapabilitiesClosure
+	switch other := other.(type) {
+	case TerminologyCapabilitiesClosure:
+		o = other
+	case *TerminologyCapabilitiesClosure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2334,6 +2334,38 @@ func (r NamingSystem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r NamingSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NamingSystem to Quantity")
 }
+func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NamingSystem
+	switch other := other.(type) {
+	case NamingSystem:
+		o = other
+	case *NamingSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NamingSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NamingSystem
+	switch other := other.(type) {
+	case NamingSystem:
+		o = other
+	case *NamingSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r NamingSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2473,6 +2505,38 @@ func (r NamingSystemUniqueId) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 }
 func (r NamingSystemUniqueId) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NamingSystemUniqueId to Quantity")
+}
+func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NamingSystemUniqueId
+	switch other := other.(type) {
+	case NamingSystemUniqueId:
+		o = other
+	case *NamingSystemUniqueId:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NamingSystemUniqueId) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NamingSystemUniqueId
+	switch other := other.(type) {
+	case NamingSystemUniqueId:
+		o = other
+	case *NamingSystemUniqueId:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r NamingSystemUniqueId) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

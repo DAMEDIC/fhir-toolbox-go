@@ -3895,6 +3895,38 @@ func (r FamilyMemberHistory) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r FamilyMemberHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert FamilyMemberHistory to Quantity")
 }
+func (r FamilyMemberHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FamilyMemberHistory
+	switch other := other.(type) {
+	case FamilyMemberHistory:
+		o = other
+	case *FamilyMemberHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r FamilyMemberHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FamilyMemberHistory
+	switch other := other.(type) {
+	case FamilyMemberHistory:
+		o = other
+	case *FamilyMemberHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r FamilyMemberHistory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4051,6 +4083,38 @@ func (r FamilyMemberHistoryCondition) ToDateTime(explicit bool) (*fhirpath.DateT
 }
 func (r FamilyMemberHistoryCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert FamilyMemberHistoryCondition to Quantity")
+}
+func (r FamilyMemberHistoryCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FamilyMemberHistoryCondition
+	switch other := other.(type) {
+	case FamilyMemberHistoryCondition:
+		o = other
+	case *FamilyMemberHistoryCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r FamilyMemberHistoryCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FamilyMemberHistoryCondition
+	switch other := other.(type) {
+	case FamilyMemberHistoryCondition:
+		o = other
+	case *FamilyMemberHistoryCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r FamilyMemberHistoryCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

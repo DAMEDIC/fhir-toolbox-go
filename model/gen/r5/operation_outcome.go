@@ -1695,6 +1695,38 @@ func (r OperationOutcome) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r OperationOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationOutcome to Quantity")
 }
+func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationOutcome
+	switch other := other.(type) {
+	case OperationOutcome:
+		o = other
+	case *OperationOutcome:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationOutcome
+	switch other := other.(type) {
+	case OperationOutcome:
+		o = other
+	case *OperationOutcome:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r OperationOutcome) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1803,6 +1835,38 @@ func (r OperationOutcomeIssue) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r OperationOutcomeIssue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationOutcomeIssue to Quantity")
+}
+func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationOutcomeIssue
+	switch other := other.(type) {
+	case OperationOutcomeIssue:
+		o = other
+	case *OperationOutcomeIssue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationOutcomeIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationOutcomeIssue
+	switch other := other.(type) {
+	case OperationOutcomeIssue:
+		o = other
+	case *OperationOutcomeIssue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r OperationOutcomeIssue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

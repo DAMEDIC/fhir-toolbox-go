@@ -3183,6 +3183,38 @@ func (r DiagnosticReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r DiagnosticReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DiagnosticReport to Quantity")
 }
+func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReport
+	switch other := other.(type) {
+	case DiagnosticReport:
+		o = other
+	case *DiagnosticReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReport
+	switch other := other.(type) {
+	case DiagnosticReport:
+		o = other
+	case *DiagnosticReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DiagnosticReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3332,6 +3364,38 @@ func (r DiagnosticReportSupportingInfo) ToDateTime(explicit bool) (*fhirpath.Dat
 func (r DiagnosticReportSupportingInfo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DiagnosticReportSupportingInfo to Quantity")
 }
+func (r DiagnosticReportSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReportSupportingInfo
+	switch other := other.(type) {
+	case DiagnosticReportSupportingInfo:
+		o = other
+	case *DiagnosticReportSupportingInfo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DiagnosticReportSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReportSupportingInfo
+	switch other := other.(type) {
+	case DiagnosticReportSupportingInfo:
+		o = other
+	case *DiagnosticReportSupportingInfo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DiagnosticReportSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3410,6 +3474,38 @@ func (r DiagnosticReportMedia) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r DiagnosticReportMedia) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DiagnosticReportMedia to Quantity")
+}
+func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReportMedia
+	switch other := other.(type) {
+	case DiagnosticReportMedia:
+		o = other
+	case *DiagnosticReportMedia:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DiagnosticReportMedia
+	switch other := other.(type) {
+	case DiagnosticReportMedia:
+		o = other
+	case *DiagnosticReportMedia:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DiagnosticReportMedia) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

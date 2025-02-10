@@ -1055,6 +1055,38 @@ func (r TriggerDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r TriggerDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TriggerDefinition to Quantity")
 }
+func (r TriggerDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TriggerDefinition
+	switch other := other.(type) {
+	case TriggerDefinition:
+		o = other
+	case *TriggerDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TriggerDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TriggerDefinition
+	switch other := other.(type) {
+	case TriggerDefinition:
+		o = other
+	case *TriggerDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TriggerDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

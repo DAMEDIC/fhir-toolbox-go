@@ -169,7 +169,64 @@ func evalExpression(
 		}
 		return nil, nil
 
-	// todo: all the other cases...
+	case *parser.UnionExpressionContext:
+		// TODO
+		panic("todo")
+
+	case *parser.InequalityExpressionContext:
+		// TODO
+		panic("todo")
+
+	case *parser.EqualityExpressionContext:
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		switch op {
+		case "=":
+			eq := left.Equal(right)
+			if eq != nil {
+				return Collection{Boolean(*eq)}, nil
+			}
+		case "~":
+			eq := left.Equivalent(right)
+			if eq != nil {
+				return Collection{Boolean(*eq)}, nil
+			}
+		case "!=":
+			eq := left.Equal(right)
+			if eq != nil {
+				return Collection{Boolean(!*eq)}, nil
+			}
+		case "!~":
+			eq := left.Equivalent(right)
+			if eq != nil {
+				return Collection{Boolean(!*eq)}, nil
+			}
+		}
+		return nil, nil
+
+	case *parser.MembershipExpressionContext:
+		// TODO
+		panic("todo")
+
+	case *parser.AndExpressionContext:
+		// TODO
+		panic("todo")
+
+	case *parser.OrExpressionContext:
+		// TODO
+		panic("todo")
+
+	case *parser.ImpliesExpressionContext:
+		// TODO
+		panic("todo")
 
 	default:
 		panic(fmt.Sprintf("unexpected expression %T", tree))

@@ -1086,6 +1086,38 @@ func (r SubstanceAmount) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r SubstanceAmount) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceAmount to Quantity")
 }
+func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceAmount
+	switch other := other.(type) {
+	case SubstanceAmount:
+		o = other
+	case *SubstanceAmount:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceAmount
+	switch other := other.(type) {
+	case SubstanceAmount:
+		o = other
+	case *SubstanceAmount:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1167,6 +1199,38 @@ func (r SubstanceAmountReferenceRange) ToDateTime(explicit bool) (*fhirpath.Date
 }
 func (r SubstanceAmountReferenceRange) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceAmountReferenceRange to Quantity")
+}
+func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceAmountReferenceRange
+	switch other := other.(type) {
+	case SubstanceAmountReferenceRange:
+		o = other
+	case *SubstanceAmountReferenceRange:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceAmountReferenceRange
+	switch other := other.(type) {
+	case SubstanceAmountReferenceRange:
+		o = other
+	case *SubstanceAmountReferenceRange:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

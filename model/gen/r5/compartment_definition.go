@@ -2841,6 +2841,38 @@ func (r CompartmentDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r CompartmentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CompartmentDefinition to Quantity")
 }
+func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompartmentDefinition
+	switch other := other.(type) {
+	case CompartmentDefinition:
+		o = other
+	case *CompartmentDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompartmentDefinition
+	switch other := other.(type) {
+	case CompartmentDefinition:
+		o = other
+	case *CompartmentDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CompartmentDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2991,6 +3023,38 @@ func (r CompartmentDefinitionResource) ToDateTime(explicit bool) (*fhirpath.Date
 }
 func (r CompartmentDefinitionResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CompartmentDefinitionResource to Quantity")
+}
+func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompartmentDefinitionResource
+	switch other := other.(type) {
+	case CompartmentDefinitionResource:
+		o = other
+	case *CompartmentDefinitionResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompartmentDefinitionResource
+	switch other := other.(type) {
+	case CompartmentDefinitionResource:
+		o = other
+	case *CompartmentDefinitionResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CompartmentDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

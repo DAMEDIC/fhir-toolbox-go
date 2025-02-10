@@ -2050,6 +2050,38 @@ func (r RelatedPerson) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r RelatedPerson) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RelatedPerson to Quantity")
 }
+func (r RelatedPerson) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RelatedPerson
+	switch other := other.(type) {
+	case RelatedPerson:
+		o = other
+	case *RelatedPerson:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RelatedPerson) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RelatedPerson
+	switch other := other.(type) {
+	case RelatedPerson:
+		o = other
+	case *RelatedPerson:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RelatedPerson) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2173,6 +2205,38 @@ func (r RelatedPersonCommunication) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r RelatedPersonCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RelatedPersonCommunication to Quantity")
+}
+func (r RelatedPersonCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RelatedPersonCommunication
+	switch other := other.(type) {
+	case RelatedPersonCommunication:
+		o = other
+	case *RelatedPersonCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RelatedPersonCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RelatedPersonCommunication
+	switch other := other.(type) {
+	case RelatedPersonCommunication:
+		o = other
+	case *RelatedPersonCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RelatedPersonCommunication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

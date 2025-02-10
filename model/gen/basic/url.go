@@ -117,6 +117,60 @@ func (r Url) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Url) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Url to Quantity")
 }
+func (r Url) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Url
+	switch other := other.(type) {
+	case Url:
+		o = other
+	case *Url:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Url) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Url
+	switch other := other.(type) {
+	case Url:
+		o = other
+	case *Url:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Url) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -1978,6 +1978,38 @@ func (r DocumentManifest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r DocumentManifest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DocumentManifest to Quantity")
 }
+func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DocumentManifest
+	switch other := other.(type) {
+	case DocumentManifest:
+		o = other
+	case *DocumentManifest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DocumentManifest
+	switch other := other.(type) {
+	case DocumentManifest:
+		o = other
+	case *DocumentManifest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2103,6 +2135,38 @@ func (r DocumentManifestRelated) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r DocumentManifestRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DocumentManifestRelated to Quantity")
+}
+func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DocumentManifestRelated
+	switch other := other.(type) {
+	case DocumentManifestRelated:
+		o = other
+	case *DocumentManifestRelated:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DocumentManifestRelated
+	switch other := other.(type) {
+	case DocumentManifestRelated:
+		o = other
+	case *DocumentManifestRelated:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

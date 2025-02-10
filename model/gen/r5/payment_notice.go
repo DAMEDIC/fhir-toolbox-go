@@ -1404,6 +1404,38 @@ func (r PaymentNotice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r PaymentNotice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PaymentNotice to Quantity")
 }
+func (r PaymentNotice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PaymentNotice
+	switch other := other.(type) {
+	case PaymentNotice:
+		o = other
+	case *PaymentNotice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PaymentNotice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PaymentNotice
+	switch other := other.(type) {
+	case PaymentNotice:
+		o = other
+	case *PaymentNotice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PaymentNotice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

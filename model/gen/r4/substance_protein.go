@@ -1911,6 +1911,38 @@ func (r SubstanceProtein) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r SubstanceProtein) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceProtein to Quantity")
 }
+func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceProtein
+	switch other := other.(type) {
+	case SubstanceProtein:
+		o = other
+	case *SubstanceProtein:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceProtein
+	switch other := other.(type) {
+	case SubstanceProtein:
+		o = other
+	case *SubstanceProtein:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceProtein) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2042,6 +2074,38 @@ func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceProteinSubunit to Quantity")
+}
+func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceProteinSubunit
+	switch other := other.(type) {
+	case SubstanceProteinSubunit:
+		o = other
+	case *SubstanceProteinSubunit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceProteinSubunit
+	switch other := other.(type) {
+	case SubstanceProteinSubunit:
+		o = other
+	case *SubstanceProteinSubunit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceProteinSubunit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

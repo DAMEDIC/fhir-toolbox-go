@@ -5003,6 +5003,38 @@ func (r Consent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Consent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Consent to Quantity")
 }
+func (r Consent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Consent
+	switch other := other.(type) {
+	case Consent:
+		o = other
+	case *Consent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Consent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Consent
+	switch other := other.(type) {
+	case Consent:
+		o = other
+	case *Consent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Consent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5147,6 +5179,38 @@ func (r ConsentPolicyBasis) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ConsentPolicyBasis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConsentPolicyBasis to Quantity")
 }
+func (r ConsentPolicyBasis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentPolicyBasis
+	switch other := other.(type) {
+	case ConsentPolicyBasis:
+		o = other
+	case *ConsentPolicyBasis:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConsentPolicyBasis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentPolicyBasis
+	switch other := other.(type) {
+	case ConsentPolicyBasis:
+		o = other
+	case *ConsentPolicyBasis:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConsentPolicyBasis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5240,6 +5304,38 @@ func (r ConsentVerification) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r ConsentVerification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConsentVerification to Quantity")
+}
+func (r ConsentVerification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentVerification
+	switch other := other.(type) {
+	case ConsentVerification:
+		o = other
+	case *ConsentVerification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConsentVerification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentVerification
+	switch other := other.(type) {
+	case ConsentVerification:
+		o = other
+	case *ConsentVerification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5381,6 +5477,38 @@ func (r ConsentProvision) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r ConsentProvision) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConsentProvision to Quantity")
 }
+func (r ConsentProvision) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvision
+	switch other := other.(type) {
+	case ConsentProvision:
+		o = other
+	case *ConsentProvision:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConsentProvision) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvision
+	switch other := other.(type) {
+	case ConsentProvision:
+		o = other
+	case *ConsentProvision:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5492,6 +5620,38 @@ func (r ConsentProvisionActor) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r ConsentProvisionActor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConsentProvisionActor to Quantity")
 }
+func (r ConsentProvisionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvisionActor
+	switch other := other.(type) {
+	case ConsentProvisionActor:
+		o = other
+	case *ConsentProvisionActor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConsentProvisionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvisionActor
+	switch other := other.(type) {
+	case ConsentProvisionActor:
+		o = other
+	case *ConsentProvisionActor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5568,6 +5728,38 @@ func (r ConsentProvisionData) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 }
 func (r ConsentProvisionData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConsentProvisionData to Quantity")
+}
+func (r ConsentProvisionData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvisionData
+	switch other := other.(type) {
+	case ConsentProvisionData:
+		o = other
+	case *ConsentProvisionData:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConsentProvisionData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConsentProvisionData
+	switch other := other.(type) {
+	case ConsentProvisionData:
+		o = other
+	case *ConsentProvisionData:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

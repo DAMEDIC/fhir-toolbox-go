@@ -3505,6 +3505,38 @@ func (r MolecularSequence) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r MolecularSequence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MolecularSequence to Quantity")
 }
+func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequence
+	switch other := other.(type) {
+	case MolecularSequence:
+		o = other
+	case *MolecularSequence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequence
+	switch other := other.(type) {
+	case MolecularSequence:
+		o = other
+	case *MolecularSequence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3638,6 +3670,38 @@ func (r MolecularSequenceRelative) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r MolecularSequenceRelative) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MolecularSequenceRelative to Quantity")
 }
+func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelative
+	switch other := other.(type) {
+	case MolecularSequenceRelative:
+		o = other
+	case *MolecularSequenceRelative:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MolecularSequenceRelative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelative
+	switch other := other.(type) {
+	case MolecularSequenceRelative:
+		o = other
+	case *MolecularSequenceRelative:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MolecularSequenceRelative) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3753,6 +3817,38 @@ func (r MolecularSequenceRelativeStartingSequence) ToDateTime(explicit bool) (*f
 func (r MolecularSequenceRelativeStartingSequence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Quantity")
 }
+func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelativeStartingSequence
+	switch other := other.(type) {
+	case MolecularSequenceRelativeStartingSequence:
+		o = other
+	case *MolecularSequenceRelativeStartingSequence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MolecularSequenceRelativeStartingSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelativeStartingSequence
+	switch other := other.(type) {
+	case MolecularSequenceRelativeStartingSequence:
+		o = other
+	case *MolecularSequenceRelativeStartingSequence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MolecularSequenceRelativeStartingSequence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3858,6 +3954,38 @@ func (r MolecularSequenceRelativeEdit) ToDateTime(explicit bool) (*fhirpath.Date
 }
 func (r MolecularSequenceRelativeEdit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Quantity")
+}
+func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelativeEdit
+	switch other := other.(type) {
+	case MolecularSequenceRelativeEdit:
+		o = other
+	case *MolecularSequenceRelativeEdit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MolecularSequenceRelativeEdit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MolecularSequenceRelativeEdit
+	switch other := other.(type) {
+	case MolecularSequenceRelativeEdit:
+		o = other
+	case *MolecularSequenceRelativeEdit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MolecularSequenceRelativeEdit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

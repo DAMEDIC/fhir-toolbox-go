@@ -1021,6 +1021,38 @@ func (r VirtualServiceDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r VirtualServiceDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert VirtualServiceDetail to Quantity")
 }
+func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VirtualServiceDetail
+	switch other := other.(type) {
+	case VirtualServiceDetail:
+		o = other
+	case *VirtualServiceDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r VirtualServiceDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VirtualServiceDetail
+	switch other := other.(type) {
+	case VirtualServiceDetail:
+		o = other
+	case *VirtualServiceDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -4046,6 +4046,38 @@ func (r Requirements) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Requirements) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Requirements to Quantity")
 }
+func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Requirements
+	switch other := other.(type) {
+	case Requirements:
+		o = other
+	case *Requirements:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Requirements) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Requirements
+	switch other := other.(type) {
+	case Requirements:
+		o = other
+	case *Requirements:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Requirements) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4234,6 +4266,38 @@ func (r RequirementsStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r RequirementsStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequirementsStatement to Quantity")
+}
+func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequirementsStatement
+	switch other := other.(type) {
+	case RequirementsStatement:
+		o = other
+	case *RequirementsStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequirementsStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequirementsStatement
+	switch other := other.(type) {
+	case RequirementsStatement:
+		o = other
+	case *RequirementsStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RequirementsStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

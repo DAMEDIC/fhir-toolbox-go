@@ -432,6 +432,38 @@ func (r ContactDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ContactDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContactDetail to Quantity")
 }
+func (r ContactDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ContactDetail
+	switch other := other.(type) {
+	case ContactDetail:
+		o = other
+	case *ContactDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ContactDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ContactDetail
+	switch other := other.(type) {
+	case ContactDetail:
+		o = other
+	case *ContactDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ContactDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

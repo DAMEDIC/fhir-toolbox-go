@@ -1201,6 +1201,38 @@ func (r Flag) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Flag) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Flag to Quantity")
 }
+func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Flag
+	switch other := other.(type) {
+	case Flag:
+		o = other
+	case *Flag:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Flag) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Flag
+	switch other := other.(type) {
+	case Flag:
+		o = other
+	case *Flag:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Flag) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -1741,6 +1741,38 @@ func (r DeviceAssociation) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r DeviceAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceAssociation to Quantity")
 }
+func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceAssociation
+	switch other := other.(type) {
+	case DeviceAssociation:
+		o = other
+	case *DeviceAssociation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceAssociation
+	switch other := other.(type) {
+	case DeviceAssociation:
+		o = other
+	case *DeviceAssociation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceAssociation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1860,6 +1892,38 @@ func (r DeviceAssociationOperation) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r DeviceAssociationOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceAssociationOperation to Quantity")
+}
+func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceAssociationOperation
+	switch other := other.(type) {
+	case DeviceAssociationOperation:
+		o = other
+	case *DeviceAssociationOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceAssociationOperation
+	switch other := other.(type) {
+	case DeviceAssociationOperation:
+		o = other
+	case *DeviceAssociationOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceAssociationOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

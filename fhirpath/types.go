@@ -28,6 +28,8 @@ type Element interface {
 	ToTime(explicit bool) (*Time, error)
 	ToDateTime(explicit bool) (*DateTime, error)
 	ToQuantity(explicit bool) (*Quantity, error)
+	Equal(other Element, _noReverseTypeConversion ...bool) bool
+	Equivalent(other Element, _noReverseTypeConversion ...bool) bool
 	TypeInfo() TypeInfo
 	fmt.Stringer
 }
@@ -277,6 +279,41 @@ func ElementTo[T Element](e Element, explicit bool) (*T, error) {
 
 type Collection []Element
 
+func (c Collection) Equal(other Collection) *bool {
+	if len(c) == 0 || len(other) != len(other) {
+		return nil
+	}
+	if len(c) != len(other) {
+		return utils.Ptr(false)
+	}
+	for i, e := range c {
+		if !e.Equal(other[i]) {
+			return utils.Ptr(false)
+		}
+	}
+	return utils.Ptr(true)
+}
+
+func (c Collection) Equivalent(other Collection) *bool {
+	if len(c) == 0 || len(other) != len(other) {
+		return nil
+	}
+	if len(c) != len(other) {
+		return utils.Ptr(false)
+	}
+
+outer:
+	for _, e := range c {
+		for _, o := range other {
+			if e.Equivalent(o) {
+				continue outer
+			}
+		}
+		return utils.Ptr(false)
+	}
+	return utils.Ptr(true)
+}
+
 func (c Collection) String() string {
 	if len(c) == 0 {
 		return "{ }"
@@ -349,6 +386,20 @@ func (b Boolean) ToQuantity(explicit bool) (*Quantity, error) {
 	}
 	return nil, conversionError[Boolean, Quantity]()
 }
+func (b Boolean) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToBoolean(false)
+	if err == nil && o != nil {
+		return b == *o
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(b, true)
+	} else {
+		return false
+	}
+}
+func (b Boolean) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return b.Equal(other, _noReverseTypeConversion...)
+}
 func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -356,7 +407,6 @@ func (b Boolean) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (b Boolean) String() string {
 	return strconv.FormatBool(bool(b))
 }
@@ -439,6 +489,32 @@ func (s String) ToQuantity(explicit bool) (*Quantity, error) {
 	}
 	return &q, nil
 }
+func (s String) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToString(false)
+	if err == nil && o != nil {
+		return s == *o
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(s, true)
+	} else {
+		return false
+	}
+}
+
+var whitespaceReplaceRegex = regexp.MustCompile("[\t\r\n]")
+
+func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToString(false)
+	if err == nil && o != nil {
+		return whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(s)), " ") ==
+			whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(*o)), " ")
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(s, true)
+	} else {
+		return false
+	}
+}
 func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -520,6 +596,20 @@ func (i Integer) ToQuantity(explicit bool) (*Quantity, error) {
 		Unit: "1",
 	}, nil
 }
+func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToInteger(false)
+	if err == nil && o != nil {
+		return i == *o
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(i, true)
+	} else {
+		return false
+	}
+}
+func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other, _noReverseTypeConversion...)
+}
 func (i Integer) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -527,7 +617,6 @@ func (i Integer) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (i Integer) String() string {
 	return strconv.Itoa(int(i))
 }
@@ -576,7 +665,22 @@ func (d Decimal) ToQuantity(explicit bool) (*Quantity, error) {
 		Unit:  "1",
 	}, nil
 }
-
+func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToDecimal(false)
+	if err == nil && o != nil {
+		return d == *o
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(d, true)
+	} else {
+		return false
+	}
+}
+func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	// TODO: values must be equal, comparison is done on values rounded to the precision of the least precise operand.
+	//       Trailing zeroes after the decimal are ignored in determining precision.
+	return d.Equal(other, _noReverseTypeConversion...)
+}
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -584,7 +688,6 @@ func (d Decimal) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (d Decimal) String() string {
 	return d.Value.Text('f')
 }
@@ -633,7 +736,40 @@ func (d Date) ToDateTime(explicit bool) (*DateTime, error) {
 func (d Date) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[Date, Quantity]()
 }
-
+func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToDate(false)
+	if err == nil && o != nil {
+		switch d.Precision {
+		case DatePrecisionYear:
+			if o.Precision != DatePrecisionYear {
+				return false
+			}
+			return d.Value.Year() == o.Value.Year()
+		case DatePrecisionMonth:
+			if o.Precision != DatePrecisionMonth {
+				return false
+			}
+			return d.Value.Year() == o.Value.In(d.Value.Location()).Year() &&
+				d.Value.Month() == o.Value.In(d.Value.Location()).Month()
+		default:
+			return d.Value.Year() == o.Value.In(d.Value.Location()).Year() &&
+				d.Value.Month() == o.Value.In(d.Value.Location()).Month() &&
+				d.Value.Day() == o.Value.In(d.Value.Location()).Day()
+		}
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(d, true)
+	} else {
+		return false
+	}
+}
+func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToDate(false)
+	if err == nil && o != nil && d.Precision == o.Precision {
+		return d.Equal(other, _noReverseTypeConversion...)
+	}
+	return false
+}
 func (d Date) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -641,7 +777,6 @@ func (d Date) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (d Date) String() string {
 	var ds string
 	switch d.Precision {
@@ -696,6 +831,37 @@ func (t Time) ToDateTime(explicit bool) (*DateTime, error) {
 func (t Time) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[Time, Quantity]()
 }
+func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToTime(false)
+	if err == nil && o != nil {
+		switch t.Precision {
+		case TimePrecisionHour:
+			if o.Precision != TimePrecisionHour {
+				return false
+			}
+			return t.Value.Truncate(time.Hour) == o.Value.In(t.Value.Location()).Truncate(time.Hour)
+		case TimePrecisionMinute:
+			if o.Precision != TimePrecisionMinute {
+				return false
+			}
+			return t.Value.Truncate(time.Minute) == o.Value.In(t.Value.Location()).Truncate(time.Minute)
+		default:
+			return t.Value.Equal(o.Value.In(t.Value.Location()))
+		}
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(t, true)
+	} else {
+		return false
+	}
+}
+func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToTime(false)
+	if err == nil && o != nil && t.Precision == o.Precision {
+		return t.Equal(other, _noReverseTypeConversion...)
+	}
+	return false
+}
 func (t Time) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -703,7 +869,6 @@ func (t Time) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (t Time) String() string {
 	var ts string
 	switch t.Precision {
@@ -771,6 +936,55 @@ func (dt DateTime) ToDateTime(explicit bool) (*DateTime, error) {
 func (dt DateTime) ToQuantity(explicit bool) (*Quantity, error) {
 	return nil, conversionError[DateTime, Quantity]()
 }
+func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToDateTime(false)
+	if err == nil && o != nil {
+		switch dt.Precision {
+		case DateTimePrecisionYear:
+			if o.Precision != DateTimePrecisionYear {
+				return false
+			}
+			return dt.Value.Year() == o.Value.In(dt.Value.Location()).Year()
+		case DateTimePrecisionMonth:
+			if o.Precision != DateTimePrecisionMonth {
+				return false
+			}
+			return dt.Value.Year() == o.Value.In(dt.Value.Location()).Year() &&
+				dt.Value.Month() == o.Value.In(dt.Value.Location()).Month()
+		case DateTimePrecisionDay:
+			if o.Precision != DateTimePrecisionDay {
+				return false
+			}
+			return dt.Value.Year() == o.Value.In(dt.Value.Location()).Year() &&
+				dt.Value.Month() == o.Value.In(dt.Value.Location()).Month() &&
+				dt.Value.Day() == o.Value.In(dt.Value.Location()).Day()
+		case DateTimePrecisionHour:
+			if o.Precision != DateTimePrecisionHour {
+				return false
+			}
+			return dt.Value.Truncate(time.Hour) == o.Value.In(dt.Value.Location()).Truncate(time.Hour)
+		case DateTimePrecisionMinute:
+			if o.Precision != DateTimePrecisionMinute {
+				return false
+			}
+			return dt.Value.Truncate(time.Minute) == o.Value.In(dt.Value.Location()).Truncate(time.Minute)
+		default:
+			return dt.Value.Equal(o.Value.In(dt.Value.Location()))
+		}
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(dt, true)
+	} else {
+		return false
+	}
+}
+func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToDateTime(false)
+	if err == nil && o != nil && dt.Precision == o.Precision {
+		return dt.Equal(other, _noReverseTypeConversion...)
+	}
+	return false
+}
 func (dt DateTime) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -778,7 +992,6 @@ func (dt DateTime) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{"System", "Any"},
 	}
 }
-
 func (dt DateTime) String() string {
 	var ds, ts string
 	switch dt.Precision {
@@ -949,6 +1162,45 @@ func (q Quantity) ToDateTime(explicit bool) (*DateTime, error) {
 func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
 	return &q, nil
 }
+func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToQuantity(false)
+	if err == nil && o != nil {
+		return q == *o
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(q, true)
+	} else {
+		return false
+	}
+}
+func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	o, err := other.ToQuantity(false)
+	if err == nil && o != nil {
+		return q.dateAsUCUM().Equal(o.dateAsUCUM(), true)
+	}
+	return false
+}
+func (q Quantity) dateAsUCUM() Quantity {
+	switch q.Unit {
+	case "year":
+		q.Unit = "a"
+	case "month":
+		q.Unit = "mo"
+	case "week":
+		q.Unit = "wk"
+	case "day":
+		q.Unit = "d"
+	case "hour":
+		q.Unit = "h"
+	case "minute":
+		q.Unit = "m"
+	case "second":
+		q.Unit = "s"
+	case "millisecond":
+		q.Unit = "ms"
+	}
+	return q
+}
 func (q Quantity) TypeInfo() TypeInfo {
 	return ClassInfo{
 		SimpleTypeInfo: SimpleTypeInfo{
@@ -962,7 +1214,6 @@ func (q Quantity) TypeInfo() TypeInfo {
 		},
 	}
 }
-
 func (q Quantity) String() string {
 	return fmt.Sprintf("%s '%s'", q.Value.String(), q.Unit)
 }

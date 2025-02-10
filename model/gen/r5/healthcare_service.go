@@ -2936,6 +2936,38 @@ func (r HealthcareService) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r HealthcareService) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert HealthcareService to Quantity")
 }
+func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HealthcareService
+	switch other := other.(type) {
+	case HealthcareService:
+		o = other
+	case *HealthcareService:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r HealthcareService) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HealthcareService
+	switch other := other.(type) {
+	case HealthcareService:
+		o = other
+	case *HealthcareService:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r HealthcareService) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3094,6 +3126,38 @@ func (r HealthcareServiceEligibility) ToDateTime(explicit bool) (*fhirpath.DateT
 }
 func (r HealthcareServiceEligibility) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert HealthcareServiceEligibility to Quantity")
+}
+func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HealthcareServiceEligibility
+	switch other := other.(type) {
+	case HealthcareServiceEligibility:
+		o = other
+	case *HealthcareServiceEligibility:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HealthcareServiceEligibility
+	switch other := other.(type) {
+	case HealthcareServiceEligibility:
+		o = other
+	case *HealthcareServiceEligibility:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r HealthcareServiceEligibility) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

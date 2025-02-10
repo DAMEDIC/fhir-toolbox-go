@@ -3461,6 +3461,38 @@ func (r SubstanceReferenceInformation) ToDateTime(explicit bool) (*fhirpath.Date
 func (r SubstanceReferenceInformation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceReferenceInformation to Quantity")
 }
+func (r SubstanceReferenceInformation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformation
+	switch other := other.(type) {
+	case SubstanceReferenceInformation:
+		o = other
+	case *SubstanceReferenceInformation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceReferenceInformation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformation
+	switch other := other.(type) {
+	case SubstanceReferenceInformation:
+		o = other
+	case *SubstanceReferenceInformation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceReferenceInformation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3571,6 +3603,38 @@ func (r SubstanceReferenceInformationGene) ToDateTime(explicit bool) (*fhirpath.
 func (r SubstanceReferenceInformationGene) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceReferenceInformationGene to Quantity")
 }
+func (r SubstanceReferenceInformationGene) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationGene
+	switch other := other.(type) {
+	case SubstanceReferenceInformationGene:
+		o = other
+	case *SubstanceReferenceInformationGene:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceReferenceInformationGene) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationGene
+	switch other := other.(type) {
+	case SubstanceReferenceInformationGene:
+		o = other
+	case *SubstanceReferenceInformationGene:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceReferenceInformationGene) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3659,6 +3723,38 @@ func (r SubstanceReferenceInformationGeneElement) ToDateTime(explicit bool) (*fh
 }
 func (r SubstanceReferenceInformationGeneElement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceReferenceInformationGeneElement to Quantity")
+}
+func (r SubstanceReferenceInformationGeneElement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationGeneElement
+	switch other := other.(type) {
+	case SubstanceReferenceInformationGeneElement:
+		o = other
+	case *SubstanceReferenceInformationGeneElement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceReferenceInformationGeneElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationGeneElement
+	switch other := other.(type) {
+	case SubstanceReferenceInformationGeneElement:
+		o = other
+	case *SubstanceReferenceInformationGeneElement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceReferenceInformationGeneElement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3753,6 +3849,38 @@ func (r SubstanceReferenceInformationClassification) ToDateTime(explicit bool) (
 }
 func (r SubstanceReferenceInformationClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceReferenceInformationClassification to Quantity")
+}
+func (r SubstanceReferenceInformationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationClassification
+	switch other := other.(type) {
+	case SubstanceReferenceInformationClassification:
+		o = other
+	case *SubstanceReferenceInformationClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceReferenceInformationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationClassification
+	switch other := other.(type) {
+	case SubstanceReferenceInformationClassification:
+		o = other
+	case *SubstanceReferenceInformationClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceReferenceInformationClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3870,6 +3998,38 @@ func (r SubstanceReferenceInformationTarget) ToDateTime(explicit bool) (*fhirpat
 }
 func (r SubstanceReferenceInformationTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceReferenceInformationTarget to Quantity")
+}
+func (r SubstanceReferenceInformationTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationTarget
+	switch other := other.(type) {
+	case SubstanceReferenceInformationTarget:
+		o = other
+	case *SubstanceReferenceInformationTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceReferenceInformationTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceReferenceInformationTarget
+	switch other := other.(type) {
+	case SubstanceReferenceInformationTarget:
+		o = other
+	case *SubstanceReferenceInformationTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceReferenceInformationTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

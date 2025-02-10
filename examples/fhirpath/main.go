@@ -16,6 +16,8 @@ func main() {
 		MultipleBirth: r4.Integer{Value: utils.Ptr[int32](3)},
 	}
 
-	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given")))
+	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given = Patient.name.given")))
+	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.name.given = Patient.name.family")))
 	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("Patient.multipleBirth")))
+	fmt.Println(fhirpath.Evaluate(r4.Context(), patient, fhirpath.MustParse("3 = 3")))
 }

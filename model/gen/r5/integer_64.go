@@ -182,6 +182,60 @@ func (r Integer64) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Integer64) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Integer64 to Quantity")
 }
+func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Integer64
+	switch other := other.(type) {
+	case Integer64:
+		o = other
+	case *Integer64:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Integer64
+	switch other := other.(type) {
+	case Integer64:
+		o = other
+	case *Integer64:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

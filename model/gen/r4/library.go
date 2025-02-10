@@ -3194,6 +3194,38 @@ func (r Library) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Library) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Library to Quantity")
 }
+func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Library
+	switch other := other.(type) {
+	case Library:
+		o = other
+	case *Library:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Library) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Library
+	switch other := other.(type) {
+	case Library:
+		o = other
+	case *Library:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Library) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

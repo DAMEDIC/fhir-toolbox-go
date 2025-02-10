@@ -524,6 +524,38 @@ func (r Meta) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Meta) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Meta to Quantity")
 }
+func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Meta
+	switch other := other.(type) {
+	case Meta:
+		o = other
+	case *Meta:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Meta
+	switch other := other.(type) {
+	case Meta:
+		o = other
+	case *Meta:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Meta) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

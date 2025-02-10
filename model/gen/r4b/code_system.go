@@ -6438,6 +6438,38 @@ func (r CodeSystem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r CodeSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystem to Quantity")
 }
+func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystem
+	switch other := other.(type) {
+	case CodeSystem:
+		o = other
+	case *CodeSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystem
+	switch other := other.(type) {
+	case CodeSystem:
+		o = other
+	case *CodeSystem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CodeSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6612,6 +6644,38 @@ func (r CodeSystemFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r CodeSystemFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystemFilter to Quantity")
 }
+func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemFilter
+	switch other := other.(type) {
+	case CodeSystemFilter:
+		o = other
+	case *CodeSystemFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemFilter
+	switch other := other.(type) {
+	case CodeSystemFilter:
+		o = other
+	case *CodeSystemFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CodeSystemFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6704,6 +6768,38 @@ func (r CodeSystemProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 }
 func (r CodeSystemProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystemProperty to Quantity")
+}
+func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemProperty
+	switch other := other.(type) {
+	case CodeSystemProperty:
+		o = other
+	case *CodeSystemProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemProperty
+	switch other := other.(type) {
+	case CodeSystemProperty:
+		o = other
+	case *CodeSystemProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CodeSystemProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6810,6 +6906,38 @@ func (r CodeSystemConcept) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r CodeSystemConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystemConcept to Quantity")
 }
+func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConcept
+	switch other := other.(type) {
+	case CodeSystemConcept:
+		o = other
+	case *CodeSystemConcept:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConcept
+	switch other := other.(type) {
+	case CodeSystemConcept:
+		o = other
+	case *CodeSystemConcept:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CodeSystemConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6906,6 +7034,38 @@ func (r CodeSystemConceptDesignation) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r CodeSystemConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystemConceptDesignation to Quantity")
 }
+func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConceptDesignation
+	switch other := other.(type) {
+	case CodeSystemConceptDesignation:
+		o = other
+	case *CodeSystemConceptDesignation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConceptDesignation
+	switch other := other.(type) {
+	case CodeSystemConceptDesignation:
+		o = other
+	case *CodeSystemConceptDesignation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CodeSystemConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6985,6 +7145,38 @@ func (r CodeSystemConceptProperty) ToDateTime(explicit bool) (*fhirpath.DateTime
 }
 func (r CodeSystemConceptProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystemConceptProperty to Quantity")
+}
+func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConceptProperty
+	switch other := other.(type) {
+	case CodeSystemConceptProperty:
+		o = other
+	case *CodeSystemConceptProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeSystemConceptProperty
+	switch other := other.(type) {
+	case CodeSystemConceptProperty:
+		o = other
+	case *CodeSystemConceptProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CodeSystemConceptProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

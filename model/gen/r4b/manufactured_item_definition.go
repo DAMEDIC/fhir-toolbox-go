@@ -2006,6 +2006,38 @@ func (r ManufacturedItemDefinition) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
+func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinition
+	switch other := other.(type) {
+	case ManufacturedItemDefinition:
+		o = other
+	case *ManufacturedItemDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinition
+	switch other := other.(type) {
+	case ManufacturedItemDefinition:
+		o = other
+	case *ManufacturedItemDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2114,6 +2146,38 @@ func (r ManufacturedItemDefinitionProperty) ToDateTime(explicit bool) (*fhirpath
 }
 func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
+}
+func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionProperty
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionProperty:
+		o = other
+	case *ManufacturedItemDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ManufacturedItemDefinitionProperty
+	switch other := other.(type) {
+	case ManufacturedItemDefinitionProperty:
+		o = other
+	case *ManufacturedItemDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

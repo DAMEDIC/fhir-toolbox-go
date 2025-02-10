@@ -8784,6 +8784,38 @@ func (r SubstanceSpecification) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r SubstanceSpecification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecification to Quantity")
 }
+func (r SubstanceSpecification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecification
+	switch other := other.(type) {
+	case SubstanceSpecification:
+		o = other
+	case *SubstanceSpecification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecification
+	switch other := other.(type) {
+	case SubstanceSpecification:
+		o = other
+	case *SubstanceSpecification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8956,6 +8988,38 @@ func (r SubstanceSpecificationMoiety) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r SubstanceSpecificationMoiety) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationMoiety to Quantity")
 }
+func (r SubstanceSpecificationMoiety) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationMoiety
+	switch other := other.(type) {
+	case SubstanceSpecificationMoiety:
+		o = other
+	case *SubstanceSpecificationMoiety:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationMoiety) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationMoiety
+	switch other := other.(type) {
+	case SubstanceSpecificationMoiety:
+		o = other
+	case *SubstanceSpecificationMoiety:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationMoiety) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9066,6 +9130,38 @@ func (r SubstanceSpecificationProperty) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r SubstanceSpecificationProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationProperty to Quantity")
+}
+func (r SubstanceSpecificationProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationProperty
+	switch other := other.(type) {
+	case SubstanceSpecificationProperty:
+		o = other
+	case *SubstanceSpecificationProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationProperty
+	switch other := other.(type) {
+	case SubstanceSpecificationProperty:
+		o = other
+	case *SubstanceSpecificationProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSpecificationProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9187,6 +9283,38 @@ func (r SubstanceSpecificationStructure) ToDateTime(explicit bool) (*fhirpath.Da
 func (r SubstanceSpecificationStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationStructure to Quantity")
 }
+func (r SubstanceSpecificationStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructure
+	switch other := other.(type) {
+	case SubstanceSpecificationStructure:
+		o = other
+	case *SubstanceSpecificationStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructure
+	switch other := other.(type) {
+	case SubstanceSpecificationStructure:
+		o = other
+	case *SubstanceSpecificationStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9301,6 +9429,38 @@ func (r SubstanceSpecificationStructureIsotope) ToDateTime(explicit bool) (*fhir
 func (r SubstanceSpecificationStructureIsotope) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationStructureIsotope to Quantity")
 }
+func (r SubstanceSpecificationStructureIsotope) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureIsotope
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureIsotope:
+		o = other
+	case *SubstanceSpecificationStructureIsotope:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationStructureIsotope) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureIsotope
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureIsotope:
+		o = other
+	case *SubstanceSpecificationStructureIsotope:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationStructureIsotope) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9396,6 +9556,38 @@ func (r SubstanceSpecificationStructureIsotopeMolecularWeight) ToDateTime(explic
 func (r SubstanceSpecificationStructureIsotopeMolecularWeight) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationStructureIsotopeMolecularWeight to Quantity")
 }
+func (r SubstanceSpecificationStructureIsotopeMolecularWeight) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureIsotopeMolecularWeight
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureIsotopeMolecularWeight:
+		o = other
+	case *SubstanceSpecificationStructureIsotopeMolecularWeight:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationStructureIsotopeMolecularWeight) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureIsotopeMolecularWeight
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureIsotopeMolecularWeight:
+		o = other
+	case *SubstanceSpecificationStructureIsotopeMolecularWeight:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationStructureIsotopeMolecularWeight) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9484,6 +9676,38 @@ func (r SubstanceSpecificationStructureRepresentation) ToDateTime(explicit bool)
 }
 func (r SubstanceSpecificationStructureRepresentation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationStructureRepresentation to Quantity")
+}
+func (r SubstanceSpecificationStructureRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureRepresentation
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureRepresentation:
+		o = other
+	case *SubstanceSpecificationStructureRepresentation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationStructureRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationStructureRepresentation
+	switch other := other.(type) {
+	case SubstanceSpecificationStructureRepresentation:
+		o = other
+	case *SubstanceSpecificationStructureRepresentation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSpecificationStructureRepresentation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9583,6 +9807,38 @@ func (r SubstanceSpecificationCode) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r SubstanceSpecificationCode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationCode to Quantity")
+}
+func (r SubstanceSpecificationCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationCode
+	switch other := other.(type) {
+	case SubstanceSpecificationCode:
+		o = other
+	case *SubstanceSpecificationCode:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationCode
+	switch other := other.(type) {
+	case SubstanceSpecificationCode:
+		o = other
+	case *SubstanceSpecificationCode:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSpecificationCode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9717,6 +9973,38 @@ func (r SubstanceSpecificationName) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r SubstanceSpecificationName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationName to Quantity")
 }
+func (r SubstanceSpecificationName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationName
+	switch other := other.(type) {
+	case SubstanceSpecificationName:
+		o = other
+	case *SubstanceSpecificationName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationName
+	switch other := other.(type) {
+	case SubstanceSpecificationName:
+		o = other
+	case *SubstanceSpecificationName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9830,6 +10118,38 @@ func (r SubstanceSpecificationNameOfficial) ToDateTime(explicit bool) (*fhirpath
 func (r SubstanceSpecificationNameOfficial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationNameOfficial to Quantity")
 }
+func (r SubstanceSpecificationNameOfficial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationNameOfficial
+	switch other := other.(type) {
+	case SubstanceSpecificationNameOfficial:
+		o = other
+	case *SubstanceSpecificationNameOfficial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationNameOfficial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationNameOfficial
+	switch other := other.(type) {
+	case SubstanceSpecificationNameOfficial:
+		o = other
+	case *SubstanceSpecificationNameOfficial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSpecificationNameOfficial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -9938,6 +10258,38 @@ func (r SubstanceSpecificationRelationship) ToDateTime(explicit bool) (*fhirpath
 }
 func (r SubstanceSpecificationRelationship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSpecificationRelationship to Quantity")
+}
+func (r SubstanceSpecificationRelationship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationRelationship
+	switch other := other.(type) {
+	case SubstanceSpecificationRelationship:
+		o = other
+	case *SubstanceSpecificationRelationship:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSpecificationRelationship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSpecificationRelationship
+	switch other := other.(type) {
+	case SubstanceSpecificationRelationship:
+		o = other
+	case *SubstanceSpecificationRelationship:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSpecificationRelationship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

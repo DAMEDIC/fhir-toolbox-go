@@ -3213,6 +3213,38 @@ func (r Invoice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Invoice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Invoice to Quantity")
 }
+func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Invoice
+	switch other := other.(type) {
+	case Invoice:
+		o = other
+	case *Invoice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Invoice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Invoice
+	switch other := other.(type) {
+	case Invoice:
+		o = other
+	case *Invoice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Invoice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3355,6 +3387,38 @@ func (r InvoiceParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r InvoiceParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert InvoiceParticipant to Quantity")
 }
+func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o InvoiceParticipant
+	switch other := other.(type) {
+	case InvoiceParticipant:
+		o = other
+	case *InvoiceParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r InvoiceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o InvoiceParticipant
+	switch other := other.(type) {
+	case InvoiceParticipant:
+		o = other
+	case *InvoiceParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r InvoiceParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3443,6 +3507,38 @@ func (r InvoiceLineItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r InvoiceLineItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert InvoiceLineItem to Quantity")
+}
+func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o InvoiceLineItem
+	switch other := other.(type) {
+	case InvoiceLineItem:
+		o = other
+	case *InvoiceLineItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r InvoiceLineItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o InvoiceLineItem
+	switch other := other.(type) {
+	case InvoiceLineItem:
+		o = other
+	case *InvoiceLineItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r InvoiceLineItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

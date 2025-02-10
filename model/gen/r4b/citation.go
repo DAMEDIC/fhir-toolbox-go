@@ -16715,6 +16715,38 @@ func (r Citation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Citation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Citation to Quantity")
 }
+func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Citation
+	switch other := other.(type) {
+	case Citation:
+		o = other
+	case *Citation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Citation
+	switch other := other.(type) {
+	case Citation:
+		o = other
+	case *Citation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Citation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -16890,6 +16922,38 @@ func (r CitationSummary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r CitationSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationSummary to Quantity")
 }
+func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationSummary
+	switch other := other.(type) {
+	case CitationSummary:
+		o = other
+	case *CitationSummary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationSummary
+	switch other := other.(type) {
+	case CitationSummary:
+		o = other
+	case *CitationSummary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -16970,6 +17034,38 @@ func (r CitationClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r CitationClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationClassification to Quantity")
+}
+func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationClassification
+	switch other := other.(type) {
+	case CitationClassification:
+		o = other
+	case *CitationClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationClassification
+	switch other := other.(type) {
+	case CitationClassification:
+		o = other
+	case *CitationClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17052,6 +17148,38 @@ func (r CitationStatusDate) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 }
 func (r CitationStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationStatusDate to Quantity")
+}
+func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationStatusDate
+	switch other := other.(type) {
+	case CitationStatusDate:
+		o = other
+	case *CitationStatusDate:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationStatusDate
+	switch other := other.(type) {
+	case CitationStatusDate:
+		o = other
+	case *CitationStatusDate:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17137,6 +17265,38 @@ func (r CitationRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 }
 func (r CitationRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationRelatesTo to Quantity")
+}
+func (r CitationRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationRelatesTo
+	switch other := other.(type) {
+	case CitationRelatesTo:
+		o = other
+	case *CitationRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationRelatesTo
+	switch other := other.(type) {
+	case CitationRelatesTo:
+		o = other
+	case *CitationRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17287,6 +17447,38 @@ func (r CitationCitedArtifact) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r CitationCitedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifact to Quantity")
 }
+func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifact
+	switch other := other.(type) {
+	case CitationCitedArtifact:
+		o = other
+	case *CitationCitedArtifact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifact
+	switch other := other.(type) {
+	case CitationCitedArtifact:
+		o = other
+	case *CitationCitedArtifact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -17405,6 +17597,38 @@ func (r CitationCitedArtifactVersion) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
 }
+func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactVersion
+	switch other := other.(type) {
+	case CitationCitedArtifactVersion:
+		o = other
+	case *CitationCitedArtifactVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactVersion
+	switch other := other.(type) {
+	case CitationCitedArtifactVersion:
+		o = other
+	case *CitationCitedArtifactVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -17486,6 +17710,38 @@ func (r CitationCitedArtifactStatusDate) ToDateTime(explicit bool) (*fhirpath.Da
 }
 func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
+}
+func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactStatusDate
+	switch other := other.(type) {
+	case CitationCitedArtifactStatusDate:
+		o = other
+	case *CitationCitedArtifactStatusDate:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactStatusDate
+	switch other := other.(type) {
+	case CitationCitedArtifactStatusDate:
+		o = other
+	case *CitationCitedArtifactStatusDate:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17573,6 +17829,38 @@ func (r CitationCitedArtifactTitle) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
+}
+func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactTitle
+	switch other := other.(type) {
+	case CitationCitedArtifactTitle:
+		o = other
+	case *CitationCitedArtifactTitle:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactTitle
+	switch other := other.(type) {
+	case CitationCitedArtifactTitle:
+		o = other
+	case *CitationCitedArtifactTitle:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17666,6 +17954,38 @@ func (r CitationCitedArtifactAbstract) ToDateTime(explicit bool) (*fhirpath.Date
 func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
 }
+func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactAbstract
+	switch other := other.(type) {
+	case CitationCitedArtifactAbstract:
+		o = other
+	case *CitationCitedArtifactAbstract:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactAbstract
+	switch other := other.(type) {
+	case CitationCitedArtifactAbstract:
+		o = other
+	case *CitationCitedArtifactAbstract:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -17758,6 +18078,38 @@ func (r CitationCitedArtifactPart) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactPart to Quantity")
 }
+func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPart
+	switch other := other.(type) {
+	case CitationCitedArtifactPart:
+		o = other
+	case *CitationCitedArtifactPart:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPart
+	switch other := other.(type) {
+	case CitationCitedArtifactPart:
+		o = other
+	case *CitationCitedArtifactPart:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -17842,6 +18194,38 @@ func (r CitationCitedArtifactRelatesTo) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
+}
+func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactRelatesTo
+	switch other := other.(type) {
+	case CitationCitedArtifactRelatesTo:
+		o = other
+	case *CitationCitedArtifactRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactRelatesTo
+	switch other := other.(type) {
+	case CitationCitedArtifactRelatesTo:
+		o = other
+	case *CitationCitedArtifactRelatesTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17972,6 +18356,38 @@ func (r CitationCitedArtifactPublicationForm) ToDateTime(explicit bool) (*fhirpa
 func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
 }
+func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationForm
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationForm:
+		o = other
+	case *CitationCitedArtifactPublicationForm:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationForm
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationForm:
+		o = other
+	case *CitationCitedArtifactPublicationForm:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18095,6 +18511,38 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) ToDateTime(explicit boo
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
 }
+func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPublishedIn
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPublishedIn:
+		o = other
+	case *CitationCitedArtifactPublicationFormPublishedIn:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPublishedIn
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPublishedIn:
+		o = other
+	case *CitationCitedArtifactPublicationFormPublishedIn:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18194,6 +18642,38 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDateTime(explicit
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Quantity")
+}
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPeriodicRelease
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPeriodicRelease:
+		o = other
+	case *CitationCitedArtifactPublicationFormPeriodicRelease:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPeriodicRelease
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPeriodicRelease:
+		o = other
+	case *CitationCitedArtifactPublicationFormPeriodicRelease:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18302,6 +18782,38 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) To
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Quantity")
 }
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
+		o = other
+	case *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication
+	switch other := other.(type) {
+	case CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
+		o = other
+	case *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18395,6 +18907,38 @@ func (r CitationCitedArtifactWebLocation) ToDateTime(explicit bool) (*fhirpath.D
 func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
 }
+func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactWebLocation
+	switch other := other.(type) {
+	case CitationCitedArtifactWebLocation:
+		o = other
+	case *CitationCitedArtifactWebLocation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactWebLocation
+	switch other := other.(type) {
+	case CitationCitedArtifactWebLocation:
+		o = other
+	case *CitationCitedArtifactWebLocation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18480,6 +19024,38 @@ func (r CitationCitedArtifactClassification) ToDateTime(explicit bool) (*fhirpat
 }
 func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
+}
+func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactClassification
+	switch other := other.(type) {
+	case CitationCitedArtifactClassification:
+		o = other
+	case *CitationCitedArtifactClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactClassification
+	switch other := other.(type) {
+	case CitationCitedArtifactClassification:
+		o = other
+	case *CitationCitedArtifactClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18580,6 +19156,38 @@ func (r CitationCitedArtifactClassificationWhoClassified) ToDateTime(explicit bo
 func (r CitationCitedArtifactClassificationWhoClassified) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Quantity")
 }
+func (r CitationCitedArtifactClassificationWhoClassified) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactClassificationWhoClassified
+	switch other := other.(type) {
+	case CitationCitedArtifactClassificationWhoClassified:
+		o = other
+	case *CitationCitedArtifactClassificationWhoClassified:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactClassificationWhoClassified) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactClassificationWhoClassified
+	switch other := other.(type) {
+	case CitationCitedArtifactClassificationWhoClassified:
+		o = other
+	case *CitationCitedArtifactClassificationWhoClassified:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactClassificationWhoClassified) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18674,6 +19282,38 @@ func (r CitationCitedArtifactContributorship) ToDateTime(explicit bool) (*fhirpa
 }
 func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
+}
+func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorship
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorship:
+		o = other
+	case *CitationCitedArtifactContributorship:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorship
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorship:
+		o = other
+	case *CitationCitedArtifactContributorship:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18809,6 +19449,38 @@ func (r CitationCitedArtifactContributorshipEntry) ToDateTime(explicit bool) (*f
 func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
 }
+func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntry
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntry:
+		o = other
+	case *CitationCitedArtifactContributorshipEntry:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntry
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntry:
+		o = other
+	case *CitationCitedArtifactContributorshipEntry:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -18925,6 +19597,38 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDateTime(exp
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Quantity")
 }
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntryAffiliationInfo
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntryAffiliationInfo:
+		o = other
+	case *CitationCitedArtifactContributorshipEntryAffiliationInfo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntryAffiliationInfo
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntryAffiliationInfo:
+		o = other
+	case *CitationCitedArtifactContributorshipEntryAffiliationInfo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -19006,6 +19710,38 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDateTim
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntryContributionInstance
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntryContributionInstance:
+		o = other
+	case *CitationCitedArtifactContributorshipEntryContributionInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipEntryContributionInstance
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipEntryContributionInstance:
+		o = other
+	case *CitationCitedArtifactContributorshipEntryContributionInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19095,6 +19831,38 @@ func (r CitationCitedArtifactContributorshipSummary) ToDateTime(explicit bool) (
 }
 func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
+}
+func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipSummary
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipSummary:
+		o = other
+	case *CitationCitedArtifactContributorshipSummary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CitationCitedArtifactContributorshipSummary
+	switch other := other.(type) {
+	case CitationCitedArtifactContributorshipSummary:
+		o = other
+	case *CitationCitedArtifactContributorshipSummary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -3081,6 +3081,38 @@ func (r Extension) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Extension) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Extension to Quantity")
 }
+func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Extension
+	switch other := other.(type) {
+	case Extension:
+		o = other
+	case *Extension:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Extension) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Extension
+	switch other := other.(type) {
+	case Extension:
+		o = other
+	case *Extension:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Extension) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -2982,6 +2982,38 @@ func (r AllergyIntolerance) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r AllergyIntolerance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AllergyIntolerance to Quantity")
 }
+func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AllergyIntolerance
+	switch other := other.(type) {
+	case AllergyIntolerance:
+		o = other
+	case *AllergyIntolerance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AllergyIntolerance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AllergyIntolerance
+	switch other := other.(type) {
+	case AllergyIntolerance:
+		o = other
+	case *AllergyIntolerance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3144,6 +3176,38 @@ func (r AllergyIntoleranceReaction) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r AllergyIntoleranceReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AllergyIntoleranceReaction to Quantity")
+}
+func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AllergyIntoleranceReaction
+	switch other := other.(type) {
+	case AllergyIntoleranceReaction:
+		o = other
+	case *AllergyIntoleranceReaction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AllergyIntoleranceReaction
+	switch other := other.(type) {
+	case AllergyIntoleranceReaction:
+		o = other
+	case *AllergyIntoleranceReaction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

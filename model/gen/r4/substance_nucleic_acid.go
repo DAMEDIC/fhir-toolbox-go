@@ -2923,6 +2923,38 @@ func (r SubstanceNucleicAcid) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r SubstanceNucleicAcid) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceNucleicAcid to Quantity")
 }
+func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcid
+	switch other := other.(type) {
+	case SubstanceNucleicAcid:
+		o = other
+	case *SubstanceNucleicAcid:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcid
+	switch other := other.(type) {
+	case SubstanceNucleicAcid:
+		o = other
+	case *SubstanceNucleicAcid:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceNucleicAcid) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3058,6 +3090,38 @@ func (r SubstanceNucleicAcidSubunit) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r SubstanceNucleicAcidSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Quantity")
 }
+func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunit
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunit:
+		o = other
+	case *SubstanceNucleicAcidSubunit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunit
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunit:
+		o = other
+	case *SubstanceNucleicAcidSubunit:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceNucleicAcidSubunit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3167,6 +3231,38 @@ func (r SubstanceNucleicAcidSubunitLinkage) ToDateTime(explicit bool) (*fhirpath
 func (r SubstanceNucleicAcidSubunitLinkage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Quantity")
 }
+func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunitLinkage
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunitLinkage:
+		o = other
+	case *SubstanceNucleicAcidSubunitLinkage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunitLinkage
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunitLinkage:
+		o = other
+	case *SubstanceNucleicAcidSubunitLinkage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceNucleicAcidSubunitLinkage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3258,6 +3354,38 @@ func (r SubstanceNucleicAcidSubunitSugar) ToDateTime(explicit bool) (*fhirpath.D
 }
 func (r SubstanceNucleicAcidSubunitSugar) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Quantity")
+}
+func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunitSugar
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunitSugar:
+		o = other
+	case *SubstanceNucleicAcidSubunitSugar:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceNucleicAcidSubunitSugar
+	switch other := other.(type) {
+	case SubstanceNucleicAcidSubunitSugar:
+		o = other
+	case *SubstanceNucleicAcidSubunitSugar:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceNucleicAcidSubunitSugar) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

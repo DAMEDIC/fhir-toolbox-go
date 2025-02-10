@@ -172,6 +172,60 @@ func (r UnsignedInt) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r UnsignedInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert UnsignedInt to Quantity")
 }
+func (r UnsignedInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o UnsignedInt
+	switch other := other.(type) {
+	case UnsignedInt:
+		o = other
+	case *UnsignedInt:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r UnsignedInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o UnsignedInt
+	switch other := other.(type) {
+	case UnsignedInt:
+		o = other
+	case *UnsignedInt:
+		o = *other
+	default:
+		return false
+	}
+	a := r.Value
+	b := o.Value
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

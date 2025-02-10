@@ -7822,6 +7822,38 @@ func (r ValueSet) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ValueSet) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSet to Quantity")
 }
+func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSet
+	switch other := other.(type) {
+	case ValueSet:
+		o = other
+	case *ValueSet:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSet
+	switch other := other.(type) {
+	case ValueSet:
+		o = other
+	case *ValueSet:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -7976,6 +8008,38 @@ func (r ValueSetCompose) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ValueSetCompose) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetCompose to Quantity")
 }
+func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetCompose
+	switch other := other.(type) {
+	case ValueSetCompose:
+		o = other
+	case *ValueSetCompose:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetCompose) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetCompose
+	switch other := other.(type) {
+	case ValueSetCompose:
+		o = other
+	case *ValueSetCompose:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8078,6 +8142,38 @@ func (r ValueSetComposeInclude) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r ValueSetComposeInclude) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetComposeInclude to Quantity")
 }
+func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeInclude
+	switch other := other.(type) {
+	case ValueSetComposeInclude:
+		o = other
+	case *ValueSetComposeInclude:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeInclude
+	switch other := other.(type) {
+	case ValueSetComposeInclude:
+		o = other
+	case *ValueSetComposeInclude:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8171,6 +8267,38 @@ func (r ValueSetComposeIncludeConcept) ToDateTime(explicit bool) (*fhirpath.Date
 func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
 }
+func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeConcept
+	switch other := other.(type) {
+	case ValueSetComposeIncludeConcept:
+		o = other
+	case *ValueSetComposeIncludeConcept:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeConcept
+	switch other := other.(type) {
+	case ValueSetComposeIncludeConcept:
+		o = other
+	case *ValueSetComposeIncludeConcept:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8258,6 +8386,38 @@ func (r ValueSetComposeIncludeConceptDesignation) ToDateTime(explicit bool) (*fh
 func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
 }
+func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeConceptDesignation
+	switch other := other.(type) {
+	case ValueSetComposeIncludeConceptDesignation:
+		o = other
+	case *ValueSetComposeIncludeConceptDesignation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeConceptDesignation
+	switch other := other.(type) {
+	case ValueSetComposeIncludeConceptDesignation:
+		o = other
+	case *ValueSetComposeIncludeConceptDesignation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8340,6 +8500,38 @@ func (r ValueSetComposeIncludeFilter) ToDateTime(explicit bool) (*fhirpath.DateT
 }
 func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
+}
+func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeFilter
+	switch other := other.(type) {
+	case ValueSetComposeIncludeFilter:
+		o = other
+	case *ValueSetComposeIncludeFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetComposeIncludeFilter
+	switch other := other.(type) {
+	case ValueSetComposeIncludeFilter:
+		o = other
+	case *ValueSetComposeIncludeFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8443,6 +8635,38 @@ func (r ValueSetExpansion) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r ValueSetExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetExpansion to Quantity")
 }
+func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansion
+	switch other := other.(type) {
+	case ValueSetExpansion:
+		o = other
+	case *ValueSetExpansion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansion
+	switch other := other.(type) {
+	case ValueSetExpansion:
+		o = other
+	case *ValueSetExpansion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8533,6 +8757,38 @@ func (r ValueSetExpansionParameter) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetExpansionParameter to Quantity")
+}
+func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansionParameter
+	switch other := other.(type) {
+	case ValueSetExpansionParameter:
+		o = other
+	case *ValueSetExpansionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansionParameter
+	switch other := other.(type) {
+	case ValueSetExpansionParameter:
+		o = other
+	case *ValueSetExpansionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8644,6 +8900,38 @@ func (r ValueSetExpansionContains) ToDateTime(explicit bool) (*fhirpath.DateTime
 }
 func (r ValueSetExpansionContains) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetExpansionContains to Quantity")
+}
+func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansionContains
+	switch other := other.(type) {
+	case ValueSetExpansionContains:
+		o = other
+	case *ValueSetExpansionContains:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ValueSetExpansionContains
+	switch other := other.(type) {
+	case ValueSetExpansionContains:
+		o = other
+	case *ValueSetExpansionContains:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

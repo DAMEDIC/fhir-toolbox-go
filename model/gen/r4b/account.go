@@ -2344,6 +2344,38 @@ func (r Account) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Account) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Account to Quantity")
 }
+func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Account
+	switch other := other.(type) {
+	case Account:
+		o = other
+	case *Account:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Account
+	switch other := other.(type) {
+	case Account:
+		o = other
+	case *Account:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Account) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2465,6 +2497,38 @@ func (r AccountCoverage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r AccountCoverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AccountCoverage to Quantity")
 }
+func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AccountCoverage
+	switch other := other.(type) {
+	case AccountCoverage:
+		o = other
+	case *AccountCoverage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AccountCoverage
+	switch other := other.(type) {
+	case AccountCoverage:
+		o = other
+	case *AccountCoverage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2548,6 +2612,38 @@ func (r AccountGuarantor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 }
 func (r AccountGuarantor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AccountGuarantor to Quantity")
+}
+func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AccountGuarantor
+	switch other := other.(type) {
+	case AccountGuarantor:
+		o = other
+	case *AccountGuarantor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AccountGuarantor
+	switch other := other.(type) {
+	case AccountGuarantor:
+		o = other
+	case *AccountGuarantor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

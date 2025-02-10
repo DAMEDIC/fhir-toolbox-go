@@ -2972,6 +2972,38 @@ func (r CommunicationRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r CommunicationRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CommunicationRequest to Quantity")
 }
+func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CommunicationRequest
+	switch other := other.(type) {
+	case CommunicationRequest:
+		o = other
+	case *CommunicationRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CommunicationRequest
+	switch other := other.(type) {
+	case CommunicationRequest:
+		o = other
+	case *CommunicationRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CommunicationRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3120,6 +3152,38 @@ func (r CommunicationRequestPayload) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r CommunicationRequestPayload) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CommunicationRequestPayload to Quantity")
+}
+func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CommunicationRequestPayload
+	switch other := other.(type) {
+	case CommunicationRequestPayload:
+		o = other
+	case *CommunicationRequestPayload:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CommunicationRequestPayload
+	switch other := other.(type) {
+	case CommunicationRequestPayload:
+		o = other
+	case *CommunicationRequestPayload:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CommunicationRequestPayload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

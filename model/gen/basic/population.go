@@ -419,6 +419,38 @@ func (r Population) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Population) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Population to Quantity")
 }
+func (r Population) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Population
+	switch other := other.(type) {
+	case Population:
+		o = other
+	case *Population:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Population) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Population
+	switch other := other.(type) {
+	case Population:
+		o = other
+	case *Population:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Population) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

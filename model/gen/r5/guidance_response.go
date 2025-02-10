@@ -1904,6 +1904,38 @@ func (r GuidanceResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r GuidanceResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GuidanceResponse to Quantity")
 }
+func (r GuidanceResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GuidanceResponse
+	switch other := other.(type) {
+	case GuidanceResponse:
+		o = other
+	case *GuidanceResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GuidanceResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GuidanceResponse
+	switch other := other.(type) {
+	case GuidanceResponse:
+		o = other
+	case *GuidanceResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r GuidanceResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

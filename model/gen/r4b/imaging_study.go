@@ -4161,6 +4161,38 @@ func (r ImagingStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ImagingStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingStudy to Quantity")
 }
+func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudy
+	switch other := other.(type) {
+	case ImagingStudy:
+		o = other
+	case *ImagingStudy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudy
+	switch other := other.(type) {
+	case ImagingStudy:
+		o = other
+	case *ImagingStudy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4357,6 +4389,38 @@ func (r ImagingStudySeries) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ImagingStudySeries) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingStudySeries to Quantity")
 }
+func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeries
+	switch other := other.(type) {
+	case ImagingStudySeries:
+		o = other
+	case *ImagingStudySeries:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeries
+	switch other := other.(type) {
+	case ImagingStudySeries:
+		o = other
+	case *ImagingStudySeries:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4466,6 +4530,38 @@ func (r ImagingStudySeriesPerformer) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
 }
+func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeriesPerformer
+	switch other := other.(type) {
+	case ImagingStudySeriesPerformer:
+		o = other
+	case *ImagingStudySeriesPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeriesPerformer
+	switch other := other.(type) {
+	case ImagingStudySeriesPerformer:
+		o = other
+	case *ImagingStudySeriesPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4552,6 +4648,38 @@ func (r ImagingStudySeriesInstance) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
+}
+func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeriesInstance
+	switch other := other.(type) {
+	case ImagingStudySeriesInstance:
+		o = other
+	case *ImagingStudySeriesInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingStudySeriesInstance
+	switch other := other.(type) {
+	case ImagingStudySeriesInstance:
+		o = other
+	case *ImagingStudySeriesInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

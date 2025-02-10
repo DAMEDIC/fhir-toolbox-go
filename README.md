@@ -147,7 +147,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.8. Tree navigation                     | wip                                           |
 | 5.9. Utility functions                   | wip                                           |
 | **6. Operations**                        | wip                                           |
-| 6.1. Equality                            | wip                                           |
+| 6.1. Equality                            | complete                                      |
 | 6.2. Comparison                          | wip                                           |
 | 6.3. Types                               | wip                                           |
 | 6.4. Collections                         | wip                                           |

@@ -28308,6 +28308,38 @@ func (r ElementDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r ElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinition to Quantity")
 }
+func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinition
+	switch other := other.(type) {
+	case ElementDefinition:
+		o = other
+	case *ElementDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinition
+	switch other := other.(type) {
+	case ElementDefinition:
+		o = other
+	case *ElementDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -28494,6 +28526,38 @@ func (r ElementDefinitionSlicing) ToDateTime(explicit bool) (*fhirpath.DateTime,
 func (r ElementDefinitionSlicing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionSlicing to Quantity")
 }
+func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionSlicing
+	switch other := other.(type) {
+	case ElementDefinitionSlicing:
+		o = other
+	case *ElementDefinitionSlicing:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionSlicing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionSlicing
+	switch other := other.(type) {
+	case ElementDefinitionSlicing:
+		o = other
+	case *ElementDefinitionSlicing:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinitionSlicing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -28569,6 +28633,38 @@ func (r ElementDefinitionSlicingDiscriminator) ToDateTime(explicit bool) (*fhirp
 func (r ElementDefinitionSlicingDiscriminator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Quantity")
 }
+func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionSlicingDiscriminator
+	switch other := other.(type) {
+	case ElementDefinitionSlicingDiscriminator:
+		o = other
+	case *ElementDefinitionSlicingDiscriminator:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionSlicingDiscriminator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionSlicingDiscriminator
+	switch other := other.(type) {
+	case ElementDefinitionSlicingDiscriminator:
+		o = other
+	case *ElementDefinitionSlicingDiscriminator:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinitionSlicingDiscriminator) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -28640,6 +28736,38 @@ func (r ElementDefinitionBase) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r ElementDefinitionBase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionBase to Quantity")
+}
+func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBase
+	switch other := other.(type) {
+	case ElementDefinitionBase:
+		o = other
+	case *ElementDefinitionBase:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionBase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBase
+	switch other := other.(type) {
+	case ElementDefinitionBase:
+		o = other
+	case *ElementDefinitionBase:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ElementDefinitionBase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -28730,6 +28858,38 @@ func (r ElementDefinitionType) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r ElementDefinitionType) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionType to Quantity")
 }
+func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionType
+	switch other := other.(type) {
+	case ElementDefinitionType:
+		o = other
+	case *ElementDefinitionType:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionType) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionType
+	switch other := other.(type) {
+	case ElementDefinitionType:
+		o = other
+	case *ElementDefinitionType:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinitionType) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -28807,6 +28967,38 @@ func (r ElementDefinitionExample) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r ElementDefinitionExample) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionExample to Quantity")
+}
+func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionExample
+	switch other := other.(type) {
+	case ElementDefinitionExample:
+		o = other
+	case *ElementDefinitionExample:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionExample) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionExample
+	switch other := other.(type) {
+	case ElementDefinitionExample:
+		o = other
+	case *ElementDefinitionExample:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ElementDefinitionExample) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -28899,6 +29091,38 @@ func (r ElementDefinitionConstraint) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r ElementDefinitionConstraint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionConstraint to Quantity")
+}
+func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionConstraint
+	switch other := other.(type) {
+	case ElementDefinitionConstraint:
+		o = other
+	case *ElementDefinitionConstraint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionConstraint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionConstraint
+	switch other := other.(type) {
+	case ElementDefinitionConstraint:
+		o = other
+	case *ElementDefinitionConstraint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ElementDefinitionConstraint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -28996,6 +29220,38 @@ func (r ElementDefinitionBinding) ToDateTime(explicit bool) (*fhirpath.DateTime,
 func (r ElementDefinitionBinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionBinding to Quantity")
 }
+func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBinding
+	switch other := other.(type) {
+	case ElementDefinitionBinding:
+		o = other
+	case *ElementDefinitionBinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBinding
+	switch other := other.(type) {
+	case ElementDefinitionBinding:
+		o = other
+	case *ElementDefinitionBinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinitionBinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -29091,6 +29347,38 @@ func (r ElementDefinitionBindingAdditional) ToDateTime(explicit bool) (*fhirpath
 func (r ElementDefinitionBindingAdditional) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionBindingAdditional to Quantity")
 }
+func (r ElementDefinitionBindingAdditional) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBindingAdditional
+	switch other := other.(type) {
+	case ElementDefinitionBindingAdditional:
+		o = other
+	case *ElementDefinitionBindingAdditional:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionBindingAdditional) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionBindingAdditional
+	switch other := other.(type) {
+	case ElementDefinitionBindingAdditional:
+		o = other
+	case *ElementDefinitionBindingAdditional:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ElementDefinitionBindingAdditional) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -29181,6 +29469,38 @@ func (r ElementDefinitionMapping) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r ElementDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ElementDefinitionMapping to Quantity")
+}
+func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionMapping
+	switch other := other.(type) {
+	case ElementDefinitionMapping:
+		o = other
+	case *ElementDefinitionMapping:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ElementDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ElementDefinitionMapping
+	switch other := other.(type) {
+	case ElementDefinitionMapping:
+		o = other
+	case *ElementDefinitionMapping:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ElementDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

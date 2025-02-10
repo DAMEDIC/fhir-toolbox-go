@@ -2969,6 +2969,38 @@ func (r MedicinalProductAuthorization) ToDateTime(explicit bool) (*fhirpath.Date
 func (r MedicinalProductAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductAuthorization to Quantity")
 }
+func (r MedicinalProductAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorization
+	switch other := other.(type) {
+	case MedicinalProductAuthorization:
+		o = other
+	case *MedicinalProductAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorization
+	switch other := other.(type) {
+	case MedicinalProductAuthorization:
+		o = other
+	case *MedicinalProductAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicinalProductAuthorization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3122,6 +3154,38 @@ func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToDateTime(exp
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductAuthorizationJurisdictionalAuthorization to Quantity")
 }
+func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorizationJurisdictionalAuthorization
+	switch other := other.(type) {
+	case MedicinalProductAuthorizationJurisdictionalAuthorization:
+		o = other
+	case *MedicinalProductAuthorizationJurisdictionalAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorizationJurisdictionalAuthorization
+	switch other := other.(type) {
+	case MedicinalProductAuthorizationJurisdictionalAuthorization:
+		o = other
+	case *MedicinalProductAuthorizationJurisdictionalAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3219,6 +3283,38 @@ func (r MedicinalProductAuthorizationProcedure) ToDateTime(explicit bool) (*fhir
 }
 func (r MedicinalProductAuthorizationProcedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductAuthorizationProcedure to Quantity")
+}
+func (r MedicinalProductAuthorizationProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorizationProcedure
+	switch other := other.(type) {
+	case MedicinalProductAuthorizationProcedure:
+		o = other
+	case *MedicinalProductAuthorizationProcedure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductAuthorizationProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductAuthorizationProcedure
+	switch other := other.(type) {
+	case MedicinalProductAuthorizationProcedure:
+		o = other
+	case *MedicinalProductAuthorizationProcedure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MedicinalProductAuthorizationProcedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

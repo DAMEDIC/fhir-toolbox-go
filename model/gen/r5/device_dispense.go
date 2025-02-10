@@ -2472,6 +2472,38 @@ func (r DeviceDispense) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r DeviceDispense) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDispense to Quantity")
 }
+func (r DeviceDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDispense
+	switch other := other.(type) {
+	case DeviceDispense:
+		o = other
+	case *DeviceDispense:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDispense
+	switch other := other.(type) {
+	case DeviceDispense:
+		o = other
+	case *DeviceDispense:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDispense) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2622,6 +2654,38 @@ func (r DeviceDispensePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r DeviceDispensePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDispensePerformer to Quantity")
+}
+func (r DeviceDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDispensePerformer
+	switch other := other.(type) {
+	case DeviceDispensePerformer:
+		o = other
+	case *DeviceDispensePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDispensePerformer
+	switch other := other.(type) {
+	case DeviceDispensePerformer:
+		o = other
+	case *DeviceDispensePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDispensePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

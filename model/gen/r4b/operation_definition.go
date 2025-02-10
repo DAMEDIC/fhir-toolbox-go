@@ -5353,6 +5353,38 @@ func (r OperationDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r OperationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationDefinition to Quantity")
 }
+func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinition
+	switch other := other.(type) {
+	case OperationDefinition:
+		o = other
+	case *OperationDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinition
+	switch other := other.(type) {
+	case OperationDefinition:
+		o = other
+	case *OperationDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r OperationDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5558,6 +5590,38 @@ func (r OperationDefinitionParameter) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r OperationDefinitionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationDefinitionParameter to Quantity")
 }
+func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameter
+	switch other := other.(type) {
+	case OperationDefinitionParameter:
+		o = other
+	case *OperationDefinitionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameter
+	switch other := other.(type) {
+	case OperationDefinitionParameter:
+		o = other
+	case *OperationDefinitionParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r OperationDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5662,6 +5726,38 @@ func (r OperationDefinitionParameterBinding) ToDateTime(explicit bool) (*fhirpat
 func (r OperationDefinitionParameterBinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Quantity")
 }
+func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameterBinding
+	switch other := other.(type) {
+	case OperationDefinitionParameterBinding:
+		o = other
+	case *OperationDefinitionParameterBinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameterBinding
+	switch other := other.(type) {
+	case OperationDefinitionParameterBinding:
+		o = other
+	case *OperationDefinitionParameterBinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r OperationDefinitionParameterBinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5740,6 +5836,38 @@ func (r OperationDefinitionParameterReferencedFrom) ToDateTime(explicit bool) (*
 }
 func (r OperationDefinitionParameterReferencedFrom) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Quantity")
+}
+func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameterReferencedFrom
+	switch other := other.(type) {
+	case OperationDefinitionParameterReferencedFrom:
+		o = other
+	case *OperationDefinitionParameterReferencedFrom:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionParameterReferencedFrom
+	switch other := other.(type) {
+	case OperationDefinitionParameterReferencedFrom:
+		o = other
+	case *OperationDefinitionParameterReferencedFrom:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r OperationDefinitionParameterReferencedFrom) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5821,6 +5949,38 @@ func (r OperationDefinitionOverload) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r OperationDefinitionOverload) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OperationDefinitionOverload to Quantity")
+}
+func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionOverload
+	switch other := other.(type) {
+	case OperationDefinitionOverload:
+		o = other
+	case *OperationDefinitionOverload:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OperationDefinitionOverload
+	switch other := other.(type) {
+	case OperationDefinitionOverload:
+		o = other
+	case *OperationDefinitionOverload:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r OperationDefinitionOverload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

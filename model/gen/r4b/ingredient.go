@@ -3640,6 +3640,38 @@ func (r Ingredient) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Ingredient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Ingredient to Quantity")
 }
+func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Ingredient
+	switch other := other.(type) {
+	case Ingredient:
+		o = other
+	case *Ingredient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Ingredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Ingredient
+	switch other := other.(type) {
+	case Ingredient:
+		o = other
+	case *Ingredient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Ingredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3752,6 +3784,38 @@ func (r IngredientManufacturer) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r IngredientManufacturer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert IngredientManufacturer to Quantity")
 }
+func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientManufacturer
+	switch other := other.(type) {
+	case IngredientManufacturer:
+		o = other
+	case *IngredientManufacturer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r IngredientManufacturer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientManufacturer
+	switch other := other.(type) {
+	case IngredientManufacturer:
+		o = other
+	case *IngredientManufacturer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r IngredientManufacturer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3830,6 +3894,38 @@ func (r IngredientSubstance) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r IngredientSubstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert IngredientSubstance to Quantity")
+}
+func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstance
+	switch other := other.(type) {
+	case IngredientSubstance:
+		o = other
+	case *IngredientSubstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r IngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstance
+	switch other := other.(type) {
+	case IngredientSubstance:
+		o = other
+	case *IngredientSubstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r IngredientSubstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3937,6 +4033,38 @@ func (r IngredientSubstanceStrength) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r IngredientSubstanceStrength) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert IngredientSubstanceStrength to Quantity")
 }
+func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstanceStrength
+	switch other := other.(type) {
+	case IngredientSubstanceStrength:
+		o = other
+	case *IngredientSubstanceStrength:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r IngredientSubstanceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstanceStrength
+	switch other := other.(type) {
+	case IngredientSubstanceStrength:
+		o = other
+	case *IngredientSubstanceStrength:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r IngredientSubstanceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4040,6 +4168,38 @@ func (r IngredientSubstanceStrengthReferenceStrength) ToDateTime(explicit bool) 
 }
 func (r IngredientSubstanceStrengthReferenceStrength) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Quantity")
+}
+func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstanceStrengthReferenceStrength
+	switch other := other.(type) {
+	case IngredientSubstanceStrengthReferenceStrength:
+		o = other
+	case *IngredientSubstanceStrengthReferenceStrength:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r IngredientSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o IngredientSubstanceStrengthReferenceStrength
+	switch other := other.(type) {
+	case IngredientSubstanceStrengthReferenceStrength:
+		o = other
+	case *IngredientSubstanceStrengthReferenceStrength:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r IngredientSubstanceStrengthReferenceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

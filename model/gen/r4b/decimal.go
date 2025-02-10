@@ -170,6 +170,72 @@ func (r Decimal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Decimal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Decimal to Quantity")
 }
+func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Decimal
+	switch other := other.(type) {
+	case Decimal:
+		o = other
+	case *Decimal:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToDecimal(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToDecimal(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Decimal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Decimal
+	switch other := other.(type) {
+	case Decimal:
+		o = other
+	case *Decimal:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToDecimal(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToDecimal(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Decimal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

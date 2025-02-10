@@ -429,6 +429,38 @@ func (r Period) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Period) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Period to Quantity")
 }
+func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Period
+	switch other := other.(type) {
+	case Period:
+		o = other
+	case *Period:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Period) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Period
+	switch other := other.(type) {
+	case Period:
+		o = other
+	case *Period:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Period) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

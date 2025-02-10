@@ -2095,6 +2095,38 @@ func (r Organization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Organization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Organization to Quantity")
 }
+func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Organization
+	switch other := other.(type) {
+	case Organization:
+		o = other
+	case *Organization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Organization
+	switch other := other.(type) {
+	case Organization:
+		o = other
+	case *Organization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Organization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2224,6 +2256,38 @@ func (r OrganizationContact) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r OrganizationContact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OrganizationContact to Quantity")
+}
+func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationContact
+	switch other := other.(type) {
+	case OrganizationContact:
+		o = other
+	case *OrganizationContact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OrganizationContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationContact
+	switch other := other.(type) {
+	case OrganizationContact:
+		o = other
+	case *OrganizationContact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r OrganizationContact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

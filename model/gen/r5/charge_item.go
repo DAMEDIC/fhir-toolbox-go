@@ -3146,6 +3146,38 @@ func (r ChargeItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ChargeItem to Quantity")
 }
+func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ChargeItem
+	switch other := other.(type) {
+	case ChargeItem:
+		o = other
+	case *ChargeItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ChargeItem
+	switch other := other.(type) {
+	case ChargeItem:
+		o = other
+	case *ChargeItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ChargeItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3311,6 +3343,38 @@ func (r ChargeItemPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r ChargeItemPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ChargeItemPerformer to Quantity")
+}
+func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ChargeItemPerformer
+	switch other := other.(type) {
+	case ChargeItemPerformer:
+		o = other
+	case *ChargeItemPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ChargeItemPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ChargeItemPerformer
+	switch other := other.(type) {
+	case ChargeItemPerformer:
+		o = other
+	case *ChargeItemPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ChargeItemPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -4614,6 +4614,38 @@ func (r StructureDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r StructureDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureDefinition to Quantity")
 }
+func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinition
+	switch other := other.(type) {
+	case StructureDefinition:
+		o = other
+	case *StructureDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinition
+	switch other := other.(type) {
+	case StructureDefinition:
+		o = other
+	case *StructureDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4793,6 +4825,38 @@ func (r StructureDefinitionMapping) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r StructureDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureDefinitionMapping to Quantity")
 }
+func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionMapping
+	switch other := other.(type) {
+	case StructureDefinitionMapping:
+		o = other
+	case *StructureDefinitionMapping:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionMapping
+	switch other := other.(type) {
+	case StructureDefinitionMapping:
+		o = other
+	case *StructureDefinitionMapping:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4876,6 +4940,38 @@ func (r StructureDefinitionContext) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r StructureDefinitionContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureDefinitionContext to Quantity")
 }
+func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionContext
+	switch other := other.(type) {
+	case StructureDefinitionContext:
+		o = other
+	case *StructureDefinitionContext:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionContext
+	switch other := other.(type) {
+	case StructureDefinitionContext:
+		o = other
+	case *StructureDefinitionContext:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4952,6 +5048,38 @@ func (r StructureDefinitionSnapshot) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r StructureDefinitionSnapshot) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureDefinitionSnapshot to Quantity")
 }
+func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionSnapshot
+	switch other := other.(type) {
+	case StructureDefinitionSnapshot:
+		o = other
+	case *StructureDefinitionSnapshot:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionSnapshot
+	switch other := other.(type) {
+	case StructureDefinitionSnapshot:
+		o = other
+	case *StructureDefinitionSnapshot:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5024,6 +5152,38 @@ func (r StructureDefinitionDifferential) ToDateTime(explicit bool) (*fhirpath.Da
 }
 func (r StructureDefinitionDifferential) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureDefinitionDifferential to Quantity")
+}
+func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionDifferential
+	switch other := other.(type) {
+	case StructureDefinitionDifferential:
+		o = other
+	case *StructureDefinitionDifferential:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o StructureDefinitionDifferential
+	switch other := other.(type) {
+	case StructureDefinitionDifferential:
+		o = other
+	case *StructureDefinitionDifferential:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

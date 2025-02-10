@@ -4729,6 +4729,38 @@ func (r SubstanceSourceMaterial) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r SubstanceSourceMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterial to Quantity")
 }
+func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterial
+	switch other := other.(type) {
+	case SubstanceSourceMaterial:
+		o = other
+	case *SubstanceSourceMaterial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterial
+	switch other := other.(type) {
+	case SubstanceSourceMaterial:
+		o = other
+	case *SubstanceSourceMaterial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSourceMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4858,6 +4890,38 @@ func (r SubstanceSourceMaterialFractionDescription) ToDateTime(explicit bool) (*
 func (r SubstanceSourceMaterialFractionDescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Quantity")
 }
+func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialFractionDescription
+	switch other := other.(type) {
+	case SubstanceSourceMaterialFractionDescription:
+		o = other
+	case *SubstanceSourceMaterialFractionDescription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialFractionDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialFractionDescription
+	switch other := other.(type) {
+	case SubstanceSourceMaterialFractionDescription:
+		o = other
+	case *SubstanceSourceMaterialFractionDescription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSourceMaterialFractionDescription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4969,6 +5033,38 @@ func (r SubstanceSourceMaterialOrganism) ToDateTime(explicit bool) (*fhirpath.Da
 func (r SubstanceSourceMaterialOrganism) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganism to Quantity")
 }
+func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganism
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganism:
+		o = other
+	case *SubstanceSourceMaterialOrganism:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialOrganism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganism
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganism:
+		o = other
+	case *SubstanceSourceMaterialOrganism:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSourceMaterialOrganism) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5068,6 +5164,38 @@ func (r SubstanceSourceMaterialOrganismAuthor) ToDateTime(explicit bool) (*fhirp
 func (r SubstanceSourceMaterialOrganismAuthor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Quantity")
 }
+func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismAuthor
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismAuthor:
+		o = other
+	case *SubstanceSourceMaterialOrganismAuthor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialOrganismAuthor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismAuthor
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismAuthor:
+		o = other
+	case *SubstanceSourceMaterialOrganismAuthor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSourceMaterialOrganismAuthor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5163,6 +5291,38 @@ func (r SubstanceSourceMaterialOrganismHybrid) ToDateTime(explicit bool) (*fhirp
 }
 func (r SubstanceSourceMaterialOrganismHybrid) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Quantity")
+}
+func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismHybrid
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismHybrid:
+		o = other
+	case *SubstanceSourceMaterialOrganismHybrid:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialOrganismHybrid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismHybrid
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismHybrid:
+		o = other
+	case *SubstanceSourceMaterialOrganismHybrid:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSourceMaterialOrganismHybrid) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5264,6 +5424,38 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToDateTime(explicit bool
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Quantity")
 }
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismOrganismGeneral
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismOrganismGeneral:
+		o = other
+	case *SubstanceSourceMaterialOrganismOrganismGeneral:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialOrganismOrganismGeneral
+	switch other := other.(type) {
+	case SubstanceSourceMaterialOrganismOrganismGeneral:
+		o = other
+	case *SubstanceSourceMaterialOrganismOrganismGeneral:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5350,6 +5542,38 @@ func (r SubstanceSourceMaterialPartDescription) ToDateTime(explicit bool) (*fhir
 }
 func (r SubstanceSourceMaterialPartDescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceSourceMaterialPartDescription to Quantity")
+}
+func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialPartDescription
+	switch other := other.(type) {
+	case SubstanceSourceMaterialPartDescription:
+		o = other
+	case *SubstanceSourceMaterialPartDescription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubstanceSourceMaterialPartDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubstanceSourceMaterialPartDescription
+	switch other := other.(type) {
+	case SubstanceSourceMaterialPartDescription:
+		o = other
+	case *SubstanceSourceMaterialPartDescription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubstanceSourceMaterialPartDescription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

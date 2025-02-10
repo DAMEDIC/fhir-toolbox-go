@@ -3376,6 +3376,38 @@ func (r Condition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Condition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Condition to Quantity")
 }
+func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Condition
+	switch other := other.(type) {
+	case Condition:
+		o = other
+	case *Condition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Condition
+	switch other := other.(type) {
+	case Condition:
+		o = other
+	case *Condition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Condition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3512,6 +3544,38 @@ func (r ConditionParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r ConditionParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConditionParticipant to Quantity")
 }
+func (r ConditionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConditionParticipant
+	switch other := other.(type) {
+	case ConditionParticipant:
+		o = other
+	case *ConditionParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConditionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConditionParticipant
+	switch other := other.(type) {
+	case ConditionParticipant:
+		o = other
+	case *ConditionParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConditionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3597,6 +3661,38 @@ func (r ConditionStage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r ConditionStage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConditionStage to Quantity")
+}
+func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConditionStage
+	switch other := other.(type) {
+	case ConditionStage:
+		o = other
+	case *ConditionStage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConditionStage
+	switch other := other.(type) {
+	case ConditionStage:
+		o = other
+	case *ConditionStage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

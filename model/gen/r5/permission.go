@@ -3803,6 +3803,38 @@ func (r Permission) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Permission) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Permission to Quantity")
 }
+func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Permission
+	switch other := other.(type) {
+	case Permission:
+		o = other
+	case *Permission:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Permission
+	switch other := other.(type) {
+	case Permission:
+		o = other
+	case *Permission:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Permission) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3914,6 +3946,38 @@ func (r PermissionJustification) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r PermissionJustification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionJustification to Quantity")
 }
+func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionJustification
+	switch other := other.(type) {
+	case PermissionJustification:
+		o = other
+	case *PermissionJustification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionJustification
+	switch other := other.(type) {
+	case PermissionJustification:
+		o = other
+	case *PermissionJustification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4004,6 +4068,38 @@ func (r PermissionRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r PermissionRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionRule to Quantity")
+}
+func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRule
+	switch other := other.(type) {
+	case PermissionRule:
+		o = other
+	case *PermissionRule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRule
+	switch other := other.(type) {
+	case PermissionRule:
+		o = other
+	case *PermissionRule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4102,6 +4198,38 @@ func (r PermissionRuleData) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r PermissionRuleData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionRuleData to Quantity")
 }
+func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleData
+	switch other := other.(type) {
+	case PermissionRuleData:
+		o = other
+	case *PermissionRuleData:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleData
+	switch other := other.(type) {
+	case PermissionRuleData:
+		o = other
+	case *PermissionRuleData:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4184,6 +4312,38 @@ func (r PermissionRuleDataResource) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r PermissionRuleDataResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionRuleDataResource to Quantity")
+}
+func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleDataResource
+	switch other := other.(type) {
+	case PermissionRuleDataResource:
+		o = other
+	case *PermissionRuleDataResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleDataResource
+	switch other := other.(type) {
+	case PermissionRuleDataResource:
+		o = other
+	case *PermissionRuleDataResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4270,6 +4430,38 @@ func (r PermissionRuleActivity) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r PermissionRuleActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionRuleActivity to Quantity")
+}
+func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleActivity
+	switch other := other.(type) {
+	case PermissionRuleActivity:
+		o = other
+	case *PermissionRuleActivity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PermissionRuleActivity
+	switch other := other.(type) {
+	case PermissionRuleActivity:
+		o = other
+	case *PermissionRuleActivity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

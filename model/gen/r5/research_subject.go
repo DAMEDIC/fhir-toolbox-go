@@ -1955,6 +1955,38 @@ func (r ResearchSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ResearchSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchSubject to Quantity")
 }
+func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchSubject
+	switch other := other.(type) {
+	case ResearchSubject:
+		o = other
+	case *ResearchSubject:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchSubject
+	switch other := other.(type) {
+	case ResearchSubject:
+		o = other
+	case *ResearchSubject:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ResearchSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2091,6 +2123,38 @@ func (r ResearchSubjectProgress) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r ResearchSubjectProgress) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchSubjectProgress to Quantity")
+}
+func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchSubjectProgress
+	switch other := other.(type) {
+	case ResearchSubjectProgress:
+		o = other
+	case *ResearchSubjectProgress:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchSubjectProgress) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchSubjectProgress
+	switch other := other.(type) {
+	case ResearchSubjectProgress:
+		o = other
+	case *ResearchSubjectProgress:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ResearchSubjectProgress) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

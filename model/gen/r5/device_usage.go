@@ -2441,6 +2441,38 @@ func (r DeviceUsage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r DeviceUsage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceUsage to Quantity")
 }
+func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceUsage
+	switch other := other.(type) {
+	case DeviceUsage:
+		o = other
+	case *DeviceUsage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceUsage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceUsage
+	switch other := other.(type) {
+	case DeviceUsage:
+		o = other
+	case *DeviceUsage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceUsage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2579,6 +2611,38 @@ func (r DeviceUsageAdherence) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 }
 func (r DeviceUsageAdherence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceUsageAdherence to Quantity")
+}
+func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceUsageAdherence
+	switch other := other.(type) {
+	case DeviceUsageAdherence:
+		o = other
+	case *DeviceUsageAdherence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceUsageAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceUsageAdherence
+	switch other := other.(type) {
+	case DeviceUsageAdherence:
+		o = other
+	case *DeviceUsageAdherence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceUsageAdherence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

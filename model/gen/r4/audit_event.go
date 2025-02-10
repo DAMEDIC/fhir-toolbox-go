@@ -4911,6 +4911,38 @@ func (r AuditEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r AuditEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEvent to Quantity")
 }
+func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEvent
+	switch other := other.(type) {
+	case AuditEvent:
+		o = other
+	case *AuditEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEvent
+	switch other := other.(type) {
+	case AuditEvent:
+		o = other
+	case *AuditEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5077,6 +5109,38 @@ func (r AuditEventAgent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r AuditEventAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventAgent to Quantity")
 }
+func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventAgent
+	switch other := other.(type) {
+	case AuditEventAgent:
+		o = other
+	case *AuditEventAgent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEventAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventAgent
+	switch other := other.(type) {
+	case AuditEventAgent:
+		o = other
+	case *AuditEventAgent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5185,6 +5249,38 @@ func (r AuditEventAgentNetwork) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r AuditEventAgentNetwork) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventAgentNetwork to Quantity")
 }
+func (r AuditEventAgentNetwork) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventAgentNetwork
+	switch other := other.(type) {
+	case AuditEventAgentNetwork:
+		o = other
+	case *AuditEventAgentNetwork:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEventAgentNetwork) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventAgentNetwork
+	switch other := other.(type) {
+	case AuditEventAgentNetwork:
+		o = other
+	case *AuditEventAgentNetwork:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AuditEventAgentNetwork) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5268,6 +5364,38 @@ func (r AuditEventSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 }
 func (r AuditEventSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventSource to Quantity")
+}
+func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventSource
+	switch other := other.(type) {
+	case AuditEventSource:
+		o = other
+	case *AuditEventSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEventSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventSource
+	switch other := other.(type) {
+	case AuditEventSource:
+		o = other
+	case *AuditEventSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5388,6 +5516,38 @@ func (r AuditEventEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r AuditEventEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventEntity to Quantity")
 }
+func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventEntity
+	switch other := other.(type) {
+	case AuditEventEntity:
+		o = other
+	case *AuditEventEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEventEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventEntity
+	switch other := other.(type) {
+	case AuditEventEntity:
+		o = other
+	case *AuditEventEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5485,6 +5645,38 @@ func (r AuditEventEntityDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r AuditEventEntityDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventEntityDetail to Quantity")
+}
+func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventEntityDetail
+	switch other := other.(type) {
+	case AuditEventEntityDetail:
+		o = other
+	case *AuditEventEntityDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AuditEventEntityDetail
+	switch other := other.(type) {
+	case AuditEventEntityDetail:
+		o = other
+	case *AuditEventEntityDetail:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

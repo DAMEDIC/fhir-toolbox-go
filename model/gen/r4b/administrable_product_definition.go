@@ -3720,6 +3720,38 @@ func (r AdministrableProductDefinition) ToDateTime(explicit bool) (*fhirpath.Dat
 func (r AdministrableProductDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdministrableProductDefinition to Quantity")
 }
+func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinition
+	switch other := other.(type) {
+	case AdministrableProductDefinition:
+		o = other
+	case *AdministrableProductDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinition
+	switch other := other.(type) {
+	case AdministrableProductDefinition:
+		o = other
+	case *AdministrableProductDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3843,6 +3875,38 @@ func (r AdministrableProductDefinitionProperty) ToDateTime(explicit bool) (*fhir
 func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
 }
+func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionProperty
+	switch other := other.(type) {
+	case AdministrableProductDefinitionProperty:
+		o = other
+	case *AdministrableProductDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionProperty
+	switch other := other.(type) {
+	case AdministrableProductDefinitionProperty:
+		o = other
+	case *AdministrableProductDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3950,6 +4014,38 @@ func (r AdministrableProductDefinitionRouteOfAdministration) ToDateTime(explicit
 func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
 }
+func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministration
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministration:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministration
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministration:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4044,6 +4140,38 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDate
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
 }
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4125,6 +4253,38 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	switch other := other.(type) {
+	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
+		o = other
+	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -7480,6 +7480,38 @@ func (r EvidenceVariable) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r EvidenceVariable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariable to Quantity")
 }
+func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariable
+	switch other := other.(type) {
+	case EvidenceVariable:
+		o = other
+	case *EvidenceVariable:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariable
+	switch other := other.(type) {
+	case EvidenceVariable:
+		o = other
+	case *EvidenceVariable:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceVariable) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -7720,6 +7752,38 @@ func (r EvidenceVariableCharacteristic) ToDateTime(explicit bool) (*fhirpath.Dat
 func (r EvidenceVariableCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Quantity")
 }
+func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristic
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristic:
+		o = other
+	case *EvidenceVariableCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariableCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristic
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristic:
+		o = other
+	case *EvidenceVariableCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceVariableCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -7848,6 +7912,38 @@ func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToDateTime(expli
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Quantity")
 }
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicDefinitionByTypeAndValue
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicDefinitionByTypeAndValue:
+		o = other
+	case *EvidenceVariableCharacteristicDefinitionByTypeAndValue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicDefinitionByTypeAndValue
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicDefinitionByTypeAndValue:
+		o = other
+	case *EvidenceVariableCharacteristicDefinitionByTypeAndValue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -7940,6 +8036,38 @@ func (r EvidenceVariableCharacteristicDefinitionByCombination) ToDateTime(explic
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Quantity")
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicDefinitionByCombination
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicDefinitionByCombination:
+		o = other
+	case *EvidenceVariableCharacteristicDefinitionByCombination:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariableCharacteristicDefinitionByCombination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicDefinitionByCombination
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicDefinitionByCombination:
+		o = other
+	case *EvidenceVariableCharacteristicDefinitionByCombination:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8040,6 +8168,38 @@ func (r EvidenceVariableCharacteristicTimeFromEvent) ToDateTime(explicit bool) (
 func (r EvidenceVariableCharacteristicTimeFromEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Quantity")
 }
+func (r EvidenceVariableCharacteristicTimeFromEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicTimeFromEvent
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicTimeFromEvent:
+		o = other
+	case *EvidenceVariableCharacteristicTimeFromEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariableCharacteristicTimeFromEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCharacteristicTimeFromEvent
+	switch other := other.(type) {
+	case EvidenceVariableCharacteristicTimeFromEvent:
+		o = other
+	case *EvidenceVariableCharacteristicTimeFromEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EvidenceVariableCharacteristicTimeFromEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8129,6 +8289,38 @@ func (r EvidenceVariableCategory) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r EvidenceVariableCategory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceVariableCategory to Quantity")
+}
+func (r EvidenceVariableCategory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCategory
+	switch other := other.(type) {
+	case EvidenceVariableCategory:
+		o = other
+	case *EvidenceVariableCategory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EvidenceVariableCategory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EvidenceVariableCategory
+	switch other := other.(type) {
+	case EvidenceVariableCategory:
+		o = other
+	case *EvidenceVariableCategory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EvidenceVariableCategory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

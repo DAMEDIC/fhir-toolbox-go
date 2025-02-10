@@ -3842,6 +3842,38 @@ func (r Patient) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Patient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Patient to Quantity")
 }
+func (r Patient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Patient
+	switch other := other.(type) {
+	case Patient:
+		o = other
+	case *Patient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Patient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Patient
+	switch other := other.(type) {
+	case Patient:
+		o = other
+	case *Patient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Patient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4005,6 +4037,38 @@ func (r PatientContact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r PatientContact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PatientContact to Quantity")
 }
+func (r PatientContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientContact
+	switch other := other.(type) {
+	case PatientContact:
+		o = other
+	case *PatientContact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PatientContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientContact
+	switch other := other.(type) {
+	case PatientContact:
+		o = other
+	case *PatientContact:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PatientContact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4099,6 +4163,38 @@ func (r PatientCommunication) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r PatientCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PatientCommunication to Quantity")
 }
+func (r PatientCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientCommunication
+	switch other := other.(type) {
+	case PatientCommunication:
+		o = other
+	case *PatientCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PatientCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientCommunication
+	switch other := other.(type) {
+	case PatientCommunication:
+		o = other
+	case *PatientCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PatientCommunication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4175,6 +4271,38 @@ func (r PatientLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r PatientLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PatientLink to Quantity")
+}
+func (r PatientLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientLink
+	switch other := other.(type) {
+	case PatientLink:
+		o = other
+	case *PatientLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PatientLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PatientLink
+	switch other := other.(type) {
+	case PatientLink:
+		o = other
+	case *PatientLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r PatientLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

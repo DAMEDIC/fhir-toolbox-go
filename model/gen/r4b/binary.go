@@ -655,6 +655,38 @@ func (r Binary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Binary to Quantity")
 }
+func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Binary
+	switch other := other.(type) {
+	case Binary:
+		o = other
+	case *Binary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Binary
+	switch other := other.(type) {
+	case Binary:
+		o = other
+	case *Binary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Binary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

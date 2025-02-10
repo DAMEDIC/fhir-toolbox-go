@@ -5432,6 +5432,38 @@ func (r TestReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r TestReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReport to Quantity")
 }
+func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReport
+	switch other := other.(type) {
+	case TestReport:
+		o = other
+	case *TestReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReport
+	switch other := other.(type) {
+	case TestReport:
+		o = other
+	case *TestReport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5559,6 +5591,38 @@ func (r TestReportParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 func (r TestReportParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportParticipant to Quantity")
 }
+func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportParticipant
+	switch other := other.(type) {
+	case TestReportParticipant:
+		o = other
+	case *TestReportParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportParticipant
+	switch other := other.(type) {
+	case TestReportParticipant:
+		o = other
+	case *TestReportParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5638,6 +5702,38 @@ func (r TestReportSetup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r TestReportSetup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportSetup to Quantity")
 }
+func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetup
+	switch other := other.(type) {
+	case TestReportSetup:
+		o = other
+	case *TestReportSetup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetup
+	switch other := other.(type) {
+	case TestReportSetup:
+		o = other
+	case *TestReportSetup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5715,6 +5811,38 @@ func (r TestReportSetupAction) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r TestReportSetupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportSetupAction to Quantity")
+}
+func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupAction
+	switch other := other.(type) {
+	case TestReportSetupAction:
+		o = other
+	case *TestReportSetupAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupAction
+	switch other := other.(type) {
+	case TestReportSetupAction:
+		o = other
+	case *TestReportSetupAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5799,6 +5927,38 @@ func (r TestReportSetupActionOperation) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r TestReportSetupActionOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportSetupActionOperation to Quantity")
+}
+func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupActionOperation
+	switch other := other.(type) {
+	case TestReportSetupActionOperation:
+		o = other
+	case *TestReportSetupActionOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupActionOperation
+	switch other := other.(type) {
+	case TestReportSetupActionOperation:
+		o = other
+	case *TestReportSetupActionOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5886,6 +6046,38 @@ func (r TestReportSetupActionAssert) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r TestReportSetupActionAssert) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportSetupActionAssert to Quantity")
+}
+func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupActionAssert
+	switch other := other.(type) {
+	case TestReportSetupActionAssert:
+		o = other
+	case *TestReportSetupActionAssert:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportSetupActionAssert
+	switch other := other.(type) {
+	case TestReportSetupActionAssert:
+		o = other
+	case *TestReportSetupActionAssert:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5976,6 +6168,38 @@ func (r TestReportTest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r TestReportTest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportTest to Quantity")
 }
+func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTest
+	switch other := other.(type) {
+	case TestReportTest:
+		o = other
+	case *TestReportTest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTest
+	switch other := other.(type) {
+	case TestReportTest:
+		o = other
+	case *TestReportTest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6060,6 +6284,38 @@ func (r TestReportTestAction) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r TestReportTestAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportTestAction to Quantity")
 }
+func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTestAction
+	switch other := other.(type) {
+	case TestReportTestAction:
+		o = other
+	case *TestReportTestAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTestAction
+	switch other := other.(type) {
+	case TestReportTestAction:
+		o = other
+	case *TestReportTestAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6136,6 +6392,38 @@ func (r TestReportTeardown) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r TestReportTeardown) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportTeardown to Quantity")
 }
+func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTeardown
+	switch other := other.(type) {
+	case TestReportTeardown:
+		o = other
+	case *TestReportTeardown:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTeardown
+	switch other := other.(type) {
+	case TestReportTeardown:
+		o = other
+	case *TestReportTeardown:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6206,6 +6494,38 @@ func (r TestReportTeardownAction) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r TestReportTeardownAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportTeardownAction to Quantity")
+}
+func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTeardownAction
+	switch other := other.(type) {
+	case TestReportTeardownAction:
+		o = other
+	case *TestReportTeardownAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TestReportTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TestReportTeardownAction
+	switch other := other.(type) {
+	case TestReportTeardownAction:
+		o = other
+	case *TestReportTeardownAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

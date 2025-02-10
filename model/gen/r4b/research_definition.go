@@ -3488,6 +3488,38 @@ func (r ResearchDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ResearchDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchDefinition to Quantity")
 }
+func (r ResearchDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchDefinition
+	switch other := other.(type) {
+	case ResearchDefinition:
+		o = other
+	case *ResearchDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchDefinition
+	switch other := other.(type) {
+	case ResearchDefinition:
+		o = other
+	case *ResearchDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ResearchDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

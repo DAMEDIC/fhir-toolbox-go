@@ -1607,6 +1607,38 @@ func (r MedicinalProductInteraction) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r MedicinalProductInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductInteraction to Quantity")
 }
+func (r MedicinalProductInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductInteraction
+	switch other := other.(type) {
+	case MedicinalProductInteraction:
+		o = other
+	case *MedicinalProductInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductInteraction
+	switch other := other.(type) {
+	case MedicinalProductInteraction:
+		o = other
+	case *MedicinalProductInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicinalProductInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1710,6 +1742,38 @@ func (r MedicinalProductInteractionInteractant) ToDateTime(explicit bool) (*fhir
 }
 func (r MedicinalProductInteractionInteractant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Quantity")
+}
+func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductInteractionInteractant
+	switch other := other.(type) {
+	case MedicinalProductInteractionInteractant:
+		o = other
+	case *MedicinalProductInteractionInteractant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductInteractionInteractant
+	switch other := other.(type) {
+	case MedicinalProductInteractionInteractant:
+		o = other
+	case *MedicinalProductInteractionInteractant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MedicinalProductInteractionInteractant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

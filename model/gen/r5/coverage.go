@@ -3980,6 +3980,38 @@ func (r Coverage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Coverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Coverage to Quantity")
 }
+func (r Coverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Coverage
+	switch other := other.(type) {
+	case Coverage:
+		o = other
+	case *Coverage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Coverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Coverage
+	switch other := other.(type) {
+	case Coverage:
+		o = other
+	case *Coverage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Coverage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4128,6 +4160,38 @@ func (r CoveragePaymentBy) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r CoveragePaymentBy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CoveragePaymentBy to Quantity")
 }
+func (r CoveragePaymentBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoveragePaymentBy
+	switch other := other.(type) {
+	case CoveragePaymentBy:
+		o = other
+	case *CoveragePaymentBy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CoveragePaymentBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoveragePaymentBy
+	switch other := other.(type) {
+	case CoveragePaymentBy:
+		o = other
+	case *CoveragePaymentBy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CoveragePaymentBy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4209,6 +4273,38 @@ func (r CoverageClass) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r CoverageClass) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CoverageClass to Quantity")
+}
+func (r CoverageClass) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageClass
+	switch other := other.(type) {
+	case CoverageClass:
+		o = other
+	case *CoverageClass:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CoverageClass) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageClass
+	switch other := other.(type) {
+	case CoverageClass:
+		o = other
+	case *CoverageClass:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CoverageClass) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4319,6 +4415,38 @@ func (r CoverageCostToBeneficiary) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r CoverageCostToBeneficiary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CoverageCostToBeneficiary to Quantity")
 }
+func (r CoverageCostToBeneficiary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageCostToBeneficiary
+	switch other := other.(type) {
+	case CoverageCostToBeneficiary:
+		o = other
+	case *CoverageCostToBeneficiary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CoverageCostToBeneficiary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageCostToBeneficiary
+	switch other := other.(type) {
+	case CoverageCostToBeneficiary:
+		o = other
+	case *CoverageCostToBeneficiary:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CoverageCostToBeneficiary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4412,6 +4540,38 @@ func (r CoverageCostToBeneficiaryException) ToDateTime(explicit bool) (*fhirpath
 }
 func (r CoverageCostToBeneficiaryException) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CoverageCostToBeneficiaryException to Quantity")
+}
+func (r CoverageCostToBeneficiaryException) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageCostToBeneficiaryException
+	switch other := other.(type) {
+	case CoverageCostToBeneficiaryException:
+		o = other
+	case *CoverageCostToBeneficiaryException:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CoverageCostToBeneficiaryException) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CoverageCostToBeneficiaryException
+	switch other := other.(type) {
+	case CoverageCostToBeneficiaryException:
+		o = other
+	case *CoverageCostToBeneficiaryException:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CoverageCostToBeneficiaryException) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

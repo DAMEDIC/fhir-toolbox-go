@@ -2809,6 +2809,38 @@ func (r Group) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Group) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Group to Quantity")
 }
+func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Group
+	switch other := other.(type) {
+	case Group:
+		o = other
+	case *Group:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Group) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Group
+	switch other := other.(type) {
+	case Group:
+		o = other
+	case *Group:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Group) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2936,6 +2968,38 @@ func (r GroupCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r GroupCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GroupCharacteristic to Quantity")
 }
+func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GroupCharacteristic
+	switch other := other.(type) {
+	case GroupCharacteristic:
+		o = other
+	case *GroupCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GroupCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GroupCharacteristic
+	switch other := other.(type) {
+	case GroupCharacteristic:
+		o = other
+	case *GroupCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r GroupCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3025,6 +3089,38 @@ func (r GroupMember) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r GroupMember) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GroupMember to Quantity")
+}
+func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GroupMember
+	switch other := other.(type) {
+	case GroupMember:
+		o = other
+	case *GroupMember:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GroupMember) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GroupMember
+	switch other := other.(type) {
+	case GroupMember:
+		o = other
+	case *GroupMember:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r GroupMember) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

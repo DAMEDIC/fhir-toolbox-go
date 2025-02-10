@@ -5357,6 +5357,38 @@ func (r ResearchElementDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r ResearchElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchElementDefinition to Quantity")
 }
+func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchElementDefinition
+	switch other := other.(type) {
+	case ResearchElementDefinition:
+		o = other
+	case *ResearchElementDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchElementDefinition
+	switch other := other.(type) {
+	case ResearchElementDefinition:
+		o = other
+	case *ResearchElementDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ResearchElementDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5593,6 +5625,38 @@ func (r ResearchElementDefinitionCharacteristic) ToDateTime(explicit bool) (*fhi
 }
 func (r ResearchElementDefinitionCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Quantity")
+}
+func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchElementDefinitionCharacteristic
+	switch other := other.(type) {
+	case ResearchElementDefinitionCharacteristic:
+		o = other
+	case *ResearchElementDefinitionCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchElementDefinitionCharacteristic
+	switch other := other.(type) {
+	case ResearchElementDefinitionCharacteristic:
+		o = other
+	case *ResearchElementDefinitionCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ResearchElementDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

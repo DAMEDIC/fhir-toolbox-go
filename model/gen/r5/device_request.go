@@ -3560,6 +3560,38 @@ func (r DeviceRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r DeviceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceRequest to Quantity")
 }
+func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceRequest
+	switch other := other.(type) {
+	case DeviceRequest:
+		o = other
+	case *DeviceRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceRequest
+	switch other := other.(type) {
+	case DeviceRequest:
+		o = other
+	case *DeviceRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3727,6 +3759,38 @@ func (r DeviceRequestParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r DeviceRequestParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceRequestParameter to Quantity")
+}
+func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceRequestParameter
+	switch other := other.(type) {
+	case DeviceRequestParameter:
+		o = other
+	case *DeviceRequestParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceRequestParameter
+	switch other := other.(type) {
+	case DeviceRequestParameter:
+		o = other
+	case *DeviceRequestParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceRequestParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

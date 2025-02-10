@@ -963,6 +963,38 @@ func (r FormularyItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r FormularyItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert FormularyItem to Quantity")
 }
+func (r FormularyItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FormularyItem
+	switch other := other.(type) {
+	case FormularyItem:
+		o = other
+	case *FormularyItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r FormularyItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o FormularyItem
+	switch other := other.(type) {
+	case FormularyItem:
+		o = other
+	case *FormularyItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r FormularyItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

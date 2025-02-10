@@ -1944,6 +1944,38 @@ func (r EncounterHistory) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r EncounterHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EncounterHistory to Quantity")
 }
+func (r EncounterHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EncounterHistory
+	switch other := other.(type) {
+	case EncounterHistory:
+		o = other
+	case *EncounterHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EncounterHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EncounterHistory
+	switch other := other.(type) {
+	case EncounterHistory:
+		o = other
+	case *EncounterHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EncounterHistory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2070,6 +2102,38 @@ func (r EncounterHistoryLocation) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r EncounterHistoryLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EncounterHistoryLocation to Quantity")
+}
+func (r EncounterHistoryLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EncounterHistoryLocation
+	switch other := other.(type) {
+	case EncounterHistoryLocation:
+		o = other
+	case *EncounterHistoryLocation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EncounterHistoryLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EncounterHistoryLocation
+	switch other := other.(type) {
+	case EncounterHistoryLocation:
+		o = other
+	case *EncounterHistoryLocation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EncounterHistoryLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

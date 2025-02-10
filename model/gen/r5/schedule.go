@@ -1441,6 +1441,38 @@ func (r Schedule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Schedule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Schedule to Quantity")
 }
+func (r Schedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Schedule
+	switch other := other.(type) {
+	case Schedule:
+		o = other
+	case *Schedule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Schedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Schedule
+	switch other := other.(type) {
+	case Schedule:
+		o = other
+	case *Schedule:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Schedule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

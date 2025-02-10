@@ -2664,6 +2664,38 @@ func (r ClinicalImpression) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ClinicalImpression) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClinicalImpression to Quantity")
 }
+func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ClinicalImpression
+	switch other := other.(type) {
+	case ClinicalImpression:
+		o = other
+	case *ClinicalImpression:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ClinicalImpression
+	switch other := other.(type) {
+	case ClinicalImpression:
+		o = other
+	case *ClinicalImpression:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ClinicalImpression) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2810,6 +2842,38 @@ func (r ClinicalImpressionFinding) ToDateTime(explicit bool) (*fhirpath.DateTime
 }
 func (r ClinicalImpressionFinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClinicalImpressionFinding to Quantity")
+}
+func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ClinicalImpressionFinding
+	switch other := other.(type) {
+	case ClinicalImpressionFinding:
+		o = other
+	case *ClinicalImpressionFinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ClinicalImpressionFinding
+	switch other := other.(type) {
+	case ClinicalImpressionFinding:
+		o = other
+	case *ClinicalImpressionFinding:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ClinicalImpressionFinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

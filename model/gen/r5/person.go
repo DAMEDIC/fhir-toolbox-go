@@ -2733,6 +2733,38 @@ func (r Person) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Person) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Person to Quantity")
 }
+func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Person
+	switch other := other.(type) {
+	case Person:
+		o = other
+	case *Person:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Person) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Person
+	switch other := other.(type) {
+	case Person:
+		o = other
+	case *Person:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Person) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2860,6 +2892,38 @@ func (r PersonCommunication) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r PersonCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PersonCommunication to Quantity")
 }
+func (r PersonCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PersonCommunication
+	switch other := other.(type) {
+	case PersonCommunication:
+		o = other
+	case *PersonCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PersonCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PersonCommunication
+	switch other := other.(type) {
+	case PersonCommunication:
+		o = other
+	case *PersonCommunication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r PersonCommunication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2938,6 +3002,38 @@ func (r PersonLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r PersonLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PersonLink to Quantity")
+}
+func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PersonLink
+	switch other := other.(type) {
+	case PersonLink:
+		o = other
+	case *PersonLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r PersonLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o PersonLink
+	switch other := other.(type) {
+	case PersonLink:
+		o = other
+	case *PersonLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r PersonLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

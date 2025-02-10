@@ -11320,6 +11320,38 @@ func (r DeviceDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r DeviceDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinition to Quantity")
 }
+func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinition
+	switch other := other.(type) {
+	case DeviceDefinition:
+		o = other
+	case *DeviceDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinition
+	switch other := other.(type) {
+	case DeviceDefinition:
+		o = other
+	case *DeviceDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -11492,6 +11524,38 @@ func (r DeviceDefinitionUdiDeviceIdentifier) ToDateTime(explicit bool) (*fhirpat
 func (r DeviceDefinitionUdiDeviceIdentifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Quantity")
 }
+func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionUdiDeviceIdentifier
+	switch other := other.(type) {
+	case DeviceDefinitionUdiDeviceIdentifier:
+		o = other
+	case *DeviceDefinitionUdiDeviceIdentifier:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionUdiDeviceIdentifier
+	switch other := other.(type) {
+	case DeviceDefinitionUdiDeviceIdentifier:
+		o = other
+	case *DeviceDefinitionUdiDeviceIdentifier:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -11574,6 +11638,38 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToDateTime(explic
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Quantity")
+}
+func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionUdiDeviceIdentifierMarketDistribution
+	switch other := other.(type) {
+	case DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
+		o = other
+	case *DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionUdiDeviceIdentifierMarketDistribution
+	switch other := other.(type) {
+	case DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
+		o = other
+	case *DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -11658,6 +11754,38 @@ func (r DeviceDefinitionRegulatoryIdentifier) ToDateTime(explicit bool) (*fhirpa
 func (r DeviceDefinitionRegulatoryIdentifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Quantity")
 }
+func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionRegulatoryIdentifier
+	switch other := other.(type) {
+	case DeviceDefinitionRegulatoryIdentifier:
+		o = other
+	case *DeviceDefinitionRegulatoryIdentifier:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionRegulatoryIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionRegulatoryIdentifier
+	switch other := other.(type) {
+	case DeviceDefinitionRegulatoryIdentifier:
+		o = other
+	case *DeviceDefinitionRegulatoryIdentifier:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionRegulatoryIdentifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -11741,6 +11869,38 @@ func (r DeviceDefinitionDeviceName) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r DeviceDefinitionDeviceName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Quantity")
 }
+func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionDeviceName
+	switch other := other.(type) {
+	case DeviceDefinitionDeviceName:
+		o = other
+	case *DeviceDefinitionDeviceName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionDeviceName
+	switch other := other.(type) {
+	case DeviceDefinitionDeviceName:
+		o = other
+	case *DeviceDefinitionDeviceName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -11819,6 +11979,38 @@ func (r DeviceDefinitionClassification) ToDateTime(explicit bool) (*fhirpath.Dat
 }
 func (r DeviceDefinitionClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionClassification to Quantity")
+}
+func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionClassification
+	switch other := other.(type) {
+	case DeviceDefinitionClassification:
+		o = other
+	case *DeviceDefinitionClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionClassification
+	switch other := other.(type) {
+	case DeviceDefinitionClassification:
+		o = other
+	case *DeviceDefinitionClassification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -11909,6 +12101,38 @@ func (r DeviceDefinitionConformsTo) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r DeviceDefinitionConformsTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionConformsTo to Quantity")
 }
+func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionConformsTo
+	switch other := other.(type) {
+	case DeviceDefinitionConformsTo:
+		o = other
+	case *DeviceDefinitionConformsTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionConformsTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionConformsTo
+	switch other := other.(type) {
+	case DeviceDefinitionConformsTo:
+		o = other
+	case *DeviceDefinitionConformsTo:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionConformsTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -11993,6 +12217,38 @@ func (r DeviceDefinitionHasPart) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r DeviceDefinitionHasPart) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionHasPart to Quantity")
+}
+func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionHasPart
+	switch other := other.(type) {
+	case DeviceDefinitionHasPart:
+		o = other
+	case *DeviceDefinitionHasPart:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionHasPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionHasPart
+	switch other := other.(type) {
+	case DeviceDefinitionHasPart:
+		o = other
+	case *DeviceDefinitionHasPart:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionHasPart) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12095,6 +12351,38 @@ func (r DeviceDefinitionPackaging) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r DeviceDefinitionPackaging) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionPackaging to Quantity")
 }
+func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionPackaging
+	switch other := other.(type) {
+	case DeviceDefinitionPackaging:
+		o = other
+	case *DeviceDefinitionPackaging:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionPackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionPackaging
+	switch other := other.(type) {
+	case DeviceDefinitionPackaging:
+		o = other
+	case *DeviceDefinitionPackaging:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionPackaging) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12188,6 +12476,38 @@ func (r DeviceDefinitionPackagingDistributor) ToDateTime(explicit bool) (*fhirpa
 func (r DeviceDefinitionPackagingDistributor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionPackagingDistributor to Quantity")
 }
+func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionPackagingDistributor
+	switch other := other.(type) {
+	case DeviceDefinitionPackagingDistributor:
+		o = other
+	case *DeviceDefinitionPackagingDistributor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionPackagingDistributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionPackagingDistributor
+	switch other := other.(type) {
+	case DeviceDefinitionPackagingDistributor:
+		o = other
+	case *DeviceDefinitionPackagingDistributor:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionPackagingDistributor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12272,6 +12592,38 @@ func (r DeviceDefinitionVersion) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r DeviceDefinitionVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionVersion to Quantity")
 }
+func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionVersion
+	switch other := other.(type) {
+	case DeviceDefinitionVersion:
+		o = other
+	case *DeviceDefinitionVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionVersion
+	switch other := other.(type) {
+	case DeviceDefinitionVersion:
+		o = other
+	case *DeviceDefinitionVersion:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12352,6 +12704,38 @@ func (r DeviceDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime,
 func (r DeviceDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionProperty to Quantity")
 }
+func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionProperty
+	switch other := other.(type) {
+	case DeviceDefinitionProperty:
+		o = other
+	case *DeviceDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionProperty
+	switch other := other.(type) {
+	case DeviceDefinitionProperty:
+		o = other
+	case *DeviceDefinitionProperty:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12428,6 +12812,38 @@ func (r DeviceDefinitionLink) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 }
 func (r DeviceDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionLink to Quantity")
+}
+func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionLink
+	switch other := other.(type) {
+	case DeviceDefinitionLink:
+		o = other
+	case *DeviceDefinitionLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionLink
+	switch other := other.(type) {
+	case DeviceDefinitionLink:
+		o = other
+	case *DeviceDefinitionLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12512,6 +12928,38 @@ func (r DeviceDefinitionMaterial) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r DeviceDefinitionMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionMaterial to Quantity")
+}
+func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionMaterial
+	switch other := other.(type) {
+	case DeviceDefinitionMaterial:
+		o = other
+	case *DeviceDefinitionMaterial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionMaterial
+	switch other := other.(type) {
+	case DeviceDefinitionMaterial:
+		o = other
+	case *DeviceDefinitionMaterial:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12622,6 +13070,38 @@ func (r DeviceDefinitionGuideline) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r DeviceDefinitionGuideline) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionGuideline to Quantity")
 }
+func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionGuideline
+	switch other := other.(type) {
+	case DeviceDefinitionGuideline:
+		o = other
+	case *DeviceDefinitionGuideline:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionGuideline
+	switch other := other.(type) {
+	case DeviceDefinitionGuideline:
+		o = other
+	case *DeviceDefinitionGuideline:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionGuideline) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12719,6 +13199,38 @@ func (r DeviceDefinitionCorrectiveAction) ToDateTime(explicit bool) (*fhirpath.D
 func (r DeviceDefinitionCorrectiveAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionCorrectiveAction to Quantity")
 }
+func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionCorrectiveAction
+	switch other := other.(type) {
+	case DeviceDefinitionCorrectiveAction:
+		o = other
+	case *DeviceDefinitionCorrectiveAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionCorrectiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionCorrectiveAction
+	switch other := other.(type) {
+	case DeviceDefinitionCorrectiveAction:
+		o = other
+	case *DeviceDefinitionCorrectiveAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceDefinitionCorrectiveAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12808,6 +13320,38 @@ func (r DeviceDefinitionChargeItem) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r DeviceDefinitionChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceDefinitionChargeItem to Quantity")
+}
+func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionChargeItem
+	switch other := other.(type) {
+	case DeviceDefinitionChargeItem:
+		o = other
+	case *DeviceDefinitionChargeItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceDefinitionChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceDefinitionChargeItem
+	switch other := other.(type) {
+	case DeviceDefinitionChargeItem:
+		o = other
+	case *DeviceDefinitionChargeItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceDefinitionChargeItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

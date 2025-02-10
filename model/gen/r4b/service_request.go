@@ -3739,6 +3739,38 @@ func (r ServiceRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ServiceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ServiceRequest to Quantity")
 }
+func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ServiceRequest
+	switch other := other.(type) {
+	case ServiceRequest:
+		o = other
+	case *ServiceRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ServiceRequest
+	switch other := other.(type) {
+	case ServiceRequest:
+		o = other
+	case *ServiceRequest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -235,6 +235,38 @@ func (r Range) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Range) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Range to Quantity")
 }
+func (r Range) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Range
+	switch other := other.(type) {
+	case Range:
+		o = other
+	case *Range:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Range) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Range
+	switch other := other.(type) {
+	case Range:
+		o = other
+	case *Range:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Range) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

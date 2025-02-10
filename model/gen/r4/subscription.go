@@ -1910,6 +1910,38 @@ func (r Subscription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Subscription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Subscription to Quantity")
 }
+func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Subscription
+	switch other := other.(type) {
+	case Subscription:
+		o = other
+	case *Subscription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Subscription
+	switch other := other.(type) {
+	case Subscription:
+		o = other
+	case *Subscription:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Subscription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2028,6 +2060,38 @@ func (r SubscriptionChannel) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r SubscriptionChannel) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubscriptionChannel to Quantity")
+}
+func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionChannel
+	switch other := other.(type) {
+	case SubscriptionChannel:
+		o = other
+	case *SubscriptionChannel:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubscriptionChannel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionChannel
+	switch other := other.(type) {
+	case SubscriptionChannel:
+		o = other
+	case *SubscriptionChannel:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubscriptionChannel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

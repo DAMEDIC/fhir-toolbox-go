@@ -2925,6 +2925,38 @@ func (r AdverseEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r AdverseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdverseEvent to Quantity")
 }
+func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEvent
+	switch other := other.(type) {
+	case AdverseEvent:
+		o = other
+	case *AdverseEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEvent
+	switch other := other.(type) {
+	case AdverseEvent:
+		o = other
+	case *AdverseEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3073,6 +3105,38 @@ func (r AdverseEventSuspectEntity) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
 }
+func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEventSuspectEntity
+	switch other := other.(type) {
+	case AdverseEventSuspectEntity:
+		o = other
+	case *AdverseEventSuspectEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEventSuspectEntity
+	switch other := other.(type) {
+	case AdverseEventSuspectEntity:
+		o = other
+	case *AdverseEventSuspectEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3163,6 +3227,38 @@ func (r AdverseEventSuspectEntityCausality) ToDateTime(explicit bool) (*fhirpath
 }
 func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
+}
+func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEventSuspectEntityCausality
+	switch other := other.(type) {
+	case AdverseEventSuspectEntityCausality:
+		o = other
+	case *AdverseEventSuspectEntityCausality:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AdverseEventSuspectEntityCausality
+	switch other := other.(type) {
+	case AdverseEventSuspectEntityCausality:
+		o = other
+	case *AdverseEventSuspectEntityCausality:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

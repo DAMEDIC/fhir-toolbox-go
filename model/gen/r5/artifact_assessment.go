@@ -3022,6 +3022,38 @@ func (r ArtifactAssessment) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ArtifactAssessment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ArtifactAssessment to Quantity")
 }
+func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ArtifactAssessment
+	switch other := other.(type) {
+	case ArtifactAssessment:
+		o = other
+	case *ArtifactAssessment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ArtifactAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ArtifactAssessment
+	switch other := other.(type) {
+	case ArtifactAssessment:
+		o = other
+	case *ArtifactAssessment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ArtifactAssessment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3184,6 +3216,38 @@ func (r ArtifactAssessmentContent) ToDateTime(explicit bool) (*fhirpath.DateTime
 }
 func (r ArtifactAssessmentContent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ArtifactAssessmentContent to Quantity")
+}
+func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ArtifactAssessmentContent
+	switch other := other.(type) {
+	case ArtifactAssessmentContent:
+		o = other
+	case *ArtifactAssessmentContent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ArtifactAssessmentContent
+	switch other := other.(type) {
+	case ArtifactAssessmentContent:
+		o = other
+	case *ArtifactAssessmentContent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ArtifactAssessmentContent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

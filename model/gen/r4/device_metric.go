@@ -1885,6 +1885,38 @@ func (r DeviceMetric) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r DeviceMetric) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceMetric to Quantity")
 }
+func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceMetric
+	switch other := other.(type) {
+	case DeviceMetric:
+		o = other
+	case *DeviceMetric:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceMetric
+	switch other := other.(type) {
+	case DeviceMetric:
+		o = other
+	case *DeviceMetric:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2009,6 +2041,38 @@ func (r DeviceMetricCalibration) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r DeviceMetricCalibration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceMetricCalibration to Quantity")
+}
+func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceMetricCalibration
+	switch other := other.(type) {
+	case DeviceMetricCalibration:
+		o = other
+	case *DeviceMetricCalibration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DeviceMetricCalibration
+	switch other := other.(type) {
+	case DeviceMetricCalibration:
+		o = other
+	case *DeviceMetricCalibration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -1035,6 +1035,38 @@ func (r HumanName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r HumanName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert HumanName to Quantity")
 }
+func (r HumanName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HumanName
+	switch other := other.(type) {
+	case HumanName:
+		o = other
+	case *HumanName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r HumanName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o HumanName
+	switch other := other.(type) {
+	case HumanName:
+		o = other
+	case *HumanName:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r HumanName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

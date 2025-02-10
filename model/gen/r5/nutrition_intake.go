@@ -3956,6 +3956,38 @@ func (r NutritionIntake) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r NutritionIntake) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionIntake to Quantity")
 }
+func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntake
+	switch other := other.(type) {
+	case NutritionIntake:
+		o = other
+	case *NutritionIntake:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NutritionIntake) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntake
+	switch other := other.(type) {
+	case NutritionIntake:
+		o = other
+	case *NutritionIntake:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r NutritionIntake) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4127,6 +4159,38 @@ func (r NutritionIntakeConsumedItem) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r NutritionIntakeConsumedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionIntakeConsumedItem to Quantity")
 }
+func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakeConsumedItem
+	switch other := other.(type) {
+	case NutritionIntakeConsumedItem:
+		o = other
+	case *NutritionIntakeConsumedItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NutritionIntakeConsumedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakeConsumedItem
+	switch other := other.(type) {
+	case NutritionIntakeConsumedItem:
+		o = other
+	case *NutritionIntakeConsumedItem:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r NutritionIntakeConsumedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4219,6 +4283,38 @@ func (r NutritionIntakeIngredientLabel) ToDateTime(explicit bool) (*fhirpath.Dat
 func (r NutritionIntakeIngredientLabel) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionIntakeIngredientLabel to Quantity")
 }
+func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakeIngredientLabel
+	switch other := other.(type) {
+	case NutritionIntakeIngredientLabel:
+		o = other
+	case *NutritionIntakeIngredientLabel:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NutritionIntakeIngredientLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakeIngredientLabel
+	switch other := other.(type) {
+	case NutritionIntakeIngredientLabel:
+		o = other
+	case *NutritionIntakeIngredientLabel:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r NutritionIntakeIngredientLabel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4297,6 +4393,38 @@ func (r NutritionIntakePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime,
 }
 func (r NutritionIntakePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionIntakePerformer to Quantity")
+}
+func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakePerformer
+	switch other := other.(type) {
+	case NutritionIntakePerformer:
+		o = other
+	case *NutritionIntakePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r NutritionIntakePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o NutritionIntakePerformer
+	switch other := other.(type) {
+	case NutritionIntakePerformer:
+		o = other
+	case *NutritionIntakePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r NutritionIntakePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

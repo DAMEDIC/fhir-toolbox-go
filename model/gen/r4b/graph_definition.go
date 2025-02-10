@@ -3967,6 +3967,38 @@ func (r GraphDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r GraphDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinition to Quantity")
 }
+func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinition
+	switch other := other.(type) {
+	case GraphDefinition:
+		o = other
+	case *GraphDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinition
+	switch other := other.(type) {
+	case GraphDefinition:
+		o = other
+	case *GraphDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4122,6 +4154,38 @@ func (r GraphDefinitionLink) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r GraphDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinitionLink to Quantity")
 }
+func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLink
+	switch other := other.(type) {
+	case GraphDefinitionLink:
+		o = other
+	case *GraphDefinitionLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLink
+	switch other := other.(type) {
+	case GraphDefinitionLink:
+		o = other
+	case *GraphDefinitionLink:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4228,6 +4292,38 @@ func (r GraphDefinitionLinkTarget) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r GraphDefinitionLinkTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Quantity")
 }
+func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLinkTarget
+	switch other := other.(type) {
+	case GraphDefinitionLinkTarget:
+		o = other
+	case *GraphDefinitionLinkTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLinkTarget
+	switch other := other.(type) {
+	case GraphDefinitionLinkTarget:
+		o = other
+	case *GraphDefinitionLinkTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r GraphDefinitionLinkTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4326,6 +4422,38 @@ func (r GraphDefinitionLinkTargetCompartment) ToDateTime(explicit bool) (*fhirpa
 }
 func (r GraphDefinitionLinkTargetCompartment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Quantity")
+}
+func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLinkTargetCompartment
+	switch other := other.(type) {
+	case GraphDefinitionLinkTargetCompartment:
+		o = other
+	case *GraphDefinitionLinkTargetCompartment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o GraphDefinitionLinkTargetCompartment
+	switch other := other.(type) {
+	case GraphDefinitionLinkTargetCompartment:
+		o = other
+	case *GraphDefinitionLinkTargetCompartment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r GraphDefinitionLinkTargetCompartment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

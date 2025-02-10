@@ -587,6 +587,38 @@ func (r SimpleQuantity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r SimpleQuantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SimpleQuantity to Quantity")
 }
+func (r SimpleQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SimpleQuantity
+	switch other := other.(type) {
+	case SimpleQuantity:
+		o = other
+	case *SimpleQuantity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SimpleQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SimpleQuantity
+	switch other := other.(type) {
+	case SimpleQuantity:
+		o = other
+	case *SimpleQuantity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SimpleQuantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

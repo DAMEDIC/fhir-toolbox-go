@@ -8103,6 +8103,38 @@ func (r RequestOrchestration) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r RequestOrchestration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestration to Quantity")
 }
+func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestration
+	switch other := other.(type) {
+	case RequestOrchestration:
+		o = other
+	case *RequestOrchestration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestration
+	switch other := other.(type) {
+	case RequestOrchestration:
+		o = other
+	case *RequestOrchestration:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8372,6 +8404,38 @@ func (r RequestOrchestrationAction) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r RequestOrchestrationAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationAction to Quantity")
 }
+func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationAction
+	switch other := other.(type) {
+	case RequestOrchestrationAction:
+		o = other
+	case *RequestOrchestrationAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationAction
+	switch other := other.(type) {
+	case RequestOrchestrationAction:
+		o = other
+	case *RequestOrchestrationAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8526,6 +8590,38 @@ func (r RequestOrchestrationActionCondition) ToDateTime(explicit bool) (*fhirpat
 func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
 }
+func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionCondition
+	switch other := other.(type) {
+	case RequestOrchestrationActionCondition:
+		o = other
+	case *RequestOrchestrationActionCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionCondition
+	switch other := other.(type) {
+	case RequestOrchestrationActionCondition:
+		o = other
+	case *RequestOrchestrationActionCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8611,6 +8707,38 @@ func (r RequestOrchestrationActionInput) ToDateTime(explicit bool) (*fhirpath.Da
 }
 func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
+}
+func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionInput
+	switch other := other.(type) {
+	case RequestOrchestrationActionInput:
+		o = other
+	case *RequestOrchestrationActionInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionInput
+	switch other := other.(type) {
+	case RequestOrchestrationActionInput:
+		o = other
+	case *RequestOrchestrationActionInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8701,6 +8829,38 @@ func (r RequestOrchestrationActionOutput) ToDateTime(explicit bool) (*fhirpath.D
 func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
 }
+func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionOutput
+	switch other := other.(type) {
+	case RequestOrchestrationActionOutput:
+		o = other
+	case *RequestOrchestrationActionOutput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionOutput
+	switch other := other.(type) {
+	case RequestOrchestrationActionOutput:
+		o = other
+	case *RequestOrchestrationActionOutput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8790,6 +8950,38 @@ func (r RequestOrchestrationActionRelatedAction) ToDateTime(explicit bool) (*fhi
 }
 func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
+}
+func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionRelatedAction
+	switch other := other.(type) {
+	case RequestOrchestrationActionRelatedAction:
+		o = other
+	case *RequestOrchestrationActionRelatedAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionRelatedAction
+	switch other := other.(type) {
+	case RequestOrchestrationActionRelatedAction:
+		o = other
+	case *RequestOrchestrationActionRelatedAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8898,6 +9090,38 @@ func (r RequestOrchestrationActionParticipant) ToDateTime(explicit bool) (*fhirp
 func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
 }
+func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionParticipant
+	switch other := other.(type) {
+	case RequestOrchestrationActionParticipant:
+		o = other
+	case *RequestOrchestrationActionParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionParticipant
+	switch other := other.(type) {
+	case RequestOrchestrationActionParticipant:
+		o = other
+	case *RequestOrchestrationActionParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -8990,6 +9214,38 @@ func (r RequestOrchestrationActionDynamicValue) ToDateTime(explicit bool) (*fhir
 }
 func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
+}
+func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionDynamicValue
+	switch other := other.(type) {
+	case RequestOrchestrationActionDynamicValue:
+		o = other
+	case *RequestOrchestrationActionDynamicValue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestOrchestrationActionDynamicValue
+	switch other := other.(type) {
+	case RequestOrchestrationActionDynamicValue:
+		o = other
+	case *RequestOrchestrationActionDynamicValue:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

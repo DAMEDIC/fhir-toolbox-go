@@ -1634,6 +1634,38 @@ func (r DataRequirement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r DataRequirement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DataRequirement to Quantity")
 }
+func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirement
+	switch other := other.(type) {
+	case DataRequirement:
+		o = other
+	case *DataRequirement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirement
+	switch other := other.(type) {
+	case DataRequirement:
+		o = other
+	case *DataRequirement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1735,6 +1767,38 @@ func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DataRequirementCodeFilter to Quantity")
 }
+func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementCodeFilter
+	switch other := other.(type) {
+	case DataRequirementCodeFilter:
+		o = other
+	case *DataRequirementCodeFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementCodeFilter
+	switch other := other.(type) {
+	case DataRequirementCodeFilter:
+		o = other
+	case *DataRequirementCodeFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1819,6 +1883,38 @@ func (r DataRequirementDateFilter) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r DataRequirementDateFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DataRequirementDateFilter to Quantity")
 }
+func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementDateFilter
+	switch other := other.(type) {
+	case DataRequirementDateFilter:
+		o = other
+	case *DataRequirementDateFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementDateFilter
+	switch other := other.(type) {
+	case DataRequirementDateFilter:
+		o = other
+	case *DataRequirementDateFilter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1890,6 +1986,38 @@ func (r DataRequirementSort) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r DataRequirementSort) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DataRequirementSort to Quantity")
+}
+func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementSort
+	switch other := other.(type) {
+	case DataRequirementSort:
+		o = other
+	case *DataRequirementSort:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o DataRequirementSort
+	switch other := other.(type) {
+	case DataRequirementSort:
+		o = other
+	case *DataRequirementSort:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

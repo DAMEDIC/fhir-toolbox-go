@@ -1817,6 +1817,38 @@ func (r SubscriptionStatus) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r SubscriptionStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubscriptionStatus to Quantity")
 }
+func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionStatus
+	switch other := other.(type) {
+	case SubscriptionStatus:
+		o = other
+	case *SubscriptionStatus:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubscriptionStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionStatus
+	switch other := other.(type) {
+	case SubscriptionStatus:
+		o = other
+	case *SubscriptionStatus:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SubscriptionStatus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -1935,6 +1967,38 @@ func (r SubscriptionStatusNotificationEvent) ToDateTime(explicit bool) (*fhirpat
 }
 func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
+}
+func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionStatusNotificationEvent
+	switch other := other.(type) {
+	case SubscriptionStatusNotificationEvent:
+		o = other
+	case *SubscriptionStatusNotificationEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SubscriptionStatusNotificationEvent
+	switch other := other.(type) {
+	case SubscriptionStatusNotificationEvent:
+		o = other
+	case *SubscriptionStatusNotificationEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SubscriptionStatusNotificationEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

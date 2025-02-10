@@ -122,6 +122,72 @@ func (r Uuid) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Uuid) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Uuid to Quantity")
 }
+func (r Uuid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Uuid
+	switch other := other.(type) {
+	case Uuid:
+		o = other
+	case *Uuid:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToString(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToString(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Uuid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Uuid
+	switch other := other.(type) {
+	case Uuid:
+		o = other
+	case *Uuid:
+		o = *other
+	default:
+		return false
+	}
+	a, err := r.ToString(false)
+	if err != nil {
+		return false
+	}
+	b, err := o.ToString(false)
+	if err != nil {
+		return false
+	}
+	if a == nil && b != nil {
+		return false
+	}
+	if a != nil && b == nil {
+		return false
+	}
+	if a != nil && b != nil && *a != *b {
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Uuid) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

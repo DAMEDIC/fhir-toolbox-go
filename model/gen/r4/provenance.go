@@ -2645,6 +2645,38 @@ func (r Provenance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Provenance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Provenance to Quantity")
 }
+func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Provenance
+	switch other := other.(type) {
+	case Provenance:
+		o = other
+	case *Provenance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Provenance
+	switch other := other.(type) {
+	case Provenance:
+		o = other
+	case *Provenance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Provenance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2773,6 +2805,38 @@ func (r ProvenanceAgent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ProvenanceAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProvenanceAgent to Quantity")
 }
+func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProvenanceAgent
+	switch other := other.(type) {
+	case ProvenanceAgent:
+		o = other
+	case *ProvenanceAgent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProvenanceAgent
+	switch other := other.(type) {
+	case ProvenanceAgent:
+		o = other
+	case *ProvenanceAgent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ProvenanceAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2860,6 +2924,38 @@ func (r ProvenanceEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 }
 func (r ProvenanceEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProvenanceEntity to Quantity")
+}
+func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProvenanceEntity
+	switch other := other.(type) {
+	case ProvenanceEntity:
+		o = other
+	case *ProvenanceEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProvenanceEntity
+	switch other := other.(type) {
+	case ProvenanceEntity:
+		o = other
+	case *ProvenanceEntity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ProvenanceEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

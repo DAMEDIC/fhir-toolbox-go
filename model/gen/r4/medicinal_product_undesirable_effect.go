@@ -1054,6 +1054,38 @@ func (r MedicinalProductUndesirableEffect) ToDateTime(explicit bool) (*fhirpath.
 func (r MedicinalProductUndesirableEffect) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Quantity")
 }
+func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductUndesirableEffect
+	switch other := other.(type) {
+	case MedicinalProductUndesirableEffect:
+		o = other
+	case *MedicinalProductUndesirableEffect:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicinalProductUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicinalProductUndesirableEffect
+	switch other := other.(type) {
+	case MedicinalProductUndesirableEffect:
+		o = other
+	case *MedicinalProductUndesirableEffect:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicinalProductUndesirableEffect) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

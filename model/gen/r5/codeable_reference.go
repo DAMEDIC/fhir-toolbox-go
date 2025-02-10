@@ -363,6 +363,38 @@ func (r CodeableReference) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 func (r CodeableReference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeableReference to Quantity")
 }
+func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeableReference
+	switch other := other.(type) {
+	case CodeableReference:
+		o = other
+	case *CodeableReference:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CodeableReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CodeableReference
+	switch other := other.(type) {
+	case CodeableReference:
+		o = other
+	case *CodeableReference:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CodeableReference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

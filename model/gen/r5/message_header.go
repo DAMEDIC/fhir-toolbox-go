@@ -3313,6 +3313,38 @@ func (r MessageHeader) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r MessageHeader) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MessageHeader to Quantity")
 }
+func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeader
+	switch other := other.(type) {
+	case MessageHeader:
+		o = other
+	case *MessageHeader:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MessageHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeader
+	switch other := other.(type) {
+	case MessageHeader:
+		o = other
+	case *MessageHeader:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MessageHeader) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3443,6 +3475,38 @@ func (r MessageHeaderDestination) ToDateTime(explicit bool) (*fhirpath.DateTime,
 func (r MessageHeaderDestination) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MessageHeaderDestination to Quantity")
 }
+func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderDestination
+	switch other := other.(type) {
+	case MessageHeaderDestination:
+		o = other
+	case *MessageHeaderDestination:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MessageHeaderDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderDestination
+	switch other := other.(type) {
+	case MessageHeaderDestination:
+		o = other
+	case *MessageHeaderDestination:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MessageHeaderDestination) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3545,6 +3609,38 @@ func (r MessageHeaderSource) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r MessageHeaderSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MessageHeaderSource to Quantity")
 }
+func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderSource
+	switch other := other.(type) {
+	case MessageHeaderSource:
+		o = other
+	case *MessageHeaderSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MessageHeaderSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderSource
+	switch other := other.(type) {
+	case MessageHeaderSource:
+		o = other
+	case *MessageHeaderSource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MessageHeaderSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3635,6 +3731,38 @@ func (r MessageHeaderResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, er
 }
 func (r MessageHeaderResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MessageHeaderResponse to Quantity")
+}
+func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderResponse
+	switch other := other.(type) {
+	case MessageHeaderResponse:
+		o = other
+	case *MessageHeaderResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MessageHeaderResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MessageHeaderResponse
+	switch other := other.(type) {
+	case MessageHeaderResponse:
+		o = other
+	case *MessageHeaderResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MessageHeaderResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2090,6 +2090,38 @@ func (r Organization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Organization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Organization to Quantity")
 }
+func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Organization
+	switch other := other.(type) {
+	case Organization:
+		o = other
+	case *Organization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Organization
+	switch other := other.(type) {
+	case Organization:
+		o = other
+	case *Organization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Organization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2217,6 +2249,38 @@ func (r OrganizationQualification) ToDateTime(explicit bool) (*fhirpath.DateTime
 }
 func (r OrganizationQualification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OrganizationQualification to Quantity")
+}
+func (r OrganizationQualification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationQualification
+	switch other := other.(type) {
+	case OrganizationQualification:
+		o = other
+	case *OrganizationQualification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OrganizationQualification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationQualification
+	switch other := other.(type) {
+	case OrganizationQualification:
+		o = other
+	case *OrganizationQualification:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r OrganizationQualification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -11919,6 +11919,38 @@ func (r CapabilityStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r CapabilityStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatement to Quantity")
 }
+func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatement
+	switch other := other.(type) {
+	case CapabilityStatement:
+		o = other
+	case *CapabilityStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatement
+	switch other := other.(type) {
+	case CapabilityStatement:
+		o = other
+	case *CapabilityStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12102,6 +12134,38 @@ func (r CapabilityStatementSoftware) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementSoftware to Quantity")
 }
+func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementSoftware
+	switch other := other.(type) {
+	case CapabilityStatementSoftware:
+		o = other
+	case *CapabilityStatementSoftware:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementSoftware
+	switch other := other.(type) {
+	case CapabilityStatementSoftware:
+		o = other
+	case *CapabilityStatementSoftware:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12188,6 +12252,38 @@ func (r CapabilityStatementImplementation) ToDateTime(explicit bool) (*fhirpath.
 }
 func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementImplementation to Quantity")
+}
+func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementImplementation
+	switch other := other.(type) {
+	case CapabilityStatementImplementation:
+		o = other
+	case *CapabilityStatementImplementation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementImplementation
+	switch other := other.(type) {
+	case CapabilityStatementImplementation:
+		o = other
+	case *CapabilityStatementImplementation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12301,6 +12397,38 @@ func (r CapabilityStatementRest) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r CapabilityStatementRest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRest to Quantity")
 }
+func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRest
+	switch other := other.(type) {
+	case CapabilityStatementRest:
+		o = other
+	case *CapabilityStatementRest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRest
+	switch other := other.(type) {
+	case CapabilityStatementRest:
+		o = other
+	case *CapabilityStatementRest:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12404,6 +12532,38 @@ func (r CapabilityStatementRestSecurity) ToDateTime(explicit bool) (*fhirpath.Da
 }
 func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
+}
+func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestSecurity
+	switch other := other.(type) {
+	case CapabilityStatementRestSecurity:
+		o = other
+	case *CapabilityStatementRestSecurity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestSecurity
+	switch other := other.(type) {
+	case CapabilityStatementRestSecurity:
+		o = other
+	case *CapabilityStatementRestSecurity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12567,6 +12727,38 @@ func (r CapabilityStatementRestResource) ToDateTime(explicit bool) (*fhirpath.Da
 func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestResource to Quantity")
 }
+func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResource
+	switch other := other.(type) {
+	case CapabilityStatementRestResource:
+		o = other
+	case *CapabilityStatementRestResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResource
+	switch other := other.(type) {
+	case CapabilityStatementRestResource:
+		o = other
+	case *CapabilityStatementRestResource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12694,6 +12886,38 @@ func (r CapabilityStatementRestResourceInteraction) ToDateTime(explicit bool) (*
 func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
 }
+func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceInteraction
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceInteraction:
+		o = other
+	case *CapabilityStatementRestResourceInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceInteraction
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceInteraction:
+		o = other
+	case *CapabilityStatementRestResourceInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12780,6 +13004,38 @@ func (r CapabilityStatementRestResourceSearchParam) ToDateTime(explicit bool) (*
 }
 func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
+}
+func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceSearchParam
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceSearchParam:
+		o = other
+	case *CapabilityStatementRestResourceSearchParam:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceSearchParam
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceSearchParam:
+		o = other
+	case *CapabilityStatementRestResourceSearchParam:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12869,6 +13125,38 @@ func (r CapabilityStatementRestResourceOperation) ToDateTime(explicit bool) (*fh
 func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
 }
+func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceOperation
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceOperation:
+		o = other
+	case *CapabilityStatementRestResourceOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestResourceOperation
+	switch other := other.(type) {
+	case CapabilityStatementRestResourceOperation:
+		o = other
+	case *CapabilityStatementRestResourceOperation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -12950,6 +13238,38 @@ func (r CapabilityStatementRestInteraction) ToDateTime(explicit bool) (*fhirpath
 }
 func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
+}
+func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestInteraction
+	switch other := other.(type) {
+	case CapabilityStatementRestInteraction:
+		o = other
+	case *CapabilityStatementRestInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementRestInteraction
+	switch other := other.(type) {
+	case CapabilityStatementRestInteraction:
+		o = other
+	case *CapabilityStatementRestInteraction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13042,6 +13362,38 @@ func (r CapabilityStatementMessaging) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementMessaging to Quantity")
 }
+func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessaging
+	switch other := other.(type) {
+	case CapabilityStatementMessaging:
+		o = other
+	case *CapabilityStatementMessaging:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessaging
+	switch other := other.(type) {
+	case CapabilityStatementMessaging:
+		o = other
+	case *CapabilityStatementMessaging:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13125,6 +13477,38 @@ func (r CapabilityStatementMessagingEndpoint) ToDateTime(explicit bool) (*fhirpa
 func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
 }
+func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessagingEndpoint
+	switch other := other.(type) {
+	case CapabilityStatementMessagingEndpoint:
+		o = other
+	case *CapabilityStatementMessagingEndpoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessagingEndpoint
+	switch other := other.(type) {
+	case CapabilityStatementMessagingEndpoint:
+		o = other
+	case *CapabilityStatementMessagingEndpoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13201,6 +13585,38 @@ func (r CapabilityStatementMessagingSupportedMessage) ToDateTime(explicit bool) 
 }
 func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
+}
+func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessagingSupportedMessage
+	switch other := other.(type) {
+	case CapabilityStatementMessagingSupportedMessage:
+		o = other
+	case *CapabilityStatementMessagingSupportedMessage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementMessagingSupportedMessage
+	switch other := other.(type) {
+	case CapabilityStatementMessagingSupportedMessage:
+		o = other
+	case *CapabilityStatementMessagingSupportedMessage:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13283,6 +13699,38 @@ func (r CapabilityStatementDocument) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r CapabilityStatementDocument) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CapabilityStatementDocument to Quantity")
+}
+func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementDocument
+	switch other := other.(type) {
+	case CapabilityStatementDocument:
+		o = other
+	case *CapabilityStatementDocument:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CapabilityStatementDocument
+	switch other := other.(type) {
+	case CapabilityStatementDocument:
+		o = other
+	case *CapabilityStatementDocument:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

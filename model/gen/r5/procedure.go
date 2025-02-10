@@ -4238,6 +4238,38 @@ func (r Procedure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Procedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Procedure to Quantity")
 }
+func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Procedure
+	switch other := other.(type) {
+	case Procedure:
+		o = other
+	case *Procedure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Procedure
+	switch other := other.(type) {
+	case Procedure:
+		o = other
+	case *Procedure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Procedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4420,6 +4452,38 @@ func (r ProcedurePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ProcedurePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProcedurePerformer to Quantity")
 }
+func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProcedurePerformer
+	switch other := other.(type) {
+	case ProcedurePerformer:
+		o = other
+	case *ProcedurePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProcedurePerformer
+	switch other := other.(type) {
+	case ProcedurePerformer:
+		o = other
+	case *ProcedurePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4504,6 +4568,38 @@ func (r ProcedureFocalDevice) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 }
 func (r ProcedureFocalDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProcedureFocalDevice to Quantity")
+}
+func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProcedureFocalDevice
+	switch other := other.(type) {
+	case ProcedureFocalDevice:
+		o = other
+	case *ProcedureFocalDevice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProcedureFocalDevice
+	switch other := other.(type) {
+	case ProcedureFocalDevice:
+		o = other
+	case *ProcedureFocalDevice:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

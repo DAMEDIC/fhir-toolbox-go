@@ -3655,6 +3655,38 @@ func (r VerificationResult) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r VerificationResult) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert VerificationResult to Quantity")
 }
+func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResult
+	switch other := other.(type) {
+	case VerificationResult:
+		o = other
+	case *VerificationResult:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResult
+	switch other := other.(type) {
+	case VerificationResult:
+		o = other
+	case *VerificationResult:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3812,6 +3844,38 @@ func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (*fhirpath.Da
 func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert VerificationResultPrimarySource to Quantity")
 }
+func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultPrimarySource
+	switch other := other.(type) {
+	case VerificationResultPrimarySource:
+		o = other
+	case *VerificationResultPrimarySource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultPrimarySource
+	switch other := other.(type) {
+	case VerificationResultPrimarySource:
+		o = other
+	case *VerificationResultPrimarySource:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3938,6 +4002,38 @@ func (r VerificationResultAttestation) ToDateTime(explicit bool) (*fhirpath.Date
 func (r VerificationResultAttestation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert VerificationResultAttestation to Quantity")
 }
+func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultAttestation
+	switch other := other.(type) {
+	case VerificationResultAttestation:
+		o = other
+	case *VerificationResultAttestation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultAttestation
+	switch other := other.(type) {
+	case VerificationResultAttestation:
+		o = other
+	case *VerificationResultAttestation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4039,6 +4135,38 @@ func (r VerificationResultValidator) ToDateTime(explicit bool) (*fhirpath.DateTi
 }
 func (r VerificationResultValidator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert VerificationResultValidator to Quantity")
+}
+func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultValidator
+	switch other := other.(type) {
+	case VerificationResultValidator:
+		o = other
+	case *VerificationResultValidator:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o VerificationResultValidator
+	switch other := other.(type) {
+	case VerificationResultValidator:
+		o = other
+	case *VerificationResultValidator:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

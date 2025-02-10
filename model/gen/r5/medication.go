@@ -2313,6 +2313,38 @@ func (r Medication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Medication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Medication to Quantity")
 }
+func (r Medication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Medication
+	switch other := other.(type) {
+	case Medication:
+		o = other
+	case *Medication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Medication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Medication
+	switch other := other.(type) {
+	case Medication:
+		o = other
+	case *Medication:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Medication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2433,6 +2465,38 @@ func (r MedicationIngredient) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r MedicationIngredient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicationIngredient to Quantity")
 }
+func (r MedicationIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationIngredient
+	switch other := other.(type) {
+	case MedicationIngredient:
+		o = other
+	case *MedicationIngredient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicationIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationIngredient
+	switch other := other.(type) {
+	case MedicationIngredient:
+		o = other
+	case *MedicationIngredient:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicationIngredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2516,6 +2580,38 @@ func (r MedicationBatch) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r MedicationBatch) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicationBatch to Quantity")
+}
+func (r MedicationBatch) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationBatch
+	switch other := other.(type) {
+	case MedicationBatch:
+		o = other
+	case *MedicationBatch:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicationBatch) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationBatch
+	switch other := other.(type) {
+	case MedicationBatch:
+		o = other
+	case *MedicationBatch:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MedicationBatch) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

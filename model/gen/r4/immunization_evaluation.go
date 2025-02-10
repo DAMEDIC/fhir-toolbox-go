@@ -1964,6 +1964,38 @@ func (r ImmunizationEvaluation) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r ImmunizationEvaluation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImmunizationEvaluation to Quantity")
 }
+func (r ImmunizationEvaluation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImmunizationEvaluation
+	switch other := other.(type) {
+	case ImmunizationEvaluation:
+		o = other
+	case *ImmunizationEvaluation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImmunizationEvaluation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImmunizationEvaluation
+	switch other := other.(type) {
+	case ImmunizationEvaluation:
+		o = other
+	case *ImmunizationEvaluation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImmunizationEvaluation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

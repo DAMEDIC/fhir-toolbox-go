@@ -741,6 +741,38 @@ func (r ProdCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r ProdCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProdCharacteristic to Quantity")
 }
+func (r ProdCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProdCharacteristic
+	switch other := other.(type) {
+	case ProdCharacteristic:
+		o = other
+	case *ProdCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ProdCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ProdCharacteristic
+	switch other := other.(type) {
+	case ProdCharacteristic:
+		o = other
+	case *ProdCharacteristic:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ProdCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

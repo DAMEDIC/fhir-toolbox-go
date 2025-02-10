@@ -759,6 +759,38 @@ func (r Signature) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Signature) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Signature to Quantity")
 }
+func (r Signature) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Signature
+	switch other := other.(type) {
+	case Signature:
+		o = other
+	case *Signature:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Signature) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Signature
+	switch other := other.(type) {
+	case Signature:
+		o = other
+	case *Signature:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Signature) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

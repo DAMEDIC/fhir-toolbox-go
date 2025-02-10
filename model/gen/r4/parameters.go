@@ -5247,6 +5247,38 @@ func (r Parameters) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Parameters) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Parameters to Quantity")
 }
+func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Parameters
+	switch other := other.(type) {
+	case Parameters:
+		o = other
+	case *Parameters:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Parameters) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Parameters
+	switch other := other.(type) {
+	case Parameters:
+		o = other
+	case *Parameters:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Parameters) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5335,6 +5367,38 @@ func (r ParametersParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r ParametersParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ParametersParameter to Quantity")
+}
+func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ParametersParameter
+	switch other := other.(type) {
+	case ParametersParameter:
+		o = other
+	case *ParametersParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ParametersParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ParametersParameter
+	switch other := other.(type) {
+	case ParametersParameter:
+		o = other
+	case *ParametersParameter:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ParametersParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

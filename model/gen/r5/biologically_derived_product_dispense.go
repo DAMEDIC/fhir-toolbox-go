@@ -2142,6 +2142,38 @@ func (r BiologicallyDerivedProductDispense) ToDateTime(explicit bool) (*fhirpath
 func (r BiologicallyDerivedProductDispense) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Quantity")
 }
+func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BiologicallyDerivedProductDispense
+	switch other := other.(type) {
+	case BiologicallyDerivedProductDispense:
+		o = other
+	case *BiologicallyDerivedProductDispense:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BiologicallyDerivedProductDispense
+	switch other := other.(type) {
+	case BiologicallyDerivedProductDispense:
+		o = other
+	case *BiologicallyDerivedProductDispense:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r BiologicallyDerivedProductDispense) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2277,6 +2309,38 @@ func (r BiologicallyDerivedProductDispensePerformer) ToDateTime(explicit bool) (
 }
 func (r BiologicallyDerivedProductDispensePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Quantity")
+}
+func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BiologicallyDerivedProductDispensePerformer
+	switch other := other.(type) {
+	case BiologicallyDerivedProductDispensePerformer:
+		o = other
+	case *BiologicallyDerivedProductDispensePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BiologicallyDerivedProductDispensePerformer
+	switch other := other.(type) {
+	case BiologicallyDerivedProductDispensePerformer:
+		o = other
+	case *BiologicallyDerivedProductDispensePerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r BiologicallyDerivedProductDispensePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2303,6 +2303,38 @@ func (r Media) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Media) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Media to Quantity")
 }
+func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Media
+	switch other := other.(type) {
+	case Media:
+		o = other
+	case *Media:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Media) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Media
+	switch other := other.(type) {
+	case Media:
+		o = other
+	case *Media:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Media) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

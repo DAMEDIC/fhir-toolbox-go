@@ -3869,6 +3869,38 @@ func (r Specimen) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Specimen) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Specimen to Quantity")
 }
+func (r Specimen) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Specimen
+	switch other := other.(type) {
+	case Specimen:
+		o = other
+	case *Specimen:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Specimen) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Specimen
+	switch other := other.(type) {
+	case Specimen:
+		o = other
+	case *Specimen:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Specimen) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4023,6 +4055,38 @@ func (r SpecimenCollection) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r SpecimenCollection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SpecimenCollection to Quantity")
 }
+func (r SpecimenCollection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenCollection
+	switch other := other.(type) {
+	case SpecimenCollection:
+		o = other
+	case *SpecimenCollection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SpecimenCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenCollection
+	switch other := other.(type) {
+	case SpecimenCollection:
+		o = other
+	case *SpecimenCollection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4128,6 +4192,38 @@ func (r SpecimenProcessing) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 }
 func (r SpecimenProcessing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SpecimenProcessing to Quantity")
+}
+func (r SpecimenProcessing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenProcessing
+	switch other := other.(type) {
+	case SpecimenProcessing:
+		o = other
+	case *SpecimenProcessing:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SpecimenProcessing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenProcessing
+	switch other := other.(type) {
+	case SpecimenProcessing:
+		o = other
+	case *SpecimenProcessing:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4235,6 +4331,38 @@ func (r SpecimenContainer) ToDateTime(explicit bool) (*fhirpath.DateTime, error)
 }
 func (r SpecimenContainer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SpecimenContainer to Quantity")
+}
+func (r SpecimenContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenContainer
+	switch other := other.(type) {
+	case SpecimenContainer:
+		o = other
+	case *SpecimenContainer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r SpecimenContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o SpecimenContainer
+	switch other := other.(type) {
+	case SpecimenContainer:
+		o = other
+	case *SpecimenContainer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2966,6 +2966,38 @@ func (r BodyStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r BodyStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructure to Quantity")
 }
+func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructure
+	switch other := other.(type) {
+	case BodyStructure:
+		o = other
+	case *BodyStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructure
+	switch other := other.(type) {
+	case BodyStructure:
+		o = other
+	case *BodyStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3093,6 +3125,38 @@ func (r BodyStructureIncludedStructure) ToDateTime(explicit bool) (*fhirpath.Dat
 func (r BodyStructureIncludedStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructureIncludedStructure to Quantity")
 }
+func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructure
+	switch other := other.(type) {
+	case BodyStructureIncludedStructure:
+		o = other
+	case *BodyStructureIncludedStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructure
+	switch other := other.(type) {
+	case BodyStructureIncludedStructure:
+		o = other
+	case *BodyStructureIncludedStructure:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3193,6 +3257,38 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDateTime(explic
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Quantity")
 }
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructureBodyLandmarkOrientation
+	switch other := other.(type) {
+	case BodyStructureIncludedStructureBodyLandmarkOrientation:
+		o = other
+	case *BodyStructureIncludedStructureBodyLandmarkOrientation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructureBodyLandmarkOrientation
+	switch other := other.(type) {
+	case BodyStructureIncludedStructureBodyLandmarkOrientation:
+		o = other
+	case *BodyStructureIncludedStructureBodyLandmarkOrientation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3279,6 +3375,38 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Quantity")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
+	switch other := other.(type) {
+	case BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
+		o = other
+	case *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
+	switch other := other.(type) {
+	case BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
+		o = other
+	case *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

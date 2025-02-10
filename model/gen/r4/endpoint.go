@@ -1665,6 +1665,38 @@ func (r Endpoint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Endpoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Endpoint to Quantity")
 }
+func (r Endpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Endpoint
+	switch other := other.(type) {
+	case Endpoint:
+		o = other
+	case *Endpoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Endpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Endpoint
+	switch other := other.(type) {
+	case Endpoint:
+		o = other
+	case *Endpoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Endpoint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

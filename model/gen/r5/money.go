@@ -429,6 +429,38 @@ func (r Money) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Money) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Money to Quantity")
 }
+func (r Money) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Money
+	switch other := other.(type) {
+	case Money:
+		o = other
+	case *Money:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Money) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Money
+	switch other := other.(type) {
+	case Money:
+		o = other
+	case *Money:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Money) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

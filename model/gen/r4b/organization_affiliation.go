@@ -1615,6 +1615,38 @@ func (r OrganizationAffiliation) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 func (r OrganizationAffiliation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert OrganizationAffiliation to Quantity")
 }
+func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationAffiliation
+	switch other := other.(type) {
+	case OrganizationAffiliation:
+		o = other
+	case *OrganizationAffiliation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r OrganizationAffiliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o OrganizationAffiliation
+	switch other := other.(type) {
+	case OrganizationAffiliation:
+		o = other
+	case *OrganizationAffiliation:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

@@ -1290,6 +1290,38 @@ func (r EnrollmentResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r EnrollmentResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EnrollmentResponse to Quantity")
 }
+func (r EnrollmentResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EnrollmentResponse
+	switch other := other.(type) {
+	case EnrollmentResponse:
+		o = other
+	case *EnrollmentResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EnrollmentResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EnrollmentResponse
+	switch other := other.(type) {
+	case EnrollmentResponse:
+		o = other
+	case *EnrollmentResponse:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EnrollmentResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

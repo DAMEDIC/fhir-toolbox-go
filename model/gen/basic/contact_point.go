@@ -408,6 +408,38 @@ func (r ContactPoint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ContactPoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContactPoint to Quantity")
 }
+func (r ContactPoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ContactPoint
+	switch other := other.(type) {
+	case ContactPoint:
+		o = other
+	case *ContactPoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ContactPoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ContactPoint
+	switch other := other.(type) {
+	case ContactPoint:
+		o = other
+	case *ContactPoint:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ContactPoint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

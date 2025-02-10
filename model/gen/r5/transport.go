@@ -12992,6 +12992,38 @@ func (r Transport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Transport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Transport to Quantity")
 }
+func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Transport
+	switch other := other.(type) {
+	case Transport:
+		o = other
+	case *Transport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Transport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Transport
+	switch other := other.(type) {
+	case Transport:
+		o = other
+	case *Transport:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Transport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13183,6 +13215,38 @@ func (r TransportRestriction) ToDateTime(explicit bool) (*fhirpath.DateTime, err
 func (r TransportRestriction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TransportRestriction to Quantity")
 }
+func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportRestriction
+	switch other := other.(type) {
+	case TransportRestriction:
+		o = other
+	case *TransportRestriction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TransportRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportRestriction
+	switch other := other.(type) {
+	case TransportRestriction:
+		o = other
+	case *TransportRestriction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TransportRestriction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13263,6 +13327,38 @@ func (r TransportInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r TransportInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TransportInput to Quantity")
 }
+func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportInput
+	switch other := other.(type) {
+	case TransportInput:
+		o = other
+	case *TransportInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TransportInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportInput
+	switch other := other.(type) {
+	case TransportInput:
+		o = other
+	case *TransportInput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r TransportInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -13339,6 +13435,38 @@ func (r TransportOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 }
 func (r TransportOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TransportOutput to Quantity")
+}
+func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportOutput
+	switch other := other.(type) {
+	case TransportOutput:
+		o = other
+	case *TransportOutput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r TransportOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o TransportOutput
+	switch other := other.(type) {
+	case TransportOutput:
+		o = other
+	case *TransportOutput:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r TransportOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

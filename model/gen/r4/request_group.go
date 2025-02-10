@@ -5127,6 +5127,38 @@ func (r RequestGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r RequestGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestGroup to Quantity")
 }
+func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroup
+	switch other := other.(type) {
+	case RequestGroup:
+		o = other
+	case *RequestGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroup
+	switch other := other.(type) {
+	case RequestGroup:
+		o = other
+	case *RequestGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5356,6 +5388,38 @@ func (r RequestGroupAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 func (r RequestGroupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestGroupAction to Quantity")
 }
+func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupAction
+	switch other := other.(type) {
+	case RequestGroupAction:
+		o = other
+	case *RequestGroupAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupAction
+	switch other := other.(type) {
+	case RequestGroupAction:
+		o = other
+	case *RequestGroupAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestGroupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5486,6 +5550,38 @@ func (r RequestGroupActionCondition) ToDateTime(explicit bool) (*fhirpath.DateTi
 func (r RequestGroupActionCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestGroupActionCondition to Quantity")
 }
+func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupActionCondition
+	switch other := other.(type) {
+	case RequestGroupActionCondition:
+		o = other
+	case *RequestGroupActionCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupActionCondition
+	switch other := other.(type) {
+	case RequestGroupActionCondition:
+		o = other
+	case *RequestGroupActionCondition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RequestGroupActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5567,6 +5663,38 @@ func (r RequestGroupActionRelatedAction) ToDateTime(explicit bool) (*fhirpath.Da
 }
 func (r RequestGroupActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Quantity")
+}
+func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupActionRelatedAction
+	switch other := other.(type) {
+	case RequestGroupActionRelatedAction:
+		o = other
+	case *RequestGroupActionRelatedAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RequestGroupActionRelatedAction
+	switch other := other.(type) {
+	case RequestGroupActionRelatedAction:
+		o = other
+	case *RequestGroupActionRelatedAction:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RequestGroupActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

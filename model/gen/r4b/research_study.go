@@ -3346,6 +3346,38 @@ func (r ResearchStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ResearchStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchStudy to Quantity")
 }
+func (r ResearchStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudy
+	switch other := other.(type) {
+	case ResearchStudy:
+		o = other
+	case *ResearchStudy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudy
+	switch other := other.(type) {
+	case ResearchStudy:
+		o = other
+	case *ResearchStudy:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ResearchStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3511,6 +3543,38 @@ func (r ResearchStudyArm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r ResearchStudyArm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchStudyArm to Quantity")
 }
+func (r ResearchStudyArm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudyArm
+	switch other := other.(type) {
+	case ResearchStudyArm:
+		o = other
+	case *ResearchStudyArm:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchStudyArm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudyArm
+	switch other := other.(type) {
+	case ResearchStudyArm:
+		o = other
+	case *ResearchStudyArm:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ResearchStudyArm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3594,6 +3658,38 @@ func (r ResearchStudyObjective) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r ResearchStudyObjective) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchStudyObjective to Quantity")
+}
+func (r ResearchStudyObjective) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudyObjective
+	switch other := other.(type) {
+	case ResearchStudyObjective:
+		o = other
+	case *ResearchStudyObjective:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ResearchStudyObjective) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ResearchStudyObjective
+	switch other := other.(type) {
+	case ResearchStudyObjective:
+		o = other
+	case *ResearchStudyObjective:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ResearchStudyObjective) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -5652,6 +5652,38 @@ func (r ConceptMap) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ConceptMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMap to Quantity")
 }
+func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMap
+	switch other := other.(type) {
+	case ConceptMap:
+		o = other
+	case *ConceptMap:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMap
+	switch other := other.(type) {
+	case ConceptMap:
+		o = other
+	case *ConceptMap:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5816,6 +5848,38 @@ func (r ConceptMapGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r ConceptMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroup to Quantity")
 }
+func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroup
+	switch other := other.(type) {
+	case ConceptMapGroup:
+		o = other
+	case *ConceptMapGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroup
+	switch other := other.(type) {
+	case ConceptMapGroup:
+		o = other
+	case *ConceptMapGroup:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -5913,6 +5977,38 @@ func (r ConceptMapGroupElement) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r ConceptMapGroupElement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroupElement to Quantity")
+}
+func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElement
+	switch other := other.(type) {
+	case ConceptMapGroupElement:
+		o = other
+	case *ConceptMapGroupElement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElement
+	switch other := other.(type) {
+	case ConceptMapGroupElement:
+		o = other
+	case *ConceptMapGroupElement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6016,6 +6112,38 @@ func (r ConceptMapGroupElementTarget) ToDateTime(explicit bool) (*fhirpath.DateT
 func (r ConceptMapGroupElementTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Quantity")
 }
+func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElementTarget
+	switch other := other.(type) {
+	case ConceptMapGroupElementTarget:
+		o = other
+	case *ConceptMapGroupElementTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElementTarget
+	switch other := other.(type) {
+	case ConceptMapGroupElementTarget:
+		o = other
+	case *ConceptMapGroupElementTarget:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6115,6 +6243,38 @@ func (r ConceptMapGroupElementTargetDependsOn) ToDateTime(explicit bool) (*fhirp
 func (r ConceptMapGroupElementTargetDependsOn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Quantity")
 }
+func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElementTargetDependsOn
+	switch other := other.(type) {
+	case ConceptMapGroupElementTargetDependsOn:
+		o = other
+	case *ConceptMapGroupElementTargetDependsOn:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupElementTargetDependsOn
+	switch other := other.(type) {
+	case ConceptMapGroupElementTargetDependsOn:
+		o = other
+	case *ConceptMapGroupElementTargetDependsOn:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -6209,6 +6369,38 @@ func (r ConceptMapGroupUnmapped) ToDateTime(explicit bool) (*fhirpath.DateTime, 
 }
 func (r ConceptMapGroupUnmapped) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Quantity")
+}
+func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupUnmapped
+	switch other := other.(type) {
+	case ConceptMapGroupUnmapped:
+		o = other
+	case *ConceptMapGroupUnmapped:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ConceptMapGroupUnmapped
+	switch other := other.(type) {
+	case ConceptMapGroupUnmapped:
+		o = other
+	case *ConceptMapGroupUnmapped:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

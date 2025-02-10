@@ -3025,6 +3025,38 @@ func (r Appointment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Appointment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Appointment to Quantity")
 }
+func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Appointment
+	switch other := other.(type) {
+	case Appointment:
+		o = other
+	case *Appointment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Appointment
+	switch other := other.(type) {
+	case Appointment:
+		o = other
+	case *Appointment:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Appointment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3193,6 +3225,38 @@ func (r AppointmentParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r AppointmentParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AppointmentParticipant to Quantity")
+}
+func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AppointmentParticipant
+	switch other := other.(type) {
+	case AppointmentParticipant:
+		o = other
+	case *AppointmentParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o AppointmentParticipant
+	switch other := other.(type) {
+	case AppointmentParticipant:
+		o = other
+	case *AppointmentParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

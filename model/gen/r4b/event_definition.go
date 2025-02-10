@@ -2995,6 +2995,38 @@ func (r EventDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r EventDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EventDefinition to Quantity")
 }
+func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EventDefinition
+	switch other := other.(type) {
+	case EventDefinition:
+		o = other
+	case *EventDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EventDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EventDefinition
+	switch other := other.(type) {
+	case EventDefinition:
+		o = other
+	case *EventDefinition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EventDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

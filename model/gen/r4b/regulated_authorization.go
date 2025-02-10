@@ -2287,6 +2287,38 @@ func (r RegulatedAuthorization) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 func (r RegulatedAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RegulatedAuthorization to Quantity")
 }
+func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RegulatedAuthorization
+	switch other := other.(type) {
+	case RegulatedAuthorization:
+		o = other
+	case *RegulatedAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RegulatedAuthorization
+	switch other := other.(type) {
+	case RegulatedAuthorization:
+		o = other
+	case *RegulatedAuthorization:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2433,6 +2465,38 @@ func (r RegulatedAuthorizationCase) ToDateTime(explicit bool) (*fhirpath.DateTim
 }
 func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
+}
+func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RegulatedAuthorizationCase
+	switch other := other.(type) {
+	case RegulatedAuthorizationCase:
+		o = other
+	case *RegulatedAuthorizationCase:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o RegulatedAuthorizationCase
+	switch other := other.(type) {
+	case RegulatedAuthorizationCase:
+		o = other
+	case *RegulatedAuthorizationCase:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

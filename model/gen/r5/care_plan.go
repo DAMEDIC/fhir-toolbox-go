@@ -3076,6 +3076,38 @@ func (r CarePlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r CarePlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CarePlan to Quantity")
 }
+func (r CarePlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CarePlan
+	switch other := other.(type) {
+	case CarePlan:
+		o = other
+	case *CarePlan:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CarePlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CarePlan
+	switch other := other.(type) {
+	case CarePlan:
+		o = other
+	case *CarePlan:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CarePlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3239,6 +3271,38 @@ func (r CarePlanActivity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 }
 func (r CarePlanActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CarePlanActivity to Quantity")
+}
+func (r CarePlanActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CarePlanActivity
+	switch other := other.(type) {
+	case CarePlanActivity:
+		o = other
+	case *CarePlanActivity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CarePlanActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CarePlanActivity
+	switch other := other.(type) {
+	case CarePlanActivity:
+		o = other
+	case *CarePlanActivity:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CarePlanActivity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

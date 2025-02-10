@@ -2868,6 +2868,38 @@ func (r EpisodeOfCare) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r EpisodeOfCare) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EpisodeOfCare to Quantity")
 }
+func (r EpisodeOfCare) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCare
+	switch other := other.(type) {
+	case EpisodeOfCare:
+		o = other
+	case *EpisodeOfCare:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EpisodeOfCare) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCare
+	switch other := other.(type) {
+	case EpisodeOfCare:
+		o = other
+	case *EpisodeOfCare:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EpisodeOfCare) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2993,6 +3025,38 @@ func (r EpisodeOfCareStatusHistory) ToDateTime(explicit bool) (*fhirpath.DateTim
 func (r EpisodeOfCareStatusHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EpisodeOfCareStatusHistory to Quantity")
 }
+func (r EpisodeOfCareStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareStatusHistory
+	switch other := other.(type) {
+	case EpisodeOfCareStatusHistory:
+		o = other
+	case *EpisodeOfCareStatusHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EpisodeOfCareStatusHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareStatusHistory
+	switch other := other.(type) {
+	case EpisodeOfCareStatusHistory:
+		o = other
+	case *EpisodeOfCareStatusHistory:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EpisodeOfCareStatusHistory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3074,6 +3138,38 @@ func (r EpisodeOfCareReason) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r EpisodeOfCareReason) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EpisodeOfCareReason to Quantity")
 }
+func (r EpisodeOfCareReason) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareReason
+	switch other := other.(type) {
+	case EpisodeOfCareReason:
+		o = other
+	case *EpisodeOfCareReason:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EpisodeOfCareReason) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareReason
+	switch other := other.(type) {
+	case EpisodeOfCareReason:
+		o = other
+	case *EpisodeOfCareReason:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r EpisodeOfCareReason) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3154,6 +3250,38 @@ func (r EpisodeOfCareDiagnosis) ToDateTime(explicit bool) (*fhirpath.DateTime, e
 }
 func (r EpisodeOfCareDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EpisodeOfCareDiagnosis to Quantity")
+}
+func (r EpisodeOfCareDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareDiagnosis
+	switch other := other.(type) {
+	case EpisodeOfCareDiagnosis:
+		o = other
+	case *EpisodeOfCareDiagnosis:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r EpisodeOfCareDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o EpisodeOfCareDiagnosis
+	switch other := other.(type) {
+	case EpisodeOfCareDiagnosis:
+		o = other
+	case *EpisodeOfCareDiagnosis:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r EpisodeOfCareDiagnosis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

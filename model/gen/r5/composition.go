@@ -3792,6 +3792,38 @@ func (r Composition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Composition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Composition to Quantity")
 }
+func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Composition
+	switch other := other.(type) {
+	case Composition:
+		o = other
+	case *Composition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Composition
+	switch other := other.(type) {
+	case Composition:
+		o = other
+	case *Composition:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Composition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -3942,6 +3974,38 @@ func (r CompositionAttester) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r CompositionAttester) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CompositionAttester to Quantity")
 }
+func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionAttester
+	switch other := other.(type) {
+	case CompositionAttester:
+		o = other
+	case *CompositionAttester:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionAttester
+	switch other := other.(type) {
+	case CompositionAttester:
+		o = other
+	case *CompositionAttester:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4025,6 +4089,38 @@ func (r CompositionEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 }
 func (r CompositionEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CompositionEvent to Quantity")
+}
+func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionEvent
+	switch other := other.(type) {
+	case CompositionEvent:
+		o = other
+	case *CompositionEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionEvent
+	switch other := other.(type) {
+	case CompositionEvent:
+		o = other
+	case *CompositionEvent:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4141,6 +4237,38 @@ func (r CompositionSection) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 }
 func (r CompositionSection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CompositionSection to Quantity")
+}
+func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionSection
+	switch other := other.(type) {
+	case CompositionSection:
+		o = other
+	case *CompositionSection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CompositionSection
+	switch other := other.(type) {
+	case CompositionSection:
+		o = other
+	case *CompositionSection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

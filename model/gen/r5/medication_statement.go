@@ -2512,6 +2512,38 @@ func (r MedicationStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 func (r MedicationStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicationStatement to Quantity")
 }
+func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationStatement
+	switch other := other.(type) {
+	case MedicationStatement:
+		o = other
+	case *MedicationStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationStatement
+	switch other := other.(type) {
+	case MedicationStatement:
+		o = other
+	case *MedicationStatement:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r MedicationStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2650,6 +2682,38 @@ func (r MedicationStatementAdherence) ToDateTime(explicit bool) (*fhirpath.DateT
 }
 func (r MedicationStatementAdherence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MedicationStatementAdherence to Quantity")
+}
+func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationStatementAdherence
+	switch other := other.(type) {
+	case MedicationStatementAdherence:
+		o = other
+	case *MedicationStatementAdherence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r MedicationStatementAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o MedicationStatementAdherence
+	switch other := other.(type) {
+	case MedicationStatementAdherence:
+		o = other
+	case *MedicationStatementAdherence:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r MedicationStatementAdherence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

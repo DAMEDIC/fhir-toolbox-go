@@ -426,6 +426,38 @@ func (r Age) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r Age) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Age to Quantity")
 }
+func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Age
+	switch other := other.(type) {
+	case Age:
+		o = other
+	case *Age:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o Age
+	switch other := other.(type) {
+	case Age:
+		o = other
+	case *Age:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r Age) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{

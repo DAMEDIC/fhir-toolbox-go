@@ -4203,6 +4203,38 @@ func (r ImagingSelection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) 
 func (r ImagingSelection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingSelection to Quantity")
 }
+func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelection
+	switch other := other.(type) {
+	case ImagingSelection:
+		o = other
+	case *ImagingSelection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelection
+	switch other := other.(type) {
+	case ImagingSelection:
+		o = other
+	case *ImagingSelection:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4344,6 +4376,38 @@ func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime
 func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingSelectionPerformer to Quantity")
 }
+func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionPerformer
+	switch other := other.(type) {
+	case ImagingSelectionPerformer:
+		o = other
+	case *ImagingSelectionPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionPerformer
+	switch other := other.(type) {
+	case ImagingSelectionPerformer:
+		o = other
+	case *ImagingSelectionPerformer:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4443,6 +4507,38 @@ func (r ImagingSelectionInstance) ToDateTime(explicit bool) (*fhirpath.DateTime,
 func (r ImagingSelectionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingSelectionInstance to Quantity")
 }
+func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstance
+	switch other := other.(type) {
+	case ImagingSelectionInstance:
+		o = other
+	case *ImagingSelectionInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstance
+	switch other := other.(type) {
+	case ImagingSelectionInstance:
+		o = other
+	case *ImagingSelectionInstance:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4534,6 +4630,38 @@ func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (*fhirp
 func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
 }
+func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstanceImageRegion2D
+	switch other := other.(type) {
+	case ImagingSelectionInstanceImageRegion2D:
+		o = other
+	case *ImagingSelectionInstanceImageRegion2D:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstanceImageRegion2D
+	switch other := other.(type) {
+	case ImagingSelectionInstanceImageRegion2D:
+		o = other
+	case *ImagingSelectionInstanceImageRegion2D:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -4612,6 +4740,38 @@ func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (*fhirp
 }
 func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
+}
+func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstanceImageRegion3D
+	switch other := other.(type) {
+	case ImagingSelectionInstanceImageRegion3D:
+		o = other
+	case *ImagingSelectionInstanceImageRegion3D:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o ImagingSelectionInstanceImageRegion3D
+	switch other := other.(type) {
+	case ImagingSelectionInstanceImageRegion3D:
+		o = other
+	case *ImagingSelectionInstanceImageRegion3D:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

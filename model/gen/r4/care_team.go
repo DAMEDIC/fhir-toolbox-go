@@ -2185,6 +2185,38 @@ func (r CareTeam) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
 func (r CareTeam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CareTeam to Quantity")
 }
+func (r CareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CareTeam
+	switch other := other.(type) {
+	case CareTeam:
+		o = other
+	case *CareTeam:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CareTeam
+	switch other := other.(type) {
+	case CareTeam:
+		o = other
+	case *CareTeam:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
 func (r CareTeam) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
@@ -2323,6 +2355,38 @@ func (r CareTeamParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, erro
 }
 func (r CareTeamParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CareTeamParticipant to Quantity")
+}
+func (r CareTeamParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CareTeamParticipant
+	switch other := other.(type) {
+	case CareTeamParticipant:
+		o = other
+	case *CareTeamParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equal(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
+}
+func (r CareTeamParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	var o CareTeamParticipant
+	switch other := other.(type) {
+	case CareTeamParticipant:
+		o = other
+	case *CareTeamParticipant:
+		o = *other
+	default:
+		return false
+	}
+	eq := r.Children().Equivalent(o.Children())
+	if eq == nil {
+		return true
+	}
+	return *eq
 }
 func (r CareTeamParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
