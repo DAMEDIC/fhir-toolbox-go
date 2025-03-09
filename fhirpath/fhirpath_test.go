@@ -50,6 +50,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 						ToFile:   "Actual",
 						Context:  1,
 					})
+					// use equivalence to have empty results { } ~ { } result in true
 					assert.True(t, *expected.Equivalent(result), diff)
 				})
 			}

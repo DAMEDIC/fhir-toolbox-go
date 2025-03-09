@@ -174,8 +174,42 @@ func evalExpression(
 		panic("todo")
 
 	case *parser.InequalityExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		cmp, err := left.Cmp(right)
+		if err != nil {
+			return nil, err
+		}
+		if cmp == nil {
+			return nil, nil
+		}
+		switch op {
+		case "<=":
+			if *cmp <= 0 {
+				return Collection{Boolean(true)}, nil
+			}
+		case "<":
+			if *cmp < 0 {
+				return Collection{Boolean(true)}, nil
+			}
+		case ">":
+			if *cmp > 0 {
+				return Collection{Boolean(true)}, nil
+			}
+		case ">=":
+			if *cmp >= 0 {
+				return Collection{Boolean(true)}, nil
+			}
+		}
+		return Collection{Boolean(false)}, nil
 
 	case *parser.EqualityExpressionContext:
 		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)

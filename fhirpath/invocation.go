@@ -112,7 +112,7 @@ func callFunc(
 ) (Collection, error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
-		return nil, fmt.Errorf("function %s not found", ident)
+		return nil, fmt.Errorf("function \"%s\" not found", ident)
 	}
 
 	results := make(Collection, 0, len(target))

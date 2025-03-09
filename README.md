@@ -148,7 +148,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.9. Utility functions                   | wip                                           |
 | **6. Operations**                        | wip                                           |
 | 6.1. Equality                            | complete                                      |
-| 6.2. Comparison                          | wip                                           |
+| 6.2. Comparison                          | complete                                      |
 | 6.3. Types                               | wip                                           |
 | 6.4. Collections                         | wip                                           |
 | 6.5. Boolean logic                       | wip                                           |
