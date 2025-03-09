@@ -101,7 +101,7 @@ var defaultFunctions = Functions{
 		evalParameter EvalParamFunc,
 	) (Collection, error) {
 		if len(parameters) != 1 {
-			return nil, fmt.Errorf("expected single type argument")
+			return nil, fmt.Errorf("expected single type specifier parameter")
 		}
 		typeSpec := ParseTypeSpecifier(parameters[0].String())
 
@@ -110,5 +110,23 @@ var defaultFunctions = Functions{
 			return nil, err
 		}
 		return c, nil
+	},
+	"not": func(
+		ctx context.Context,
+		root, target Element,
+		parameters []Expression,
+		evalParameter EvalParamFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameter")
+		}
+		b, err := target.ToBoolean(false)
+		if err != nil {
+			return nil, err
+		}
+		if b == nil {
+			return nil, nil
+		}
+		return Collection{!*b}, nil
 	},
 }

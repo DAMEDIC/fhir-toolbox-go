@@ -284,16 +284,102 @@ func evalExpression(
 		return nil, nil
 
 	case *parser.AndExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+
+		leftSingle, err := Singleton[Boolean](left)
+		if err != nil {
+			return nil, err
+		}
+		rightSingle, err := Singleton[Boolean](right)
+		if err != nil {
+			return nil, err
+		}
+
+		if leftSingle != nil && *leftSingle == true &&
+			rightSingle != nil && *rightSingle == true {
+			return Collection{Boolean(true)}, nil
+		} else if leftSingle != nil && *leftSingle == false {
+			return Collection{Boolean(false)}, nil
+		} else if rightSingle != nil && *rightSingle == false {
+			return Collection{Boolean(false)}, nil
+		}
+		return nil, nil
 
 	case *parser.OrExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		leftSingle, err := Singleton[Boolean](left)
+		if err != nil {
+			return nil, err
+		}
+		rightSingle, err := Singleton[Boolean](right)
+		if err != nil {
+			return nil, err
+		}
+
+		switch op {
+		case "or":
+			if leftSingle != nil && *leftSingle == false &&
+				rightSingle != nil && *rightSingle == false {
+				return Collection{Boolean(false)}, nil
+			} else if leftSingle != nil && *leftSingle == true {
+				return Collection{Boolean(true)}, nil
+			} else if rightSingle != nil && *rightSingle == true {
+				return Collection{Boolean(true)}, nil
+			}
+		case "xor":
+			if (leftSingle != nil && *leftSingle == true && rightSingle != nil && *rightSingle == false) ||
+				(leftSingle != nil && *leftSingle == false && rightSingle != nil && *rightSingle == true) {
+				return Collection{Boolean(true)}, nil
+			} else if leftSingle != nil && rightSingle != nil &&
+				*rightSingle == *leftSingle {
+				return Collection{Boolean(false)}, nil
+			}
+		}
+		return nil, nil
 
 	case *parser.ImpliesExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+
+		leftSingle, err := Singleton[Boolean](left)
+		if err != nil {
+			return nil, err
+		}
+		rightSingle, err := Singleton[Boolean](right)
+		if err != nil {
+			return nil, err
+		}
+
+		if leftSingle != nil && *leftSingle == true && rightSingle != nil {
+			return Collection{*rightSingle}, nil
+		} else if leftSingle != nil && *leftSingle == false {
+			return Collection{Boolean(true)}, nil
+		} else if leftSingle == nil && rightSingle != nil && *rightSingle == true {
+			return Collection{Boolean(true)}, nil
+		}
+		return nil, nil
 
 	default:
 		panic(fmt.Sprintf("unexpected expression %T", tree))

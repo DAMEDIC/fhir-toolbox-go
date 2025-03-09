@@ -27,6 +27,12 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 				}
 
 				t.Run(name, func(t *testing.T) {
+					defer func() {
+						if err := recover(); err != nil {
+							t.Fatal(err)
+						}
+					}()
+
 					expr, err := fhirpath.Parse(test.Expression.Expression)
 					if err != nil && test.Expression.Invalid != "" {
 						return

@@ -151,7 +151,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 6.2. Comparison                          | complete                                      |
 | 6.3. Types                               | complete                                      |
 | 6.4. Collections                         | complete                                      |
-| 6.5. Boolean logic                       | wip                                           |
+| 6.5. Boolean logic                       | complete                                      |
 | 6.6. Math                                | wip                                           |
 | 6.7. Date/Time Arithmetic                | wip                                           |
 | 6.8. Operator precedence                 | handled by ANTLR                              |
