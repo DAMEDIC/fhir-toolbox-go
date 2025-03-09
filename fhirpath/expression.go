@@ -156,12 +156,12 @@ func evalExpression(
 				}
 				return Collection{r}, nil
 			case "as":
-				r, err := asType(ctx, expr[0], spec)
+				c, err := asType(ctx, expr[0], spec)
 				if err != nil {
 					return nil, err
 				}
-				if r != nil {
-					return Collection{r}, nil
+				if c != nil {
+					return c, nil
 				}
 				return nil, nil
 
@@ -170,8 +170,16 @@ func evalExpression(
 		return nil, nil
 
 	case *parser.UnionExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+
+		return left.Union(right), nil
 
 	case *parser.InequalityExpressionContext:
 		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
@@ -247,8 +255,33 @@ func evalExpression(
 		return nil, nil
 
 	case *parser.MembershipExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		switch op {
+		case "in":
+			if len(left) == 0 {
+				return nil, nil
+			} else if len(left) > 1 {
+				return nil, fmt.Errorf("left operand of \"in\" (membership) has more than 1 value")
+			}
+			return Collection{Boolean(right.Contains(left[0]))}, nil
+		case "contains":
+			if len(right) == 0 {
+				return nil, nil
+			} else if len(right) > 1 {
+				return nil, fmt.Errorf("left operand of \"contains\" (membership) has more than 1 value")
+			}
+			return Collection{Boolean(left.Contains(right[0]))}, nil
+		}
+		return nil, nil
 
 	case *parser.AndExpressionContext:
 		// TODO

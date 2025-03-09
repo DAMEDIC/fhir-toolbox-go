@@ -248,5 +248,5 @@ func (o FHIRPathTestOutput) toElement() (fhirpath.Element, error) {
 	case "quantity":
 		return o.ToQuantity(false)
 	}
-	return nil, fmt.Errorf("invalid type: %s", o.OutputType)
+	panic(fmt.Sprintf("invalid type: %s", o.OutputType))
 }

@@ -42,7 +42,8 @@ type Functions map[string]Function
 type Function = func(
 	ctx context.Context,
 	root, target Element,
-	arguments ...Collection,
+	parameters []Expression,
+	evalParameter EvalParamFunc,
 ) (Collection, error)
 
 type functionsKey struct{}
@@ -73,18 +74,41 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	return fn, ok
 }
 
+type EvalParamFunc = func(expr Expression) (Collection, error)
+
 var defaultFunctions = Functions{
-	"hello": func(
+	"is": func(
 		ctx context.Context,
 		root, target Element,
-		arguments ...Collection,
+		parameters []Expression,
+		evalParameter EvalParamFunc,
 	) (Collection, error) {
-		if len(arguments) != 0 {
-			return nil, fmt.Errorf("expected zero arguments")
+		if len(parameters) != 1 {
+			return nil, fmt.Errorf("expected single type argument")
 		}
+		typeSpec := ParseTypeSpecifier(parameters[0].String())
 
-		fmt.Println("hello", target)
+		r, err := isType(ctx, target, typeSpec)
+		if err != nil {
+			return nil, err
+		}
+		return Collection{r}, nil
+	},
+	"as": func(
+		ctx context.Context,
+		root, target Element,
+		parameters []Expression,
+		evalParameter EvalParamFunc,
+	) (Collection, error) {
+		if len(parameters) != 1 {
+			return nil, fmt.Errorf("expected single type argument")
+		}
+		typeSpec := ParseTypeSpecifier(parameters[0].String())
 
-		return nil, nil
+		c, err := asType(ctx, target, typeSpec)
+		if err != nil {
+			return nil, err
+		}
+		return c, nil
 	},
 }

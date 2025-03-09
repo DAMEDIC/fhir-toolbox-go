@@ -108,6 +108,20 @@ type TypeSpecifier struct {
 	Name      string
 }
 
+func ParseTypeSpecifier(s string) TypeSpecifier {
+	split := strings.SplitN(s, ".", 2)
+	if len(split) == 1 {
+		return TypeSpecifier{
+			Name: split[0],
+		}
+	} else {
+		return TypeSpecifier{
+			Namespace: split[0],
+			Name:      split[1],
+		}
+	}
+}
+
 func (t TypeSpecifier) String() string {
 	if t.Namespace != "" {
 		return fmt.Sprintf("%s.%s", t.Namespace, t.Name)
@@ -238,13 +252,13 @@ func isType(ctx context.Context, target Element, isOf TypeSpecifier) (Element, e
 	return Boolean(subTypeOf(ctx, target.TypeInfo(), typ)), nil
 }
 
-func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Element, error) {
+func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Collection, error) {
 	typ, ok := resolveType(ctx, asOf)
 	if !ok {
 		return nil, fmt.Errorf("can not resolve type `%s`", asOf)
 	}
 	if subTypeOf(ctx, target.TypeInfo(), typ) {
-		return target, nil
+		return Collection{target}, nil
 	} else {
 		return nil, nil
 	}
@@ -337,6 +351,25 @@ func (c Collection) Cmp(other Collection) (*int, error) {
 		return nil, errCanNotCompare
 	}
 	return a.Cmp(b)
+}
+func (c Collection) Union(other Collection) Collection {
+	union := slices.Clone(c)
+	for _, o := range other {
+		for _, e := range union {
+			if !o.Equal(e) {
+				union = append(union, e)
+			}
+		}
+	}
+	return union
+}
+func (c Collection) Contains(element Element) bool {
+	for _, e := range c {
+		if e.Equal(element) {
+			return true
+		}
+	}
+	return false
 }
 
 func (c Collection) String() string {

@@ -149,8 +149,8 @@ Refer to the following table outlining the implementation statuses of different 
 | **6. Operations**                        | wip                                           |
 | 6.1. Equality                            | complete                                      |
 | 6.2. Comparison                          | complete                                      |
-| 6.3. Types                               | wip                                           |
-| 6.4. Collections                         | wip                                           |
+| 6.3. Types                               | complete                                      |
+| 6.4. Collections                         | complete                                      |
 | 6.5. Boolean logic                       | wip                                           |
 | 6.6. Math                                | wip                                           |
 | 6.7. Date/Time Arithmetic                | wip                                           |

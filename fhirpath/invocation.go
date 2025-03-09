@@ -108,7 +108,7 @@ func evalFunc(
 func callFunc(
 	ctx context.Context,
 	root Element, target Collection,
-	ident string, params ...parser.IExpressionContext,
+	ident string, paramTerms ...parser.IExpressionContext,
 ) (Collection, error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
@@ -117,23 +117,19 @@ func callFunc(
 
 	results := make(Collection, 0, len(target))
 	for index, elem := range target {
-		args := make([]Collection, len(params))
-		for position, param := range params {
-			arg, err := evalExpression(
-				withFunctionScope(ctx, elem, index, len(target)),
-				root, Collection{elem},
-				param,
-				false,
-			)
-			if err != nil {
-				return nil, fmt.Errorf(
-					"failed to evaluate argument \"%s\" (index %v) for element %v (index %v): %w",
-					param.GetText(), position, elem, index, err)
-			}
-			args[position] = arg
+		paramExprs := make([]Expression, 0, len(paramTerms))
+		for _, param := range paramTerms {
+			paramExprs = append(paramExprs, Expression{param})
 		}
 
-		result, err := fn(ctx, root, elem, args...)
+		result, err := fn(ctx, root, elem, paramExprs, func(expr Expression) (Collection, error) {
+			return evalExpression(
+				withFunctionScope(ctx, elem, index, len(target)),
+				root, Collection{elem},
+				expr.tree,
+				false,
+			)
+		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to evaluate function \"%s\" on element %v (index %v): %w", ident, elem, index, err)
 		}
