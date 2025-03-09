@@ -196,10 +196,24 @@ func generateToDateFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDate").Params(Id("explicit").Bool()).Params(
 		Op("*").Qual(fhirpathModuleName, "Date"),
 		Error(),
-	).Block(Return(
-		Nil(),
-		Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Date", s.Name))),
-	))
+	).BlockFunc(func(g *Group) {
+		if s.Name == "Date" {
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseDate").Call(Op("*").Id("r").Dot("Value")),
+				Return(
+					Op("&").Id("v"),
+					Err(),
+				),
+			).Else().Block(
+				Return(Nil(), Nil()),
+			)
+		} else {
+			g.Return(
+				Nil(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Date", s.Name))),
+			)
+		}
+	})
 }
 
 func generateToTimeFunc(f *File, s ir.Struct) {

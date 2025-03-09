@@ -155,7 +155,12 @@ func (r Date) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
 	return nil, errors.New("can not convert Date to Decimal")
 }
 func (r Date) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Date to Date")
+	if r.Value != nil {
+		v, err := fhirpath.ParseDate(*r.Value)
+		return &v, err
+	} else {
+		return nil, nil
+	}
 }
 func (r Date) ToTime(explicit bool) (*fhirpath.Time, error) {
 	return nil, errors.New("can not convert Date to Time")

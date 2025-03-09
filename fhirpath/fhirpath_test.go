@@ -5,6 +5,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
+	"github.com/pmezard/go-difflib/difflib"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -36,8 +37,20 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 						test.InputResource,
 						expr,
 					)
+					if err != nil && test.Expression.Invalid != "" {
+						return
+					}
 					assert.NoError(t, err)
-					assert.Equal(t, test.OutputCollection(), result)
+
+					expected := test.OutputCollection()
+					diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
+						A:        difflib.SplitLines(expected.String()),
+						B:        difflib.SplitLines(result.String()),
+						FromFile: "Expected",
+						ToFile:   "Actual",
+						Context:  1,
+					})
+					assert.True(t, *expected.Equivalent(result), diff)
 				})
 			}
 		})

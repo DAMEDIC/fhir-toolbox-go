@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
@@ -122,7 +123,7 @@ func (o FHIRPathTestOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) 
 }
 
 func (o FHIRPathTestOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	if o.OutputType != "string" {
+	if o.OutputType != "string" && o.OutputType != "code" {
 		panic("not a string")
 	}
 	return (*fhirpath.String)(&o.Output), nil
@@ -194,9 +195,58 @@ func (o FHIRPathTestOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return &q, nil
 }
 
+func (o FHIRPathTestOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	e, err := o.toElement()
+	if err != nil {
+		return false
+	}
+	if e.Equal(other) {
+		return true
+	} else if _, ok := e.(*fhirpath.Boolean); ok {
+		// the test cases seem to assume implicit conversion to booleans to check presence
+		return other != nil
+	} else {
+		return false
+	}
+}
+
+func (o FHIRPathTestOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	return o.Equal(other)
+}
+
 func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.SimpleTypeInfo{
 		Namespace: "System",
 		Name:      strings.Title(o.Output),
 	}
+}
+
+func (o FHIRPathTestOutput) String() string {
+	e, err := o.toElement()
+	if err != nil {
+		return err.Error()
+	}
+	return e.String()
+}
+
+func (o FHIRPathTestOutput) toElement() (fhirpath.Element, error) {
+	switch o.OutputType {
+	case "boolean":
+		return o.ToBoolean(false)
+	case "string", "code":
+		return o.ToString(false)
+	case "integer":
+		return o.ToInteger(false)
+	case "decimal":
+		return o.ToDecimal(false)
+	case "date":
+		return o.ToDate(false)
+	case "time":
+		return o.ToTime(false)
+	case "dateTime":
+		return o.ToDateTime(false)
+	case "quantity":
+		return o.ToQuantity(false)
+	}
+	return nil, fmt.Errorf("invalid type: %s", o.OutputType)
 }

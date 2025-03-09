@@ -280,7 +280,7 @@ func ElementTo[T Element](e Element, explicit bool) (*T, error) {
 type Collection []Element
 
 func (c Collection) Equal(other Collection) *bool {
-	if len(c) == 0 || len(other) != len(other) {
+	if len(c) == 0 || len(other) == 0 {
 		return nil
 	}
 	if len(c) != len(other) {
@@ -295,8 +295,8 @@ func (c Collection) Equal(other Collection) *bool {
 }
 
 func (c Collection) Equivalent(other Collection) *bool {
-	if len(c) == 0 || len(other) != len(other) {
-		return nil
+	if len(c) == 0 && len(other) == 0 {
+		return utils.Ptr(true)
 	}
 	if len(c) != len(other) {
 		return utils.Ptr(false)
