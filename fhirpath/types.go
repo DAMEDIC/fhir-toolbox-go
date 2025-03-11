@@ -36,7 +36,7 @@ type Element interface {
 
 type cmpElement interface {
 	Element
-	Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error)
+	Cmp(other cmpElement) (*int, error)
 }
 
 type TypeInfo interface {
@@ -573,16 +573,12 @@ func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool
 		return false
 	}
 }
-func (s String) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (s String) Cmp(other cmpElement) (*int, error) {
 	o, err := other.ToString(false)
-	if err == nil && o != nil {
-		return utils.Ptr(strings.Compare(string(s), string(*o))), nil
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(s, true)
-	} else {
+	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare String to %T: %v", other, other)
 	}
+	return utils.Ptr(strings.Compare(string(s), string(*o))), nil
 }
 func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -679,22 +675,13 @@ func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	return i.Equal(other, _noReverseTypeConversion...)
 }
-func (i Integer) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
-	o, err := other.ToInteger(false)
-	if err == nil && o != nil {
-		if i < *o {
-			return utils.Ptr(-1), nil
-		} else if i > *o {
-			return utils.Ptr(1), nil
-		} else {
-			return utils.Ptr(0), nil
-		}
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(i, true)
-	} else {
+func (i Integer) Cmp(other cmpElement) (*int, error) {
+	d, _ := i.ToDecimal(false)
+	cmp, err := d.Cmp(other)
+	if err != nil {
 		return nil, fmt.Errorf("can not compare Integer to %T: %v", other, other)
 	}
+	return cmp, nil
 }
 func (i Integer) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -767,16 +754,12 @@ func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) boo
 	//       Trailing zeroes after the decimal are ignored in determining precision.
 	return d.Equal(other, _noReverseTypeConversion...)
 }
-func (d Decimal) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (d Decimal) Cmp(other cmpElement) (*int, error) {
 	o, err := other.ToDecimal(false)
-	if err == nil && o != nil {
-		return utils.Ptr(d.Value.Cmp(o.Value)), nil
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(d, true)
-	} else {
+	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare Decimal to %T: %v", other, other)
 	}
+	return utils.Ptr(d.Value.Cmp(o.Value)), nil
 }
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -854,58 +837,54 @@ func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 	return false
 }
-func (d Date) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (d Date) Cmp(other cmpElement) (*int, error) {
 	o, err := other.ToDate(false)
-	if err == nil && o != nil {
-		switch d.Precision {
-		case DatePrecisionYear:
-			if o.Precision != DatePrecisionYear {
-				return nil, nil
-			}
-			if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		case DatePrecisionMonth:
-			if o.Precision != DatePrecisionMonth {
-				return nil, nil
-			}
-			if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		default:
-			if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-				return utils.Ptr(1), nil
-			} else if d.Value.Day() < o.Value.In(d.Value.Location()).Day() {
-				return utils.Ptr(-1), nil
-			} else if d.Value.Day() > o.Value.In(d.Value.Location()).Day() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		}
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(d, true)
-	} else {
+	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare Date to %T: %v", other, other)
+	}
+	switch d.Precision {
+	case DatePrecisionYear:
+		if o.Precision != DatePrecisionYear {
+			return nil, nil
+		}
+		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
+	case DatePrecisionMonth:
+		if o.Precision != DatePrecisionMonth {
+			return nil, nil
+		}
+		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
+	default:
+		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
+			return utils.Ptr(1), nil
+		} else if d.Value.Day() < o.Value.In(d.Value.Location()).Day() {
+			return utils.Ptr(-1), nil
+		} else if d.Value.Day() > o.Value.In(d.Value.Location()).Day() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
 	}
 }
 func (d Date) TypeInfo() TypeInfo {
@@ -990,30 +969,26 @@ func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 	return false
 }
-func (t Time) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (t Time) Cmp(other cmpElement) (*int, error) {
 	o, err := other.ToTime(false)
-	if err == nil && o != nil {
-		switch t.Precision {
-		case TimePrecisionHour:
-			if o.Precision != TimePrecisionHour {
-				return nil, nil
-			}
-			return utils.Ptr(t.Value.Truncate(time.Hour).Compare(
-				o.Value.In(t.Value.Location()).Truncate(time.Hour))), nil
-		case TimePrecisionMinute:
-			if o.Precision != TimePrecisionMinute {
-				return nil, nil
-			}
-			return utils.Ptr(t.Value.Truncate(time.Minute).Compare(
-				o.Value.In(t.Value.Location()).Truncate(time.Minute))), nil
-		default:
-			return utils.Ptr(t.Value.Compare(o.Value.In(t.Value.Location()))), nil
-		}
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(t, true)
-	} else {
+	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare Time to %T: %v", other, other)
+	}
+	switch t.Precision {
+	case TimePrecisionHour:
+		if o.Precision != TimePrecisionHour {
+			return nil, nil
+		}
+		return utils.Ptr(t.Value.Truncate(time.Hour).Compare(
+			o.Value.In(t.Value.Location()).Truncate(time.Hour))), nil
+	case TimePrecisionMinute:
+		if o.Precision != TimePrecisionMinute {
+			return nil, nil
+		}
+		return utils.Ptr(t.Value.Truncate(time.Minute).Compare(
+			o.Value.In(t.Value.Location()).Truncate(time.Minute))), nil
+	default:
+		return utils.Ptr(t.Value.Compare(o.Value.In(t.Value.Location()))), nil
 	}
 }
 func (t Time) TypeInfo() TypeInfo {
@@ -1111,76 +1086,72 @@ func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) b
 	}
 	return false
 }
-func (dt DateTime) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (dt DateTime) Cmp(other cmpElement) (*int, error) {
 	o, err := other.ToTime(false)
-	if err == nil && o != nil {
-		switch dt.Precision {
-		case DateTimePrecisionYear:
-			if o.Precision != DateTimePrecisionYear {
-				return nil, nil
-			}
-			if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		case DateTimePrecisionMonth:
-			if o.Precision != DateTimePrecisionMonth {
-				return nil, nil
-			}
-			if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		case DateTimePrecisionDay:
-			if o.Precision != DateTimePrecisionDay {
-				return nil, nil
-			}
-			if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-				return utils.Ptr(1), nil
-			} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-				return utils.Ptr(1), nil
-			} else if dt.Value.Day() < o.Value.In(dt.Value.Location()).Day() {
-				return utils.Ptr(-1), nil
-			} else if dt.Value.Day() > o.Value.In(dt.Value.Location()).Day() {
-				return utils.Ptr(1), nil
-			} else {
-				return utils.Ptr(0), nil
-			}
-		case DateTimePrecisionHour:
-			if o.Precision != DateTimePrecisionHour {
-				return nil, nil
-			}
-			return utils.Ptr(dt.Value.Truncate(time.Hour).Compare(
-				o.Value.In(dt.Value.Location()).Truncate(time.Hour))), nil
-		case DateTimePrecisionMinute:
-			if o.Precision != DateTimePrecisionMinute {
-				return nil, nil
-			}
-			return utils.Ptr(dt.Value.Truncate(time.Minute).Compare(
-				o.Value.In(dt.Value.Location()).Truncate(time.Minute))), nil
-		default:
-			return utils.Ptr(dt.Value.Compare(
-				o.Value.In(dt.Value.Location()))), nil
-		}
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(dt, true)
-	} else {
+	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare Time to %T: %v", other, other)
+	}
+	switch dt.Precision {
+	case DateTimePrecisionYear:
+		if o.Precision != DateTimePrecisionYear {
+			return nil, nil
+		}
+		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
+	case DateTimePrecisionMonth:
+		if o.Precision != DateTimePrecisionMonth {
+			return nil, nil
+		}
+		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
+	case DateTimePrecisionDay:
+		if o.Precision != DateTimePrecisionDay {
+			return nil, nil
+		}
+		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
+			return utils.Ptr(1), nil
+		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
+			return utils.Ptr(1), nil
+		} else if dt.Value.Day() < o.Value.In(dt.Value.Location()).Day() {
+			return utils.Ptr(-1), nil
+		} else if dt.Value.Day() > o.Value.In(dt.Value.Location()).Day() {
+			return utils.Ptr(1), nil
+		} else {
+			return utils.Ptr(0), nil
+		}
+	case DateTimePrecisionHour:
+		if o.Precision != DateTimePrecisionHour {
+			return nil, nil
+		}
+		return utils.Ptr(dt.Value.Truncate(time.Hour).Compare(
+			o.Value.In(dt.Value.Location()).Truncate(time.Hour))), nil
+	case DateTimePrecisionMinute:
+		if o.Precision != DateTimePrecisionMinute {
+			return nil, nil
+		}
+		return utils.Ptr(dt.Value.Truncate(time.Minute).Compare(
+			o.Value.In(dt.Value.Location()).Truncate(time.Minute))), nil
+	default:
+		return utils.Ptr(dt.Value.Compare(
+			o.Value.In(dt.Value.Location()))), nil
 	}
 }
 func (dt DateTime) TypeInfo() TypeInfo {
@@ -1380,19 +1351,15 @@ func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bo
 }
 func (q Quantity) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
 	o, err := other.ToQuantity(false)
-	if err == nil && o != nil {
-		a := q.dateAsUCUM()
-		b := o.dateAsUCUM()
-		if a.Unit != b.Unit {
-			return utils.Ptr(0), fmt.Errorf("quantity units do not match, left: %v right: %v", a.Unit, b.Unit)
-		}
-		return a.Value.Cmp(b.Value)
-	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Cmp(q, true)
-	} else {
+	if err != nil || o == nil {
 		return utils.Ptr(0), fmt.Errorf("can not compare Quantity to %T: %v", other, other)
 	}
+	a := q.dateAsUCUM()
+	b := o.dateAsUCUM()
+	if a.Unit != b.Unit {
+		return utils.Ptr(0), fmt.Errorf("quantity units do not match, left: %v right: %v", a.Unit, b.Unit)
+	}
+	return a.Value.Cmp(b.Value)
 }
 func (q Quantity) dateAsUCUM() Quantity {
 	switch q.Unit {
