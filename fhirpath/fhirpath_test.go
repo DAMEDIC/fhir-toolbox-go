@@ -5,12 +5,16 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
+	"github.com/cockroachdb/apd/v3"
 	"github.com/pmezard/go-difflib/difflib"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
+	ctx := r4.Context()
+	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
+
 	tests := testdata.GetFHIRPathTests()
 
 	for _, group := range tests.Groups {
@@ -39,7 +43,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					}
 
 					result, err := fhirpath.Evaluate(
-						r4.Context(),
+						ctx,
 						test.InputResource,
 						expr,
 					)

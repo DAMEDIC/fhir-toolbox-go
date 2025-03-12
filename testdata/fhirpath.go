@@ -99,7 +99,7 @@ func (t FHIRPathTest) OutputCollection() fhirpath.Collection {
 
 type FHIRPathTestExpression struct {
 	Invalid    string `xml:"invalid,attr"`
-	Expression string `xml:",innerxml"`
+	Expression string `xml:",chardata"`
 }
 
 type FHIRPathTestOutput struct {

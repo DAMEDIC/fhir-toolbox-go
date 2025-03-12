@@ -128,14 +128,63 @@ func evalExpression(
 			return Collection{expr[i]}, nil
 		}
 	case *parser.PolarityExpressionContext:
-		// TODO
-		panic("todo")
+		expr, err := evalExpression(ctx, root, target, t.Expression(), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		switch op {
+		case "+":
+			// noop
+			return expr, nil
+		case "-":
+			return expr.Multiply(ctx, Collection{Integer(-1)})
+
+		}
+		return nil, nil
 	case *parser.MultiplicativeExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		switch op {
+		case "*":
+			return left.Multiply(ctx, right)
+		case "/":
+			return left.Divide(ctx, right)
+		case "div":
+			return left.Div(ctx, right)
+		case "mod":
+			return left.Mod(ctx, right)
+		}
+		return nil, nil
 	case *parser.AdditiveExpressionContext:
-		// TODO
-		panic("todo")
+		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		if err != nil {
+			return nil, err
+		}
+		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		switch op {
+		case "+":
+			return left.Add(ctx, right)
+		case "-":
+			return left.Subtract(ctx, right)
+		case "&":
+			return left.Concat(ctx, right)
+		}
+		return nil, nil
 	case *parser.TypeExpressionContext:
 		expr, err := evalExpression(ctx, root, target, t.Expression(), isRoot)
 		if err != nil {

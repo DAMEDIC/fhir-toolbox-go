@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"github.com/cockroachdb/apd/v3"
 	"maps"
@@ -36,7 +37,57 @@ type Element interface {
 
 type cmpElement interface {
 	Element
-	Cmp(other cmpElement) (*int, error)
+	// Cmp may return nil, because attempting to operate on quantities
+	// with invalid units will result in empty ({ }).
+	Cmp(other Element) (*int, error)
+}
+
+type multiplyElement interface {
+	Element
+	Multiply(ctx context.Context, other Element) (Element, error)
+}
+
+type divideElement interface {
+	Element
+	Divide(ctx context.Context, other Element) (Element, error)
+}
+
+type divElement interface {
+	Element
+	Div(ctx context.Context, other Element) (Element, error)
+}
+
+type modElement interface {
+	Element
+	Mod(ctx context.Context, other Element) (Element, error)
+}
+
+type addElement interface {
+	Element
+	Add(ctx context.Context, other Element) (Element, error)
+}
+
+type subtractElement interface {
+	Element
+	Subtract(ctx context.Context, other Element) (Element, error)
+}
+
+type apdContextKey struct{}
+
+// WithAPDContext sets the apd.Context for Decimal operations.
+func WithAPDContext(
+	ctx context.Context,
+	apdContext *apd.Context,
+) context.Context {
+	return context.WithValue(ctx, apdContextKey{}, apdContext)
+}
+
+func apdContext(ctx context.Context) *apd.Context {
+	apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context)
+	if !ok {
+		return &apd.BaseContext
+	}
+	return apdContext
 }
 
 type TypeInfo interface {
@@ -333,8 +384,6 @@ outer:
 	return utils.Ptr(true)
 }
 
-var errCanNotCompare = errors.New("only strings, integers, decimals, quantities, dates, datetimes and times can be compared")
-
 func (c Collection) Cmp(other Collection) (*int, error) {
 	if len(c) == 0 || len(other) == 0 {
 		return nil, nil
@@ -342,15 +391,14 @@ func (c Collection) Cmp(other Collection) (*int, error) {
 	if len(c) != 1 || len(other) != 1 {
 		return nil, fmt.Errorf("can not compare collections with len != 1: %v and %v", c, other)
 	}
-	a, ok := c[0].(cmpElement)
+
+	left, ok := c[0].(cmpElement)
 	if !ok {
-		return nil, errCanNotCompare
+		return nil, errors.New("only strings, integers, decimals, quantities, dates, datetimes and times can be compared")
 	}
-	b, ok := other[0].(cmpElement)
-	if !ok {
-		return nil, errCanNotCompare
-	}
-	return a.Cmp(b)
+	right := other[0]
+
+	return left.Cmp(right)
 }
 func (c Collection) Union(other Collection) Collection {
 	union := slices.Clone(c)
@@ -370,6 +418,179 @@ func (c Collection) Contains(element Element) bool {
 		}
 	}
 	return false
+}
+
+func (c Collection) Multiply(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for multiplication has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for multiplication has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(multiplyElement)
+	if !ok {
+		return nil, errors.New("can only multiply Integer, Decimal or Quantity")
+	}
+	right := other[0]
+
+	res, err := left.Multiply(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Divide(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for division has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for division has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(divideElement)
+	if !ok {
+		return nil, errors.New("can only divide Integer, Decimal or Quantity")
+	}
+	right := other[0]
+
+	res, err := left.Divide(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Div(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for div has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for div has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(divElement)
+	if !ok {
+		return nil, errors.New("can only div Integer, Decimal")
+	}
+	right := other[0]
+
+	res, err := left.Div(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Mod(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for div has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for div has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(modElement)
+	if !ok {
+		return nil, errors.New("can only div Integer, Decimal")
+	}
+	right := other[0]
+
+	res, err := left.Mod(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Add(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for addition has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for addition has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(addElement)
+	if !ok {
+		return nil, errors.New("can only div Integer, Decimal, Quantity and String")
+	}
+	right := other[0]
+
+	res, err := left.Add(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Subtract(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) == 0 || len(other) == 0 {
+		return nil, nil
+	}
+	if len(c) != 1 {
+		return nil, fmt.Errorf("left value for subtract has len != 1: %v", c)
+	}
+	if len(other) != 1 {
+		return nil, fmt.Errorf("right value for subtract has len != 1: %v", other)
+	}
+
+	left, ok := c[0].(subtractElement)
+	if !ok {
+		return nil, errors.New("can only div Integer, Decimal, Quantity")
+	}
+	right := other[0]
+
+	res, err := left.Subtract(ctx, right)
+	if err != nil {
+		return nil, err
+	}
+	return Collection{res}, nil
+}
+
+func (c Collection) Concat(ctx context.Context, other Collection) (Collection, error) {
+	if len(c) > 1 {
+		return nil, fmt.Errorf("left value for concat has len > 1: %v", c)
+	}
+	if len(other) > 1 {
+		return nil, fmt.Errorf("right value for concat has len > 1: %v", other)
+	}
+	if len(c) == 0 && len(other) == 0 {
+		return Collection{String("")}, nil
+	}
+
+	var left, right String
+	if len(c) == 1 {
+		s, ok := c[0].(String)
+		if !ok {
+			return nil, fmt.Errorf("can only concat String, got left %T: %v", c[0], c[0])
+		}
+		left = s
+	}
+	if len(other) == 1 {
+		s, ok := other[0].(String)
+		if !ok {
+			return nil, fmt.Errorf("can only concat String, got right %T: %v", other[0], other[0])
+		}
+		right = s
+	}
+	return Collection{left + right}, nil
 }
 
 func (c Collection) String() string {
@@ -573,12 +794,22 @@ func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool
 		return false
 	}
 }
-func (s String) Cmp(other cmpElement) (*int, error) {
+func (s String) Cmp(other Element) (*int, error) {
 	o, err := other.ToString(false)
 	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare String to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare String to %T, left: %v right: %v", other, s, other)
 	}
 	return utils.Ptr(strings.Compare(string(s), string(*o))), nil
+}
+func (s String) Add(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToString(false)
+	if err != nil {
+		return nil, fmt.Errorf("can not add %T to String, %v + %v", other, s, other)
+	}
+	if o == nil {
+		return nil, nil
+	}
+	return s + *o, nil
 }
 func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -616,7 +847,7 @@ func unescape(s string) (string, error) {
 	}), errors.Join(errs...)
 }
 
-type Integer uint
+type Integer int32
 
 func (i Integer) Children(name ...string) Collection {
 	return nil
@@ -679,9 +910,86 @@ func (i Integer) Cmp(other cmpElement) (*int, error) {
 	d, _ := i.ToDecimal(false)
 	cmp, err := d.Cmp(other)
 	if err != nil {
-		return nil, fmt.Errorf("can not compare Integer to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare Integer to %T, left: %v right: %v", other, i, other)
 	}
 	return cmp, nil
+}
+func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Integer:
+		result, ok := overflow.Mul32(int32(i), int32(o))
+		if !ok {
+			return nil, nil
+		}
+		return Integer(result), nil
+	case Decimal:
+		d, _ := i.ToDecimal(false)
+		return d.Multiply(ctx, o)
+	}
+	return nil, fmt.Errorf("can not multiply Integer with %T: %v * %v", other, i, other)
+}
+func (i Integer) Divide(ctx context.Context, other Element) (Element, error) {
+	d, err := i.ToDecimal(false)
+	if err != nil {
+		return nil, fmt.Errorf("can not divide Integer with %T: %v * %v", other, i, other)
+	}
+	return d.Divide(ctx, other)
+}
+func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Integer:
+		result, ok := overflow.Div32(int32(i), int32(o))
+		if !ok {
+			return nil, nil
+		}
+		return Integer(result), nil
+	case Decimal:
+		d, _ := i.ToDecimal(false)
+		return d.Div(ctx, o)
+	}
+	return nil, fmt.Errorf("can not div Integer with %T: %v div %v", other, i, other)
+}
+func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Integer:
+		result, ok := overflow.Mod32(int32(i), int32(o))
+		if !ok {
+			return nil, nil
+		}
+		return Integer(result), nil
+	case Decimal:
+		d, _ := i.ToDecimal(false)
+		return d.Mod(ctx, o)
+	}
+	return nil, fmt.Errorf("can not mod Integer with %T: %v mod %v", other, i, other)
+}
+func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Integer:
+		result, ok := overflow.Add32(int32(i), int32(o))
+		if !ok {
+			return nil, nil
+		}
+		return Integer(result), nil
+	case Decimal:
+		d, _ := i.ToDecimal(false)
+		return d.Add(ctx, o)
+	}
+	return nil, fmt.Errorf("can not add Integer and %T: %v + %v", other, i, other)
+}
+func (i Integer) Subtract(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Integer:
+		result, ok := overflow.Sub32(int32(i), int32(o))
+		if !ok {
+			return nil, nil
+		}
+		return Integer(result), nil
+	case Decimal:
+		d, _ := i.ToDecimal(false)
+		return d.Subtract(ctx, o)
+	}
+	return nil, fmt.Errorf("can not subtract %T from Integer: %v - %v", other, i, other)
 }
 func (i Integer) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -754,12 +1062,99 @@ func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) boo
 	//       Trailing zeroes after the decimal are ignored in determining precision.
 	return d.Equal(other, _noReverseTypeConversion...)
 }
-func (d Decimal) Cmp(other cmpElement) (*int, error) {
+func (d Decimal) Cmp(other Element) (*int, error) {
 	o, err := other.ToDecimal(false)
 	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Decimal to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare Decimal to %T, left: %v right: %v", other, d, other)
 	}
 	return utils.Ptr(d.Value.Cmp(o.Value)), nil
+}
+func (d Decimal) Multiply(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not multiply Decimal with %T: %v * %v", other, d, other)
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).Mul(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
+}
+func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not divide Decimal with %T: %v / %v", other, d, other)
+	}
+	if o.Value.IsZero() {
+		return nil, nil
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).Quo(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
+}
+func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not div Decimal with %T: %v div %v", other, d, other)
+	}
+	if o.Value.IsZero() {
+		return nil, nil
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).QuoInteger(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
+}
+func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not mod Decimal with %T: %v mod %v", other, d, other)
+	}
+	if o.Value.IsZero() {
+		return nil, nil
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).Rem(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
+}
+func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not add Decimal and %T: %v + %v", other, d, other)
+	}
+	if o.Value.IsZero() {
+		return nil, nil
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).Add(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
+}
+func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToDecimal(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not subtract %T from Decimal: %v - %v", other, d, other)
+	}
+	if o.Value.IsZero() {
+		return nil, nil
+	}
+	var res *apd.Decimal
+	_, err = apdContext(ctx).Sub(res, d.Value, o.Value)
+	if err != nil {
+		return nil, err
+	}
+	return Decimal{res}, nil
 }
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -837,10 +1232,10 @@ func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 	return false
 }
-func (d Date) Cmp(other cmpElement) (*int, error) {
+func (d Date) Cmp(other Element) (*int, error) {
 	o, err := other.ToDate(false)
 	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Date to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare Date to %T, left: %v right: %v", other, d, other)
 	}
 	switch d.Precision {
 	case DatePrecisionYear:
@@ -969,10 +1364,10 @@ func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 	return false
 }
-func (t Time) Cmp(other cmpElement) (*int, error) {
+func (t Time) Cmp(other Element) (*int, error) {
 	o, err := other.ToTime(false)
 	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Time to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, t, other)
 	}
 	switch t.Precision {
 	case TimePrecisionHour:
@@ -1086,10 +1481,10 @@ func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) b
 	}
 	return false
 }
-func (dt DateTime) Cmp(other cmpElement) (*int, error) {
+func (dt DateTime) Cmp(other Element) (*int, error) {
 	o, err := other.ToTime(false)
 	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Time to %T: %v", other, other)
+		return nil, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
 	}
 	switch dt.Precision {
 	case DateTimePrecisionYear:
@@ -1349,17 +1744,93 @@ func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bo
 	}
 	return false
 }
-func (q Quantity) Cmp(other cmpElement, _noReverseTypeConversion ...bool) (*int, error) {
+func (q Quantity) Cmp(other Element) (*int, error) {
 	o, err := other.ToQuantity(false)
 	if err != nil || o == nil {
-		return utils.Ptr(0), fmt.Errorf("can not compare Quantity to %T: %v", other, other)
+		return utils.Ptr(0), fmt.Errorf("can not compare Quantity to %T, left: %v right: %v", other, q, other)
 	}
-	a := q.dateAsUCUM()
-	b := o.dateAsUCUM()
-	if a.Unit != b.Unit {
-		return utils.Ptr(0), fmt.Errorf("quantity units do not match, left: %v right: %v", a.Unit, b.Unit)
+	left := q.dateAsUCUM()
+	right := o.dateAsUCUM()
+	if left.Unit != right.Unit {
+		return utils.Ptr(0), fmt.Errorf("quantity units do not match, left: %v right: %v", left.Unit, right.Unit)
 	}
-	return a.Value.Cmp(b.Value)
+	return left.Value.Cmp(right.Value)
+}
+func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToQuantity(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not multiply Quantity with %T: %v * %v", other, q, other)
+	}
+	left := q.dateAsUCUM()
+	right := o.dateAsUCUM()
+
+	if left.Unit != right.Unit {
+		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
+	}
+
+	value, err := left.Value.Multiply(ctx, right.Value)
+	if err != nil {
+		return Quantity{}, err
+	}
+	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
+	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+}
+func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToQuantity(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not divide Quantity with %T: %v / %v", other, q, other)
+	}
+	left := q.dateAsUCUM()
+	right := o.dateAsUCUM()
+
+	if left.Unit != right.Unit {
+		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
+	}
+
+	value, err := left.Value.Divide(ctx, right.Value)
+	if err != nil {
+		return Quantity{}, err
+	}
+	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
+	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+}
+func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToQuantity(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not add Quantity and %T: %v + %v", other, q, other)
+	}
+	left := q.dateAsUCUM()
+	right := o.dateAsUCUM()
+
+	if left.Unit != right.Unit {
+		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
+	}
+
+	value, err := left.Value.Add(ctx, right.Value)
+	if err != nil {
+		return Quantity{}, err
+	}
+	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
+	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+}
+func (q Quantity) Subtract(ctx context.Context, other Element) (Element, error) {
+	o, err := other.ToQuantity(false)
+	if err != nil || o == nil {
+		return nil, fmt.Errorf("can not subtract %T from Quantity: %v - %v", other, q, other)
+	}
+	left := q.dateAsUCUM()
+	right := o.dateAsUCUM()
+
+	if left.Unit != right.Unit {
+		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
+	}
+
+	value, err := left.Value.Subtract(ctx, right.Value)
+	if err != nil {
+		return Quantity{}, err
+	}
+	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
+	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
 }
 func (q Quantity) dateAsUCUM() Quantity {
 	switch q.Unit {

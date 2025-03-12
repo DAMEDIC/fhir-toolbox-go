@@ -152,7 +152,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 6.3. Types                               | complete                                      |
 | 6.4. Collections                         | complete                                      |
 | 6.5. Boolean logic                       | complete                                      |
-| 6.6. Math                                | wip                                           |
+| 6.6. Math                                | complete                                      |
 | 6.7. Date/Time Arithmetic                | wip                                           |
 | 6.8. Operator precedence                 | handled by ANTLR                              |
 | **7. Aggregates**                        | wip                                           |
@@ -163,6 +163,19 @@ Refer to the following table outlining the implementation statuses of different 
 | 10.2. Reflection                         | todo                                          |
 
 `todo`: in scope, but has not a very high priority at the moment.
+
+### Decimal precision
+
+The FHIRPath evaluation engine uses [apd.Decimal](https://pkg.go.dev/github.com/cockroachdb/apd#Decimal) under the hood.
+Precision of decimal operations can be set by supplying
+an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context)
+
+```Go
+ctx := r4.Context()
+ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
+```
+
+> **Attention**: By default the precision is set to `0`.
 
 ## Packages
 
