@@ -1049,7 +1049,7 @@ func (d Decimal) ToQuantity(explicit bool) (*Quantity, error) {
 func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToDecimal(false)
 	if err == nil && o != nil {
-		return d == *o
+		return d.Value.Cmp(o.Value) == 0
 	}
 	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
 		return other.Equal(d, true)
@@ -1058,9 +1058,26 @@ func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 }
 func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	// TODO: values must be equal, comparison is done on values rounded to the precision of the least precise operand.
-	//       Trailing zeroes after the decimal are ignored in determining precision.
-	return d.Equal(other, _noReverseTypeConversion...)
+	o, err := other.ToDecimal(false)
+	if err == nil && o != nil {
+		prec := uint32(min(d.Value.NumDigits(), o.Value.NumDigits()))
+		ctx := apd.BaseContext.WithPrecision(prec)
+		var a, b apd.Decimal
+		_, err = ctx.Round(&a, d.Value)
+		if err != nil {
+			return false
+		}
+		_, err = ctx.Round(&b, o.Value)
+		if err != nil {
+			return false
+		}
+		return a.Cmp(&b) == 0
+	}
+	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+		return other.Equal(d, true)
+	} else {
+		return false
+	}
 }
 func (d Decimal) Cmp(other Element) (*int, error) {
 	o, err := other.ToDecimal(false)
