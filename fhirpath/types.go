@@ -1299,6 +1299,115 @@ func (d Date) Cmp(other Element) (*int, error) {
 		}
 	}
 }
+
+// Add implements date arithmetic for Date values
+func (d Date) Add(ctx context.Context, other Element) (Element, error) {
+	// Check for empty date
+	if d.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty date")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not add Date with %T: %v + %v", other, d, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// Get the value for the quantity, ignoring decimal portion for calendar durations
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	// Perform calendar-based arithmetic (negate the value for subtraction)
+	var result time.Time
+	switch unit {
+	case UnitYear:
+		result = d.Value.AddDate(int(value), 0, 0)
+		// If the month and day of the date or time value is not a valid date in the resulting year,
+		// the last day of the calendar month is used.
+		if result.Day() < d.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitMonth:
+		years, months := value/12, value%12
+		result = d.Value.AddDate(int(years), int(months), 0)
+		// If the resulting date is not a valid date in the resulting year,
+		// the last day of the resulting calendar month is used.
+		if result.Day() < d.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitWeek:
+		result = d.Value.AddDate(0, 0, int(value)*7)
+	case UnitDay:
+		result = d.Value.AddDate(0, 0, int(value))
+	default:
+		return nil, fmt.Errorf("invalid time unit for Date: %v", q.Unit)
+	}
+
+	return Date{Value: result, Precision: d.Precision}, nil
+}
+
+// Subtract implements date arithmetic for Date values
+func (d Date) Subtract(ctx context.Context, other Element) (Element, error) {
+	// Check for empty date
+	if d.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty date")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not subtract from Date with %T: %v - %v", other, d, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// Get the value for the quantity, ignoring decimal portion for calendar durations
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	// Perform calendar-based arithmetic (negate the value for subtraction)
+	var result time.Time
+	switch unit {
+	case UnitYear:
+		result = d.Value.AddDate(int(-value), 0, 0)
+		// If the month and day of the date or time value is not a valid date in the resulting year,
+		// the last day of the calendar month is used.
+		if result.Day() < d.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitMonth:
+		years, months := value/12, value%12
+		result = d.Value.AddDate(int(-years), int(-months), 0)
+		// If the resulting date is not a valid date in the resulting year,
+		// the last day of the resulting calendar month is used.
+		if result.Day() < d.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitWeek:
+		result = d.Value.AddDate(0, 0, int(-value)*7)
+	case UnitDay:
+		result = d.Value.AddDate(0, 0, int(-value))
+	default:
+		return nil, fmt.Errorf("invalid time unit for Date: %v", q.Unit)
+	}
+
+	return Date{Value: result, Precision: d.Precision}, nil
+}
+
 func (d Date) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -1403,6 +1512,107 @@ func (t Time) Cmp(other Element) (*int, error) {
 		return utils.Ptr(t.Value.Compare(o.Value.In(t.Value.Location()))), nil
 	}
 }
+
+// Add implements time arithmetic for Time values
+func (t Time) Add(ctx context.Context, other Element) (Element, error) {
+	// Check for empty time
+	if t.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty time")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not add Time with %T: %v + %v", other, t, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// For calendar durations, truncate decimal values
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	var result time.Time
+	switch unit {
+	case UnitHour:
+		result = t.Value.Add(time.Duration(value * int64(time.Hour)))
+	case UnitMinute:
+		result = t.Value.Add(time.Duration(value * int64(time.Minute)))
+	case UnitSecond:
+		seconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = t.Value.Add(time.Duration(seconds * float64(time.Second)))
+	case UnitMillisecond:
+		milliseconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = t.Value.Add(time.Duration(milliseconds * float64(time.Millisecond)))
+	default:
+		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
+	}
+
+	return Time{Value: result, Precision: t.Precision}, nil
+}
+
+// Subtract implements time arithmetic for Time values
+func (t Time) Subtract(ctx context.Context, other Element) (Element, error) {
+	// Check for empty time
+	if t.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty time")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not subtract from Time with %T: %v - %v", other, t, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// For calendar durations, truncate decimal values
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	var result time.Time
+	switch unit {
+	case UnitHour:
+		result = t.Value.Add(time.Duration(-value * int64(time.Hour)))
+	case UnitMinute:
+		result = t.Value.Add(time.Duration(-value * int64(time.Minute)))
+	case UnitSecond:
+		seconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = t.Value.Add(time.Duration(-seconds * float64(time.Second)))
+	case UnitMillisecond:
+		milliseconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = t.Value.Add(time.Duration(-milliseconds * float64(time.Millisecond)))
+	default:
+		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
+	}
+
+	return Time{Value: result, Precision: t.Precision}, nil
+}
+
 func (t Time) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -1566,6 +1776,141 @@ func (dt DateTime) Cmp(other Element) (*int, error) {
 			o.Value.In(dt.Value.Location()))), nil
 	}
 }
+
+// Add implements date/time arithmetic for DateTime values
+func (dt DateTime) Add(ctx context.Context, other Element) (Element, error) {
+	// Check for empty datetime
+	if dt.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty datetime")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not add DateTime with %T: %v + %v", other, dt, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// For calendar durations, truncate decimal values
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	var result time.Time
+	switch unit {
+	case UnitYear:
+		result = dt.Value.AddDate(int(value), 0, 0)
+		// If the month and day of the date or time value is not a valid date in the resulting year,
+		// the last day of the calendar month is used.
+		if result.Day() < dt.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitMonth:
+		years, months := value/12, value%12
+		result = dt.Value.AddDate(int(years), int(months), 0)
+		// If the resulting date is not a valid date in the resulting year,
+		// the last day of the resulting calendar month is used.
+		if result.Day() < dt.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitWeek:
+		result = dt.Value.AddDate(0, 0, int(value)*7)
+	case UnitDay:
+		result = dt.Value.AddDate(0, 0, int(value))
+	case UnitHour:
+		result = dt.Value.Add(time.Duration(value * int64(time.Hour)))
+	case UnitMinute:
+		result = dt.Value.Add(time.Duration(value * int64(time.Minute)))
+	case UnitSecond:
+		seconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = dt.Value.Add(time.Duration(seconds * float64(time.Second)))
+	case UnitMillisecond:
+		milliseconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = dt.Value.Add(time.Duration(milliseconds * float64(time.Millisecond)))
+	}
+
+	return DateTime{Value: result, Precision: dt.Precision}, nil
+}
+
+// Subtract implements date/time arithmetic for DateTime values
+func (dt DateTime) Subtract(ctx context.Context, other Element) (Element, error) {
+	// Check for empty datetime
+	if dt.Value.IsZero() {
+		return nil, fmt.Errorf("cannot perform arithmetic on empty datetime")
+	}
+
+	q, err := other.ToQuantity(false)
+	if err != nil || q == nil {
+		return nil, fmt.Errorf("can not subtract from DateTime with %T: %v - %v", other, dt, other)
+	}
+
+	unit := normalizeTimeUnit(string(q.Unit))
+	if !isTimeUnit(unit) {
+		return nil, fmt.Errorf("invalid time unit: %v", q.Unit)
+	}
+
+	// For calendar durations, truncate decimal values
+	var integ, frac apd.Decimal
+	q.Value.Value.Modf(&integ, &frac)
+	value, err := integ.Int64()
+	if err != nil {
+		return nil, fmt.Errorf("invalid quantity value for date arithmetic: %v", err)
+	}
+
+	var result time.Time
+	switch unit {
+	case UnitYear:
+		result = dt.Value.AddDate(int(-value), 0, 0)
+		// If the month and day of the date or time value is not a valid date in the resulting year,
+		// the last day of the calendar month is used.
+		if result.Day() < dt.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitMonth:
+		years, months := value/12, value%12
+		result = dt.Value.AddDate(int(-years), int(-months), 0)
+		// If the resulting date is not a valid date in the resulting year,
+		// the last day of the resulting calendar month is used.
+		if result.Day() < dt.Value.Day() {
+			result = result.AddDate(0, 0, -result.Day())
+		}
+	case UnitWeek:
+		result = dt.Value.AddDate(0, 0, int(-value)*7)
+	case UnitDay:
+		result = dt.Value.Add(time.Duration(-value * int64(time.Hour)))
+	case UnitHour:
+		result = dt.Value.Add(time.Duration(-value * int64(time.Hour)))
+	case UnitMinute:
+		result = dt.Value.Add(time.Duration(-value * int64(time.Minute)))
+	case UnitSecond:
+		seconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = dt.Value.Add(time.Duration(-seconds * float64(time.Second)))
+	case UnitMillisecond:
+		milliseconds, err := q.Value.Value.Float64()
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity value for datetime arithmetic: %v", err)
+		}
+		result = dt.Value.Add(time.Duration(-milliseconds * float64(time.Millisecond)))
+	}
+
+	return DateTime{Value: result, Precision: dt.Precision}, nil
+}
+
 func (dt DateTime) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -1701,6 +2046,67 @@ func ParseDateTime(s string) (DateTime, error) {
 			time.Nanosecond*time.Duration(t.Value.Nanosecond()),
 	)
 	return DateTime{dt, DateTimePrecision(t.Precision)}, nil
+}
+
+// Time units for date/time arithmetic
+const (
+	UnitYear         = "year"
+	UnitYears        = "years"
+	UnitMonth        = "month"
+	UnitMonths       = "months"
+	UnitWeek         = "week"
+	UnitWeeks        = "weeks"
+	UnitDay          = "day"
+	UnitDays         = "days"
+	UnitHour         = "hour"
+	UnitHours        = "hours"
+	UnitMinute       = "minute"
+	UnitMinutes      = "minutes"
+	UnitSecond       = "second"
+	UnitSeconds      = "seconds"
+	UnitS            = "s"
+	UnitMillisecond  = "millisecond"
+	UnitMilliseconds = "milliseconds"
+	UnitMs           = "ms"
+)
+
+// isTimeUnit returns true if the unit is a valid time unit
+func isTimeUnit(unit string) bool {
+	switch unit {
+	case UnitYear, UnitYears,
+		UnitMonth, UnitMonths,
+		UnitWeek, UnitWeeks,
+		UnitDay, UnitDays,
+		UnitHour, UnitHours,
+		UnitMinute, UnitMinutes,
+		UnitSecond, UnitSeconds, UnitS,
+		UnitMillisecond, UnitMilliseconds, UnitMs:
+		return true
+	}
+	return false
+}
+
+// normalizeTimeUnit returns the canonical form of a time unit
+func normalizeTimeUnit(unit string) string {
+	switch unit {
+	case UnitYear, UnitYears:
+		return UnitYear
+	case UnitMonth, UnitMonths:
+		return UnitMonth
+	case UnitWeek, UnitWeeks:
+		return UnitWeek
+	case UnitDay, UnitDays:
+		return UnitDay
+	case UnitHour, UnitHours:
+		return UnitHour
+	case UnitMinute, UnitMinutes:
+		return UnitMinute
+	case UnitSecond, UnitSeconds, UnitS:
+		return UnitSecond
+	case UnitMillisecond, UnitMilliseconds, UnitMs:
+		return UnitMillisecond
+	}
+	return unit
 }
 
 type Quantity struct {

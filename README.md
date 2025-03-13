@@ -146,14 +146,14 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.7. Math                                | wip                                           |
 | 5.8. Tree navigation                     | wip                                           |
 | 5.9. Utility functions                   | wip                                           |
-| **6. Operations**                        | wip                                           |
+| **6. Operations**                        | complete                                      |
 | 6.1. Equality                            | complete                                      |
 | 6.2. Comparison                          | complete                                      |
 | 6.3. Types                               | complete                                      |
 | 6.4. Collections                         | complete                                      |
 | 6.5. Boolean logic                       | complete                                      |
 | 6.6. Math                                | complete                                      |
-| 6.7. Date/Time Arithmetic                | wip                                           |
+| 6.7. Date/Time Arithmetic                | complete                                      |
 | 6.8. Operator precedence                 | handled by ANTLR                              |
 | **7. Aggregates**                        | wip                                           |
 | **8. Lexical Elements**                  | handled by ANTLR                              |
