@@ -476,5 +476,155 @@ var defaultFunctions = sync.OnceValue(func() Functions {
 			}
 			return Collection{Boolean(true)}, nil
 		},
+		"where": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single criteria parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			var result Collection
+			for i, elem := range target {
+				criteria, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+				if err != nil {
+					return nil, err
+				}
+
+				if len(criteria) == 1 {
+					b, err := criteria[0].ToBoolean(false)
+					if err != nil {
+						return nil, err
+					}
+					if b != nil && *b {
+						// Element matches the criteria, add it to the result
+						result = append(result, elem)
+					}
+				}
+			}
+
+			return result, nil
+		},
+		"select": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single projection parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			var result Collection
+			for i, elem := range target {
+				projection, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+				if err != nil {
+					return nil, err
+				}
+
+				// Add all items from the projection to the result (flatten)
+				result = append(result, projection...)
+			}
+
+			return result, nil
+		},
+		"repeat": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single projection parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			var result Collection
+			var current = target
+			var newItems Collection
+
+			for _, elem := range current {
+				result = append(result, elem)
+			}
+
+			// Keep repeating the projection until no new items are found
+			for {
+				newItems = nil
+				for i, elem := range current {
+					projection, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(current)})
+					if err != nil {
+						return nil, err
+					}
+
+					// Check for new items
+					for _, item := range projection {
+						for _, seen := range result {
+							if !seen.Equal(item) {
+								newItems = append(newItems, item)
+							}
+						}
+					}
+				}
+
+				// If no new items were found, we're done
+				if len(newItems) == 0 {
+					break
+				}
+
+				// Add new items to the result and set them as the current items for the next iteration
+				result = append(result, newItems...)
+				current = newItems
+			}
+
+			return result, nil
+		},
+		"ofType": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single type specifier parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			typeSpec := ParseTypeSpecifier(parameters[0].String())
+
+			var result Collection
+			for _, elem := range target {
+				isOfType, err := isType(ctx, elem, typeSpec)
+				if err != nil {
+					return nil, err
+				}
+
+				// Check if isOfType is a Boolean with value true
+				if boolVal, ok := isOfType.(Boolean); ok && bool(boolVal) {
+					result = append(result, elem)
+				}
+			}
+
+			return result, nil
+		},
 	}
 })
