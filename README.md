@@ -130,13 +130,13 @@ Refer to the following table outlining the implementation statuses of different 
 | **3. Path selection**                    | complete                                                   |
 | 3.1. Collections                         | complete                                                   |
 | 3.2. Paths and polymorphic items         | complete                                                   |
-| **4. Expressions**                       | wip                                                        |
+| **4. Expressions**                       | complete                                                   |
 | 4.1. Literals                            | complete                                                   |
 | 4.2. Operators                           | see "6. Operations"                                        |
 | 4.3. Function Invocations                | complete                                                   |
 | 4.4. Null and empty                      | complete                                                   |
 | 4.5. Singleton Evaluation of Collections | complete                                                   |
-| **5. Functions**                         | wip                                                        |
+| **5. Functions**                         | complete                                                   |
 | 5.1. Existence                           | complete                                                   |
 | 5.2. Filtering and projection            | complete                                                   |
 | 5.3. Subsetting                          | complete                                                   |
@@ -144,8 +144,8 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.5. Conversion                          | complete                                                   |
 | 5.6. String Manipulation                 | complete                                                   |
 | 5.7. Math                                | complete                                                   |
-| 5.8. Tree navigation                     | wip                                                        |
-| 5.9. Utility functions                   | wip                                                        |
+| 5.8. Tree navigation                     | complete                                                   |
+| 5.9. Utility functions                   | complete                                                   |
 | **6. Operations**                        | complete; no full UCUM support (unit equality is asserted) |
 | 6.1. Equality                            | complete                                                   |
 | 6.2. Comparison                          | complete                                                   |

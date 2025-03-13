@@ -8,6 +8,7 @@ import (
 	"math"
 	"regexp"
 	"strings"
+	"time"
 )
 
 type Functions map[string]Function
@@ -2849,5 +2850,182 @@ var defaultFunctions = Functions{
 		}
 
 		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"children": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		var result Collection
+		for _, elem := range target {
+			// Get all immediate child nodes
+			children := elem.Children()
+			result = append(result, children...)
+		}
+
+		return result, nil
+	},
+	"descendants": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// descendants() is a shorthand for repeat(children())
+		// Manually implement the logic of repeat(children())
+
+		var result Collection
+		var current = target
+		var newItems Collection
+
+		// Keep repeating the children() function until no new items are found
+		for {
+			newItems = nil
+
+			// Get all children of the current elements
+			for _, elem := range current {
+				children := elem.Children()
+
+				// Check for new items
+				for _, child := range children {
+					isNew := true
+					for _, seen := range result {
+						if seen.Equal(child) {
+							isNew = false
+							break
+						}
+					}
+					if isNew {
+						newItems = append(newItems, child)
+					}
+				}
+			}
+
+			// If no new items were found, we're done
+			if len(newItems) == 0 {
+				break
+			}
+
+			// Add new items to the result and set them as the current items for the next iteration
+			result = append(result, newItems...)
+			current = newItems
+		}
+
+		return result, nil
+	},
+	"trace": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) == 0 || len(parameters) > 2 {
+			return nil, fmt.Errorf("expected one or two parameters")
+		}
+
+		// Get the name parameter
+		nameParam, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, err
+		}
+		if len(nameParam) != 1 {
+			return nil, fmt.Errorf("expected single name parameter")
+		}
+		nameStr, err := nameParam[0].ToString(true)
+		if err != nil {
+			return nil, err
+		}
+		if nameStr == nil {
+			return nil, fmt.Errorf("name parameter cannot be null")
+		}
+
+		// Determine what to log
+		var logCollection Collection
+		if len(parameters) == 2 {
+			// If projection is provided, evaluate it on the input
+			for i, elem := range target {
+				projection, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i, total: len(target)})
+				if err != nil {
+					return nil, err
+				}
+				logCollection = append(logCollection, projection...)
+			}
+		} else {
+			// Otherwise, log the input collection
+			logCollection = target
+		}
+
+		// Log the collection with the given name
+		fmt.Printf("TRACE[%s]: %s\n", *nameStr, logCollection)
+
+		// Return the input collection unchanged
+		return target, nil
+	},
+	"now": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// Get the current date and time
+		now := time.Now()
+		dt := DateTime{now, DateTimePrecisionFull}
+
+		return Collection{dt}, nil
+	},
+	"timeOfDay": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// Get the current time
+		now := time.Now()
+		t := Time{now, TimePrecisionFull}
+
+		return Collection{t}, nil
+	},
+	"today": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// Get the current date
+		now := time.Now()
+		d := Date{now, DatePrecisionFull}
+
+		return Collection{d}, nil
 	},
 }
