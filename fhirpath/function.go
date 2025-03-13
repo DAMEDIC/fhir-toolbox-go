@@ -626,5 +626,263 @@ var defaultFunctions = sync.OnceValue(func() Functions {
 
 			return result, nil
 		},
+		"single": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If there are multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Return the single item
+			return Collection{target[0]}, nil
+		},
+		"first": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Return the first item
+			return Collection{target[0]}, nil
+		},
+		"last": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Return the last item
+			return Collection{target[len(target)-1]}, nil
+		},
+		"tail": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection has no items or only one item, the result is empty
+			if len(target) <= 1 {
+				return nil, nil
+			}
+
+			// Return all but the first item
+			return target[1:], nil
+		},
+		"skip": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single num parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Evaluate the num parameter
+			numCollection, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert to integer
+			num, err := Singleton[Integer](numCollection)
+			if err != nil {
+				return nil, err
+			}
+			if num == nil {
+				return nil, fmt.Errorf("expected integer parameter")
+			}
+
+			// If num is less than or equal to zero, return the input collection
+			if *num <= 0 {
+				return target, nil
+			}
+
+			// If num is greater than or equal to the length of the collection, return empty
+			if int(*num) >= len(target) {
+				return nil, nil
+			}
+
+			// Return all but the first num items
+			return target[int(*num):], nil
+		},
+		"take": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single num parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Evaluate the num parameter
+			numCollection, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert to integer
+			num, err := Singleton[Integer](numCollection)
+			if err != nil {
+				return nil, err
+			}
+			if num == nil {
+				return nil, fmt.Errorf("expected integer parameter")
+			}
+
+			// If num is less than or equal to zero, return empty
+			if *num <= 0 {
+				return nil, nil
+			}
+
+			// If num is greater than the length of the collection, return the whole collection
+			if int(*num) >= len(target) {
+				return target, nil
+			}
+
+			// Return the first num items
+			return target[:int(*num)], nil
+		},
+		"intersect": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single collection parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Evaluate the other collection parameter
+			other, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// If the other collection is empty, the result is empty
+			if len(other) == 0 {
+				return nil, nil
+			}
+
+			// Find the intersection of the two collections
+			var result Collection
+			for _, elem := range target {
+				// Check if the element is in the other collection
+				for _, otherElem := range other {
+					if elem.Equal(otherElem) {
+						// Check if the element is already in the result (eliminate duplicates)
+						found := false
+						for _, resultElem := range result {
+							if elem.Equal(resultElem) {
+								found = true
+								break
+							}
+						}
+						if !found {
+							result = append(result, elem)
+						}
+						break
+					}
+				}
+			}
+
+			return result, nil
+		},
+		"exclude": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single collection parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// Evaluate the other collection parameter
+			other, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// If the other collection is empty, the result is the input collection
+			if len(other) == 0 {
+				return target, nil
+			}
+
+			// Find the elements in the input collection that are not in the other collection
+			var result Collection
+			for _, elem := range target {
+				// Check if the element is in the other collection
+				found := false
+				for _, otherElem := range other {
+					if elem.Equal(otherElem) {
+						found = true
+						break
+					}
+				}
+				if !found {
+					// Element is not in the other collection, add it to the result
+					result = append(result, elem)
+				}
+			}
+
+			return result, nil
+		},
 	}
 })

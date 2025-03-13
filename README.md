@@ -123,44 +123,44 @@ concreteAPI := wrap.ConcreteR4(genericAPI)
 The project includes a work-in-progress implementation for [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/).
 Refer to the following table outlining the implementation statuses of different parts of the specification.
 
-| Section of the specification             | Implementation Status                         |
-|------------------------------------------|-----------------------------------------------|
-| **1. Background**                        | not applicable                                |
-| **2. Navigation model**                  | complete                                      |
-| **3. Path selection**                    | complete                                      |
-| 3.1. Collections                         | complete                                      |
-| 3.2. Paths and polymorphic items         | complete                                      |
-| **4. Expressions**                       | wip                                           |
-| 4.1. Literals                            | complete                                      |
-| 4.2. Operators                           | see "6. Operations"                           |
-| 4.3. Function Invocations                | complete                                      |
-| 4.4. Null and empty                      | complete                                      |
-| 4.5. Singleton Evaluation of Collections | complete                                      |
-| **5. Functions**                         | wip                                           |
-| 5.1. Existence                           | complete                                      |
-| 5.2. Filtering and projection            | complete                                      |
-| 5.3. Subsetting                          | wip                                           |
-| 5.4. Combining                           | wip                                           |
-| 5.5. Conversion                          | wip; except `toQuantity` with unit conversion |
-| 5.6. String Manipulation                 | wip                                           |
-| 5.7. Math                                | wip                                           |
-| 5.8. Tree navigation                     | wip                                           |
-| 5.9. Utility functions                   | wip                                           |
-| **6. Operations**                        | complete                                      |
-| 6.1. Equality                            | complete                                      |
-| 6.2. Comparison                          | complete                                      |
-| 6.3. Types                               | complete                                      |
-| 6.4. Collections                         | complete                                      |
-| 6.5. Boolean logic                       | complete                                      |
-| 6.6. Math                                | complete                                      |
-| 6.7. Date/Time Arithmetic                | complete                                      |
-| 6.8. Operator precedence                 | handled by ANTLR                              |
-| **7. Aggregates**                        | wip                                           |
-| **8. Lexical Elements**                  | handled by ANTLR                              |
-| **9. Environment variables**             | complete                                      |
-| **10. Types and Reflection**             | wip                                           |
-| 10.1. Models                             | wip                                           |
-| 10.2. Reflection                         | todo                                          |
+| Section of the specification             | Implementation Status                                      |
+|------------------------------------------|------------------------------------------------------------|
+| **1. Background**                        | not applicable                                             |
+| **2. Navigation model**                  | complete                                                   |
+| **3. Path selection**                    | complete                                                   |
+| 3.1. Collections                         | complete                                                   |
+| 3.2. Paths and polymorphic items         | complete                                                   |
+| **4. Expressions**                       | wip                                                        |
+| 4.1. Literals                            | complete                                                   |
+| 4.2. Operators                           | see "6. Operations"                                        |
+| 4.3. Function Invocations                | complete                                                   |
+| 4.4. Null and empty                      | complete                                                   |
+| 4.5. Singleton Evaluation of Collections | complete                                                   |
+| **5. Functions**                         | wip                                                        |
+| 5.1. Existence                           | complete                                                   |
+| 5.2. Filtering and projection            | complete                                                   |
+| 5.3. Subsetting                          | complete                                                   |
+| 5.4. Combining                           | wip                                                        |
+| 5.5. Conversion                          | wip; except `toQuantity` with unit conversion              |
+| 5.6. String Manipulation                 | wip                                                        |
+| 5.7. Math                                | wip                                                        |
+| 5.8. Tree navigation                     | wip                                                        |
+| 5.9. Utility functions                   | wip                                                        |
+| **6. Operations**                        | complete; no full UCUM support (unit equality is asserted) |
+| 6.1. Equality                            | complete                                                   |
+| 6.2. Comparison                          | complete                                                   |
+| 6.3. Types                               | complete                                                   |
+| 6.4. Collections                         | complete                                                   |
+| 6.5. Boolean logic                       | complete                                                   |
+| 6.6. Math                                | complete                                                   |
+| 6.7. Date/Time Arithmetic                | complete                                                   |
+| 6.8. Operator precedence                 | handled by ANTLR                                           |
+| **7. Aggregates**                        | wip                                                        |
+| **8. Lexical Elements**                  | handled by ANTLR                                           |
+| **9. Environment variables**             | complete                                                   |
+| **10. Types and Reflection**             | wip                                                        |
+| 10.1. Models                             | wip                                                        |
+| 10.2. Reflection                         | todo                                                       |
 
 `todo`: in scope, but has not a very high priority at the moment.
 
