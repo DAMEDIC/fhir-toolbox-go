@@ -3,7 +3,9 @@ package fhirpath
 import (
 	"context"
 	"fmt"
+	"github.com/cockroachdb/apd/v3"
 	"maps"
+	"math"
 	"regexp"
 	"strings"
 )
@@ -81,6 +83,26 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	fns := getFunctions(ctx)
 	fn, ok := fns[name]
 	return fn, ok
+}
+
+// isInteger checks if a decimal value is an integer (has no fractional part)
+func isInteger(d *apd.Decimal) bool {
+	// If the exponent is >= 0, it's an integer
+	if d.Exponent >= 0 {
+		return true
+	}
+
+	// If the exponent is negative, check if all digits after the decimal point are zero
+	// Create a copy to avoid modifying the original
+	var rounded apd.Decimal
+	ctx := apd.BaseContext.WithPrecision(uint32(d.NumDigits()))
+	_, err := ctx.Quantize(&rounded, d, 0)
+	if err != nil {
+		return false
+	}
+
+	// If the rounded value equals the original, it's an integer
+	return rounded.Cmp(d) == 0
 }
 
 var defaultFunctions = Functions{
@@ -2182,5 +2204,650 @@ var defaultFunctions = Functions{
 			result[i] = String(c)
 		}
 		return result, nil
+	},
+	"abs": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			if *i < 0 {
+				return Collection{Integer(-*i)}, nil
+			}
+			return Collection{*i}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Create a new Decimal with the absolute value
+			var absValue apd.Decimal
+			absValue.Abs(d.Value)
+			return Collection{Decimal{Value: &absValue}}, nil
+		}
+
+		// Handle Quantity
+		q, err := target[0].ToQuantity(false)
+		if err == nil && q != nil {
+			// Create a new Quantity with the absolute value of the value
+			var absValue apd.Decimal
+			absValue.Abs(q.Value.Value)
+			return Collection{Quantity{Value: Decimal{Value: &absValue}, Unit: q.Unit}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer, Decimal, or Quantity but got %T", target[0])
+	},
+	"ceiling": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Integer is already a whole number, so ceiling is the same
+			return Collection{*i}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Get the integer part
+			var intPart apd.Decimal
+			_, err = apdContext(ctx).Ceil(&intPart, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert to Integer
+			intVal, err := intPart.Int64()
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Integer(intVal)}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"floor": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Integer is already a whole number, so floor is the same
+			return Collection{*i}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Get the integer part
+			var intPart apd.Decimal
+			_, err = apdContext(ctx).Floor(&intPart, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert to Integer
+			intVal, err := intPart.Int64()
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Integer(intVal)}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"truncate": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Integer is already a whole number, so truncate is the same
+			return Collection{*i}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Get the integer part
+			var intPart apd.Decimal
+
+			// Use Floor for positive numbers and Ceil for negative numbers
+			if d.Value.Negative {
+				_, err = apdContext(ctx).Ceil(&intPart, d.Value)
+			} else {
+				_, err = apdContext(ctx).Floor(&intPart, d.Value)
+			}
+
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert to Integer
+			intVal, err := intPart.Int64()
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Integer(intVal)}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"round": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) > 1 {
+			return nil, fmt.Errorf("expected at most one precision parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Default precision is 0
+		precision := 0
+
+		// If precision parameter is provided, evaluate it
+		if len(parameters) == 1 {
+			precisionCollection, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// If the precision collection is empty, use default precision
+			if len(precisionCollection) > 0 {
+				precisionInt, err := Singleton[Integer](precisionCollection)
+				if err != nil {
+					return nil, err
+				}
+				if precisionInt == nil {
+					return nil, fmt.Errorf("expected integer precision parameter")
+				}
+
+				// Precision must be >= 0
+				if *precisionInt < 0 {
+					return nil, fmt.Errorf("precision must be >= 0")
+				}
+
+				precision = int(*precisionInt)
+			}
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Integer is already a whole number, so if precision is 0, return as is
+			if precision == 0 {
+				// Convert to Decimal
+				return Collection{Decimal{Value: apd.New(int64(*i), 0)}}, nil
+			}
+
+			// Create a decimal with the specified precision
+			coeff := int64(*i)
+			factor := int64(math.Pow10(precision))
+			d := apd.New(coeff*factor, int32(-precision))
+			// No error to check here
+
+			return Collection{Decimal{Value: d}}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Create a context with the specified precision
+			apdCtx := apdContext(ctx).WithPrecision(uint32(precision + 1))
+
+			// Round the decimal to the specified precision
+			var rounded apd.Decimal
+			_, err = apdCtx.Round(&rounded, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &rounded}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"exp": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Convert Integer to Decimal
+			d := apd.New(int64(*i), 0)
+
+			// Calculate e^x
+			var result apd.Decimal
+			_, err = apdContext(ctx).Exp(&result, d)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Calculate e^x
+			var result apd.Decimal
+			_, err = apdContext(ctx).Exp(&result, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"ln": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Convert Integer to Decimal
+			d := apd.New(int64(*i), 0)
+
+			// Calculate ln(x)
+			var result apd.Decimal
+			_, err = apdContext(ctx).Ln(&result, d)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Calculate ln(x)
+			var result apd.Decimal
+			_, err = apdContext(ctx).Ln(&result, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"log": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 1 {
+			return nil, fmt.Errorf("expected one base parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Evaluate the base parameter
+		baseCollection, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, err
+		}
+
+		// If the base collection is empty, the result is empty
+		if len(baseCollection) == 0 {
+			return nil, nil
+		}
+
+		// Get the base as a Decimal
+		baseDecimal, err := baseCollection[0].ToDecimal(false)
+		if err != nil || baseDecimal == nil {
+			// Try to convert Integer to Decimal
+			baseInt, err := baseCollection[0].ToInteger(false)
+			if err != nil || baseInt == nil {
+				return nil, fmt.Errorf("expected Integer or Decimal base parameter but got %T", baseCollection[0])
+			}
+			baseDecimal = &Decimal{Value: apd.New(int64(*baseInt), 0)}
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Convert Integer to Decimal
+			d := apd.New(int64(*i), 0)
+
+			// Calculate log_base(x) = ln(x) / ln(base)
+			var lnX, lnBase, result apd.Decimal
+			_, err = apdContext(ctx).Ln(&lnX, d)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = apdContext(ctx).Ln(&lnBase, baseDecimal.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = apdContext(ctx).Quo(&result, &lnX, &lnBase)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// Calculate log_base(x) = ln(x) / ln(base)
+			var lnX, lnBase, result apd.Decimal
+			_, err = apdContext(ctx).Ln(&lnX, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = apdContext(ctx).Ln(&lnBase, baseDecimal.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = apdContext(ctx).Quo(&result, &lnX, &lnBase)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"power": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 1 {
+			return nil, fmt.Errorf("expected one exponent parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Evaluate the exponent parameter
+		exponentCollection, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, err
+		}
+
+		// If the exponent collection is empty, the result is empty
+		if len(exponentCollection) == 0 {
+			return nil, nil
+		}
+
+		// Try to get the exponent as an Integer
+		exponentInt, err := exponentCollection[0].ToInteger(false)
+		if err == nil && exponentInt != nil {
+			// Handle Integer base
+			i, err := target[0].ToInteger(false)
+			if err == nil && i != nil {
+				// For Integer base and Integer exponent, return Integer if possible
+				result := int64(math.Pow(float64(*i), float64(*exponentInt)))
+
+				// Check if the result can be represented as an Integer
+				if math.Pow(float64(*i), float64(*exponentInt)) == float64(result) {
+					return Collection{Integer(result)}, nil
+				}
+
+				// Otherwise, return as Decimal
+				resultDecimal := apd.New(0, 0)
+				resultDecimal.SetFloat64(math.Pow(float64(*i), float64(*exponentInt)))
+				return Collection{Decimal{Value: resultDecimal}}, nil
+			}
+		}
+
+		// Get the exponent as a Decimal
+		exponentDecimal, err := exponentCollection[0].ToDecimal(false)
+		if err != nil || exponentDecimal == nil {
+			// Try to convert Integer to Decimal
+			exponentInt, err := exponentCollection[0].ToInteger(false)
+			if err != nil || exponentInt == nil {
+				return nil, fmt.Errorf("expected Integer or Decimal exponent parameter but got %T", exponentCollection[0])
+			}
+			exponentDecimal = &Decimal{Value: apd.New(int64(*exponentInt), 0)}
+		}
+
+		// Handle Decimal base
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// For negative base and non-integer exponent, the result is empty
+			if d.Value.Negative && !isInteger(exponentDecimal.Value) {
+				return nil, nil
+			}
+
+			// Calculate x^y
+			var result apd.Decimal
+			_, err = apdContext(ctx).Pow(&result, d.Value, exponentDecimal.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		// Handle Integer base
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// Convert Integer to Decimal
+			d := apd.New(int64(*i), 0)
+
+			// For negative base and non-integer exponent, the result is empty
+			if *i < 0 && !isInteger(exponentDecimal.Value) {
+				return nil, nil
+			}
+
+			// Calculate x^y
+			var result apd.Decimal
+			_, err = apdContext(ctx).Pow(&result, d, exponentDecimal.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+	},
+	"sqrt": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, fmt.Errorf("expected single item but got %d items", len(target))
+		}
+
+		// Handle Integer
+		i, err := target[0].ToInteger(false)
+		if err == nil && i != nil {
+			// For negative input, the result is empty
+			if *i < 0 {
+				return nil, nil
+			}
+
+			// Convert Integer to Decimal
+			d := apd.New(int64(*i), 0)
+
+			// Calculate sqrt(x)
+			var result apd.Decimal
+			_, err = apdContext(ctx).Sqrt(&result, d)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		// Handle Decimal
+		d, err := target[0].ToDecimal(false)
+		if err == nil && d != nil {
+			// For negative input, the result is empty
+			if d.Value.Negative {
+				return nil, nil
+			}
+
+			// Calculate sqrt(x)
+			var result apd.Decimal
+			_, err = apdContext(ctx).Sqrt(&result, d.Value)
+			if err != nil {
+				return nil, err
+			}
+
+			return Collection{Decimal{Value: &result}}, nil
+		}
+
+		return nil, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
 	},
 }
