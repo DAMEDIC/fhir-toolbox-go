@@ -3032,6 +3032,63 @@ var defaultFunctions = Functions{
 		// Return the input collection unchanged
 		return target, nil
 	},
+	"aggregate": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) == 0 || len(parameters) > 2 {
+			return nil, fmt.Errorf("expected one or two parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, nil
+		}
+
+		// Initialize the total variable
+		var total Collection
+		if len(parameters) == 2 {
+			// If init value is provided, evaluate it
+			var err error
+			total, err = evaluate(ctx, nil, parameters[1])
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		// Iterate over the target collection
+		for i, elem := range target {
+			// Create a new context with the current total value
+			var totalCtx context.Context
+			if len(total) == 0 {
+				// If total is empty, don't add it to the context
+				// The $total variable will be empty in the expression
+				totalCtx = ctx
+			} else {
+				// Otherwise, add the total value to the context
+				totalCtx = WithEnv(ctx, "total", total[0])
+			}
+
+			// Evaluate the aggregator expression with the current element and total
+			result, err := evaluate(totalCtx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			if err != nil {
+				return nil, err
+			}
+
+			// Update the total variable with the result
+			if len(result) == 0 {
+				total = Collection{}
+			} else if len(result) == 1 {
+				total = Collection{result[0]}
+			} else {
+				return nil, fmt.Errorf("aggregator expression must return a single value")
+			}
+		}
+
+		return total, nil
+	},
 	"now": func(
 		ctx context.Context,
 		root Element, target Collection,

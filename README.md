@@ -155,7 +155,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 6.6. Math                                | complete                                                   |
 | 6.7. Date/Time Arithmetic                | complete                                                   |
 | 6.8. Operator precedence                 | handled by ANTLR                                           |
-| **7. Aggregates**                        | wip                                                        |
+| **7. Aggregates**                        | complete                                                   |
 | **8. Lexical Elements**                  | handled by ANTLR                                           |
 | **9. Environment variables**             | complete                                                   |
 | **10. Types and Reflection**             | wip                                                        |
