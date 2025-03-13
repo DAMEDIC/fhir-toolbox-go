@@ -142,7 +142,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.3. Subsetting                          | complete                                                   |
 | 5.4. Combining                           | complete                                                   |
 | 5.5. Conversion                          | complete                                                   |
-| 5.6. String Manipulation                 | wip                                                        |
+| 5.6. String Manipulation                 | complete                                                   |
 | 5.7. Math                                | wip                                                        |
 | 5.8. Tree navigation                     | wip                                                        |
 | 5.9. Utility functions                   | wip                                                        |
