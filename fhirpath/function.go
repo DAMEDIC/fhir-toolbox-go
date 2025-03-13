@@ -884,5 +884,43 @@ var defaultFunctions = sync.OnceValue(func() Functions {
 
 			return result, nil
 		},
+		"union": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single collection parameter")
+			}
+
+			// Evaluate the other collection parameter
+			other, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// Use the Union method to merge the collections
+			return target.Union(other), nil
+		},
+		"combine": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 1 {
+				return nil, fmt.Errorf("expected single collection parameter")
+			}
+
+			// Evaluate the other collection parameter
+			other, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// Use the Combine method to merge the collections
+			return target.Combine(other), nil
+		},
 	}
 })

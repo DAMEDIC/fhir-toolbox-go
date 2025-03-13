@@ -140,7 +140,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 5.1. Existence                           | complete                                                   |
 | 5.2. Filtering and projection            | complete                                                   |
 | 5.3. Subsetting                          | complete                                                   |
-| 5.4. Combining                           | wip                                                        |
+| 5.4. Combining                           | complete                                                   |
 | 5.5. Conversion                          | wip; except `toQuantity` with unit conversion              |
 | 5.6. String Manipulation                 | wip                                                        |
 | 5.7. Math                                | wip                                                        |

@@ -401,15 +401,52 @@ func (c Collection) Cmp(other Collection) (*int, error) {
 	return left.Cmp(right)
 }
 func (c Collection) Union(other Collection) Collection {
+	// If the input collection is empty, return the other collection
+	if len(c) == 0 {
+		return slices.Clone(other)
+	}
+
+	// If the other collection is empty, return the input collection
+	if len(other) == 0 {
+		return slices.Clone(c)
+	}
+
+	// Start with a clone of the input collection
 	union := slices.Clone(c)
+
+	// Add elements from the other collection that are not already in the union
 	for _, o := range other {
+		found := false
 		for _, e := range union {
-			if !o.Equal(e) {
-				union = append(union, e)
+			if o.Equal(e) {
+				found = true
+				break
 			}
 		}
+		if !found {
+			union = append(union, o)
+		}
 	}
+
 	return union
+}
+
+func (c Collection) Combine(other Collection) Collection {
+	// If the input collection is empty, return the other collection
+	if len(c) == 0 {
+		return slices.Clone(other)
+	}
+
+	// If the other collection is empty, return the input collection
+	if len(other) == 0 {
+		return slices.Clone(c)
+	}
+
+	// Combine the two collections without eliminating duplicates
+	combined := slices.Clone(c)
+	combined = append(combined, other...)
+
+	return combined
 }
 func (c Collection) Contains(element Element) bool {
 	for _, e := range c {
