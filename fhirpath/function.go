@@ -922,5 +922,582 @@ var defaultFunctions = sync.OnceValue(func() Functions {
 			// Use the Combine method to merge the collections
 			return target.Combine(other), nil
 		},
+		"iif": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			// Check parameters: criterion, true-result, and optional otherwise-result
+			if len(parameters) < 2 || len(parameters) > 3 {
+				return nil, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
+			}
+
+			// Evaluate the criterion expression
+			criterion, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert criterion to boolean
+			var criterionBool *Boolean
+			if len(criterion) == 1 {
+				criterionBool, err = criterion[0].ToBoolean(false)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			// If criterion is true, return the value of the true-result argument
+			if criterionBool != nil && bool(*criterionBool) {
+				trueResult, err := evaluate(ctx, nil, parameters[1])
+				if err != nil {
+					return nil, err
+				}
+				return trueResult, nil
+			}
+
+			// If criterion is false or an empty collection, return otherwise-result
+			// If otherwise-result is not given, return an empty collection
+			if len(parameters) == 3 {
+				otherwiseResult, err := evaluate(ctx, nil, parameters[2])
+				if err != nil {
+					return nil, err
+				}
+				return otherwiseResult, nil
+			}
+
+			// No otherwise-result, return empty collection
+			return nil, nil
+		},
+		"toBoolean": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to boolean
+			b, err := target[0].ToBoolean(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if b == nil {
+				return nil, nil
+			}
+
+			return Collection{*b}, nil
+		},
+		"convertsToBoolean": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to boolean
+			_, err := target[0].ToBoolean(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toInteger": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to integer
+			i, err := target[0].ToInteger(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if i == nil {
+				return nil, nil
+			}
+
+			return Collection{*i}, nil
+		},
+		"convertsToInteger": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to integer
+			_, err := target[0].ToInteger(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toDate": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to date
+			d, err := target[0].ToDate(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if d == nil {
+				return nil, nil
+			}
+
+			return Collection{*d}, nil
+		},
+		"convertsToDate": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to date
+			_, err := target[0].ToDate(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toDateTime": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to datetime
+			dt, err := target[0].ToDateTime(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if dt == nil {
+				return nil, nil
+			}
+
+			return Collection{*dt}, nil
+		},
+		"convertsToDateTime": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to datetime
+			_, err := target[0].ToDateTime(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toTime": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to time
+			t, err := target[0].ToTime(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if t == nil {
+				return nil, nil
+			}
+
+			return Collection{*t}, nil
+		},
+		"convertsToTime": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to time
+			_, err := target[0].ToTime(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toDecimal": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to decimal
+			d, err := target[0].ToDecimal(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if d == nil {
+				return nil, nil
+			}
+
+			return Collection{*d}, nil
+		},
+		"convertsToDecimal": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to decimal
+			_, err := target[0].ToDecimal(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toQuantity": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			// Check parameters: optional unit
+			if len(parameters) > 1 {
+				return nil, fmt.Errorf("expected at most one unit parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to quantity
+			q, err := target[0].ToQuantity(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if q == nil {
+				return nil, nil
+			}
+
+			// If unit parameter is provided, check if the quantity can be converted to the given unit
+			if len(parameters) == 1 {
+				// Evaluate the unit parameter
+				unitCollection, err := evaluate(ctx, nil, parameters[0])
+				if err != nil {
+					return nil, err
+				}
+
+				// Convert to string
+				unitStr, err := Singleton[String](unitCollection)
+				if err != nil {
+					return nil, err
+				}
+				if unitStr == nil {
+					return nil, fmt.Errorf("expected string unit parameter")
+				}
+
+				// Check if the quantity can be converted to the given unit
+				// Note: The specification says implementations are not required to support a complete UCUM implementation,
+				// and may return empty ({ }) when the unit argument is used and it is different than the input quantity unit.
+				// For now, we'll just check if the units are the same.
+				if q.Unit != *unitStr {
+					return nil, nil // Return empty collection if units don't match
+				}
+			}
+
+			return Collection{*q}, nil
+		},
+		"convertsToQuantity": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			// Check parameters: optional unit
+			if len(parameters) > 1 {
+				return nil, fmt.Errorf("expected at most one unit parameter")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to quantity
+			q, err := target[0].ToQuantity(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+			if q == nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			// If unit parameter is provided, check if the quantity can be converted to the given unit
+			if len(parameters) == 1 {
+				// Evaluate the unit parameter
+				unitCollection, err := evaluate(ctx, nil, parameters[0])
+				if err != nil {
+					return nil, err
+				}
+
+				// Convert to string
+				unitStr, err := Singleton[String](unitCollection)
+				if err != nil {
+					return nil, err
+				}
+				if unitStr == nil {
+					return nil, fmt.Errorf("expected string unit parameter")
+				}
+
+				// Check if the quantity can be converted to the given unit
+				// Note: The specification says implementations are not required to support a complete UCUM implementation,
+				// and may return false when the unit argument is used and it is different than the input quantity unit.
+				// For now, we'll just check if the units are the same.
+				if q.Unit != *unitStr {
+					return Collection{Boolean(false)}, nil
+				}
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
+		"toString": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Convert to string
+			s, err := target[0].ToString(true)
+			if err != nil {
+				return nil, nil // Return empty collection if conversion fails
+			}
+			if s == nil {
+				return nil, nil
+			}
+
+			return Collection{*s}, nil
+		},
+		"convertsToString": func(
+			ctx context.Context,
+			root Element, target Collection,
+			parameters []Expression,
+			evaluate EvaluateFunc,
+		) (Collection, error) {
+			if len(parameters) != 0 {
+				return nil, fmt.Errorf("expected no parameters")
+			}
+
+			// If the input collection is empty, the result is empty
+			if len(target) == 0 {
+				return nil, nil
+			}
+
+			// If the input collection contains multiple items, signal an error
+			if len(target) > 1 {
+				return nil, fmt.Errorf("expected single item but got %d items", len(target))
+			}
+
+			// Check if convertible to string
+			_, err := target[0].ToString(true)
+			if err != nil {
+				return Collection{Boolean(false)}, nil
+			}
+
+			return Collection{Boolean(true)}, nil
+		},
 	}
 })

@@ -137,8 +137,12 @@ func callFunc(
 					total: fnScope[0].total,
 				})
 			}
+			var targetCollection Collection
+			if target != nil {
+				targetCollection = Collection{target}
+			}
 			return evalExpression(ctx,
-				root, Collection{target},
+				root, targetCollection,
 				expr.tree, false,
 			)
 		},
