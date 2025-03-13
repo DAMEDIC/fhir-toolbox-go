@@ -11,6 +11,55 @@ import (
 	"time"
 )
 
+// TraceLogger defines the interface for logging trace messages
+type TraceLogger interface {
+	// Log logs a trace message with the given name and collection
+	Log(name string, collection Collection)
+}
+
+// NoOpTraceLogger is a TraceLogger that does nothing
+type NoOpTraceLogger struct{}
+
+// Log does nothing
+func (l *NoOpTraceLogger) Log(name string, collection Collection) {}
+
+// Enabled always returns false
+func (l *NoOpTraceLogger) Enabled() bool {
+	return false
+}
+
+type traceLoggerKey struct{}
+
+// WithTraceLogger installs the given trace logger into the context.
+//
+// By default, trace logging is disabled. To enable trace logging, use:
+//
+//	ctx = fhirpath.WithTraceLogger(ctx, fhirpath.NewDefaultTraceLogger(true, nil))
+//
+// To redirect trace logs to a custom output, use:
+//
+//	file, _ := os.Create("trace.log")
+//	ctx = fhirpath.WithTraceLogger(ctx, fhirpath.NewDefaultTraceLogger(true, file))
+//
+// To disable trace logging, use:
+//
+//	ctx = fhirpath.WithTraceLogger(ctx, &fhirpath.NoOpTraceLogger{})
+//
+// or simply don't call WithTraceLogger, as trace logging is disabled by default.
+func WithTraceLogger(ctx context.Context, logger TraceLogger) context.Context {
+	return context.WithValue(ctx, traceLoggerKey{}, logger)
+}
+
+// GetTraceLogger gets the trace logger from the context
+// If no trace logger is found, a NoOpTraceLogger is returned
+func traceLogger(ctx context.Context) TraceLogger {
+	logger, ok := ctx.Value(traceLoggerKey{}).(TraceLogger)
+	if !ok {
+		return &NoOpTraceLogger{}
+	}
+	return logger
+}
+
 type Functions map[string]Function
 type Function = func(
 	ctx context.Context,
@@ -2942,6 +2991,9 @@ var defaultFunctions = Functions{
 			return nil, fmt.Errorf("expected one or two parameters")
 		}
 
+		// Get the trace logger from the context
+		logger := traceLogger(ctx)
+
 		// Get the name parameter
 		nameParam, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
@@ -2975,7 +3027,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Log the collection with the given name
-		fmt.Printf("TRACE[%s]: %s\n", *nameStr, logCollection)
+		logger.Log(string(*nameStr), logCollection)
 
 		// Return the input collection unchanged
 		return target, nil

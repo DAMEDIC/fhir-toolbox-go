@@ -177,6 +177,7 @@ ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
 
 > **Attention**: By default the precision is set to `0`.
 
+
 ## Packages
 
 | Package              | Description                                                                   |
