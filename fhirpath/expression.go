@@ -507,12 +507,9 @@ func WithEnv(ctx context.Context, name string, value Element) context.Context {
 	return context.WithValue(ctx, envKey(name), value)
 }
 
-func envValue(ctx context.Context, name string) (Element, error) {
+func envValue(ctx context.Context, name string) (Element, bool) {
 	val, ok := ctx.Value(envKey(name)).(Element)
-	if !ok {
-		return nil, fmt.Errorf("environment variable %q undefined", name)
-	}
-	return val, nil
+	return val, ok
 }
 
 func evalExternalConstant(
@@ -520,9 +517,9 @@ func evalExternalConstant(
 	tree parser.IExternalConstantContext,
 ) (Collection, error) {
 	name := strings.TrimLeft(tree.GetText(), "%")
-	value, err := envValue(ctx, name)
-	if err != nil {
-		return nil, err
+	value, ok := envValue(ctx, name)
+	if !ok {
+		return nil, fmt.Errorf("environment variable %q undefined", name)
 	}
 	return Collection{value}, nil
 }

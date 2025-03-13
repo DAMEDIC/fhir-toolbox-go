@@ -115,26 +115,32 @@ func callFunc(
 		return nil, fmt.Errorf("function \"%s\" not found", ident)
 	}
 
-	results := make(Collection, 0, len(target))
-	for index, elem := range target {
-		paramExprs := make([]Expression, 0, len(paramTerms))
-		for _, param := range paramTerms {
-			paramExprs = append(paramExprs, Expression{param})
-		}
-
-		result, err := fn(ctx, root, elem, paramExprs, func(expr Expression) (Collection, error) {
-			return evalExpression(
-				withFunctionScope(ctx, elem, index, len(target)),
-				root, Collection{elem},
-				expr.tree,
-				false,
-			)
-		})
-		if err != nil {
-			return nil, fmt.Errorf("failed to evaluate function \"%s\" on element %v (index %v): %w", ident, elem, index, err)
-		}
-		results = append(results, result...)
+	paramExprs := make([]Expression, 0, len(paramTerms))
+	for _, param := range paramTerms {
+		paramExprs = append(paramExprs, Expression{param})
 	}
 
-	return results, nil
+	return fn(
+		ctx,
+		root, target,
+		paramExprs,
+		func(
+			ctx context.Context,
+			target Element,
+			expr Expression,
+			fnScope ...FunctionScope,
+		) (Collection, error) {
+			if len(fnScope) > 0 {
+				ctx = withFunctionScope(ctx, functionScope{
+					this:  target,
+					index: fnScope[0].index,
+					total: fnScope[0].total,
+				})
+			}
+			return evalExpression(ctx,
+				root, Collection{target},
+				expr.tree, false,
+			)
+		},
+	)
 }

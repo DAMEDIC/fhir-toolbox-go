@@ -137,7 +137,7 @@ Refer to the following table outlining the implementation statuses of different 
 | 4.4. Null and empty                      | complete                                      |
 | 4.5. Singleton Evaluation of Collections | complete                                      |
 | **5. Functions**                         | wip                                           |
-| 5.1. Existence                           | wip                                           |
+| 5.1. Existence                           | complete                                      |
 | 5.2. Filtering and projection            | wip                                           |
 | 5.3. Subsetting                          | wip                                           |
 | 5.4. Combining                           | wip                                           |
