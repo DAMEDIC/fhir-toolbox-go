@@ -472,7 +472,7 @@ func evalLiteral(
 			return nil, fmt.Errorf("expected boolean literal, got %s", s)
 		}
 	case *parser.StringLiteralContext:
-		unescaped, err := unescape(s)
+		unescaped, err := unescape(s[1 : len(s)-1])
 		return Collection{String(unescaped)}, err
 	case *parser.NumberLiteralContext:
 		if strings.Contains(s, ".") {
@@ -532,7 +532,7 @@ func Singleton[T Element](c Collection) (*T, error) {
 	}
 
 	// convert to input type
-	v, err := ElementTo[T](c[0], false)
+	v, err := elementTo[T](c[0], false)
 
 	// if not convertible but contains a single value, evaluate to true
 	if _, wantBool := any(v).(Boolean); err != nil && wantBool {

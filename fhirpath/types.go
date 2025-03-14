@@ -1158,28 +1158,18 @@ func (s String) String() string {
 }
 
 var (
+	// escapes not handled by strconv.Unquote
 	unescapeReplacer = strings.NewReplacer(
 		`\'`, `'`,
-		`\"`, `""`,
-		`\'`, `'`,
-		`\'`, `'`,
-		`\'`, `'`,
+		"\\`", "`",
+		`\/`, `/`,
 	)
-	escapeUnicodeRegex = regexp.MustCompile(`\\u([[:xdigit:]]){4}`)
 )
 
 func unescape(s string) (string, error) {
 	unescaped := unescapeReplacer.Replace(s)
-
-	var errs []error
-	return escapeUnicodeRegex.ReplaceAllStringFunc(unescaped, func(s string) string {
-		unquoted, err := strconv.Unquote(fmt.Sprintf("%s", s))
-		if err != nil {
-			errs = append(errs, err)
-			return "�"
-		}
-		return unquoted
-	}), errors.Join(errs...)
+	// handles \", \r, \n, \t, \f, \\, \uXXXX
+	return strconv.Unquote(`"` + unescaped + `"`)
 }
 
 type Integer int32
