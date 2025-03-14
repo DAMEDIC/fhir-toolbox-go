@@ -612,31 +612,31 @@ func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Collection
 	}
 }
 
-func ElementTo[T Element](e Element, explicit bool) (*T, error) {
+func elementTo[T Element](e Element, explicit bool) (*T, error) {
 	var v *T
 	switch any(v).(type) {
-	case Boolean:
+	case *Boolean:
 		v, err := e.ToBoolean(explicit)
 		return any(v).(*T), err
-	case String:
+	case *String:
 		v, err := e.ToString(explicit)
 		return any(v).(*T), err
-	case Integer:
+	case *Integer:
 		v, err := e.ToInteger(explicit)
 		return any(v).(*T), err
-	case Decimal:
+	case *Decimal:
 		v, err := e.ToDecimal(explicit)
 		return any(v).(*T), err
-	case Date:
+	case *Date:
 		v, err := e.ToDate(explicit)
 		return any(v).(*T), err
-	case Time:
+	case *Time:
 		v, err := e.ToTime(explicit)
 		return any(v).(*T), err
-	case DateTime:
+	case *DateTime:
 		v, err := e.ToDateTime(explicit)
 		return any(v).(*T), err
-	case Quantity:
+	case *Quantity:
 		v, err := e.ToQuantity(explicit)
 		return any(v).(*T), err
 	default:
@@ -1173,7 +1173,7 @@ func unescape(s string) (string, error) {
 
 	var errs []error
 	return escapeUnicodeRegex.ReplaceAllStringFunc(unescaped, func(s string) string {
-		unquoted, err := strconv.Unquote(fmt.Sprintf("'%s'", s))
+		unquoted, err := strconv.Unquote(fmt.Sprintf("%s", s))
 		if err != nil {
 			errs = append(errs, err)
 			return "�"
