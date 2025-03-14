@@ -717,22 +717,46 @@ func (r ProductShelfLife) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Type",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Period",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "SpecialPrecautionsForStorage",
-			Type: "List<FHIR.CodeableConcept>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

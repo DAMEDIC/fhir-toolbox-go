@@ -1932,58 +1932,130 @@ func (r Person) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Meta",
-			Type: "FHIR.Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ImplicitRules",
-			Type: "FHIR.Uri",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Language",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Text",
-			Type: "FHIR.Narrative",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Contained",
-			Type: "List<FHIR.>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Identifier",
-			Type: "List<FHIR.Identifier>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Identifier",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Name",
-			Type: "List<FHIR.HumanName>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "HumanName",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Telecom",
-			Type: "List<FHIR.ContactPoint>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactPoint",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Gender",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "BirthDate",
-			Type: "FHIR.Date",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Address",
-			Type: "List<FHIR.Address>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Address",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Photo",
-			Type: "FHIR.Attachment",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Attachment",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ManagingOrganization",
-			Type: "FHIR.Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Active",
-			Type: "FHIR.Boolean",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Link",
-			Type: "List<FHIR.PersonLink>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PersonLink",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -2082,19 +2154,39 @@ func (r PersonLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Target",
-			Type: "FHIR.Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Assurance",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

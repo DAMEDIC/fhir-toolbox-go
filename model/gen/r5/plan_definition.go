@@ -12786,133 +12786,305 @@ func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Meta",
-			Type: "FHIR.Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ImplicitRules",
-			Type: "FHIR.Uri",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Language",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Text",
-			Type: "FHIR.Narrative",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Contained",
-			Type: "List<FHIR.>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Url",
-			Type: "FHIR.Uri",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Identifier",
-			Type: "List<FHIR.Identifier>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Identifier",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Version",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "VersionAlgorithm",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Name",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Subtitle",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Type",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Status",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Experimental",
-			Type: "FHIR.Boolean",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Subject",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Date",
-			Type: "FHIR.DateTime",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Publisher",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Contact",
-			Type: "List<FHIR.ContactDetail>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Description",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "UseContext",
-			Type: "List<FHIR.UsageContext>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "UsageContext",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Jurisdiction",
-			Type: "List<FHIR.CodeableConcept>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Purpose",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Usage",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Copyright",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "CopyrightLabel",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ApprovalDate",
-			Type: "FHIR.Date",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "LastReviewDate",
-			Type: "FHIR.Date",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "EffectivePeriod",
-			Type: "FHIR.Period",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Period",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Topic",
-			Type: "List<FHIR.CodeableConcept>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Author",
-			Type: "List<FHIR.ContactDetail>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Editor",
-			Type: "List<FHIR.ContactDetail>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Reviewer",
-			Type: "List<FHIR.ContactDetail>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Endorser",
-			Type: "List<FHIR.ContactDetail>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "RelatedArtifact",
-			Type: "List<FHIR.RelatedArtifact>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "RelatedArtifact",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Library",
-			Type: "List<FHIR.Canonical>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Goal",
-			Type: "List<FHIR.PlanDefinitionGoal>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionGoal",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Actor",
-			Type: "List<FHIR.PlanDefinitionActor>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActor",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Action",
-			Type: "List<FHIR.PlanDefinitionAction>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionAction",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "AsNeeded",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13036,34 +13208,74 @@ func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Category",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Description",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Priority",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Start",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Addresses",
-			Type: "List<FHIR.CodeableConcept>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Documentation",
-			Type: "List<FHIR.RelatedArtifact>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "RelatedArtifact",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Target",
-			Type: "List<FHIR.PlanDefinitionGoalTarget>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionGoalTarget",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13169,22 +13381,46 @@ func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Measure",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Detail",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Due",
-			Type: "FHIR.Duration",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Duration",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13290,22 +13526,46 @@ func (r PlanDefinitionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Description",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Option",
-			Type: "List<FHIR.PlanDefinitionActorOption>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActorOption",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13416,25 +13676,53 @@ func (r PlanDefinitionActorOption) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Type",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TypeCanonical",
-			Type: "FHIR.Canonical",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TypeReference",
-			Type: "FHIR.Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Role",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13670,100 +13958,228 @@ func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "LinkId",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Prefix",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Description",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TextEquivalent",
-			Type: "FHIR.Markdown",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Priority",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Code",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Reason",
-			Type: "List<FHIR.CodeableConcept>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Documentation",
-			Type: "List<FHIR.RelatedArtifact>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "RelatedArtifact",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "GoalId",
-			Type: "List<FHIR.Id>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Subject",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Trigger",
-			Type: "List<FHIR.TriggerDefinition>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "TriggerDefinition",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Condition",
-			Type: "List<FHIR.PlanDefinitionActionCondition>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionCondition",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Input",
-			Type: "List<FHIR.PlanDefinitionActionInput>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionInput",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Output",
-			Type: "List<FHIR.PlanDefinitionActionOutput>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionOutput",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "RelatedAction",
-			Type: "List<FHIR.PlanDefinitionActionRelatedAction>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionRelatedAction",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Timing",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Location",
-			Type: "FHIR.CodeableReference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableReference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Participant",
-			Type: "List<FHIR.PlanDefinitionActionParticipant>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionParticipant",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Type",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "GroupingBehavior",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "SelectionBehavior",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "RequiredBehavior",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "PrecheckBehavior",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "CardinalityBehavior",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Definition",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Transform",
-			Type: "FHIR.Canonical",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "DynamicValue",
-			Type: "List<FHIR.PlanDefinitionActionDynamicValue>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionActionDynamicValue",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Action",
-			Type: "List<FHIR.PlanDefinitionAction>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PlanDefinitionAction",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13862,19 +14278,39 @@ func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Kind",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Expression",
-			Type: "FHIR.Expression",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Expression",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -13980,22 +14416,46 @@ func (r PlanDefinitionActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Requirement",
-			Type: "FHIR.DataRequirement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DataRequirement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "RelatedData",
-			Type: "FHIR.Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -14101,22 +14561,46 @@ func (r PlanDefinitionActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Requirement",
-			Type: "FHIR.DataRequirement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DataRequirement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "RelatedData",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -14223,25 +14707,53 @@ func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TargetId",
-			Type: "FHIR.Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Relationship",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "EndRelationship",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Offset",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -14362,31 +14874,67 @@ func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ActorId",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Type",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TypeCanonical",
-			Type: "FHIR.Canonical",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "TypeReference",
-			Type: "FHIR.Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Role",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Function",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{
@@ -14487,19 +15035,39 @@ func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ModifierExtension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Path",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Expression",
-			Type: "FHIR.Expression",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Expression",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

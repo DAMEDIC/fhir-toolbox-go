@@ -2,6 +2,7 @@ package fhirpath
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
@@ -91,43 +92,190 @@ func apdContext(ctx context.Context) *apd.Context {
 }
 
 type TypeInfo interface {
+	Element
 	QualifiedName() (TypeSpecifier, bool)
 	BaseTypeName() (TypeSpecifier, bool)
 }
 
 type SimpleTypeInfo struct {
+	defaultConversionError[SimpleTypeInfo]
 	Namespace string
 	Name      string
 	BaseType  TypeSpecifier
 }
 
 func (i SimpleTypeInfo) QualifiedName() (TypeSpecifier, bool) {
-	return TypeSpecifier{i.Namespace, i.Name}, true
+	return TypeSpecifier{Namespace: i.Namespace, Name: i.Name}, true
 }
 func (i SimpleTypeInfo) BaseTypeName() (TypeSpecifier, bool) {
 	return i.BaseType, true
 }
+func (i SimpleTypeInfo) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "namespace") {
+		children = append(children, String(i.Namespace))
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, String(i.Name))
+	}
+	if len(name) == 0 || slices.Contains(name, "baseType") {
+		children = append(children, i.BaseType)
+	}
+	return children
+}
+func (i SimpleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	return i == other
+}
+func (i SimpleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i SimpleTypeInfo) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "SimpleTypeInfo",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "namespace", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "baseType", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
+		},
+	}
+}
+func (i SimpleTypeInfo) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 
 type ClassInfo struct {
+	defaultConversionError[ClassInfo]
 	SimpleTypeInfo
 	Element []ClassInfoElement
 }
 
 func (i ClassInfo) QualifiedName() (TypeSpecifier, bool) {
-	return TypeSpecifier{i.Namespace, i.Name}, true
+	return TypeSpecifier{Namespace: i.Namespace, Name: i.Name}, true
 }
 func (i ClassInfo) BaseTypeName() (TypeSpecifier, bool) {
 	return i.BaseType, true
 }
+func (i ClassInfo) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "namespace") {
+		children = append(children, String(i.Namespace))
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, String(i.Name))
+	}
+	if len(name) == 0 || slices.Contains(name, "baseType") {
+		children = append(children, i.BaseType)
+	}
+	if len(name) == 0 || slices.Contains(name, "element") {
+		for _, e := range i.Element {
+			children = append(children, e)
+		}
+	}
+	return children
+}
+func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ClassInfo)
+	if !ok {
+		return false
+	}
+	if i.SimpleTypeInfo != o.SimpleTypeInfo {
+		return false
+	}
+	if len(i.Element) != len(o.Element) {
+		return false
+	}
+	for i, e := range i.Element {
+		if e != o.Element[i] {
+			return false
+		}
+	}
+	return true
+}
+func (i ClassInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i ClassInfo) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "ClassInfo",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "namespace", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "baseType", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
+			{Name: "element", Type: TypeSpecifier{Namespace: "System", Name: "ClassInfoElement"}},
+		},
+	}
+}
+func (i ClassInfo) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 
 type ClassInfoElement struct {
+	defaultConversionError[ClassInfoElement]
 	Name       string
-	Type       string
+	Type       TypeSpecifier
 	IsOneBased bool
 }
 
+func (i ClassInfoElement) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, String(i.Name))
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, i.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "isOneBased") {
+		children = append(children, Boolean(i.IsOneBased))
+	}
+	return children
+}
+func (i ClassInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	return i == other
+}
+func (i ClassInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i ClassInfoElement) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "ClassInfoElement",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "type", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
+			{Name: "isOneBased", Type: TypeSpecifier{Namespace: "System", Name: "Boolean"}},
+		},
+	}
+}
+func (i ClassInfoElement) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+
 type ListTypeInfo struct {
-	ElementType string
+	defaultConversionError[ListTypeInfo]
+	ElementType TypeSpecifier
 }
 
 func (i ListTypeInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -136,8 +284,41 @@ func (i ListTypeInfo) QualifiedName() (TypeSpecifier, bool) {
 func (i ListTypeInfo) BaseTypeName() (TypeSpecifier, bool) {
 	return TypeSpecifier{}, false
 }
+func (i ListTypeInfo) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "elementType") {
+		children = append(children, i.ElementType)
+	}
+	return children
+}
+func (i ListTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	return i == other
+}
+func (i ListTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i ListTypeInfo) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "ListTypeInfo",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "elementType", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
+		},
+	}
+}
+func (i ListTypeInfo) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 
 type TupleTypeInfo struct {
+	defaultConversionError[TupleTypeInfo]
 	Element []TupleTypeInfoElement
 }
 
@@ -147,19 +328,113 @@ func (i TupleTypeInfo) QualifiedName() (TypeSpecifier, bool) {
 func (i TupleTypeInfo) BaseTypeName() (TypeSpecifier, bool) {
 	return TypeSpecifier{}, false
 }
+func (i TupleTypeInfo) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "element") {
+		for _, e := range i.Element {
+			children = append(children, e)
+		}
+	}
+	return children
+}
+func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(TupleTypeInfo)
+	if !ok {
+		return false
+	}
+	if len(i.Element) != len(o.Element) {
+		return false
+	}
+	for i, e := range i.Element {
+		if e != o.Element[i] {
+			return false
+		}
+	}
+	return true
+}
+func (i TupleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i TupleTypeInfo) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "TupleTypeInfo",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "element", Type: TypeSpecifier{Namespace: "System", Name: "TupleTypeInfoElement"}},
+		},
+	}
+}
+func (i TupleTypeInfo) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
 
 type TupleTypeInfoElement struct {
+	defaultConversionError[TupleTypeInfoElement]
 	Name       string
-	Type       string
+	Type       TypeSpecifier
 	IsOneBased bool
 }
 
+func (i TupleTypeInfoElement) Children(name ...string) Collection {
+	var children Collection
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, String(i.Name))
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, i.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "isOneBased") {
+		children = append(children, Boolean(i.IsOneBased))
+	}
+	return children
+}
+func (i TupleTypeInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	return i == other
+}
+func (i TupleTypeInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return i.Equal(other)
+}
+func (i TupleTypeInfoElement) TypeInfo() TypeInfo {
+	return ClassInfo{
+		SimpleTypeInfo: SimpleTypeInfo{
+			Namespace: "System",
+			Name:      "TupleTypeInfoElement",
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+		},
+		Element: []ClassInfoElement{
+			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
+			{Name: "type", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
+			{Name: "isOneBased", Type: TypeSpecifier{Namespace: "System", Name: "Boolean"}},
+		},
+	}
+}
+func (i TupleTypeInfoElement) String() string {
+	buf, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+
 type TypeSpecifier struct {
+	defaultConversionError[TypeSpecifier]
 	Namespace string
 	Name      string
+	List      bool
 }
 
 func ParseTypeSpecifier(s string) TypeSpecifier {
+	if strings.HasPrefix(s, "List<") {
+		s = strings.TrimPrefix(s, "List<")
+		s = strings.TrimSuffix(s, ">")
+	}
 	split := strings.SplitN(s, ".", 2)
 	if len(split) == 1 {
 		return TypeSpecifier{
@@ -173,12 +448,34 @@ func ParseTypeSpecifier(s string) TypeSpecifier {
 	}
 }
 
-func (t TypeSpecifier) String() string {
-	if t.Namespace != "" {
-		return fmt.Sprintf("%s.%s", t.Namespace, t.Name)
-	} else {
-		return t.Name
+func (t TypeSpecifier) Children(name ...string) Collection {
+	return nil
+}
+func (t TypeSpecifier) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+	return t == other
+}
+func (t TypeSpecifier) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+	return t.Equal(other)
+}
+func (t TypeSpecifier) TypeInfo() TypeInfo {
+	return SimpleTypeInfo{
+		Namespace: "System",
+		Name:      "TypeSpecifier",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+
+func (t TypeSpecifier) String() string {
+	var s string
+	if t.Namespace != "" {
+		s = fmt.Sprintf("%s.%s", t.Namespace, t.Name)
+	} else {
+		s = t.Name
+	}
+	if t.List {
+		return fmt.Sprintf("List<%s>", s)
+	}
+	return s
 }
 
 type namespaceKey struct{}
@@ -676,13 +973,14 @@ func (b Boolean) ToInteger(explicit bool) (*Integer, error) {
 func (b Boolean) ToDecimal(explicit bool) (*Decimal, error) {
 	if explicit {
 		if b {
-			return &Decimal{apd.New(10, -1)}, nil
+			return &Decimal{Value: apd.New(10, -1)}, nil
 		} else {
-			return &Decimal{apd.New(00, -1)}, nil
+			return &Decimal{Value: apd.New(00, -1)}, nil
 		}
 	}
 	return nil, implicitConversionError[Boolean, Decimal]()
 }
+
 func (b Boolean) ToDate(explicit bool) (*Date, error) {
 	return nil, conversionError[Boolean, Date]()
 }
@@ -720,7 +1018,7 @@ func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Boolean",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (b Boolean) String() string {
@@ -852,7 +1150,7 @@ func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "String",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (s String) String() string {
@@ -901,7 +1199,7 @@ func (i Integer) ToBoolean(explicit bool) (*Boolean, error) {
 			return nil, nil
 		}
 	}
-	return nil, conversionError[Integer, Boolean]()
+	return nil, implicitConversionError[Integer, Boolean]()
 }
 func (i Integer) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(i.String())), nil
@@ -1032,7 +1330,7 @@ func (i Integer) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Integer",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (i Integer) String() string {
@@ -1040,6 +1338,7 @@ func (i Integer) String() string {
 }
 
 type Decimal struct {
+	defaultConversionError[Decimal]
 	Value *apd.Decimal
 }
 
@@ -1057,25 +1356,13 @@ func (d Decimal) ToBoolean(explicit bool) (*Boolean, error) {
 			return nil, nil
 		}
 	}
-	return nil, conversionError[Decimal, Boolean]()
+	return nil, implicitConversionError[Decimal, Boolean]()
 }
 func (d Decimal) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(d.String())), nil
 }
-func (d Decimal) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[Decimal, Integer]()
-}
 func (d Decimal) ToDecimal(explicit bool) (*Decimal, error) {
 	return &d, nil
-}
-func (d Decimal) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[Decimal, Date]()
-}
-func (d Decimal) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[Decimal, Time]()
-}
-func (d Decimal) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[Decimal, DateTime]()
 }
 func (d Decimal) ToQuantity(explicit bool) (*Quantity, error) {
 	return &Quantity{
@@ -1133,7 +1420,7 @@ func (d Decimal) Multiply(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1148,7 +1435,7 @@ func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1163,7 +1450,7 @@ func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1178,7 +1465,7 @@ func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1193,7 +1480,7 @@ func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1208,13 +1495,13 @@ func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{res}, nil
+	return Decimal{Value: res}, nil
 }
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Decimal",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (d Decimal) String() string {
@@ -1222,6 +1509,7 @@ func (d Decimal) String() string {
 }
 
 type Date struct {
+	defaultConversionError[Date]
 	Value     time.Time
 	Precision DatePrecision
 }
@@ -1237,33 +1525,17 @@ const (
 func (d Date) Children(name ...string) Collection {
 	return nil
 }
-
-func (d Date) ToBoolean(explicit bool) (*Boolean, error) {
-	return nil, conversionError[Date, Boolean]()
-}
 func (d Date) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(d.String())), nil
 }
-func (d Date) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[Date, Integer]()
-}
-func (d Date) ToDecimal(explicit bool) (*Decimal, error) {
-	return nil, conversionError[Date, Decimal]()
-}
 func (d Date) ToDate(explicit bool) (*Date, error) {
 	return &d, nil
-}
-func (d Date) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[Date, Time]()
 }
 func (d Date) ToDateTime(explicit bool) (*DateTime, error) {
 	return &DateTime{
 		Value:     d.Value,
 		Precision: DateTimePrecisionDay,
 	}, nil
-}
-func (d Date) ToQuantity(explicit bool) (*Quantity, error) {
-	return nil, conversionError[Date, Quantity]()
 }
 func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToDate(false)
@@ -1449,7 +1721,7 @@ func (d Date) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Date",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (d Date) String() string {
@@ -1466,6 +1738,7 @@ func (d Date) String() string {
 }
 
 type Time struct {
+	defaultConversionError[Time]
 	Value     time.Time
 	Precision TimePrecision
 }
@@ -1482,29 +1755,11 @@ func (t Time) Children(name ...string) Collection {
 	return nil
 }
 
-func (t Time) ToBoolean(explicit bool) (*Boolean, error) {
-	return nil, conversionError[Time, Boolean]()
-}
 func (t Time) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(t.String())), nil
 }
-func (t Time) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[Time, Integer]()
-}
-func (t Time) ToDecimal(explicit bool) (*Decimal, error) {
-	return nil, conversionError[Time, Decimal]()
-}
-func (t Time) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[Time, Date]()
-}
 func (t Time) ToTime(explicit bool) (*Time, error) {
 	return &t, nil
-}
-func (t Time) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[Time, DateTime]()
-}
-func (t Time) ToQuantity(explicit bool) (*Quantity, error) {
-	return nil, conversionError[Time, Quantity]()
 }
 func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToTime(false)
@@ -1654,7 +1909,7 @@ func (t Time) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "Time",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (t Time) String() string {
@@ -1671,6 +1926,7 @@ func (t Time) String() string {
 }
 
 type DateTime struct {
+	defaultConversionError[DateTime]
 	Value     time.Time
 	Precision DateTimePrecision
 }
@@ -1689,18 +1945,8 @@ const (
 func (dt DateTime) Children(name ...string) Collection {
 	return nil
 }
-
-func (dt DateTime) ToBoolean(explicit bool) (*Boolean, error) {
-	return nil, conversionError[DateTime, Boolean]()
-}
 func (dt DateTime) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(dt.String())), nil
-}
-func (dt DateTime) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[DateTime, Integer]()
-}
-func (dt DateTime) ToDecimal(explicit bool) (*Decimal, error) {
-	return nil, conversionError[DateTime, Decimal]()
 }
 func (dt DateTime) ToDate(explicit bool) (*Date, error) {
 	var precision DatePrecision
@@ -1715,14 +1961,8 @@ func (dt DateTime) ToDate(explicit bool) (*Date, error) {
 		Precision: precision,
 	}, nil
 }
-func (dt DateTime) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[DateTime, Time]()
-}
 func (dt DateTime) ToDateTime(explicit bool) (*DateTime, error) {
 	return &dt, nil
-}
-func (dt DateTime) ToQuantity(explicit bool) (*Quantity, error) {
-	return nil, conversionError[DateTime, Quantity]()
 }
 func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToDateTime(false)
@@ -1952,7 +2192,7 @@ func (dt DateTime) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
 		Name:      "DateTime",
-		BaseType:  TypeSpecifier{"System", "Any"},
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 func (dt DateTime) String() string {
@@ -1999,15 +2239,15 @@ func ParseDate(s string) (Date, error) {
 
 	d, err := time.Parse(DateFormatOnlyYear, ds)
 	if err == nil {
-		return Date{d, DatePrecisionYear}, nil
+		return Date{Value: d, Precision: DatePrecisionYear}, nil
 	}
 	d, err = time.Parse(DateFormatUpToMonth, ds)
 	if err == nil {
-		return Date{d, DatePrecisionMonth}, nil
+		return Date{Value: d, Precision: DatePrecisionMonth}, nil
 	}
 	d, err = time.Parse(DateFormatFull, ds)
 	if err == nil {
-		return Date{d, DatePrecisionFull}, nil
+		return Date{Value: d, Precision: DatePrecisionFull}, nil
 	}
 
 	return Date{}, fmt.Errorf("invalid Date format: %s", s)
@@ -2022,32 +2262,32 @@ func parseTime(s string, withTZ bool) (Time, error) {
 
 	t, err := time.Parse(TimeFormatOnlyHour, ts)
 	if err == nil {
-		return Time{t, TimePrecisionHour}, nil
+		return Time{Value: t, Precision: TimePrecisionHour}, nil
 	}
 	if withTZ {
 		t, err = time.Parse(TimeFormatOnlyHourTZ, ts)
 		if err == nil {
-			return Time{t, TimePrecisionHour}, nil
+			return Time{Value: t, Precision: TimePrecisionHour}, nil
 		}
 	}
 	t, err = time.Parse(TimeFormatUpToMinute, ts)
 	if err == nil {
-		return Time{t, TimePrecisionMinute}, nil
+		return Time{Value: t, Precision: TimePrecisionMinute}, nil
 	}
 	if withTZ {
 		t, err = time.Parse(TimeFormatUpToMinuteTZ, ts)
 		if err == nil {
-			return Time{t, TimePrecisionMinute}, nil
+			return Time{Value: t, Precision: TimePrecisionMinute}, nil
 		}
 	}
 	t, err = time.Parse(TimeFormatFull, ts)
 	if err == nil {
-		return Time{t, TimePrecisionFull}, nil
+		return Time{Value: t, Precision: TimePrecisionFull}, nil
 	}
 	if withTZ {
 		t, err = time.Parse(TimeFormatFullTZ, ts)
 		if err == nil {
-			return Time{t, TimePrecisionFull}, nil
+			return Time{Value: t, Precision: TimePrecisionFull}, nil
 		}
 	}
 
@@ -2066,9 +2306,9 @@ func ParseDateTime(s string) (DateTime, error) {
 
 	if len(ts) == 0 {
 		if d.Precision == DateTimePrecisionFull {
-			return DateTime{d.Value, DateTimePrecisionDay}, nil
+			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay}, nil
 		}
-		return DateTime{d.Value, DateTimePrecision(d.Precision)}, nil
+		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}, nil
 	}
 
 	t, err := parseTime(ts, true)
@@ -2082,7 +2322,7 @@ func ParseDateTime(s string) (DateTime, error) {
 			time.Second*time.Duration(t.Value.Second()) +
 			time.Nanosecond*time.Duration(t.Value.Nanosecond()),
 	)
-	return DateTime{dt, DateTimePrecision(t.Precision)}, nil
+	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision)}, nil
 }
 
 // Time units for date/time arithmetic
@@ -2147,6 +2387,7 @@ func normalizeTimeUnit(unit string) string {
 }
 
 type Quantity struct {
+	defaultConversionError[Quantity]
 	Value Decimal
 	Unit  String
 }
@@ -2161,27 +2402,8 @@ func (q Quantity) Children(name ...string) Collection {
 	}
 	return children
 }
-
-func (q Quantity) ToBoolean(explicit bool) (*Boolean, error) {
-	return nil, conversionError[Quantity, Boolean]()
-}
 func (q Quantity) ToString(explicit bool) (*String, error) {
 	return utils.Ptr(String(q.String())), nil
-}
-func (q Quantity) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[Quantity, Integer]()
-}
-func (q Quantity) ToDecimal(explicit bool) (*Decimal, error) {
-	return nil, conversionError[Quantity, Decimal]()
-}
-func (q Quantity) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[Quantity, Date]()
-}
-func (q Quantity) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[Quantity, Time]()
-}
-func (q Quantity) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[Quantity, DateTime]()
 }
 func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
 	return &q, nil
@@ -2318,11 +2540,11 @@ func (q Quantity) TypeInfo() TypeInfo {
 		SimpleTypeInfo: SimpleTypeInfo{
 			Namespace: "System",
 			Name:      "Quantity",
-			BaseType:  TypeSpecifier{"System", "Any"},
+			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		},
 		Element: []ClassInfoElement{
-			{Name: "Value", Type: "System.Decimal"},
-			{Name: "Unit", Type: "System.String"},
+			{Name: "Value", Type: TypeSpecifier{Namespace: "System", Name: "Decimal"}},
+			{Name: "Unit", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 		},
 	}
 }
@@ -2343,10 +2565,38 @@ func ParseQuantity(s string) (Quantity, error) {
 		return Quantity{}, err
 	}
 
-	return Quantity{Value: Decimal{v}, Unit: String(u)}, nil
+	return Quantity{Value: Decimal{Value: v}, Unit: String(u)}, nil
 }
 
-func conversionError[F Element, T Element]() error {
+type defaultConversionError[F any] struct {
+}
+
+func (_ defaultConversionError[F]) ToBoolean(explicit bool) (*Boolean, error) {
+	return nil, conversionError[F, Boolean]()
+}
+func (_ defaultConversionError[F]) ToString(explicit bool) (*String, error) {
+	return nil, conversionError[F, Boolean]()
+}
+func (_ defaultConversionError[F]) ToInteger(explicit bool) (*Integer, error) {
+	return nil, conversionError[F, Integer]()
+}
+func (_ defaultConversionError[F]) ToDecimal(explicit bool) (*Decimal, error) {
+	return nil, conversionError[F, Decimal]()
+}
+func (_ defaultConversionError[F]) ToDate(explicit bool) (*Date, error) {
+	return nil, conversionError[F, Date]()
+}
+func (_ defaultConversionError[F]) ToTime(explicit bool) (*Time, error) {
+	return nil, conversionError[F, Time]()
+}
+func (_ defaultConversionError[F]) ToDateTime(explicit bool) (*DateTime, error) {
+	return nil, conversionError[F, DateTime]()
+}
+func (_ defaultConversionError[F]) ToQuantity(explicit bool) (*Quantity, error) {
+	return nil, conversionError[F, Quantity]()
+}
+
+func conversionError[F any, T Element]() error {
 	var (
 		f F
 		t T

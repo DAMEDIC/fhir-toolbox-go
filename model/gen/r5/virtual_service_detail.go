@@ -1057,25 +1057,53 @@ func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ChannelType",
-			Type: "FHIR.Coding",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Coding",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Address",
-			Type: "FHIR.PrimitiveElement",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "AdditionalInfo",
-			Type: "List<FHIR.Url>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Url",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "MaxParticipants",
-			Type: "FHIR.PositiveInt",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "SessionKey",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

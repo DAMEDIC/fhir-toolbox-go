@@ -941,34 +941,74 @@ func (r Attachment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "ContentType",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Language",
-			Type: "FHIR.Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Data",
-			Type: "FHIR.Base64Binary",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Base64Binary",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Url",
-			Type: "FHIR.Url",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Url",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Size",
-			Type: "FHIR.UnsignedInt",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "UnsignedInt",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Hash",
-			Type: "FHIR.Base64Binary",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Base64Binary",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Title",
-			Type: "FHIR.String",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Creation",
-			Type: "FHIR.DateTime",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

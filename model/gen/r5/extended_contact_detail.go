@@ -649,28 +649,60 @@ func (r ExtendedContactDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
-			Type: "FHIR.string",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Extension",
-			Type: "List<FHIR.Extension>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Purpose",
-			Type: "FHIR.CodeableConcept",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Name",
-			Type: "List<FHIR.HumanName>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "HumanName",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Telecom",
-			Type: "List<FHIR.ContactPoint>",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactPoint",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Address",
-			Type: "FHIR.Address",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Address",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Organization",
-			Type: "FHIR.Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
 		}, {
 			Name: "Period",
-			Type: "FHIR.Period",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Period",
+				Namespace: "FHIR",
+			},
 		}},
 		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
 			BaseType: fhirpath.TypeSpecifier{

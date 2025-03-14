@@ -1,7 +1,6 @@
 package fhirpath
 
 import (
-	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	. "github.com/dave/jennifer/jen"
 )
@@ -44,18 +43,23 @@ func generateType(g *Group, s ir.Struct) {
 				continue
 			}
 
-			var t string
+			var t *Statement
 			if f.Polymorph {
-				t = "FHIR.PrimitiveElement"
+				t = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("PrimitiveElement"),
+					Id("List"):      Lit(f.Multiple),
+				})
 			} else {
-				t = "FHIR." + f.PossibleTypes[0].Name
-			}
-			if f.Multiple {
-				t = fmt.Sprintf("List<%s>", t)
+				t = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit(f.PossibleTypes[0].Name),
+					Id("List"):      Lit(f.Multiple),
+				})
 			}
 			g.Values(Dict{
 				Id("Name"): Lit(f.Name),
-				Id("Type"): Lit(t),
+				Id("Type"): t,
 			})
 		}
 	})
@@ -122,7 +126,11 @@ var baseTypes = []Code{
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(Values(Dict{
 			Id("Name"): Lit("modifierExtension"),
-			Id("Type"): Lit("List<FHIR.Extension>"),
+			Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+				Id("Namespace"): Lit("FHIR"),
+				Id("Name"):      Lit("Extension"),
+				Id("List"):      Lit(true),
+			}),
 		})),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
@@ -136,7 +144,11 @@ var baseTypes = []Code{
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(Values(Dict{
 			Id("Name"): Lit("modifierExtension"),
-			Id("Type"): Lit("List<FHIR.Extension>"),
+			Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+				Id("Namespace"): Lit("FHIR"),
+				Id("Name"):      Lit("Extension"),
+				Id("List"):      Lit(true),
+			}),
 		})),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
@@ -151,19 +163,31 @@ var baseTypes = []Code{
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(
 			Values(Dict{
 				Id("Name"): Lit("id"),
-				Id("Type"): Lit("FHIR.id"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("id"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("meta"),
-				Id("Type"): Lit("FHIR.Meta"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Meta"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("implicitRules"),
-				Id("Type"): Lit("FHIR.uri"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("uri"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("language"),
-				Id("Type"): Lit("FHIR.code"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("code"),
+				}),
 			}),
 		),
 	}),
@@ -179,35 +203,62 @@ var baseTypes = []Code{
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(
 			Values(Dict{
 				Id("Name"): Lit("id"),
-				Id("Type"): Lit("FHIR.id"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("id"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("meta"),
-				Id("Type"): Lit("FHIR.Meta"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Meta"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("implicitRules"),
-				Id("Type"): Lit("FHIR.uri"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("uri"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("language"),
-				Id("Type"): Lit("FHIR.code"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("code"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("text"),
-				Id("Type"): Lit("FHIR.Narrative"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Narrative"),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("contained"),
-				Id("Type"): Lit("List<FHIR.Resource>"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Resource"),
+					Id("List"):      Lit(true),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("extension"),
-				Id("Type"): Lit("List<FHIR.Extension>"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Extension"),
+					Id("List"):      Lit(true),
+				}),
 			}),
 			Values(Dict{
 				Id("Name"): Lit("modifierExtension"),
-				Id("Type"): Lit("List<FHIR.Extension>"),
+				Id("Type"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+					Id("Namespace"): Lit("FHIR"),
+					Id("Name"):      Lit("Extension"),
+					Id("List"):      Lit(true),
+				}),
 			}),
 		),
 	}),

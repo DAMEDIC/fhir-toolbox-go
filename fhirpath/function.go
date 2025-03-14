@@ -156,6 +156,23 @@ func isInteger(d *apd.Decimal) bool {
 }
 
 var defaultFunctions = Functions{
+	"type": func(
+		ctx context.Context,
+		root Element, target Collection,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (Collection, error) {
+		if len(parameters) != 0 {
+			return nil, fmt.Errorf("expected no parameters")
+		}
+
+		result := make(Collection, 0, len(target))
+		for _, elem := range target {
+			result = append(result, elem.TypeInfo())
+		}
+
+		return result, nil
+	},
 	"is": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -3101,7 +3118,7 @@ var defaultFunctions = Functions{
 
 		// Get the current date and time
 		now := time.Now()
-		dt := DateTime{now, DateTimePrecisionFull}
+		dt := DateTime{Value: now, Precision: DateTimePrecisionFull}
 
 		return Collection{dt}, nil
 	},
@@ -3117,7 +3134,7 @@ var defaultFunctions = Functions{
 
 		// Get the current time
 		now := time.Now()
-		t := Time{now, TimePrecisionFull}
+		t := Time{Value: now, Precision: TimePrecisionFull}
 
 		return Collection{t}, nil
 	},
@@ -3133,7 +3150,7 @@ var defaultFunctions = Functions{
 
 		// Get the current date
 		now := time.Now()
-		d := Date{now, DatePrecisionFull}
+		d := Date{Value: now, Precision: DatePrecisionFull}
 
 		return Collection{d}, nil
 	},

@@ -477,7 +477,7 @@ func evalLiteral(
 	case *parser.NumberLiteralContext:
 		if strings.Contains(s, ".") {
 			d, _, err := apd.NewFromString(s)
-			return Collection{Decimal{d}}, err
+			return Collection{Decimal{Value: d}}, err
 		}
 
 		i, err := strconv.Atoi(s)
@@ -495,7 +495,7 @@ func evalLiteral(
 		q := tt.Quantity()
 		v, _, err := apd.NewFromString(q.NUMBER().GetText())
 		u := q.Unit().GetText()
-		return Collection{Quantity{Value: Decimal{v}, Unit: String(u)}}, err
+		return Collection{Quantity{Value: Decimal{Value: v}, Unit: String(u)}}, err
 	default:
 		return nil, fmt.Errorf("unexpected term %T: %v", tree, tree)
 	}
