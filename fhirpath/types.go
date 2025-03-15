@@ -644,6 +644,34 @@ func elementTo[T Element](e Element, explicit bool) (*T, error) {
 	}
 }
 
+func toPrimitive(e Element) (Element, bool) {
+	if p, err := e.ToBoolean(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToString(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToInteger(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToDecimal(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToDate(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToTime(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToDateTime(false); err == nil {
+		return p, true
+	}
+	if p, err := e.ToQuantity(false); err == nil {
+		return p, true
+	}
+	return nil, false
+}
+
 type Collection []Element
 
 func (c Collection) Equal(other Collection) *bool {
@@ -690,6 +718,10 @@ func (c Collection) Cmp(other Collection) (*int, error) {
 	}
 
 	left, ok := c[0].(cmpElement)
+	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(cmpElement)
+	}
 	if !ok {
 		return nil, errors.New("only strings, integers, decimals, quantities, dates, datetimes and times can be compared")
 	}
@@ -767,6 +799,10 @@ func (c Collection) Multiply(ctx context.Context, other Collection) (Collection,
 
 	left, ok := c[0].(multiplyElement)
 	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(multiplyElement)
+	}
+	if !ok {
 		return nil, errors.New("can only multiply Integer, Decimal or Quantity")
 	}
 	right := other[0]
@@ -790,6 +826,10 @@ func (c Collection) Divide(ctx context.Context, other Collection) (Collection, e
 	}
 
 	left, ok := c[0].(divideElement)
+	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(divideElement)
+	}
 	if !ok {
 		return nil, errors.New("can only divide Integer, Decimal or Quantity")
 	}
@@ -815,6 +855,10 @@ func (c Collection) Div(ctx context.Context, other Collection) (Collection, erro
 
 	left, ok := c[0].(divElement)
 	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(divElement)
+	}
+	if !ok {
 		return nil, errors.New("can only div Integer, Decimal")
 	}
 	right := other[0]
@@ -838,6 +882,10 @@ func (c Collection) Mod(ctx context.Context, other Collection) (Collection, erro
 	}
 
 	left, ok := c[0].(modElement)
+	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(modElement)
+	}
 	if !ok {
 		return nil, errors.New("can only div Integer, Decimal")
 	}
@@ -863,6 +911,10 @@ func (c Collection) Add(ctx context.Context, other Collection) (Collection, erro
 
 	left, ok := c[0].(addElement)
 	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(addElement)
+	}
+	if !ok {
 		return nil, errors.New("can only div Integer, Decimal, Quantity and String")
 	}
 	right := other[0]
@@ -886,6 +938,10 @@ func (c Collection) Subtract(ctx context.Context, other Collection) (Collection,
 	}
 
 	left, ok := c[0].(subtractElement)
+	if !ok {
+		primitive, _ := toPrimitive(c[0])
+		left, ok = primitive.(subtractElement)
+	}
 	if !ok {
 		return nil, errors.New("can only div Integer, Decimal, Quantity")
 	}

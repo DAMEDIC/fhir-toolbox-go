@@ -264,6 +264,8 @@ func evalExpression(
 		if cmp == nil {
 			return nil, false, nil
 		}
+
+		result = Collection{Boolean(false)}
 		switch op {
 		case "<=":
 			if *cmp <= 0 {
@@ -294,6 +296,10 @@ func evalExpression(
 			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
+
+		if !leftOrdered || !rightOrdered {
+			return nil, false, fmt.Errorf("expected ordered inputs for equality expression")
+		}
 
 		switch op {
 		case "=":
