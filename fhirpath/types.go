@@ -1231,7 +1231,7 @@ func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	return i.Equal(other, _noReverseTypeConversion...)
 }
-func (i Integer) Cmp(other cmpElement) (*int, error) {
+func (i Integer) Cmp(other Element) (*int, error) {
 	d, _ := i.ToDecimal(false)
 	cmp, err := d.Cmp(other)
 	if err != nil {
