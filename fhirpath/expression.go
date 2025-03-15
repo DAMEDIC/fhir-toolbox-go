@@ -557,7 +557,7 @@ func Singleton[T Element](c Collection) (*T, error) {
 	v, err := elementTo[T](c[0], false)
 
 	// if not convertible but contains a single value, evaluate to true
-	if _, wantBool := any(v).(Boolean); err != nil && wantBool {
+	if _, wantBool := any(v).(*Boolean); err != nil && wantBool {
 		b := Boolean(true)
 		return any(&b).(*T), nil
 	}

@@ -164,7 +164,7 @@ var defaultFunctions = Functions{
 		if err != nil {
 			return nil, false, err
 		}
-		return Collection{r}, inputOrdered, nil
+		return Collection{r}, true, nil
 	},
 	"as": func(
 		ctx context.Context,
@@ -185,7 +185,7 @@ var defaultFunctions = Functions{
 		if err != nil {
 			return nil, false, err
 		}
-		return c, inputOrdered, nil
+		return c, true, nil
 	},
 	"not": func(
 		ctx context.Context,
@@ -204,7 +204,7 @@ var defaultFunctions = Functions{
 		if b == nil {
 			return nil, true, nil
 		}
-		return Collection{!*b}, inputOrdered, nil
+		return Collection{!*b}, true, nil
 	},
 	"empty": func(
 		ctx context.Context,
@@ -216,7 +216,7 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
-		return Collection{Boolean(len(target) == 0)}, inputOrdered, nil
+		return Collection{Boolean(len(target) == 0)}, true, nil
 	},
 	"exists": func(
 		ctx context.Context,
@@ -230,7 +230,7 @@ var defaultFunctions = Functions{
 		}
 
 		if len(parameters) == 0 {
-			return Collection{Boolean(len(target) > 0)}, inputOrdered, nil
+			return Collection{Boolean(len(target) > 0)}, true, nil
 		}
 
 		// With criteria, equivalent to where(criteria).exists()
@@ -246,11 +246,11 @@ var defaultFunctions = Functions{
 			}
 			if b != nil && *b {
 				// Found at least one element that matches the criteria
-				return Collection{Boolean(true)}, inputOrdered, nil
+				return Collection{Boolean(true)}, true, nil
 			}
 		}
 
-		return Collection{Boolean(false)}, inputOrdered, nil
+		return Collection{Boolean(false)}, true, nil
 	},
 	"all": func(
 		ctx context.Context,
@@ -265,7 +265,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is true
 		if len(target) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		for i, elem := range target {
@@ -280,11 +280,11 @@ var defaultFunctions = Functions{
 			}
 			if b == nil || !*b {
 				// Found at least one element that doesn't match the criteria
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"allTrue": func(
 		ctx context.Context,
@@ -299,7 +299,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is true
 		if len(target) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		for _, elem := range target {
@@ -308,10 +308,10 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 			if b == nil || !*b {
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"anyTrue": func(
 		ctx context.Context,
@@ -326,7 +326,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is false
 		if len(target) == 0 {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
 		for _, elem := range target {
@@ -335,10 +335,10 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 			if b != nil && *b {
-				return Collection{Boolean(true)}, inputOrdered, nil
+				return Collection{Boolean(true)}, true, nil
 			}
 		}
-		return Collection{Boolean(false)}, inputOrdered, nil
+		return Collection{Boolean(false)}, true, nil
 	},
 	"allFalse": func(
 		ctx context.Context,
@@ -353,7 +353,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is true
 		if len(target) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		for _, elem := range target {
@@ -362,10 +362,10 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 			if b == nil || *b {
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"anyFalse": func(
 		ctx context.Context,
@@ -380,7 +380,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is false
 		if len(target) == 0 {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
 		for _, elem := range target {
@@ -389,10 +389,10 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 			if b != nil && !*b {
-				return Collection{Boolean(true)}, inputOrdered, nil
+				return Collection{Boolean(true)}, true, nil
 			}
 		}
-		return Collection{Boolean(false)}, inputOrdered, nil
+		return Collection{Boolean(false)}, true, nil
 	},
 	"subsetOf": func(
 		ctx context.Context,
@@ -407,7 +407,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is true
 		if len(target) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		other, _, err := evaluate(ctx, nil, parameters[0])
@@ -417,7 +417,7 @@ var defaultFunctions = Functions{
 
 		// If the other collection is empty, the result is false
 		if len(other) == 0 {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
 		for _, elem := range target {
@@ -429,10 +429,10 @@ var defaultFunctions = Functions{
 				}
 			}
 			if !found {
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"supersetOf": func(
 		ctx context.Context,
@@ -452,12 +452,12 @@ var defaultFunctions = Functions{
 
 		// If the other collection is empty, the result is true
 		if len(other) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		// If the input collection is empty, the result is false
 		if len(target) == 0 {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
 		for _, otherElem := range other {
@@ -469,10 +469,10 @@ var defaultFunctions = Functions{
 				}
 			}
 			if !found {
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"count": func(
 		ctx context.Context,
@@ -484,7 +484,7 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
-		return Collection{Integer(len(target))}, inputOrdered, nil
+		return Collection{Integer(len(target))}, true, nil
 	},
 	"distinct": func(
 		ctx context.Context,
@@ -529,18 +529,18 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is true
 		if len(target) == 0 {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if all elements are distinct
 		for i := 0; i < len(target); i++ {
 			for j := i + 1; j < len(target); j++ {
 				if target[i].Equal(target[j]) {
-					return Collection{Boolean(false)}, inputOrdered, nil
+					return Collection{Boolean(false)}, true, nil
 				}
 			}
 		}
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"where": func(
 		ctx context.Context,
@@ -717,7 +717,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Return the single item
-		return Collection{target[0]}, inputOrdered, nil
+		return Collection{target[0]}, true, nil
 	},
 	"first": func(
 		ctx context.Context,
@@ -740,7 +740,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Return the first item
-		return Collection{target[0]}, inputOrdered, nil
+		return Collection{target[0]}, true, nil
 	},
 	"last": func(
 		ctx context.Context,
@@ -763,7 +763,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Return the last item
-		return Collection{target[len(target)-1]}, inputOrdered, nil
+		return Collection{target[len(target)-1]}, true, nil
 	},
 	"tail": func(
 		ctx context.Context,
@@ -1085,7 +1085,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*b}, inputOrdered, nil
+		return Collection{*b}, true, nil
 	},
 	"convertsToBoolean": func(
 		ctx context.Context,
@@ -1101,10 +1101,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to boolean
 		_, err = Singleton[Boolean](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toInteger": func(
 		ctx context.Context,
@@ -1126,7 +1126,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*i}, inputOrdered, nil
+		return Collection{*i}, true, nil
 	},
 	"convertsToInteger": func(
 		ctx context.Context,
@@ -1142,10 +1142,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to integer
 		_, err = Singleton[Integer](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toDate": func(
 		ctx context.Context,
@@ -1167,7 +1167,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*d}, inputOrdered, nil
+		return Collection{*d}, true, nil
 	},
 	"convertsToDate": func(
 		ctx context.Context,
@@ -1183,10 +1183,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to date
 		_, err = Singleton[Date](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toDateTime": func(
 		ctx context.Context,
@@ -1208,7 +1208,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*dt}, inputOrdered, nil
+		return Collection{*dt}, true, nil
 	},
 	"convertsToDateTime": func(
 		ctx context.Context,
@@ -1224,10 +1224,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to datetime
 		_, err = Singleton[DateTime](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toTime": func(
 		ctx context.Context,
@@ -1249,7 +1249,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*t}, inputOrdered, nil
+		return Collection{*t}, true, nil
 	},
 	"convertsToTime": func(
 		ctx context.Context,
@@ -1265,10 +1265,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to time
 		_, err = Singleton[Time](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toDecimal": func(
 		ctx context.Context,
@@ -1290,7 +1290,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*d}, inputOrdered, nil
+		return Collection{*d}, true, nil
 	},
 	"convertsToDecimal": func(
 		ctx context.Context,
@@ -1306,10 +1306,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to decimal
 		_, err = Singleton[Decimal](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toQuantity": func(
 		ctx context.Context,
@@ -1358,7 +1358,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		return Collection{*q}, inputOrdered, nil
+		return Collection{*q}, true, nil
 	},
 	"convertsToQuantity": func(
 		ctx context.Context,
@@ -1375,10 +1375,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to quantity
 		q, err := Singleton[Quantity](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 		if q == nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
 		// If unit parameter is provided, check if the quantity can be converted to the given unit
@@ -1403,11 +1403,11 @@ var defaultFunctions = Functions{
 			// and may return false when the unit argument is used and it is different than the input quantity unit.
 			// For now, we'll just check if the units are the same.
 			if q.Unit != *unitStr {
-				return Collection{Boolean(false)}, inputOrdered, nil
+				return Collection{Boolean(false)}, true, nil
 			}
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"toString": func(
 		ctx context.Context,
@@ -1429,7 +1429,7 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
-		return Collection{*s}, inputOrdered, nil
+		return Collection{*s}, true, nil
 	},
 	"convertsToString": func(
 		ctx context.Context,
@@ -1445,10 +1445,10 @@ var defaultFunctions = Functions{
 		// Check if convertible to string
 		_, err = Singleton[String](target)
 		if err != nil {
-			return Collection{Boolean(false)}, inputOrdered, nil
+			return Collection{Boolean(false)}, true, nil
 		}
 
-		return Collection{Boolean(true)}, inputOrdered, nil
+		return Collection{Boolean(true)}, true, nil
 	},
 	"indexOf": func(
 		ctx context.Context,
@@ -1487,12 +1487,12 @@ var defaultFunctions = Functions{
 
 		// If substring is an empty string (''), the function returns 0
 		if *substring == "" {
-			return Collection{Integer(0)}, inputOrdered, nil
+			return Collection{Integer(0)}, true, nil
 		}
 
 		// Return the index of the substring in the string
 		index := strings.Index(string(*s), string(*substring))
-		return Collection{Integer(index)}, inputOrdered, nil
+		return Collection{Integer(index)}, true, nil
 	},
 	"substring": func(
 		ctx context.Context,
@@ -1563,11 +1563,11 @@ var defaultFunctions = Functions{
 			}
 
 			result := String(string(*s)[int(*start):end])
-			return Collection{result}, inputOrdered, nil
+			return Collection{result}, true, nil
 		}
 
 		// If length parameter is not provided, return the rest of the string
-		return Collection{String(string(*s)[int(*start):])}, inputOrdered, nil
+		return Collection{String(string(*s)[int(*start):])}, true, nil
 	},
 	"startsWith": func(
 		ctx context.Context,
@@ -1606,12 +1606,12 @@ var defaultFunctions = Functions{
 
 		// If prefix is an empty string (''), the result is true
 		if *prefix == "" {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string starts with the prefix
 		startsWith := strings.HasPrefix(string(*s), string(*prefix))
-		return Collection{Boolean(startsWith)}, inputOrdered, nil
+		return Collection{Boolean(startsWith)}, true, nil
 	},
 	"endsWith": func(
 		ctx context.Context,
@@ -1650,12 +1650,12 @@ var defaultFunctions = Functions{
 
 		// If suffix is an empty string (''), the result is true
 		if *suffix == "" {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string ends with the suffix
 		endsWith := strings.HasSuffix(string(*s), string(*suffix))
-		return Collection{Boolean(endsWith)}, inputOrdered, nil
+		return Collection{Boolean(endsWith)}, true, nil
 	},
 	"contains": func(
 		ctx context.Context,
@@ -1694,12 +1694,12 @@ var defaultFunctions = Functions{
 
 		// If substring is an empty string (''), the result is true
 		if *substring == "" {
-			return Collection{Boolean(true)}, inputOrdered, nil
+			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string contains the substring
 		contains := strings.Contains(string(*s), string(*substring))
-		return Collection{Boolean(contains)}, inputOrdered, nil
+		return Collection{Boolean(contains)}, true, nil
 	},
 	"upper": func(
 		ctx context.Context,
@@ -1722,7 +1722,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert the string to upper case
-		return Collection{String(strings.ToUpper(string(*s)))}, inputOrdered, nil
+		return Collection{String(strings.ToUpper(string(*s)))}, true, nil
 	},
 	"lower": func(
 		ctx context.Context,
@@ -1745,7 +1745,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert the string to lower case
-		return Collection{String(strings.ToLower(string(*s)))}, inputOrdered, nil
+		return Collection{String(strings.ToLower(string(*s)))}, true, nil
 	},
 	"replace": func(
 		ctx context.Context,
@@ -1805,11 +1805,11 @@ var defaultFunctions = Functions{
 				result.WriteRune(c)
 				result.WriteString(string(*substitution))
 			}
-			return Collection{String(result.String())}, inputOrdered, nil
+			return Collection{String(result.String())}, true, nil
 		}
 
 		// Replace all instances of pattern with substitution
-		return Collection{String(strings.ReplaceAll(string(*s), string(*pattern), string(*substitution)))}, inputOrdered, nil
+		return Collection{String(strings.ReplaceAll(string(*s), string(*pattern), string(*substitution)))}, true, nil
 	},
 	"matches": func(
 		ctx context.Context,
@@ -1853,7 +1853,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if the string matches the regular expression
-		return Collection{Boolean(regex.MatchString(string(*s)))}, inputOrdered, nil
+		return Collection{Boolean(regex.MatchString(string(*s)))}, true, nil
 	},
 	"replaceMatches": func(
 		ctx context.Context,
@@ -1912,7 +1912,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Replace all matches of the regular expression with the substitution
-		return Collection{String(regex.ReplaceAllString(string(*s), string(*substitution)))}, inputOrdered, nil
+		return Collection{String(regex.ReplaceAllString(string(*s), string(*substitution)))}, true, nil
 	},
 	"length": func(
 		ctx context.Context,
@@ -1935,7 +1935,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Return the length of the string
-		return Collection{Integer(len(*s))}, inputOrdered, nil
+		return Collection{Integer(len(*s))}, true, nil
 	},
 	"toChars": func(
 		ctx context.Context,
@@ -1978,9 +1978,9 @@ var defaultFunctions = Functions{
 		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			if *i < 0 {
-				return Collection{Integer(-*i)}, inputOrdered, nil
+				return Collection{Integer(-*i)}, true, nil
 			}
-			return Collection{*i}, inputOrdered, nil
+			return Collection{*i}, true, nil
 		}
 
 		d, err := Singleton[Decimal](target)
@@ -1988,7 +1988,7 @@ var defaultFunctions = Functions{
 			// Create a new Decimal with the absolute value
 			var absValue apd.Decimal
 			absValue.Abs(d.Value)
-			return Collection{Decimal{Value: &absValue}}, inputOrdered, nil
+			return Collection{Decimal{Value: &absValue}}, true, nil
 		}
 
 		q, err := Singleton[Quantity](target)
@@ -1996,7 +1996,7 @@ var defaultFunctions = Functions{
 			// Create a new Quantity with the absolute value of the value
 			var absValue apd.Decimal
 			absValue.Abs(q.Value.Value)
-			return Collection{Quantity{Value: Decimal{Value: &absValue}, Unit: q.Unit}}, inputOrdered, nil
+			return Collection{Quantity{Value: Decimal{Value: &absValue}, Unit: q.Unit}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer, Decimal, or Quantity but got %T", target[0])
@@ -2015,7 +2015,7 @@ var defaultFunctions = Functions{
 		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so ceiling is the same
-			return Collection{*i}, inputOrdered, nil
+			return Collection{*i}, true, nil
 		}
 
 		d, err := Singleton[Decimal](target)
@@ -2032,7 +2032,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Integer(intVal)}, inputOrdered, nil
+			return Collection{Integer(intVal)}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2051,7 +2051,7 @@ var defaultFunctions = Functions{
 		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so floor is the same
-			return Collection{*i}, inputOrdered, nil
+			return Collection{*i}, true, nil
 		}
 
 		d, err := Singleton[Decimal](target)
@@ -2069,7 +2069,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Integer(intVal)}, inputOrdered, nil
+			return Collection{Integer(intVal)}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2088,7 +2088,7 @@ var defaultFunctions = Functions{
 		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so truncate is the same
-			return Collection{*i}, inputOrdered, nil
+			return Collection{*i}, true, nil
 		}
 
 		d, err := Singleton[Decimal](target)
@@ -2113,7 +2113,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Integer(intVal)}, inputOrdered, nil
+			return Collection{Integer(intVal)}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2167,7 +2167,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &rounded}}, inputOrdered, nil
+			return Collection{Decimal{Value: &rounded}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2192,7 +2192,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &result}}, inputOrdered, nil
+			return Collection{Decimal{Value: &result}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2217,7 +2217,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &result}}, inputOrdered, nil
+			return Collection{Decimal{Value: &result}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2267,7 +2267,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &result}}, inputOrdered, nil
+			return Collection{Decimal{Value: &result}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2298,7 +2298,7 @@ var defaultFunctions = Functions{
 
 				// Check if the result can be represented as an Integer
 				if math.Pow(float64(*i), float64(*exponentInt)) == float64(result) {
-					return Collection{Integer(result)}, inputOrdered, nil
+					return Collection{Integer(result)}, true, nil
 				}
 
 				// Otherwise, return as Decimal
@@ -2307,7 +2307,7 @@ var defaultFunctions = Functions{
 				if err != nil {
 					return nil, false, err
 				}
-				return Collection{Decimal{Value: resultDecimal}}, inputOrdered, nil
+				return Collection{Decimal{Value: resultDecimal}}, true, nil
 			}
 		}
 
@@ -2337,7 +2337,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &result}}, inputOrdered, nil
+			return Collection{Decimal{Value: &result}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
@@ -2365,7 +2365,7 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			return Collection{Decimal{Value: &result}}, inputOrdered, nil
+			return Collection{Decimal{Value: &result}}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
