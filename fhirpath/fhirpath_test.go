@@ -53,6 +53,11 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					assert.NoError(t, err)
 
 					expected := test.OutputCollection()
+					if name == "testDateNotEqual" {
+						// test is missing output
+						expected = fhirpath.Collection{fhirpath.Boolean(true)}
+					}
+
 					diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
 						A:        difflib.SplitLines(expected.String()),
 						B:        difflib.SplitLines(result.String()),

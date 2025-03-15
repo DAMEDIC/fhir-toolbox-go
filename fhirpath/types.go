@@ -2032,7 +2032,7 @@ func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) b
 	return false
 }
 func (dt DateTime) Cmp(other Element) (*int, error) {
-	o, err := other.ToTime(false)
+	o, err := other.ToDateTime(false)
 	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
 	}
@@ -2342,21 +2342,21 @@ func parseTime(s string, withTZ bool) (Time, error) {
 
 func ParseDateTime(s string) (DateTime, error) {
 	splits := strings.Split(s, "T")
-	ds := splits[0]
-	ts := splits[1]
 
+	ds := splits[0]
 	d, err := ParseDate(ds)
 	if err != nil {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (date part): %s", s)
 	}
 
-	if len(ts) == 0 {
+	if len(splits) == 1 || splits[1] == "" {
 		if d.Precision == DateTimePrecisionFull {
 			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay}, nil
 		}
 		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}, nil
 	}
 
+	ts := splits[1]
 	t, err := parseTime(ts, true)
 	if err != nil {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (time part): %s", s)

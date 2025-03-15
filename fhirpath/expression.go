@@ -484,7 +484,7 @@ func evalLiteral(
 
 	switch tt := tree.(type) {
 	case *parser.NullLiteralContext:
-		return nil, false, nil
+		return nil, true, nil
 	case *parser.BooleanLiteralContext:
 		if s == "true" {
 			return Collection{Boolean(true)}, true, nil

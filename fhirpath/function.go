@@ -194,18 +194,15 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(target) != 1 {
-			return nil, false, fmt.Errorf("expected single input element")
-		}
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameter")
 		}
-		b, err := target[0].ToBoolean(false)
+		b, err := Singleton[Boolean](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if b == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 		return Collection{!*b}, inputOrdered, nil
 	},
@@ -243,15 +240,13 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			if len(criteria) == 1 {
-				b, err := criteria[0].ToBoolean(false)
-				if err != nil {
-					return nil, false, err
-				}
-				if b != nil && *b {
-					// Found at least one element that matches the criteria
-					return Collection{Boolean(true)}, inputOrdered, nil
-				}
+			b, err := Singleton[Boolean](criteria)
+			if err != nil {
+				return nil, false, err
+			}
+			if b != nil && *b {
+				// Found at least one element that matches the criteria
+				return Collection{Boolean(true)}, inputOrdered, nil
 			}
 		}
 
@@ -279,16 +274,12 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			if len(criteria) == 1 {
-				b, err := criteria[0].ToBoolean(false)
-				if err != nil {
-					return nil, false, err
-				}
-				if b == nil || !*b {
-					// Found at least one element that doesn't match the criteria
-					return Collection{Boolean(false)}, inputOrdered, nil
-				}
-			} else {
+			b, err := Singleton[Boolean](criteria)
+			if err != nil {
+				return nil, false, err
+			}
+			if b == nil || !*b {
+				// Found at least one element that doesn't match the criteria
 				return Collection{Boolean(false)}, inputOrdered, nil
 			}
 		}
@@ -508,7 +499,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		for _, elem := range target {
@@ -564,7 +555,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		for i, elem := range target {
@@ -573,15 +564,13 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			if len(criteria) == 1 {
-				b, err := criteria[0].ToBoolean(false)
-				if err != nil {
-					return nil, false, err
-				}
-				if b != nil && *b {
-					// Element matches the criteria, add it to the result
-					result = append(result, elem)
-				}
+			b, err := Singleton[Boolean](criteria)
+			if err != nil {
+				return nil, false, err
+			}
+			if b != nil && *b {
+				// Element matches the criteria, add it to the result
+				result = append(result, elem)
 			}
 		}
 
@@ -600,7 +589,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		resultOrdered = inputOrdered
@@ -633,7 +622,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		var current = target
@@ -687,7 +676,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		typeSpec := ParseTypeSpecifier(parameters[0].String())
@@ -719,7 +708,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// If there are multiple items, signal an error
@@ -743,7 +732,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if !inputOrdered {
@@ -766,7 +755,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if !inputOrdered {
@@ -789,7 +778,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection has no items or only one item, the result is empty
 		if len(target) <= 1 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if !inputOrdered {
@@ -812,7 +801,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if !inputOrdered {
@@ -841,7 +830,7 @@ var defaultFunctions = Functions{
 
 		// If num is greater than or equal to the length of the collection, return empty
 		if int(*num) >= len(target) {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Return all but the first num items
@@ -860,7 +849,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if !inputOrdered {
@@ -884,7 +873,7 @@ var defaultFunctions = Functions{
 
 		// If num is less than or equal to zero, return empty
 		if *num <= 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// If num is greater than the length of the collection, return the whole collection
@@ -908,7 +897,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the other collection parameter
@@ -919,7 +908,7 @@ var defaultFunctions = Functions{
 
 		// If the other collection is empty, the result is empty
 		if len(other) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Find the intersection of the two collections
@@ -958,7 +947,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the other collection parameter
@@ -1049,12 +1038,9 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert criterion to boolean
-		var criterionBool *Boolean
-		if len(criterion) == 1 {
-			criterionBool, err = criterion[0].ToBoolean(false)
-			if err != nil {
-				return nil, false, err
-			}
+		criterionBool, err := Singleton[Boolean](criterion)
+		if err != nil {
+			return nil, false, err
 		}
 
 		// If criterion is true, return the value of the true-result argument
@@ -1077,7 +1063,7 @@ var defaultFunctions = Functions{
 		}
 
 		// No otherwise-result, return empty collection
-		return nil, false, nil
+		return nil, true, nil
 	},
 	"toBoolean": func(
 		ctx context.Context,
@@ -1090,23 +1076,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to boolean
-		b, err := target[0].ToBoolean(true)
+		b, err := Singleton[Boolean](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if b == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*b}, inputOrdered, nil
@@ -1122,18 +1098,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to boolean
-		_, err = target[0].ToBoolean(true)
+		_, err = Singleton[Boolean](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1151,23 +1117,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to integer
-		i, err := target[0].ToInteger(true)
+		i, err := Singleton[Integer](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if i == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*i}, inputOrdered, nil
@@ -1183,18 +1139,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to integer
-		_, err = target[0].ToInteger(true)
+		_, err = Singleton[Integer](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1212,23 +1158,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to date
-		d, err := target[0].ToDate(true)
+		d, err := Singleton[Date](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if d == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*d}, inputOrdered, nil
@@ -1244,18 +1180,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to date
-		_, err = target[0].ToDate(true)
+		_, err = Singleton[Date](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1273,23 +1199,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to datetime
-		dt, err := target[0].ToDateTime(true)
+		dt, err := Singleton[DateTime](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if dt == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*dt}, inputOrdered, nil
@@ -1305,18 +1221,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to datetime
-		_, err = target[0].ToDateTime(true)
+		_, err = Singleton[DateTime](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1334,23 +1240,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to time
-		t, err := target[0].ToTime(true)
+		t, err := Singleton[Time](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if t == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*t}, inputOrdered, nil
@@ -1366,18 +1262,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to time
-		_, err = target[0].ToTime(true)
+		_, err = Singleton[Time](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1395,23 +1281,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to decimal
-		d, err := target[0].ToDecimal(true)
+		d, err := Singleton[Decimal](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if d == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*d}, inputOrdered, nil
@@ -1427,18 +1303,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to decimal
-		_, err = target[0].ToDecimal(true)
+		_, err = Singleton[Decimal](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1457,23 +1323,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one unit parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to quantity
-		q, err := target[0].ToQuantity(true)
+		q, err := Singleton[Quantity](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if q == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// If unit parameter is provided, check if the quantity can be converted to the given unit
@@ -1498,7 +1354,7 @@ var defaultFunctions = Functions{
 			// and may return empty ({ }) when the unit argument is used and it is different than the input quantity unit.
 			// For now, we'll just check if the units are the same.
 			if q.Unit != *unitStr {
-				return nil, false, nil // Return empty collection if units don't match
+				return nil, true, nil // Return empty collection if units don't match
 			}
 		}
 
@@ -1516,18 +1372,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one unit parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to quantity
-		q, err := target[0].ToQuantity(true)
+		q, err := Singleton[Quantity](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1574,23 +1420,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
-			return nil, false, nil // Return empty collection if conversion fails
+			return nil, true, nil // Return empty collection if conversion fails
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		return Collection{*s}, inputOrdered, nil
@@ -1606,18 +1442,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Check if convertible to string
-		_, err = target[0].ToString(true)
+		_, err = Singleton[String](target)
 		if err != nil {
 			return Collection{Boolean(false)}, inputOrdered, nil
 		}
@@ -1635,34 +1461,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected single substring parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the substring parameter
 		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the substring collection is empty, the result is empty
-		if len(substringCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert substring to string
@@ -1694,34 +1505,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one or two parameters (start, [length])")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the start parameter
 		startCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the start collection is empty, the result is empty
-		if len(startCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert start to integer
@@ -1735,7 +1531,7 @@ var defaultFunctions = Functions{
 
 		// If start is negative or greater than or equal to the length of the string, return empty
 		if *start < 0 || int(*start) >= len(*s) {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// If length parameter is provided
@@ -1744,12 +1540,6 @@ var defaultFunctions = Functions{
 			lengthCollection, _, err := evaluate(ctx, nil, parameters[1])
 			if err != nil {
 				return nil, false, err
-			}
-
-			// If the length collection is empty, treat it as if length had not been provided
-			if len(lengthCollection) == 0 {
-				result := String(string(*s)[int(*start):])
-				return Collection{result}, inputOrdered, nil
 			}
 
 			// Convert length to integer
@@ -1790,34 +1580,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected single prefix parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the prefix parameter
 		prefixCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the prefix collection is empty, the result is empty
-		if len(prefixCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert prefix to string
@@ -1849,34 +1624,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected single suffix parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the suffix parameter
 		suffixCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the suffix collection is empty, the result is empty
-		if len(suffixCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert suffix to string
@@ -1908,34 +1668,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected single substring parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the substring parameter
 		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the substring collection is empty, the result is empty
-		if len(substringCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert substring to string
@@ -1967,23 +1712,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Convert the string to upper case
@@ -2000,23 +1735,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Convert the string to lower case
@@ -2033,34 +1758,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected two parameters (pattern, substitution)")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the pattern parameter
 		patternCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the pattern collection is empty, the result is empty
-		if len(patternCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert pattern to string
@@ -2076,11 +1786,6 @@ var defaultFunctions = Functions{
 		substitutionCollection, _, err := evaluate(ctx, nil, parameters[1])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the substitution collection is empty, the result is empty
-		if len(substitutionCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert substitution to string
@@ -2117,34 +1822,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected single regex parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the regex parameter
 		regexCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the regex collection is empty, the result is empty
-		if len(regexCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert regex to string
@@ -2176,34 +1866,19 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected two parameters (regex, substitution)")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Evaluate the regex parameter
 		regexCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the regex collection is empty, the result is empty
-		if len(regexCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert regex to string
@@ -2219,11 +1894,6 @@ var defaultFunctions = Functions{
 		substitutionCollection, _, err := evaluate(ctx, nil, parameters[1])
 		if err != nil {
 			return nil, false, err
-		}
-
-		// If the substitution collection is empty, the result is empty
-		if len(substitutionCollection) == 0 {
-			return nil, false, nil
 		}
 
 		// Convert substitution to string
@@ -2255,23 +1925,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Return the length of the string
@@ -2288,23 +1948,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
 		// Convert input to string
-		s, err := target[0].ToString(true)
+		s, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
 		if s == nil {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// Convert the string to a collection of characters
@@ -2325,18 +1975,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Handle Integer
-		i, err := target[0].ToInteger(false)
+		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			if *i < 0 {
 				return Collection{Integer(-*i)}, inputOrdered, nil
@@ -2344,8 +1983,7 @@ var defaultFunctions = Functions{
 			return Collection{*i}, inputOrdered, nil
 		}
 
-		// Handle Decimal
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Create a new Decimal with the absolute value
 			var absValue apd.Decimal
@@ -2353,8 +1991,7 @@ var defaultFunctions = Functions{
 			return Collection{Decimal{Value: &absValue}}, inputOrdered, nil
 		}
 
-		// Handle Quantity
-		q, err := target[0].ToQuantity(false)
+		q, err := Singleton[Quantity](target)
 		if err == nil && q != nil {
 			// Create a new Quantity with the absolute value of the value
 			var absValue apd.Decimal
@@ -2375,25 +2012,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Handle Integer
-		i, err := target[0].ToInteger(false)
+		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so ceiling is the same
 			return Collection{*i}, inputOrdered, nil
 		}
 
-		// Handle Decimal
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Get the integer part
 			var intPart apd.Decimal
@@ -2402,7 +2027,6 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			// Convert to Integer
 			intVal, err := intPart.Int64()
 			if err != nil {
 				return nil, false, err
@@ -2424,25 +2048,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Handle Integer
-		i, err := target[0].ToInteger(false)
+		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so floor is the same
 			return Collection{*i}, inputOrdered, nil
 		}
 
-		// Handle Decimal
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Get the integer part
 			var intPart apd.Decimal
@@ -2473,25 +2085,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Handle Integer
-		i, err := target[0].ToInteger(false)
+		i, err := Singleton[Integer](target)
 		if err == nil && i != nil {
 			// Integer is already a whole number, so truncate is the same
 			return Collection{*i}, inputOrdered, nil
 		}
 
-		// Handle Decimal
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Get the integer part
 			var intPart apd.Decimal
@@ -2529,20 +2129,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one precision parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Default precision is 0
 		precision := 0
-
-		// If precision parameter is provided, evaluate it
 		if len(parameters) == 1 {
 			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
@@ -2568,7 +2155,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Create a context with the specified precision
 			apdCtx := apdContext(ctx).WithPrecision(uint32(precision + 1))
@@ -2596,17 +2183,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Calculate e^x
 			var result apd.Decimal
@@ -2631,17 +2208,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Calculate ln(x)
 			var result apd.Decimal
@@ -2666,39 +2233,22 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one base parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Evaluate the base parameter
 		baseCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
 		}
 
-		// If the base collection is empty, the result is empty
-		if len(baseCollection) == 0 {
-			return nil, false, nil
-		}
-
-		// Get the base as a Decimal
-		baseDecimal, err := baseCollection[0].ToDecimal(false)
+		baseDecimal, err := Singleton[Decimal](baseCollection)
 		if err != nil || baseDecimal == nil {
 			// Try to convert Integer to Decimal
-			baseInt, err := baseCollection[0].ToInteger(false)
+			baseInt, err := Singleton[Integer](baseCollection)
 			if err != nil || baseInt == nil {
 				return nil, false, fmt.Errorf("expected Integer or Decimal base parameter but got %T", baseCollection[0])
 			}
 			baseDecimal = &Decimal{Value: apd.New(int64(*baseInt), 0)}
 		}
 
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			// Calculate log_base(x) = ln(x) / ln(base)
 			var lnX, lnBase, result apd.Decimal
@@ -2733,32 +2283,15 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one exponent parameter")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		// Evaluate the exponent parameter
 		exponentCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
 		}
 
-		// If the exponent collection is empty, the result is empty
-		if len(exponentCollection) == 0 {
-			return nil, false, nil
-		}
-
-		// Try to get the exponent as an Integer
-		exponentInt, err := exponentCollection[0].ToInteger(false)
+		exponentInt, err := Singleton[Integer](exponentCollection)
 		if err == nil && exponentInt != nil {
 			// Handle Integer base
-			i, err := target[0].ToInteger(false)
+			i, err := Singleton[Integer](target)
 			if err == nil && i != nil {
 				// For Integer base and Integer exponent, return Integer if possible
 				result := int64(math.Pow(float64(*i), float64(*exponentInt)))
@@ -2779,23 +2312,22 @@ var defaultFunctions = Functions{
 		}
 
 		// Get the exponent as a Decimal
-		exponentDecimal, err := exponentCollection[0].ToDecimal(false)
+		exponentDecimal, err := Singleton[Decimal](exponentCollection)
 		if err != nil || exponentDecimal == nil {
 			// Try to convert Integer to Decimal
-			exponentInt, err := exponentCollection[0].ToInteger(false)
+			exponentInt, err := Singleton[Integer](exponentCollection)
 			if err != nil || exponentInt == nil {
 				return nil, false, fmt.Errorf("expected Integer or Decimal exponent parameter but got %T", exponentCollection[0])
 			}
 			exponentDecimal = &Decimal{Value: apd.New(int64(*exponentInt), 0)}
 		}
 
-		// Handle Decimal base
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
 			_, err := exponentDecimal.Value.Int64()
 			// For negative base, the result is empty
 			if d.Value.Negative {
-				return nil, false, nil
+				return nil, true, nil
 			}
 
 			// Calculate x^y
@@ -2821,24 +2353,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, false, nil
-		}
-
-		// If the input collection contains multiple items, signal an error
-		if len(target) > 1 {
-			return nil, false, fmt.Errorf("expected single item but got %d items", len(target))
-		}
-
-		d, err := target[0].ToDecimal(false)
+		d, err := Singleton[Decimal](target)
 		if err == nil && d != nil {
-			// For negative input, the result is empty
 			if d.Value.Negative {
-				return nil, false, nil
+				return nil, true, nil
 			}
 
-			// Calculate sqrt(x)
 			var result apd.Decimal
 			_, err = apdContext(ctx).Sqrt(&result, d.Value)
 			if err != nil {
@@ -2863,7 +2383,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		for _, elem := range target {
@@ -2887,7 +2407,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		// descendants() is a shorthand for repeat(children())
@@ -2942,13 +2462,11 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one or two parameters")
 		}
 
-		// Get the trace logger from the context
 		logger, err := traceLogger(ctx)
 		if err != nil {
 			return nil, false, err
 		}
 
-		// Get the name parameter
 		nameParam, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
@@ -2956,7 +2474,7 @@ var defaultFunctions = Functions{
 		if len(nameParam) != 1 {
 			return nil, false, fmt.Errorf("expected single name parameter")
 		}
-		nameStr, err := nameParam[0].ToString(true)
+		nameStr, err := Singleton[String](nameParam)
 		if err != nil {
 			return nil, false, err
 		}
@@ -2964,10 +2482,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("name parameter cannot be null")
 		}
 
-		// Determine what to log
 		var logCollection Collection
 		if len(parameters) == 2 {
-			// If projection is provided, evaluate it on the input
 			for i, elem := range target {
 				projection, _, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i, total: len(target)})
 				if err != nil {
@@ -2976,17 +2492,14 @@ var defaultFunctions = Functions{
 				logCollection = append(logCollection, projection...)
 			}
 		} else {
-			// Otherwise, log the input collection
 			logCollection = target
 		}
 
-		// Log the collection with the given name
 		err = logger.Log(string(*nameStr), logCollection)
 		if err != nil {
 			return nil, false, err
 		}
 
-		// Return the input collection unchanged
 		return target, inputOrdered, nil
 	},
 	"aggregate": func(
@@ -3002,7 +2515,7 @@ var defaultFunctions = Functions{
 
 		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
-			return nil, false, nil
+			return nil, true, nil
 		}
 
 		if len(parameters) == 2 {
