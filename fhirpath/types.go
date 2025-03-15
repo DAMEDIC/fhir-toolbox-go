@@ -2218,7 +2218,7 @@ const (
 	DateFormatFull         = "2006-01-02"
 	TimeFormatOnlyHour     = "15"
 	TimeFormatOnlyHourTZ   = "15Z07:00"
-	TimeFormatUpToMinute   = "15:04Z07:00"
+	TimeFormatUpToMinute   = "15:04"
 	TimeFormatUpToMinuteTZ = "15:04Z07:00"
 	TimeFormatFull         = "15:04:05.999999999"
 	TimeFormatFullTZ       = "15:04:05.999999999Z07:00"
