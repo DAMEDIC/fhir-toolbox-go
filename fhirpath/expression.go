@@ -138,14 +138,14 @@ func evalExpression(
 		if err != nil {
 			return nil, false, err
 		}
-		op := t.GetChild(1).(antlr.ParseTree).GetText()
+		op := t.GetChild(0).(antlr.ParseTree).GetText()
 
 		switch op {
 		case "+":
 			// noop
 			return expr, ordered, nil
 		case "-":
-			result, err := expr.Multiply(ctx, Collection{Integer(-1)})
+			result, err = expr.Multiply(ctx, Collection{Integer(-1)})
 			return result, ordered, err
 
 		}

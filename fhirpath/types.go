@@ -1405,12 +1405,12 @@ func (d Decimal) Multiply(ctx context.Context, other Element) (Element, error) {
 	if err != nil || o == nil {
 		return nil, fmt.Errorf("can not multiply Decimal with %T: %v * %v", other, d, other)
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).Mul(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).Mul(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1420,12 +1420,12 @@ func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
 	if o.Value.IsZero() {
 		return nil, nil
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).Quo(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).Quo(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1435,12 +1435,12 @@ func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
 	if o.Value.IsZero() {
 		return nil, nil
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).QuoInteger(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).QuoInteger(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1450,12 +1450,12 @@ func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
 	if o.Value.IsZero() {
 		return nil, nil
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).Rem(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).Rem(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1465,12 +1465,12 @@ func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
 	if o.Value.IsZero() {
 		return nil, nil
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).Add(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).Add(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	o, err := other.ToDecimal(false)
@@ -1480,12 +1480,12 @@ func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	if o.Value.IsZero() {
 		return nil, nil
 	}
-	var res *apd.Decimal
-	_, err = apdContext(ctx).Sub(res, d.Value, o.Value)
+	var res apd.Decimal
+	_, err = apdContext(ctx).Sub(&res, d.Value, o.Value)
 	if err != nil {
 		return nil, err
 	}
-	return Decimal{Value: res}, nil
+	return Decimal{Value: &res}, nil
 }
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
