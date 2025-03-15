@@ -14,50 +14,40 @@ import (
 // TraceLogger defines the interface for logging trace messages
 type TraceLogger interface {
 	// Log logs a trace message with the given name and collection
-	Log(name string, collection Collection)
+	Log(name string, collection Collection) error
 }
 
-// NoOpTraceLogger is a TraceLogger that does nothing
-type NoOpTraceLogger struct{}
+// StdoutTraceLogger writes traces to io.Stdout.
+type StdoutTraceLogger struct{}
 
-// Log does nothing
-func (l *NoOpTraceLogger) Log(name string, collection Collection) {}
-
-// Enabled always returns false
-func (l *NoOpTraceLogger) Enabled() bool {
-	return false
+func (w StdoutTraceLogger) Log(name string, collection Collection) error {
+	_, err := fmt.Printf("%s: %v\n", name, collection)
+	return err
 }
 
 type traceLoggerKey struct{}
 
 // WithTraceLogger installs the given trace logger into the context.
 //
-// By default, trace logging is disabled. To enable trace logging, use:
-//
-//	ctx = fhirpath.WithTraceLogger(ctx, fhirpath.NewDefaultTraceLogger(true, nil))
-//
+// By default, traces are logged to stdout.
 // To redirect trace logs to a custom output, use:
 //
-//	file, _ := os.Create("trace.log")
-//	ctx = fhirpath.WithTraceLogger(ctx, fhirpath.NewDefaultTraceLogger(true, file))
-//
-// To disable trace logging, use:
-//
-//	ctx = fhirpath.WithTraceLogger(ctx, &fhirpath.NoOpTraceLogger{})
-//
-// or simply don't call WithTraceLogger, as trace logging is disabled by default.
+//	ctx = fhirpath.WithTraceLogger(ctx, MyCustomTraceLogger(true, file))
 func WithTraceLogger(ctx context.Context, logger TraceLogger) context.Context {
 	return context.WithValue(ctx, traceLoggerKey{}, logger)
 }
 
 // GetTraceLogger gets the trace logger from the context
 // If no trace logger is found, a NoOpTraceLogger is returned
-func traceLogger(ctx context.Context) TraceLogger {
+func traceLogger(ctx context.Context) (TraceLogger, error) {
 	logger, ok := ctx.Value(traceLoggerKey{}).(TraceLogger)
 	if !ok {
-		return &NoOpTraceLogger{}
+		return StdoutTraceLogger{}, nil
 	}
-	return logger
+	if logger == nil {
+		return StdoutTraceLogger{}, fmt.Errorf("no trace logger provided")
+	}
+	return logger, nil
 }
 
 type Functions map[string]Function
@@ -2799,7 +2789,10 @@ var defaultFunctions = Functions{
 
 				// Otherwise, return as Decimal
 				resultDecimal := apd.New(0, 0)
-				resultDecimal.SetFloat64(math.Pow(float64(*i), float64(*exponentInt)))
+				_, err := resultDecimal.SetFloat64(math.Pow(float64(*i), float64(*exponentInt)))
+				if err != nil {
+					return nil, err
+				}
 				return Collection{Decimal{Value: resultDecimal}}, nil
 			}
 		}
@@ -3009,7 +3002,10 @@ var defaultFunctions = Functions{
 		}
 
 		// Get the trace logger from the context
-		logger := traceLogger(ctx)
+		logger, err := traceLogger(ctx)
+		if err != nil {
+			return nil, err
+		}
 
 		// Get the name parameter
 		nameParam, err := evaluate(ctx, nil, parameters[0])
@@ -3044,7 +3040,10 @@ var defaultFunctions = Functions{
 		}
 
 		// Log the collection with the given name
-		logger.Log(string(*nameStr), logCollection)
+		err = logger.Log(string(*nameStr), logCollection)
+		if err != nil {
+			return nil, err
+		}
 
 		// Return the input collection unchanged
 		return target, nil
