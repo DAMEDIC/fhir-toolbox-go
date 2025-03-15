@@ -82,200 +82,210 @@ func Evaluate(ctx context.Context, target Element, expr Expression) (Collection,
 	ctx = WithEnv(ctx, "context", target)
 	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
 
-	return evalExpression(
+	result, _, err := evalExpression(
 		ctx,
 		target, Collection{target},
+		true,
 		expr.tree,
 		true,
 	)
+	return result, err
 }
 
 func evalExpression(
 	ctx context.Context,
 	root Element, target Collection,
+	inputOrdered bool,
 	tree parser.IExpressionContext,
 	isRoot bool,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	switch t := tree.(type) {
 	case *parser.TermExpressionContext:
-		return evalTerm(ctx, root, target, t.Term(), isRoot)
+		return evalTerm(ctx, root, target, inputOrdered, t.Term(), isRoot)
 	case *parser.InvocationExpressionContext:
-		expr, err := evalExpression(ctx, root, target, t.Expression(), isRoot)
+		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		return evalInvocation(ctx, root, expr, t.Invocation(), false)
+		return evalInvocation(ctx, root, expr, ordered, t.Invocation(), false)
 	case *parser.IndexerExpressionContext:
-		expr, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		indexCollection, err := evalExpression(ctx, root, target, t.Expression(1), false)
+		if !ordered {
+			return nil, false, errors.New("can not index into unordered collection")
+		}
+		indexCollection, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), false)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		index, err := Singleton[Integer](indexCollection)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		if index == nil {
-			return nil, fmt.Errorf("can not index with null index")
+			return nil, false, fmt.Errorf("can not index with null index")
 		}
 		i := int(*index)
 		if i >= len(target) {
-			return nil, nil
+			return nil, false, nil
 		} else {
-			return Collection{expr[i]}, nil
+			return Collection{expr[i]}, true, nil
 		}
 	case *parser.PolarityExpressionContext:
-		expr, err := evalExpression(ctx, root, target, t.Expression(), isRoot)
+		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		switch op {
 		case "+":
 			// noop
-			return expr, nil
+			return expr, ordered, nil
 		case "-":
-			return expr.Multiply(ctx, Collection{Integer(-1)})
+			result, err := expr.Multiply(ctx, Collection{Integer(-1)})
+			return result, ordered, err
 
 		}
-		return nil, nil
+		return nil, false, nil
 	case *parser.MultiplicativeExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		switch op {
 		case "*":
-			return left.Multiply(ctx, right)
+			result, err = left.Multiply(ctx, right)
 		case "/":
-			return left.Divide(ctx, right)
+			result, err = left.Divide(ctx, right)
 		case "div":
-			return left.Div(ctx, right)
+			result, err = left.Div(ctx, right)
 		case "mod":
-			return left.Mod(ctx, right)
+			result, err = left.Mod(ctx, right)
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 	case *parser.AdditiveExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		switch op {
 		case "+":
-			return left.Add(ctx, right)
+			result, err = left.Add(ctx, right)
 		case "-":
-			return left.Subtract(ctx, right)
+			result, err = left.Subtract(ctx, right)
 		case "&":
-			return left.Concat(ctx, right)
+			result, err = left.Concat(ctx, right)
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 	case *parser.TypeExpressionContext:
-		expr, err := evalExpression(ctx, root, target, t.Expression(), isRoot)
+		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 		spec, err := evalQualifiedIdentifier(t.TypeSpecifier().QualifiedIdentifier())
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
-		if len(expr) == 1 {
-			switch op {
-			case "is":
-				r, err := isType(ctx, expr[0], spec)
-				if err != nil {
-					return nil, err
-				}
-				return Collection{r}, nil
-			case "as":
-				c, err := asType(ctx, expr[0], spec)
-				if err != nil {
-					return nil, err
-				}
-				if c != nil {
-					return c, nil
-				}
-				return nil, nil
+		if len(expr) != 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
 
+		switch op {
+		case "is":
+			r, err := isType(ctx, expr[0], spec)
+			if err != nil {
+				return nil, false, err
 			}
+			return Collection{r}, ordered, nil
+		case "as":
+			c, err := asType(ctx, expr[0], spec)
+			if err != nil {
+				return nil, false, err
+			}
+			if c != nil {
+				return c, ordered, nil
+			}
+			return nil, false, nil
+
 		}
-		return nil, nil
+
+		return nil, false, nil
 
 	case *parser.UnionExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
-		return left.Union(right), nil
+		return left.Union(right), leftOrdered && rightOrdered, nil
 
 	case *parser.InequalityExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		cmp, err := left.Cmp(right)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		if cmp == nil {
-			return nil, nil
+			return nil, false, nil
 		}
 		switch op {
 		case "<=":
 			if *cmp <= 0 {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			}
 		case "<":
 			if *cmp < 0 {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			}
 		case ">":
 			if *cmp > 0 {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			}
 		case ">=":
 			if *cmp >= 0 {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			}
 		}
-		return Collection{Boolean(false)}, nil
+		return result, leftOrdered && rightOrdered, err
 
 	case *parser.EqualityExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
@@ -283,152 +293,151 @@ func evalExpression(
 		case "=":
 			eq := left.Equal(right)
 			if eq != nil {
-				return Collection{Boolean(*eq)}, nil
+				result, err = Collection{Boolean(*eq)}, nil
 			}
 		case "~":
 			eq := left.Equivalent(right)
 			if eq != nil {
-				return Collection{Boolean(*eq)}, nil
+				result, err = Collection{Boolean(*eq)}, nil
 			}
 		case "!=":
 			eq := left.Equal(right)
 			if eq != nil {
-				return Collection{Boolean(!*eq)}, nil
+				result, err = Collection{Boolean(!*eq)}, nil
 			}
 		case "!~":
 			eq := left.Equivalent(right)
 			if eq != nil {
-				return Collection{Boolean(!*eq)}, nil
+				result, err = Collection{Boolean(!*eq)}, nil
 			}
 		}
-		return nil, nil
-
+		return result, leftOrdered && rightOrdered, err
 	case *parser.MembershipExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		switch op {
 		case "in":
 			if len(left) == 0 {
-				return nil, nil
+				return nil, false, nil
 			} else if len(left) > 1 {
-				return nil, fmt.Errorf("left operand of \"in\" (membership) has more than 1 value")
+				return nil, false, fmt.Errorf("left operand of \"in\" (membership) has more than 1 value")
 			}
-			return Collection{Boolean(right.Contains(left[0]))}, nil
+			result, err = Collection{Boolean(right.Contains(left[0]))}, nil
 		case "contains":
 			if len(right) == 0 {
-				return nil, nil
+				return nil, false, nil
 			} else if len(right) > 1 {
-				return nil, fmt.Errorf("left operand of \"contains\" (membership) has more than 1 value")
+				return nil, false, fmt.Errorf("left operand of \"contains\" (membership) has more than 1 value")
 			}
-			return Collection{Boolean(left.Contains(right[0]))}, nil
+			result, err = Collection{Boolean(left.Contains(right[0]))}, nil
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 
 	case *parser.AndExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		leftSingle, err := Singleton[Boolean](left)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		rightSingle, err := Singleton[Boolean](right)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		if leftSingle != nil && *leftSingle == true &&
 			rightSingle != nil && *rightSingle == true {
-			return Collection{Boolean(true)}, nil
+			result, err = Collection{Boolean(true)}, nil
 		} else if leftSingle != nil && *leftSingle == false {
-			return Collection{Boolean(false)}, nil
+			result, err = Collection{Boolean(false)}, nil
 		} else if rightSingle != nil && *rightSingle == false {
-			return Collection{Boolean(false)}, nil
+			result, err = Collection{Boolean(false)}, nil
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 
 	case *parser.OrExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
 		leftSingle, err := Singleton[Boolean](left)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		rightSingle, err := Singleton[Boolean](right)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		switch op {
 		case "or":
 			if leftSingle != nil && *leftSingle == false &&
 				rightSingle != nil && *rightSingle == false {
-				return Collection{Boolean(false)}, nil
+				result, err = Collection{Boolean(false)}, nil
 			} else if leftSingle != nil && *leftSingle == true {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			} else if rightSingle != nil && *rightSingle == true {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			}
 		case "xor":
 			if (leftSingle != nil && *leftSingle == true && rightSingle != nil && *rightSingle == false) ||
 				(leftSingle != nil && *leftSingle == false && rightSingle != nil && *rightSingle == true) {
-				return Collection{Boolean(true)}, nil
+				result, err = Collection{Boolean(true)}, nil
 			} else if leftSingle != nil && rightSingle != nil &&
 				*rightSingle == *leftSingle {
-				return Collection{Boolean(false)}, nil
+				result, err = Collection{Boolean(false)}, nil
 			}
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 
 	case *parser.ImpliesExpressionContext:
-		left, err := evalExpression(ctx, root, target, t.Expression(0), isRoot)
+		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		right, err := evalExpression(ctx, root, target, t.Expression(1), isRoot)
+		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		leftSingle, err := Singleton[Boolean](left)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 		rightSingle, err := Singleton[Boolean](right)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		if leftSingle != nil && *leftSingle == true && rightSingle != nil {
-			return Collection{*rightSingle}, nil
+			result, err = Collection{*rightSingle}, nil
 		} else if leftSingle != nil && *leftSingle == false {
-			return Collection{Boolean(true)}, nil
+			result, err = Collection{Boolean(true)}, nil
 		} else if leftSingle == nil && rightSingle != nil && *rightSingle == true {
-			return Collection{Boolean(true)}, nil
+			result, err = Collection{Boolean(true)}, nil
 		}
-		return nil, nil
+		return result, leftOrdered && rightOrdered, err
 
 	default:
 		panic(fmt.Sprintf("unexpected expression %T", tree))
@@ -438,66 +447,67 @@ func evalExpression(
 func evalTerm(
 	ctx context.Context,
 	root Element, target Collection,
+	inputOrdered bool,
 	tree parser.ITermContext,
 	isRoot bool,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	switch t := tree.(type) {
 	case *parser.InvocationTermContext:
-		return evalInvocation(ctx, root, target, t.Invocation(), isRoot)
+		return evalInvocation(ctx, root, target, inputOrdered, t.Invocation(), isRoot)
 	case *parser.LiteralTermContext:
 		return evalLiteral(t.Literal())
 	case *parser.ExternalConstantTermContext:
 		return evalExternalConstant(ctx, t.ExternalConstant())
 	case *parser.ParenthesizedTermContext:
-		return evalExpression(ctx, root, target, t.Expression(), isRoot)
+		return evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 	default:
-		return nil, fmt.Errorf("unexpected term %T", tree)
+		return nil, false, fmt.Errorf("unexpected term %T", tree)
 	}
 }
 
 func evalLiteral(
 	tree parser.ILiteralContext,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	s := tree.GetText()
 
 	switch tt := tree.(type) {
 	case *parser.NullLiteralContext:
-		return nil, nil
+		return nil, false, nil
 	case *parser.BooleanLiteralContext:
 		if s == "true" {
-			return Collection{Boolean(true)}, nil
+			return Collection{Boolean(true)}, true, nil
 		} else if s == "false" {
-			return Collection{Boolean(false)}, nil
+			return Collection{Boolean(false)}, true, nil
 		} else {
-			return nil, fmt.Errorf("expected boolean literal, got %s", s)
+			return nil, false, fmt.Errorf("expected boolean literal, got %s", s)
 		}
 	case *parser.StringLiteralContext:
 		unescaped, err := unescape(s[1 : len(s)-1])
-		return Collection{String(unescaped)}, err
+		return Collection{String(unescaped)}, true, err
 	case *parser.NumberLiteralContext:
 		if strings.Contains(s, ".") {
 			d, _, err := apd.NewFromString(s)
-			return Collection{Decimal{Value: d}}, err
+			return Collection{Decimal{Value: d}}, true, err
 		}
 
 		i, err := strconv.Atoi(s)
-		return Collection{Integer(i)}, err
+		return Collection{Integer(i)}, true, err
 	case *parser.DateLiteralContext:
 		d, err := ParseDate(s)
-		return Collection{d}, err
+		return Collection{d}, true, err
 	case *parser.TimeLiteralContext:
 		t, err := ParseTime(s)
-		return Collection{t}, err
+		return Collection{t}, true, err
 	case *parser.DateTimeLiteralContext:
 		dt, err := ParseDateTime(s)
-		return Collection{dt}, err
+		return Collection{dt}, true, err
 	case *parser.QuantityLiteralContext:
 		q := tt.Quantity()
 		v, _, err := apd.NewFromString(q.NUMBER().GetText())
 		u := q.Unit().GetText()
-		return Collection{Quantity{Value: Decimal{Value: v}, Unit: String(u)}}, err
+		return Collection{Quantity{Value: Decimal{Value: v}, Unit: String(u)}}, true, err
 	default:
-		return nil, fmt.Errorf("unexpected term %T: %v", tree, tree)
+		return nil, false, fmt.Errorf("unexpected term %T: %v", tree, tree)
 	}
 }
 
@@ -515,13 +525,13 @@ func envValue(ctx context.Context, name string) (Element, bool) {
 func evalExternalConstant(
 	ctx context.Context,
 	tree parser.IExternalConstantContext,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	name := strings.TrimLeft(tree.GetText(), "%")
 	value, ok := envValue(ctx, name)
 	if !ok {
-		return nil, fmt.Errorf("environment variable %q undefined", name)
+		return nil, false, fmt.Errorf("environment variable %q undefined", name)
 	}
-	return Collection{value}, nil
+	return Collection{value}, true, nil
 }
 
 func Singleton[T Element](c Collection) (*T, error) {

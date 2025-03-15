@@ -10,14 +10,15 @@ import (
 func evalInvocation(
 	ctx context.Context,
 	root Element, target Collection,
+	inputOrdered bool,
 	tree parser.IInvocationContext,
 	isRoot bool,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	switch t := tree.(type) {
 	case *parser.MemberInvocationContext:
 		ident, err := evalIdentifier(t.Identifier())
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
 
 		if isRoot {
@@ -25,9 +26,9 @@ func evalInvocation(
 			if ok {
 				rootType := root.TypeInfo()
 				if !subTypeOf(ctx, rootType, expectedType) {
-					return nil, fmt.Errorf("expected element of type %s, got %s", expectedType, rootType)
+					return nil, false, fmt.Errorf("expected element of type %s, got %s", expectedType, rootType)
 				}
-				return target, nil
+				return target, inputOrdered, nil
 			}
 		}
 
@@ -35,29 +36,32 @@ func evalInvocation(
 		for _, e := range target {
 			members = append(members, e.Children(ident)...)
 		}
-		return members, nil
+		return members, inputOrdered, nil
 	case *parser.FunctionInvocationContext:
-		return evalFunc(ctx, root, target, t.Function())
+		return evalFunc(ctx, root, target, inputOrdered, t.Function())
 	case *parser.ThisInvocationContext:
 		scope, err := getFunctionScope(ctx)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		return Collection{scope.this}, nil
+		return Collection{scope.this}, inputOrdered, nil
 	case *parser.IndexInvocationContext:
 		scope, err := getFunctionScope(ctx)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		return Collection{Integer(scope.index)}, nil
+		return Collection{Integer(scope.index)}, inputOrdered, nil
 	case *parser.TotalInvocationContext:
 		scope, err := getFunctionScope(ctx)
 		if err != nil {
-			return nil, err
+			return nil, false, err
 		}
-		return Collection{Integer(scope.total)}, nil
+		if scope.total == 0 {
+			return nil, false, fmt.Errorf("$total not defined (only in aggregate)")
+		}
+		return Collection{Integer(scope.total)}, inputOrdered, nil
 	default:
-		return nil, fmt.Errorf("unexpected invocation %T", tree)
+		return nil, false, fmt.Errorf("unexpected invocation %T", tree)
 	}
 }
 
@@ -90,29 +94,31 @@ func evalIdentifier(tree parser.IIdentifierContext) (string, error) {
 func evalFunc(
 	ctx context.Context,
 	root Element, target Collection,
+	inputOrdered bool,
 	tree parser.IFunctionContext,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	ident, err := evalIdentifier(tree.Identifier())
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 
 	paramList := tree.ParamList()
 	if paramList == nil {
-		return callFunc(ctx, root, target, ident)
+		return callFunc(ctx, root, target, inputOrdered, ident)
 	}
 
-	return callFunc(ctx, root, target, ident, paramList.AllExpression()...)
+	return callFunc(ctx, root, target, inputOrdered, ident, paramList.AllExpression()...)
 }
 
 func callFunc(
 	ctx context.Context,
 	root Element, target Collection,
+	inputOrdered bool,
 	ident string, paramTerms ...parser.IExpressionContext,
-) (Collection, error) {
+) (result Collection, resultOrdered bool, err error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
-		return nil, fmt.Errorf("function \"%s\" not found", ident)
+		return nil, false, fmt.Errorf("function \"%s\" not found", ident)
 	}
 
 	paramExprs := make([]Expression, 0, len(paramTerms))
@@ -123,19 +129,23 @@ func callFunc(
 	return fn(
 		ctx,
 		root, target,
+		inputOrdered,
 		paramExprs,
 		func(
 			ctx context.Context,
 			target Element,
 			expr Expression,
 			fnScope ...FunctionScope,
-		) (Collection, error) {
+		) (result Collection, resultOrdered bool, err error) {
 			if len(fnScope) > 0 {
-				ctx = withFunctionScope(ctx, functionScope{
+				scope := functionScope{
 					this:  target,
 					index: fnScope[0].index,
-					total: fnScope[0].total,
-				})
+				}
+				if ident == "aggregate" {
+					scope.total = fnScope[0].total
+				}
+				ctx = withFunctionScope(ctx, scope)
 			}
 			var targetCollection Collection
 			if target != nil {
@@ -143,6 +153,7 @@ func callFunc(
 			}
 			return evalExpression(ctx,
 				root, targetCollection,
+				true,
 				expr.tree, false,
 			)
 		},
