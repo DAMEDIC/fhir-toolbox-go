@@ -85,6 +85,7 @@ type FHIRPathTest struct {
 	InputFile     string `xml:"inputfile,attr"`
 	InputResource model.Resource
 	Predicate     bool                   `xml:"predicate,attr"`
+	Invalid       string                 `xml:"invalid,attr"`
 	Expression    FHIRPathTestExpression `xml:"expression"`
 	Output        []FHIRPathTestOutput   `xml:"output"`
 }

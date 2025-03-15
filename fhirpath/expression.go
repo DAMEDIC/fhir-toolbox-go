@@ -19,13 +19,19 @@ func (e Expression) String() string {
 	return e.tree.GetText()
 }
 
-func Parse(path string) (Expression, error) {
-	parser, err := parse(path)
+func Parse(expr string) (Expression, error) {
+	parser, err := parse(expr)
 	if err != nil {
 		return Expression{}, err
 	}
-
-	return Expression{tree: parser.Expression()}, nil
+	entireExpr := parser.EntireExpression()
+	if entireExpr.EOF() == nil {
+		return Expression{}, fmt.Errorf(
+			"can not parse expression at index %v: %v",
+			len(entireExpr.Expression().GetText()), entireExpr.GetText(),
+		)
+	}
+	return Expression{entireExpr.Expression()}, nil
 }
 
 func MustParse(path string) Expression {
@@ -62,9 +68,9 @@ func (c *SyntaxErrorListener) SyntaxError(
 	})
 }
 
-func parse(path string) (*parser.FHIRPathParser, error) {
+func parse(expr string) (*parser.FHIRPathParser, error) {
 	errListener := SyntaxErrorListener{}
-	inputStream := antlr.NewInputStream(path)
+	inputStream := antlr.NewInputStream(expr)
 
 	lexer := parser.NewFHIRPathLexer(inputStream)
 	lexer.RemoveErrorListeners()

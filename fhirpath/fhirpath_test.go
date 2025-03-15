@@ -38,7 +38,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					}()
 
 					expr, err := fhirpath.Parse(test.Expression.Expression)
-					if err != nil && test.Expression.Invalid != "" {
+					if err != nil && (test.Invalid != "" || test.Expression.Invalid != "") {
 						return
 					}
 
