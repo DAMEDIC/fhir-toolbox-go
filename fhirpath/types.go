@@ -2457,7 +2457,9 @@ func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
 func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToQuantity(false)
 	if err == nil && o != nil {
-		return q.Value.Equal(o.Value) && q.Unit == o.Unit
+		left := q.dateAsUCUM()
+		right := o.dateAsUCUM()
+		return left.Value.Equal(right.Value) && left.Unit == right.Unit
 	}
 	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
 		return other.Equal(q, true)
@@ -2466,11 +2468,7 @@ func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	}
 }
 func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToQuantity(false)
-	if err == nil && o != nil {
-		return q.dateAsUCUM().Equal(o.dateAsUCUM(), true)
-	}
-	return false
+	return q.Equal(other)
 }
 func (q Quantity) Cmp(other Element) (*int, error) {
 	o, err := other.ToQuantity(false)
@@ -2492,10 +2490,6 @@ func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) 
 	left := q.dateAsUCUM()
 	right := o.dateAsUCUM()
 
-	if left.Unit != right.Unit {
-		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
-	}
-
 	value, err := left.Value.Multiply(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
@@ -2511,15 +2505,11 @@ func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
 	left := q.dateAsUCUM()
 	right := o.dateAsUCUM()
 
-	if left.Unit != right.Unit {
-		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
-	}
-
 	value, err := left.Value.Divide(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
+	unit := fmt.Sprintf("(%s)/(%s)", left.Unit, right.Unit)
 	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
 }
 func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {

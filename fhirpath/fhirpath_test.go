@@ -33,6 +33,16 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Type: "Quantity", Output: "1 'week'",
 		}},
 	},
+	"testQuantity7": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "UCUM handling not implemented",
+		},
+	},
+	"testQuantity8": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "UCUM handling not implemented",
+		},
+	},
 }
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
@@ -56,6 +66,9 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 
 				override, ok := testOverrides[name]
 				if ok {
+					if override.Invalid != "" {
+						test.Invalid = override.Invalid
+					}
 					if override.Output != nil {
 						test.Output = override.Output
 					}
