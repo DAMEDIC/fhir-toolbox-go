@@ -15,8 +15,7 @@ import (
 var testOverrides = map[string]testdata.FHIRPathTest{
 	"testDateNotEqual": {
 		Output: []testdata.FHIRPathTestOutput{{
-			OutputType: "boolean",
-			Output:     "true",
+			Type: "boolean", Output: "true",
 		}},
 	},
 	"testPrecedence3": {
@@ -28,6 +27,11 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 		Expression: testdata.FHIRPathTestExpression{
 			Expression: "(1 | 1) is Integer",
 		},
+	},
+	"testQuantityLiteralWeekToString": {
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "Quantity", Output: "1 'week'",
+		}},
 	},
 }
 

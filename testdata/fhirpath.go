@@ -104,8 +104,8 @@ type FHIRPathTestExpression struct {
 }
 
 type FHIRPathTestOutput struct {
-	OutputType string `xml:"type,attr"`
-	Output     string `xml:",innerxml"`
+	Type   string `xml:"type,attr"`
+	Output string `xml:",innerxml"`
 }
 
 func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {
@@ -113,7 +113,7 @@ func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {
 }
 
 func (o FHIRPathTestOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	if o.OutputType != "boolean" {
+	if o.Type != "boolean" {
 		panic("not a boolean")
 	}
 	b, err := strconv.ParseBool(o.Output)
@@ -124,14 +124,14 @@ func (o FHIRPathTestOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) 
 }
 
 func (o FHIRPathTestOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	if o.OutputType != "string" && o.OutputType != "code" {
+	if o.Type != "string" && o.Type != "code" {
 		panic("not a string")
 	}
 	return (*fhirpath.String)(&o.Output), nil
 }
 
 func (o FHIRPathTestOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	if o.OutputType != "integer" {
+	if o.Type != "integer" {
 		panic("not an integer")
 	}
 	i, err := strconv.Atoi(o.Output)
@@ -142,7 +142,7 @@ func (o FHIRPathTestOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) 
 }
 
 func (o FHIRPathTestOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	if o.OutputType != "decimal" {
+	if o.Type != "decimal" {
 		panic("not a decimal")
 	}
 	d, _, err := apd.NewFromString(o.Output)
@@ -153,7 +153,7 @@ func (o FHIRPathTestOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) 
 }
 
 func (o FHIRPathTestOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	if o.OutputType != "date" {
+	if o.Type != "date" {
 		panic("not a date")
 	}
 	d, err := fhirpath.ParseDate(o.Output)
@@ -164,7 +164,7 @@ func (o FHIRPathTestOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
 }
 
 func (o FHIRPathTestOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	if o.OutputType != "time" {
+	if o.Type != "time" {
 		panic("not a time")
 	}
 	t, err := fhirpath.ParseTime(o.Output)
@@ -175,7 +175,7 @@ func (o FHIRPathTestOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
 }
 
 func (o FHIRPathTestOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	if o.OutputType != "dateTime" {
+	if o.Type != "dateTime" {
 		panic("not a dateTime")
 	}
 	dt, err := fhirpath.ParseDateTime(o.Output)
@@ -186,8 +186,8 @@ func (o FHIRPathTestOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 }
 
 func (o FHIRPathTestOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	if o.OutputType != "quantity" {
-		panic("not a dateTime")
+	if o.Type != "Quantity" {
+		panic("not a Quantity")
 	}
 	q, err := fhirpath.ParseQuantity(o.Output)
 	if err != nil {
@@ -231,7 +231,7 @@ func (o FHIRPathTestOutput) String() string {
 }
 
 func (o FHIRPathTestOutput) toElement() (fhirpath.Element, error) {
-	switch o.OutputType {
+	switch o.Type {
 	case "boolean":
 		return o.ToBoolean(false)
 	case "string", "code":
@@ -246,8 +246,8 @@ func (o FHIRPathTestOutput) toElement() (fhirpath.Element, error) {
 		return o.ToTime(false)
 	case "dateTime":
 		return o.ToDateTime(false)
-	case "quantity":
+	case "Quantity":
 		return o.ToQuantity(false)
 	}
-	panic(fmt.Sprintf("invalid type: %s", o.OutputType))
+	panic(fmt.Sprintf("invalid type: %s", o.Type))
 }

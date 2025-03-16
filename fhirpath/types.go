@@ -2457,7 +2457,7 @@ func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
 func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) bool {
 	o, err := other.ToQuantity(false)
 	if err == nil && o != nil {
-		return q == *o
+		return q.Value.Equal(o.Value) && q.Unit == o.Unit
 	}
 	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
 		return other.Equal(q, true)
@@ -2606,7 +2606,11 @@ func ParseQuantity(s string) (Quantity, error) {
 
 	q := parser.Quantity()
 	v, _, err := apd.NewFromString(q.NUMBER().GetText())
-	u := q.Unit().GetText()
+	u := "1"
+	if q.Unit() != nil {
+		t := q.Unit().GetText()
+		u = strings.Trim(t, "'")
+	}
 	if err != nil {
 		return Quantity{}, err
 	}

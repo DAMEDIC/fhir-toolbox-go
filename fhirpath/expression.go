@@ -514,10 +514,8 @@ func evalLiteral(
 		dt, err := ParseDateTime(s)
 		return Collection{dt}, true, err
 	case *parser.QuantityLiteralContext:
-		q := tt.Quantity()
-		v, _, err := apd.NewFromString(q.NUMBER().GetText())
-		u := q.Unit().GetText()
-		return Collection{Quantity{Value: Decimal{Value: v}, Unit: String(u)}}, true, err
+		q, err := ParseQuantity(tt.Quantity().GetText())
+		return Collection{q}, true, err
 	default:
 		return nil, false, fmt.Errorf("unexpected term %T: %v", tree, tree)
 	}
