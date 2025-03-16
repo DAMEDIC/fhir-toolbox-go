@@ -1077,7 +1077,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to boolean
-		b, err := Singleton[Boolean](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
+		}
+
+		b, err := elementTo[Boolean](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1099,7 +1105,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to boolean
-		_, err = Singleton[Boolean](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
+		}
+
+		_, err = elementTo[Boolean](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1118,7 +1130,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to integer
-		i, err := Singleton[Integer](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
+		}
+
+		i, err := elementTo[Integer](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1140,7 +1158,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to integer
-		_, err = Singleton[Integer](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
+		}
+
+		_, err = elementTo[Integer](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1159,7 +1183,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to date
-		d, err := Singleton[Date](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
+		}
+
+		d, err := elementTo[Date](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1181,7 +1211,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to date
-		_, err = Singleton[Date](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
+		}
+
+		_, err = elementTo[Date](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1200,7 +1236,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to datetime
-		dt, err := Singleton[DateTime](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
+		}
+
+		dt, err := elementTo[DateTime](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1222,7 +1264,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to datetime
-		_, err = Singleton[DateTime](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
+		}
+
+		_, err = elementTo[DateTime](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1241,7 +1289,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to time
-		t, err := Singleton[Time](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
+		}
+
+		t, err := elementTo[Time](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1263,7 +1317,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to time
-		_, err = Singleton[Time](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
+		}
+
+		_, err = elementTo[Time](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1282,7 +1342,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to decimal
-		d, err := Singleton[Decimal](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
+		}
+
+		d, err := elementTo[Decimal](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1304,7 +1370,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to decimal
-		_, err = Singleton[Decimal](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
+		}
+
+		_, err = elementTo[Decimal](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1324,7 +1396,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to quantity
-		q, err := Singleton[Quantity](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
+		}
+
+		q, err := elementTo[Quantity](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1341,7 +1419,13 @@ var defaultFunctions = Functions{
 			}
 
 			// Convert to string
-			unitStr, err := Singleton[String](unitCollection)
+			if len(unitCollection) == 0 {
+				return nil, false, fmt.Errorf("expected string unit parameter")
+			} else if len(unitCollection) > 1 {
+				return nil, false, fmt.Errorf("expected single string unit parameter")
+			}
+
+			unitStr, err := elementTo[String](unitCollection[0], true)
 			if err != nil {
 				return nil, false, err
 			}
@@ -1349,13 +1433,7 @@ var defaultFunctions = Functions{
 				return nil, false, fmt.Errorf("expected string unit parameter")
 			}
 
-			// Check if the quantity can be converted to the given unit
-			// Note: The specification says implementations are not required to support a complete UCUM implementation,
-			// and may return empty ({ }) when the unit argument is used and it is different than the input quantity unit.
-			// For now, we'll just check if the units are the same.
-			if q.Unit != *unitStr {
-				return nil, true, nil // Return empty collection if units don't match
-			}
+			q.Unit = *unitStr
 		}
 
 		return Collection{*q}, true, nil
@@ -1373,7 +1451,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to quantity
-		q, err := Singleton[Quantity](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
+		}
+
+		q, err := elementTo[Quantity](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -1390,20 +1474,18 @@ var defaultFunctions = Functions{
 			}
 
 			// Convert to string
-			unitStr, err := Singleton[String](unitCollection)
+			if len(unitCollection) == 0 {
+				return nil, false, fmt.Errorf("expected string unit parameter")
+			} else if len(unitCollection) > 1 {
+				return nil, false, fmt.Errorf("expected single string unit parameter")
+			}
+
+			unitStr, err := elementTo[String](unitCollection[0], true)
 			if err != nil {
 				return nil, false, err
 			}
 			if unitStr == nil {
 				return nil, false, fmt.Errorf("expected string unit parameter")
-			}
-
-			// Check if the quantity can be converted to the given unit
-			// Note: The specification says implementations are not required to support a complete UCUM implementation,
-			// and may return false when the unit argument is used and it is different than the input quantity unit.
-			// For now, we'll just check if the units are the same.
-			if q.Unit != *unitStr {
-				return Collection{Boolean(false)}, true, nil
 			}
 		}
 
@@ -1421,7 +1503,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to string
-		s, err := Singleton[String](target)
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
+		}
+
+		s, err := elementTo[String](target[0], true)
 		if err != nil {
 			return nil, true, nil // Return empty collection if conversion fails
 		}
@@ -1443,7 +1531,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Check if convertible to string
-		_, err = Singleton[String](target)
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
+		}
+
+		_, err = elementTo[String](target[0], true)
 		if err != nil {
 			return Collection{Boolean(false)}, true, nil
 		}
