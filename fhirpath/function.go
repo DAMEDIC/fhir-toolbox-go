@@ -2621,41 +2621,22 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		resultOrdered = inputOrdered
+		total := Collection{}
+		totalOrdered := inputOrdered
 
 		// Iterate over the target collection
 		for i, elem := range target {
-			// Create a new context with the current total value
-			var totalCtx context.Context
-			if len(result) == 0 {
-				// If total is empty, don't add it to the context
-				// The $total variable will be empty in the expression
-				totalCtx = ctx
-			} else {
-				// Otherwise, add the total value to the context
-				totalCtx = WithEnv(ctx, "total", result[0])
-			}
-
-			// Evaluate the aggregator expression with the current element and total
-			result, ordered, err := evaluate(totalCtx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			var ordered bool
+			total, ordered, err = evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
 			if err != nil {
 				return nil, false, err
-			}
-
-			// Update the total variable with the result
-			if len(result) == 0 {
-				result = Collection{}
-			} else if len(result) == 1 {
-				result = Collection{result[0]}
-			} else {
-				return nil, false, fmt.Errorf("aggregator expression must return a single value")
 			}
 			if !ordered {
 				resultOrdered = false
 			}
 		}
 
-		return result, resultOrdered, nil
+		return total, totalOrdered, nil
 	},
 	"now": func(
 		ctx context.Context,
