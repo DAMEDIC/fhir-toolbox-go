@@ -1223,7 +1223,7 @@ func (s String) TypeInfo() TypeInfo {
 	}
 }
 func (s String) String() string {
-	return string(s)
+	return fmt.Sprintf("'%s'", string(s))
 }
 
 var (
@@ -2598,7 +2598,7 @@ func (q Quantity) TypeInfo() TypeInfo {
 	}
 }
 func (q Quantity) String() string {
-	return fmt.Sprintf("%s '%s'", q.Value.String(), q.Unit)
+	return fmt.Sprintf("%s %s", q.Value.String(), q.Unit)
 }
 
 func ParseQuantity(s string) (Quantity, error) {
