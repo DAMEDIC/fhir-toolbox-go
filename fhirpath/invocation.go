@@ -41,16 +41,16 @@ func evalInvocation(
 		return evalFunc(ctx, root, target, inputOrdered, t.Function())
 	case *parser.ThisInvocationContext:
 		scope, err := getFunctionScope(ctx)
-		if err != nil {
-			return nil, false, err
+		if err == nil {
+			return Collection{scope.this}, true, nil
 		}
-		return Collection{scope.this}, inputOrdered, nil
+		return Collection{root}, true, nil
 	case *parser.IndexInvocationContext:
 		scope, err := getFunctionScope(ctx)
 		if err != nil {
 			return nil, false, err
 		}
-		return Collection{Integer(scope.index)}, inputOrdered, nil
+		return Collection{Integer(scope.index)}, true, nil
 	case *parser.TotalInvocationContext:
 		scope, err := getFunctionScope(ctx)
 		if err != nil {
@@ -59,7 +59,7 @@ func evalInvocation(
 		if scope.total == 0 {
 			return nil, false, fmt.Errorf("$total not defined (only in aggregate)")
 		}
-		return Collection{Integer(scope.total)}, inputOrdered, nil
+		return Collection{Integer(scope.total)}, true, nil
 	default:
 		return nil, false, fmt.Errorf("unexpected invocation %T", tree)
 	}
