@@ -178,7 +178,7 @@ func evalExpression(
 			return nil, false, fmt.Errorf("can not index with null index")
 		}
 		i := int(*index)
-		if i >= len(target) {
+		if i >= len(expr) {
 			return nil, false, nil
 		} else {
 			return Collection{expr[i]}, true, nil
@@ -196,16 +196,16 @@ func evalExpression(
 			return expr, ordered, nil
 		case "-":
 			result, err = expr.Multiply(ctx, Collection{Integer(-1)})
-			return result, ordered, err
+			return result, true, err
 
 		}
 		return nil, false, nil
 	case *parser.MultiplicativeExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -221,13 +221,13 @@ func evalExpression(
 		case "mod":
 			result, err = left.Mod(ctx, right)
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 	case *parser.AdditiveExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -241,9 +241,9 @@ func evalExpression(
 		case "&":
 			result, err = left.Concat(ctx, right)
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 	case *parser.TypeExpressionContext:
-		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
+		expr, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -263,14 +263,14 @@ func evalExpression(
 			if err != nil {
 				return nil, false, err
 			}
-			return Collection{r}, ordered, nil
+			return Collection{r}, true, nil
 		case "as":
 			c, err := asType(ctx, expr[0], spec)
 			if err != nil {
 				return nil, false, err
 			}
 			if c != nil {
-				return c, ordered, nil
+				return c, true, nil
 			}
 			return nil, false, nil
 
@@ -291,11 +291,11 @@ func evalExpression(
 		return left.Union(right), leftOrdered && rightOrdered, nil
 
 	case *parser.InequalityExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -328,7 +328,7 @@ func evalExpression(
 				result, err = Collection{Boolean(true)}, nil
 			}
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 
 	case *parser.EqualityExpressionContext:
 		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
@@ -367,13 +367,13 @@ func evalExpression(
 				result, err = Collection{Boolean(!*eq)}, nil
 			}
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 	case *parser.MembershipExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -395,14 +395,14 @@ func evalExpression(
 			}
 			result, err = Collection{Boolean(left.Contains(right[0]))}, nil
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 
 	case *parser.AndExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -424,14 +424,14 @@ func evalExpression(
 		} else if rightSingle != nil && *rightSingle == false {
 			result, err = Collection{Boolean(false)}, nil
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 
 	case *parser.OrExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -465,14 +465,14 @@ func evalExpression(
 				result, err = Collection{Boolean(false)}, nil
 			}
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 
 	case *parser.ImpliesExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		right, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -493,7 +493,7 @@ func evalExpression(
 		} else if leftSingle == nil && rightSingle != nil && *rightSingle == true {
 			result, err = Collection{Boolean(true)}, nil
 		}
-		return result, leftOrdered && rightOrdered, err
+		return result, true, err
 
 	default:
 		panic(fmt.Sprintf("unexpected expression %T", tree))
