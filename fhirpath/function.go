@@ -2054,7 +2054,7 @@ var defaultFunctions = Functions{
 		// Convert the string to a collection of characters
 		chars := make(Collection, len(*s))
 		for i, c := range string(*s) {
-			result[i] = String(c)
+			chars[i] = String(c)
 		}
 		return chars, true, nil
 	},
