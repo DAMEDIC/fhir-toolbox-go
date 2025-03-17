@@ -75,7 +75,20 @@ type subtractElement interface {
 
 type apdContextKey struct{}
 
-// WithAPDContext sets the apd.Context for Decimal operations.
+// WithAPDContext sets the apd.Context for Decimal operations in FHIRPath evaluations.
+//
+// The apd.Context controls the precision and rounding behavior of decimal operations.
+// By default, the precision is set to 0, which means that the precision is determined
+// by the operands. To set a specific precision, use apd.BaseContext.WithPrecision(n).
+//
+// Example:
+//
+//	// Set precision to 10 digits
+//	ctx := r4.Context()
+//	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(10))
+//
+//	// Evaluate an expression with the specified precision
+//	result, err := fhirpath.Evaluate(ctx, resource, expr)
 func WithAPDContext(
 	ctx context.Context,
 	apdContext *apd.Context,

@@ -11,14 +11,27 @@ import (
 	"strings"
 )
 
+// Expression represents a parsed FHIRPath expression that can be evaluated against a FHIR resource.
+// Expressions are created using the Parse or MustParse functions.
 type Expression struct {
 	tree parser.IExpressionContext
 }
 
+// String returns the string representation of the expression.
+// This is useful for debugging or displaying the expression.
 func (e Expression) String() string {
 	return e.tree.GetText()
 }
 
+// Parse parses a FHIRPath expression string and returns an Expression object.
+// If the expression cannot be parsed, an error is returned.
+//
+// Example:
+//
+//	expr, err := fhirpath.Parse("Patient.name.given")
+//	if err != nil {
+//	    // Handle error
+//	}
 func Parse(expr string) (Expression, error) {
 	parser, err := parse(expr)
 	if err != nil {
@@ -34,6 +47,15 @@ func Parse(expr string) (Expression, error) {
 	return Expression{entireExpr.Expression()}, nil
 }
 
+// MustParse parses a FHIRPath expression string and returns an Expression object.
+// If the expression cannot be parsed, it panics.
+//
+// This function is useful when you know the expression is valid and want to avoid
+// error checking, such as in tests or with hardcoded expressions.
+//
+// Example:
+//
+//	expr := fhirpath.MustParse("Patient.name.given")
 func MustParse(path string) Expression {
 	expr, err := Parse(path)
 	if err != nil {
@@ -84,6 +106,26 @@ func parse(expr string) (*parser.FHIRPathParser, error) {
 	return parser, errors.Join(errListener.Errors...)
 }
 
+// Evaluate evaluates a FHIRPath expression against a target element and returns the resulting collection.
+//
+// The context parameter can be used to provide additional configuration for the evaluation,
+// such as decimal precision settings, trace logging, or environment variables.
+// For FHIR resources, you can use the context provided by the model package (e.g., r4.Context()).
+//
+// The target parameter is the element against which the expression will be evaluated.
+// This is typically a FHIR resource like a Patient or Observation.
+//
+// The expr parameter is the parsed FHIRPath expression to evaluate.
+//
+// Example:
+//
+//	patient := r4.Patient{...}
+//	expr := fhirpath.MustParse("Patient.name.given")
+//	result, err := fhirpath.Evaluate(r4.Context(), patient, expr)
+//	if err != nil {
+//	    // Handle error
+//	}
+//	fmt.Println(result) // Output: [Donald]
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
 	ctx = WithEnv(ctx, "context", target)
 	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
