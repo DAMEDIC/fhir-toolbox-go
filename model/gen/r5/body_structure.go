@@ -2967,12 +2967,12 @@ func (r BodyStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructure to Quantity")
 }
 func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructure
+	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
-		o = other
+		o = &other
 	case *BodyStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2983,12 +2983,12 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructure
+	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
-		o = other
+		o = &other
 	case *BodyStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3190,12 +3190,12 @@ func (r BodyStructureIncludedStructure) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert BodyStructureIncludedStructure to Quantity")
 }
 func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructure
+	var o *BodyStructureIncludedStructure
 	switch other := other.(type) {
 	case BodyStructureIncludedStructure:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3206,12 +3206,12 @@ func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructure
+	var o *BodyStructureIncludedStructure
 	switch other := other.(type) {
 	case BodyStructureIncludedStructure:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3354,12 +3354,12 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToQuantity(explic
 	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Quantity")
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructureBodyLandmarkOrientation
+	var o *BodyStructureIncludedStructureBodyLandmarkOrientation
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientation:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructureBodyLandmarkOrientation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3370,12 +3370,12 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirp
 	return *eq
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructureBodyLandmarkOrientation
+	var o *BodyStructureIncludedStructureBodyLandmarkOrientation
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientation:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructureBodyLandmarkOrientation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3501,12 +3501,12 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 	return nil, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Quantity")
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
+	var o *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3517,12 +3517,12 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 	return *eq
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
+	var o *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
-		o = other
+		o = &other
 	case *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
-		o = *other
+		o = other
 	default:
 		return false
 	}

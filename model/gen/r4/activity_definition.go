@@ -5628,12 +5628,12 @@ func (r ActivityDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ActivityDefinition to Quantity")
 }
 func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinition
+	var o *ActivityDefinition
 	switch other := other.(type) {
 	case ActivityDefinition:
-		o = other
+		o = &other
 	case *ActivityDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5644,12 +5644,12 @@ func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ActivityDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinition
+	var o *ActivityDefinition
 	switch other := other.(type) {
 	case ActivityDefinition:
-		o = other
+		o = &other
 	case *ActivityDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6102,12 +6102,12 @@ func (r ActivityDefinitionParticipant) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ActivityDefinitionParticipant to Quantity")
 }
 func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinitionParticipant
+	var o *ActivityDefinitionParticipant
 	switch other := other.(type) {
 	case ActivityDefinitionParticipant:
-		o = other
+		o = &other
 	case *ActivityDefinitionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6118,12 +6118,12 @@ func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinitionParticipant
+	var o *ActivityDefinitionParticipant
 	switch other := other.(type) {
 	case ActivityDefinitionParticipant:
-		o = other
+		o = &other
 	case *ActivityDefinitionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6231,12 +6231,12 @@ func (r ActivityDefinitionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Quantity")
 }
 func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinitionDynamicValue
+	var o *ActivityDefinitionDynamicValue
 	switch other := other.(type) {
 	case ActivityDefinitionDynamicValue:
-		o = other
+		o = &other
 	case *ActivityDefinitionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6247,12 +6247,12 @@ func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActivityDefinitionDynamicValue
+	var o *ActivityDefinitionDynamicValue
 	switch other := other.(type) {
 	case ActivityDefinitionDynamicValue:
-		o = other
+		o = &other
 	case *ActivityDefinitionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -667,12 +667,12 @@ func (r Distance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Distance to Quantity")
 }
 func (r Distance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Distance
+	var o *Distance
 	switch other := other.(type) {
 	case Distance:
-		o = other
+		o = &other
 	case *Distance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -683,12 +683,12 @@ func (r Distance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Distance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Distance
+	var o *Distance
 	switch other := other.(type) {
 	case Distance:
-		o = other
+		o = &other
 	case *Distance:
-		o = *other
+		o = other
 	default:
 		return false
 	}

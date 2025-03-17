@@ -2143,12 +2143,12 @@ func (r BiologicallyDerivedProductDispense) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Quantity")
 }
 func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductDispense
+	var o *BiologicallyDerivedProductDispense
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispense:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2159,12 +2159,12 @@ func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductDispense
+	var o *BiologicallyDerivedProductDispense
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispense:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2407,12 +2407,12 @@ func (r BiologicallyDerivedProductDispensePerformer) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Quantity")
 }
 func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductDispensePerformer
+	var o *BiologicallyDerivedProductDispensePerformer
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispensePerformer:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductDispensePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2423,12 +2423,12 @@ func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductDispensePerformer
+	var o *BiologicallyDerivedProductDispensePerformer
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispensePerformer:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductDispensePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}

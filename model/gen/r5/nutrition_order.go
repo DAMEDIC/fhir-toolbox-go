@@ -7877,12 +7877,12 @@ func (r NutritionOrder) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionOrder to Quantity")
 }
 func (r NutritionOrder) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrder
+	var o *NutritionOrder
 	switch other := other.(type) {
 	case NutritionOrder:
-		o = other
+		o = &other
 	case *NutritionOrder:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7893,12 +7893,12 @@ func (r NutritionOrder) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r NutritionOrder) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrder
+	var o *NutritionOrder
 	switch other := other.(type) {
 	case NutritionOrder:
-		o = other
+		o = &other
 	case *NutritionOrder:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8212,12 +8212,12 @@ func (r NutritionOrderOralDiet) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert NutritionOrderOralDiet to Quantity")
 }
 func (r NutritionOrderOralDiet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDiet
+	var o *NutritionOrderOralDiet
 	switch other := other.(type) {
 	case NutritionOrderOralDiet:
-		o = other
+		o = &other
 	case *NutritionOrderOralDiet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8228,12 +8228,12 @@ func (r NutritionOrderOralDiet) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r NutritionOrderOralDiet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDiet
+	var o *NutritionOrderOralDiet
 	switch other := other.(type) {
 	case NutritionOrderOralDiet:
-		o = other
+		o = &other
 	case *NutritionOrderOralDiet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8378,12 +8378,12 @@ func (r NutritionOrderOralDietSchedule) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert NutritionOrderOralDietSchedule to Quantity")
 }
 func (r NutritionOrderOralDietSchedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietSchedule
+	var o *NutritionOrderOralDietSchedule
 	switch other := other.(type) {
 	case NutritionOrderOralDietSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8394,12 +8394,12 @@ func (r NutritionOrderOralDietSchedule) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r NutritionOrderOralDietSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietSchedule
+	var o *NutritionOrderOralDietSchedule
 	switch other := other.(type) {
 	case NutritionOrderOralDietSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8518,12 +8518,12 @@ func (r NutritionOrderOralDietNutrient) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert NutritionOrderOralDietNutrient to Quantity")
 }
 func (r NutritionOrderOralDietNutrient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietNutrient
+	var o *NutritionOrderOralDietNutrient
 	switch other := other.(type) {
 	case NutritionOrderOralDietNutrient:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietNutrient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8534,12 +8534,12 @@ func (r NutritionOrderOralDietNutrient) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r NutritionOrderOralDietNutrient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietNutrient
+	var o *NutritionOrderOralDietNutrient
 	switch other := other.(type) {
 	case NutritionOrderOralDietNutrient:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietNutrient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8651,12 +8651,12 @@ func (r NutritionOrderOralDietTexture) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert NutritionOrderOralDietTexture to Quantity")
 }
 func (r NutritionOrderOralDietTexture) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietTexture
+	var o *NutritionOrderOralDietTexture
 	switch other := other.(type) {
 	case NutritionOrderOralDietTexture:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietTexture:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8667,12 +8667,12 @@ func (r NutritionOrderOralDietTexture) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r NutritionOrderOralDietTexture) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderOralDietTexture
+	var o *NutritionOrderOralDietTexture
 	switch other := other.(type) {
 	case NutritionOrderOralDietTexture:
-		o = other
+		o = &other
 	case *NutritionOrderOralDietTexture:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8799,12 +8799,12 @@ func (r NutritionOrderSupplement) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert NutritionOrderSupplement to Quantity")
 }
 func (r NutritionOrderSupplement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderSupplement
+	var o *NutritionOrderSupplement
 	switch other := other.(type) {
 	case NutritionOrderSupplement:
-		o = other
+		o = &other
 	case *NutritionOrderSupplement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8815,12 +8815,12 @@ func (r NutritionOrderSupplement) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r NutritionOrderSupplement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderSupplement
+	var o *NutritionOrderSupplement
 	switch other := other.(type) {
 	case NutritionOrderSupplement:
-		o = other
+		o = &other
 	case *NutritionOrderSupplement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8958,12 +8958,12 @@ func (r NutritionOrderSupplementSchedule) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert NutritionOrderSupplementSchedule to Quantity")
 }
 func (r NutritionOrderSupplementSchedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderSupplementSchedule
+	var o *NutritionOrderSupplementSchedule
 	switch other := other.(type) {
 	case NutritionOrderSupplementSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderSupplementSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8974,12 +8974,12 @@ func (r NutritionOrderSupplementSchedule) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r NutritionOrderSupplementSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderSupplementSchedule
+	var o *NutritionOrderSupplementSchedule
 	switch other := other.(type) {
 	case NutritionOrderSupplementSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderSupplementSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9133,12 +9133,12 @@ func (r NutritionOrderEnteralFormula) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert NutritionOrderEnteralFormula to Quantity")
 }
 func (r NutritionOrderEnteralFormula) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormula
+	var o *NutritionOrderEnteralFormula
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormula:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormula:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9149,12 +9149,12 @@ func (r NutritionOrderEnteralFormula) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r NutritionOrderEnteralFormula) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormula
+	var o *NutritionOrderEnteralFormula
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormula:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormula:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9320,12 +9320,12 @@ func (r NutritionOrderEnteralFormulaAdditive) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert NutritionOrderEnteralFormulaAdditive to Quantity")
 }
 func (r NutritionOrderEnteralFormulaAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdditive
+	var o *NutritionOrderEnteralFormulaAdditive
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdditive:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdditive:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9336,12 +9336,12 @@ func (r NutritionOrderEnteralFormulaAdditive) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r NutritionOrderEnteralFormulaAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdditive
+	var o *NutritionOrderEnteralFormulaAdditive
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdditive:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdditive:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9465,12 +9465,12 @@ func (r NutritionOrderEnteralFormulaAdministration) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert NutritionOrderEnteralFormulaAdministration to Quantity")
 }
 func (r NutritionOrderEnteralFormulaAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdministration
+	var o *NutritionOrderEnteralFormulaAdministration
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdministration:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9481,12 +9481,12 @@ func (r NutritionOrderEnteralFormulaAdministration) Equal(other fhirpath.Element
 	return *eq
 }
 func (r NutritionOrderEnteralFormulaAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdministration
+	var o *NutritionOrderEnteralFormulaAdministration
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdministration:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9610,12 +9610,12 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) ToQuantity(explicit 
 	return nil, errors.New("can not convert NutritionOrderEnteralFormulaAdministrationSchedule to Quantity")
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdministrationSchedule
+	var o *NutritionOrderEnteralFormulaAdministrationSchedule
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdministrationSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdministrationSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9626,12 +9626,12 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equal(other fhirpath
 	return *eq
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionOrderEnteralFormulaAdministrationSchedule
+	var o *NutritionOrderEnteralFormulaAdministrationSchedule
 	switch other := other.(type) {
 	case NutritionOrderEnteralFormulaAdministrationSchedule:
-		o = other
+		o = &other
 	case *NutritionOrderEnteralFormulaAdministrationSchedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}

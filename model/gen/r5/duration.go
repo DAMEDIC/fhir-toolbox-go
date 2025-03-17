@@ -667,12 +667,12 @@ func (r Duration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Duration to Quantity")
 }
 func (r Duration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Duration
+	var o *Duration
 	switch other := other.(type) {
 	case Duration:
-		o = other
+		o = &other
 	case *Duration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -683,12 +683,12 @@ func (r Duration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Duration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Duration
+	var o *Duration
 	switch other := other.(type) {
 	case Duration:
-		o = other
+		o = &other
 	case *Duration:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -384,12 +384,12 @@ func (r UsageContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert UsageContext to Quantity")
 }
 func (r UsageContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o UsageContext
+	var o *UsageContext
 	switch other := other.(type) {
 	case UsageContext:
-		o = other
+		o = &other
 	case *UsageContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -400,12 +400,12 @@ func (r UsageContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r UsageContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o UsageContext
+	var o *UsageContext
 	switch other := other.(type) {
 	case UsageContext:
-		o = other
+		o = &other
 	case *UsageContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}

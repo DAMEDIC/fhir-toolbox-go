@@ -11500,12 +11500,12 @@ func (r Claim) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Claim to Quantity")
 }
 func (r Claim) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Claim
+	var o *Claim
 	switch other := other.(type) {
 	case Claim:
-		o = other
+		o = &other
 	case *Claim:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11516,12 +11516,12 @@ func (r Claim) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	return *eq
 }
 func (r Claim) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Claim
+	var o *Claim
 	switch other := other.(type) {
 	case Claim:
-		o = other
+		o = &other
 	case *Claim:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11848,12 +11848,12 @@ func (r ClaimRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimRelated to Quantity")
 }
 func (r ClaimRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimRelated
+	var o *ClaimRelated
 	switch other := other.(type) {
 	case ClaimRelated:
-		o = other
+		o = &other
 	case *ClaimRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11864,12 +11864,12 @@ func (r ClaimRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r ClaimRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimRelated
+	var o *ClaimRelated
 	switch other := other.(type) {
 	case ClaimRelated:
-		o = other
+		o = &other
 	case *ClaimRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11986,12 +11986,12 @@ func (r ClaimPayee) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimPayee to Quantity")
 }
 func (r ClaimPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimPayee
+	var o *ClaimPayee
 	switch other := other.(type) {
 	case ClaimPayee:
-		o = other
+		o = &other
 	case *ClaimPayee:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12002,12 +12002,12 @@ func (r ClaimPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r ClaimPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimPayee
+	var o *ClaimPayee
 	switch other := other.(type) {
 	case ClaimPayee:
-		o = other
+		o = &other
 	case *ClaimPayee:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12130,12 +12130,12 @@ func (r ClaimCareTeam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimCareTeam to Quantity")
 }
 func (r ClaimCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimCareTeam
+	var o *ClaimCareTeam
 	switch other := other.(type) {
 	case ClaimCareTeam:
-		o = other
+		o = &other
 	case *ClaimCareTeam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12146,12 +12146,12 @@ func (r ClaimCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r ClaimCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimCareTeam
+	var o *ClaimCareTeam
 	switch other := other.(type) {
 	case ClaimCareTeam:
-		o = other
+		o = &other
 	case *ClaimCareTeam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12300,12 +12300,12 @@ func (r ClaimSupportingInfo) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert ClaimSupportingInfo to Quantity")
 }
 func (r ClaimSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimSupportingInfo
+	var o *ClaimSupportingInfo
 	switch other := other.(type) {
 	case ClaimSupportingInfo:
-		o = other
+		o = &other
 	case *ClaimSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12316,12 +12316,12 @@ func (r ClaimSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r ClaimSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimSupportingInfo
+	var o *ClaimSupportingInfo
 	switch other := other.(type) {
 	case ClaimSupportingInfo:
-		o = other
+		o = &other
 	case *ClaimSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12472,12 +12472,12 @@ func (r ClaimDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimDiagnosis to Quantity")
 }
 func (r ClaimDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimDiagnosis
+	var o *ClaimDiagnosis
 	switch other := other.(type) {
 	case ClaimDiagnosis:
-		o = other
+		o = &other
 	case *ClaimDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12488,12 +12488,12 @@ func (r ClaimDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ClaimDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimDiagnosis
+	var o *ClaimDiagnosis
 	switch other := other.(type) {
 	case ClaimDiagnosis:
-		o = other
+		o = &other
 	case *ClaimDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12637,12 +12637,12 @@ func (r ClaimProcedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimProcedure to Quantity")
 }
 func (r ClaimProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimProcedure
+	var o *ClaimProcedure
 	switch other := other.(type) {
 	case ClaimProcedure:
-		o = other
+		o = &other
 	case *ClaimProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12653,12 +12653,12 @@ func (r ClaimProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ClaimProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimProcedure
+	var o *ClaimProcedure
 	switch other := other.(type) {
 	case ClaimProcedure:
-		o = other
+		o = &other
 	case *ClaimProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12810,12 +12810,12 @@ func (r ClaimInsurance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimInsurance to Quantity")
 }
 func (r ClaimInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimInsurance
+	var o *ClaimInsurance
 	switch other := other.(type) {
 	case ClaimInsurance:
-		o = other
+		o = &other
 	case *ClaimInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12826,12 +12826,12 @@ func (r ClaimInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ClaimInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimInsurance
+	var o *ClaimInsurance
 	switch other := other.(type) {
 	case ClaimInsurance:
-		o = other
+		o = &other
 	case *ClaimInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12981,12 +12981,12 @@ func (r ClaimAccident) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimAccident to Quantity")
 }
 func (r ClaimAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimAccident
+	var o *ClaimAccident
 	switch other := other.(type) {
 	case ClaimAccident:
-		o = other
+		o = &other
 	case *ClaimAccident:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12997,12 +12997,12 @@ func (r ClaimAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r ClaimAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimAccident
+	var o *ClaimAccident
 	switch other := other.(type) {
 	case ClaimAccident:
-		o = other
+		o = &other
 	case *ClaimAccident:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13212,12 +13212,12 @@ func (r ClaimItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimItem to Quantity")
 }
 func (r ClaimItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItem
+	var o *ClaimItem
 	switch other := other.(type) {
 	case ClaimItem:
-		o = other
+		o = &other
 	case *ClaimItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13228,12 +13228,12 @@ func (r ClaimItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r ClaimItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItem
+	var o *ClaimItem
 	switch other := other.(type) {
 	case ClaimItem:
-		o = other
+		o = &other
 	case *ClaimItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13524,12 +13524,12 @@ func (r ClaimItemDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ClaimItemDetail to Quantity")
 }
 func (r ClaimItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItemDetail
+	var o *ClaimItemDetail
 	switch other := other.(type) {
 	case ClaimItemDetail:
-		o = other
+		o = &other
 	case *ClaimItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13540,12 +13540,12 @@ func (r ClaimItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ClaimItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItemDetail
+	var o *ClaimItemDetail
 	switch other := other.(type) {
 	case ClaimItemDetail:
-		o = other
+		o = &other
 	case *ClaimItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13768,12 +13768,12 @@ func (r ClaimItemDetailSubDetail) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ClaimItemDetailSubDetail to Quantity")
 }
 func (r ClaimItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItemDetailSubDetail
+	var o *ClaimItemDetailSubDetail
 	switch other := other.(type) {
 	case ClaimItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ClaimItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13784,12 +13784,12 @@ func (r ClaimItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ClaimItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClaimItemDetailSubDetail
+	var o *ClaimItemDetailSubDetail
 	switch other := other.(type) {
 	case ClaimItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ClaimItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}

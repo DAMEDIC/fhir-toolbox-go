@@ -9895,12 +9895,12 @@ func (r ConceptMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMap to Quantity")
 }
 func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMap
+	var o *ConceptMap
 	switch other := other.(type) {
 	case ConceptMap:
-		o = other
+		o = &other
 	case *ConceptMap:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9911,12 +9911,12 @@ func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r ConceptMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMap
+	var o *ConceptMap
 	switch other := other.(type) {
 	case ConceptMap:
-		o = other
+		o = &other
 	case *ConceptMap:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10277,12 +10277,12 @@ func (r ConceptMapProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ConceptMapProperty to Quantity")
 }
 func (r ConceptMapProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapProperty
+	var o *ConceptMapProperty
 	switch other := other.(type) {
 	case ConceptMapProperty:
-		o = other
+		o = &other
 	case *ConceptMapProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10293,12 +10293,12 @@ func (r ConceptMapProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ConceptMapProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapProperty
+	var o *ConceptMapProperty
 	switch other := other.(type) {
 	case ConceptMapProperty:
-		o = other
+		o = &other
 	case *ConceptMapProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10437,12 +10437,12 @@ func (r ConceptMapAdditionalAttribute) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ConceptMapAdditionalAttribute to Quantity")
 }
 func (r ConceptMapAdditionalAttribute) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapAdditionalAttribute
+	var o *ConceptMapAdditionalAttribute
 	switch other := other.(type) {
 	case ConceptMapAdditionalAttribute:
-		o = other
+		o = &other
 	case *ConceptMapAdditionalAttribute:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10453,12 +10453,12 @@ func (r ConceptMapAdditionalAttribute) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ConceptMapAdditionalAttribute) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapAdditionalAttribute
+	var o *ConceptMapAdditionalAttribute
 	switch other := other.(type) {
 	case ConceptMapAdditionalAttribute:
-		o = other
+		o = &other
 	case *ConceptMapAdditionalAttribute:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10594,12 +10594,12 @@ func (r ConceptMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConceptMapGroup to Quantity")
 }
 func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroup
+	var o *ConceptMapGroup
 	switch other := other.(type) {
 	case ConceptMapGroup:
-		o = other
+		o = &other
 	case *ConceptMapGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10610,12 +10610,12 @@ func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ConceptMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroup
+	var o *ConceptMapGroup
 	switch other := other.(type) {
 	case ConceptMapGroup:
-		o = other
+		o = &other
 	case *ConceptMapGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10756,12 +10756,12 @@ func (r ConceptMapGroupElement) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ConceptMapGroupElement to Quantity")
 }
 func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElement
+	var o *ConceptMapGroupElement
 	switch other := other.(type) {
 	case ConceptMapGroupElement:
-		o = other
+		o = &other
 	case *ConceptMapGroupElement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10772,12 +10772,12 @@ func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElement
+	var o *ConceptMapGroupElement
 	switch other := other.(type) {
 	case ConceptMapGroupElement:
-		o = other
+		o = &other
 	case *ConceptMapGroupElement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10938,12 +10938,12 @@ func (r ConceptMapGroupElementTarget) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ConceptMapGroupElementTarget to Quantity")
 }
 func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTarget
+	var o *ConceptMapGroupElementTarget
 	switch other := other.(type) {
 	case ConceptMapGroupElementTarget:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10954,12 +10954,12 @@ func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTarget
+	var o *ConceptMapGroupElementTarget
 	switch other := other.(type) {
 	case ConceptMapGroupElementTarget:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11109,12 +11109,12 @@ func (r ConceptMapGroupElementTargetProperty) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert ConceptMapGroupElementTargetProperty to Quantity")
 }
 func (r ConceptMapGroupElementTargetProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTargetProperty
+	var o *ConceptMapGroupElementTargetProperty
 	switch other := other.(type) {
 	case ConceptMapGroupElementTargetProperty:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTargetProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11125,12 +11125,12 @@ func (r ConceptMapGroupElementTargetProperty) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r ConceptMapGroupElementTargetProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTargetProperty
+	var o *ConceptMapGroupElementTargetProperty
 	switch other := other.(type) {
 	case ConceptMapGroupElementTargetProperty:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTargetProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11245,12 +11245,12 @@ func (r ConceptMapGroupElementTargetDependsOn) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Quantity")
 }
 func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTargetDependsOn
+	var o *ConceptMapGroupElementTargetDependsOn
 	switch other := other.(type) {
 	case ConceptMapGroupElementTargetDependsOn:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTargetDependsOn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11261,12 +11261,12 @@ func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupElementTargetDependsOn
+	var o *ConceptMapGroupElementTargetDependsOn
 	switch other := other.(type) {
 	case ConceptMapGroupElementTargetDependsOn:
-		o = other
+		o = &other
 	case *ConceptMapGroupElementTargetDependsOn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11403,12 +11403,12 @@ func (r ConceptMapGroupUnmapped) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert ConceptMapGroupUnmapped to Quantity")
 }
 func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupUnmapped
+	var o *ConceptMapGroupUnmapped
 	switch other := other.(type) {
 	case ConceptMapGroupUnmapped:
-		o = other
+		o = &other
 	case *ConceptMapGroupUnmapped:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11419,12 +11419,12 @@ func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConceptMapGroupUnmapped
+	var o *ConceptMapGroupUnmapped
 	switch other := other.(type) {
 	case ConceptMapGroupUnmapped:
-		o = other
+		o = &other
 	case *ConceptMapGroupUnmapped:
-		o = *other
+		o = other
 	default:
 		return false
 	}

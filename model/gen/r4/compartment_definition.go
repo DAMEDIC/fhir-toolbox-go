@@ -2412,12 +2412,12 @@ func (r CompartmentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert CompartmentDefinition to Quantity")
 }
 func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompartmentDefinition
+	var o *CompartmentDefinition
 	switch other := other.(type) {
 	case CompartmentDefinition:
-		o = other
+		o = &other
 	case *CompartmentDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2428,12 +2428,12 @@ func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompartmentDefinition
+	var o *CompartmentDefinition
 	switch other := other.(type) {
 	case CompartmentDefinition:
-		o = other
+		o = &other
 	case *CompartmentDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2667,12 +2667,12 @@ func (r CompartmentDefinitionResource) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert CompartmentDefinitionResource to Quantity")
 }
 func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompartmentDefinitionResource
+	var o *CompartmentDefinitionResource
 	switch other := other.(type) {
 	case CompartmentDefinitionResource:
-		o = other
+		o = &other
 	case *CompartmentDefinitionResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2683,12 +2683,12 @@ func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompartmentDefinitionResource
+	var o *CompartmentDefinitionResource
 	switch other := other.(type) {
 	case CompartmentDefinitionResource:
-		o = other
+		o = &other
 	case *CompartmentDefinitionResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}

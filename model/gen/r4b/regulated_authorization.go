@@ -2288,12 +2288,12 @@ func (r RegulatedAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert RegulatedAuthorization to Quantity")
 }
 func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RegulatedAuthorization
+	var o *RegulatedAuthorization
 	switch other := other.(type) {
 	case RegulatedAuthorization:
-		o = other
+		o = &other
 	case *RegulatedAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2304,12 +2304,12 @@ func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RegulatedAuthorization
+	var o *RegulatedAuthorization
 	switch other := other.(type) {
 	case RegulatedAuthorization:
-		o = other
+		o = &other
 	case *RegulatedAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2555,12 +2555,12 @@ func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
 }
 func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RegulatedAuthorizationCase
+	var o *RegulatedAuthorizationCase
 	switch other := other.(type) {
 	case RegulatedAuthorizationCase:
-		o = other
+		o = &other
 	case *RegulatedAuthorizationCase:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2571,12 +2571,12 @@ func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RegulatedAuthorizationCase
+	var o *RegulatedAuthorizationCase
 	switch other := other.(type) {
 	case RegulatedAuthorizationCase:
-		o = other
+		o = &other
 	case *RegulatedAuthorizationCase:
-		o = *other
+		o = other
 	default:
 		return false
 	}

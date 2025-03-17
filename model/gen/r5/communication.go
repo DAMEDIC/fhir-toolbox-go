@@ -2979,12 +2979,12 @@ func (r Communication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Communication to Quantity")
 }
 func (r Communication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Communication
+	var o *Communication
 	switch other := other.(type) {
 	case Communication:
-		o = other
+		o = &other
 	case *Communication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2995,12 +2995,12 @@ func (r Communication) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r Communication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Communication
+	var o *Communication
 	switch other := other.(type) {
 	case Communication:
-		o = other
+		o = &other
 	case *Communication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3280,12 +3280,12 @@ func (r CommunicationPayload) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert CommunicationPayload to Quantity")
 }
 func (r CommunicationPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationPayload
+	var o *CommunicationPayload
 	switch other := other.(type) {
 	case CommunicationPayload:
-		o = other
+		o = &other
 	case *CommunicationPayload:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3296,12 +3296,12 @@ func (r CommunicationPayload) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r CommunicationPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationPayload
+	var o *CommunicationPayload
 	switch other := other.(type) {
 	case CommunicationPayload:
-		o = other
+		o = &other
 	case *CommunicationPayload:
-		o = *other
+		o = other
 	default:
 		return false
 	}

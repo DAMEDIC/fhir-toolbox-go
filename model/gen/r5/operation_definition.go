@@ -6105,12 +6105,12 @@ func (r OperationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert OperationDefinition to Quantity")
 }
 func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinition
+	var o *OperationDefinition
 	switch other := other.(type) {
 	case OperationDefinition:
-		o = other
+		o = &other
 	case *OperationDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6121,12 +6121,12 @@ func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinition
+	var o *OperationDefinition
 	switch other := other.(type) {
 	case OperationDefinition:
-		o = other
+		o = &other
 	case *OperationDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6516,12 +6516,12 @@ func (r OperationDefinitionParameter) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert OperationDefinitionParameter to Quantity")
 }
 func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameter
+	var o *OperationDefinitionParameter
 	switch other := other.(type) {
 	case OperationDefinitionParameter:
-		o = other
+		o = &other
 	case *OperationDefinitionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6532,12 +6532,12 @@ func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameter
+	var o *OperationDefinitionParameter
 	switch other := other.(type) {
 	case OperationDefinitionParameter:
-		o = other
+		o = &other
 	case *OperationDefinitionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6722,12 +6722,12 @@ func (r OperationDefinitionParameterBinding) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Quantity")
 }
 func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameterBinding
+	var o *OperationDefinitionParameterBinding
 	switch other := other.(type) {
 	case OperationDefinitionParameterBinding:
-		o = other
+		o = &other
 	case *OperationDefinitionParameterBinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6738,12 +6738,12 @@ func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameterBinding
+	var o *OperationDefinitionParameterBinding
 	switch other := other.(type) {
 	case OperationDefinitionParameterBinding:
-		o = other
+		o = &other
 	case *OperationDefinitionParameterBinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6853,12 +6853,12 @@ func (r OperationDefinitionParameterReferencedFrom) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Quantity")
 }
 func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameterReferencedFrom
+	var o *OperationDefinitionParameterReferencedFrom
 	switch other := other.(type) {
 	case OperationDefinitionParameterReferencedFrom:
-		o = other
+		o = &other
 	case *OperationDefinitionParameterReferencedFrom:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6869,12 +6869,12 @@ func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element
 	return *eq
 }
 func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionParameterReferencedFrom
+	var o *OperationDefinitionParameterReferencedFrom
 	switch other := other.(type) {
 	case OperationDefinitionParameterReferencedFrom:
-		o = other
+		o = &other
 	case *OperationDefinitionParameterReferencedFrom:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6986,12 +6986,12 @@ func (r OperationDefinitionOverload) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert OperationDefinitionOverload to Quantity")
 }
 func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionOverload
+	var o *OperationDefinitionOverload
 	switch other := other.(type) {
 	case OperationDefinitionOverload:
-		o = other
+		o = &other
 	case *OperationDefinitionOverload:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7002,12 +7002,12 @@ func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationDefinitionOverload
+	var o *OperationDefinitionOverload
 	switch other := other.(type) {
 	case OperationDefinitionOverload:
-		o = other
+		o = &other
 	case *OperationDefinitionOverload:
-		o = *other
+		o = other
 	default:
 		return false
 	}

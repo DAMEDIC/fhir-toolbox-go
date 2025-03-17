@@ -2910,12 +2910,12 @@ func (r ObservationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert ObservationDefinition to Quantity")
 }
 func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinition
+	var o *ObservationDefinition
 	switch other := other.(type) {
 	case ObservationDefinition:
-		o = other
+		o = &other
 	case *ObservationDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2926,12 +2926,12 @@ func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinition
+	var o *ObservationDefinition
 	switch other := other.(type) {
 	case ObservationDefinition:
-		o = other
+		o = &other
 	case *ObservationDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3165,12 +3165,12 @@ func (r ObservationDefinitionQuantitativeDetails) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Quantity")
 }
 func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinitionQuantitativeDetails
+	var o *ObservationDefinitionQuantitativeDetails
 	switch other := other.(type) {
 	case ObservationDefinitionQuantitativeDetails:
-		o = other
+		o = &other
 	case *ObservationDefinitionQuantitativeDetails:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3181,12 +3181,12 @@ func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinitionQuantitativeDetails
+	var o *ObservationDefinitionQuantitativeDetails
 	switch other := other.(type) {
 	case ObservationDefinitionQuantitativeDetails:
-		o = other
+		o = &other
 	case *ObservationDefinitionQuantitativeDetails:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3342,12 +3342,12 @@ func (r ObservationDefinitionQualifiedInterval) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert ObservationDefinitionQualifiedInterval to Quantity")
 }
 func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinitionQualifiedInterval
+	var o *ObservationDefinitionQualifiedInterval
 	switch other := other.(type) {
 	case ObservationDefinitionQualifiedInterval:
-		o = other
+		o = &other
 	case *ObservationDefinitionQualifiedInterval:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3358,12 +3358,12 @@ func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationDefinitionQualifiedInterval
+	var o *ObservationDefinitionQualifiedInterval
 	switch other := other.(type) {
 	case ObservationDefinitionQualifiedInterval:
-		o = other
+		o = &other
 	case *ObservationDefinitionQualifiedInterval:
-		o = *other
+		o = other
 	default:
 		return false
 	}

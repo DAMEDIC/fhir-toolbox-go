@@ -3279,12 +3279,12 @@ func (r EventDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EventDefinition to Quantity")
 }
 func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EventDefinition
+	var o *EventDefinition
 	switch other := other.(type) {
 	case EventDefinition:
-		o = other
+		o = &other
 	case *EventDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3295,12 +3295,12 @@ func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r EventDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EventDefinition
+	var o *EventDefinition
 	switch other := other.(type) {
 	case EventDefinition:
-		o = other
+		o = &other
 	case *EventDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

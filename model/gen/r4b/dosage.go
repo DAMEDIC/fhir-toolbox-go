@@ -1854,12 +1854,12 @@ func (r Dosage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Dosage to Quantity")
 }
 func (r Dosage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Dosage
+	var o *Dosage
 	switch other := other.(type) {
 	case Dosage:
-		o = other
+		o = &other
 	case *Dosage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1870,12 +1870,12 @@ func (r Dosage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return *eq
 }
 func (r Dosage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Dosage
+	var o *Dosage
 	switch other := other.(type) {
 	case Dosage:
-		o = other
+		o = &other
 	case *Dosage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2064,12 +2064,12 @@ func (r DosageDoseAndRate) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert DosageDoseAndRate to Quantity")
 }
 func (r DosageDoseAndRate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DosageDoseAndRate
+	var o *DosageDoseAndRate
 	switch other := other.(type) {
 	case DosageDoseAndRate:
-		o = other
+		o = &other
 	case *DosageDoseAndRate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2080,12 +2080,12 @@ func (r DosageDoseAndRate) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r DosageDoseAndRate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DosageDoseAndRate
+	var o *DosageDoseAndRate
 	switch other := other.(type) {
 	case DosageDoseAndRate:
-		o = other
+		o = &other
 	case *DosageDoseAndRate:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -1178,12 +1178,12 @@ func (r EnrollmentRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert EnrollmentRequest to Quantity")
 }
 func (r EnrollmentRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EnrollmentRequest
+	var o *EnrollmentRequest
 	switch other := other.(type) {
 	case EnrollmentRequest:
-		o = other
+		o = &other
 	case *EnrollmentRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1194,12 +1194,12 @@ func (r EnrollmentRequest) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r EnrollmentRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EnrollmentRequest
+	var o *EnrollmentRequest
 	switch other := other.(type) {
 	case EnrollmentRequest:
-		o = other
+		o = &other
 	case *EnrollmentRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}

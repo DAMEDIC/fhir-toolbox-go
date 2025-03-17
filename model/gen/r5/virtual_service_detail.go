@@ -1022,12 +1022,12 @@ func (r VirtualServiceDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert VirtualServiceDetail to Quantity")
 }
 func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VirtualServiceDetail
+	var o *VirtualServiceDetail
 	switch other := other.(type) {
 	case VirtualServiceDetail:
-		o = other
+		o = &other
 	case *VirtualServiceDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1038,12 +1038,12 @@ func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r VirtualServiceDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VirtualServiceDetail
+	var o *VirtualServiceDetail
 	switch other := other.(type) {
 	case VirtualServiceDetail:
-		o = other
+		o = &other
 	case *VirtualServiceDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}

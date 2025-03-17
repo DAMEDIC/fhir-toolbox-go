@@ -7454,12 +7454,12 @@ func (r TerminologyCapabilities) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert TerminologyCapabilities to Quantity")
 }
 func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilities
+	var o *TerminologyCapabilities
 	switch other := other.(type) {
 	case TerminologyCapabilities:
-		o = other
+		o = &other
 	case *TerminologyCapabilities:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7470,12 +7470,12 @@ func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r TerminologyCapabilities) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilities
+	var o *TerminologyCapabilities
 	switch other := other.(type) {
 	case TerminologyCapabilities:
-		o = other
+		o = &other
 	case *TerminologyCapabilities:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7774,12 +7774,12 @@ func (r TerminologyCapabilitiesSoftware) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert TerminologyCapabilitiesSoftware to Quantity")
 }
 func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesSoftware
+	var o *TerminologyCapabilitiesSoftware
 	switch other := other.(type) {
 	case TerminologyCapabilitiesSoftware:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesSoftware:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7790,12 +7790,12 @@ func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesSoftware
+	var o *TerminologyCapabilitiesSoftware
 	switch other := other.(type) {
 	case TerminologyCapabilitiesSoftware:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesSoftware:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7905,12 +7905,12 @@ func (r TerminologyCapabilitiesImplementation) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert TerminologyCapabilitiesImplementation to Quantity")
 }
 func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesImplementation
+	var o *TerminologyCapabilitiesImplementation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesImplementation:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesImplementation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7921,12 +7921,12 @@ func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesImplementation
+	var o *TerminologyCapabilitiesImplementation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesImplementation:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesImplementation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8043,12 +8043,12 @@ func (r TerminologyCapabilitiesCodeSystem) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Quantity")
 }
 func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystem
+	var o *TerminologyCapabilitiesCodeSystem
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystem:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8059,12 +8059,12 @@ func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystem
+	var o *TerminologyCapabilitiesCodeSystem
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystem:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8203,12 +8203,12 @@ func (r TerminologyCapabilitiesCodeSystemVersion) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Quantity")
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystemVersion
+	var o *TerminologyCapabilitiesCodeSystemVersion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersion:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystemVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8219,12 +8219,12 @@ func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystemVersion
+	var o *TerminologyCapabilitiesCodeSystemVersion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersion:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystemVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8362,12 +8362,12 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToQuantity(explicit bool
 	return nil, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Quantity")
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystemVersionFilter
+	var o *TerminologyCapabilitiesCodeSystemVersionFilter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersionFilter:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystemVersionFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8378,12 +8378,12 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Ele
 	return *eq
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesCodeSystemVersionFilter
+	var o *TerminologyCapabilitiesCodeSystemVersionFilter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersionFilter:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesCodeSystemVersionFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8510,12 +8510,12 @@ func (r TerminologyCapabilitiesExpansion) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert TerminologyCapabilitiesExpansion to Quantity")
 }
 func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesExpansion
+	var o *TerminologyCapabilitiesExpansion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansion:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesExpansion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8526,12 +8526,12 @@ func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesExpansion
+	var o *TerminologyCapabilitiesExpansion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansion:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesExpansion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8662,12 +8662,12 @@ func (r TerminologyCapabilitiesExpansionParameter) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Quantity")
 }
 func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesExpansionParameter
+	var o *TerminologyCapabilitiesExpansionParameter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansionParameter:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesExpansionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8678,12 +8678,12 @@ func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesExpansionParameter
+	var o *TerminologyCapabilitiesExpansionParameter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansionParameter:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesExpansionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8788,12 +8788,12 @@ func (r TerminologyCapabilitiesValidateCode) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert TerminologyCapabilitiesValidateCode to Quantity")
 }
 func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesValidateCode
+	var o *TerminologyCapabilitiesValidateCode
 	switch other := other.(type) {
 	case TerminologyCapabilitiesValidateCode:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesValidateCode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8804,12 +8804,12 @@ func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesValidateCode
+	var o *TerminologyCapabilitiesValidateCode
 	switch other := other.(type) {
 	case TerminologyCapabilitiesValidateCode:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesValidateCode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8907,12 +8907,12 @@ func (r TerminologyCapabilitiesTranslation) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert TerminologyCapabilitiesTranslation to Quantity")
 }
 func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesTranslation
+	var o *TerminologyCapabilitiesTranslation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesTranslation:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesTranslation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8923,12 +8923,12 @@ func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesTranslation
+	var o *TerminologyCapabilitiesTranslation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesTranslation:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesTranslation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9028,12 +9028,12 @@ func (r TerminologyCapabilitiesClosure) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert TerminologyCapabilitiesClosure to Quantity")
 }
 func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesClosure
+	var o *TerminologyCapabilitiesClosure
 	switch other := other.(type) {
 	case TerminologyCapabilitiesClosure:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesClosure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9044,12 +9044,12 @@ func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TerminologyCapabilitiesClosure
+	var o *TerminologyCapabilitiesClosure
 	switch other := other.(type) {
 	case TerminologyCapabilitiesClosure:
-		o = other
+		o = &other
 	case *TerminologyCapabilitiesClosure:
-		o = *other
+		o = other
 	default:
 		return false
 	}

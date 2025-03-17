@@ -4142,12 +4142,12 @@ func (r CoverageEligibilityRequest) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert CoverageEligibilityRequest to Quantity")
 }
 func (r CoverageEligibilityRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequest
+	var o *CoverageEligibilityRequest
 	switch other := other.(type) {
 	case CoverageEligibilityRequest:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4158,12 +4158,12 @@ func (r CoverageEligibilityRequest) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r CoverageEligibilityRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequest
+	var o *CoverageEligibilityRequest
 	switch other := other.(type) {
 	case CoverageEligibilityRequest:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4395,12 +4395,12 @@ func (r CoverageEligibilityRequestSupportingInfo) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert CoverageEligibilityRequestSupportingInfo to Quantity")
 }
 func (r CoverageEligibilityRequestSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestSupportingInfo
+	var o *CoverageEligibilityRequestSupportingInfo
 	switch other := other.(type) {
 	case CoverageEligibilityRequestSupportingInfo:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4411,12 +4411,12 @@ func (r CoverageEligibilityRequestSupportingInfo) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r CoverageEligibilityRequestSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestSupportingInfo
+	var o *CoverageEligibilityRequestSupportingInfo
 	switch other := other.(type) {
 	case CoverageEligibilityRequestSupportingInfo:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4538,12 +4538,12 @@ func (r CoverageEligibilityRequestInsurance) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert CoverageEligibilityRequestInsurance to Quantity")
 }
 func (r CoverageEligibilityRequestInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestInsurance
+	var o *CoverageEligibilityRequestInsurance
 	switch other := other.(type) {
 	case CoverageEligibilityRequestInsurance:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4554,12 +4554,12 @@ func (r CoverageEligibilityRequestInsurance) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r CoverageEligibilityRequestInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestInsurance
+	var o *CoverageEligibilityRequestInsurance
 	switch other := other.(type) {
 	case CoverageEligibilityRequestInsurance:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4718,12 +4718,12 @@ func (r CoverageEligibilityRequestItem) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert CoverageEligibilityRequestItem to Quantity")
 }
 func (r CoverageEligibilityRequestItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestItem
+	var o *CoverageEligibilityRequestItem
 	switch other := other.(type) {
 	case CoverageEligibilityRequestItem:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4734,12 +4734,12 @@ func (r CoverageEligibilityRequestItem) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r CoverageEligibilityRequestItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestItem
+	var o *CoverageEligibilityRequestItem
 	switch other := other.(type) {
 	case CoverageEligibilityRequestItem:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4902,12 +4902,12 @@ func (r CoverageEligibilityRequestItemDiagnosis) ToQuantity(explicit bool) (*fhi
 	return nil, errors.New("can not convert CoverageEligibilityRequestItemDiagnosis to Quantity")
 }
 func (r CoverageEligibilityRequestItemDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestItemDiagnosis
+	var o *CoverageEligibilityRequestItemDiagnosis
 	switch other := other.(type) {
 	case CoverageEligibilityRequestItemDiagnosis:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestItemDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4918,12 +4918,12 @@ func (r CoverageEligibilityRequestItemDiagnosis) Equal(other fhirpath.Element, _
 	return *eq
 }
 func (r CoverageEligibilityRequestItemDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageEligibilityRequestItemDiagnosis
+	var o *CoverageEligibilityRequestItemDiagnosis
 	switch other := other.(type) {
 	case CoverageEligibilityRequestItemDiagnosis:
-		o = other
+		o = &other
 	case *CoverageEligibilityRequestItemDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -3184,12 +3184,12 @@ func (r DiagnosticReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert DiagnosticReport to Quantity")
 }
 func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReport
+	var o *DiagnosticReport
 	switch other := other.(type) {
 	case DiagnosticReport:
-		o = other
+		o = &other
 	case *DiagnosticReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3200,12 +3200,12 @@ func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReport
+	var o *DiagnosticReport
 	switch other := other.(type) {
 	case DiagnosticReport:
-		o = other
+		o = &other
 	case *DiagnosticReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3481,12 +3481,12 @@ func (r DiagnosticReportSupportingInfo) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert DiagnosticReportSupportingInfo to Quantity")
 }
 func (r DiagnosticReportSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReportSupportingInfo
+	var o *DiagnosticReportSupportingInfo
 	switch other := other.(type) {
 	case DiagnosticReportSupportingInfo:
-		o = other
+		o = &other
 	case *DiagnosticReportSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3497,12 +3497,12 @@ func (r DiagnosticReportSupportingInfo) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r DiagnosticReportSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReportSupportingInfo
+	var o *DiagnosticReportSupportingInfo
 	switch other := other.(type) {
 	case DiagnosticReportSupportingInfo:
-		o = other
+		o = &other
 	case *DiagnosticReportSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3612,12 +3612,12 @@ func (r DiagnosticReportMedia) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert DiagnosticReportMedia to Quantity")
 }
 func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReportMedia
+	var o *DiagnosticReportMedia
 	switch other := other.(type) {
 	case DiagnosticReportMedia:
-		o = other
+		o = &other
 	case *DiagnosticReportMedia:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3628,12 +3628,12 @@ func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DiagnosticReportMedia
+	var o *DiagnosticReportMedia
 	switch other := other.(type) {
 	case DiagnosticReportMedia:
-		o = other
+		o = &other
 	case *DiagnosticReportMedia:
-		o = *other
+		o = other
 	default:
 		return false
 	}

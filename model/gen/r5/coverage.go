@@ -3981,12 +3981,12 @@ func (r Coverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Coverage to Quantity")
 }
 func (r Coverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Coverage
+	var o *Coverage
 	switch other := other.(type) {
 	case Coverage:
-		o = other
+		o = &other
 	case *Coverage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3997,12 +3997,12 @@ func (r Coverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Coverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Coverage
+	var o *Coverage
 	switch other := other.(type) {
 	case Coverage:
-		o = other
+		o = &other
 	case *Coverage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4273,12 +4273,12 @@ func (r CoveragePaymentBy) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert CoveragePaymentBy to Quantity")
 }
 func (r CoveragePaymentBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoveragePaymentBy
+	var o *CoveragePaymentBy
 	switch other := other.(type) {
 	case CoveragePaymentBy:
-		o = other
+		o = &other
 	case *CoveragePaymentBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4289,12 +4289,12 @@ func (r CoveragePaymentBy) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r CoveragePaymentBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoveragePaymentBy
+	var o *CoveragePaymentBy
 	switch other := other.(type) {
 	case CoveragePaymentBy:
-		o = other
+		o = &other
 	case *CoveragePaymentBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4407,12 +4407,12 @@ func (r CoverageClass) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CoverageClass to Quantity")
 }
 func (r CoverageClass) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageClass
+	var o *CoverageClass
 	switch other := other.(type) {
 	case CoverageClass:
-		o = other
+		o = &other
 	case *CoverageClass:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4423,12 +4423,12 @@ func (r CoverageClass) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r CoverageClass) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageClass
+	var o *CoverageClass
 	switch other := other.(type) {
 	case CoverageClass:
-		o = other
+		o = &other
 	case *CoverageClass:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4572,12 +4572,12 @@ func (r CoverageCostToBeneficiary) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert CoverageCostToBeneficiary to Quantity")
 }
 func (r CoverageCostToBeneficiary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageCostToBeneficiary
+	var o *CoverageCostToBeneficiary
 	switch other := other.(type) {
 	case CoverageCostToBeneficiary:
-		o = other
+		o = &other
 	case *CoverageCostToBeneficiary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4588,12 +4588,12 @@ func (r CoverageCostToBeneficiary) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r CoverageCostToBeneficiary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageCostToBeneficiary
+	var o *CoverageCostToBeneficiary
 	switch other := other.(type) {
 	case CoverageCostToBeneficiary:
-		o = other
+		o = &other
 	case *CoverageCostToBeneficiary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4738,12 +4738,12 @@ func (r CoverageCostToBeneficiaryException) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert CoverageCostToBeneficiaryException to Quantity")
 }
 func (r CoverageCostToBeneficiaryException) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageCostToBeneficiaryException
+	var o *CoverageCostToBeneficiaryException
 	switch other := other.(type) {
 	case CoverageCostToBeneficiaryException:
-		o = other
+		o = &other
 	case *CoverageCostToBeneficiaryException:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4754,12 +4754,12 @@ func (r CoverageCostToBeneficiaryException) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r CoverageCostToBeneficiaryException) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CoverageCostToBeneficiaryException
+	var o *CoverageCostToBeneficiaryException
 	switch other := other.(type) {
 	case CoverageCostToBeneficiaryException:
-		o = other
+		o = &other
 	case *CoverageCostToBeneficiaryException:
-		o = *other
+		o = other
 	default:
 		return false
 	}

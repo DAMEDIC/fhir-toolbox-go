@@ -697,12 +697,12 @@ func (r SubstanceAmount) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SubstanceAmount to Quantity")
 }
 func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceAmount
+	var o *SubstanceAmount
 	switch other := other.(type) {
 	case SubstanceAmount:
-		o = other
+		o = &other
 	case *SubstanceAmount:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -713,12 +713,12 @@ func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceAmount
+	var o *SubstanceAmount
 	switch other := other.(type) {
 	case SubstanceAmount:
-		o = other
+		o = &other
 	case *SubstanceAmount:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -839,12 +839,12 @@ func (r SubstanceAmountReferenceRange) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert SubstanceAmountReferenceRange to Quantity")
 }
 func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceAmountReferenceRange
+	var o *SubstanceAmountReferenceRange
 	switch other := other.(type) {
 	case SubstanceAmountReferenceRange:
-		o = other
+		o = &other
 	case *SubstanceAmountReferenceRange:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -855,12 +855,12 @@ func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceAmountReferenceRange
+	var o *SubstanceAmountReferenceRange
 	switch other := other.(type) {
 	case SubstanceAmountReferenceRange:
-		o = other
+		o = &other
 	case *SubstanceAmountReferenceRange:
-		o = *other
+		o = other
 	default:
 		return false
 	}

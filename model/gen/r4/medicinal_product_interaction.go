@@ -1608,12 +1608,12 @@ func (r MedicinalProductInteraction) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert MedicinalProductInteraction to Quantity")
 }
 func (r MedicinalProductInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductInteraction
+	var o *MedicinalProductInteraction
 	switch other := other.(type) {
 	case MedicinalProductInteraction:
-		o = other
+		o = &other
 	case *MedicinalProductInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1624,12 +1624,12 @@ func (r MedicinalProductInteraction) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r MedicinalProductInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductInteraction
+	var o *MedicinalProductInteraction
 	switch other := other.(type) {
 	case MedicinalProductInteraction:
-		o = other
+		o = &other
 	case *MedicinalProductInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1804,12 +1804,12 @@ func (r MedicinalProductInteractionInteractant) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert MedicinalProductInteractionInteractant to Quantity")
 }
 func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductInteractionInteractant
+	var o *MedicinalProductInteractionInteractant
 	switch other := other.(type) {
 	case MedicinalProductInteractionInteractant:
-		o = other
+		o = &other
 	case *MedicinalProductInteractionInteractant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1820,12 +1820,12 @@ func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r MedicinalProductInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductInteractionInteractant
+	var o *MedicinalProductInteractionInteractant
 	switch other := other.(type) {
 	case MedicinalProductInteractionInteractant:
-		o = other
+		o = &other
 	case *MedicinalProductInteractionInteractant:
-		o = *other
+		o = other
 	default:
 		return false
 	}

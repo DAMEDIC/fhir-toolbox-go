@@ -3984,12 +3984,12 @@ func (r AdministrableProductDefinition) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert AdministrableProductDefinition to Quantity")
 }
 func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinition
+	var o *AdministrableProductDefinition
 	switch other := other.(type) {
 	case AdministrableProductDefinition:
-		o = other
+		o = &other
 	case *AdministrableProductDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4000,12 +4000,12 @@ func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinition
+	var o *AdministrableProductDefinition
 	switch other := other.(type) {
 	case AdministrableProductDefinition:
-		o = other
+		o = &other
 	case *AdministrableProductDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4218,12 +4218,12 @@ func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
 }
 func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionProperty
+	var o *AdministrableProductDefinitionProperty
 	switch other := other.(type) {
 	case AdministrableProductDefinitionProperty:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4234,12 +4234,12 @@ func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionProperty
+	var o *AdministrableProductDefinitionProperty
 	switch other := other.(type) {
 	case AdministrableProductDefinitionProperty:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4381,12 +4381,12 @@ func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministration
+	var o *AdministrableProductDefinitionRouteOfAdministration
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministration:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4397,12 +4397,12 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpat
 	return *eq
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministration
+	var o *AdministrableProductDefinitionRouteOfAdministration
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministration:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4547,12 +4547,12 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuan
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
+	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4563,12 +4563,12 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(
 	return *eq
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
+	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4681,12 +4681,12 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4697,12 +4697,12 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	return *eq
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = other
+		o = &other
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = *other
+		o = other
 	default:
 		return false
 	}

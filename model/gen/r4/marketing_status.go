@@ -595,12 +595,12 @@ func (r MarketingStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MarketingStatus to Quantity")
 }
 func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MarketingStatus
+	var o *MarketingStatus
 	switch other := other.(type) {
 	case MarketingStatus:
-		o = other
+		o = &other
 	case *MarketingStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -611,12 +611,12 @@ func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r MarketingStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MarketingStatus
+	var o *MarketingStatus
 	switch other := other.(type) {
 	case MarketingStatus:
-		o = other
+		o = &other
 	case *MarketingStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}

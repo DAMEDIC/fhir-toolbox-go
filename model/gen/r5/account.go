@@ -5064,12 +5064,12 @@ func (r Account) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Account to Quantity")
 }
 func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Account
+	var o *Account
 	switch other := other.(type) {
 	case Account:
-		o = other
+		o = &other
 	case *Account:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5080,12 +5080,12 @@ func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Account
+	var o *Account
 	switch other := other.(type) {
 	case Account:
-		o = other
+		o = &other
 	case *Account:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5335,12 +5335,12 @@ func (r AccountCoverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AccountCoverage to Quantity")
 }
 func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountCoverage
+	var o *AccountCoverage
 	switch other := other.(type) {
 	case AccountCoverage:
-		o = other
+		o = &other
 	case *AccountCoverage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5351,12 +5351,12 @@ func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountCoverage
+	var o *AccountCoverage
 	switch other := other.(type) {
 	case AccountCoverage:
-		o = other
+		o = &other
 	case *AccountCoverage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5471,12 +5471,12 @@ func (r AccountGuarantor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert AccountGuarantor to Quantity")
 }
 func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountGuarantor
+	var o *AccountGuarantor
 	switch other := other.(type) {
 	case AccountGuarantor:
-		o = other
+		o = &other
 	case *AccountGuarantor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5487,12 +5487,12 @@ func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountGuarantor
+	var o *AccountGuarantor
 	switch other := other.(type) {
 	case AccountGuarantor:
-		o = other
+		o = &other
 	case *AccountGuarantor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5629,12 +5629,12 @@ func (r AccountDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert AccountDiagnosis to Quantity")
 }
 func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountDiagnosis
+	var o *AccountDiagnosis
 	switch other := other.(type) {
 	case AccountDiagnosis:
-		o = other
+		o = &other
 	case *AccountDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5645,12 +5645,12 @@ func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r AccountDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountDiagnosis
+	var o *AccountDiagnosis
 	switch other := other.(type) {
 	case AccountDiagnosis:
-		o = other
+		o = &other
 	case *AccountDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5808,12 +5808,12 @@ func (r AccountProcedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert AccountProcedure to Quantity")
 }
 func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountProcedure
+	var o *AccountProcedure
 	switch other := other.(type) {
 	case AccountProcedure:
-		o = other
+		o = &other
 	case *AccountProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5824,12 +5824,12 @@ func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r AccountProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountProcedure
+	var o *AccountProcedure
 	switch other := other.(type) {
 	case AccountProcedure:
-		o = other
+		o = &other
 	case *AccountProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5967,12 +5967,12 @@ func (r AccountRelatedAccount) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert AccountRelatedAccount to Quantity")
 }
 func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountRelatedAccount
+	var o *AccountRelatedAccount
 	switch other := other.(type) {
 	case AccountRelatedAccount:
-		o = other
+		o = &other
 	case *AccountRelatedAccount:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5983,12 +5983,12 @@ func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r AccountRelatedAccount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountRelatedAccount
+	var o *AccountRelatedAccount
 	switch other := other.(type) {
 	case AccountRelatedAccount:
-		o = other
+		o = &other
 	case *AccountRelatedAccount:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6108,12 +6108,12 @@ func (r AccountBalance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AccountBalance to Quantity")
 }
 func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountBalance
+	var o *AccountBalance
 	switch other := other.(type) {
 	case AccountBalance:
-		o = other
+		o = &other
 	case *AccountBalance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6124,12 +6124,12 @@ func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r AccountBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AccountBalance
+	var o *AccountBalance
 	switch other := other.(type) {
 	case AccountBalance:
-		o = other
+		o = &other
 	case *AccountBalance:
-		o = *other
+		o = other
 	default:
 		return false
 	}

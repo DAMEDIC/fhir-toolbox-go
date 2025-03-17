@@ -11321,12 +11321,12 @@ func (r DeviceDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert DeviceDefinition to Quantity")
 }
 func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinition
+	var o *DeviceDefinition
 	switch other := other.(type) {
 	case DeviceDefinition:
-		o = other
+		o = &other
 	case *DeviceDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11337,12 +11337,12 @@ func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r DeviceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinition
+	var o *DeviceDefinition
 	switch other := other.(type) {
 	case DeviceDefinition:
-		o = other
+		o = &other
 	case *DeviceDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11661,12 +11661,12 @@ func (r DeviceDefinitionUdiDeviceIdentifier) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Quantity")
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionUdiDeviceIdentifier
+	var o *DeviceDefinitionUdiDeviceIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifier:
-		o = other
+		o = &other
 	case *DeviceDefinitionUdiDeviceIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11677,12 +11677,12 @@ func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionUdiDeviceIdentifier
+	var o *DeviceDefinitionUdiDeviceIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifier:
-		o = other
+		o = &other
 	case *DeviceDefinitionUdiDeviceIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11804,12 +11804,12 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToQuantity(explic
 	return nil, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Quantity")
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionUdiDeviceIdentifierMarketDistribution
+	var o *DeviceDefinitionUdiDeviceIdentifierMarketDistribution
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
-		o = other
+		o = &other
 	case *DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11820,12 +11820,12 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirp
 	return *eq
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionUdiDeviceIdentifierMarketDistribution
+	var o *DeviceDefinitionUdiDeviceIdentifierMarketDistribution
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
-		o = other
+		o = &other
 	case *DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11939,12 +11939,12 @@ func (r DeviceDefinitionRegulatoryIdentifier) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Quantity")
 }
 func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionRegulatoryIdentifier
+	var o *DeviceDefinitionRegulatoryIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionRegulatoryIdentifier:
-		o = other
+		o = &other
 	case *DeviceDefinitionRegulatoryIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11955,12 +11955,12 @@ func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r DeviceDefinitionRegulatoryIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionRegulatoryIdentifier
+	var o *DeviceDefinitionRegulatoryIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionRegulatoryIdentifier:
-		o = other
+		o = &other
 	case *DeviceDefinitionRegulatoryIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12082,12 +12082,12 @@ func (r DeviceDefinitionDeviceName) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DeviceDefinitionDeviceName to Quantity")
 }
 func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionDeviceName
+	var o *DeviceDefinitionDeviceName
 	switch other := other.(type) {
 	case DeviceDefinitionDeviceName:
-		o = other
+		o = &other
 	case *DeviceDefinitionDeviceName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12098,12 +12098,12 @@ func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionDeviceName
+	var o *DeviceDefinitionDeviceName
 	switch other := other.(type) {
 	case DeviceDefinitionDeviceName:
-		o = other
+		o = &other
 	case *DeviceDefinitionDeviceName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12213,12 +12213,12 @@ func (r DeviceDefinitionClassification) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert DeviceDefinitionClassification to Quantity")
 }
 func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionClassification
+	var o *DeviceDefinitionClassification
 	switch other := other.(type) {
 	case DeviceDefinitionClassification:
-		o = other
+		o = &other
 	case *DeviceDefinitionClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12229,12 +12229,12 @@ func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r DeviceDefinitionClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionClassification
+	var o *DeviceDefinitionClassification
 	switch other := other.(type) {
 	case DeviceDefinitionClassification:
-		o = other
+		o = &other
 	case *DeviceDefinitionClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12354,12 +12354,12 @@ func (r DeviceDefinitionConformsTo) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DeviceDefinitionConformsTo to Quantity")
 }
 func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionConformsTo
+	var o *DeviceDefinitionConformsTo
 	switch other := other.(type) {
 	case DeviceDefinitionConformsTo:
-		o = other
+		o = &other
 	case *DeviceDefinitionConformsTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12370,12 +12370,12 @@ func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DeviceDefinitionConformsTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionConformsTo
+	var o *DeviceDefinitionConformsTo
 	switch other := other.(type) {
 	case DeviceDefinitionConformsTo:
-		o = other
+		o = &other
 	case *DeviceDefinitionConformsTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12499,12 +12499,12 @@ func (r DeviceDefinitionHasPart) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert DeviceDefinitionHasPart to Quantity")
 }
 func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionHasPart
+	var o *DeviceDefinitionHasPart
 	switch other := other.(type) {
 	case DeviceDefinitionHasPart:
-		o = other
+		o = &other
 	case *DeviceDefinitionHasPart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12515,12 +12515,12 @@ func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r DeviceDefinitionHasPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionHasPart
+	var o *DeviceDefinitionHasPart
 	switch other := other.(type) {
 	case DeviceDefinitionHasPart:
-		o = other
+		o = &other
 	case *DeviceDefinitionHasPart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12652,12 +12652,12 @@ func (r DeviceDefinitionPackaging) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert DeviceDefinitionPackaging to Quantity")
 }
 func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionPackaging
+	var o *DeviceDefinitionPackaging
 	switch other := other.(type) {
 	case DeviceDefinitionPackaging:
-		o = other
+		o = &other
 	case *DeviceDefinitionPackaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12668,12 +12668,12 @@ func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r DeviceDefinitionPackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionPackaging
+	var o *DeviceDefinitionPackaging
 	switch other := other.(type) {
 	case DeviceDefinitionPackaging:
-		o = other
+		o = &other
 	case *DeviceDefinitionPackaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12813,12 +12813,12 @@ func (r DeviceDefinitionPackagingDistributor) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert DeviceDefinitionPackagingDistributor to Quantity")
 }
 func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionPackagingDistributor
+	var o *DeviceDefinitionPackagingDistributor
 	switch other := other.(type) {
 	case DeviceDefinitionPackagingDistributor:
-		o = other
+		o = &other
 	case *DeviceDefinitionPackagingDistributor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12829,12 +12829,12 @@ func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r DeviceDefinitionPackagingDistributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionPackagingDistributor
+	var o *DeviceDefinitionPackagingDistributor
 	switch other := other.(type) {
 	case DeviceDefinitionPackagingDistributor:
-		o = other
+		o = &other
 	case *DeviceDefinitionPackagingDistributor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12949,12 +12949,12 @@ func (r DeviceDefinitionVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert DeviceDefinitionVersion to Quantity")
 }
 func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionVersion
+	var o *DeviceDefinitionVersion
 	switch other := other.(type) {
 	case DeviceDefinitionVersion:
-		o = other
+		o = &other
 	case *DeviceDefinitionVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12965,12 +12965,12 @@ func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r DeviceDefinitionVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionVersion
+	var o *DeviceDefinitionVersion
 	switch other := other.(type) {
 	case DeviceDefinitionVersion:
-		o = other
+		o = &other
 	case *DeviceDefinitionVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13085,12 +13085,12 @@ func (r DeviceDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert DeviceDefinitionProperty to Quantity")
 }
 func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionProperty
+	var o *DeviceDefinitionProperty
 	switch other := other.(type) {
 	case DeviceDefinitionProperty:
-		o = other
+		o = &other
 	case *DeviceDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13101,12 +13101,12 @@ func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionProperty
+	var o *DeviceDefinitionProperty
 	switch other := other.(type) {
 	case DeviceDefinitionProperty:
-		o = other
+		o = &other
 	case *DeviceDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13214,12 +13214,12 @@ func (r DeviceDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert DeviceDefinitionLink to Quantity")
 }
 func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionLink
+	var o *DeviceDefinitionLink
 	switch other := other.(type) {
 	case DeviceDefinitionLink:
-		o = other
+		o = &other
 	case *DeviceDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13230,12 +13230,12 @@ func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r DeviceDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionLink
+	var o *DeviceDefinitionLink
 	switch other := other.(type) {
 	case DeviceDefinitionLink:
-		o = other
+		o = &other
 	case *DeviceDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13350,12 +13350,12 @@ func (r DeviceDefinitionMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert DeviceDefinitionMaterial to Quantity")
 }
 func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionMaterial
+	var o *DeviceDefinitionMaterial
 	switch other := other.(type) {
 	case DeviceDefinitionMaterial:
-		o = other
+		o = &other
 	case *DeviceDefinitionMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13366,12 +13366,12 @@ func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionMaterial
+	var o *DeviceDefinitionMaterial
 	switch other := other.(type) {
 	case DeviceDefinitionMaterial:
-		o = other
+		o = &other
 	case *DeviceDefinitionMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13515,12 +13515,12 @@ func (r DeviceDefinitionGuideline) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert DeviceDefinitionGuideline to Quantity")
 }
 func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionGuideline
+	var o *DeviceDefinitionGuideline
 	switch other := other.(type) {
 	case DeviceDefinitionGuideline:
-		o = other
+		o = &other
 	case *DeviceDefinitionGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13531,12 +13531,12 @@ func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r DeviceDefinitionGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionGuideline
+	var o *DeviceDefinitionGuideline
 	switch other := other.(type) {
 	case DeviceDefinitionGuideline:
-		o = other
+		o = &other
 	case *DeviceDefinitionGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13684,12 +13684,12 @@ func (r DeviceDefinitionCorrectiveAction) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert DeviceDefinitionCorrectiveAction to Quantity")
 }
 func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionCorrectiveAction
+	var o *DeviceDefinitionCorrectiveAction
 	switch other := other.(type) {
 	case DeviceDefinitionCorrectiveAction:
-		o = other
+		o = &other
 	case *DeviceDefinitionCorrectiveAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13700,12 +13700,12 @@ func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r DeviceDefinitionCorrectiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionCorrectiveAction
+	var o *DeviceDefinitionCorrectiveAction
 	switch other := other.(type) {
 	case DeviceDefinitionCorrectiveAction:
-		o = other
+		o = &other
 	case *DeviceDefinitionCorrectiveAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13830,12 +13830,12 @@ func (r DeviceDefinitionChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DeviceDefinitionChargeItem to Quantity")
 }
 func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionChargeItem
+	var o *DeviceDefinitionChargeItem
 	switch other := other.(type) {
 	case DeviceDefinitionChargeItem:
-		o = other
+		o = &other
 	case *DeviceDefinitionChargeItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13846,12 +13846,12 @@ func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DeviceDefinitionChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceDefinitionChargeItem
+	var o *DeviceDefinitionChargeItem
 	switch other := other.(type) {
 	case DeviceDefinitionChargeItem:
-		o = other
+		o = &other
 	case *DeviceDefinitionChargeItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}

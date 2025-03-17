@@ -427,12 +427,12 @@ func (r Age) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Age to Quantity")
 }
 func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Age
+	var o *Age
 	switch other := other.(type) {
 	case Age:
-		o = other
+		o = &other
 	case *Age:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -443,12 +443,12 @@ func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) boo
 	return *eq
 }
 func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Age
+	var o *Age
 	switch other := other.(type) {
 	case Age:
-		o = other
+		o = &other
 	case *Age:
-		o = *other
+		o = other
 	default:
 		return false
 	}

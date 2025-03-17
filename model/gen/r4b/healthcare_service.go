@@ -4095,12 +4095,12 @@ func (r HealthcareService) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert HealthcareService to Quantity")
 }
 func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareService
+	var o *HealthcareService
 	switch other := other.(type) {
 	case HealthcareService:
-		o = other
+		o = &other
 	case *HealthcareService:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4111,12 +4111,12 @@ func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r HealthcareService) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareService
+	var o *HealthcareService
 	switch other := other.(type) {
 	case HealthcareService:
-		o = other
+		o = &other
 	case *HealthcareService:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4417,12 +4417,12 @@ func (r HealthcareServiceEligibility) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert HealthcareServiceEligibility to Quantity")
 }
 func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceEligibility
+	var o *HealthcareServiceEligibility
 	switch other := other.(type) {
 	case HealthcareServiceEligibility:
-		o = other
+		o = &other
 	case *HealthcareServiceEligibility:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4433,12 +4433,12 @@ func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceEligibility
+	var o *HealthcareServiceEligibility
 	switch other := other.(type) {
 	case HealthcareServiceEligibility:
-		o = other
+		o = &other
 	case *HealthcareServiceEligibility:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4560,12 +4560,12 @@ func (r HealthcareServiceAvailableTime) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert HealthcareServiceAvailableTime to Quantity")
 }
 func (r HealthcareServiceAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceAvailableTime
+	var o *HealthcareServiceAvailableTime
 	switch other := other.(type) {
 	case HealthcareServiceAvailableTime:
-		o = other
+		o = &other
 	case *HealthcareServiceAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4576,12 +4576,12 @@ func (r HealthcareServiceAvailableTime) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r HealthcareServiceAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceAvailableTime
+	var o *HealthcareServiceAvailableTime
 	switch other := other.(type) {
 	case HealthcareServiceAvailableTime:
-		o = other
+		o = &other
 	case *HealthcareServiceAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4705,12 +4705,12 @@ func (r HealthcareServiceNotAvailable) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert HealthcareServiceNotAvailable to Quantity")
 }
 func (r HealthcareServiceNotAvailable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceNotAvailable
+	var o *HealthcareServiceNotAvailable
 	switch other := other.(type) {
 	case HealthcareServiceNotAvailable:
-		o = other
+		o = &other
 	case *HealthcareServiceNotAvailable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4721,12 +4721,12 @@ func (r HealthcareServiceNotAvailable) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r HealthcareServiceNotAvailable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HealthcareServiceNotAvailable
+	var o *HealthcareServiceNotAvailable
 	switch other := other.(type) {
 	case HealthcareServiceNotAvailable:
-		o = other
+		o = &other
 	case *HealthcareServiceNotAvailable:
-		o = *other
+		o = other
 	default:
 		return false
 	}

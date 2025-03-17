@@ -25885,12 +25885,12 @@ func (r ElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert ElementDefinition to Quantity")
 }
 func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinition
+	var o *ElementDefinition
 	switch other := other.(type) {
 	case ElementDefinition:
-		o = other
+		o = &other
 	case *ElementDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25901,12 +25901,12 @@ func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r ElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinition
+	var o *ElementDefinition
 	switch other := other.(type) {
 	case ElementDefinition:
-		o = other
+		o = &other
 	case *ElementDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26245,12 +26245,12 @@ func (r ElementDefinitionSlicing) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ElementDefinitionSlicing to Quantity")
 }
 func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionSlicing
+	var o *ElementDefinitionSlicing
 	switch other := other.(type) {
 	case ElementDefinitionSlicing:
-		o = other
+		o = &other
 	case *ElementDefinitionSlicing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26261,12 +26261,12 @@ func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ElementDefinitionSlicing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionSlicing
+	var o *ElementDefinitionSlicing
 	switch other := other.(type) {
 	case ElementDefinitionSlicing:
-		o = other
+		o = &other
 	case *ElementDefinitionSlicing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26376,12 +26376,12 @@ func (r ElementDefinitionSlicingDiscriminator) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Quantity")
 }
 func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionSlicingDiscriminator
+	var o *ElementDefinitionSlicingDiscriminator
 	switch other := other.(type) {
 	case ElementDefinitionSlicingDiscriminator:
-		o = other
+		o = &other
 	case *ElementDefinitionSlicingDiscriminator:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26392,12 +26392,12 @@ func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ElementDefinitionSlicingDiscriminator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionSlicingDiscriminator
+	var o *ElementDefinitionSlicingDiscriminator
 	switch other := other.(type) {
 	case ElementDefinitionSlicingDiscriminator:
-		o = other
+		o = &other
 	case *ElementDefinitionSlicingDiscriminator:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26496,12 +26496,12 @@ func (r ElementDefinitionBase) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert ElementDefinitionBase to Quantity")
 }
 func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionBase
+	var o *ElementDefinitionBase
 	switch other := other.(type) {
 	case ElementDefinitionBase:
-		o = other
+		o = &other
 	case *ElementDefinitionBase:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26512,12 +26512,12 @@ func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r ElementDefinitionBase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionBase
+	var o *ElementDefinitionBase
 	switch other := other.(type) {
 	case ElementDefinitionBase:
-		o = other
+		o = &other
 	case *ElementDefinitionBase:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26637,12 +26637,12 @@ func (r ElementDefinitionType) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert ElementDefinitionType to Quantity")
 }
 func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionType
+	var o *ElementDefinitionType
 	switch other := other.(type) {
 	case ElementDefinitionType:
-		o = other
+		o = &other
 	case *ElementDefinitionType:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26653,12 +26653,12 @@ func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r ElementDefinitionType) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionType
+	var o *ElementDefinitionType
 	switch other := other.(type) {
 	case ElementDefinitionType:
-		o = other
+		o = &other
 	case *ElementDefinitionType:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26775,12 +26775,12 @@ func (r ElementDefinitionExample) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ElementDefinitionExample to Quantity")
 }
 func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionExample
+	var o *ElementDefinitionExample
 	switch other := other.(type) {
 	case ElementDefinitionExample:
-		o = other
+		o = &other
 	case *ElementDefinitionExample:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26791,12 +26791,12 @@ func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ElementDefinitionExample) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionExample
+	var o *ElementDefinitionExample
 	switch other := other.(type) {
 	case ElementDefinitionExample:
-		o = other
+		o = &other
 	case *ElementDefinitionExample:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26915,12 +26915,12 @@ func (r ElementDefinitionConstraint) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ElementDefinitionConstraint to Quantity")
 }
 func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionConstraint
+	var o *ElementDefinitionConstraint
 	switch other := other.(type) {
 	case ElementDefinitionConstraint:
-		o = other
+		o = &other
 	case *ElementDefinitionConstraint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26931,12 +26931,12 @@ func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ElementDefinitionConstraint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionConstraint
+	var o *ElementDefinitionConstraint
 	switch other := other.(type) {
 	case ElementDefinitionConstraint:
-		o = other
+		o = &other
 	case *ElementDefinitionConstraint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27074,12 +27074,12 @@ func (r ElementDefinitionBinding) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ElementDefinitionBinding to Quantity")
 }
 func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionBinding
+	var o *ElementDefinitionBinding
 	switch other := other.(type) {
 	case ElementDefinitionBinding:
-		o = other
+		o = &other
 	case *ElementDefinitionBinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27090,12 +27090,12 @@ func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ElementDefinitionBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionBinding
+	var o *ElementDefinitionBinding
 	switch other := other.(type) {
 	case ElementDefinitionBinding:
-		o = other
+		o = &other
 	case *ElementDefinitionBinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27208,12 +27208,12 @@ func (r ElementDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ElementDefinitionMapping to Quantity")
 }
 func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionMapping
+	var o *ElementDefinitionMapping
 	switch other := other.(type) {
 	case ElementDefinitionMapping:
-		o = other
+		o = &other
 	case *ElementDefinitionMapping:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27224,12 +27224,12 @@ func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ElementDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ElementDefinitionMapping
+	var o *ElementDefinitionMapping
 	switch other := other.(type) {
 	case ElementDefinitionMapping:
-		o = other
+		o = &other
 	case *ElementDefinitionMapping:
-		o = *other
+		o = other
 	default:
 		return false
 	}

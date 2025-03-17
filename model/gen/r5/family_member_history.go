@@ -5314,12 +5314,12 @@ func (r FamilyMemberHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert FamilyMemberHistory to Quantity")
 }
 func (r FamilyMemberHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistory
+	var o *FamilyMemberHistory
 	switch other := other.(type) {
 	case FamilyMemberHistory:
-		o = other
+		o = &other
 	case *FamilyMemberHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5330,12 +5330,12 @@ func (r FamilyMemberHistory) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r FamilyMemberHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistory
+	var o *FamilyMemberHistory
 	switch other := other.(type) {
 	case FamilyMemberHistory:
-		o = other
+		o = &other
 	case *FamilyMemberHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5599,12 +5599,12 @@ func (r FamilyMemberHistoryParticipant) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert FamilyMemberHistoryParticipant to Quantity")
 }
 func (r FamilyMemberHistoryParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryParticipant
+	var o *FamilyMemberHistoryParticipant
 	switch other := other.(type) {
 	case FamilyMemberHistoryParticipant:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5615,12 +5615,12 @@ func (r FamilyMemberHistoryParticipant) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r FamilyMemberHistoryParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryParticipant
+	var o *FamilyMemberHistoryParticipant
 	switch other := other.(type) {
 	case FamilyMemberHistoryParticipant:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5745,12 +5745,12 @@ func (r FamilyMemberHistoryCondition) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert FamilyMemberHistoryCondition to Quantity")
 }
 func (r FamilyMemberHistoryCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryCondition
+	var o *FamilyMemberHistoryCondition
 	switch other := other.(type) {
 	case FamilyMemberHistoryCondition:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5761,12 +5761,12 @@ func (r FamilyMemberHistoryCondition) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r FamilyMemberHistoryCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryCondition
+	var o *FamilyMemberHistoryCondition
 	switch other := other.(type) {
 	case FamilyMemberHistoryCondition:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5912,12 +5912,12 @@ func (r FamilyMemberHistoryProcedure) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert FamilyMemberHistoryProcedure to Quantity")
 }
 func (r FamilyMemberHistoryProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryProcedure
+	var o *FamilyMemberHistoryProcedure
 	switch other := other.(type) {
 	case FamilyMemberHistoryProcedure:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5928,12 +5928,12 @@ func (r FamilyMemberHistoryProcedure) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r FamilyMemberHistoryProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o FamilyMemberHistoryProcedure
+	var o *FamilyMemberHistoryProcedure
 	switch other := other.(type) {
 	case FamilyMemberHistoryProcedure:
-		o = other
+		o = &other
 	case *FamilyMemberHistoryProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}

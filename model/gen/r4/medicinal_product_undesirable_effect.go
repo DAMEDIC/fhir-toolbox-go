@@ -1055,12 +1055,12 @@ func (r MedicinalProductUndesirableEffect) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Quantity")
 }
 func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductUndesirableEffect
+	var o *MedicinalProductUndesirableEffect
 	switch other := other.(type) {
 	case MedicinalProductUndesirableEffect:
-		o = other
+		o = &other
 	case *MedicinalProductUndesirableEffect:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1071,12 +1071,12 @@ func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r MedicinalProductUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductUndesirableEffect
+	var o *MedicinalProductUndesirableEffect
 	switch other := other.(type) {
 	case MedicinalProductUndesirableEffect:
-		o = other
+		o = &other
 	case *MedicinalProductUndesirableEffect:
-		o = *other
+		o = other
 	default:
 		return false
 	}

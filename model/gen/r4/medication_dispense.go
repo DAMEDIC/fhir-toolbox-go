@@ -3393,12 +3393,12 @@ func (r MedicationDispense) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert MedicationDispense to Quantity")
 }
 func (r MedicationDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispense
+	var o *MedicationDispense
 	switch other := other.(type) {
 	case MedicationDispense:
-		o = other
+		o = &other
 	case *MedicationDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3409,12 +3409,12 @@ func (r MedicationDispense) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r MedicationDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispense
+	var o *MedicationDispense
 	switch other := other.(type) {
 	case MedicationDispense:
-		o = other
+		o = &other
 	case *MedicationDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3713,12 +3713,12 @@ func (r MedicationDispensePerformer) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert MedicationDispensePerformer to Quantity")
 }
 func (r MedicationDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispensePerformer
+	var o *MedicationDispensePerformer
 	switch other := other.(type) {
 	case MedicationDispensePerformer:
-		o = other
+		o = &other
 	case *MedicationDispensePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3729,12 +3729,12 @@ func (r MedicationDispensePerformer) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r MedicationDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispensePerformer
+	var o *MedicationDispensePerformer
 	switch other := other.(type) {
 	case MedicationDispensePerformer:
-		o = other
+		o = &other
 	case *MedicationDispensePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3854,12 +3854,12 @@ func (r MedicationDispenseSubstitution) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert MedicationDispenseSubstitution to Quantity")
 }
 func (r MedicationDispenseSubstitution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispenseSubstitution
+	var o *MedicationDispenseSubstitution
 	switch other := other.(type) {
 	case MedicationDispenseSubstitution:
-		o = other
+		o = &other
 	case *MedicationDispenseSubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3870,12 +3870,12 @@ func (r MedicationDispenseSubstitution) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r MedicationDispenseSubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationDispenseSubstitution
+	var o *MedicationDispenseSubstitution
 	switch other := other.(type) {
 	case MedicationDispenseSubstitution:
-		o = other
+		o = &other
 	case *MedicationDispenseSubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}

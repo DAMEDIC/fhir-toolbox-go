@@ -266,12 +266,12 @@ func (r Narrative) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Narrative to Quantity")
 }
 func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Narrative
+	var o *Narrative
 	switch other := other.(type) {
 	case Narrative:
-		o = other
+		o = &other
 	case *Narrative:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -282,12 +282,12 @@ func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Narrative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Narrative
+	var o *Narrative
 	switch other := other.(type) {
 	case Narrative:
-		o = other
+		o = &other
 	case *Narrative:
-		o = *other
+		o = other
 	default:
 		return false
 	}

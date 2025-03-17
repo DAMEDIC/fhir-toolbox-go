@@ -5452,12 +5452,12 @@ func (r EvidenceReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert EvidenceReport to Quantity")
 }
 func (r EvidenceReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReport
+	var o *EvidenceReport
 	switch other := other.(type) {
 	case EvidenceReport:
-		o = other
+		o = &other
 	case *EvidenceReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5468,12 +5468,12 @@ func (r EvidenceReport) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r EvidenceReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReport
+	var o *EvidenceReport
 	switch other := other.(type) {
 	case EvidenceReport:
-		o = other
+		o = &other
 	case *EvidenceReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5732,12 +5732,12 @@ func (r EvidenceReportSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert EvidenceReportSubject to Quantity")
 }
 func (r EvidenceReportSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSubject
+	var o *EvidenceReportSubject
 	switch other := other.(type) {
 	case EvidenceReportSubject:
-		o = other
+		o = &other
 	case *EvidenceReportSubject:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5748,12 +5748,12 @@ func (r EvidenceReportSubject) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r EvidenceReportSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSubject
+	var o *EvidenceReportSubject
 	switch other := other.(type) {
 	case EvidenceReportSubject:
-		o = other
+		o = &other
 	case *EvidenceReportSubject:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5871,12 +5871,12 @@ func (r EvidenceReportSubjectCharacteristic) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert EvidenceReportSubjectCharacteristic to Quantity")
 }
 func (r EvidenceReportSubjectCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSubjectCharacteristic
+	var o *EvidenceReportSubjectCharacteristic
 	switch other := other.(type) {
 	case EvidenceReportSubjectCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceReportSubjectCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5887,12 +5887,12 @@ func (r EvidenceReportSubjectCharacteristic) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r EvidenceReportSubjectCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSubjectCharacteristic
+	var o *EvidenceReportSubjectCharacteristic
 	switch other := other.(type) {
 	case EvidenceReportSubjectCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceReportSubjectCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6014,12 +6014,12 @@ func (r EvidenceReportRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert EvidenceReportRelatesTo to Quantity")
 }
 func (r EvidenceReportRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportRelatesTo
+	var o *EvidenceReportRelatesTo
 	switch other := other.(type) {
 	case EvidenceReportRelatesTo:
-		o = other
+		o = &other
 	case *EvidenceReportRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6030,12 +6030,12 @@ func (r EvidenceReportRelatesTo) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r EvidenceReportRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportRelatesTo
+	var o *EvidenceReportRelatesTo
 	switch other := other.(type) {
 	case EvidenceReportRelatesTo:
-		o = other
+		o = &other
 	case *EvidenceReportRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6157,12 +6157,12 @@ func (r EvidenceReportRelatesToTarget) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert EvidenceReportRelatesToTarget to Quantity")
 }
 func (r EvidenceReportRelatesToTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportRelatesToTarget
+	var o *EvidenceReportRelatesToTarget
 	switch other := other.(type) {
 	case EvidenceReportRelatesToTarget:
-		o = other
+		o = &other
 	case *EvidenceReportRelatesToTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6173,12 +6173,12 @@ func (r EvidenceReportRelatesToTarget) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r EvidenceReportRelatesToTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportRelatesToTarget
+	var o *EvidenceReportRelatesToTarget
 	switch other := other.(type) {
 	case EvidenceReportRelatesToTarget:
-		o = other
+		o = &other
 	case *EvidenceReportRelatesToTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6354,12 +6354,12 @@ func (r EvidenceReportSection) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert EvidenceReportSection to Quantity")
 }
 func (r EvidenceReportSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSection
+	var o *EvidenceReportSection
 	switch other := other.(type) {
 	case EvidenceReportSection:
-		o = other
+		o = &other
 	case *EvidenceReportSection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6370,12 +6370,12 @@ func (r EvidenceReportSection) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r EvidenceReportSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceReportSection
+	var o *EvidenceReportSection
 	switch other := other.(type) {
 	case EvidenceReportSection:
-		o = other
+		o = &other
 	case *EvidenceReportSection:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -2810,12 +2810,12 @@ func (r Group) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Group to Quantity")
 }
 func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Group
+	var o *Group
 	switch other := other.(type) {
 	case Group:
-		o = other
+		o = &other
 	case *Group:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2826,12 +2826,12 @@ func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	return *eq
 }
 func (r Group) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Group
+	var o *Group
 	switch other := other.(type) {
 	case Group:
-		o = other
+		o = &other
 	case *Group:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3045,12 +3045,12 @@ func (r GroupCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert GroupCharacteristic to Quantity")
 }
 func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GroupCharacteristic
+	var o *GroupCharacteristic
 	switch other := other.(type) {
 	case GroupCharacteristic:
-		o = other
+		o = &other
 	case *GroupCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3061,12 +3061,12 @@ func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r GroupCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GroupCharacteristic
+	var o *GroupCharacteristic
 	switch other := other.(type) {
 	case GroupCharacteristic:
-		o = other
+		o = &other
 	case *GroupCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3195,12 +3195,12 @@ func (r GroupMember) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GroupMember to Quantity")
 }
 func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GroupMember
+	var o *GroupMember
 	switch other := other.(type) {
 	case GroupMember:
-		o = other
+		o = &other
 	case *GroupMember:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3211,12 +3211,12 @@ func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r GroupMember) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GroupMember
+	var o *GroupMember
 	switch other := other.(type) {
 	case GroupMember:
-		o = other
+		o = &other
 	case *GroupMember:
-		o = *other
+		o = other
 	default:
 		return false
 	}

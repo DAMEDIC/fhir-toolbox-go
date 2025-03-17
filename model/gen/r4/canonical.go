@@ -167,58 +167,24 @@ func (r Canonical) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Canonical to Quantity")
 }
 func (r Canonical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Canonical
-	switch other := other.(type) {
-	case Canonical:
-		o = other
-	case *Canonical:
-		o = *other
-	default:
+	o, ok := other.(Canonical)
+	if !ok {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	if r.Value == nil || o.Value == nil {
 		return false
 	}
-	if a != nil && b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return *r.Value == *o.Value
 }
 func (r Canonical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Canonical
-	switch other := other.(type) {
-	case Canonical:
-		o = other
-	case *Canonical:
-		o = *other
-	default:
+	o, ok := other.(Canonical)
+	if !ok {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	if r.Value == nil || o.Value == nil {
 		return false
 	}
-	if a != nil && b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return *r.Value == *o.Value
 }
 func (r Canonical) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

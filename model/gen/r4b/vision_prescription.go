@@ -2936,12 +2936,12 @@ func (r VisionPrescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert VisionPrescription to Quantity")
 }
 func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescription
+	var o *VisionPrescription
 	switch other := other.(type) {
 	case VisionPrescription:
-		o = other
+		o = &other
 	case *VisionPrescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2952,12 +2952,12 @@ func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r VisionPrescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescription
+	var o *VisionPrescription
 	switch other := other.(type) {
 	case VisionPrescription:
-		o = other
+		o = &other
 	case *VisionPrescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3202,12 +3202,12 @@ func (r VisionPrescriptionLensSpecification) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert VisionPrescriptionLensSpecification to Quantity")
 }
 func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescriptionLensSpecification
+	var o *VisionPrescriptionLensSpecification
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecification:
-		o = other
+		o = &other
 	case *VisionPrescriptionLensSpecification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3218,12 +3218,12 @@ func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescriptionLensSpecification
+	var o *VisionPrescriptionLensSpecification
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecification:
-		o = other
+		o = &other
 	case *VisionPrescriptionLensSpecification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3415,12 +3415,12 @@ func (r VisionPrescriptionLensSpecificationPrism) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Quantity")
 }
 func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescriptionLensSpecificationPrism
+	var o *VisionPrescriptionLensSpecificationPrism
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecificationPrism:
-		o = other
+		o = &other
 	case *VisionPrescriptionLensSpecificationPrism:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3431,12 +3431,12 @@ func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VisionPrescriptionLensSpecificationPrism
+	var o *VisionPrescriptionLensSpecificationPrism
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecificationPrism:
-		o = other
+		o = &other
 	case *VisionPrescriptionLensSpecificationPrism:
-		o = *other
+		o = other
 	default:
 		return false
 	}

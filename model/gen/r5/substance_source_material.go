@@ -4730,12 +4730,12 @@ func (r SubstanceSourceMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert SubstanceSourceMaterial to Quantity")
 }
 func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterial
+	var o *SubstanceSourceMaterial
 	switch other := other.(type) {
 	case SubstanceSourceMaterial:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4746,12 +4746,12 @@ func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r SubstanceSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterial
+	var o *SubstanceSourceMaterial
 	switch other := other.(type) {
 	case SubstanceSourceMaterial:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4975,12 +4975,12 @@ func (r SubstanceSourceMaterialFractionDescription) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Quantity")
 }
 func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialFractionDescription
+	var o *SubstanceSourceMaterialFractionDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialFractionDescription:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialFractionDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4991,12 +4991,12 @@ func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element
 	return *eq
 }
 func (r SubstanceSourceMaterialFractionDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialFractionDescription
+	var o *SubstanceSourceMaterialFractionDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialFractionDescription:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialFractionDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5138,12 +5138,12 @@ func (r SubstanceSourceMaterialOrganism) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganism to Quantity")
 }
 func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganism
+	var o *SubstanceSourceMaterialOrganism
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganism:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganism:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5154,12 +5154,12 @@ func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r SubstanceSourceMaterialOrganism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganism
+	var o *SubstanceSourceMaterialOrganism
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganism:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganism:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5313,12 +5313,12 @@ func (r SubstanceSourceMaterialOrganismAuthor) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Quantity")
 }
 func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismAuthor
+	var o *SubstanceSourceMaterialOrganismAuthor
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismAuthor:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismAuthor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5329,12 +5329,12 @@ func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r SubstanceSourceMaterialOrganismAuthor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismAuthor
+	var o *SubstanceSourceMaterialOrganismAuthor
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismAuthor:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismAuthor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5461,12 +5461,12 @@ func (r SubstanceSourceMaterialOrganismHybrid) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Quantity")
 }
 func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismHybrid
+	var o *SubstanceSourceMaterialOrganismHybrid
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismHybrid:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismHybrid:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5477,12 +5477,12 @@ func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r SubstanceSourceMaterialOrganismHybrid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismHybrid
+	var o *SubstanceSourceMaterialOrganismHybrid
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismHybrid:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismHybrid:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5625,12 +5625,12 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToQuantity(explicit bool
 	return nil, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Quantity")
 }
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismOrganismGeneral
+	var o *SubstanceSourceMaterialOrganismOrganismGeneral
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismOrganismGeneral:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismOrganismGeneral:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5641,12 +5641,12 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Ele
 	return *eq
 }
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialOrganismOrganismGeneral
+	var o *SubstanceSourceMaterialOrganismOrganismGeneral
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismOrganismGeneral:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialOrganismOrganismGeneral:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5772,12 +5772,12 @@ func (r SubstanceSourceMaterialPartDescription) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert SubstanceSourceMaterialPartDescription to Quantity")
 }
 func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialPartDescription
+	var o *SubstanceSourceMaterialPartDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialPartDescription:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialPartDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5788,12 +5788,12 @@ func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r SubstanceSourceMaterialPartDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSourceMaterialPartDescription
+	var o *SubstanceSourceMaterialPartDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialPartDescription:
-		o = other
+		o = &other
 	case *SubstanceSourceMaterialPartDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}

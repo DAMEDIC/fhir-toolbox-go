@@ -5602,12 +5602,12 @@ func (r AdverseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdverseEvent to Quantity")
 }
 func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEvent
+	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
-		o = other
+		o = &other
 	case *AdverseEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5618,12 +5618,12 @@ func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEvent
+	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
-		o = other
+		o = &other
 	case *AdverseEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5922,12 +5922,12 @@ func (r AdverseEventParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert AdverseEventParticipant to Quantity")
 }
 func (r AdverseEventParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventParticipant
+	var o *AdverseEventParticipant
 	switch other := other.(type) {
 	case AdverseEventParticipant:
-		o = other
+		o = &other
 	case *AdverseEventParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5938,12 +5938,12 @@ func (r AdverseEventParticipant) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r AdverseEventParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventParticipant
+	var o *AdverseEventParticipant
 	switch other := other.(type) {
 	case AdverseEventParticipant:
-		o = other
+		o = &other
 	case *AdverseEventParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6053,12 +6053,12 @@ func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
 }
 func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntity
+	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6069,12 +6069,12 @@ func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntity
+	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6191,12 +6191,12 @@ func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
 }
 func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntityCausality
+	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntityCausality:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6207,12 +6207,12 @@ func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntityCausality
+	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntityCausality:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6324,12 +6324,12 @@ func (r AdverseEventContributingFactor) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert AdverseEventContributingFactor to Quantity")
 }
 func (r AdverseEventContributingFactor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventContributingFactor
+	var o *AdverseEventContributingFactor
 	switch other := other.(type) {
 	case AdverseEventContributingFactor:
-		o = other
+		o = &other
 	case *AdverseEventContributingFactor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6340,12 +6340,12 @@ func (r AdverseEventContributingFactor) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r AdverseEventContributingFactor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventContributingFactor
+	var o *AdverseEventContributingFactor
 	switch other := other.(type) {
 	case AdverseEventContributingFactor:
-		o = other
+		o = &other
 	case *AdverseEventContributingFactor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6443,12 +6443,12 @@ func (r AdverseEventPreventiveAction) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert AdverseEventPreventiveAction to Quantity")
 }
 func (r AdverseEventPreventiveAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventPreventiveAction
+	var o *AdverseEventPreventiveAction
 	switch other := other.(type) {
 	case AdverseEventPreventiveAction:
-		o = other
+		o = &other
 	case *AdverseEventPreventiveAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6459,12 +6459,12 @@ func (r AdverseEventPreventiveAction) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r AdverseEventPreventiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventPreventiveAction
+	var o *AdverseEventPreventiveAction
 	switch other := other.(type) {
 	case AdverseEventPreventiveAction:
-		o = other
+		o = &other
 	case *AdverseEventPreventiveAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6562,12 +6562,12 @@ func (r AdverseEventMitigatingAction) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert AdverseEventMitigatingAction to Quantity")
 }
 func (r AdverseEventMitigatingAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventMitigatingAction
+	var o *AdverseEventMitigatingAction
 	switch other := other.(type) {
 	case AdverseEventMitigatingAction:
-		o = other
+		o = &other
 	case *AdverseEventMitigatingAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6578,12 +6578,12 @@ func (r AdverseEventMitigatingAction) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r AdverseEventMitigatingAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventMitigatingAction
+	var o *AdverseEventMitigatingAction
 	switch other := other.(type) {
 	case AdverseEventMitigatingAction:
-		o = other
+		o = &other
 	case *AdverseEventMitigatingAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6681,12 +6681,12 @@ func (r AdverseEventSupportingInfo) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert AdverseEventSupportingInfo to Quantity")
 }
 func (r AdverseEventSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSupportingInfo
+	var o *AdverseEventSupportingInfo
 	switch other := other.(type) {
 	case AdverseEventSupportingInfo:
-		o = other
+		o = &other
 	case *AdverseEventSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6697,12 +6697,12 @@ func (r AdverseEventSupportingInfo) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r AdverseEventSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSupportingInfo
+	var o *AdverseEventSupportingInfo
 	switch other := other.(type) {
 	case AdverseEventSupportingInfo:
-		o = other
+		o = &other
 	case *AdverseEventSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -1112,12 +1112,12 @@ func (r Address) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Address to Quantity")
 }
 func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Address
+	var o *Address
 	switch other := other.(type) {
 	case Address:
-		o = other
+		o = &other
 	case *Address:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1128,12 +1128,12 @@ func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Address) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Address
+	var o *Address
 	switch other := other.(type) {
 	case Address:
-		o = other
+		o = &other
 	case *Address:
-		o = *other
+		o = other
 	default:
 		return false
 	}

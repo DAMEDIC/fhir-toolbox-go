@@ -2924,12 +2924,12 @@ func (r SubstanceNucleicAcid) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert SubstanceNucleicAcid to Quantity")
 }
 func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcid
+	var o *SubstanceNucleicAcid
 	switch other := other.(type) {
 	case SubstanceNucleicAcid:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcid:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2940,12 +2940,12 @@ func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcid
+	var o *SubstanceNucleicAcid
 	switch other := other.(type) {
 	case SubstanceNucleicAcid:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcid:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3143,12 +3143,12 @@ func (r SubstanceNucleicAcidSubunit) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Quantity")
 }
 func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunit
+	var o *SubstanceNucleicAcidSubunit
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunit:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3159,12 +3159,12 @@ func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunit
+	var o *SubstanceNucleicAcidSubunit
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunit:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3328,12 +3328,12 @@ func (r SubstanceNucleicAcidSubunitLinkage) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Quantity")
 }
 func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunitLinkage
+	var o *SubstanceNucleicAcidSubunitLinkage
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitLinkage:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunitLinkage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3344,12 +3344,12 @@ func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunitLinkage
+	var o *SubstanceNucleicAcidSubunitLinkage
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitLinkage:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunitLinkage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3480,12 +3480,12 @@ func (r SubstanceNucleicAcidSubunitSugar) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Quantity")
 }
 func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunitSugar
+	var o *SubstanceNucleicAcidSubunitSugar
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitSugar:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunitSugar:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3496,12 +3496,12 @@ func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceNucleicAcidSubunitSugar
+	var o *SubstanceNucleicAcidSubunitSugar
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitSugar:
-		o = other
+		o = &other
 	case *SubstanceNucleicAcidSubunitSugar:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -5797,12 +5797,12 @@ func (r SubscriptionTopic) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert SubscriptionTopic to Quantity")
 }
 func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopic
+	var o *SubscriptionTopic
 	switch other := other.(type) {
 	case SubscriptionTopic:
-		o = other
+		o = &other
 	case *SubscriptionTopic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5813,12 +5813,12 @@ func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopic
+	var o *SubscriptionTopic
 	switch other := other.(type) {
 	case SubscriptionTopic:
-		o = other
+		o = &other
 	case *SubscriptionTopic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6118,12 +6118,12 @@ func (r SubscriptionTopicResourceTrigger) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Quantity")
 }
 func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicResourceTrigger
+	var o *SubscriptionTopicResourceTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTrigger:
-		o = other
+		o = &other
 	case *SubscriptionTopicResourceTrigger:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6134,12 +6134,12 @@ func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicResourceTrigger
+	var o *SubscriptionTopicResourceTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTrigger:
-		o = other
+		o = &other
 	case *SubscriptionTopicResourceTrigger:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6287,12 +6287,12 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Quantity")
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicResourceTriggerQueryCriteria
+	var o *SubscriptionTopicResourceTriggerQueryCriteria
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTriggerQueryCriteria:
-		o = other
+		o = &other
 	case *SubscriptionTopicResourceTriggerQueryCriteria:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6303,12 +6303,12 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicResourceTriggerQueryCriteria
+	var o *SubscriptionTopicResourceTriggerQueryCriteria
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTriggerQueryCriteria:
-		o = other
+		o = &other
 	case *SubscriptionTopicResourceTriggerQueryCriteria:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6442,12 +6442,12 @@ func (r SubscriptionTopicEventTrigger) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Quantity")
 }
 func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicEventTrigger
+	var o *SubscriptionTopicEventTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicEventTrigger:
-		o = other
+		o = &other
 	case *SubscriptionTopicEventTrigger:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6458,12 +6458,12 @@ func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicEventTrigger
+	var o *SubscriptionTopicEventTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicEventTrigger:
-		o = other
+		o = &other
 	case *SubscriptionTopicEventTrigger:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6595,12 +6595,12 @@ func (r SubscriptionTopicCanFilterBy) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Quantity")
 }
 func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicCanFilterBy
+	var o *SubscriptionTopicCanFilterBy
 	switch other := other.(type) {
 	case SubscriptionTopicCanFilterBy:
-		o = other
+		o = &other
 	case *SubscriptionTopicCanFilterBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6611,12 +6611,12 @@ func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicCanFilterBy
+	var o *SubscriptionTopicCanFilterBy
 	switch other := other.(type) {
 	case SubscriptionTopicCanFilterBy:
-		o = other
+		o = &other
 	case *SubscriptionTopicCanFilterBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6752,12 +6752,12 @@ func (r SubscriptionTopicNotificationShape) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Quantity")
 }
 func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicNotificationShape
+	var o *SubscriptionTopicNotificationShape
 	switch other := other.(type) {
 	case SubscriptionTopicNotificationShape:
-		o = other
+		o = &other
 	case *SubscriptionTopicNotificationShape:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6768,12 +6768,12 @@ func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionTopicNotificationShape
+	var o *SubscriptionTopicNotificationShape
 	switch other := other.(type) {
 	case SubscriptionTopicNotificationShape:
-		o = other
+		o = &other
 	case *SubscriptionTopicNotificationShape:
-		o = *other
+		o = other
 	default:
 		return false
 	}

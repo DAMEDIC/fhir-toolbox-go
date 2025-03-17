@@ -829,12 +829,12 @@ func (r Meta) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Meta to Quantity")
 }
 func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Meta
+	var o *Meta
 	switch other := other.(type) {
 	case Meta:
-		o = other
+		o = &other
 	case *Meta:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -845,12 +845,12 @@ func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Meta
+	var o *Meta
 	switch other := other.(type) {
 	case Meta:
-		o = other
+		o = &other
 	case *Meta:
-		o = *other
+		o = other
 	default:
 		return false
 	}

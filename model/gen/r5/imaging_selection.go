@@ -4204,12 +4204,12 @@ func (r ImagingSelection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert ImagingSelection to Quantity")
 }
 func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelection
+	var o *ImagingSelection
 	switch other := other.(type) {
 	case ImagingSelection:
-		o = other
+		o = &other
 	case *ImagingSelection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4220,12 +4220,12 @@ func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelection
+	var o *ImagingSelection
 	switch other := other.(type) {
 	case ImagingSelection:
-		o = other
+		o = &other
 	case *ImagingSelection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4477,12 +4477,12 @@ func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ImagingSelectionPerformer to Quantity")
 }
 func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionPerformer
+	var o *ImagingSelectionPerformer
 	switch other := other.(type) {
 	case ImagingSelectionPerformer:
-		o = other
+		o = &other
 	case *ImagingSelectionPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4493,12 +4493,12 @@ func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionPerformer
+	var o *ImagingSelectionPerformer
 	switch other := other.(type) {
 	case ImagingSelectionPerformer:
-		o = other
+		o = &other
 	case *ImagingSelectionPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4628,12 +4628,12 @@ func (r ImagingSelectionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ImagingSelectionInstance to Quantity")
 }
 func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstance
+	var o *ImagingSelectionInstance
 	switch other := other.(type) {
 	case ImagingSelectionInstance:
-		o = other
+		o = &other
 	case *ImagingSelectionInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4644,12 +4644,12 @@ func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstance
+	var o *ImagingSelectionInstance
 	switch other := other.(type) {
 	case ImagingSelectionInstance:
-		o = other
+		o = &other
 	case *ImagingSelectionInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4787,12 +4787,12 @@ func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
 }
 func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstanceImageRegion2D
+	var o *ImagingSelectionInstanceImageRegion2D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion2D:
-		o = other
+		o = &other
 	case *ImagingSelectionInstanceImageRegion2D:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4803,12 +4803,12 @@ func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstanceImageRegion2D
+	var o *ImagingSelectionInstanceImageRegion2D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion2D:
-		o = other
+		o = &other
 	case *ImagingSelectionInstanceImageRegion2D:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4918,12 +4918,12 @@ func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
 }
 func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstanceImageRegion3D
+	var o *ImagingSelectionInstanceImageRegion3D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion3D:
-		o = other
+		o = &other
 	case *ImagingSelectionInstanceImageRegion3D:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4934,12 +4934,12 @@ func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingSelectionInstanceImageRegion3D
+	var o *ImagingSelectionInstanceImageRegion3D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion3D:
-		o = other
+		o = &other
 	case *ImagingSelectionInstanceImageRegion3D:
-		o = *other
+		o = other
 	default:
 		return false
 	}

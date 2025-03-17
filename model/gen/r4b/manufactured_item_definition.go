@@ -2007,12 +2007,12 @@ func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
 func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinition
+	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2023,12 +2023,12 @@ func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinition
+	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2208,12 +2208,12 @@ func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
 }
 func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionProperty
+	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2224,12 +2224,12 @@ func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionProperty
+	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}

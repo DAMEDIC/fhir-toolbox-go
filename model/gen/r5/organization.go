@@ -2091,12 +2091,12 @@ func (r Organization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Organization to Quantity")
 }
 func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Organization
+	var o *Organization
 	switch other := other.(type) {
 	case Organization:
-		o = other
+		o = &other
 	case *Organization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2107,12 +2107,12 @@ func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Organization
+	var o *Organization
 	switch other := other.(type) {
 	case Organization:
-		o = other
+		o = &other
 	case *Organization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2323,12 +2323,12 @@ func (r OrganizationQualification) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert OrganizationQualification to Quantity")
 }
 func (r OrganizationQualification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationQualification
+	var o *OrganizationQualification
 	switch other := other.(type) {
 	case OrganizationQualification:
-		o = other
+		o = &other
 	case *OrganizationQualification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2339,12 +2339,12 @@ func (r OrganizationQualification) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r OrganizationQualification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationQualification
+	var o *OrganizationQualification
 	switch other := other.(type) {
 	case OrganizationQualification:
-		o = other
+		o = &other
 	case *OrganizationQualification:
-		o = *other
+		o = other
 	default:
 		return false
 	}

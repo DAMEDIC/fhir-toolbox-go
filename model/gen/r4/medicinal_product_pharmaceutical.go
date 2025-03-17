@@ -3080,12 +3080,12 @@ func (r MedicinalProductPharmaceutical) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert MedicinalProductPharmaceutical to Quantity")
 }
 func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceutical
+	var o *MedicinalProductPharmaceutical
 	switch other := other.(type) {
 	case MedicinalProductPharmaceutical:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceutical:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3096,12 +3096,12 @@ func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r MedicinalProductPharmaceutical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceutical
+	var o *MedicinalProductPharmaceutical
 	switch other := other.(type) {
 	case MedicinalProductPharmaceutical:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceutical:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3281,12 +3281,12 @@ func (r MedicinalProductPharmaceuticalCharacteristics) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Quantity")
 }
 func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalCharacteristics
+	var o *MedicinalProductPharmaceuticalCharacteristics
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalCharacteristics:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalCharacteristics:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3297,12 +3297,12 @@ func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r MedicinalProductPharmaceuticalCharacteristics) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalCharacteristics
+	var o *MedicinalProductPharmaceuticalCharacteristics
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalCharacteristics:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalCharacteristics:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3437,12 +3437,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToQuantity(explicit
 	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Quantity")
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministration
+	var o *MedicinalProductPharmaceuticalRouteOfAdministration
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministration:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3453,12 +3453,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpat
 	return *eq
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministration
+	var o *MedicinalProductPharmaceuticalRouteOfAdministration
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministration:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3603,12 +3603,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToQuan
 	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Quantity")
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies
+	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3619,12 +3619,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(
 	return *eq
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies
+	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3737,12 +3737,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 	return nil, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3753,12 +3753,12 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 	return *eq
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod
+	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = other
+		o = &other
 	case *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = *other
+		o = other
 	default:
 		return false
 	}

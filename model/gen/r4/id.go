@@ -172,70 +172,38 @@ func (r Id) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Id to Quantity")
 }
 func (r Id) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Id
-	switch other := other.(type) {
-	case Id:
-		o = other
-	case *Id:
-		o = *other
-	default:
-		return false
-	}
 	a, err := r.ToString(false)
 	if err != nil {
 		return false
 	}
-	b, err := o.ToString(false)
+	b, err := other.ToString(false)
 	if err != nil {
 		return false
 	}
-	if a == nil && b != nil {
-		return false
-	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equal(b)
 }
 func (r Id) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Id
-	switch other := other.(type) {
-	case Id:
-		o = other
-	case *Id:
-		o = *other
-	default:
-		return false
-	}
 	a, err := r.ToString(false)
 	if err != nil {
 		return false
 	}
-	b, err := o.ToString(false)
+	b, err := other.ToString(false)
 	if err != nil {
 		return false
 	}
-	if a == nil && b != nil {
-		return false
-	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equivalent(b)
 }
 func (r Id) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

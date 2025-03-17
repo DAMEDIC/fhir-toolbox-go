@@ -433,12 +433,12 @@ func (r CodeableConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeableConcept to Quantity")
 }
 func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeableConcept
+	var o *CodeableConcept
 	switch other := other.(type) {
 	case CodeableConcept:
-		o = other
+		o = &other
 	case *CodeableConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -449,12 +449,12 @@ func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r CodeableConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeableConcept
+	var o *CodeableConcept
 	switch other := other.(type) {
 	case CodeableConcept:
-		o = other
+		o = &other
 	case *CodeableConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}

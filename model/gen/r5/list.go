@@ -2123,12 +2123,12 @@ func (r List) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert List to Quantity")
 }
 func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o List
+	var o *List
 	switch other := other.(type) {
 	case List:
-		o = other
+		o = &other
 	case *List:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2139,12 +2139,12 @@ func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r List) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o List
+	var o *List
 	switch other := other.(type) {
 	case List:
-		o = other
+		o = &other
 	case *List:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2376,12 +2376,12 @@ func (r ListEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ListEntry to Quantity")
 }
 func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ListEntry
+	var o *ListEntry
 	switch other := other.(type) {
 	case ListEntry:
-		o = other
+		o = &other
 	case *ListEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2392,12 +2392,12 @@ func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r ListEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ListEntry
+	var o *ListEntry
 	switch other := other.(type) {
 	case ListEntry:
-		o = other
+		o = &other
 	case *ListEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}

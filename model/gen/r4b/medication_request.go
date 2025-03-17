@@ -4733,12 +4733,12 @@ func (r MedicationRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert MedicationRequest to Quantity")
 }
 func (r MedicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequest
+	var o *MedicationRequest
 	switch other := other.(type) {
 	case MedicationRequest:
-		o = other
+		o = &other
 	case *MedicationRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4749,12 +4749,12 @@ func (r MedicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r MedicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequest
+	var o *MedicationRequest
 	switch other := other.(type) {
 	case MedicationRequest:
-		o = other
+		o = &other
 	case *MedicationRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5136,12 +5136,12 @@ func (r MedicationRequestDispenseRequest) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert MedicationRequestDispenseRequest to Quantity")
 }
 func (r MedicationRequestDispenseRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestDispenseRequest
+	var o *MedicationRequestDispenseRequest
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequest:
-		o = other
+		o = &other
 	case *MedicationRequestDispenseRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5152,12 +5152,12 @@ func (r MedicationRequestDispenseRequest) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r MedicationRequestDispenseRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestDispenseRequest
+	var o *MedicationRequestDispenseRequest
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequest:
-		o = other
+		o = &other
 	case *MedicationRequestDispenseRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5304,12 +5304,12 @@ func (r MedicationRequestDispenseRequestInitialFill) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert MedicationRequestDispenseRequestInitialFill to Quantity")
 }
 func (r MedicationRequestDispenseRequestInitialFill) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestDispenseRequestInitialFill
+	var o *MedicationRequestDispenseRequestInitialFill
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequestInitialFill:
-		o = other
+		o = &other
 	case *MedicationRequestDispenseRequestInitialFill:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5320,12 +5320,12 @@ func (r MedicationRequestDispenseRequestInitialFill) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r MedicationRequestDispenseRequestInitialFill) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestDispenseRequestInitialFill
+	var o *MedicationRequestDispenseRequestInitialFill
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequestInitialFill:
-		o = other
+		o = &other
 	case *MedicationRequestDispenseRequestInitialFill:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5435,12 +5435,12 @@ func (r MedicationRequestSubstitution) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert MedicationRequestSubstitution to Quantity")
 }
 func (r MedicationRequestSubstitution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestSubstitution
+	var o *MedicationRequestSubstitution
 	switch other := other.(type) {
 	case MedicationRequestSubstitution:
-		o = other
+		o = &other
 	case *MedicationRequestSubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5451,12 +5451,12 @@ func (r MedicationRequestSubstitution) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r MedicationRequestSubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationRequestSubstitution
+	var o *MedicationRequestSubstitution
 	switch other := other.(type) {
 	case MedicationRequestSubstitution:
-		o = other
+		o = &other
 	case *MedicationRequestSubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}

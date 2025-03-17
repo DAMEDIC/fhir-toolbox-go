@@ -5494,12 +5494,12 @@ func (r InventoryItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert InventoryItem to Quantity")
 }
 func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItem
+	var o *InventoryItem
 	switch other := other.(type) {
 	case InventoryItem:
-		o = other
+		o = &other
 	case *InventoryItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5510,12 +5510,12 @@ func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r InventoryItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItem
+	var o *InventoryItem
 	switch other := other.(type) {
 	case InventoryItem:
-		o = other
+		o = &other
 	case *InventoryItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5745,12 +5745,12 @@ func (r InventoryItemName) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert InventoryItemName to Quantity")
 }
 func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemName
+	var o *InventoryItemName
 	switch other := other.(type) {
 	case InventoryItemName:
-		o = other
+		o = &other
 	case *InventoryItemName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5761,12 +5761,12 @@ func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r InventoryItemName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemName
+	var o *InventoryItemName
 	switch other := other.(type) {
 	case InventoryItemName:
-		o = other
+		o = &other
 	case *InventoryItemName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5881,12 +5881,12 @@ func (r InventoryItemResponsibleOrganization) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Quantity")
 }
 func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemResponsibleOrganization
+	var o *InventoryItemResponsibleOrganization
 	switch other := other.(type) {
 	case InventoryItemResponsibleOrganization:
-		o = other
+		o = &other
 	case *InventoryItemResponsibleOrganization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5897,12 +5897,12 @@ func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemResponsibleOrganization
+	var o *InventoryItemResponsibleOrganization
 	switch other := other.(type) {
 	case InventoryItemResponsibleOrganization:
-		o = other
+		o = &other
 	case *InventoryItemResponsibleOrganization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6014,12 +6014,12 @@ func (r InventoryItemDescription) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert InventoryItemDescription to Quantity")
 }
 func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemDescription
+	var o *InventoryItemDescription
 	switch other := other.(type) {
 	case InventoryItemDescription:
-		o = other
+		o = &other
 	case *InventoryItemDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6030,12 +6030,12 @@ func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r InventoryItemDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemDescription
+	var o *InventoryItemDescription
 	switch other := other.(type) {
 	case InventoryItemDescription:
-		o = other
+		o = &other
 	case *InventoryItemDescription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6146,12 +6146,12 @@ func (r InventoryItemAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert InventoryItemAssociation to Quantity")
 }
 func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemAssociation
+	var o *InventoryItemAssociation
 	switch other := other.(type) {
 	case InventoryItemAssociation:
-		o = other
+		o = &other
 	case *InventoryItemAssociation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6162,12 +6162,12 @@ func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r InventoryItemAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemAssociation
+	var o *InventoryItemAssociation
 	switch other := other.(type) {
 	case InventoryItemAssociation:
-		o = other
+		o = &other
 	case *InventoryItemAssociation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6282,12 +6282,12 @@ func (r InventoryItemCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert InventoryItemCharacteristic to Quantity")
 }
 func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemCharacteristic
+	var o *InventoryItemCharacteristic
 	switch other := other.(type) {
 	case InventoryItemCharacteristic:
-		o = other
+		o = &other
 	case *InventoryItemCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6298,12 +6298,12 @@ func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemCharacteristic
+	var o *InventoryItemCharacteristic
 	switch other := other.(type) {
 	case InventoryItemCharacteristic:
-		o = other
+		o = &other
 	case *InventoryItemCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6430,12 +6430,12 @@ func (r InventoryItemInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert InventoryItemInstance to Quantity")
 }
 func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemInstance
+	var o *InventoryItemInstance
 	switch other := other.(type) {
 	case InventoryItemInstance:
-		o = other
+		o = &other
 	case *InventoryItemInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6446,12 +6446,12 @@ func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r InventoryItemInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InventoryItemInstance
+	var o *InventoryItemInstance
 	switch other := other.(type) {
 	case InventoryItemInstance:
-		o = other
+		o = &other
 	case *InventoryItemInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}

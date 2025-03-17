@@ -16559,12 +16559,12 @@ func (r Contract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Contract to Quantity")
 }
 func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Contract
+	var o *Contract
 	switch other := other.(type) {
 	case Contract:
-		o = other
+		o = &other
 	case *Contract:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16575,12 +16575,12 @@ func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Contract
+	var o *Contract
 	switch other := other.(type) {
 	case Contract:
-		o = other
+		o = &other
 	case *Contract:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16960,12 +16960,12 @@ func (r ContractContentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ContractContentDefinition to Quantity")
 }
 func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractContentDefinition
+	var o *ContractContentDefinition
 	switch other := other.(type) {
 	case ContractContentDefinition:
-		o = other
+		o = &other
 	case *ContractContentDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16976,12 +16976,12 @@ func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractContentDefinition
+	var o *ContractContentDefinition
 	switch other := other.(type) {
 	case ContractContentDefinition:
-		o = other
+		o = &other
 	case *ContractContentDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17169,12 +17169,12 @@ func (r ContractTerm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContractTerm to Quantity")
 }
 func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTerm
+	var o *ContractTerm
 	switch other := other.(type) {
 	case ContractTerm:
-		o = other
+		o = &other
 	case *ContractTerm:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17185,12 +17185,12 @@ func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTerm
+	var o *ContractTerm
 	switch other := other.(type) {
 	case ContractTerm:
-		o = other
+		o = &other
 	case *ContractTerm:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17380,12 +17380,12 @@ func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ContractTermSecurityLabel to Quantity")
 }
 func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermSecurityLabel
+	var o *ContractTermSecurityLabel
 	switch other := other.(type) {
 	case ContractTermSecurityLabel:
-		o = other
+		o = &other
 	case *ContractTermSecurityLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17396,12 +17396,12 @@ func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermSecurityLabel
+	var o *ContractTermSecurityLabel
 	switch other := other.(type) {
 	case ContractTermSecurityLabel:
-		o = other
+		o = &other
 	case *ContractTermSecurityLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17567,12 +17567,12 @@ func (r ContractTermOffer) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert ContractTermOffer to Quantity")
 }
 func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOffer
+	var o *ContractTermOffer
 	switch other := other.(type) {
 	case ContractTermOffer:
-		o = other
+		o = &other
 	case *ContractTermOffer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17583,12 +17583,12 @@ func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOffer
+	var o *ContractTermOffer
 	switch other := other.(type) {
 	case ContractTermOffer:
-		o = other
+		o = &other
 	case *ContractTermOffer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17754,12 +17754,12 @@ func (r ContractTermOfferParty) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ContractTermOfferParty to Quantity")
 }
 func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOfferParty
+	var o *ContractTermOfferParty
 	switch other := other.(type) {
 	case ContractTermOfferParty:
-		o = other
+		o = &other
 	case *ContractTermOfferParty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17770,12 +17770,12 @@ func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOfferParty
+	var o *ContractTermOfferParty
 	switch other := other.(type) {
 	case ContractTermOfferParty:
-		o = other
+		o = &other
 	case *ContractTermOfferParty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17880,12 +17880,12 @@ func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert ContractTermOfferAnswer to Quantity")
 }
 func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOfferAnswer
+	var o *ContractTermOfferAnswer
 	switch other := other.(type) {
 	case ContractTermOfferAnswer:
-		o = other
+		o = &other
 	case *ContractTermOfferAnswer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17896,12 +17896,12 @@ func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermOfferAnswer
+	var o *ContractTermOfferAnswer
 	switch other := other.(type) {
 	case ContractTermOfferAnswer:
-		o = other
+		o = &other
 	case *ContractTermOfferAnswer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18071,12 +18071,12 @@ func (r ContractTermAsset) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert ContractTermAsset to Quantity")
 }
 func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAsset
+	var o *ContractTermAsset
 	switch other := other.(type) {
 	case ContractTermAsset:
-		o = other
+		o = &other
 	case *ContractTermAsset:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18087,12 +18087,12 @@ func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAsset
+	var o *ContractTermAsset
 	switch other := other.(type) {
 	case ContractTermAsset:
-		o = other
+		o = &other
 	case *ContractTermAsset:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18300,12 +18300,12 @@ func (r ContractTermAssetContext) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ContractTermAssetContext to Quantity")
 }
 func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAssetContext
+	var o *ContractTermAssetContext
 	switch other := other.(type) {
 	case ContractTermAssetContext:
-		o = other
+		o = &other
 	case *ContractTermAssetContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18316,12 +18316,12 @@ func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAssetContext
+	var o *ContractTermAssetContext
 	switch other := other.(type) {
 	case ContractTermAssetContext:
-		o = other
+		o = &other
 	case *ContractTermAssetContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18500,12 +18500,12 @@ func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
 }
 func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAssetValuedItem
+	var o *ContractTermAssetValuedItem
 	switch other := other.(type) {
 	case ContractTermAssetValuedItem:
-		o = other
+		o = &other
 	case *ContractTermAssetValuedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18516,12 +18516,12 @@ func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAssetValuedItem
+	var o *ContractTermAssetValuedItem
 	switch other := other.(type) {
 	case ContractTermAssetValuedItem:
-		o = other
+		o = &other
 	case *ContractTermAssetValuedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18806,12 +18806,12 @@ func (r ContractTermAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ContractTermAction to Quantity")
 }
 func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAction
+	var o *ContractTermAction
 	switch other := other.(type) {
 	case ContractTermAction:
-		o = other
+		o = &other
 	case *ContractTermAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -18822,12 +18822,12 @@ func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermAction
+	var o *ContractTermAction
 	switch other := other.(type) {
 	case ContractTermAction:
-		o = other
+		o = &other
 	case *ContractTermAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19072,12 +19072,12 @@ func (r ContractTermActionSubject) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ContractTermActionSubject to Quantity")
 }
 func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermActionSubject
+	var o *ContractTermActionSubject
 	switch other := other.(type) {
 	case ContractTermActionSubject:
-		o = other
+		o = &other
 	case *ContractTermActionSubject:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19088,12 +19088,12 @@ func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractTermActionSubject
+	var o *ContractTermActionSubject
 	switch other := other.(type) {
 	case ContractTermActionSubject:
-		o = other
+		o = &other
 	case *ContractTermActionSubject:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19206,12 +19206,12 @@ func (r ContractSigner) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContractSigner to Quantity")
 }
 func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractSigner
+	var o *ContractSigner
 	switch other := other.(type) {
 	case ContractSigner:
-		o = other
+		o = &other
 	case *ContractSigner:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19222,12 +19222,12 @@ func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractSigner
+	var o *ContractSigner
 	switch other := other.(type) {
 	case ContractSigner:
-		o = other
+		o = &other
 	case *ContractSigner:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19339,12 +19339,12 @@ func (r ContractFriendly) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert ContractFriendly to Quantity")
 }
 func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractFriendly
+	var o *ContractFriendly
 	switch other := other.(type) {
 	case ContractFriendly:
-		o = other
+		o = &other
 	case *ContractFriendly:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19355,12 +19355,12 @@ func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractFriendly
+	var o *ContractFriendly
 	switch other := other.(type) {
 	case ContractFriendly:
-		o = other
+		o = &other
 	case *ContractFriendly:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19458,12 +19458,12 @@ func (r ContractLegal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContractLegal to Quantity")
 }
 func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractLegal
+	var o *ContractLegal
 	switch other := other.(type) {
 	case ContractLegal:
-		o = other
+		o = &other
 	case *ContractLegal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19474,12 +19474,12 @@ func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractLegal
+	var o *ContractLegal
 	switch other := other.(type) {
 	case ContractLegal:
-		o = other
+		o = &other
 	case *ContractLegal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19577,12 +19577,12 @@ func (r ContractRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContractRule to Quantity")
 }
 func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractRule
+	var o *ContractRule
 	switch other := other.(type) {
 	case ContractRule:
-		o = other
+		o = &other
 	case *ContractRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -19593,12 +19593,12 @@ func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContractRule
+	var o *ContractRule
 	switch other := other.(type) {
 	case ContractRule:
-		o = other
+		o = &other
 	case *ContractRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}

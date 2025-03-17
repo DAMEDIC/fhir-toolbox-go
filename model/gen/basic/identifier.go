@@ -420,12 +420,12 @@ func (r Identifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Identifier to Quantity")
 }
 func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Identifier
+	var o *Identifier
 	switch other := other.(type) {
 	case Identifier:
-		o = other
+		o = &other
 	case *Identifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -436,12 +436,12 @@ func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Identifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Identifier
+	var o *Identifier
 	switch other := other.(type) {
 	case Identifier:
-		o = other
+		o = &other
 	case *Identifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}

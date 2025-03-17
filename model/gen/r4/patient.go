@@ -3843,12 +3843,12 @@ func (r Patient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Patient to Quantity")
 }
 func (r Patient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Patient
+	var o *Patient
 	switch other := other.(type) {
 	case Patient:
-		o = other
+		o = &other
 	case *Patient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3859,12 +3859,12 @@ func (r Patient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Patient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Patient
+	var o *Patient
 	switch other := other.(type) {
 	case Patient:
-		o = other
+		o = &other
 	case *Patient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4134,12 +4134,12 @@ func (r PatientContact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PatientContact to Quantity")
 }
 func (r PatientContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientContact
+	var o *PatientContact
 	switch other := other.(type) {
 	case PatientContact:
-		o = other
+		o = &other
 	case *PatientContact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4150,12 +4150,12 @@ func (r PatientContact) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r PatientContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientContact
+	var o *PatientContact
 	switch other := other.(type) {
 	case PatientContact:
-		o = other
+		o = &other
 	case *PatientContact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4300,12 +4300,12 @@ func (r PatientCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert PatientCommunication to Quantity")
 }
 func (r PatientCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientCommunication
+	var o *PatientCommunication
 	switch other := other.(type) {
 	case PatientCommunication:
-		o = other
+		o = &other
 	case *PatientCommunication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4316,12 +4316,12 @@ func (r PatientCommunication) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r PatientCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientCommunication
+	var o *PatientCommunication
 	switch other := other.(type) {
 	case PatientCommunication:
-		o = other
+		o = &other
 	case *PatientCommunication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4429,12 +4429,12 @@ func (r PatientLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PatientLink to Quantity")
 }
 func (r PatientLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientLink
+	var o *PatientLink
 	switch other := other.(type) {
 	case PatientLink:
-		o = other
+		o = &other
 	case *PatientLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4445,12 +4445,12 @@ func (r PatientLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r PatientLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PatientLink
+	var o *PatientLink
 	switch other := other.(type) {
 	case PatientLink:
-		o = other
+		o = &other
 	case *PatientLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}

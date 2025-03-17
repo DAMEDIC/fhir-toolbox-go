@@ -4227,12 +4227,12 @@ func (r MessageDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert MessageDefinition to Quantity")
 }
 func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinition
+	var o *MessageDefinition
 	switch other := other.(type) {
 	case MessageDefinition:
-		o = other
+		o = &other
 	case *MessageDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4243,12 +4243,12 @@ func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r MessageDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinition
+	var o *MessageDefinition
 	switch other := other.(type) {
 	case MessageDefinition:
-		o = other
+		o = &other
 	case *MessageDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4569,12 +4569,12 @@ func (r MessageDefinitionFocus) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert MessageDefinitionFocus to Quantity")
 }
 func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinitionFocus
+	var o *MessageDefinitionFocus
 	switch other := other.(type) {
 	case MessageDefinitionFocus:
-		o = other
+		o = &other
 	case *MessageDefinitionFocus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4585,12 +4585,12 @@ func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r MessageDefinitionFocus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinitionFocus
+	var o *MessageDefinitionFocus
 	switch other := other.(type) {
 	case MessageDefinitionFocus:
-		o = other
+		o = &other
 	case *MessageDefinitionFocus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4714,12 +4714,12 @@ func (r MessageDefinitionAllowedResponse) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Quantity")
 }
 func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinitionAllowedResponse
+	var o *MessageDefinitionAllowedResponse
 	switch other := other.(type) {
 	case MessageDefinitionAllowedResponse:
-		o = other
+		o = &other
 	case *MessageDefinitionAllowedResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4730,12 +4730,12 @@ func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r MessageDefinitionAllowedResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageDefinitionAllowedResponse
+	var o *MessageDefinitionAllowedResponse
 	switch other := other.(type) {
 	case MessageDefinitionAllowedResponse:
-		o = other
+		o = &other
 	case *MessageDefinitionAllowedResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}

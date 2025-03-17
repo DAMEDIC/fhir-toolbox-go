@@ -1036,12 +1036,12 @@ func (r HumanName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert HumanName to Quantity")
 }
 func (r HumanName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HumanName
+	var o *HumanName
 	switch other := other.(type) {
 	case HumanName:
-		o = other
+		o = &other
 	case *HumanName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1052,12 +1052,12 @@ func (r HumanName) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r HumanName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o HumanName
+	var o *HumanName
 	switch other := other.(type) {
 	case HumanName:
-		o = other
+		o = &other
 	case *HumanName:
-		o = *other
+		o = other
 	default:
 		return false
 	}

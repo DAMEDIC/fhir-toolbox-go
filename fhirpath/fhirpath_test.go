@@ -13,11 +13,6 @@ import (
 
 // overrides for errors in the test xml
 var testOverrides = map[string]testdata.FHIRPathTest{
-	"testDateNotEqual": {
-		Output: []testdata.FHIRPathTestOutput{{
-			Type: "boolean", Output: "true",
-		}},
-	},
 	"testPrecedence3": {
 		Expression: testdata.FHIRPathTestExpression{
 			Expression: "(1 > 2) is Boolean",

@@ -3738,12 +3738,12 @@ func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
 func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinition
+	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3754,12 +3754,12 @@ func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinition
+	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3960,12 +3960,12 @@ func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
 }
 func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionProperty
+	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3976,12 +3976,12 @@ func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionProperty
+	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4111,12 +4111,12 @@ func (r ManufacturedItemDefinitionComponent) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert ManufacturedItemDefinitionComponent to Quantity")
 }
 func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionComponent
+	var o *ManufacturedItemDefinitionComponent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponent:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4127,12 +4127,12 @@ func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r ManufacturedItemDefinitionComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionComponent
+	var o *ManufacturedItemDefinitionComponent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponent:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4282,12 +4282,12 @@ func (r ManufacturedItemDefinitionComponentConstituent) ToQuantity(explicit bool
 	return nil, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Quantity")
 }
 func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionComponentConstituent
+	var o *ManufacturedItemDefinitionComponentConstituent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponentConstituent:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionComponentConstituent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4298,12 +4298,12 @@ func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Ele
 	return *eq
 }
 func (r ManufacturedItemDefinitionComponentConstituent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ManufacturedItemDefinitionComponentConstituent
+	var o *ManufacturedItemDefinitionComponentConstituent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponentConstituent:
-		o = other
+		o = &other
 	case *ManufacturedItemDefinitionComponentConstituent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

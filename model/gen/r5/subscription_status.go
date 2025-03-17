@@ -1818,12 +1818,12 @@ func (r SubscriptionStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert SubscriptionStatus to Quantity")
 }
 func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionStatus
+	var o *SubscriptionStatus
 	switch other := other.(type) {
 	case SubscriptionStatus:
-		o = other
+		o = &other
 	case *SubscriptionStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1834,12 +1834,12 @@ func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r SubscriptionStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionStatus
+	var o *SubscriptionStatus
 	switch other := other.(type) {
 	case SubscriptionStatus:
-		o = other
+		o = &other
 	case *SubscriptionStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2029,12 +2029,12 @@ func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
 }
 func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionStatusNotificationEvent
+	var o *SubscriptionStatusNotificationEvent
 	switch other := other.(type) {
 	case SubscriptionStatusNotificationEvent:
-		o = other
+		o = &other
 	case *SubscriptionStatusNotificationEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2045,12 +2045,12 @@ func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionStatusNotificationEvent
+	var o *SubscriptionStatusNotificationEvent
 	switch other := other.(type) {
 	case SubscriptionStatusNotificationEvent:
-		o = other
+		o = &other
 	case *SubscriptionStatusNotificationEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

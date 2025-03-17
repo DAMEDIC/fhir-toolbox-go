@@ -3593,12 +3593,12 @@ func (r SearchParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SearchParameter to Quantity")
 }
 func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SearchParameter
+	var o *SearchParameter
 	switch other := other.(type) {
 	case SearchParameter:
-		o = other
+		o = &other
 	case *SearchParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3609,12 +3609,12 @@ func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r SearchParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SearchParameter
+	var o *SearchParameter
 	switch other := other.(type) {
 	case SearchParameter:
-		o = other
+		o = &other
 	case *SearchParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3925,12 +3925,12 @@ func (r SearchParameterComponent) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert SearchParameterComponent to Quantity")
 }
 func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SearchParameterComponent
+	var o *SearchParameterComponent
 	switch other := other.(type) {
 	case SearchParameterComponent:
-		o = other
+		o = &other
 	case *SearchParameterComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3941,12 +3941,12 @@ func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r SearchParameterComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SearchParameterComponent
+	var o *SearchParameterComponent
 	switch other := other.(type) {
 	case SearchParameterComponent:
-		o = other
+		o = &other
 	case *SearchParameterComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

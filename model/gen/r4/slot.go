@@ -1529,12 +1529,12 @@ func (r Slot) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Slot to Quantity")
 }
 func (r Slot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Slot
+	var o *Slot
 	switch other := other.(type) {
 	case Slot:
-		o = other
+		o = &other
 	case *Slot:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1545,12 +1545,12 @@ func (r Slot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r Slot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Slot
+	var o *Slot
 	switch other := other.(type) {
 	case Slot:
-		o = other
+		o = &other
 	case *Slot:
-		o = *other
+		o = other
 	default:
 		return false
 	}

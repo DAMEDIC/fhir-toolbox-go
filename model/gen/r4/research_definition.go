@@ -3489,12 +3489,12 @@ func (r ResearchDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ResearchDefinition to Quantity")
 }
 func (r ResearchDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchDefinition
+	var o *ResearchDefinition
 	switch other := other.(type) {
 	case ResearchDefinition:
-		o = other
+		o = &other
 	case *ResearchDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3505,12 +3505,12 @@ func (r ResearchDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ResearchDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchDefinition
+	var o *ResearchDefinition
 	switch other := other.(type) {
 	case ResearchDefinition:
-		o = other
+		o = &other
 	case *ResearchDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

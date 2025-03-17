@@ -2646,12 +2646,12 @@ func (r Provenance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Provenance to Quantity")
 }
 func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Provenance
+	var o *Provenance
 	switch other := other.(type) {
 	case Provenance:
-		o = other
+		o = &other
 	case *Provenance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2662,12 +2662,12 @@ func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Provenance
+	var o *Provenance
 	switch other := other.(type) {
 	case Provenance:
-		o = other
+		o = &other
 	case *Provenance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2878,12 +2878,12 @@ func (r ProvenanceAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ProvenanceAgent to Quantity")
 }
 func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProvenanceAgent
+	var o *ProvenanceAgent
 	switch other := other.(type) {
 	case ProvenanceAgent:
-		o = other
+		o = &other
 	case *ProvenanceAgent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2894,12 +2894,12 @@ func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProvenanceAgent
+	var o *ProvenanceAgent
 	switch other := other.(type) {
 	case ProvenanceAgent:
-		o = other
+		o = &other
 	case *ProvenanceAgent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3026,12 +3026,12 @@ func (r ProvenanceEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert ProvenanceEntity to Quantity")
 }
 func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProvenanceEntity
+	var o *ProvenanceEntity
 	switch other := other.(type) {
 	case ProvenanceEntity:
-		o = other
+		o = &other
 	case *ProvenanceEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3042,12 +3042,12 @@ func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProvenanceEntity
+	var o *ProvenanceEntity
 	switch other := other.(type) {
 	case ProvenanceEntity:
-		o = other
+		o = &other
 	case *ProvenanceEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}

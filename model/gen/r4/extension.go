@@ -4535,12 +4535,12 @@ func (r Extension) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Extension to Quantity")
 }
 func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Extension
+	var o *Extension
 	switch other := other.(type) {
 	case Extension:
-		o = other
+		o = &other
 	case *Extension:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4551,12 +4551,12 @@ func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Extension) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Extension
+	var o *Extension
 	switch other := other.(type) {
 	case Extension:
-		o = other
+		o = &other
 	case *Extension:
-		o = *other
+		o = other
 	default:
 		return false
 	}

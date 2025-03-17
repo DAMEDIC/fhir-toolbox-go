@@ -2620,12 +2620,12 @@ func (r DetectedIssue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DetectedIssue to Quantity")
 }
 func (r DetectedIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssue
+	var o *DetectedIssue
 	switch other := other.(type) {
 	case DetectedIssue:
-		o = other
+		o = &other
 	case *DetectedIssue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2636,12 +2636,12 @@ func (r DetectedIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r DetectedIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssue
+	var o *DetectedIssue
 	switch other := other.(type) {
 	case DetectedIssue:
-		o = other
+		o = &other
 	case *DetectedIssue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2858,12 +2858,12 @@ func (r DetectedIssueEvidence) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert DetectedIssueEvidence to Quantity")
 }
 func (r DetectedIssueEvidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssueEvidence
+	var o *DetectedIssueEvidence
 	switch other := other.(type) {
 	case DetectedIssueEvidence:
-		o = other
+		o = &other
 	case *DetectedIssueEvidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2874,12 +2874,12 @@ func (r DetectedIssueEvidence) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r DetectedIssueEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssueEvidence
+	var o *DetectedIssueEvidence
 	switch other := other.(type) {
 	case DetectedIssueEvidence:
-		o = other
+		o = &other
 	case *DetectedIssueEvidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2994,12 +2994,12 @@ func (r DetectedIssueMitigation) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert DetectedIssueMitigation to Quantity")
 }
 func (r DetectedIssueMitigation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssueMitigation
+	var o *DetectedIssueMitigation
 	switch other := other.(type) {
 	case DetectedIssueMitigation:
-		o = other
+		o = &other
 	case *DetectedIssueMitigation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3010,12 +3010,12 @@ func (r DetectedIssueMitigation) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r DetectedIssueMitigation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DetectedIssueMitigation
+	var o *DetectedIssueMitigation
 	switch other := other.(type) {
 	case DetectedIssueMitigation:
-		o = other
+		o = &other
 	case *DetectedIssueMitigation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

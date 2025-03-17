@@ -450,12 +450,12 @@ func (r SampledData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SampledData to Quantity")
 }
 func (r SampledData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SampledData
+	var o *SampledData
 	switch other := other.(type) {
 	case SampledData:
-		o = other
+		o = &other
 	case *SampledData:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -466,12 +466,12 @@ func (r SampledData) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r SampledData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SampledData
+	var o *SampledData
 	switch other := other.(type) {
 	case SampledData:
-		o = other
+		o = &other
 	case *SampledData:
-		o = *other
+		o = other
 	default:
 		return false
 	}

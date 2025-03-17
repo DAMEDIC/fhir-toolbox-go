@@ -1805,12 +1805,12 @@ func (r MedicinalProductIndication) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert MedicinalProductIndication to Quantity")
 }
 func (r MedicinalProductIndication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIndication
+	var o *MedicinalProductIndication
 	switch other := other.(type) {
 	case MedicinalProductIndication:
-		o = other
+		o = &other
 	case *MedicinalProductIndication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1821,12 +1821,12 @@ func (r MedicinalProductIndication) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r MedicinalProductIndication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIndication
+	var o *MedicinalProductIndication
 	switch other := other.(type) {
 	case MedicinalProductIndication:
-		o = other
+		o = &other
 	case *MedicinalProductIndication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2018,12 +2018,12 @@ func (r MedicinalProductIndicationOtherTherapy) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert MedicinalProductIndicationOtherTherapy to Quantity")
 }
 func (r MedicinalProductIndicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIndicationOtherTherapy
+	var o *MedicinalProductIndicationOtherTherapy
 	switch other := other.(type) {
 	case MedicinalProductIndicationOtherTherapy:
-		o = other
+		o = &other
 	case *MedicinalProductIndicationOtherTherapy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2034,12 +2034,12 @@ func (r MedicinalProductIndicationOtherTherapy) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r MedicinalProductIndicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIndicationOtherTherapy
+	var o *MedicinalProductIndicationOtherTherapy
 	switch other := other.(type) {
 	case MedicinalProductIndicationOtherTherapy:
-		o = other
+		o = &other
 	case *MedicinalProductIndicationOtherTherapy:
-		o = *other
+		o = other
 	default:
 		return false
 	}

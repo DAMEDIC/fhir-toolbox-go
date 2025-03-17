@@ -12993,12 +12993,12 @@ func (r Transport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Transport to Quantity")
 }
 func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Transport
+	var o *Transport
 	switch other := other.(type) {
 	case Transport:
-		o = other
+		o = &other
 	case *Transport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13009,12 +13009,12 @@ func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Transport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Transport
+	var o *Transport
 	switch other := other.(type) {
 	case Transport:
-		o = other
+		o = &other
 	case *Transport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13376,12 +13376,12 @@ func (r TransportRestriction) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert TransportRestriction to Quantity")
 }
 func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportRestriction
+	var o *TransportRestriction
 	switch other := other.(type) {
 	case TransportRestriction:
-		o = other
+		o = &other
 	case *TransportRestriction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13392,12 +13392,12 @@ func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r TransportRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportRestriction
+	var o *TransportRestriction
 	switch other := other.(type) {
 	case TransportRestriction:
-		o = other
+		o = &other
 	case *TransportRestriction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13512,12 +13512,12 @@ func (r TransportInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TransportInput to Quantity")
 }
 func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportInput
+	var o *TransportInput
 	switch other := other.(type) {
 	case TransportInput:
-		o = other
+		o = &other
 	case *TransportInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13528,12 +13528,12 @@ func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r TransportInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportInput
+	var o *TransportInput
 	switch other := other.(type) {
 	case TransportInput:
-		o = other
+		o = &other
 	case *TransportInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13641,12 +13641,12 @@ func (r TransportOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TransportOutput to Quantity")
 }
 func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportOutput
+	var o *TransportOutput
 	switch other := other.(type) {
 	case TransportOutput:
-		o = other
+		o = &other
 	case *TransportOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13657,12 +13657,12 @@ func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r TransportOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TransportOutput
+	var o *TransportOutput
 	switch other := other.(type) {
 	case TransportOutput:
-		o = other
+		o = &other
 	case *TransportOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}

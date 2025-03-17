@@ -3804,12 +3804,12 @@ func (r Permission) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Permission to Quantity")
 }
 func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Permission
+	var o *Permission
 	switch other := other.(type) {
 	case Permission:
-		o = other
+		o = &other
 	case *Permission:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3820,12 +3820,12 @@ func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Permission
+	var o *Permission
 	switch other := other.(type) {
 	case Permission:
-		o = other
+		o = &other
 	case *Permission:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4007,12 +4007,12 @@ func (r PermissionJustification) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert PermissionJustification to Quantity")
 }
 func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionJustification
+	var o *PermissionJustification
 	switch other := other.(type) {
 	case PermissionJustification:
-		o = other
+		o = &other
 	case *PermissionJustification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4023,12 +4023,12 @@ func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionJustification
+	var o *PermissionJustification
 	switch other := other.(type) {
 	case PermissionJustification:
-		o = other
+		o = &other
 	case *PermissionJustification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4150,12 +4150,12 @@ func (r PermissionRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PermissionRule to Quantity")
 }
 func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRule
+	var o *PermissionRule
 	switch other := other.(type) {
 	case PermissionRule:
-		o = other
+		o = &other
 	case *PermissionRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4166,12 +4166,12 @@ func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRule
+	var o *PermissionRule
 	switch other := other.(type) {
 	case PermissionRule:
-		o = other
+		o = &other
 	case *PermissionRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4307,12 +4307,12 @@ func (r PermissionRuleData) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert PermissionRuleData to Quantity")
 }
 func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleData
+	var o *PermissionRuleData
 	switch other := other.(type) {
 	case PermissionRuleData:
-		o = other
+		o = &other
 	case *PermissionRuleData:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4323,12 +4323,12 @@ func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleData
+	var o *PermissionRuleData
 	switch other := other.(type) {
 	case PermissionRuleData:
-		o = other
+		o = &other
 	case *PermissionRuleData:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4450,12 +4450,12 @@ func (r PermissionRuleDataResource) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert PermissionRuleDataResource to Quantity")
 }
 func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleDataResource
+	var o *PermissionRuleDataResource
 	switch other := other.(type) {
 	case PermissionRuleDataResource:
-		o = other
+		o = &other
 	case *PermissionRuleDataResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4466,12 +4466,12 @@ func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleDataResource
+	var o *PermissionRuleDataResource
 	switch other := other.(type) {
 	case PermissionRuleDataResource:
-		o = other
+		o = &other
 	case *PermissionRuleDataResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4588,12 +4588,12 @@ func (r PermissionRuleActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert PermissionRuleActivity to Quantity")
 }
 func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleActivity
+	var o *PermissionRuleActivity
 	switch other := other.(type) {
 	case PermissionRuleActivity:
-		o = other
+		o = &other
 	case *PermissionRuleActivity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4604,12 +4604,12 @@ func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PermissionRuleActivity
+	var o *PermissionRuleActivity
 	switch other := other.(type) {
 	case PermissionRuleActivity:
-		o = other
+		o = &other
 	case *PermissionRuleActivity:
-		o = *other
+		o = other
 	default:
 		return false
 	}

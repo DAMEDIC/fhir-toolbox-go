@@ -1905,12 +1905,12 @@ func (r GuidanceResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert GuidanceResponse to Quantity")
 }
 func (r GuidanceResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GuidanceResponse
+	var o *GuidanceResponse
 	switch other := other.(type) {
 	case GuidanceResponse:
-		o = other
+		o = &other
 	case *GuidanceResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1921,12 +1921,12 @@ func (r GuidanceResponse) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r GuidanceResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GuidanceResponse
+	var o *GuidanceResponse
 	switch other := other.(type) {
 	case GuidanceResponse:
-		o = other
+		o = &other
 	case *GuidanceResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}

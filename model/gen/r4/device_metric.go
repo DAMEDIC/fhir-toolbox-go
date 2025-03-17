@@ -1886,12 +1886,12 @@ func (r DeviceMetric) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceMetric to Quantity")
 }
 func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceMetric
+	var o *DeviceMetric
 	switch other := other.(type) {
 	case DeviceMetric:
-		o = other
+		o = &other
 	case *DeviceMetric:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1902,12 +1902,12 @@ func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceMetric
+	var o *DeviceMetric
 	switch other := other.(type) {
 	case DeviceMetric:
-		o = other
+		o = &other
 	case *DeviceMetric:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2115,12 +2115,12 @@ func (r DeviceMetricCalibration) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert DeviceMetricCalibration to Quantity")
 }
 func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceMetricCalibration
+	var o *DeviceMetricCalibration
 	switch other := other.(type) {
 	case DeviceMetricCalibration:
-		o = other
+		o = &other
 	case *DeviceMetricCalibration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2131,12 +2131,12 @@ func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceMetricCalibration
+	var o *DeviceMetricCalibration
 	switch other := other.(type) {
 	case DeviceMetricCalibration:
-		o = other
+		o = &other
 	case *DeviceMetricCalibration:
-		o = *other
+		o = other
 	default:
 		return false
 	}

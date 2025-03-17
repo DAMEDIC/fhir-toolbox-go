@@ -2901,12 +2901,12 @@ func (r Evidence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Evidence to Quantity")
 }
 func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Evidence
+	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
-		o = other
+		o = &other
 	case *Evidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2917,12 +2917,12 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Evidence
+	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
-		o = other
+		o = &other
 	case *Evidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}

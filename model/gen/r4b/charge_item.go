@@ -3273,12 +3273,12 @@ func (r ChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ChargeItem to Quantity")
 }
 func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItem
+	var o *ChargeItem
 	switch other := other.(type) {
 	case ChargeItem:
-		o = other
+		o = &other
 	case *ChargeItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3289,12 +3289,12 @@ func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r ChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItem
+	var o *ChargeItem
 	switch other := other.(type) {
 	case ChargeItem:
-		o = other
+		o = &other
 	case *ChargeItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3607,12 +3607,12 @@ func (r ChargeItemPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert ChargeItemPerformer to Quantity")
 }
 func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemPerformer
+	var o *ChargeItemPerformer
 	switch other := other.(type) {
 	case ChargeItemPerformer:
-		o = other
+		o = &other
 	case *ChargeItemPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3623,12 +3623,12 @@ func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r ChargeItemPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemPerformer
+	var o *ChargeItemPerformer
 	switch other := other.(type) {
 	case ChargeItemPerformer:
-		o = other
+		o = &other
 	case *ChargeItemPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}

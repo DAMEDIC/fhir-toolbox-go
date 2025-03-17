@@ -5176,12 +5176,12 @@ func (r ConditionDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert ConditionDefinition to Quantity")
 }
 func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinition
+	var o *ConditionDefinition
 	switch other := other.(type) {
 	case ConditionDefinition:
-		o = other
+		o = &other
 	case *ConditionDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5192,12 +5192,12 @@ func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r ConditionDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinition
+	var o *ConditionDefinition
 	switch other := other.(type) {
 	case ConditionDefinition:
-		o = other
+		o = &other
 	case *ConditionDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5533,12 +5533,12 @@ func (r ConditionDefinitionObservation) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert ConditionDefinitionObservation to Quantity")
 }
 func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionObservation
+	var o *ConditionDefinitionObservation
 	switch other := other.(type) {
 	case ConditionDefinitionObservation:
-		o = other
+		o = &other
 	case *ConditionDefinitionObservation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5549,12 +5549,12 @@ func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionObservation
+	var o *ConditionDefinitionObservation
 	switch other := other.(type) {
 	case ConditionDefinitionObservation:
-		o = other
+		o = &other
 	case *ConditionDefinitionObservation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5666,12 +5666,12 @@ func (r ConditionDefinitionMedication) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ConditionDefinitionMedication to Quantity")
 }
 func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionMedication
+	var o *ConditionDefinitionMedication
 	switch other := other.(type) {
 	case ConditionDefinitionMedication:
-		o = other
+		o = &other
 	case *ConditionDefinitionMedication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5682,12 +5682,12 @@ func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionMedication
+	var o *ConditionDefinitionMedication
 	switch other := other.(type) {
 	case ConditionDefinitionMedication:
-		o = other
+		o = &other
 	case *ConditionDefinitionMedication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5800,12 +5800,12 @@ func (r ConditionDefinitionPrecondition) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert ConditionDefinitionPrecondition to Quantity")
 }
 func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionPrecondition
+	var o *ConditionDefinitionPrecondition
 	switch other := other.(type) {
 	case ConditionDefinitionPrecondition:
-		o = other
+		o = &other
 	case *ConditionDefinitionPrecondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5816,12 +5816,12 @@ func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionPrecondition
+	var o *ConditionDefinitionPrecondition
 	switch other := other.(type) {
 	case ConditionDefinitionPrecondition:
-		o = other
+		o = &other
 	case *ConditionDefinitionPrecondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5936,12 +5936,12 @@ func (r ConditionDefinitionQuestionnaire) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert ConditionDefinitionQuestionnaire to Quantity")
 }
 func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionQuestionnaire
+	var o *ConditionDefinitionQuestionnaire
 	switch other := other.(type) {
 	case ConditionDefinitionQuestionnaire:
-		o = other
+		o = &other
 	case *ConditionDefinitionQuestionnaire:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5952,12 +5952,12 @@ func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionQuestionnaire
+	var o *ConditionDefinitionQuestionnaire
 	switch other := other.(type) {
 	case ConditionDefinitionQuestionnaire:
-		o = other
+		o = &other
 	case *ConditionDefinitionQuestionnaire:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6067,12 +6067,12 @@ func (r ConditionDefinitionPlan) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert ConditionDefinitionPlan to Quantity")
 }
 func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionPlan
+	var o *ConditionDefinitionPlan
 	switch other := other.(type) {
 	case ConditionDefinitionPlan:
-		o = other
+		o = &other
 	case *ConditionDefinitionPlan:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6083,12 +6083,12 @@ func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionDefinitionPlan
+	var o *ConditionDefinitionPlan
 	switch other := other.(type) {
 	case ConditionDefinitionPlan:
-		o = other
+		o = &other
 	case *ConditionDefinitionPlan:
-		o = *other
+		o = other
 	default:
 		return false
 	}

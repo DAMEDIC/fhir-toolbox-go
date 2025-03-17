@@ -2667,12 +2667,12 @@ func (r SupplyRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SupplyRequest to Quantity")
 }
 func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyRequest
+	var o *SupplyRequest
 	switch other := other.(type) {
 	case SupplyRequest:
-		o = other
+		o = &other
 	case *SupplyRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2683,12 +2683,12 @@ func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r SupplyRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyRequest
+	var o *SupplyRequest
 	switch other := other.(type) {
 	case SupplyRequest:
-		o = other
+		o = &other
 	case *SupplyRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2926,12 +2926,12 @@ func (r SupplyRequestParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert SupplyRequestParameter to Quantity")
 }
 func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyRequestParameter
+	var o *SupplyRequestParameter
 	switch other := other.(type) {
 	case SupplyRequestParameter:
-		o = other
+		o = &other
 	case *SupplyRequestParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2942,12 +2942,12 @@ func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r SupplyRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyRequestParameter
+	var o *SupplyRequestParameter
 	switch other := other.(type) {
 	case SupplyRequestParameter:
-		o = other
+		o = &other
 	case *SupplyRequestParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -618,12 +618,12 @@ func (r TriggerDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert TriggerDefinition to Quantity")
 }
 func (r TriggerDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TriggerDefinition
+	var o *TriggerDefinition
 	switch other := other.(type) {
 	case TriggerDefinition:
-		o = other
+		o = &other
 	case *TriggerDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -634,12 +634,12 @@ func (r TriggerDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r TriggerDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TriggerDefinition
+	var o *TriggerDefinition
 	switch other := other.(type) {
 	case TriggerDefinition:
-		o = other
+		o = &other
 	case *TriggerDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

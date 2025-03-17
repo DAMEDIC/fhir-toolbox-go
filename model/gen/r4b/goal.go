@@ -3124,12 +3124,12 @@ func (r Goal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Goal to Quantity")
 }
 func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Goal
+	var o *Goal
 	switch other := other.(type) {
 	case Goal:
-		o = other
+		o = &other
 	case *Goal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3140,12 +3140,12 @@ func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r Goal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Goal
+	var o *Goal
 	switch other := other.(type) {
 	case Goal:
-		o = other
+		o = &other
 	case *Goal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3395,12 +3395,12 @@ func (r GoalTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GoalTarget to Quantity")
 }
 func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GoalTarget
+	var o *GoalTarget
 	switch other := other.(type) {
 	case GoalTarget:
-		o = other
+		o = &other
 	case *GoalTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3411,12 +3411,12 @@ func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r GoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GoalTarget
+	var o *GoalTarget
 	switch other := other.(type) {
 	case GoalTarget:
-		o = other
+		o = &other
 	case *GoalTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}

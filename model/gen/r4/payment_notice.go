@@ -1399,12 +1399,12 @@ func (r PaymentNotice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PaymentNotice to Quantity")
 }
 func (r PaymentNotice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PaymentNotice
+	var o *PaymentNotice
 	switch other := other.(type) {
 	case PaymentNotice:
-		o = other
+		o = &other
 	case *PaymentNotice:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1415,12 +1415,12 @@ func (r PaymentNotice) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r PaymentNotice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PaymentNotice
+	var o *PaymentNotice
 	switch other := other.(type) {
 	case PaymentNotice:
-		o = other
+		o = &other
 	case *PaymentNotice:
-		o = *other
+		o = other
 	default:
 		return false
 	}

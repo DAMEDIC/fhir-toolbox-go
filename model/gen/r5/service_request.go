@@ -5508,12 +5508,12 @@ func (r ServiceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ServiceRequest to Quantity")
 }
 func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequest
+	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
-		o = other
+		o = &other
 	case *ServiceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5524,12 +5524,12 @@ func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequest
+	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
-		o = other
+		o = &other
 	case *ServiceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5893,12 +5893,12 @@ func (r ServiceRequestOrderDetail) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ServiceRequestOrderDetail to Quantity")
 }
 func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestOrderDetail
+	var o *ServiceRequestOrderDetail
 	switch other := other.(type) {
 	case ServiceRequestOrderDetail:
-		o = other
+		o = &other
 	case *ServiceRequestOrderDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5909,12 +5909,12 @@ func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestOrderDetail
+	var o *ServiceRequestOrderDetail
 	switch other := other.(type) {
 	case ServiceRequestOrderDetail:
-		o = other
+		o = &other
 	case *ServiceRequestOrderDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6022,12 +6022,12 @@ func (r ServiceRequestOrderDetailParameter) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Quantity")
 }
 func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestOrderDetailParameter
+	var o *ServiceRequestOrderDetailParameter
 	switch other := other.(type) {
 	case ServiceRequestOrderDetailParameter:
-		o = other
+		o = &other
 	case *ServiceRequestOrderDetailParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6038,12 +6038,12 @@ func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestOrderDetailParameter
+	var o *ServiceRequestOrderDetailParameter
 	switch other := other.(type) {
 	case ServiceRequestOrderDetailParameter:
-		o = other
+		o = &other
 	case *ServiceRequestOrderDetailParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6150,12 +6150,12 @@ func (r ServiceRequestPatientInstruction) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Quantity")
 }
 func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestPatientInstruction
+	var o *ServiceRequestPatientInstruction
 	switch other := other.(type) {
 	case ServiceRequestPatientInstruction:
-		o = other
+		o = &other
 	case *ServiceRequestPatientInstruction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6166,12 +6166,12 @@ func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequestPatientInstruction
+	var o *ServiceRequestPatientInstruction
 	switch other := other.(type) {
 	case ServiceRequestPatientInstruction:
-		o = other
+		o = &other
 	case *ServiceRequestPatientInstruction:
-		o = *other
+		o = other
 	default:
 		return false
 	}

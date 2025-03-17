@@ -1817,12 +1817,12 @@ func (r DeviceUseStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert DeviceUseStatement to Quantity")
 }
 func (r DeviceUseStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUseStatement
+	var o *DeviceUseStatement
 	switch other := other.(type) {
 	case DeviceUseStatement:
-		o = other
+		o = &other
 	case *DeviceUseStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1833,12 +1833,12 @@ func (r DeviceUseStatement) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r DeviceUseStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUseStatement
+	var o *DeviceUseStatement
 	switch other := other.(type) {
 	case DeviceUseStatement:
-		o = other
+		o = &other
 	case *DeviceUseStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}

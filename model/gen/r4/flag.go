@@ -1202,12 +1202,12 @@ func (r Flag) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Flag to Quantity")
 }
 func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Flag
+	var o *Flag
 	switch other := other.(type) {
 	case Flag:
-		o = other
+		o = &other
 	case *Flag:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1218,12 +1218,12 @@ func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r Flag) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Flag
+	var o *Flag
 	switch other := other.(type) {
 	case Flag:
-		o = other
+		o = &other
 	case *Flag:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -3501,12 +3501,12 @@ func (r DeviceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceRequest to Quantity")
 }
 func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceRequest
+	var o *DeviceRequest
 	switch other := other.(type) {
 	case DeviceRequest:
-		o = other
+		o = &other
 	case *DeviceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3517,12 +3517,12 @@ func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r DeviceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceRequest
+	var o *DeviceRequest
 	switch other := other.(type) {
 	case DeviceRequest:
-		o = other
+		o = &other
 	case *DeviceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3823,12 +3823,12 @@ func (r DeviceRequestParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert DeviceRequestParameter to Quantity")
 }
 func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceRequestParameter
+	var o *DeviceRequestParameter
 	switch other := other.(type) {
 	case DeviceRequestParameter:
-		o = other
+		o = &other
 	case *DeviceRequestParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3839,12 +3839,12 @@ func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r DeviceRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceRequestParameter
+	var o *DeviceRequestParameter
 	switch other := other.(type) {
 	case DeviceRequestParameter:
-		o = other
+		o = &other
 	case *DeviceRequestParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}

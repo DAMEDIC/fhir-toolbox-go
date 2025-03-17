@@ -3656,12 +3656,12 @@ func (r VerificationResult) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert VerificationResult to Quantity")
 }
 func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResult
+	var o *VerificationResult
 	switch other := other.(type) {
 	case VerificationResult:
-		o = other
+		o = &other
 	case *VerificationResult:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3672,12 +3672,12 @@ func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResult
+	var o *VerificationResult
 	switch other := other.(type) {
 	case VerificationResult:
-		o = other
+		o = &other
 	case *VerificationResult:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3933,12 +3933,12 @@ func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert VerificationResultPrimarySource to Quantity")
 }
 func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultPrimarySource
+	var o *VerificationResultPrimarySource
 	switch other := other.(type) {
 	case VerificationResultPrimarySource:
-		o = other
+		o = &other
 	case *VerificationResultPrimarySource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3949,12 +3949,12 @@ func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultPrimarySource
+	var o *VerificationResultPrimarySource
 	switch other := other.(type) {
 	case VerificationResultPrimarySource:
-		o = other
+		o = &other
 	case *VerificationResultPrimarySource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4131,12 +4131,12 @@ func (r VerificationResultAttestation) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert VerificationResultAttestation to Quantity")
 }
 func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultAttestation
+	var o *VerificationResultAttestation
 	switch other := other.(type) {
 	case VerificationResultAttestation:
-		o = other
+		o = &other
 	case *VerificationResultAttestation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4147,12 +4147,12 @@ func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultAttestation
+	var o *VerificationResultAttestation
 	switch other := other.(type) {
 	case VerificationResultAttestation:
-		o = other
+		o = &other
 	case *VerificationResultAttestation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4309,12 +4309,12 @@ func (r VerificationResultValidator) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert VerificationResultValidator to Quantity")
 }
 func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultValidator
+	var o *VerificationResultValidator
 	switch other := other.(type) {
 	case VerificationResultValidator:
-		o = other
+		o = &other
 	case *VerificationResultValidator:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4325,12 +4325,12 @@ func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o VerificationResultValidator
+	var o *VerificationResultValidator
 	switch other := other.(type) {
 	case VerificationResultValidator:
-		o = other
+		o = &other
 	case *VerificationResultValidator:
-		o = *other
+		o = other
 	default:
 		return false
 	}

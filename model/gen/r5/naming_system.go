@@ -3928,12 +3928,12 @@ func (r NamingSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NamingSystem to Quantity")
 }
 func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NamingSystem
+	var o *NamingSystem
 	switch other := other.(type) {
 	case NamingSystem:
-		o = other
+		o = &other
 	case *NamingSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3944,12 +3944,12 @@ func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r NamingSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NamingSystem
+	var o *NamingSystem
 	switch other := other.(type) {
 	case NamingSystem:
-		o = other
+		o = &other
 	case *NamingSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4315,12 +4315,12 @@ func (r NamingSystemUniqueId) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert NamingSystemUniqueId to Quantity")
 }
 func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NamingSystemUniqueId
+	var o *NamingSystemUniqueId
 	switch other := other.(type) {
 	case NamingSystemUniqueId:
-		o = other
+		o = &other
 	case *NamingSystemUniqueId:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4331,12 +4331,12 @@ func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r NamingSystemUniqueId) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NamingSystemUniqueId
+	var o *NamingSystemUniqueId
 	switch other := other.(type) {
 	case NamingSystemUniqueId:
-		o = other
+		o = &other
 	case *NamingSystemUniqueId:
-		o = *other
+		o = other
 	default:
 		return false
 	}

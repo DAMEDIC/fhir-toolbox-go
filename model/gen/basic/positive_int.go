@@ -101,7 +101,12 @@ func (r PositiveInt) ToString(explicit bool) (*fhirpath.String, error) {
 	return nil, errors.New("can not convert PositiveInt to String")
 }
 func (r PositiveInt) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PositiveInt to Integer")
+	if r.Value != nil {
+		v := fhirpath.Integer(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r PositiveInt) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
 	return nil, errors.New("can not convert PositiveInt to Decimal")
@@ -119,58 +124,38 @@ func (r PositiveInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PositiveInt to Quantity")
 }
 func (r PositiveInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PositiveInt
-	switch other := other.(type) {
-	case PositiveInt:
-		o = other
-	case *PositiveInt:
-		o = *other
-	default:
+	a, err := r.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	b, err := other.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equal(b)
 }
 func (r PositiveInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PositiveInt
-	switch other := other.(type) {
-	case PositiveInt:
-		o = other
-	case *PositiveInt:
-		o = *other
-	default:
+	a, err := r.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	b, err := other.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equivalent(b)
 }
 func (r PositiveInt) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

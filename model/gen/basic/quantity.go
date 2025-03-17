@@ -454,12 +454,12 @@ func (r Quantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	}, nil
 }
 func (r Quantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Quantity
+	var o *Quantity
 	switch other := other.(type) {
 	case Quantity:
-		o = other
+		o = &other
 	case *Quantity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -470,12 +470,12 @@ func (r Quantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Quantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Quantity
+	var o *Quantity
 	switch other := other.(type) {
 	case Quantity:
-		o = other
+		o = &other
 	case *Quantity:
-		o = *other
+		o = other
 	default:
 		return false
 	}

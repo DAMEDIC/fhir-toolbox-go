@@ -521,12 +521,12 @@ func (r ParameterDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert ParameterDefinition to Quantity")
 }
 func (r ParameterDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ParameterDefinition
+	var o *ParameterDefinition
 	switch other := other.(type) {
 	case ParameterDefinition:
-		o = other
+		o = &other
 	case *ParameterDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -537,12 +537,12 @@ func (r ParameterDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r ParameterDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ParameterDefinition
+	var o *ParameterDefinition
 	switch other := other.(type) {
 	case ParameterDefinition:
-		o = other
+		o = &other
 	case *ParameterDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -1301,12 +1301,12 @@ func (r Attachment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Attachment to Quantity")
 }
 func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Attachment
+	var o *Attachment
 	switch other := other.(type) {
 	case Attachment:
-		o = other
+		o = &other
 	case *Attachment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1317,12 +1317,12 @@ func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Attachment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Attachment
+	var o *Attachment
 	switch other := other.(type) {
 	case Attachment:
-		o = other
+		o = &other
 	case *Attachment:
-		o = *other
+		o = other
 	default:
 		return false
 	}

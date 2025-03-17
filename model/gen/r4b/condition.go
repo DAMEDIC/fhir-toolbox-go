@@ -3467,12 +3467,12 @@ func (r Condition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Condition to Quantity")
 }
 func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Condition
+	var o *Condition
 	switch other := other.(type) {
 	case Condition:
-		o = other
+		o = &other
 	case *Condition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3483,12 +3483,12 @@ func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Condition
+	var o *Condition
 	switch other := other.(type) {
 	case Condition:
-		o = other
+		o = &other
 	case *Condition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3745,12 +3745,12 @@ func (r ConditionStage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ConditionStage to Quantity")
 }
 func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionStage
+	var o *ConditionStage
 	switch other := other.(type) {
 	case ConditionStage:
-		o = other
+		o = &other
 	case *ConditionStage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3761,12 +3761,12 @@ func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionStage
+	var o *ConditionStage
 	switch other := other.(type) {
 	case ConditionStage:
-		o = other
+		o = &other
 	case *ConditionStage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3885,12 +3885,12 @@ func (r ConditionEvidence) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert ConditionEvidence to Quantity")
 }
 func (r ConditionEvidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionEvidence
+	var o *ConditionEvidence
 	switch other := other.(type) {
 	case ConditionEvidence:
-		o = other
+		o = &other
 	case *ConditionEvidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3901,12 +3901,12 @@ func (r ConditionEvidence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r ConditionEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ConditionEvidence
+	var o *ConditionEvidence
 	switch other := other.(type) {
 	case ConditionEvidence:
-		o = other
+		o = &other
 	case *ConditionEvidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}

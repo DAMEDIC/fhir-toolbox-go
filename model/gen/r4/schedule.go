@@ -1363,12 +1363,12 @@ func (r Schedule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Schedule to Quantity")
 }
 func (r Schedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Schedule
+	var o *Schedule
 	switch other := other.(type) {
 	case Schedule:
-		o = other
+		o = &other
 	case *Schedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1379,12 +1379,12 @@ func (r Schedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Schedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Schedule
+	var o *Schedule
 	switch other := other.(type) {
 	case Schedule:
-		o = other
+		o = &other
 	case *Schedule:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -623,12 +623,12 @@ func (r Annotation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Annotation to Quantity")
 }
 func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Annotation
+	var o *Annotation
 	switch other := other.(type) {
 	case Annotation:
-		o = other
+		o = &other
 	case *Annotation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -639,12 +639,12 @@ func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Annotation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Annotation
+	var o *Annotation
 	switch other := other.(type) {
 	case Annotation:
-		o = other
+		o = &other
 	case *Annotation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

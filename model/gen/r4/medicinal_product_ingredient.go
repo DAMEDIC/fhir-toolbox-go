@@ -3263,12 +3263,12 @@ func (r MedicinalProductIngredient) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert MedicinalProductIngredient to Quantity")
 }
 func (r MedicinalProductIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredient
+	var o *MedicinalProductIngredient
 	switch other := other.(type) {
 	case MedicinalProductIngredient:
-		o = other
+		o = &other
 	case *MedicinalProductIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3279,12 +3279,12 @@ func (r MedicinalProductIngredient) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r MedicinalProductIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredient
+	var o *MedicinalProductIngredient
 	switch other := other.(type) {
 	case MedicinalProductIngredient:
-		o = other
+		o = &other
 	case *MedicinalProductIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3465,12 +3465,12 @@ func (r MedicinalProductIngredientSpecifiedSubstance) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert MedicinalProductIngredientSpecifiedSubstance to Quantity")
 }
 func (r MedicinalProductIngredientSpecifiedSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstance
+	var o *MedicinalProductIngredientSpecifiedSubstance
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstance:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3481,12 +3481,12 @@ func (r MedicinalProductIngredientSpecifiedSubstance) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r MedicinalProductIngredientSpecifiedSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstance
+	var o *MedicinalProductIngredientSpecifiedSubstance
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstance:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3635,12 +3635,12 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrength) ToQuantity(explici
 	return nil, errors.New("can not convert MedicinalProductIngredientSpecifiedSubstanceStrength to Quantity")
 }
 func (r MedicinalProductIngredientSpecifiedSubstanceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstanceStrength
+	var o *MedicinalProductIngredientSpecifiedSubstanceStrength
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstanceStrength:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstanceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3651,12 +3651,12 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrength) Equal(other fhirpa
 	return *eq
 }
 func (r MedicinalProductIngredientSpecifiedSubstanceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstanceStrength
+	var o *MedicinalProductIngredientSpecifiedSubstanceStrength
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstanceStrength:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstanceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3816,12 +3816,12 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) T
 	return nil, errors.New("can not convert MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength to Quantity")
 }
 func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength
+	var o *MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3832,12 +3832,12 @@ func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) E
 	return *eq
 }
 func (r MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength
+	var o *MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength
 	switch other := other.(type) {
 	case MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3968,12 +3968,12 @@ func (r MedicinalProductIngredientSubstance) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert MedicinalProductIngredientSubstance to Quantity")
 }
 func (r MedicinalProductIngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSubstance
+	var o *MedicinalProductIngredientSubstance
 	switch other := other.(type) {
 	case MedicinalProductIngredientSubstance:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3984,12 +3984,12 @@ func (r MedicinalProductIngredientSubstance) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r MedicinalProductIngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductIngredientSubstance
+	var o *MedicinalProductIngredientSubstance
 	switch other := other.(type) {
 	case MedicinalProductIngredientSubstance:
-		o = other
+		o = &other
 	case *MedicinalProductIngredientSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}

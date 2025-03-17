@@ -2304,12 +2304,12 @@ func (r Media) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Media to Quantity")
 }
 func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Media
+	var o *Media
 	switch other := other.(type) {
 	case Media:
-		o = other
+		o = &other
 	case *Media:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2320,12 +2320,12 @@ func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	return *eq
 }
 func (r Media) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Media
+	var o *Media
 	switch other := other.(type) {
 	case Media:
-		o = other
+		o = &other
 	case *Media:
-		o = *other
+		o = other
 	default:
 		return false
 	}

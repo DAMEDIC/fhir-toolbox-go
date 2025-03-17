@@ -4615,12 +4615,12 @@ func (r StructureDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert StructureDefinition to Quantity")
 }
 func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinition
+	var o *StructureDefinition
 	switch other := other.(type) {
 	case StructureDefinition:
-		o = other
+		o = &other
 	case *StructureDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4631,12 +4631,12 @@ func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinition
+	var o *StructureDefinition
 	switch other := other.(type) {
 	case StructureDefinition:
-		o = other
+		o = &other
 	case *StructureDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4966,12 +4966,12 @@ func (r StructureDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert StructureDefinitionMapping to Quantity")
 }
 func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionMapping
+	var o *StructureDefinitionMapping
 	switch other := other.(type) {
 	case StructureDefinitionMapping:
-		o = other
+		o = &other
 	case *StructureDefinitionMapping:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4982,12 +4982,12 @@ func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionMapping
+	var o *StructureDefinitionMapping
 	switch other := other.(type) {
 	case StructureDefinitionMapping:
-		o = other
+		o = &other
 	case *StructureDefinitionMapping:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5109,12 +5109,12 @@ func (r StructureDefinitionContext) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert StructureDefinitionContext to Quantity")
 }
 func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionContext
+	var o *StructureDefinitionContext
 	switch other := other.(type) {
 	case StructureDefinitionContext:
-		o = other
+		o = &other
 	case *StructureDefinitionContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5125,12 +5125,12 @@ func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionContext
+	var o *StructureDefinitionContext
 	switch other := other.(type) {
 	case StructureDefinitionContext:
-		o = other
+		o = &other
 	case *StructureDefinitionContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5237,12 +5237,12 @@ func (r StructureDefinitionSnapshot) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert StructureDefinitionSnapshot to Quantity")
 }
 func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionSnapshot
+	var o *StructureDefinitionSnapshot
 	switch other := other.(type) {
 	case StructureDefinitionSnapshot:
-		o = other
+		o = &other
 	case *StructureDefinitionSnapshot:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5253,12 +5253,12 @@ func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionSnapshot
+	var o *StructureDefinitionSnapshot
 	switch other := other.(type) {
 	case StructureDefinitionSnapshot:
-		o = other
+		o = &other
 	case *StructureDefinitionSnapshot:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5358,12 +5358,12 @@ func (r StructureDefinitionDifferential) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert StructureDefinitionDifferential to Quantity")
 }
 func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionDifferential
+	var o *StructureDefinitionDifferential
 	switch other := other.(type) {
 	case StructureDefinitionDifferential:
-		o = other
+		o = &other
 	case *StructureDefinitionDifferential:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5374,12 +5374,12 @@ func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureDefinitionDifferential
+	var o *StructureDefinitionDifferential
 	switch other := other.(type) {
 	case StructureDefinitionDifferential:
-		o = other
+		o = &other
 	case *StructureDefinitionDifferential:
-		o = *other
+		o = other
 	default:
 		return false
 	}

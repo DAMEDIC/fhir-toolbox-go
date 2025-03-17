@@ -1912,12 +1912,12 @@ func (r SubstanceProtein) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert SubstanceProtein to Quantity")
 }
 func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceProtein
+	var o *SubstanceProtein
 	switch other := other.(type) {
 	case SubstanceProtein:
-		o = other
+		o = &other
 	case *SubstanceProtein:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1928,12 +1928,12 @@ func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceProtein
+	var o *SubstanceProtein
 	switch other := other.(type) {
 	case SubstanceProtein:
-		o = other
+		o = &other
 	case *SubstanceProtein:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2124,12 +2124,12 @@ func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert SubstanceProteinSubunit to Quantity")
 }
 func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceProteinSubunit
+	var o *SubstanceProteinSubunit
 	switch other := other.(type) {
 	case SubstanceProteinSubunit:
-		o = other
+		o = &other
 	case *SubstanceProteinSubunit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2140,12 +2140,12 @@ func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceProteinSubunit
+	var o *SubstanceProteinSubunit
 	switch other := other.(type) {
 	case SubstanceProteinSubunit:
-		o = other
+		o = &other
 	case *SubstanceProteinSubunit:
-		o = *other
+		o = other
 	default:
 		return false
 	}

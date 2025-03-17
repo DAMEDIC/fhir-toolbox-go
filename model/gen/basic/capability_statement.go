@@ -6913,12 +6913,12 @@ func (r CapabilityStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert CapabilityStatement to Quantity")
 }
 func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatement
+	var o *CapabilityStatement
 	switch other := other.(type) {
 	case CapabilityStatement:
-		o = other
+		o = &other
 	case *CapabilityStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6929,12 +6929,12 @@ func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatement
+	var o *CapabilityStatement
 	switch other := other.(type) {
 	case CapabilityStatement:
-		o = other
+		o = &other
 	case *CapabilityStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7252,12 +7252,12 @@ func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert CapabilityStatementSoftware to Quantity")
 }
 func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementSoftware
+	var o *CapabilityStatementSoftware
 	switch other := other.(type) {
 	case CapabilityStatementSoftware:
-		o = other
+		o = &other
 	case *CapabilityStatementSoftware:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7268,12 +7268,12 @@ func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementSoftware
+	var o *CapabilityStatementSoftware
 	switch other := other.(type) {
 	case CapabilityStatementSoftware:
-		o = other
+		o = &other
 	case *CapabilityStatementSoftware:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7395,12 +7395,12 @@ func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert CapabilityStatementImplementation to Quantity")
 }
 func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementImplementation
+	var o *CapabilityStatementImplementation
 	switch other := other.(type) {
 	case CapabilityStatementImplementation:
-		o = other
+		o = &other
 	case *CapabilityStatementImplementation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7411,12 +7411,12 @@ func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementImplementation
+	var o *CapabilityStatementImplementation
 	switch other := other.(type) {
 	case CapabilityStatementImplementation:
-		o = other
+		o = &other
 	case *CapabilityStatementImplementation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7563,12 +7563,12 @@ func (r CapabilityStatementRest) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert CapabilityStatementRest to Quantity")
 }
 func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRest
+	var o *CapabilityStatementRest
 	switch other := other.(type) {
 	case CapabilityStatementRest:
-		o = other
+		o = &other
 	case *CapabilityStatementRest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7579,12 +7579,12 @@ func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRest
+	var o *CapabilityStatementRest
 	switch other := other.(type) {
 	case CapabilityStatementRest:
-		o = other
+		o = &other
 	case *CapabilityStatementRest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7743,12 +7743,12 @@ func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
 }
 func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestSecurity
+	var o *CapabilityStatementRestSecurity
 	switch other := other.(type) {
 	case CapabilityStatementRestSecurity:
-		o = other
+		o = &other
 	case *CapabilityStatementRestSecurity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7759,12 +7759,12 @@ func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestSecurity
+	var o *CapabilityStatementRestSecurity
 	switch other := other.(type) {
 	case CapabilityStatementRestSecurity:
-		o = other
+		o = &other
 	case *CapabilityStatementRestSecurity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7956,12 +7956,12 @@ func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert CapabilityStatementRestResource to Quantity")
 }
 func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResource
+	var o *CapabilityStatementRestResource
 	switch other := other.(type) {
 	case CapabilityStatementRestResource:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7972,12 +7972,12 @@ func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResource
+	var o *CapabilityStatementRestResource
 	switch other := other.(type) {
 	case CapabilityStatementRestResource:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8192,12 +8192,12 @@ func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
 }
 func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceInteraction
+	var o *CapabilityStatementRestResourceInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceInteraction:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8208,12 +8208,12 @@ func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element
 	return *eq
 }
 func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceInteraction
+	var o *CapabilityStatementRestResourceInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceInteraction:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8331,12 +8331,12 @@ func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
 }
 func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceSearchParam
+	var o *CapabilityStatementRestResourceSearchParam
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceSearchParam:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceSearchParam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8347,12 +8347,12 @@ func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element
 	return *eq
 }
 func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceSearchParam
+	var o *CapabilityStatementRestResourceSearchParam
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceSearchParam:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceSearchParam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8479,12 +8479,12 @@ func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
 }
 func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceOperation
+	var o *CapabilityStatementRestResourceOperation
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceOperation:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8495,12 +8495,12 @@ func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestResourceOperation
+	var o *CapabilityStatementRestResourceOperation
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceOperation:
-		o = other
+		o = &other
 	case *CapabilityStatementRestResourceOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8617,12 +8617,12 @@ func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
 }
 func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestInteraction
+	var o *CapabilityStatementRestInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestInteraction:
-		o = other
+		o = &other
 	case *CapabilityStatementRestInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8633,12 +8633,12 @@ func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementRestInteraction
+	var o *CapabilityStatementRestInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestInteraction:
-		o = other
+		o = &other
 	case *CapabilityStatementRestInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8760,12 +8760,12 @@ func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert CapabilityStatementMessaging to Quantity")
 }
 func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessaging
+	var o *CapabilityStatementMessaging
 	switch other := other.(type) {
 	case CapabilityStatementMessaging:
-		o = other
+		o = &other
 	case *CapabilityStatementMessaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8776,12 +8776,12 @@ func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessaging
+	var o *CapabilityStatementMessaging
 	switch other := other.(type) {
 	case CapabilityStatementMessaging:
-		o = other
+		o = &other
 	case *CapabilityStatementMessaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8903,12 +8903,12 @@ func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
 }
 func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessagingEndpoint
+	var o *CapabilityStatementMessagingEndpoint
 	switch other := other.(type) {
 	case CapabilityStatementMessagingEndpoint:
-		o = other
+		o = &other
 	case *CapabilityStatementMessagingEndpoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8919,12 +8919,12 @@ func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessagingEndpoint
+	var o *CapabilityStatementMessagingEndpoint
 	switch other := other.(type) {
 	case CapabilityStatementMessagingEndpoint:
-		o = other
+		o = &other
 	case *CapabilityStatementMessagingEndpoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9032,12 +9032,12 @@ func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
 }
 func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessagingSupportedMessage
+	var o *CapabilityStatementMessagingSupportedMessage
 	switch other := other.(type) {
 	case CapabilityStatementMessagingSupportedMessage:
-		o = other
+		o = &other
 	case *CapabilityStatementMessagingSupportedMessage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9048,12 +9048,12 @@ func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementMessagingSupportedMessage
+	var o *CapabilityStatementMessagingSupportedMessage
 	switch other := other.(type) {
 	case CapabilityStatementMessagingSupportedMessage:
-		o = other
+		o = &other
 	case *CapabilityStatementMessagingSupportedMessage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9166,12 +9166,12 @@ func (r CapabilityStatementDocument) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert CapabilityStatementDocument to Quantity")
 }
 func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementDocument
+	var o *CapabilityStatementDocument
 	switch other := other.(type) {
 	case CapabilityStatementDocument:
-		o = other
+		o = &other
 	case *CapabilityStatementDocument:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9182,12 +9182,12 @@ func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CapabilityStatementDocument
+	var o *CapabilityStatementDocument
 	switch other := other.(type) {
 	case CapabilityStatementDocument:
-		o = other
+		o = &other
 	case *CapabilityStatementDocument:
-		o = *other
+		o = other
 	default:
 		return false
 	}

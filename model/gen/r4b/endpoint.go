@@ -1666,12 +1666,12 @@ func (r Endpoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Endpoint to Quantity")
 }
 func (r Endpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Endpoint
+	var o *Endpoint
 	switch other := other.(type) {
 	case Endpoint:
-		o = other
+		o = &other
 	case *Endpoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1682,12 +1682,12 @@ func (r Endpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Endpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Endpoint
+	var o *Endpoint
 	switch other := other.(type) {
 	case Endpoint:
-		o = other
+		o = &other
 	case *Endpoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}

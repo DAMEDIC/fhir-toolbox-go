@@ -13484,12 +13484,12 @@ func (r Task) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Task to Quantity")
 }
 func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Task
+	var o *Task
 	switch other := other.(type) {
 	case Task:
-		o = other
+		o = &other
 	case *Task:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13500,12 +13500,12 @@ func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	return *eq
 }
 func (r Task) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Task
+	var o *Task
 	switch other := other.(type) {
 	case Task:
-		o = other
+		o = &other
 	case *Task:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13867,12 +13867,12 @@ func (r TaskPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TaskPerformer to Quantity")
 }
 func (r TaskPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskPerformer
+	var o *TaskPerformer
 	switch other := other.(type) {
 	case TaskPerformer:
-		o = other
+		o = &other
 	case *TaskPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13883,12 +13883,12 @@ func (r TaskPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r TaskPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskPerformer
+	var o *TaskPerformer
 	switch other := other.(type) {
 	case TaskPerformer:
-		o = other
+		o = &other
 	case *TaskPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14005,12 +14005,12 @@ func (r TaskRestriction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TaskRestriction to Quantity")
 }
 func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskRestriction
+	var o *TaskRestriction
 	switch other := other.(type) {
 	case TaskRestriction:
-		o = other
+		o = &other
 	case *TaskRestriction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14021,12 +14021,12 @@ func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r TaskRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskRestriction
+	var o *TaskRestriction
 	switch other := other.(type) {
 	case TaskRestriction:
-		o = other
+		o = &other
 	case *TaskRestriction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14141,12 +14141,12 @@ func (r TaskInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TaskInput to Quantity")
 }
 func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskInput
+	var o *TaskInput
 	switch other := other.(type) {
 	case TaskInput:
-		o = other
+		o = &other
 	case *TaskInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14157,12 +14157,12 @@ func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r TaskInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskInput
+	var o *TaskInput
 	switch other := other.(type) {
 	case TaskInput:
-		o = other
+		o = &other
 	case *TaskInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14270,12 +14270,12 @@ func (r TaskOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TaskOutput to Quantity")
 }
 func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskOutput
+	var o *TaskOutput
 	switch other := other.(type) {
 	case TaskOutput:
-		o = other
+		o = &other
 	case *TaskOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14286,12 +14286,12 @@ func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r TaskOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TaskOutput
+	var o *TaskOutput
 	switch other := other.(type) {
 	case TaskOutput:
-		o = other
+		o = &other
 	case *TaskOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}

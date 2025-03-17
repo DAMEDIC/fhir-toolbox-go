@@ -635,12 +635,12 @@ func (r ContactPoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ContactPoint to Quantity")
 }
 func (r ContactPoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContactPoint
+	var o *ContactPoint
 	switch other := other.(type) {
 	case ContactPoint:
-		o = other
+		o = &other
 	case *ContactPoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -651,12 +651,12 @@ func (r ContactPoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r ContactPoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ContactPoint
+	var o *ContactPoint
 	switch other := other.(type) {
 	case ContactPoint:
-		o = other
+		o = &other
 	case *ContactPoint:
-		o = *other
+		o = other
 	default:
 		return false
 	}

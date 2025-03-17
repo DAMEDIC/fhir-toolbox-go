@@ -1979,12 +1979,12 @@ func (r DocumentManifest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert DocumentManifest to Quantity")
 }
 func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentManifest
+	var o *DocumentManifest
 	switch other := other.(type) {
 	case DocumentManifest:
-		o = other
+		o = &other
 	case *DocumentManifest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1995,12 +1995,12 @@ func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentManifest
+	var o *DocumentManifest
 	switch other := other.(type) {
 	case DocumentManifest:
-		o = other
+		o = &other
 	case *DocumentManifest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2217,12 +2217,12 @@ func (r DocumentManifestRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert DocumentManifestRelated to Quantity")
 }
 func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentManifestRelated
+	var o *DocumentManifestRelated
 	switch other := other.(type) {
 	case DocumentManifestRelated:
-		o = other
+		o = &other
 	case *DocumentManifestRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2233,12 +2233,12 @@ func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentManifestRelated
+	var o *DocumentManifestRelated
 	switch other := other.(type) {
 	case DocumentManifestRelated:
-		o = other
+		o = &other
 	case *DocumentManifestRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}

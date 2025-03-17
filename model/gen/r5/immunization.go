@@ -4597,12 +4597,12 @@ func (r Immunization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Immunization to Quantity")
 }
 func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Immunization
+	var o *Immunization
 	switch other := other.(type) {
 	case Immunization:
-		o = other
+		o = &other
 	case *Immunization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4613,12 +4613,12 @@ func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Immunization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Immunization
+	var o *Immunization
 	switch other := other.(type) {
 	case Immunization:
-		o = other
+		o = &other
 	case *Immunization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4945,12 +4945,12 @@ func (r ImmunizationPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert ImmunizationPerformer to Quantity")
 }
 func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationPerformer
+	var o *ImmunizationPerformer
 	switch other := other.(type) {
 	case ImmunizationPerformer:
-		o = other
+		o = &other
 	case *ImmunizationPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4961,12 +4961,12 @@ func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r ImmunizationPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationPerformer
+	var o *ImmunizationPerformer
 	switch other := other.(type) {
 	case ImmunizationPerformer:
-		o = other
+		o = &other
 	case *ImmunizationPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5074,12 +5074,12 @@ func (r ImmunizationProgramEligibility) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert ImmunizationProgramEligibility to Quantity")
 }
 func (r ImmunizationProgramEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationProgramEligibility
+	var o *ImmunizationProgramEligibility
 	switch other := other.(type) {
 	case ImmunizationProgramEligibility:
-		o = other
+		o = &other
 	case *ImmunizationProgramEligibility:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5090,12 +5090,12 @@ func (r ImmunizationProgramEligibility) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r ImmunizationProgramEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationProgramEligibility
+	var o *ImmunizationProgramEligibility
 	switch other := other.(type) {
 	case ImmunizationProgramEligibility:
-		o = other
+		o = &other
 	case *ImmunizationProgramEligibility:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5212,12 +5212,12 @@ func (r ImmunizationReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ImmunizationReaction to Quantity")
 }
 func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationReaction
+	var o *ImmunizationReaction
 	switch other := other.(type) {
 	case ImmunizationReaction:
-		o = other
+		o = &other
 	case *ImmunizationReaction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5228,12 +5228,12 @@ func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ImmunizationReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationReaction
+	var o *ImmunizationReaction
 	switch other := other.(type) {
 	case ImmunizationReaction:
-		o = other
+		o = &other
 	case *ImmunizationReaction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5365,12 +5365,12 @@ func (r ImmunizationProtocolApplied) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ImmunizationProtocolApplied to Quantity")
 }
 func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationProtocolApplied
+	var o *ImmunizationProtocolApplied
 	switch other := other.(type) {
 	case ImmunizationProtocolApplied:
-		o = other
+		o = &other
 	case *ImmunizationProtocolApplied:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5381,12 +5381,12 @@ func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ImmunizationProtocolApplied) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationProtocolApplied
+	var o *ImmunizationProtocolApplied
 	switch other := other.(type) {
 	case ImmunizationProtocolApplied:
-		o = other
+		o = &other
 	case *ImmunizationProtocolApplied:
-		o = *other
+		o = other
 	default:
 		return false
 	}

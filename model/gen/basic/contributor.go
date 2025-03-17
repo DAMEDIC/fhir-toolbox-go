@@ -318,12 +318,12 @@ func (r Contributor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Contributor to Quantity")
 }
 func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Contributor
+	var o *Contributor
 	switch other := other.(type) {
 	case Contributor:
-		o = other
+		o = &other
 	case *Contributor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -334,12 +334,12 @@ func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r Contributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Contributor
+	var o *Contributor
 	switch other := other.(type) {
 	case Contributor:
-		o = other
+		o = &other
 	case *Contributor:
-		o = *other
+		o = other
 	default:
 		return false
 	}

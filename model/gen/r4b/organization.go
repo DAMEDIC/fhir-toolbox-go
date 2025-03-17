@@ -2096,12 +2096,12 @@ func (r Organization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Organization to Quantity")
 }
 func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Organization
+	var o *Organization
 	switch other := other.(type) {
 	case Organization:
-		o = other
+		o = &other
 	case *Organization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2112,12 +2112,12 @@ func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Organization
+	var o *Organization
 	switch other := other.(type) {
 	case Organization:
-		o = other
+		o = &other
 	case *Organization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2330,12 +2330,12 @@ func (r OrganizationContact) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert OrganizationContact to Quantity")
 }
 func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationContact
+	var o *OrganizationContact
 	switch other := other.(type) {
 	case OrganizationContact:
-		o = other
+		o = &other
 	case *OrganizationContact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2346,12 +2346,12 @@ func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r OrganizationContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationContact
+	var o *OrganizationContact
 	switch other := other.(type) {
 	case OrganizationContact:
-		o = other
+		o = &other
 	case *OrganizationContact:
-		o = *other
+		o = other
 	default:
 		return false
 	}

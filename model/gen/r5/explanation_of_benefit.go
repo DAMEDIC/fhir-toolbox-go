@@ -24399,12 +24399,12 @@ func (r ExplanationOfBenefit) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ExplanationOfBenefit to Quantity")
 }
 func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefit
+	var o *ExplanationOfBenefit
 	switch other := other.(type) {
 	case ExplanationOfBenefit:
-		o = other
+		o = &other
 	case *ExplanationOfBenefit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -24415,12 +24415,12 @@ func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ExplanationOfBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefit
+	var o *ExplanationOfBenefit
 	switch other := other.(type) {
 	case ExplanationOfBenefit:
-		o = other
+		o = &other
 	case *ExplanationOfBenefit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -24901,12 +24901,12 @@ func (r ExplanationOfBenefitRelated) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Quantity")
 }
 func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitRelated
+	var o *ExplanationOfBenefitRelated
 	switch other := other.(type) {
 	case ExplanationOfBenefitRelated:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -24917,12 +24917,12 @@ func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ExplanationOfBenefitRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitRelated
+	var o *ExplanationOfBenefitRelated
 	switch other := other.(type) {
 	case ExplanationOfBenefitRelated:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitRelated:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25037,12 +25037,12 @@ func (r ExplanationOfBenefitEvent) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ExplanationOfBenefitEvent to Quantity")
 }
 func (r ExplanationOfBenefitEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitEvent
+	var o *ExplanationOfBenefitEvent
 	switch other := other.(type) {
 	case ExplanationOfBenefitEvent:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25053,12 +25053,12 @@ func (r ExplanationOfBenefitEvent) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ExplanationOfBenefitEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitEvent
+	var o *ExplanationOfBenefitEvent
 	switch other := other.(type) {
 	case ExplanationOfBenefitEvent:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25170,12 +25170,12 @@ func (r ExplanationOfBenefitPayee) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Quantity")
 }
 func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitPayee
+	var o *ExplanationOfBenefitPayee
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayee:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitPayee:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25186,12 +25186,12 @@ func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ExplanationOfBenefitPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitPayee
+	var o *ExplanationOfBenefitPayee
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayee:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitPayee:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25314,12 +25314,12 @@ func (r ExplanationOfBenefitCareTeam) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Quantity")
 }
 func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitCareTeam
+	var o *ExplanationOfBenefitCareTeam
 	switch other := other.(type) {
 	case ExplanationOfBenefitCareTeam:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitCareTeam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25330,12 +25330,12 @@ func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ExplanationOfBenefitCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitCareTeam
+	var o *ExplanationOfBenefitCareTeam
 	switch other := other.(type) {
 	case ExplanationOfBenefitCareTeam:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitCareTeam:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25484,12 +25484,12 @@ func (r ExplanationOfBenefitSupportingInfo) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Quantity")
 }
 func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitSupportingInfo
+	var o *ExplanationOfBenefitSupportingInfo
 	switch other := other.(type) {
 	case ExplanationOfBenefitSupportingInfo:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25500,12 +25500,12 @@ func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r ExplanationOfBenefitSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitSupportingInfo
+	var o *ExplanationOfBenefitSupportingInfo
 	switch other := other.(type) {
 	case ExplanationOfBenefitSupportingInfo:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitSupportingInfo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25651,12 +25651,12 @@ func (r ExplanationOfBenefitDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Quantity")
 }
 func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitDiagnosis
+	var o *ExplanationOfBenefitDiagnosis
 	switch other := other.(type) {
 	case ExplanationOfBenefitDiagnosis:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25667,12 +25667,12 @@ func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ExplanationOfBenefitDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitDiagnosis
+	var o *ExplanationOfBenefitDiagnosis
 	switch other := other.(type) {
 	case ExplanationOfBenefitDiagnosis:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25809,12 +25809,12 @@ func (r ExplanationOfBenefitProcedure) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Quantity")
 }
 func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitProcedure
+	var o *ExplanationOfBenefitProcedure
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcedure:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25825,12 +25825,12 @@ func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ExplanationOfBenefitProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitProcedure
+	var o *ExplanationOfBenefitProcedure
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcedure:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25964,12 +25964,12 @@ func (r ExplanationOfBenefitInsurance) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Quantity")
 }
 func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitInsurance
+	var o *ExplanationOfBenefitInsurance
 	switch other := other.(type) {
 	case ExplanationOfBenefitInsurance:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -25980,12 +25980,12 @@ func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ExplanationOfBenefitInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitInsurance
+	var o *ExplanationOfBenefitInsurance
 	switch other := other.(type) {
 	case ExplanationOfBenefitInsurance:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitInsurance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26109,12 +26109,12 @@ func (r ExplanationOfBenefitAccident) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Quantity")
 }
 func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAccident
+	var o *ExplanationOfBenefitAccident
 	switch other := other.(type) {
 	case ExplanationOfBenefitAccident:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAccident:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26125,12 +26125,12 @@ func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ExplanationOfBenefitAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAccident
+	var o *ExplanationOfBenefitAccident
 	switch other := other.(type) {
 	case ExplanationOfBenefitAccident:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAccident:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26377,12 +26377,12 @@ func (r ExplanationOfBenefitItem) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ExplanationOfBenefitItem to Quantity")
 }
 func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItem
+	var o *ExplanationOfBenefitItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitItem:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26393,12 +26393,12 @@ func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ExplanationOfBenefitItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItem
+	var o *ExplanationOfBenefitItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitItem:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26692,12 +26692,12 @@ func (r ExplanationOfBenefitItemBodySite) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert ExplanationOfBenefitItemBodySite to Quantity")
 }
 func (r ExplanationOfBenefitItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemBodySite
+	var o *ExplanationOfBenefitItemBodySite
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemBodySite:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemBodySite:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26708,12 +26708,12 @@ func (r ExplanationOfBenefitItemBodySite) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r ExplanationOfBenefitItemBodySite) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemBodySite
+	var o *ExplanationOfBenefitItemBodySite
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemBodySite:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemBodySite:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26835,12 +26835,12 @@ func (r ExplanationOfBenefitItemReviewOutcome) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ExplanationOfBenefitItemReviewOutcome to Quantity")
 }
 func (r ExplanationOfBenefitItemReviewOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemReviewOutcome
+	var o *ExplanationOfBenefitItemReviewOutcome
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemReviewOutcome:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemReviewOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26851,12 +26851,12 @@ func (r ExplanationOfBenefitItemReviewOutcome) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ExplanationOfBenefitItemReviewOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemReviewOutcome
+	var o *ExplanationOfBenefitItemReviewOutcome
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemReviewOutcome:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemReviewOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -26990,12 +26990,12 @@ func (r ExplanationOfBenefitItemAdjudication) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Quantity")
 }
 func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemAdjudication
+	var o *ExplanationOfBenefitItemAdjudication
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemAdjudication:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemAdjudication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27006,12 +27006,12 @@ func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r ExplanationOfBenefitItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemAdjudication
+	var o *ExplanationOfBenefitItemAdjudication
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemAdjudication:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemAdjudication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27220,12 +27220,12 @@ func (r ExplanationOfBenefitItemDetail) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Quantity")
 }
 func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemDetail
+	var o *ExplanationOfBenefitItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27236,12 +27236,12 @@ func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r ExplanationOfBenefitItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemDetail
+	var o *ExplanationOfBenefitItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27550,12 +27550,12 @@ func (r ExplanationOfBenefitItemDetailSubDetail) ToQuantity(explicit bool) (*fhi
 	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Quantity")
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemDetailSubDetail
+	var o *ExplanationOfBenefitItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27566,12 +27566,12 @@ func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _
 	return *eq
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitItemDetailSubDetail
+	var o *ExplanationOfBenefitItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27905,12 +27905,12 @@ func (r ExplanationOfBenefitAddItem) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Quantity")
 }
 func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItem
+	var o *ExplanationOfBenefitAddItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItem:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -27921,12 +27921,12 @@ func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ExplanationOfBenefitAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItem
+	var o *ExplanationOfBenefitAddItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItem:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28192,12 +28192,12 @@ func (r ExplanationOfBenefitAddItemBodySite) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert ExplanationOfBenefitAddItemBodySite to Quantity")
 }
 func (r ExplanationOfBenefitAddItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemBodySite
+	var o *ExplanationOfBenefitAddItemBodySite
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemBodySite:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemBodySite:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28208,12 +28208,12 @@ func (r ExplanationOfBenefitAddItemBodySite) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r ExplanationOfBenefitAddItemBodySite) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemBodySite
+	var o *ExplanationOfBenefitAddItemBodySite
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemBodySite:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemBodySite:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28390,12 +28390,12 @@ func (r ExplanationOfBenefitAddItemDetail) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Quantity")
 }
 func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemDetail
+	var o *ExplanationOfBenefitAddItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28406,12 +28406,12 @@ func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r ExplanationOfBenefitAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemDetail
+	var o *ExplanationOfBenefitAddItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28674,12 +28674,12 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Quantity")
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemDetailSubDetail
+	var o *ExplanationOfBenefitAddItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28690,12 +28690,12 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element
 	return *eq
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitAddItemDetailSubDetail
+	var o *ExplanationOfBenefitAddItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetailSubDetail:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitAddItemDetailSubDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28887,12 +28887,12 @@ func (r ExplanationOfBenefitTotal) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Quantity")
 }
 func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitTotal
+	var o *ExplanationOfBenefitTotal
 	switch other := other.(type) {
 	case ExplanationOfBenefitTotal:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitTotal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -28903,12 +28903,12 @@ func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ExplanationOfBenefitTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitTotal
+	var o *ExplanationOfBenefitTotal
 	switch other := other.(type) {
 	case ExplanationOfBenefitTotal:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitTotal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29040,12 +29040,12 @@ func (r ExplanationOfBenefitPayment) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Quantity")
 }
 func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitPayment
+	var o *ExplanationOfBenefitPayment
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayment:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitPayment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29056,12 +29056,12 @@ func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ExplanationOfBenefitPayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitPayment
+	var o *ExplanationOfBenefitPayment
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayment:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitPayment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29211,12 +29211,12 @@ func (r ExplanationOfBenefitProcessNote) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Quantity")
 }
 func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitProcessNote
+	var o *ExplanationOfBenefitProcessNote
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcessNote:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitProcessNote:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29227,12 +29227,12 @@ func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r ExplanationOfBenefitProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitProcessNote
+	var o *ExplanationOfBenefitProcessNote
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcessNote:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitProcessNote:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29386,12 +29386,12 @@ func (r ExplanationOfBenefitBenefitBalance) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Quantity")
 }
 func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitBenefitBalance
+	var o *ExplanationOfBenefitBenefitBalance
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalance:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitBenefitBalance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29402,12 +29402,12 @@ func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r ExplanationOfBenefitBenefitBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitBenefitBalance
+	var o *ExplanationOfBenefitBenefitBalance
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalance:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitBenefitBalance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29564,12 +29564,12 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Quantity")
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitBenefitBalanceFinancial
+	var o *ExplanationOfBenefitBenefitBalanceFinancial
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalanceFinancial:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitBenefitBalanceFinancial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -29580,12 +29580,12 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExplanationOfBenefitBenefitBalanceFinancial
+	var o *ExplanationOfBenefitBenefitBalanceFinancial
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalanceFinancial:
-		o = other
+		o = &other
 	case *ExplanationOfBenefitBenefitBalanceFinancial:
-		o = *other
+		o = other
 	default:
 		return false
 	}

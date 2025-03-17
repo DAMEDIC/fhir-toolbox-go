@@ -2767,12 +2767,12 @@ func (r ActorDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ActorDefinition to Quantity")
 }
 func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActorDefinition
+	var o *ActorDefinition
 	switch other := other.(type) {
 	case ActorDefinition:
-		o = other
+		o = &other
 	case *ActorDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2783,12 +2783,12 @@ func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ActorDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ActorDefinition
+	var o *ActorDefinition
 	switch other := other.(type) {
 	case ActorDefinition:
-		o = other
+		o = &other
 	case *ActorDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

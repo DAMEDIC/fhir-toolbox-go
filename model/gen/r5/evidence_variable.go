@@ -7481,12 +7481,12 @@ func (r EvidenceVariable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert EvidenceVariable to Quantity")
 }
 func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariable
+	var o *EvidenceVariable
 	switch other := other.(type) {
 	case EvidenceVariable:
-		o = other
+		o = &other
 	case *EvidenceVariable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7497,12 +7497,12 @@ func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r EvidenceVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariable
+	var o *EvidenceVariable
 	switch other := other.(type) {
 	case EvidenceVariable:
-		o = other
+		o = &other
 	case *EvidenceVariable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7905,12 +7905,12 @@ func (r EvidenceVariableCharacteristic) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert EvidenceVariableCharacteristic to Quantity")
 }
 func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristic
+	var o *EvidenceVariableCharacteristic
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7921,12 +7921,12 @@ func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r EvidenceVariableCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristic
+	var o *EvidenceVariableCharacteristic
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8133,12 +8133,12 @@ func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) ToQuantity(expli
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByTypeAndValue to Quantity")
 }
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicDefinitionByTypeAndValue
+	var o *EvidenceVariableCharacteristicDefinitionByTypeAndValue
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicDefinitionByTypeAndValue:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicDefinitionByTypeAndValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8149,12 +8149,12 @@ func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equal(other fhir
 	return *eq
 }
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicDefinitionByTypeAndValue
+	var o *EvidenceVariableCharacteristicDefinitionByTypeAndValue
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicDefinitionByTypeAndValue:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicDefinitionByTypeAndValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8290,12 +8290,12 @@ func (r EvidenceVariableCharacteristicDefinitionByCombination) ToQuantity(explic
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicDefinitionByCombination to Quantity")
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicDefinitionByCombination
+	var o *EvidenceVariableCharacteristicDefinitionByCombination
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicDefinitionByCombination:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicDefinitionByCombination:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8306,12 +8306,12 @@ func (r EvidenceVariableCharacteristicDefinitionByCombination) Equal(other fhirp
 	return *eq
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicDefinitionByCombination
+	var o *EvidenceVariableCharacteristicDefinitionByCombination
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicDefinitionByCombination:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicDefinitionByCombination:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8445,12 +8445,12 @@ func (r EvidenceVariableCharacteristicTimeFromEvent) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert EvidenceVariableCharacteristicTimeFromEvent to Quantity")
 }
 func (r EvidenceVariableCharacteristicTimeFromEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicTimeFromEvent
+	var o *EvidenceVariableCharacteristicTimeFromEvent
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicTimeFromEvent:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicTimeFromEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8461,12 +8461,12 @@ func (r EvidenceVariableCharacteristicTimeFromEvent) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r EvidenceVariableCharacteristicTimeFromEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCharacteristicTimeFromEvent
+	var o *EvidenceVariableCharacteristicTimeFromEvent
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristicTimeFromEvent:
-		o = other
+		o = &other
 	case *EvidenceVariableCharacteristicTimeFromEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8599,12 +8599,12 @@ func (r EvidenceVariableCategory) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert EvidenceVariableCategory to Quantity")
 }
 func (r EvidenceVariableCategory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCategory
+	var o *EvidenceVariableCategory
 	switch other := other.(type) {
 	case EvidenceVariableCategory:
-		o = other
+		o = &other
 	case *EvidenceVariableCategory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8615,12 +8615,12 @@ func (r EvidenceVariableCategory) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r EvidenceVariableCategory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableCategory
+	var o *EvidenceVariableCategory
 	switch other := other.(type) {
 	case EvidenceVariableCategory:
-		o = other
+		o = &other
 	case *EvidenceVariableCategory:
-		o = *other
+		o = other
 	default:
 		return false
 	}

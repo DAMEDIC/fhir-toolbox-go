@@ -3314,12 +3314,12 @@ func (r MessageHeader) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MessageHeader to Quantity")
 }
 func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeader
+	var o *MessageHeader
 	switch other := other.(type) {
 	case MessageHeader:
-		o = other
+		o = &other
 	case *MessageHeader:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3330,12 +3330,12 @@ func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r MessageHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeader
+	var o *MessageHeader
 	switch other := other.(type) {
 	case MessageHeader:
-		o = other
+		o = &other
 	case *MessageHeader:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3548,12 +3548,12 @@ func (r MessageHeaderDestination) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert MessageHeaderDestination to Quantity")
 }
 func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderDestination
+	var o *MessageHeaderDestination
 	switch other := other.(type) {
 	case MessageHeaderDestination:
-		o = other
+		o = &other
 	case *MessageHeaderDestination:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3564,12 +3564,12 @@ func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r MessageHeaderDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderDestination
+	var o *MessageHeaderDestination
 	switch other := other.(type) {
 	case MessageHeaderDestination:
-		o = other
+		o = &other
 	case *MessageHeaderDestination:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3710,12 +3710,12 @@ func (r MessageHeaderSource) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert MessageHeaderSource to Quantity")
 }
 func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderSource
+	var o *MessageHeaderSource
 	switch other := other.(type) {
 	case MessageHeaderSource:
-		o = other
+		o = &other
 	case *MessageHeaderSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3726,12 +3726,12 @@ func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r MessageHeaderSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderSource
+	var o *MessageHeaderSource
 	switch other := other.(type) {
 	case MessageHeaderSource:
-		o = other
+		o = &other
 	case *MessageHeaderSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3865,12 +3865,12 @@ func (r MessageHeaderResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert MessageHeaderResponse to Quantity")
 }
 func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderResponse
+	var o *MessageHeaderResponse
 	switch other := other.(type) {
 	case MessageHeaderResponse:
-		o = other
+		o = &other
 	case *MessageHeaderResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3881,12 +3881,12 @@ func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r MessageHeaderResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MessageHeaderResponse
+	var o *MessageHeaderResponse
 	switch other := other.(type) {
 	case MessageHeaderResponse:
-		o = other
+		o = &other
 	case *MessageHeaderResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}

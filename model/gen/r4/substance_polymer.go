@@ -4148,12 +4148,12 @@ func (r SubstancePolymer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert SubstancePolymer to Quantity")
 }
 func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymer
+	var o *SubstancePolymer
 	switch other := other.(type) {
 	case SubstancePolymer:
-		o = other
+		o = &other
 	case *SubstancePolymer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4164,12 +4164,12 @@ func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r SubstancePolymer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymer
+	var o *SubstancePolymer
 	switch other := other.(type) {
 	case SubstancePolymer:
-		o = other
+		o = &other
 	case *SubstancePolymer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4344,12 +4344,12 @@ func (r SubstancePolymerMonomerSet) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert SubstancePolymerMonomerSet to Quantity")
 }
 func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerMonomerSet
+	var o *SubstancePolymerMonomerSet
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSet:
-		o = other
+		o = &other
 	case *SubstancePolymerMonomerSet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4360,12 +4360,12 @@ func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerMonomerSet
+	var o *SubstancePolymerMonomerSet
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSet:
-		o = other
+		o = &other
 	case *SubstancePolymerMonomerSet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4487,12 +4487,12 @@ func (r SubstancePolymerMonomerSetStartingMaterial) ToQuantity(explicit bool) (*
 	return nil, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Quantity")
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerMonomerSetStartingMaterial
+	var o *SubstancePolymerMonomerSetStartingMaterial
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSetStartingMaterial:
-		o = other
+		o = &other
 	case *SubstancePolymerMonomerSetStartingMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4503,12 +4503,12 @@ func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element
 	return *eq
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerMonomerSetStartingMaterial
+	var o *SubstancePolymerMonomerSetStartingMaterial
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSetStartingMaterial:
-		o = other
+		o = &other
 	case *SubstancePolymerMonomerSetStartingMaterial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4644,12 +4644,12 @@ func (r SubstancePolymerRepeat) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert SubstancePolymerRepeat to Quantity")
 }
 func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeat
+	var o *SubstancePolymerRepeat
 	switch other := other.(type) {
 	case SubstancePolymerRepeat:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeat:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4660,12 +4660,12 @@ func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeat
+	var o *SubstancePolymerRepeat
 	switch other := other.(type) {
 	case SubstancePolymerRepeat:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeat:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4806,12 +4806,12 @@ func (r SubstancePolymerRepeatRepeatUnit) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Quantity")
 }
 func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnit
+	var o *SubstancePolymerRepeatRepeatUnit
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnit:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4822,12 +4822,12 @@ func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnit
+	var o *SubstancePolymerRepeatRepeatUnit
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnit:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4960,12 +4960,12 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToQuantity(expli
 	return nil, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Quantity")
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
+	var o *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4976,12 +4976,12 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhir
 	return *eq
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
+	var o *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5098,12 +5098,12 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToQuantity(exp
 	return nil, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Quantity")
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnitStructuralRepresentation
+	var o *SubstancePolymerRepeatRepeatUnitStructuralRepresentation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5114,12 +5114,12 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fh
 	return *eq
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstancePolymerRepeatRepeatUnitStructuralRepresentation
+	var o *SubstancePolymerRepeatRepeatUnitStructuralRepresentation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
-		o = other
+		o = &other
 	case *SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

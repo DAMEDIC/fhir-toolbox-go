@@ -1965,12 +1965,12 @@ func (r ImmunizationEvaluation) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ImmunizationEvaluation to Quantity")
 }
 func (r ImmunizationEvaluation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationEvaluation
+	var o *ImmunizationEvaluation
 	switch other := other.(type) {
 	case ImmunizationEvaluation:
-		o = other
+		o = &other
 	case *ImmunizationEvaluation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1981,12 +1981,12 @@ func (r ImmunizationEvaluation) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ImmunizationEvaluation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationEvaluation
+	var o *ImmunizationEvaluation
 	switch other := other.(type) {
 	case ImmunizationEvaluation:
-		o = other
+		o = &other
 	case *ImmunizationEvaluation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

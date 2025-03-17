@@ -5733,12 +5733,12 @@ func (r Observation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Observation to Quantity")
 }
 func (r Observation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Observation
+	var o *Observation
 	switch other := other.(type) {
 	case Observation:
-		o = other
+		o = &other
 	case *Observation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5749,12 +5749,12 @@ func (r Observation) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r Observation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Observation
+	var o *Observation
 	switch other := other.(type) {
 	case Observation:
-		o = other
+		o = &other
 	case *Observation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6075,12 +6075,12 @@ func (r ObservationReferenceRange) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ObservationReferenceRange to Quantity")
 }
 func (r ObservationReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationReferenceRange
+	var o *ObservationReferenceRange
 	switch other := other.(type) {
 	case ObservationReferenceRange:
-		o = other
+		o = &other
 	case *ObservationReferenceRange:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6091,12 +6091,12 @@ func (r ObservationReferenceRange) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ObservationReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationReferenceRange
+	var o *ObservationReferenceRange
 	switch other := other.(type) {
 	case ObservationReferenceRange:
-		o = other
+		o = &other
 	case *ObservationReferenceRange:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6249,12 +6249,12 @@ func (r ObservationComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ObservationComponent to Quantity")
 }
 func (r ObservationComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationComponent
+	var o *ObservationComponent
 	switch other := other.(type) {
 	case ObservationComponent:
-		o = other
+		o = &other
 	case *ObservationComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6265,12 +6265,12 @@ func (r ObservationComponent) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ObservationComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ObservationComponent
+	var o *ObservationComponent
 	switch other := other.(type) {
 	case ObservationComponent:
-		o = other
+		o = &other
 	case *ObservationComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

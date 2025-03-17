@@ -8104,12 +8104,12 @@ func (r RequestOrchestration) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert RequestOrchestration to Quantity")
 }
 func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestration
+	var o *RequestOrchestration
 	switch other := other.(type) {
 	case RequestOrchestration:
-		o = other
+		o = &other
 	case *RequestOrchestration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8120,12 +8120,12 @@ func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestration
+	var o *RequestOrchestration
 	switch other := other.(type) {
 	case RequestOrchestration:
-		o = other
+		o = &other
 	case *RequestOrchestration:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8509,12 +8509,12 @@ func (r RequestOrchestrationAction) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert RequestOrchestrationAction to Quantity")
 }
 func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationAction
+	var o *RequestOrchestrationAction
 	switch other := other.(type) {
 	case RequestOrchestrationAction:
-		o = other
+		o = &other
 	case *RequestOrchestrationAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8525,12 +8525,12 @@ func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationAction
+	var o *RequestOrchestrationAction
 	switch other := other.(type) {
 	case RequestOrchestrationAction:
-		o = other
+		o = &other
 	case *RequestOrchestrationAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8815,12 +8815,12 @@ func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
 }
 func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionCondition
+	var o *RequestOrchestrationActionCondition
 	switch other := other.(type) {
 	case RequestOrchestrationActionCondition:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8831,12 +8831,12 @@ func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionCondition
+	var o *RequestOrchestrationActionCondition
 	switch other := other.(type) {
 	case RequestOrchestrationActionCondition:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8953,12 +8953,12 @@ func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
 }
 func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionInput
+	var o *RequestOrchestrationActionInput
 	switch other := other.(type) {
 	case RequestOrchestrationActionInput:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8969,12 +8969,12 @@ func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionInput
+	var o *RequestOrchestrationActionInput
 	switch other := other.(type) {
 	case RequestOrchestrationActionInput:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9098,12 +9098,12 @@ func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
 }
 func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionOutput
+	var o *RequestOrchestrationActionOutput
 	switch other := other.(type) {
 	case RequestOrchestrationActionOutput:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9114,12 +9114,12 @@ func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionOutput
+	var o *RequestOrchestrationActionOutput
 	switch other := other.(type) {
 	case RequestOrchestrationActionOutput:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9244,12 +9244,12 @@ func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (*fhi
 	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
 }
 func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionRelatedAction
+	var o *RequestOrchestrationActionRelatedAction
 	switch other := other.(type) {
 	case RequestOrchestrationActionRelatedAction:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9260,12 +9260,12 @@ func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _
 	return *eq
 }
 func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionRelatedAction
+	var o *RequestOrchestrationActionRelatedAction
 	switch other := other.(type) {
 	case RequestOrchestrationActionRelatedAction:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9411,12 +9411,12 @@ func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
 }
 func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionParticipant
+	var o *RequestOrchestrationActionParticipant
 	switch other := other.(type) {
 	case RequestOrchestrationActionParticipant:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9427,12 +9427,12 @@ func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionParticipant
+	var o *RequestOrchestrationActionParticipant
 	switch other := other.(type) {
 	case RequestOrchestrationActionParticipant:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9572,12 +9572,12 @@ func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
 }
 func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionDynamicValue
+	var o *RequestOrchestrationActionDynamicValue
 	switch other := other.(type) {
 	case RequestOrchestrationActionDynamicValue:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9588,12 +9588,12 @@ func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestOrchestrationActionDynamicValue
+	var o *RequestOrchestrationActionDynamicValue
 	switch other := other.(type) {
 	case RequestOrchestrationActionDynamicValue:
-		o = other
+		o = &other
 	case *RequestOrchestrationActionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -3740,12 +3740,12 @@ func (r ServiceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ServiceRequest to Quantity")
 }
 func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequest
+	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
-		o = other
+		o = &other
 	case *ServiceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3756,12 +3756,12 @@ func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ServiceRequest
+	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
-		o = other
+		o = &other
 	case *ServiceRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -367,7 +367,7 @@ func evalExpression(
 				result, err = Collection{Boolean(!*eq)}, nil
 			}
 		}
-		return result, true, err
+		return nil, true, err
 	case *parser.MembershipExpressionContext:
 		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {

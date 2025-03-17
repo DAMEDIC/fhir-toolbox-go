@@ -1364,12 +1364,12 @@ func (r Linkage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Linkage to Quantity")
 }
 func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Linkage
+	var o *Linkage
 	switch other := other.(type) {
 	case Linkage:
-		o = other
+		o = &other
 	case *Linkage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1380,12 +1380,12 @@ func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Linkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Linkage
+	var o *Linkage
 	switch other := other.(type) {
 	case Linkage:
-		o = other
+		o = &other
 	case *Linkage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1535,12 +1535,12 @@ func (r LinkageItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert LinkageItem to Quantity")
 }
 func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o LinkageItem
+	var o *LinkageItem
 	switch other := other.(type) {
 	case LinkageItem:
-		o = other
+		o = &other
 	case *LinkageItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1551,12 +1551,12 @@ func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r LinkageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o LinkageItem
+	var o *LinkageItem
 	switch other := other.(type) {
 	case LinkageItem:
-		o = other
+		o = &other
 	case *LinkageItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}

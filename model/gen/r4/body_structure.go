@@ -1287,12 +1287,12 @@ func (r BodyStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BodyStructure to Quantity")
 }
 func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructure
+	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
-		o = other
+		o = &other
 	case *BodyStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1303,12 +1303,12 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BodyStructure
+	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
-		o = other
+		o = &other
 	case *BodyStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}

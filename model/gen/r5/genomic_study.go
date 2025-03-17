@@ -5052,12 +5052,12 @@ func (r GenomicStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GenomicStudy to Quantity")
 }
 func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudy
+	var o *GenomicStudy
 	switch other := other.(type) {
 	case GenomicStudy:
-		o = other
+		o = &other
 	case *GenomicStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5068,12 +5068,12 @@ func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudy
+	var o *GenomicStudy
 	switch other := other.(type) {
 	case GenomicStudy:
-		o = other
+		o = &other
 	case *GenomicStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5391,12 +5391,12 @@ func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert GenomicStudyAnalysis to Quantity")
 }
 func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysis
+	var o *GenomicStudyAnalysis
 	switch other := other.(type) {
 	case GenomicStudyAnalysis:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5407,12 +5407,12 @@ func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysis
+	var o *GenomicStudyAnalysis
 	switch other := other.(type) {
 	case GenomicStudyAnalysis:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5641,12 +5641,12 @@ func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
 }
 func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisInput
+	var o *GenomicStudyAnalysisInput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisInput:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5657,12 +5657,12 @@ func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisInput
+	var o *GenomicStudyAnalysisInput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisInput:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5781,12 +5781,12 @@ func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
 }
 func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisOutput
+	var o *GenomicStudyAnalysisOutput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisOutput:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5797,12 +5797,12 @@ func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisOutput
+	var o *GenomicStudyAnalysisOutput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisOutput:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5914,12 +5914,12 @@ func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
 }
 func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisPerformer
+	var o *GenomicStudyAnalysisPerformer
 	switch other := other.(type) {
 	case GenomicStudyAnalysisPerformer:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5930,12 +5930,12 @@ func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisPerformer
+	var o *GenomicStudyAnalysisPerformer
 	switch other := other.(type) {
 	case GenomicStudyAnalysisPerformer:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6047,12 +6047,12 @@ func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
 }
 func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisDevice
+	var o *GenomicStudyAnalysisDevice
 	switch other := other.(type) {
 	case GenomicStudyAnalysisDevice:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisDevice:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6063,12 +6063,12 @@ func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GenomicStudyAnalysisDevice
+	var o *GenomicStudyAnalysisDevice
 	switch other := other.(type) {
 	case GenomicStudyAnalysisDevice:
-		o = other
+		o = &other
 	case *GenomicStudyAnalysisDevice:
-		o = *other
+		o = other
 	default:
 		return false
 	}

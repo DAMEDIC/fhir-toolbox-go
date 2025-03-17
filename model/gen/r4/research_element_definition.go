@@ -5358,12 +5358,12 @@ func (r ResearchElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ResearchElementDefinition to Quantity")
 }
 func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchElementDefinition
+	var o *ResearchElementDefinition
 	switch other := other.(type) {
 	case ResearchElementDefinition:
-		o = other
+		o = &other
 	case *ResearchElementDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5374,12 +5374,12 @@ func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchElementDefinition
+	var o *ResearchElementDefinition
 	switch other := other.(type) {
 	case ResearchElementDefinition:
-		o = other
+		o = &other
 	case *ResearchElementDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5791,12 +5791,12 @@ func (r ResearchElementDefinitionCharacteristic) ToQuantity(explicit bool) (*fhi
 	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Quantity")
 }
 func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchElementDefinitionCharacteristic
+	var o *ResearchElementDefinitionCharacteristic
 	switch other := other.(type) {
 	case ResearchElementDefinitionCharacteristic:
-		o = other
+		o = &other
 	case *ResearchElementDefinitionCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5807,12 +5807,12 @@ func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _
 	return *eq
 }
 func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchElementDefinitionCharacteristic
+	var o *ResearchElementDefinitionCharacteristic
 	switch other := other.(type) {
 	case ResearchElementDefinitionCharacteristic:
-		o = other
+		o = &other
 	case *ResearchElementDefinitionCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}

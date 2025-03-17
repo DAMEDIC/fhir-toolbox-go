@@ -14071,12 +14071,12 @@ func (r Citation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Citation to Quantity")
 }
 func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Citation
+	var o *Citation
 	switch other := other.(type) {
 	case Citation:
-		o = other
+		o = &other
 	case *Citation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14087,12 +14087,12 @@ func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Citation
+	var o *Citation
 	switch other := other.(type) {
 	case Citation:
-		o = other
+		o = &other
 	case *Citation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14440,12 +14440,12 @@ func (r CitationSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CitationSummary to Quantity")
 }
 func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationSummary
+	var o *CitationSummary
 	switch other := other.(type) {
 	case CitationSummary:
-		o = other
+		o = &other
 	case *CitationSummary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14456,12 +14456,12 @@ func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationSummary
+	var o *CitationSummary
 	switch other := other.(type) {
 	case CitationSummary:
-		o = other
+		o = &other
 	case *CitationSummary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14573,12 +14573,12 @@ func (r CitationClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert CitationClassification to Quantity")
 }
 func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationClassification
+	var o *CitationClassification
 	switch other := other.(type) {
 	case CitationClassification:
-		o = other
+		o = &other
 	case *CitationClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14589,12 +14589,12 @@ func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationClassification
+	var o *CitationClassification
 	switch other := other.(type) {
 	case CitationClassification:
-		o = other
+		o = &other
 	case *CitationClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14707,12 +14707,12 @@ func (r CitationStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert CitationStatusDate to Quantity")
 }
 func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationStatusDate
+	var o *CitationStatusDate
 	switch other := other.(type) {
 	case CitationStatusDate:
-		o = other
+		o = &other
 	case *CitationStatusDate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14723,12 +14723,12 @@ func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationStatusDate
+	var o *CitationStatusDate
 	switch other := other.(type) {
 	case CitationStatusDate:
-		o = other
+		o = &other
 	case *CitationStatusDate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14912,12 +14912,12 @@ func (r CitationCitedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert CitationCitedArtifact to Quantity")
 }
 func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifact
+	var o *CitationCitedArtifact
 	switch other := other.(type) {
 	case CitationCitedArtifact:
-		o = other
+		o = &other
 	case *CitationCitedArtifact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14928,12 +14928,12 @@ func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifact
+	var o *CitationCitedArtifact
 	switch other := other.(type) {
 	case CitationCitedArtifact:
-		o = other
+		o = &other
 	case *CitationCitedArtifact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15134,12 +15134,12 @@ func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
 }
 func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactVersion
+	var o *CitationCitedArtifactVersion
 	switch other := other.(type) {
 	case CitationCitedArtifactVersion:
-		o = other
+		o = &other
 	case *CitationCitedArtifactVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15150,12 +15150,12 @@ func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactVersion
+	var o *CitationCitedArtifactVersion
 	switch other := other.(type) {
 	case CitationCitedArtifactVersion:
-		o = other
+		o = &other
 	case *CitationCitedArtifactVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15268,12 +15268,12 @@ func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
 }
 func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactStatusDate
+	var o *CitationCitedArtifactStatusDate
 	switch other := other.(type) {
 	case CitationCitedArtifactStatusDate:
-		o = other
+		o = &other
 	case *CitationCitedArtifactStatusDate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15284,12 +15284,12 @@ func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactStatusDate
+	var o *CitationCitedArtifactStatusDate
 	switch other := other.(type) {
 	case CitationCitedArtifactStatusDate:
-		o = other
+		o = &other
 	case *CitationCitedArtifactStatusDate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15411,12 +15411,12 @@ func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
 }
 func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactTitle
+	var o *CitationCitedArtifactTitle
 	switch other := other.(type) {
 	case CitationCitedArtifactTitle:
-		o = other
+		o = &other
 	case *CitationCitedArtifactTitle:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15427,12 +15427,12 @@ func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactTitle
+	var o *CitationCitedArtifactTitle
 	switch other := other.(type) {
 	case CitationCitedArtifactTitle:
-		o = other
+		o = &other
 	case *CitationCitedArtifactTitle:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15559,12 +15559,12 @@ func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
 }
 func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactAbstract
+	var o *CitationCitedArtifactAbstract
 	switch other := other.(type) {
 	case CitationCitedArtifactAbstract:
-		o = other
+		o = &other
 	case *CitationCitedArtifactAbstract:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15575,12 +15575,12 @@ func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactAbstract
+	var o *CitationCitedArtifactAbstract
 	switch other := other.(type) {
 	case CitationCitedArtifactAbstract:
-		o = other
+		o = &other
 	case *CitationCitedArtifactAbstract:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15711,12 +15711,12 @@ func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert CitationCitedArtifactPart to Quantity")
 }
 func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPart
+	var o *CitationCitedArtifactPart
 	switch other := other.(type) {
 	case CitationCitedArtifactPart:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15727,12 +15727,12 @@ func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPart
+	var o *CitationCitedArtifactPart
 	switch other := other.(type) {
 	case CitationCitedArtifactPart:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15879,12 +15879,12 @@ func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
 }
 func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactRelatesTo
+	var o *CitationCitedArtifactRelatesTo
 	switch other := other.(type) {
 	case CitationCitedArtifactRelatesTo:
-		o = other
+		o = &other
 	case *CitationCitedArtifactRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15895,12 +15895,12 @@ func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactRelatesTo
+	var o *CitationCitedArtifactRelatesTo
 	switch other := other.(type) {
 	case CitationCitedArtifactRelatesTo:
-		o = other
+		o = &other
 	case *CitationCitedArtifactRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16119,12 +16119,12 @@ func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
 }
 func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPublicationForm
+	var o *CitationCitedArtifactPublicationForm
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationForm:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPublicationForm:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16135,12 +16135,12 @@ func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPublicationForm
+	var o *CitationCitedArtifactPublicationForm
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationForm:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPublicationForm:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16358,12 +16358,12 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit boo
 	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPublicationFormPublishedIn
+	var o *CitationCitedArtifactPublicationFormPublishedIn
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPublishedIn:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPublicationFormPublishedIn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16374,12 +16374,12 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.El
 	return *eq
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactPublicationFormPublishedIn
+	var o *CitationCitedArtifactPublicationFormPublishedIn
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPublishedIn:
-		o = other
+		o = &other
 	case *CitationCitedArtifactPublicationFormPublishedIn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16512,12 +16512,12 @@ func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
 }
 func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactWebLocation
+	var o *CitationCitedArtifactWebLocation
 	switch other := other.(type) {
 	case CitationCitedArtifactWebLocation:
-		o = other
+		o = &other
 	case *CitationCitedArtifactWebLocation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16528,12 +16528,12 @@ func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactWebLocation
+	var o *CitationCitedArtifactWebLocation
 	switch other := other.(type) {
 	case CitationCitedArtifactWebLocation:
-		o = other
+		o = &other
 	case *CitationCitedArtifactWebLocation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16650,12 +16650,12 @@ func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
 }
 func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactClassification
+	var o *CitationCitedArtifactClassification
 	switch other := other.(type) {
 	case CitationCitedArtifactClassification:
-		o = other
+		o = &other
 	case *CitationCitedArtifactClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16666,12 +16666,12 @@ func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactClassification
+	var o *CitationCitedArtifactClassification
 	switch other := other.(type) {
 	case CitationCitedArtifactClassification:
-		o = other
+		o = &other
 	case *CitationCitedArtifactClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16795,12 +16795,12 @@ func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
 }
 func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorship
+	var o *CitationCitedArtifactContributorship
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorship:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorship:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16811,12 +16811,12 @@ func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorship
+	var o *CitationCitedArtifactContributorship
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorship:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorship:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16963,12 +16963,12 @@ func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
 }
 func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipEntry
+	var o *CitationCitedArtifactContributorshipEntry
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntry:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -16979,12 +16979,12 @@ func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipEntry
+	var o *CitationCitedArtifactContributorshipEntry
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntry:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17136,12 +17136,12 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantit
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipEntryContributionInstance
+	var o *CitationCitedArtifactContributorshipEntryContributionInstance
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17152,12 +17152,12 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(oth
 	return *eq
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipEntryContributionInstance
+	var o *CitationCitedArtifactContributorshipEntryContributionInstance
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17277,12 +17277,12 @@ func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
 }
 func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipSummary
+	var o *CitationCitedArtifactContributorshipSummary
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipSummary:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipSummary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -17293,12 +17293,12 @@ func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CitationCitedArtifactContributorshipSummary
+	var o *CitationCitedArtifactContributorshipSummary
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipSummary:
-		o = other
+		o = &other
 	case *CitationCitedArtifactContributorshipSummary:
-		o = *other
+		o = other
 	default:
 		return false
 	}

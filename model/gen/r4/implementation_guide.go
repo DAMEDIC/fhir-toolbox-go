@@ -9047,12 +9047,12 @@ func (r ImplementationGuide) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert ImplementationGuide to Quantity")
 }
 func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuide
+	var o *ImplementationGuide
 	switch other := other.(type) {
 	case ImplementationGuide:
-		o = other
+		o = &other
 	case *ImplementationGuide:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9063,12 +9063,12 @@ func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuide
+	var o *ImplementationGuide
 	switch other := other.(type) {
 	case ImplementationGuide:
-		o = other
+		o = &other
 	case *ImplementationGuide:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9344,12 +9344,12 @@ func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
 }
 func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDependsOn
+	var o *ImplementationGuideDependsOn
 	switch other := other.(type) {
 	case ImplementationGuideDependsOn:
-		o = other
+		o = &other
 	case *ImplementationGuideDependsOn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9360,12 +9360,12 @@ func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDependsOn
+	var o *ImplementationGuideDependsOn
 	switch other := other.(type) {
 	case ImplementationGuideDependsOn:
-		o = other
+		o = &other
 	case *ImplementationGuideDependsOn:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9480,12 +9480,12 @@ func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ImplementationGuideGlobal to Quantity")
 }
 func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideGlobal
+	var o *ImplementationGuideGlobal
 	switch other := other.(type) {
 	case ImplementationGuideGlobal:
-		o = other
+		o = &other
 	case *ImplementationGuideGlobal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9496,12 +9496,12 @@ func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideGlobal
+	var o *ImplementationGuideGlobal
 	switch other := other.(type) {
 	case ImplementationGuideGlobal:
-		o = other
+		o = &other
 	case *ImplementationGuideGlobal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9628,12 +9628,12 @@ func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ImplementationGuideDefinition to Quantity")
 }
 func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinition
+	var o *ImplementationGuideDefinition
 	switch other := other.(type) {
 	case ImplementationGuideDefinition:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9644,12 +9644,12 @@ func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinition
+	var o *ImplementationGuideDefinition
 	switch other := other.(type) {
 	case ImplementationGuideDefinition:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9780,12 +9780,12 @@ func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
 }
 func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionGrouping
+	var o *ImplementationGuideDefinitionGrouping
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionGrouping:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionGrouping:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9796,12 +9796,12 @@ func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionGrouping
+	var o *ImplementationGuideDefinitionGrouping
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionGrouping:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionGrouping:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9931,12 +9931,12 @@ func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
 }
 func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionResource
+	var o *ImplementationGuideDefinitionResource
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionResource:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9947,12 +9947,12 @@ func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionResource
+	var o *ImplementationGuideDefinitionResource
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionResource:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10096,12 +10096,12 @@ func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
 }
 func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionPage
+	var o *ImplementationGuideDefinitionPage
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionPage:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionPage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10112,12 +10112,12 @@ func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionPage
+	var o *ImplementationGuideDefinitionPage
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionPage:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionPage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10239,12 +10239,12 @@ func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
 }
 func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionParameter
+	var o *ImplementationGuideDefinitionParameter
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionParameter:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10255,12 +10255,12 @@ func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionParameter
+	var o *ImplementationGuideDefinitionParameter
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionParameter:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10373,12 +10373,12 @@ func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
 }
 func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionTemplate
+	var o *ImplementationGuideDefinitionTemplate
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionTemplate:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionTemplate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10389,12 +10389,12 @@ func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideDefinitionTemplate
+	var o *ImplementationGuideDefinitionTemplate
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionTemplate:
-		o = other
+		o = &other
 	case *ImplementationGuideDefinitionTemplate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10528,12 +10528,12 @@ func (r ImplementationGuideManifest) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ImplementationGuideManifest to Quantity")
 }
 func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifest
+	var o *ImplementationGuideManifest
 	switch other := other.(type) {
 	case ImplementationGuideManifest:
-		o = other
+		o = &other
 	case *ImplementationGuideManifest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10544,12 +10544,12 @@ func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifest
+	var o *ImplementationGuideManifest
 	switch other := other.(type) {
 	case ImplementationGuideManifest:
-		o = other
+		o = &other
 	case *ImplementationGuideManifest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10685,12 +10685,12 @@ func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
 }
 func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifestResource
+	var o *ImplementationGuideManifestResource
 	switch other := other.(type) {
 	case ImplementationGuideManifestResource:
-		o = other
+		o = &other
 	case *ImplementationGuideManifestResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10701,12 +10701,12 @@ func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifestResource
+	var o *ImplementationGuideManifestResource
 	switch other := other.(type) {
 	case ImplementationGuideManifestResource:
-		o = other
+		o = &other
 	case *ImplementationGuideManifestResource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10828,12 +10828,12 @@ func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
 }
 func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifestPage
+	var o *ImplementationGuideManifestPage
 	switch other := other.(type) {
 	case ImplementationGuideManifestPage:
-		o = other
+		o = &other
 	case *ImplementationGuideManifestPage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10844,12 +10844,12 @@ func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImplementationGuideManifestPage
+	var o *ImplementationGuideManifestPage
 	switch other := other.(type) {
 	case ImplementationGuideManifestPage:
-		o = other
+		o = &other
 	case *ImplementationGuideManifestPage:
-		o = *other
+		o = other
 	default:
 		return false
 	}

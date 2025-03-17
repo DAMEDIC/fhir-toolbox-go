@@ -5846,12 +5846,12 @@ func (r AuditEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEvent to Quantity")
 }
 func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEvent
+	var o *AuditEvent
 	switch other := other.(type) {
 	case AuditEvent:
-		o = other
+		o = &other
 	case *AuditEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5862,12 +5862,12 @@ func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r AuditEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEvent
+	var o *AuditEvent
 	switch other := other.(type) {
 	case AuditEvent:
-		o = other
+		o = &other
 	case *AuditEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6096,12 +6096,12 @@ func (r AuditEventOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert AuditEventOutcome to Quantity")
 }
 func (r AuditEventOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventOutcome
+	var o *AuditEventOutcome
 	switch other := other.(type) {
 	case AuditEventOutcome:
-		o = other
+		o = &other
 	case *AuditEventOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6112,12 +6112,12 @@ func (r AuditEventOutcome) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r AuditEventOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventOutcome
+	var o *AuditEventOutcome
 	switch other := other.(type) {
 	case AuditEventOutcome:
-		o = other
+		o = &other
 	case *AuditEventOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6257,12 +6257,12 @@ func (r AuditEventAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AuditEventAgent to Quantity")
 }
 func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventAgent
+	var o *AuditEventAgent
 	switch other := other.(type) {
 	case AuditEventAgent:
-		o = other
+		o = &other
 	case *AuditEventAgent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6273,12 +6273,12 @@ func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r AuditEventAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventAgent
+	var o *AuditEventAgent
 	switch other := other.(type) {
 	case AuditEventAgent:
-		o = other
+		o = &other
 	case *AuditEventAgent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6435,12 +6435,12 @@ func (r AuditEventSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert AuditEventSource to Quantity")
 }
 func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventSource
+	var o *AuditEventSource
 	switch other := other.(type) {
 	case AuditEventSource:
-		o = other
+		o = &other
 	case *AuditEventSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6451,12 +6451,12 @@ func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r AuditEventSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventSource
+	var o *AuditEventSource
 	switch other := other.(type) {
 	case AuditEventSource:
-		o = other
+		o = &other
 	case *AuditEventSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6595,12 +6595,12 @@ func (r AuditEventEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert AuditEventEntity to Quantity")
 }
 func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventEntity
+	var o *AuditEventEntity
 	switch other := other.(type) {
 	case AuditEventEntity:
-		o = other
+		o = &other
 	case *AuditEventEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6611,12 +6611,12 @@ func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r AuditEventEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventEntity
+	var o *AuditEventEntity
 	switch other := other.(type) {
 	case AuditEventEntity:
-		o = other
+		o = &other
 	case *AuditEventEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6752,12 +6752,12 @@ func (r AuditEventEntityDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert AuditEventEntityDetail to Quantity")
 }
 func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventEntityDetail
+	var o *AuditEventEntityDetail
 	switch other := other.(type) {
 	case AuditEventEntityDetail:
-		o = other
+		o = &other
 	case *AuditEventEntityDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6768,12 +6768,12 @@ func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AuditEventEntityDetail
+	var o *AuditEventEntityDetail
 	switch other := other.(type) {
 	case AuditEventEntityDetail:
-		o = other
+		o = &other
 	case *AuditEventEntityDetail:
-		o = *other
+		o = other
 	default:
 		return false
 	}

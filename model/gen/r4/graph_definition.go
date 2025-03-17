@@ -3968,12 +3968,12 @@ func (r GraphDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinition to Quantity")
 }
 func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinition
+	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
-		o = other
+		o = &other
 	case *GraphDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3984,12 +3984,12 @@ func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinition
+	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
-		o = other
+		o = &other
 	case *GraphDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4247,12 +4247,12 @@ func (r GraphDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert GraphDefinitionLink to Quantity")
 }
 func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLink
+	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
-		o = other
+		o = &other
 	case *GraphDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4263,12 +4263,12 @@ func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLink
+	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
-		o = other
+		o = &other
 	case *GraphDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4421,12 +4421,12 @@ func (r GraphDefinitionLinkTarget) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Quantity")
 }
 func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkTarget
+	var o *GraphDefinitionLinkTarget
 	switch other := other.(type) {
 	case GraphDefinitionLinkTarget:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4437,12 +4437,12 @@ func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkTarget
+	var o *GraphDefinitionLinkTarget
 	switch other := other.(type) {
 	case GraphDefinitionLinkTarget:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4584,12 +4584,12 @@ func (r GraphDefinitionLinkTargetCompartment) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Quantity")
 }
 func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkTargetCompartment
+	var o *GraphDefinitionLinkTargetCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkTargetCompartment:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkTargetCompartment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4600,12 +4600,12 @@ func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkTargetCompartment
+	var o *GraphDefinitionLinkTargetCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkTargetCompartment:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkTargetCompartment:
-		o = *other
+		o = other
 	default:
 		return false
 	}

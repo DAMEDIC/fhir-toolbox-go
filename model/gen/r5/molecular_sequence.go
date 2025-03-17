@@ -3506,12 +3506,12 @@ func (r MolecularSequence) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert MolecularSequence to Quantity")
 }
 func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequence
+	var o *MolecularSequence
 	switch other := other.(type) {
 	case MolecularSequence:
-		o = other
+		o = &other
 	case *MolecularSequence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3522,12 +3522,12 @@ func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequence
+	var o *MolecularSequence
 	switch other := other.(type) {
 	case MolecularSequence:
-		o = other
+		o = &other
 	case *MolecularSequence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3743,12 +3743,12 @@ func (r MolecularSequenceRelative) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert MolecularSequenceRelative to Quantity")
 }
 func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelative
+	var o *MolecularSequenceRelative
 	switch other := other.(type) {
 	case MolecularSequenceRelative:
-		o = other
+		o = &other
 	case *MolecularSequenceRelative:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3759,12 +3759,12 @@ func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r MolecularSequenceRelative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelative
+	var o *MolecularSequenceRelative
 	switch other := other.(type) {
 	case MolecularSequenceRelative:
-		o = other
+		o = &other
 	case *MolecularSequenceRelative:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3922,12 +3922,12 @@ func (r MolecularSequenceRelativeStartingSequence) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Quantity")
 }
 func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelativeStartingSequence
+	var o *MolecularSequenceRelativeStartingSequence
 	switch other := other.(type) {
 	case MolecularSequenceRelativeStartingSequence:
-		o = other
+		o = &other
 	case *MolecularSequenceRelativeStartingSequence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3938,12 +3938,12 @@ func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r MolecularSequenceRelativeStartingSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelativeStartingSequence
+	var o *MolecularSequenceRelativeStartingSequence
 	switch other := other.(type) {
 	case MolecularSequenceRelativeStartingSequence:
-		o = other
+		o = &other
 	case *MolecularSequenceRelativeStartingSequence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4100,12 +4100,12 @@ func (r MolecularSequenceRelativeEdit) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Quantity")
 }
 func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelativeEdit
+	var o *MolecularSequenceRelativeEdit
 	switch other := other.(type) {
 	case MolecularSequenceRelativeEdit:
-		o = other
+		o = &other
 	case *MolecularSequenceRelativeEdit:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4116,12 +4116,12 @@ func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r MolecularSequenceRelativeEdit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MolecularSequenceRelativeEdit
+	var o *MolecularSequenceRelativeEdit
 	switch other := other.(type) {
 	case MolecularSequenceRelativeEdit:
-		o = other
+		o = &other
 	case *MolecularSequenceRelativeEdit:
-		o = *other
+		o = other
 	default:
 		return false
 	}

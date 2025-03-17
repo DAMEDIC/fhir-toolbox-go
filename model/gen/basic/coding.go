@@ -429,12 +429,12 @@ func (r Coding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Coding to Quantity")
 }
 func (r Coding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Coding
+	var o *Coding
 	switch other := other.(type) {
 	case Coding:
-		o = other
+		o = &other
 	case *Coding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -445,12 +445,12 @@ func (r Coding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return *eq
 }
 func (r Coding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Coding
+	var o *Coding
 	switch other := other.(type) {
 	case Coding:
-		o = other
+		o = &other
 	case *Coding:
-		o = *other
+		o = other
 	default:
 		return false
 	}

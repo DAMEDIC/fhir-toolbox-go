@@ -2570,12 +2570,12 @@ func (r Location) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Location to Quantity")
 }
 func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Location
+	var o *Location
 	switch other := other.(type) {
 	case Location:
-		o = other
+		o = &other
 	case *Location:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2586,12 +2586,12 @@ func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Location
+	var o *Location
 	switch other := other.(type) {
 	case Location:
-		o = other
+		o = &other
 	case *Location:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2851,12 +2851,12 @@ func (r LocationPosition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert LocationPosition to Quantity")
 }
 func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o LocationPosition
+	var o *LocationPosition
 	switch other := other.(type) {
 	case LocationPosition:
-		o = other
+		o = &other
 	case *LocationPosition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2867,12 +2867,12 @@ func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o LocationPosition
+	var o *LocationPosition
 	switch other := other.(type) {
 	case LocationPosition:
-		o = other
+		o = &other
 	case *LocationPosition:
-		o = *other
+		o = other
 	default:
 		return false
 	}

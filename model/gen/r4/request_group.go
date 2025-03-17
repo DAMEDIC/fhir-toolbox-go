@@ -5128,12 +5128,12 @@ func (r RequestGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RequestGroup to Quantity")
 }
 func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroup
+	var o *RequestGroup
 	switch other := other.(type) {
 	case RequestGroup:
-		o = other
+		o = &other
 	case *RequestGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5144,12 +5144,12 @@ func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroup
+	var o *RequestGroup
 	switch other := other.(type) {
 	case RequestGroup:
-		o = other
+		o = &other
 	case *RequestGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5493,12 +5493,12 @@ func (r RequestGroupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert RequestGroupAction to Quantity")
 }
 func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupAction
+	var o *RequestGroupAction
 	switch other := other.(type) {
 	case RequestGroupAction:
-		o = other
+		o = &other
 	case *RequestGroupAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5509,12 +5509,12 @@ func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupAction
+	var o *RequestGroupAction
 	switch other := other.(type) {
 	case RequestGroupAction:
-		o = other
+		o = &other
 	case *RequestGroupAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5743,12 +5743,12 @@ func (r RequestGroupActionCondition) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert RequestGroupActionCondition to Quantity")
 }
 func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupActionCondition
+	var o *RequestGroupActionCondition
 	switch other := other.(type) {
 	case RequestGroupActionCondition:
-		o = other
+		o = &other
 	case *RequestGroupActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5759,12 +5759,12 @@ func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupActionCondition
+	var o *RequestGroupActionCondition
 	switch other := other.(type) {
 	case RequestGroupActionCondition:
-		o = other
+		o = &other
 	case *RequestGroupActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5877,12 +5877,12 @@ func (r RequestGroupActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Quantity")
 }
 func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupActionRelatedAction
+	var o *RequestGroupActionRelatedAction
 	switch other := other.(type) {
 	case RequestGroupActionRelatedAction:
-		o = other
+		o = &other
 	case *RequestGroupActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5893,12 +5893,12 @@ func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequestGroupActionRelatedAction
+	var o *RequestGroupActionRelatedAction
 	switch other := other.(type) {
 	case RequestGroupActionRelatedAction:
-		o = other
+		o = &other
 	case *RequestGroupActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}

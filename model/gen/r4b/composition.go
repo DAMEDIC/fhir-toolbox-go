@@ -4080,12 +4080,12 @@ func (r Composition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Composition to Quantity")
 }
 func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Composition
+	var o *Composition
 	switch other := other.(type) {
 	case Composition:
-		o = other
+		o = &other
 	case *Composition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4096,12 +4096,12 @@ func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Composition
+	var o *Composition
 	switch other := other.(type) {
 	case Composition:
-		o = other
+		o = &other
 	case *Composition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4342,12 +4342,12 @@ func (r CompositionAttester) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert CompositionAttester to Quantity")
 }
 func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionAttester
+	var o *CompositionAttester
 	switch other := other.(type) {
 	case CompositionAttester:
-		o = other
+		o = &other
 	case *CompositionAttester:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4358,12 +4358,12 @@ func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionAttester
+	var o *CompositionAttester
 	switch other := other.(type) {
 	case CompositionAttester:
-		o = other
+		o = &other
 	case *CompositionAttester:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4478,12 +4478,12 @@ func (r CompositionRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert CompositionRelatesTo to Quantity")
 }
 func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionRelatesTo
+	var o *CompositionRelatesTo
 	switch other := other.(type) {
 	case CompositionRelatesTo:
-		o = other
+		o = &other
 	case *CompositionRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4494,12 +4494,12 @@ func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r CompositionRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionRelatesTo
+	var o *CompositionRelatesTo
 	switch other := other.(type) {
 	case CompositionRelatesTo:
-		o = other
+		o = &other
 	case *CompositionRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4616,12 +4616,12 @@ func (r CompositionEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert CompositionEvent to Quantity")
 }
 func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionEvent
+	var o *CompositionEvent
 	switch other := other.(type) {
 	case CompositionEvent:
-		o = other
+		o = &other
 	case *CompositionEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4632,12 +4632,12 @@ func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionEvent
+	var o *CompositionEvent
 	switch other := other.(type) {
 	case CompositionEvent:
-		o = other
+		o = &other
 	case *CompositionEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4796,12 +4796,12 @@ func (r CompositionSection) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert CompositionSection to Quantity")
 }
 func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionSection
+	var o *CompositionSection
 	switch other := other.(type) {
 	case CompositionSection:
-		o = other
+		o = &other
 	case *CompositionSection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4812,12 +4812,12 @@ func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CompositionSection
+	var o *CompositionSection
 	switch other := other.(type) {
 	case CompositionSection:
-		o = other
+		o = &other
 	case *CompositionSection:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -4305,12 +4305,12 @@ func (r Specimen) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Specimen to Quantity")
 }
 func (r Specimen) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Specimen
+	var o *Specimen
 	switch other := other.(type) {
 	case Specimen:
-		o = other
+		o = &other
 	case *Specimen:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4321,12 +4321,12 @@ func (r Specimen) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Specimen) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Specimen
+	var o *Specimen
 	switch other := other.(type) {
 	case Specimen:
-		o = other
+		o = &other
 	case *Specimen:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4567,12 +4567,12 @@ func (r SpecimenFeature) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SpecimenFeature to Quantity")
 }
 func (r SpecimenFeature) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenFeature
+	var o *SpecimenFeature
 	switch other := other.(type) {
 	case SpecimenFeature:
-		o = other
+		o = &other
 	case *SpecimenFeature:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4583,12 +4583,12 @@ func (r SpecimenFeature) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r SpecimenFeature) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenFeature
+	var o *SpecimenFeature
 	switch other := other.(type) {
 	case SpecimenFeature:
-		o = other
+		o = &other
 	case *SpecimenFeature:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4735,12 +4735,12 @@ func (r SpecimenCollection) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert SpecimenCollection to Quantity")
 }
 func (r SpecimenCollection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenCollection
+	var o *SpecimenCollection
 	switch other := other.(type) {
 	case SpecimenCollection:
-		o = other
+		o = &other
 	case *SpecimenCollection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4751,12 +4751,12 @@ func (r SpecimenCollection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r SpecimenCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenCollection
+	var o *SpecimenCollection
 	switch other := other.(type) {
 	case SpecimenCollection:
-		o = other
+		o = &other
 	case *SpecimenCollection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4927,12 +4927,12 @@ func (r SpecimenProcessing) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert SpecimenProcessing to Quantity")
 }
 func (r SpecimenProcessing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenProcessing
+	var o *SpecimenProcessing
 	switch other := other.(type) {
 	case SpecimenProcessing:
-		o = other
+		o = &other
 	case *SpecimenProcessing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4943,12 +4943,12 @@ func (r SpecimenProcessing) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r SpecimenProcessing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenProcessing
+	var o *SpecimenProcessing
 	switch other := other.(type) {
 	case SpecimenProcessing:
-		o = other
+		o = &other
 	case *SpecimenProcessing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5077,12 +5077,12 @@ func (r SpecimenContainer) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert SpecimenContainer to Quantity")
 }
 func (r SpecimenContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenContainer
+	var o *SpecimenContainer
 	switch other := other.(type) {
 	case SpecimenContainer:
-		o = other
+		o = &other
 	case *SpecimenContainer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5093,12 +5093,12 @@ func (r SpecimenContainer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r SpecimenContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenContainer
+	var o *SpecimenContainer
 	switch other := other.(type) {
 	case SpecimenContainer:
-		o = other
+		o = &other
 	case *SpecimenContainer:
-		o = *other
+		o = other
 	default:
 		return false
 	}

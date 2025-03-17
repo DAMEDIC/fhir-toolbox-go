@@ -6825,12 +6825,12 @@ func (r ResearchStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ResearchStudy to Quantity")
 }
 func (r ResearchStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudy
+	var o *ResearchStudy
 	switch other := other.(type) {
 	case ResearchStudy:
-		o = other
+		o = &other
 	case *ResearchStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6841,12 +6841,12 @@ func (r ResearchStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r ResearchStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudy
+	var o *ResearchStudy
 	switch other := other.(type) {
 	case ResearchStudy:
-		o = other
+		o = &other
 	case *ResearchStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7203,12 +7203,12 @@ func (r ResearchStudyLabel) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ResearchStudyLabel to Quantity")
 }
 func (r ResearchStudyLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyLabel
+	var o *ResearchStudyLabel
 	switch other := other.(type) {
 	case ResearchStudyLabel:
-		o = other
+		o = &other
 	case *ResearchStudyLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7219,12 +7219,12 @@ func (r ResearchStudyLabel) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ResearchStudyLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyLabel
+	var o *ResearchStudyLabel
 	switch other := other.(type) {
 	case ResearchStudyLabel:
-		o = other
+		o = &other
 	case *ResearchStudyLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7349,12 +7349,12 @@ func (r ResearchStudyAssociatedParty) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ResearchStudyAssociatedParty to Quantity")
 }
 func (r ResearchStudyAssociatedParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyAssociatedParty
+	var o *ResearchStudyAssociatedParty
 	switch other := other.(type) {
 	case ResearchStudyAssociatedParty:
-		o = other
+		o = &other
 	case *ResearchStudyAssociatedParty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7365,12 +7365,12 @@ func (r ResearchStudyAssociatedParty) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ResearchStudyAssociatedParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyAssociatedParty
+	var o *ResearchStudyAssociatedParty
 	switch other := other.(type) {
 	case ResearchStudyAssociatedParty:
-		o = other
+		o = &other
 	case *ResearchStudyAssociatedParty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7506,12 +7506,12 @@ func (r ResearchStudyProgressStatus) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ResearchStudyProgressStatus to Quantity")
 }
 func (r ResearchStudyProgressStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyProgressStatus
+	var o *ResearchStudyProgressStatus
 	switch other := other.(type) {
 	case ResearchStudyProgressStatus:
-		o = other
+		o = &other
 	case *ResearchStudyProgressStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7522,12 +7522,12 @@ func (r ResearchStudyProgressStatus) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ResearchStudyProgressStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyProgressStatus
+	var o *ResearchStudyProgressStatus
 	switch other := other.(type) {
 	case ResearchStudyProgressStatus:
-		o = other
+		o = &other
 	case *ResearchStudyProgressStatus:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7656,12 +7656,12 @@ func (r ResearchStudyRecruitment) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert ResearchStudyRecruitment to Quantity")
 }
 func (r ResearchStudyRecruitment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyRecruitment
+	var o *ResearchStudyRecruitment
 	switch other := other.(type) {
 	case ResearchStudyRecruitment:
-		o = other
+		o = &other
 	case *ResearchStudyRecruitment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7672,12 +7672,12 @@ func (r ResearchStudyRecruitment) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r ResearchStudyRecruitment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyRecruitment
+	var o *ResearchStudyRecruitment
 	switch other := other.(type) {
 	case ResearchStudyRecruitment:
-		o = other
+		o = &other
 	case *ResearchStudyRecruitment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7821,12 +7821,12 @@ func (r ResearchStudyComparisonGroup) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ResearchStudyComparisonGroup to Quantity")
 }
 func (r ResearchStudyComparisonGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyComparisonGroup
+	var o *ResearchStudyComparisonGroup
 	switch other := other.(type) {
 	case ResearchStudyComparisonGroup:
-		o = other
+		o = &other
 	case *ResearchStudyComparisonGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7837,12 +7837,12 @@ func (r ResearchStudyComparisonGroup) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ResearchStudyComparisonGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyComparisonGroup
+	var o *ResearchStudyComparisonGroup
 	switch other := other.(type) {
 	case ResearchStudyComparisonGroup:
-		o = other
+		o = &other
 	case *ResearchStudyComparisonGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7987,12 +7987,12 @@ func (r ResearchStudyObjective) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ResearchStudyObjective to Quantity")
 }
 func (r ResearchStudyObjective) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyObjective
+	var o *ResearchStudyObjective
 	switch other := other.(type) {
 	case ResearchStudyObjective:
-		o = other
+		o = &other
 	case *ResearchStudyObjective:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8003,12 +8003,12 @@ func (r ResearchStudyObjective) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ResearchStudyObjective) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyObjective
+	var o *ResearchStudyObjective
 	switch other := other.(type) {
 	case ResearchStudyObjective:
-		o = other
+		o = &other
 	case *ResearchStudyObjective:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8137,12 +8137,12 @@ func (r ResearchStudyOutcomeMeasure) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ResearchStudyOutcomeMeasure to Quantity")
 }
 func (r ResearchStudyOutcomeMeasure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyOutcomeMeasure
+	var o *ResearchStudyOutcomeMeasure
 	switch other := other.(type) {
 	case ResearchStudyOutcomeMeasure:
-		o = other
+		o = &other
 	case *ResearchStudyOutcomeMeasure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8153,12 +8153,12 @@ func (r ResearchStudyOutcomeMeasure) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ResearchStudyOutcomeMeasure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ResearchStudyOutcomeMeasure
+	var o *ResearchStudyOutcomeMeasure
 	switch other := other.(type) {
 	case ResearchStudyOutcomeMeasure:
-		o = other
+		o = &other
 	case *ResearchStudyOutcomeMeasure:
-		o = *other
+		o = other
 	default:
 		return false
 	}

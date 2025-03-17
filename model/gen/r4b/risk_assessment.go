@@ -2801,12 +2801,12 @@ func (r RiskAssessment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RiskAssessment to Quantity")
 }
 func (r RiskAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskAssessment
+	var o *RiskAssessment
 	switch other := other.(type) {
 	case RiskAssessment:
-		o = other
+		o = &other
 	case *RiskAssessment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2817,12 +2817,12 @@ func (r RiskAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r RiskAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskAssessment
+	var o *RiskAssessment
 	switch other := other.(type) {
 	case RiskAssessment:
-		o = other
+		o = &other
 	case *RiskAssessment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3094,12 +3094,12 @@ func (r RiskAssessmentPrediction) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert RiskAssessmentPrediction to Quantity")
 }
 func (r RiskAssessmentPrediction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskAssessmentPrediction
+	var o *RiskAssessmentPrediction
 	switch other := other.(type) {
 	case RiskAssessmentPrediction:
-		o = other
+		o = &other
 	case *RiskAssessmentPrediction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3110,12 +3110,12 @@ func (r RiskAssessmentPrediction) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r RiskAssessmentPrediction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskAssessmentPrediction
+	var o *RiskAssessmentPrediction
 	switch other := other.(type) {
 	case RiskAssessmentPrediction:
-		o = other
+		o = &other
 	case *RiskAssessmentPrediction:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -7479,12 +7479,12 @@ func (r CodeSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CodeSystem to Quantity")
 }
 func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystem
+	var o *CodeSystem
 	switch other := other.(type) {
 	case CodeSystem:
-		o = other
+		o = &other
 	case *CodeSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7495,12 +7495,12 @@ func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystem
+	var o *CodeSystem
 	switch other := other.(type) {
 	case CodeSystem:
-		o = other
+		o = &other
 	case *CodeSystem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7898,12 +7898,12 @@ func (r CodeSystemFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert CodeSystemFilter to Quantity")
 }
 func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemFilter
+	var o *CodeSystemFilter
 	switch other := other.(type) {
 	case CodeSystemFilter:
-		o = other
+		o = &other
 	case *CodeSystemFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7914,12 +7914,12 @@ func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemFilter
+	var o *CodeSystemFilter
 	switch other := other.(type) {
 	case CodeSystemFilter:
-		o = other
+		o = &other
 	case *CodeSystemFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8051,12 +8051,12 @@ func (r CodeSystemProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert CodeSystemProperty to Quantity")
 }
 func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemProperty
+	var o *CodeSystemProperty
 	switch other := other.(type) {
 	case CodeSystemProperty:
-		o = other
+		o = &other
 	case *CodeSystemProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8067,12 +8067,12 @@ func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemProperty
+	var o *CodeSystemProperty
 	switch other := other.(type) {
 	case CodeSystemProperty:
-		o = other
+		o = &other
 	case *CodeSystemProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8216,12 +8216,12 @@ func (r CodeSystemConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert CodeSystemConcept to Quantity")
 }
 func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConcept
+	var o *CodeSystemConcept
 	switch other := other.(type) {
 	case CodeSystemConcept:
-		o = other
+		o = &other
 	case *CodeSystemConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8232,12 +8232,12 @@ func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConcept
+	var o *CodeSystemConcept
 	switch other := other.(type) {
 	case CodeSystemConcept:
-		o = other
+		o = &other
 	case *CodeSystemConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8385,12 +8385,12 @@ func (r CodeSystemConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert CodeSystemConceptDesignation to Quantity")
 }
 func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConceptDesignation
+	var o *CodeSystemConceptDesignation
 	switch other := other.(type) {
 	case CodeSystemConceptDesignation:
-		o = other
+		o = &other
 	case *CodeSystemConceptDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8401,12 +8401,12 @@ func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConceptDesignation
+	var o *CodeSystemConceptDesignation
 	switch other := other.(type) {
 	case CodeSystemConceptDesignation:
-		o = other
+		o = &other
 	case *CodeSystemConceptDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8528,12 +8528,12 @@ func (r CodeSystemConceptProperty) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert CodeSystemConceptProperty to Quantity")
 }
 func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConceptProperty
+	var o *CodeSystemConceptProperty
 	switch other := other.(type) {
 	case CodeSystemConceptProperty:
-		o = other
+		o = &other
 	case *CodeSystemConceptProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8544,12 +8544,12 @@ func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CodeSystemConceptProperty
+	var o *CodeSystemConceptProperty
 	switch other := other.(type) {
 	case CodeSystemConceptProperty:
-		o = other
+		o = &other
 	case *CodeSystemConceptProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}

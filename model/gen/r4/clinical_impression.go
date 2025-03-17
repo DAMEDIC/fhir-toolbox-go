@@ -3194,12 +3194,12 @@ func (r ClinicalImpression) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ClinicalImpression to Quantity")
 }
 func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpression
+	var o *ClinicalImpression
 	switch other := other.(type) {
 	case ClinicalImpression:
-		o = other
+		o = &other
 	case *ClinicalImpression:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3210,12 +3210,12 @@ func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpression
+	var o *ClinicalImpression
 	switch other := other.(type) {
 	case ClinicalImpression:
-		o = other
+		o = &other
 	case *ClinicalImpression:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3486,12 +3486,12 @@ func (r ClinicalImpressionInvestigation) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert ClinicalImpressionInvestigation to Quantity")
 }
 func (r ClinicalImpressionInvestigation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpressionInvestigation
+	var o *ClinicalImpressionInvestigation
 	switch other := other.(type) {
 	case ClinicalImpressionInvestigation:
-		o = other
+		o = &other
 	case *ClinicalImpressionInvestigation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3502,12 +3502,12 @@ func (r ClinicalImpressionInvestigation) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r ClinicalImpressionInvestigation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpressionInvestigation
+	var o *ClinicalImpressionInvestigation
 	switch other := other.(type) {
 	case ClinicalImpressionInvestigation:
-		o = other
+		o = &other
 	case *ClinicalImpressionInvestigation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3624,12 +3624,12 @@ func (r ClinicalImpressionFinding) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ClinicalImpressionFinding to Quantity")
 }
 func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpressionFinding
+	var o *ClinicalImpressionFinding
 	switch other := other.(type) {
 	case ClinicalImpressionFinding:
-		o = other
+		o = &other
 	case *ClinicalImpressionFinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3640,12 +3640,12 @@ func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalImpressionFinding
+	var o *ClinicalImpressionFinding
 	switch other := other.(type) {
 	case ClinicalImpressionFinding:
-		o = other
+		o = &other
 	case *ClinicalImpressionFinding:
-		o = *other
+		o = other
 	default:
 		return false
 	}

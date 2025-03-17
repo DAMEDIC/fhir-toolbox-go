@@ -987,12 +987,12 @@ func (r RelatedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert RelatedArtifact to Quantity")
 }
 func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RelatedArtifact
+	var o *RelatedArtifact
 	switch other := other.(type) {
 	case RelatedArtifact:
-		o = other
+		o = &other
 	case *RelatedArtifact:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1003,12 +1003,12 @@ func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r RelatedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RelatedArtifact
+	var o *RelatedArtifact
 	switch other := other.(type) {
 	case RelatedArtifact:
-		o = other
+		o = &other
 	case *RelatedArtifact:
-		o = *other
+		o = other
 	default:
 		return false
 	}

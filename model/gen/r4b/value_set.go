@@ -7823,12 +7823,12 @@ func (r ValueSet) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSet to Quantity")
 }
 func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSet
+	var o *ValueSet
 	switch other := other.(type) {
 	case ValueSet:
-		o = other
+		o = &other
 	case *ValueSet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7839,12 +7839,12 @@ func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r ValueSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSet
+	var o *ValueSet
 	switch other := other.(type) {
 	case ValueSet:
-		o = other
+		o = &other
 	case *ValueSet:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8113,12 +8113,12 @@ func (r ValueSetCompose) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ValueSetCompose to Quantity")
 }
 func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetCompose
+	var o *ValueSetCompose
 	switch other := other.(type) {
 	case ValueSetCompose:
-		o = other
+		o = &other
 	case *ValueSetCompose:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8129,12 +8129,12 @@ func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ValueSetCompose) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetCompose
+	var o *ValueSetCompose
 	switch other := other.(type) {
 	case ValueSetCompose:
-		o = other
+		o = &other
 	case *ValueSetCompose:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8275,12 +8275,12 @@ func (r ValueSetComposeInclude) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ValueSetComposeInclude to Quantity")
 }
 func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeInclude
+	var o *ValueSetComposeInclude
 	switch other := other.(type) {
 	case ValueSetComposeInclude:
-		o = other
+		o = &other
 	case *ValueSetComposeInclude:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8291,12 +8291,12 @@ func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeInclude
+	var o *ValueSetComposeInclude
 	switch other := other.(type) {
 	case ValueSetComposeInclude:
-		o = other
+		o = &other
 	case *ValueSetComposeInclude:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8432,12 +8432,12 @@ func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
 }
 func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeConcept
+	var o *ValueSetComposeIncludeConcept
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConcept:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8448,12 +8448,12 @@ func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeConcept
+	var o *ValueSetComposeIncludeConcept
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConcept:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeConcept:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8575,12 +8575,12 @@ func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
 }
 func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeConceptDesignation
+	var o *ValueSetComposeIncludeConceptDesignation
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConceptDesignation:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeConceptDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8591,12 +8591,12 @@ func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeConceptDesignation
+	var o *ValueSetComposeIncludeConceptDesignation
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConceptDesignation:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeConceptDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8714,12 +8714,12 @@ func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
 }
 func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeFilter
+	var o *ValueSetComposeIncludeFilter
 	switch other := other.(type) {
 	case ValueSetComposeIncludeFilter:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8730,12 +8730,12 @@ func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetComposeIncludeFilter
+	var o *ValueSetComposeIncludeFilter
 	switch other := other.(type) {
 	case ValueSetComposeIncludeFilter:
-		o = other
+		o = &other
 	case *ValueSetComposeIncludeFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8872,12 +8872,12 @@ func (r ValueSetExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert ValueSetExpansion to Quantity")
 }
 func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansion
+	var o *ValueSetExpansion
 	switch other := other.(type) {
 	case ValueSetExpansion:
-		o = other
+		o = &other
 	case *ValueSetExpansion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8888,12 +8888,12 @@ func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r ValueSetExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansion
+	var o *ValueSetExpansion
 	switch other := other.(type) {
 	case ValueSetExpansion:
-		o = other
+		o = &other
 	case *ValueSetExpansion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9031,12 +9031,12 @@ func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ValueSetExpansionParameter to Quantity")
 }
 func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansionParameter
+	var o *ValueSetExpansionParameter
 	switch other := other.(type) {
 	case ValueSetExpansionParameter:
-		o = other
+		o = &other
 	case *ValueSetExpansionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9047,12 +9047,12 @@ func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansionParameter
+	var o *ValueSetExpansionParameter
 	switch other := other.(type) {
 	case ValueSetExpansionParameter:
-		o = other
+		o = &other
 	case *ValueSetExpansionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9194,12 +9194,12 @@ func (r ValueSetExpansionContains) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert ValueSetExpansionContains to Quantity")
 }
 func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansionContains
+	var o *ValueSetExpansionContains
 	switch other := other.(type) {
 	case ValueSetExpansionContains:
-		o = other
+		o = &other
 	case *ValueSetExpansionContains:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9210,12 +9210,12 @@ func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ValueSetExpansionContains
+	var o *ValueSetExpansionContains
 	switch other := other.(type) {
 	case ValueSetExpansionContains:
-		o = other
+		o = &other
 	case *ValueSetExpansionContains:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -2198,12 +2198,12 @@ func (r Substance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Substance to Quantity")
 }
 func (r Substance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Substance
+	var o *Substance
 	switch other := other.(type) {
 	case Substance:
-		o = other
+		o = &other
 	case *Substance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2214,12 +2214,12 @@ func (r Substance) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Substance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Substance
+	var o *Substance
 	switch other := other.(type) {
 	case Substance:
-		o = other
+		o = &other
 	case *Substance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2406,12 +2406,12 @@ func (r SubstanceInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert SubstanceInstance to Quantity")
 }
 func (r SubstanceInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceInstance
+	var o *SubstanceInstance
 	switch other := other.(type) {
 	case SubstanceInstance:
-		o = other
+		o = &other
 	case *SubstanceInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2422,12 +2422,12 @@ func (r SubstanceInstance) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r SubstanceInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceInstance
+	var o *SubstanceInstance
 	switch other := other.(type) {
 	case SubstanceInstance:
-		o = other
+		o = &other
 	case *SubstanceInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2544,12 +2544,12 @@ func (r SubstanceIngredient) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert SubstanceIngredient to Quantity")
 }
 func (r SubstanceIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceIngredient
+	var o *SubstanceIngredient
 	switch other := other.(type) {
 	case SubstanceIngredient:
-		o = other
+		o = &other
 	case *SubstanceIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2560,12 +2560,12 @@ func (r SubstanceIngredient) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r SubstanceIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceIngredient
+	var o *SubstanceIngredient
 	switch other := other.(type) {
 	case SubstanceIngredient:
-		o = other
+		o = &other
 	case *SubstanceIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}

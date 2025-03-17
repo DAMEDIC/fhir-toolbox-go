@@ -3852,12 +3852,12 @@ func (r Bundle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Bundle to Quantity")
 }
 func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Bundle
+	var o *Bundle
 	switch other := other.(type) {
 	case Bundle:
-		o = other
+		o = &other
 	case *Bundle:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3868,12 +3868,12 @@ func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return *eq
 }
 func (r Bundle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Bundle
+	var o *Bundle
 	switch other := other.(type) {
 	case Bundle:
-		o = other
+		o = &other
 	case *Bundle:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4030,12 +4030,12 @@ func (r BundleLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BundleLink to Quantity")
 }
 func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleLink
+	var o *BundleLink
 	switch other := other.(type) {
 	case BundleLink:
-		o = other
+		o = &other
 	case *BundleLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4046,12 +4046,12 @@ func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r BundleLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleLink
+	var o *BundleLink
 	switch other := other.(type) {
 	case BundleLink:
-		o = other
+		o = &other
 	case *BundleLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4183,12 +4183,12 @@ func (r BundleEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert BundleEntry to Quantity")
 }
 func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntry
+	var o *BundleEntry
 	switch other := other.(type) {
 	case BundleEntry:
-		o = other
+		o = &other
 	case *BundleEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4199,12 +4199,12 @@ func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r BundleEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntry
+	var o *BundleEntry
 	switch other := other.(type) {
 	case BundleEntry:
-		o = other
+		o = &other
 	case *BundleEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4344,12 +4344,12 @@ func (r BundleEntrySearch) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert BundleEntrySearch to Quantity")
 }
 func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntrySearch
+	var o *BundleEntrySearch
 	switch other := other.(type) {
 	case BundleEntrySearch:
-		o = other
+		o = &other
 	case *BundleEntrySearch:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4360,12 +4360,12 @@ func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r BundleEntrySearch) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntrySearch
+	var o *BundleEntrySearch
 	switch other := other.(type) {
 	case BundleEntrySearch:
-		o = other
+		o = &other
 	case *BundleEntrySearch:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4493,12 +4493,12 @@ func (r BundleEntryRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert BundleEntryRequest to Quantity")
 }
 func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntryRequest
+	var o *BundleEntryRequest
 	switch other := other.(type) {
 	case BundleEntryRequest:
-		o = other
+		o = &other
 	case *BundleEntryRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4509,12 +4509,12 @@ func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r BundleEntryRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntryRequest
+	var o *BundleEntryRequest
 	switch other := other.(type) {
 	case BundleEntryRequest:
-		o = other
+		o = &other
 	case *BundleEntryRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4667,12 +4667,12 @@ func (r BundleEntryResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert BundleEntryResponse to Quantity")
 }
 func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntryResponse
+	var o *BundleEntryResponse
 	switch other := other.(type) {
 	case BundleEntryResponse:
-		o = other
+		o = &other
 	case *BundleEntryResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4683,12 +4683,12 @@ func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r BundleEntryResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BundleEntryResponse
+	var o *BundleEntryResponse
 	switch other := other.(type) {
 	case BundleEntryResponse:
-		o = other
+		o = &other
 	case *BundleEntryResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}

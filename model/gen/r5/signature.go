@@ -760,12 +760,12 @@ func (r Signature) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Signature to Quantity")
 }
 func (r Signature) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Signature
+	var o *Signature
 	switch other := other.(type) {
 	case Signature:
-		o = other
+		o = &other
 	case *Signature:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -776,12 +776,12 @@ func (r Signature) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Signature) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Signature
+	var o *Signature
 	switch other := other.(type) {
 	case Signature:
-		o = other
+		o = &other
 	case *Signature:
-		o = *other
+		o = other
 	default:
 		return false
 	}

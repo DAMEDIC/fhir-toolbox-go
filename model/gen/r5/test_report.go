@@ -6100,12 +6100,12 @@ func (r TestReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReport to Quantity")
 }
 func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReport
+	var o *TestReport
 	switch other := other.(type) {
 	case TestReport:
-		o = other
+		o = &other
 	case *TestReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6116,12 +6116,12 @@ func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r TestReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReport
+	var o *TestReport
 	switch other := other.(type) {
 	case TestReport:
-		o = other
+		o = &other
 	case *TestReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6339,12 +6339,12 @@ func (r TestReportParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert TestReportParticipant to Quantity")
 }
 func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportParticipant
+	var o *TestReportParticipant
 	switch other := other.(type) {
 	case TestReportParticipant:
-		o = other
+		o = &other
 	case *TestReportParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6355,12 +6355,12 @@ func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r TestReportParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportParticipant
+	var o *TestReportParticipant
 	switch other := other.(type) {
 	case TestReportParticipant:
-		o = other
+		o = &other
 	case *TestReportParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6474,12 +6474,12 @@ func (r TestReportSetup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportSetup to Quantity")
 }
 func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetup
+	var o *TestReportSetup
 	switch other := other.(type) {
 	case TestReportSetup:
-		o = other
+		o = &other
 	case *TestReportSetup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6490,12 +6490,12 @@ func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r TestReportSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetup
+	var o *TestReportSetup
 	switch other := other.(type) {
 	case TestReportSetup:
-		o = other
+		o = &other
 	case *TestReportSetup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6600,12 +6600,12 @@ func (r TestReportSetupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert TestReportSetupAction to Quantity")
 }
 func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupAction
+	var o *TestReportSetupAction
 	switch other := other.(type) {
 	case TestReportSetupAction:
-		o = other
+		o = &other
 	case *TestReportSetupAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6616,12 +6616,12 @@ func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r TestReportSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupAction
+	var o *TestReportSetupAction
 	switch other := other.(type) {
 	case TestReportSetupAction:
-		o = other
+		o = &other
 	case *TestReportSetupAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6736,12 +6736,12 @@ func (r TestReportSetupActionOperation) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert TestReportSetupActionOperation to Quantity")
 }
 func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionOperation
+	var o *TestReportSetupActionOperation
 	switch other := other.(type) {
 	case TestReportSetupActionOperation:
-		o = other
+		o = &other
 	case *TestReportSetupActionOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6752,12 +6752,12 @@ func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r TestReportSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionOperation
+	var o *TestReportSetupActionOperation
 	switch other := other.(type) {
 	case TestReportSetupActionOperation:
-		o = other
+		o = &other
 	case *TestReportSetupActionOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6884,12 +6884,12 @@ func (r TestReportSetupActionAssert) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert TestReportSetupActionAssert to Quantity")
 }
 func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionAssert
+	var o *TestReportSetupActionAssert
 	switch other := other.(type) {
 	case TestReportSetupActionAssert:
-		o = other
+		o = &other
 	case *TestReportSetupActionAssert:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6900,12 +6900,12 @@ func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r TestReportSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionAssert
+	var o *TestReportSetupActionAssert
 	switch other := other.(type) {
 	case TestReportSetupActionAssert:
-		o = other
+		o = &other
 	case *TestReportSetupActionAssert:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7026,12 +7026,12 @@ func (r TestReportSetupActionAssertRequirement) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert TestReportSetupActionAssertRequirement to Quantity")
 }
 func (r TestReportSetupActionAssertRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionAssertRequirement
+	var o *TestReportSetupActionAssertRequirement
 	switch other := other.(type) {
 	case TestReportSetupActionAssertRequirement:
-		o = other
+		o = &other
 	case *TestReportSetupActionAssertRequirement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7042,12 +7042,12 @@ func (r TestReportSetupActionAssertRequirement) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r TestReportSetupActionAssertRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportSetupActionAssertRequirement
+	var o *TestReportSetupActionAssertRequirement
 	switch other := other.(type) {
 	case TestReportSetupActionAssertRequirement:
-		o = other
+		o = &other
 	case *TestReportSetupActionAssertRequirement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7157,12 +7157,12 @@ func (r TestReportTest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert TestReportTest to Quantity")
 }
 func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTest
+	var o *TestReportTest
 	switch other := other.(type) {
 	case TestReportTest:
-		o = other
+		o = &other
 	case *TestReportTest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7173,12 +7173,12 @@ func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r TestReportTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTest
+	var o *TestReportTest
 	switch other := other.(type) {
 	case TestReportTest:
-		o = other
+		o = &other
 	case *TestReportTest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7297,12 +7297,12 @@ func (r TestReportTestAction) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert TestReportTestAction to Quantity")
 }
 func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTestAction
+	var o *TestReportTestAction
 	switch other := other.(type) {
 	case TestReportTestAction:
-		o = other
+		o = &other
 	case *TestReportTestAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7313,12 +7313,12 @@ func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r TestReportTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTestAction
+	var o *TestReportTestAction
 	switch other := other.(type) {
 	case TestReportTestAction:
-		o = other
+		o = &other
 	case *TestReportTestAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7425,12 +7425,12 @@ func (r TestReportTeardown) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert TestReportTeardown to Quantity")
 }
 func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTeardown
+	var o *TestReportTeardown
 	switch other := other.(type) {
 	case TestReportTeardown:
-		o = other
+		o = &other
 	case *TestReportTeardown:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7441,12 +7441,12 @@ func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r TestReportTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTeardown
+	var o *TestReportTeardown
 	switch other := other.(type) {
 	case TestReportTeardown:
-		o = other
+		o = &other
 	case *TestReportTeardown:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7544,12 +7544,12 @@ func (r TestReportTeardownAction) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert TestReportTeardownAction to Quantity")
 }
 func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTeardownAction
+	var o *TestReportTeardownAction
 	switch other := other.(type) {
 	case TestReportTeardownAction:
-		o = other
+		o = &other
 	case *TestReportTeardownAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7560,12 +7560,12 @@ func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r TestReportTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o TestReportTeardownAction
+	var o *TestReportTeardownAction
 	switch other := other.(type) {
 	case TestReportTeardownAction:
-		o = other
+		o = &other
 	case *TestReportTeardownAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -7784,12 +7784,12 @@ func (r ExampleScenario) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ExampleScenario to Quantity")
 }
 func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenario
+	var o *ExampleScenario
 	switch other := other.(type) {
 	case ExampleScenario:
-		o = other
+		o = &other
 	case *ExampleScenario:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7800,12 +7800,12 @@ func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r ExampleScenario) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenario
+	var o *ExampleScenario
 	switch other := other.(type) {
 	case ExampleScenario:
-		o = other
+		o = &other
 	case *ExampleScenario:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8082,12 +8082,12 @@ func (r ExampleScenarioActor) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ExampleScenarioActor to Quantity")
 }
 func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioActor
+	var o *ExampleScenarioActor
 	switch other := other.(type) {
 	case ExampleScenarioActor:
-		o = other
+		o = &other
 	case *ExampleScenarioActor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8098,12 +8098,12 @@ func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ExampleScenarioActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioActor
+	var o *ExampleScenarioActor
 	switch other := other.(type) {
 	case ExampleScenarioActor:
-		o = other
+		o = &other
 	case *ExampleScenarioActor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8258,12 +8258,12 @@ func (r ExampleScenarioInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert ExampleScenarioInstance to Quantity")
 }
 func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstance
+	var o *ExampleScenarioInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstance:
-		o = other
+		o = &other
 	case *ExampleScenarioInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8274,12 +8274,12 @@ func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstance
+	var o *ExampleScenarioInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstance:
-		o = other
+		o = &other
 	case *ExampleScenarioInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8446,12 +8446,12 @@ func (r ExampleScenarioInstanceVersion) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert ExampleScenarioInstanceVersion to Quantity")
 }
 func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstanceVersion
+	var o *ExampleScenarioInstanceVersion
 	switch other := other.(type) {
 	case ExampleScenarioInstanceVersion:
-		o = other
+		o = &other
 	case *ExampleScenarioInstanceVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8462,12 +8462,12 @@ func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstanceVersion
+	var o *ExampleScenarioInstanceVersion
 	switch other := other.(type) {
 	case ExampleScenarioInstanceVersion:
-		o = other
+		o = &other
 	case *ExampleScenarioInstanceVersion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8591,12 +8591,12 @@ func (r ExampleScenarioInstanceContainedInstance) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Quantity")
 }
 func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstanceContainedInstance
+	var o *ExampleScenarioInstanceContainedInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstanceContainedInstance:
-		o = other
+		o = &other
 	case *ExampleScenarioInstanceContainedInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8607,12 +8607,12 @@ func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioInstanceContainedInstance
+	var o *ExampleScenarioInstanceContainedInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstanceContainedInstance:
-		o = other
+		o = &other
 	case *ExampleScenarioInstanceContainedInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8737,12 +8737,12 @@ func (r ExampleScenarioProcess) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert ExampleScenarioProcess to Quantity")
 }
 func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcess
+	var o *ExampleScenarioProcess
 	switch other := other.(type) {
 	case ExampleScenarioProcess:
-		o = other
+		o = &other
 	case *ExampleScenarioProcess:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8753,12 +8753,12 @@ func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcess
+	var o *ExampleScenarioProcess
 	switch other := other.(type) {
 	case ExampleScenarioProcess:
-		o = other
+		o = &other
 	case *ExampleScenarioProcess:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8911,12 +8911,12 @@ func (r ExampleScenarioProcessStep) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ExampleScenarioProcessStep to Quantity")
 }
 func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStep
+	var o *ExampleScenarioProcessStep
 	switch other := other.(type) {
 	case ExampleScenarioProcessStep:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStep:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8927,12 +8927,12 @@ func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStep
+	var o *ExampleScenarioProcessStep
 	switch other := other.(type) {
 	case ExampleScenarioProcessStep:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStep:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9105,12 +9105,12 @@ func (r ExampleScenarioProcessStepOperation) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert ExampleScenarioProcessStepOperation to Quantity")
 }
 func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStepOperation
+	var o *ExampleScenarioProcessStepOperation
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepOperation:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStepOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9121,12 +9121,12 @@ func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStepOperation
+	var o *ExampleScenarioProcessStepOperation
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepOperation:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStepOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9290,12 +9290,12 @@ func (r ExampleScenarioProcessStepAlternative) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ExampleScenarioProcessStepAlternative to Quantity")
 }
 func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStepAlternative
+	var o *ExampleScenarioProcessStepAlternative
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepAlternative:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStepAlternative:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9306,12 +9306,12 @@ func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ExampleScenarioProcessStepAlternative
+	var o *ExampleScenarioProcessStepAlternative
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepAlternative:
-		o = other
+		o = &other
 	case *ExampleScenarioProcessStepAlternative:
-		o = *other
+		o = other
 	default:
 		return false
 	}

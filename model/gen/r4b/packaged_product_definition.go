@@ -4921,12 +4921,12 @@ func (r PackagedProductDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert PackagedProductDefinition to Quantity")
 }
 func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinition
+	var o *PackagedProductDefinition
 	switch other := other.(type) {
 	case PackagedProductDefinition:
-		o = other
+		o = &other
 	case *PackagedProductDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4937,12 +4937,12 @@ func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinition
+	var o *PackagedProductDefinition
 	switch other := other.(type) {
 	case PackagedProductDefinition:
-		o = other
+		o = &other
 	case *PackagedProductDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5173,12 +5173,12 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Quantity")
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionLegalStatusOfSupply
+	var o *PackagedProductDefinitionLegalStatusOfSupply
 	switch other := other.(type) {
 	case PackagedProductDefinitionLegalStatusOfSupply:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionLegalStatusOfSupply:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5189,12 +5189,12 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionLegalStatusOfSupply
+	var o *PackagedProductDefinitionLegalStatusOfSupply
 	switch other := other.(type) {
 	case PackagedProductDefinitionLegalStatusOfSupply:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionLegalStatusOfSupply:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5346,12 +5346,12 @@ func (r PackagedProductDefinitionPackage) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Quantity")
 }
 func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackage
+	var o *PackagedProductDefinitionPackage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackage:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5362,12 +5362,12 @@ func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r PackagedProductDefinitionPackage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackage
+	var o *PackagedProductDefinitionPackage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackage:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5540,12 +5540,12 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) ToQuantity(explicit bo
 	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Quantity")
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageShelfLifeStorage
+	var o *PackagedProductDefinitionPackageShelfLifeStorage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageShelfLifeStorage:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageShelfLifeStorage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5556,12 +5556,12 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.E
 	return *eq
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageShelfLifeStorage
+	var o *PackagedProductDefinitionPackageShelfLifeStorage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageShelfLifeStorage:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageShelfLifeStorage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5678,12 +5678,12 @@ func (r PackagedProductDefinitionPackageProperty) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Quantity")
 }
 func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageProperty
+	var o *PackagedProductDefinitionPackageProperty
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageProperty:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5694,12 +5694,12 @@ func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r PackagedProductDefinitionPackageProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageProperty
+	var o *PackagedProductDefinitionPackageProperty
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageProperty:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5809,12 +5809,12 @@ func (r PackagedProductDefinitionPackageContainedItem) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Quantity")
 }
 func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageContainedItem
+	var o *PackagedProductDefinitionPackageContainedItem
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageContainedItem:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageContainedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5825,12 +5825,12 @@ func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r PackagedProductDefinitionPackageContainedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PackagedProductDefinitionPackageContainedItem
+	var o *PackagedProductDefinitionPackageContainedItem
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageContainedItem:
-		o = other
+		o = &other
 	case *PackagedProductDefinitionPackageContainedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}

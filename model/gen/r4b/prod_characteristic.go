@@ -1148,12 +1148,12 @@ func (r ProdCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ProdCharacteristic to Quantity")
 }
 func (r ProdCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProdCharacteristic
+	var o *ProdCharacteristic
 	switch other := other.(type) {
 	case ProdCharacteristic:
-		o = other
+		o = &other
 	case *ProdCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1164,12 +1164,12 @@ func (r ProdCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ProdCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProdCharacteristic
+	var o *ProdCharacteristic
 	switch other := other.(type) {
 	case ProdCharacteristic:
-		o = other
+		o = &other
 	case *ProdCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}

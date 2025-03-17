@@ -2973,12 +2973,12 @@ func (r CommunicationRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert CommunicationRequest to Quantity")
 }
 func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationRequest
+	var o *CommunicationRequest
 	switch other := other.(type) {
 	case CommunicationRequest:
-		o = other
+		o = &other
 	case *CommunicationRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2989,12 +2989,12 @@ func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationRequest
+	var o *CommunicationRequest
 	switch other := other.(type) {
 	case CommunicationRequest:
-		o = other
+		o = &other
 	case *CommunicationRequest:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3274,12 +3274,12 @@ func (r CommunicationRequestPayload) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert CommunicationRequestPayload to Quantity")
 }
 func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationRequestPayload
+	var o *CommunicationRequestPayload
 	switch other := other.(type) {
 	case CommunicationRequestPayload:
-		o = other
+		o = &other
 	case *CommunicationRequestPayload:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3290,12 +3290,12 @@ func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CommunicationRequestPayload
+	var o *CommunicationRequestPayload
 	switch other := other.(type) {
 	case CommunicationRequestPayload:
-		o = other
+		o = &other
 	case *CommunicationRequestPayload:
-		o = *other
+		o = other
 	default:
 		return false
 	}

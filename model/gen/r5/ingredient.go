@@ -4096,12 +4096,12 @@ func (r Ingredient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Ingredient to Quantity")
 }
 func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Ingredient
+	var o *Ingredient
 	switch other := other.(type) {
 	case Ingredient:
-		o = other
+		o = &other
 	case *Ingredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4112,12 +4112,12 @@ func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r Ingredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Ingredient
+	var o *Ingredient
 	switch other := other.(type) {
 	case Ingredient:
-		o = other
+		o = &other
 	case *Ingredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4318,12 +4318,12 @@ func (r IngredientManufacturer) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert IngredientManufacturer to Quantity")
 }
 func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientManufacturer
+	var o *IngredientManufacturer
 	switch other := other.(type) {
 	case IngredientManufacturer:
-		o = other
+		o = &other
 	case *IngredientManufacturer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4334,12 +4334,12 @@ func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r IngredientManufacturer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientManufacturer
+	var o *IngredientManufacturer
 	switch other := other.(type) {
 	case IngredientManufacturer:
-		o = other
+		o = &other
 	case *IngredientManufacturer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4449,12 +4449,12 @@ func (r IngredientSubstance) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert IngredientSubstance to Quantity")
 }
 func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstance
+	var o *IngredientSubstance
 	switch other := other.(type) {
 	case IngredientSubstance:
-		o = other
+		o = &other
 	case *IngredientSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4465,12 +4465,12 @@ func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r IngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstance
+	var o *IngredientSubstance
 	switch other := other.(type) {
 	case IngredientSubstance:
-		o = other
+		o = &other
 	case *IngredientSubstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4612,12 +4612,12 @@ func (r IngredientSubstanceStrength) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert IngredientSubstanceStrength to Quantity")
 }
 func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstanceStrength
+	var o *IngredientSubstanceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrength:
-		o = other
+		o = &other
 	case *IngredientSubstanceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4628,12 +4628,12 @@ func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r IngredientSubstanceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstanceStrength
+	var o *IngredientSubstanceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrength:
-		o = other
+		o = &other
 	case *IngredientSubstanceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4793,12 +4793,12 @@ func (r IngredientSubstanceStrengthReferenceStrength) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Quantity")
 }
 func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstanceStrengthReferenceStrength
+	var o *IngredientSubstanceStrengthReferenceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrengthReferenceStrength:
-		o = other
+		o = &other
 	case *IngredientSubstanceStrengthReferenceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4809,12 +4809,12 @@ func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r IngredientSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o IngredientSubstanceStrengthReferenceStrength
+	var o *IngredientSubstanceStrengthReferenceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrengthReferenceStrength:
-		o = other
+		o = &other
 	case *IngredientSubstanceStrengthReferenceStrength:
-		o = *other
+		o = other
 	default:
 		return false
 	}

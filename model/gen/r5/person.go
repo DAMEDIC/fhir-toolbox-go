@@ -2734,12 +2734,12 @@ func (r Person) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Person to Quantity")
 }
 func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Person
+	var o *Person
 	switch other := other.(type) {
 	case Person:
-		o = other
+		o = &other
 	case *Person:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2750,12 +2750,12 @@ func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return *eq
 }
 func (r Person) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Person
+	var o *Person
 	switch other := other.(type) {
 	case Person:
-		o = other
+		o = &other
 	case *Person:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2977,12 +2977,12 @@ func (r PersonCommunication) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert PersonCommunication to Quantity")
 }
 func (r PersonCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PersonCommunication
+	var o *PersonCommunication
 	switch other := other.(type) {
 	case PersonCommunication:
-		o = other
+		o = &other
 	case *PersonCommunication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2993,12 +2993,12 @@ func (r PersonCommunication) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r PersonCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PersonCommunication
+	var o *PersonCommunication
 	switch other := other.(type) {
 	case PersonCommunication:
-		o = other
+		o = &other
 	case *PersonCommunication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3108,12 +3108,12 @@ func (r PersonLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PersonLink to Quantity")
 }
 func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PersonLink
+	var o *PersonLink
 	switch other := other.(type) {
 	case PersonLink:
-		o = other
+		o = &other
 	case *PersonLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3124,12 +3124,12 @@ func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return *eq
 }
 func (r PersonLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PersonLink
+	var o *PersonLink
 	switch other := other.(type) {
 	case PersonLink:
-		o = other
+		o = &other
 	case *PersonLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}

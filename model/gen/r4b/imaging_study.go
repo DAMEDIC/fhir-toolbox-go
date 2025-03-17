@@ -4162,12 +4162,12 @@ func (r ImagingStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert ImagingStudy to Quantity")
 }
 func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudy
+	var o *ImagingStudy
 	switch other := other.(type) {
 	case ImagingStudy:
-		o = other
+		o = &other
 	case *ImagingStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4178,12 +4178,12 @@ func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudy
+	var o *ImagingStudy
 	switch other := other.(type) {
 	case ImagingStudy:
-		o = other
+		o = &other
 	case *ImagingStudy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4502,12 +4502,12 @@ func (r ImagingStudySeries) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ImagingStudySeries to Quantity")
 }
 func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeries
+	var o *ImagingStudySeries
 	switch other := other.(type) {
 	case ImagingStudySeries:
-		o = other
+		o = &other
 	case *ImagingStudySeries:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4518,12 +4518,12 @@ func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeries
+	var o *ImagingStudySeries
 	switch other := other.(type) {
 	case ImagingStudySeries:
-		o = other
+		o = &other
 	case *ImagingStudySeries:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4703,12 +4703,12 @@ func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
 }
 func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeriesPerformer
+	var o *ImagingStudySeriesPerformer
 	switch other := other.(type) {
 	case ImagingStudySeriesPerformer:
-		o = other
+		o = &other
 	case *ImagingStudySeriesPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4719,12 +4719,12 @@ func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeriesPerformer
+	var o *ImagingStudySeriesPerformer
 	switch other := other.(type) {
 	case ImagingStudySeriesPerformer:
-		o = other
+		o = &other
 	case *ImagingStudySeriesPerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4842,12 +4842,12 @@ func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
 }
 func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeriesInstance
+	var o *ImagingStudySeriesInstance
 	switch other := other.(type) {
 	case ImagingStudySeriesInstance:
-		o = other
+		o = &other
 	case *ImagingStudySeriesInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4858,12 +4858,12 @@ func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImagingStudySeriesInstance
+	var o *ImagingStudySeriesInstance
 	switch other := other.(type) {
 	case ImagingStudySeriesInstance:
-		o = other
+		o = &other
 	case *ImagingStudySeriesInstance:
-		o = *other
+		o = other
 	default:
 		return false
 	}

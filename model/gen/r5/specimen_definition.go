@@ -5943,12 +5943,12 @@ func (r SpecimenDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert SpecimenDefinition to Quantity")
 }
 func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinition
+	var o *SpecimenDefinition
 	switch other := other.(type) {
 	case SpecimenDefinition:
-		o = other
+		o = &other
 	case *SpecimenDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5959,12 +5959,12 @@ func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinition
+	var o *SpecimenDefinition
 	switch other := other.(type) {
 	case SpecimenDefinition:
-		o = other
+		o = &other
 	case *SpecimenDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6331,12 +6331,12 @@ func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
 }
 func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTested
+	var o *SpecimenDefinitionTypeTested
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTested:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTested:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6347,12 +6347,12 @@ func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTested
+	var o *SpecimenDefinitionTypeTested
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTested:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTested:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6550,12 +6550,12 @@ func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
 }
 func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedContainer
+	var o *SpecimenDefinitionTypeTestedContainer
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainer:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedContainer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6566,12 +6566,12 @@ func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedContainer
+	var o *SpecimenDefinitionTypeTestedContainer
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainer:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedContainer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6718,12 +6718,12 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedContainerAdditive
+	var o *SpecimenDefinitionTypeTestedContainerAdditive
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainerAdditive:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedContainerAdditive:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6734,12 +6734,12 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedContainerAdditive
+	var o *SpecimenDefinitionTypeTestedContainerAdditive
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainerAdditive:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedContainerAdditive:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6854,12 +6854,12 @@ func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
 }
 func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedHandling
+	var o *SpecimenDefinitionTypeTestedHandling
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedHandling:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedHandling:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6870,12 +6870,12 @@ func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SpecimenDefinitionTypeTestedHandling
+	var o *SpecimenDefinitionTypeTestedHandling
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedHandling:
-		o = other
+		o = &other
 	case *SpecimenDefinitionTypeTestedHandling:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -155,7 +155,12 @@ func (r UnsignedInt) ToString(explicit bool) (*fhirpath.String, error) {
 	return nil, errors.New("can not convert UnsignedInt to String")
 }
 func (r UnsignedInt) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert UnsignedInt to Integer")
+	if r.Value != nil {
+		v := fhirpath.Integer(*r.Value)
+		return &v, nil
+	} else {
+		return nil, nil
+	}
 }
 func (r UnsignedInt) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
 	return nil, errors.New("can not convert UnsignedInt to Decimal")
@@ -173,58 +178,38 @@ func (r UnsignedInt) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert UnsignedInt to Quantity")
 }
 func (r UnsignedInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o UnsignedInt
-	switch other := other.(type) {
-	case UnsignedInt:
-		o = other
-	case *UnsignedInt:
-		o = *other
-	default:
+	a, err := r.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	b, err := other.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equal(b)
 }
 func (r UnsignedInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o UnsignedInt
-	switch other := other.(type) {
-	case UnsignedInt:
-		o = other
-	case *UnsignedInt:
-		o = *other
-	default:
+	a, err := r.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	a := r.Value
-	b := o.Value
-	if a == nil && b != nil {
+	b, err := other.ToInteger(false)
+	if err != nil {
 		return false
 	}
-	if a != nil && b == nil {
+	if a == nil || b == nil {
 		return false
 	}
 	if a != nil && b != nil && *a != *b {
 		return false
 	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	return a.Equivalent(b)
 }
 func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

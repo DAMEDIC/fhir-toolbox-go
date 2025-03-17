@@ -3478,12 +3478,12 @@ func (r Library) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Library to Quantity")
 }
 func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Library
+	var o *Library
 	switch other := other.(type) {
 	case Library:
-		o = other
+		o = &other
 	case *Library:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3494,12 +3494,12 @@ func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Library) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Library
+	var o *Library
 	switch other := other.(type) {
 	case Library:
-		o = other
+		o = &other
 	case *Library:
-		o = *other
+		o = other
 	default:
 		return false
 	}

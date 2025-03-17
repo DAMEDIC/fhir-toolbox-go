@@ -12537,12 +12537,12 @@ func (r StructureMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert StructureMap to Quantity")
 }
 func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMap
+	var o *StructureMap
 	switch other := other.(type) {
 	case StructureMap:
-		o = other
+		o = &other
 	case *StructureMap:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12553,12 +12553,12 @@ func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMap
+	var o *StructureMap
 	switch other := other.(type) {
 	case StructureMap:
-		o = other
+		o = &other
 	case *StructureMap:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12823,12 +12823,12 @@ func (r StructureMapStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert StructureMapStructure to Quantity")
 }
 func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapStructure
+	var o *StructureMapStructure
 	switch other := other.(type) {
 	case StructureMapStructure:
-		o = other
+		o = &other
 	case *StructureMapStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12839,12 +12839,12 @@ func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapStructure
+	var o *StructureMapStructure
 	switch other := other.(type) {
 	case StructureMapStructure:
-		o = other
+		o = &other
 	case *StructureMapStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12986,12 +12986,12 @@ func (r StructureMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert StructureMapGroup to Quantity")
 }
 func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroup
+	var o *StructureMapGroup
 	switch other := other.(type) {
 	case StructureMapGroup:
-		o = other
+		o = &other
 	case *StructureMapGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13002,12 +13002,12 @@ func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroup
+	var o *StructureMapGroup
 	switch other := other.(type) {
 	case StructureMapGroup:
-		o = other
+		o = &other
 	case *StructureMapGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13153,12 +13153,12 @@ func (r StructureMapGroupInput) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert StructureMapGroupInput to Quantity")
 }
 func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupInput
+	var o *StructureMapGroupInput
 	switch other := other.(type) {
 	case StructureMapGroupInput:
-		o = other
+		o = &other
 	case *StructureMapGroupInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13169,12 +13169,12 @@ func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupInput
+	var o *StructureMapGroupInput
 	switch other := other.(type) {
 	case StructureMapGroupInput:
-		o = other
+		o = &other
 	case *StructureMapGroupInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13318,12 +13318,12 @@ func (r StructureMapGroupRule) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert StructureMapGroupRule to Quantity")
 }
 func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRule
+	var o *StructureMapGroupRule
 	switch other := other.(type) {
 	case StructureMapGroupRule:
-		o = other
+		o = &other
 	case *StructureMapGroupRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13334,12 +13334,12 @@ func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRule
+	var o *StructureMapGroupRule
 	switch other := other.(type) {
 	case StructureMapGroupRule:
-		o = other
+		o = &other
 	case *StructureMapGroupRule:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13522,12 +13522,12 @@ func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
 }
 func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleSource
+	var o *StructureMapGroupRuleSource
 	switch other := other.(type) {
 	case StructureMapGroupRuleSource:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13538,12 +13538,12 @@ func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleSource
+	var o *StructureMapGroupRuleSource
 	switch other := other.(type) {
 	case StructureMapGroupRuleSource:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleSource:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13748,12 +13748,12 @@ func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
 }
 func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleTarget
+	var o *StructureMapGroupRuleTarget
 	switch other := other.(type) {
 	case StructureMapGroupRuleTarget:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13764,12 +13764,12 @@ func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleTarget
+	var o *StructureMapGroupRuleTarget
 	switch other := other.(type) {
 	case StructureMapGroupRuleTarget:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13916,12 +13916,12 @@ func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
 }
 func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleTargetParameter
+	var o *StructureMapGroupRuleTargetParameter
 	switch other := other.(type) {
 	case StructureMapGroupRuleTargetParameter:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleTargetParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13932,12 +13932,12 @@ func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleTargetParameter
+	var o *StructureMapGroupRuleTargetParameter
 	switch other := other.(type) {
 	case StructureMapGroupRuleTargetParameter:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleTargetParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14040,12 +14040,12 @@ func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
 }
 func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleDependent
+	var o *StructureMapGroupRuleDependent
 	switch other := other.(type) {
 	case StructureMapGroupRuleDependent:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleDependent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14056,12 +14056,12 @@ func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o StructureMapGroupRuleDependent
+	var o *StructureMapGroupRuleDependent
 	switch other := other.(type) {
 	case StructureMapGroupRuleDependent:
-		o = other
+		o = &other
 	case *StructureMapGroupRuleDependent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

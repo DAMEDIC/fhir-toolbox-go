@@ -7519,12 +7519,12 @@ func (r Evidence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Evidence to Quantity")
 }
 func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Evidence
+	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
-		o = other
+		o = &other
 	case *Evidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7535,12 +7535,12 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return *eq
 }
 func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Evidence
+	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
-		o = other
+		o = &other
 	case *Evidence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7866,12 +7866,12 @@ func (r EvidenceVariableDefinition) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert EvidenceVariableDefinition to Quantity")
 }
 func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableDefinition
+	var o *EvidenceVariableDefinition
 	switch other := other.(type) {
 	case EvidenceVariableDefinition:
-		o = other
+		o = &other
 	case *EvidenceVariableDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -7882,12 +7882,12 @@ func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceVariableDefinition
+	var o *EvidenceVariableDefinition
 	switch other := other.(type) {
 	case EvidenceVariableDefinition:
-		o = other
+		o = &other
 	case *EvidenceVariableDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8067,12 +8067,12 @@ func (r EvidenceStatistic) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert EvidenceStatistic to Quantity")
 }
 func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatistic
+	var o *EvidenceStatistic
 	switch other := other.(type) {
 	case EvidenceStatistic:
-		o = other
+		o = &other
 	case *EvidenceStatistic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8083,12 +8083,12 @@ func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r EvidenceStatistic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatistic
+	var o *EvidenceStatistic
 	switch other := other.(type) {
 	case EvidenceStatistic:
-		o = other
+		o = &other
 	case *EvidenceStatistic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8271,12 +8271,12 @@ func (r EvidenceStatisticSampleSize) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Quantity")
 }
 func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticSampleSize
+	var o *EvidenceStatisticSampleSize
 	switch other := other.(type) {
 	case EvidenceStatisticSampleSize:
-		o = other
+		o = &other
 	case *EvidenceStatisticSampleSize:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8287,12 +8287,12 @@ func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticSampleSize
+	var o *EvidenceStatisticSampleSize
 	switch other := other.(type) {
 	case EvidenceStatisticSampleSize:
-		o = other
+		o = &other
 	case *EvidenceStatisticSampleSize:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8450,12 +8450,12 @@ func (r EvidenceStatisticAttributeEstimate) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Quantity")
 }
 func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticAttributeEstimate
+	var o *EvidenceStatisticAttributeEstimate
 	switch other := other.(type) {
 	case EvidenceStatisticAttributeEstimate:
-		o = other
+		o = &other
 	case *EvidenceStatisticAttributeEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8466,12 +8466,12 @@ func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticAttributeEstimate
+	var o *EvidenceStatisticAttributeEstimate
 	switch other := other.(type) {
 	case EvidenceStatisticAttributeEstimate:
-		o = other
+		o = &other
 	case *EvidenceStatisticAttributeEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8626,12 +8626,12 @@ func (r EvidenceStatisticModelCharacteristic) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Quantity")
 }
 func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticModelCharacteristic
+	var o *EvidenceStatisticModelCharacteristic
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceStatisticModelCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8642,12 +8642,12 @@ func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticModelCharacteristic
+	var o *EvidenceStatisticModelCharacteristic
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristic:
-		o = other
+		o = &other
 	case *EvidenceStatisticModelCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8786,12 +8786,12 @@ func (r EvidenceStatisticModelCharacteristicVariable) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Quantity")
 }
 func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticModelCharacteristicVariable
+	var o *EvidenceStatisticModelCharacteristicVariable
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristicVariable:
-		o = other
+		o = &other
 	case *EvidenceStatisticModelCharacteristicVariable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8802,12 +8802,12 @@ func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceStatisticModelCharacteristicVariable
+	var o *EvidenceStatisticModelCharacteristicVariable
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristicVariable:
-		o = other
+		o = &other
 	case *EvidenceStatisticModelCharacteristicVariable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8960,12 +8960,12 @@ func (r EvidenceCertainty) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert EvidenceCertainty to Quantity")
 }
 func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceCertainty
+	var o *EvidenceCertainty
 	switch other := other.(type) {
 	case EvidenceCertainty:
-		o = other
+		o = &other
 	case *EvidenceCertainty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8976,12 +8976,12 @@ func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r EvidenceCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EvidenceCertainty
+	var o *EvidenceCertainty
 	switch other := other.(type) {
 	case EvidenceCertainty:
-		o = other
+		o = &other
 	case *EvidenceCertainty:
-		o = *other
+		o = other
 	default:
 		return false
 	}

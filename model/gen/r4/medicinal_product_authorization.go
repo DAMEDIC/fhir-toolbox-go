@@ -2970,12 +2970,12 @@ func (r MedicinalProductAuthorization) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert MedicinalProductAuthorization to Quantity")
 }
 func (r MedicinalProductAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorization
+	var o *MedicinalProductAuthorization
 	switch other := other.(type) {
 	case MedicinalProductAuthorization:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2986,12 +2986,12 @@ func (r MedicinalProductAuthorization) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r MedicinalProductAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorization
+	var o *MedicinalProductAuthorization
 	switch other := other.(type) {
 	case MedicinalProductAuthorization:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3251,12 +3251,12 @@ func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToQuantity(exp
 	return nil, errors.New("can not convert MedicinalProductAuthorizationJurisdictionalAuthorization to Quantity")
 }
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorizationJurisdictionalAuthorization
+	var o *MedicinalProductAuthorizationJurisdictionalAuthorization
 	switch other := other.(type) {
 	case MedicinalProductAuthorizationJurisdictionalAuthorization:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorizationJurisdictionalAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3267,12 +3267,12 @@ func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equal(other fh
 	return *eq
 }
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorizationJurisdictionalAuthorization
+	var o *MedicinalProductAuthorizationJurisdictionalAuthorization
 	switch other := other.(type) {
 	case MedicinalProductAuthorizationJurisdictionalAuthorization:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorizationJurisdictionalAuthorization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3413,12 +3413,12 @@ func (r MedicinalProductAuthorizationProcedure) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert MedicinalProductAuthorizationProcedure to Quantity")
 }
 func (r MedicinalProductAuthorizationProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorizationProcedure
+	var o *MedicinalProductAuthorizationProcedure
 	switch other := other.(type) {
 	case MedicinalProductAuthorizationProcedure:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorizationProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3429,12 +3429,12 @@ func (r MedicinalProductAuthorizationProcedure) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r MedicinalProductAuthorizationProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductAuthorizationProcedure
+	var o *MedicinalProductAuthorizationProcedure
 	switch other := other.(type) {
 	case MedicinalProductAuthorizationProcedure:
-		o = other
+		o = &other
 	case *MedicinalProductAuthorizationProcedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}

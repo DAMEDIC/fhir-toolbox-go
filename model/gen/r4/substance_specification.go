@@ -8785,12 +8785,12 @@ func (r SubstanceSpecification) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert SubstanceSpecification to Quantity")
 }
 func (r SubstanceSpecification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecification
+	var o *SubstanceSpecification
 	switch other := other.(type) {
 	case SubstanceSpecification:
-		o = other
+		o = &other
 	case *SubstanceSpecification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -8801,12 +8801,12 @@ func (r SubstanceSpecification) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r SubstanceSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecification
+	var o *SubstanceSpecification
 	switch other := other.(type) {
 	case SubstanceSpecification:
-		o = other
+		o = &other
 	case *SubstanceSpecification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9097,12 +9097,12 @@ func (r SubstanceSpecificationMoiety) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert SubstanceSpecificationMoiety to Quantity")
 }
 func (r SubstanceSpecificationMoiety) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationMoiety
+	var o *SubstanceSpecificationMoiety
 	switch other := other.(type) {
 	case SubstanceSpecificationMoiety:
-		o = other
+		o = &other
 	case *SubstanceSpecificationMoiety:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9113,12 +9113,12 @@ func (r SubstanceSpecificationMoiety) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r SubstanceSpecificationMoiety) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationMoiety
+	var o *SubstanceSpecificationMoiety
 	switch other := other.(type) {
 	case SubstanceSpecificationMoiety:
-		o = other
+		o = &other
 	case *SubstanceSpecificationMoiety:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9280,12 +9280,12 @@ func (r SubstanceSpecificationProperty) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert SubstanceSpecificationProperty to Quantity")
 }
 func (r SubstanceSpecificationProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationProperty
+	var o *SubstanceSpecificationProperty
 	switch other := other.(type) {
 	case SubstanceSpecificationProperty:
-		o = other
+		o = &other
 	case *SubstanceSpecificationProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9296,12 +9296,12 @@ func (r SubstanceSpecificationProperty) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r SubstanceSpecificationProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationProperty
+	var o *SubstanceSpecificationProperty
 	switch other := other.(type) {
 	case SubstanceSpecificationProperty:
-		o = other
+		o = &other
 	case *SubstanceSpecificationProperty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9464,12 +9464,12 @@ func (r SubstanceSpecificationStructure) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert SubstanceSpecificationStructure to Quantity")
 }
 func (r SubstanceSpecificationStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructure
+	var o *SubstanceSpecificationStructure
 	switch other := other.(type) {
 	case SubstanceSpecificationStructure:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9480,12 +9480,12 @@ func (r SubstanceSpecificationStructure) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r SubstanceSpecificationStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructure
+	var o *SubstanceSpecificationStructure
 	switch other := other.(type) {
 	case SubstanceSpecificationStructure:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9654,12 +9654,12 @@ func (r SubstanceSpecificationStructureIsotope) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert SubstanceSpecificationStructureIsotope to Quantity")
 }
 func (r SubstanceSpecificationStructureIsotope) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureIsotope
+	var o *SubstanceSpecificationStructureIsotope
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureIsotope:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureIsotope:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9670,12 +9670,12 @@ func (r SubstanceSpecificationStructureIsotope) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r SubstanceSpecificationStructureIsotope) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureIsotope
+	var o *SubstanceSpecificationStructureIsotope
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureIsotope:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureIsotope:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9813,12 +9813,12 @@ func (r SubstanceSpecificationStructureIsotopeMolecularWeight) ToQuantity(explic
 	return nil, errors.New("can not convert SubstanceSpecificationStructureIsotopeMolecularWeight to Quantity")
 }
 func (r SubstanceSpecificationStructureIsotopeMolecularWeight) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureIsotopeMolecularWeight
+	var o *SubstanceSpecificationStructureIsotopeMolecularWeight
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureIsotopeMolecularWeight:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureIsotopeMolecularWeight:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9829,12 +9829,12 @@ func (r SubstanceSpecificationStructureIsotopeMolecularWeight) Equal(other fhirp
 	return *eq
 }
 func (r SubstanceSpecificationStructureIsotopeMolecularWeight) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureIsotopeMolecularWeight
+	var o *SubstanceSpecificationStructureIsotopeMolecularWeight
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureIsotopeMolecularWeight:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureIsotopeMolecularWeight:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9958,12 +9958,12 @@ func (r SubstanceSpecificationStructureRepresentation) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert SubstanceSpecificationStructureRepresentation to Quantity")
 }
 func (r SubstanceSpecificationStructureRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureRepresentation
+	var o *SubstanceSpecificationStructureRepresentation
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureRepresentation:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureRepresentation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -9974,12 +9974,12 @@ func (r SubstanceSpecificationStructureRepresentation) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r SubstanceSpecificationStructureRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationStructureRepresentation
+	var o *SubstanceSpecificationStructureRepresentation
 	switch other := other.(type) {
 	case SubstanceSpecificationStructureRepresentation:
-		o = other
+		o = &other
 	case *SubstanceSpecificationStructureRepresentation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10113,12 +10113,12 @@ func (r SubstanceSpecificationCode) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert SubstanceSpecificationCode to Quantity")
 }
 func (r SubstanceSpecificationCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationCode
+	var o *SubstanceSpecificationCode
 	switch other := other.(type) {
 	case SubstanceSpecificationCode:
-		o = other
+		o = &other
 	case *SubstanceSpecificationCode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10129,12 +10129,12 @@ func (r SubstanceSpecificationCode) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r SubstanceSpecificationCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationCode
+	var o *SubstanceSpecificationCode
 	switch other := other.(type) {
 	case SubstanceSpecificationCode:
-		o = other
+		o = &other
 	case *SubstanceSpecificationCode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10310,12 +10310,12 @@ func (r SubstanceSpecificationName) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert SubstanceSpecificationName to Quantity")
 }
 func (r SubstanceSpecificationName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationName
+	var o *SubstanceSpecificationName
 	switch other := other.(type) {
 	case SubstanceSpecificationName:
-		o = other
+		o = &other
 	case *SubstanceSpecificationName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10326,12 +10326,12 @@ func (r SubstanceSpecificationName) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r SubstanceSpecificationName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationName
+	var o *SubstanceSpecificationName
 	switch other := other.(type) {
 	case SubstanceSpecificationName:
-		o = other
+		o = &other
 	case *SubstanceSpecificationName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10511,12 +10511,12 @@ func (r SubstanceSpecificationNameOfficial) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert SubstanceSpecificationNameOfficial to Quantity")
 }
 func (r SubstanceSpecificationNameOfficial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationNameOfficial
+	var o *SubstanceSpecificationNameOfficial
 	switch other := other.(type) {
 	case SubstanceSpecificationNameOfficial:
-		o = other
+		o = &other
 	case *SubstanceSpecificationNameOfficial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10527,12 +10527,12 @@ func (r SubstanceSpecificationNameOfficial) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r SubstanceSpecificationNameOfficial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationNameOfficial
+	var o *SubstanceSpecificationNameOfficial
 	switch other := other.(type) {
 	case SubstanceSpecificationNameOfficial:
-		o = other
+		o = &other
 	case *SubstanceSpecificationNameOfficial:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10676,12 +10676,12 @@ func (r SubstanceSpecificationRelationship) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert SubstanceSpecificationRelationship to Quantity")
 }
 func (r SubstanceSpecificationRelationship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationRelationship
+	var o *SubstanceSpecificationRelationship
 	switch other := other.(type) {
 	case SubstanceSpecificationRelationship:
-		o = other
+		o = &other
 	case *SubstanceSpecificationRelationship:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -10692,12 +10692,12 @@ func (r SubstanceSpecificationRelationship) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r SubstanceSpecificationRelationship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubstanceSpecificationRelationship
+	var o *SubstanceSpecificationRelationship
 	switch other := other.(type) {
 	case SubstanceSpecificationRelationship:
-		o = other
+		o = &other
 	case *SubstanceSpecificationRelationship:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -656,12 +656,12 @@ func (r Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Binary to Quantity")
 }
 func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Binary
+	var o *Binary
 	switch other := other.(type) {
 	case Binary:
-		o = other
+		o = &other
 	case *Binary:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -672,12 +672,12 @@ func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return *eq
 }
 func (r Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Binary
+	var o *Binary
 	switch other := other.(type) {
 	case Binary:
-		o = other
+		o = &other
 	case *Binary:
-		o = *other
+		o = other
 	default:
 		return false
 	}

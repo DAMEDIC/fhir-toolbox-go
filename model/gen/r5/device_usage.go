@@ -2442,12 +2442,12 @@ func (r DeviceUsage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DeviceUsage to Quantity")
 }
 func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUsage
+	var o *DeviceUsage
 	switch other := other.(type) {
 	case DeviceUsage:
-		o = other
+		o = &other
 	case *DeviceUsage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2458,12 +2458,12 @@ func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return *eq
 }
 func (r DeviceUsage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUsage
+	var o *DeviceUsage
 	switch other := other.(type) {
 	case DeviceUsage:
-		o = other
+		o = &other
 	case *DeviceUsage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2713,12 +2713,12 @@ func (r DeviceUsageAdherence) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert DeviceUsageAdherence to Quantity")
 }
 func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUsageAdherence
+	var o *DeviceUsageAdherence
 	switch other := other.(type) {
 	case DeviceUsageAdherence:
-		o = other
+		o = &other
 	case *DeviceUsageAdherence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2729,12 +2729,12 @@ func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r DeviceUsageAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceUsageAdherence
+	var o *DeviceUsageAdherence
 	switch other := other.(type) {
 	case DeviceUsageAdherence:
-		o = other
+		o = &other
 	case *DeviceUsageAdherence:
-		o = *other
+		o = other
 	default:
 		return false
 	}

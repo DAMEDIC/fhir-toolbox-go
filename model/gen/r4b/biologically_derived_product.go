@@ -3889,12 +3889,12 @@ func (r BiologicallyDerivedProduct) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert BiologicallyDerivedProduct to Quantity")
 }
 func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProduct
+	var o *BiologicallyDerivedProduct
 	switch other := other.(type) {
 	case BiologicallyDerivedProduct:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProduct:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3905,12 +3905,12 @@ func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProduct
+	var o *BiologicallyDerivedProduct
 	switch other := other.(type) {
 	case BiologicallyDerivedProduct:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProduct:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4125,12 +4125,12 @@ func (r BiologicallyDerivedProductCollection) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert BiologicallyDerivedProductCollection to Quantity")
 }
 func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductCollection
+	var o *BiologicallyDerivedProductCollection
 	switch other := other.(type) {
 	case BiologicallyDerivedProductCollection:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductCollection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4141,12 +4141,12 @@ func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductCollection
+	var o *BiologicallyDerivedProductCollection
 	switch other := other.(type) {
 	case BiologicallyDerivedProductCollection:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductCollection:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4275,12 +4275,12 @@ func (r BiologicallyDerivedProductProcessing) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert BiologicallyDerivedProductProcessing to Quantity")
 }
 func (r BiologicallyDerivedProductProcessing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductProcessing
+	var o *BiologicallyDerivedProductProcessing
 	switch other := other.(type) {
 	case BiologicallyDerivedProductProcessing:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductProcessing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4291,12 +4291,12 @@ func (r BiologicallyDerivedProductProcessing) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r BiologicallyDerivedProductProcessing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductProcessing
+	var o *BiologicallyDerivedProductProcessing
 	switch other := other.(type) {
 	case BiologicallyDerivedProductProcessing:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductProcessing:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4422,12 +4422,12 @@ func (r BiologicallyDerivedProductManipulation) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert BiologicallyDerivedProductManipulation to Quantity")
 }
 func (r BiologicallyDerivedProductManipulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductManipulation
+	var o *BiologicallyDerivedProductManipulation
 	switch other := other.(type) {
 	case BiologicallyDerivedProductManipulation:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductManipulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4438,12 +4438,12 @@ func (r BiologicallyDerivedProductManipulation) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r BiologicallyDerivedProductManipulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductManipulation
+	var o *BiologicallyDerivedProductManipulation
 	switch other := other.(type) {
 	case BiologicallyDerivedProductManipulation:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductManipulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4565,12 +4565,12 @@ func (r BiologicallyDerivedProductStorage) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert BiologicallyDerivedProductStorage to Quantity")
 }
 func (r BiologicallyDerivedProductStorage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductStorage
+	var o *BiologicallyDerivedProductStorage
 	switch other := other.(type) {
 	case BiologicallyDerivedProductStorage:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductStorage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4581,12 +4581,12 @@ func (r BiologicallyDerivedProductStorage) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r BiologicallyDerivedProductStorage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o BiologicallyDerivedProductStorage
+	var o *BiologicallyDerivedProductStorage
 	switch other := other.(type) {
 	case BiologicallyDerivedProductStorage:
-		o = other
+		o = &other
 	case *BiologicallyDerivedProductStorage:
-		o = *other
+		o = other
 	default:
 		return false
 	}

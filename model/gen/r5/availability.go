@@ -1365,12 +1365,12 @@ func (r Availability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Availability to Quantity")
 }
 func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Availability
+	var o *Availability
 	switch other := other.(type) {
 	case Availability:
-		o = other
+		o = &other
 	case *Availability:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1381,12 +1381,12 @@ func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Availability
+	var o *Availability
 	switch other := other.(type) {
 	case Availability:
-		o = other
+		o = &other
 	case *Availability:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1496,12 +1496,12 @@ func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert AvailabilityAvailableTime to Quantity")
 }
 func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AvailabilityAvailableTime
+	var o *AvailabilityAvailableTime
 	switch other := other.(type) {
 	case AvailabilityAvailableTime:
-		o = other
+		o = &other
 	case *AvailabilityAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1512,12 +1512,12 @@ func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AvailabilityAvailableTime
+	var o *AvailabilityAvailableTime
 	switch other := other.(type) {
 	case AvailabilityAvailableTime:
-		o = other
+		o = &other
 	case *AvailabilityAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1631,12 +1631,12 @@ func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
 }
 func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AvailabilityNotAvailableTime
+	var o *AvailabilityNotAvailableTime
 	switch other := other.(type) {
 	case AvailabilityNotAvailableTime:
-		o = other
+		o = &other
 	case *AvailabilityNotAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1647,12 +1647,12 @@ func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AvailabilityNotAvailableTime
+	var o *AvailabilityNotAvailableTime
 	switch other := other.(type) {
 	case AvailabilityNotAvailableTime:
-		o = other
+		o = &other
 	case *AvailabilityNotAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}

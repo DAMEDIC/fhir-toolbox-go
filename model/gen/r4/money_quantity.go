@@ -667,12 +667,12 @@ func (r MoneyQuantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MoneyQuantity to Quantity")
 }
 func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MoneyQuantity
+	var o *MoneyQuantity
 	switch other := other.(type) {
 	case MoneyQuantity:
-		o = other
+		o = &other
 	case *MoneyQuantity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -683,12 +683,12 @@ func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r MoneyQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MoneyQuantity
+	var o *MoneyQuantity
 	switch other := other.(type) {
 	case MoneyQuantity:
-		o = other
+		o = &other
 	case *MoneyQuantity:
-		o = *other
+		o = other
 	default:
 		return false
 	}

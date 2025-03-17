@@ -5061,12 +5061,12 @@ func (r ClinicalUseDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert ClinicalUseDefinition to Quantity")
 }
 func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinition
+	var o *ClinicalUseDefinition
 	switch other := other.(type) {
 	case ClinicalUseDefinition:
-		o = other
+		o = &other
 	case *ClinicalUseDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5077,12 +5077,12 @@ func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r ClinicalUseDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinition
+	var o *ClinicalUseDefinition
 	switch other := other.(type) {
 	case ClinicalUseDefinition:
-		o = other
+		o = &other
 	case *ClinicalUseDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5307,12 +5307,12 @@ func (r ClinicalUseDefinitionContraindication) ToQuantity(explicit bool) (*fhirp
 	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Quantity")
 }
 func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionContraindication
+	var o *ClinicalUseDefinitionContraindication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindication:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionContraindication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5323,12 +5323,12 @@ func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _no
 	return *eq
 }
 func (r ClinicalUseDefinitionContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionContraindication
+	var o *ClinicalUseDefinitionContraindication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindication:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionContraindication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5457,12 +5457,12 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToQuantity(explicit b
 	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Quantity")
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionContraindicationOtherTherapy
+	var o *ClinicalUseDefinitionContraindicationOtherTherapy
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5473,12 +5473,12 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.
 	return *eq
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionContraindicationOtherTherapy
+	var o *ClinicalUseDefinitionContraindicationOtherTherapy
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5615,12 +5615,12 @@ func (r ClinicalUseDefinitionIndication) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Quantity")
 }
 func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionIndication
+	var o *ClinicalUseDefinitionIndication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionIndication:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionIndication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5631,12 +5631,12 @@ func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r ClinicalUseDefinitionIndication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionIndication
+	var o *ClinicalUseDefinitionIndication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionIndication:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionIndication:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5798,12 +5798,12 @@ func (r ClinicalUseDefinitionInteraction) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Quantity")
 }
 func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionInteraction
+	var o *ClinicalUseDefinitionInteraction
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteraction:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5814,12 +5814,12 @@ func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r ClinicalUseDefinitionInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionInteraction
+	var o *ClinicalUseDefinitionInteraction
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteraction:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionInteraction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5945,12 +5945,12 @@ func (r ClinicalUseDefinitionInteractionInteractant) ToQuantity(explicit bool) (
 	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Quantity")
 }
 func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionInteractionInteractant
+	var o *ClinicalUseDefinitionInteractionInteractant
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteractionInteractant:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionInteractionInteractant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5961,12 +5961,12 @@ func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Elemen
 	return *eq
 }
 func (r ClinicalUseDefinitionInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionInteractionInteractant
+	var o *ClinicalUseDefinitionInteractionInteractant
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteractionInteractant:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionInteractionInteractant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6076,12 +6076,12 @@ func (r ClinicalUseDefinitionUndesirableEffect) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Quantity")
 }
 func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionUndesirableEffect
+	var o *ClinicalUseDefinitionUndesirableEffect
 	switch other := other.(type) {
 	case ClinicalUseDefinitionUndesirableEffect:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionUndesirableEffect:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6092,12 +6092,12 @@ func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r ClinicalUseDefinitionUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionUndesirableEffect
+	var o *ClinicalUseDefinitionUndesirableEffect
 	switch other := other.(type) {
 	case ClinicalUseDefinitionUndesirableEffect:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionUndesirableEffect:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6216,12 +6216,12 @@ func (r ClinicalUseDefinitionWarning) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Quantity")
 }
 func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionWarning
+	var o *ClinicalUseDefinitionWarning
 	switch other := other.(type) {
 	case ClinicalUseDefinitionWarning:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionWarning:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6232,12 +6232,12 @@ func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r ClinicalUseDefinitionWarning) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ClinicalUseDefinitionWarning
+	var o *ClinicalUseDefinitionWarning
 	switch other := other.(type) {
 	case ClinicalUseDefinitionWarning:
-		o = other
+		o = &other
 	case *ClinicalUseDefinitionWarning:
-		o = *other
+		o = other
 	default:
 		return false
 	}

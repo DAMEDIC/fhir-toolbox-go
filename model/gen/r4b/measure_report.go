@@ -4238,12 +4238,12 @@ func (r MeasureReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert MeasureReport to Quantity")
 }
 func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReport
+	var o *MeasureReport
 	switch other := other.(type) {
 	case MeasureReport:
-		o = other
+		o = &other
 	case *MeasureReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4254,12 +4254,12 @@ func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return *eq
 }
 func (r MeasureReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReport
+	var o *MeasureReport
 	switch other := other.(type) {
 	case MeasureReport:
-		o = other
+		o = &other
 	case *MeasureReport:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4479,12 +4479,12 @@ func (r MeasureReportGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert MeasureReportGroup to Quantity")
 }
 func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroup
+	var o *MeasureReportGroup
 	switch other := other.(type) {
 	case MeasureReportGroup:
-		o = other
+		o = &other
 	case *MeasureReportGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4495,12 +4495,12 @@ func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r MeasureReportGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroup
+	var o *MeasureReportGroup
 	switch other := other.(type) {
 	case MeasureReportGroup:
-		o = other
+		o = &other
 	case *MeasureReportGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4631,12 +4631,12 @@ func (r MeasureReportGroupPopulation) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MeasureReportGroupPopulation to Quantity")
 }
 func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupPopulation
+	var o *MeasureReportGroupPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupPopulation:
-		o = other
+		o = &other
 	case *MeasureReportGroupPopulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4647,12 +4647,12 @@ func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupPopulation
+	var o *MeasureReportGroupPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupPopulation:
-		o = other
+		o = &other
 	case *MeasureReportGroupPopulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4771,12 +4771,12 @@ func (r MeasureReportGroupStratifier) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MeasureReportGroupStratifier to Quantity")
 }
 func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifier
+	var o *MeasureReportGroupStratifier
 	switch other := other.(type) {
 	case MeasureReportGroupStratifier:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4787,12 +4787,12 @@ func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifier
+	var o *MeasureReportGroupStratifier
 	switch other := other.(type) {
 	case MeasureReportGroupStratifier:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4914,12 +4914,12 @@ func (r MeasureReportGroupStratifierStratum) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert MeasureReportGroupStratifierStratum to Quantity")
 }
 func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratum
+	var o *MeasureReportGroupStratifierStratum
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratum:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratum:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4930,12 +4930,12 @@ func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratum
+	var o *MeasureReportGroupStratifierStratum
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratum:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratum:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5057,12 +5057,12 @@ func (r MeasureReportGroupStratifierStratumComponent) ToQuantity(explicit bool) 
 	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Quantity")
 }
 func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratumComponent
+	var o *MeasureReportGroupStratifierStratumComponent
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumComponent:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratumComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5073,12 +5073,12 @@ func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Eleme
 	return *eq
 }
 func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratumComponent
+	var o *MeasureReportGroupStratifierStratumComponent
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumComponent:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratumComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5195,12 +5195,12 @@ func (r MeasureReportGroupStratifierStratumPopulation) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Quantity")
 }
 func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratumPopulation
+	var o *MeasureReportGroupStratifierStratumPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumPopulation:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratumPopulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5211,12 +5211,12 @@ func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MeasureReportGroupStratifierStratumPopulation
+	var o *MeasureReportGroupStratifierStratumPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumPopulation:
-		o = other
+		o = &other
 	case *MeasureReportGroupStratifierStratumPopulation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

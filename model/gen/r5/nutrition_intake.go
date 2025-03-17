@@ -3957,12 +3957,12 @@ func (r NutritionIntake) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert NutritionIntake to Quantity")
 }
 func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntake
+	var o *NutritionIntake
 	switch other := other.(type) {
 	case NutritionIntake:
-		o = other
+		o = &other
 	case *NutritionIntake:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3973,12 +3973,12 @@ func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r NutritionIntake) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntake
+	var o *NutritionIntake
 	switch other := other.(type) {
 	case NutritionIntake:
-		o = other
+		o = &other
 	case *NutritionIntake:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4272,12 +4272,12 @@ func (r NutritionIntakeConsumedItem) ToQuantity(explicit bool) (*fhirpath.Quanti
 	return nil, errors.New("can not convert NutritionIntakeConsumedItem to Quantity")
 }
 func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakeConsumedItem
+	var o *NutritionIntakeConsumedItem
 	switch other := other.(type) {
 	case NutritionIntakeConsumedItem:
-		o = other
+		o = &other
 	case *NutritionIntakeConsumedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4288,12 +4288,12 @@ func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTyp
 	return *eq
 }
 func (r NutritionIntakeConsumedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakeConsumedItem
+	var o *NutritionIntakeConsumedItem
 	switch other := other.(type) {
 	case NutritionIntakeConsumedItem:
-		o = other
+		o = &other
 	case *NutritionIntakeConsumedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4436,12 +4436,12 @@ func (r NutritionIntakeIngredientLabel) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert NutritionIntakeIngredientLabel to Quantity")
 }
 func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakeIngredientLabel
+	var o *NutritionIntakeIngredientLabel
 	switch other := other.(type) {
 	case NutritionIntakeIngredientLabel:
-		o = other
+		o = &other
 	case *NutritionIntakeIngredientLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4452,12 +4452,12 @@ func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r NutritionIntakeIngredientLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakeIngredientLabel
+	var o *NutritionIntakeIngredientLabel
 	switch other := other.(type) {
 	case NutritionIntakeIngredientLabel:
-		o = other
+		o = &other
 	case *NutritionIntakeIngredientLabel:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4567,12 +4567,12 @@ func (r NutritionIntakePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert NutritionIntakePerformer to Quantity")
 }
 func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakePerformer
+	var o *NutritionIntakePerformer
 	switch other := other.(type) {
 	case NutritionIntakePerformer:
-		o = other
+		o = &other
 	case *NutritionIntakePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4583,12 +4583,12 @@ func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r NutritionIntakePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o NutritionIntakePerformer
+	var o *NutritionIntakePerformer
 	switch other := other.(type) {
 	case NutritionIntakePerformer:
-		o = other
+		o = &other
 	case *NutritionIntakePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -3099,12 +3099,12 @@ func (r Subscription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Subscription to Quantity")
 }
 func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Subscription
+	var o *Subscription
 	switch other := other.(type) {
 	case Subscription:
-		o = other
+		o = &other
 	case *Subscription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3115,12 +3115,12 @@ func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Subscription
+	var o *Subscription
 	switch other := other.(type) {
 	case Subscription:
-		o = other
+		o = &other
 	case *Subscription:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3383,12 +3383,12 @@ func (r SubscriptionFilterBy) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert SubscriptionFilterBy to Quantity")
 }
 func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionFilterBy
+	var o *SubscriptionFilterBy
 	switch other := other.(type) {
 	case SubscriptionFilterBy:
-		o = other
+		o = &other
 	case *SubscriptionFilterBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3399,12 +3399,12 @@ func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r SubscriptionFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionFilterBy
+	var o *SubscriptionFilterBy
 	switch other := other.(type) {
 	case SubscriptionFilterBy:
-		o = other
+		o = &other
 	case *SubscriptionFilterBy:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3533,12 +3533,12 @@ func (r SubscriptionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert SubscriptionParameter to Quantity")
 }
 func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionParameter
+	var o *SubscriptionParameter
 	switch other := other.(type) {
 	case SubscriptionParameter:
-		o = other
+		o = &other
 	case *SubscriptionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3549,12 +3549,12 @@ func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r SubscriptionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SubscriptionParameter
+	var o *SubscriptionParameter
 	switch other := other.(type) {
 	case SubscriptionParameter:
-		o = other
+		o = &other
 	case *SubscriptionParameter:
-		o = *other
+		o = other
 	default:
 		return false
 	}

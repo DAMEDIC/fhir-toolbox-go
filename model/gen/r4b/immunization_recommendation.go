@@ -2974,12 +2974,12 @@ func (r ImmunizationRecommendation) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert ImmunizationRecommendation to Quantity")
 }
 func (r ImmunizationRecommendation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendation
+	var o *ImmunizationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendation:
-		o = other
+		o = &other
 	case *ImmunizationRecommendation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2990,12 +2990,12 @@ func (r ImmunizationRecommendation) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r ImmunizationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendation
+	var o *ImmunizationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendation:
-		o = other
+		o = &other
 	case *ImmunizationRecommendation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3211,12 +3211,12 @@ func (r ImmunizationRecommendationRecommendation) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert ImmunizationRecommendationRecommendation to Quantity")
 }
 func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendationRecommendation
+	var o *ImmunizationRecommendationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendation:
-		o = other
+		o = &other
 	case *ImmunizationRecommendationRecommendation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3227,12 +3227,12 @@ func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r ImmunizationRecommendationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendationRecommendation
+	var o *ImmunizationRecommendationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendation:
-		o = other
+		o = &other
 	case *ImmunizationRecommendationRecommendation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3410,12 +3410,12 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) ToQuantity(explic
 	return nil, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Quantity")
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendationRecommendationDateCriterion
+	var o *ImmunizationRecommendationRecommendationDateCriterion
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendationDateCriterion:
-		o = other
+		o = &other
 	case *ImmunizationRecommendationRecommendationDateCriterion:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3426,12 +3426,12 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirp
 	return *eq
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ImmunizationRecommendationRecommendationDateCriterion
+	var o *ImmunizationRecommendationRecommendationDateCriterion
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendationDateCriterion:
-		o = other
+		o = &other
 	case *ImmunizationRecommendationRecommendationDateCriterion:
-		o = *other
+		o = other
 	default:
 		return false
 	}

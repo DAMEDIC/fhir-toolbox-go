@@ -669,12 +669,12 @@ func (r Count) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Count to Quantity")
 }
 func (r Count) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Count
+	var o *Count
 	switch other := other.(type) {
 	case Count:
-		o = other
+		o = &other
 	case *Count:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -685,12 +685,12 @@ func (r Count) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	return *eq
 }
 func (r Count) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Count
+	var o *Count
 	switch other := other.(type) {
 	case Count:
-		o = other
+		o = &other
 	case *Count:
-		o = *other
+		o = other
 	default:
 		return false
 	}

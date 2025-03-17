@@ -2854,12 +2854,12 @@ func (r PractitionerRole) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert PractitionerRole to Quantity")
 }
 func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRole
+	var o *PractitionerRole
 	switch other := other.(type) {
 	case PractitionerRole:
-		o = other
+		o = &other
 	case *PractitionerRole:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2870,12 +2870,12 @@ func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r PractitionerRole) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRole
+	var o *PractitionerRole
 	switch other := other.(type) {
 	case PractitionerRole:
-		o = other
+		o = &other
 	case *PractitionerRole:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3116,12 +3116,12 @@ func (r PractitionerRoleAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Quantity")
 }
 func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRoleAvailableTime
+	var o *PractitionerRoleAvailableTime
 	switch other := other.(type) {
 	case PractitionerRoleAvailableTime:
-		o = other
+		o = &other
 	case *PractitionerRoleAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3132,12 +3132,12 @@ func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r PractitionerRoleAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRoleAvailableTime
+	var o *PractitionerRoleAvailableTime
 	switch other := other.(type) {
 	case PractitionerRoleAvailableTime:
-		o = other
+		o = &other
 	case *PractitionerRoleAvailableTime:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3261,12 +3261,12 @@ func (r PractitionerRoleNotAvailable) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Quantity")
 }
 func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRoleNotAvailable
+	var o *PractitionerRoleNotAvailable
 	switch other := other.(type) {
 	case PractitionerRoleNotAvailable:
-		o = other
+		o = &other
 	case *PractitionerRoleNotAvailable:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3277,12 +3277,12 @@ func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r PractitionerRoleNotAvailable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PractitionerRoleNotAvailable
+	var o *PractitionerRoleNotAvailable
 	switch other := other.(type) {
 	case PractitionerRoleNotAvailable:
-		o = other
+		o = &other
 	case *PractitionerRoleNotAvailable:
-		o = *other
+		o = other
 	default:
 		return false
 	}

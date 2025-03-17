@@ -12751,12 +12751,12 @@ func (r PlanDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert PlanDefinition to Quantity")
 }
 func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinition
+	var o *PlanDefinition
 	switch other := other.(type) {
 	case PlanDefinition:
-		o = other
+		o = &other
 	case *PlanDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12767,12 +12767,12 @@ func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinition
+	var o *PlanDefinition
 	switch other := other.(type) {
 	case PlanDefinition:
-		o = other
+		o = &other
 	case *PlanDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13173,12 +13173,12 @@ func (r PlanDefinitionGoal) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert PlanDefinitionGoal to Quantity")
 }
 func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionGoal
+	var o *PlanDefinitionGoal
 	switch other := other.(type) {
 	case PlanDefinitionGoal:
-		o = other
+		o = &other
 	case *PlanDefinitionGoal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13189,12 +13189,12 @@ func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionGoal
+	var o *PlanDefinitionGoal
 	switch other := other.(type) {
 	case PlanDefinitionGoal:
-		o = other
+		o = &other
 	case *PlanDefinitionGoal:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13346,12 +13346,12 @@ func (r PlanDefinitionGoalTarget) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Quantity")
 }
 func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionGoalTarget
+	var o *PlanDefinitionGoalTarget
 	switch other := other.(type) {
 	case PlanDefinitionGoalTarget:
-		o = other
+		o = &other
 	case *PlanDefinitionGoalTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13362,12 +13362,12 @@ func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionGoalTarget
+	var o *PlanDefinitionGoalTarget
 	switch other := other.(type) {
 	case PlanDefinitionGoalTarget:
-		o = other
+		o = &other
 	case *PlanDefinitionGoalTarget:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13491,12 +13491,12 @@ func (r PlanDefinitionActor) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert PlanDefinitionActor to Quantity")
 }
 func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActor
+	var o *PlanDefinitionActor
 	switch other := other.(type) {
 	case PlanDefinitionActor:
-		o = other
+		o = &other
 	case *PlanDefinitionActor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13507,12 +13507,12 @@ func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r PlanDefinitionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActor
+	var o *PlanDefinitionActor
 	switch other := other.(type) {
 	case PlanDefinitionActor:
-		o = other
+		o = &other
 	case *PlanDefinitionActor:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13641,12 +13641,12 @@ func (r PlanDefinitionActorOption) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert PlanDefinitionActorOption to Quantity")
 }
 func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActorOption
+	var o *PlanDefinitionActorOption
 	switch other := other.(type) {
 	case PlanDefinitionActorOption:
-		o = other
+		o = &other
 	case *PlanDefinitionActorOption:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13657,12 +13657,12 @@ func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActorOption
+	var o *PlanDefinitionActorOption
 	switch other := other.(type) {
 	case PlanDefinitionActorOption:
-		o = other
+		o = &other
 	case *PlanDefinitionActorOption:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13923,12 +13923,12 @@ func (r PlanDefinitionAction) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert PlanDefinitionAction to Quantity")
 }
 func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionAction
+	var o *PlanDefinitionAction
 	switch other := other.(type) {
 	case PlanDefinitionAction:
-		o = other
+		o = &other
 	case *PlanDefinitionAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13939,12 +13939,12 @@ func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionAction
+	var o *PlanDefinitionAction
 	switch other := other.(type) {
 	case PlanDefinitionAction:
-		o = other
+		o = &other
 	case *PlanDefinitionAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14243,12 +14243,12 @@ func (r PlanDefinitionActionCondition) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert PlanDefinitionActionCondition to Quantity")
 }
 func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionCondition
+	var o *PlanDefinitionActionCondition
 	switch other := other.(type) {
 	case PlanDefinitionActionCondition:
-		o = other
+		o = &other
 	case *PlanDefinitionActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14259,12 +14259,12 @@ func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionCondition
+	var o *PlanDefinitionActionCondition
 	switch other := other.(type) {
 	case PlanDefinitionActionCondition:
-		o = other
+		o = &other
 	case *PlanDefinitionActionCondition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14381,12 +14381,12 @@ func (r PlanDefinitionActionInput) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert PlanDefinitionActionInput to Quantity")
 }
 func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionInput
+	var o *PlanDefinitionActionInput
 	switch other := other.(type) {
 	case PlanDefinitionActionInput:
-		o = other
+		o = &other
 	case *PlanDefinitionActionInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14397,12 +14397,12 @@ func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionInput
+	var o *PlanDefinitionActionInput
 	switch other := other.(type) {
 	case PlanDefinitionActionInput:
-		o = other
+		o = &other
 	case *PlanDefinitionActionInput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14526,12 +14526,12 @@ func (r PlanDefinitionActionOutput) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert PlanDefinitionActionOutput to Quantity")
 }
 func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionOutput
+	var o *PlanDefinitionActionOutput
 	switch other := other.(type) {
 	case PlanDefinitionActionOutput:
-		o = other
+		o = &other
 	case *PlanDefinitionActionOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14542,12 +14542,12 @@ func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionOutput
+	var o *PlanDefinitionActionOutput
 	switch other := other.(type) {
 	case PlanDefinitionActionOutput:
-		o = other
+		o = &other
 	case *PlanDefinitionActionOutput:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14672,12 +14672,12 @@ func (r PlanDefinitionActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Quantity")
 }
 func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionRelatedAction
+	var o *PlanDefinitionActionRelatedAction
 	switch other := other.(type) {
 	case PlanDefinitionActionRelatedAction:
-		o = other
+		o = &other
 	case *PlanDefinitionActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14688,12 +14688,12 @@ func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionRelatedAction
+	var o *PlanDefinitionActionRelatedAction
 	switch other := other.(type) {
 	case PlanDefinitionActionRelatedAction:
-		o = other
+		o = &other
 	case *PlanDefinitionActionRelatedAction:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14839,12 +14839,12 @@ func (r PlanDefinitionActionParticipant) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Quantity")
 }
 func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionParticipant
+	var o *PlanDefinitionActionParticipant
 	switch other := other.(type) {
 	case PlanDefinitionActionParticipant:
-		o = other
+		o = &other
 	case *PlanDefinitionActionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14855,12 +14855,12 @@ func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionParticipant
+	var o *PlanDefinitionActionParticipant
 	switch other := other.(type) {
 	case PlanDefinitionActionParticipant:
-		o = other
+		o = &other
 	case *PlanDefinitionActionParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15000,12 +15000,12 @@ func (r PlanDefinitionActionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Q
 	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Quantity")
 }
 func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionDynamicValue
+	var o *PlanDefinitionActionDynamicValue
 	switch other := other.(type) {
 	case PlanDefinitionActionDynamicValue:
-		o = other
+		o = &other
 	case *PlanDefinitionActionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -15016,12 +15016,12 @@ func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noRever
 	return *eq
 }
 func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o PlanDefinitionActionDynamicValue
+	var o *PlanDefinitionActionDynamicValue
 	switch other := other.(type) {
 	case PlanDefinitionActionDynamicValue:
-		o = other
+		o = &other
 	case *PlanDefinitionActionDynamicValue:
-		o = *other
+		o = other
 	default:
 		return false
 	}

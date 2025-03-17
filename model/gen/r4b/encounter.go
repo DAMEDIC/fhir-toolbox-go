@@ -5190,12 +5190,12 @@ func (r Encounter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Encounter to Quantity")
 }
 func (r Encounter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Encounter
+	var o *Encounter
 	switch other := other.(type) {
 	case Encounter:
-		o = other
+		o = &other
 	case *Encounter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5206,12 +5206,12 @@ func (r Encounter) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Encounter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Encounter
+	var o *Encounter
 	switch other := other.(type) {
 	case Encounter:
-		o = other
+		o = &other
 	case *Encounter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5501,12 +5501,12 @@ func (r EncounterStatusHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, e
 	return nil, errors.New("can not convert EncounterStatusHistory to Quantity")
 }
 func (r EncounterStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterStatusHistory
+	var o *EncounterStatusHistory
 	switch other := other.(type) {
 	case EncounterStatusHistory:
-		o = other
+		o = &other
 	case *EncounterStatusHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5517,12 +5517,12 @@ func (r EncounterStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConv
 	return *eq
 }
 func (r EncounterStatusHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterStatusHistory
+	var o *EncounterStatusHistory
 	switch other := other.(type) {
 	case EncounterStatusHistory:
-		o = other
+		o = &other
 	case *EncounterStatusHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5630,12 +5630,12 @@ func (r EncounterClassHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert EncounterClassHistory to Quantity")
 }
 func (r EncounterClassHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterClassHistory
+	var o *EncounterClassHistory
 	switch other := other.(type) {
 	case EncounterClassHistory:
-		o = other
+		o = &other
 	case *EncounterClassHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5646,12 +5646,12 @@ func (r EncounterClassHistory) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r EncounterClassHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterClassHistory
+	var o *EncounterClassHistory
 	switch other := other.(type) {
 	case EncounterClassHistory:
-		o = other
+		o = &other
 	case *EncounterClassHistory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5768,12 +5768,12 @@ func (r EncounterParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert EncounterParticipant to Quantity")
 }
 func (r EncounterParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterParticipant
+	var o *EncounterParticipant
 	switch other := other.(type) {
 	case EncounterParticipant:
-		o = other
+		o = &other
 	case *EncounterParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5784,12 +5784,12 @@ func (r EncounterParticipant) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r EncounterParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterParticipant
+	var o *EncounterParticipant
 	switch other := other.(type) {
 	case EncounterParticipant:
-		o = other
+		o = &other
 	case *EncounterParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5911,12 +5911,12 @@ func (r EncounterDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert EncounterDiagnosis to Quantity")
 }
 func (r EncounterDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterDiagnosis
+	var o *EncounterDiagnosis
 	switch other := other.(type) {
 	case EncounterDiagnosis:
-		o = other
+		o = &other
 	case *EncounterDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5927,12 +5927,12 @@ func (r EncounterDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r EncounterDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterDiagnosis
+	var o *EncounterDiagnosis
 	switch other := other.(type) {
 	case EncounterDiagnosis:
-		o = other
+		o = &other
 	case *EncounterDiagnosis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6086,12 +6086,12 @@ func (r EncounterHospitalization) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert EncounterHospitalization to Quantity")
 }
 func (r EncounterHospitalization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterHospitalization
+	var o *EncounterHospitalization
 	switch other := other.(type) {
 	case EncounterHospitalization:
-		o = other
+		o = &other
 	case *EncounterHospitalization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6102,12 +6102,12 @@ func (r EncounterHospitalization) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r EncounterHospitalization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterHospitalization
+	var o *EncounterHospitalization
 	switch other := other.(type) {
 	case EncounterHospitalization:
-		o = other
+		o = &other
 	case *EncounterHospitalization:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6276,12 +6276,12 @@ func (r EncounterLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert EncounterLocation to Quantity")
 }
 func (r EncounterLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterLocation
+	var o *EncounterLocation
 	switch other := other.(type) {
 	case EncounterLocation:
-		o = other
+		o = &other
 	case *EncounterLocation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6292,12 +6292,12 @@ func (r EncounterLocation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r EncounterLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o EncounterLocation
+	var o *EncounterLocation
 	switch other := other.(type) {
 	case EncounterLocation:
-		o = other
+		o = &other
 	case *EncounterLocation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

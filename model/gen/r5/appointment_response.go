@@ -1626,12 +1626,12 @@ func (r AppointmentResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert AppointmentResponse to Quantity")
 }
 func (r AppointmentResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AppointmentResponse
+	var o *AppointmentResponse
 	switch other := other.(type) {
 	case AppointmentResponse:
-		o = other
+		o = &other
 	case *AppointmentResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1642,12 +1642,12 @@ func (r AppointmentResponse) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r AppointmentResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AppointmentResponse
+	var o *AppointmentResponse
 	switch other := other.(type) {
 	case AppointmentResponse:
-		o = other
+		o = &other
 	case *AppointmentResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}

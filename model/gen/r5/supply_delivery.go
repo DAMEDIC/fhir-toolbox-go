@@ -2150,12 +2150,12 @@ func (r SupplyDelivery) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert SupplyDelivery to Quantity")
 }
 func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyDelivery
+	var o *SupplyDelivery
 	switch other := other.(type) {
 	case SupplyDelivery:
-		o = other
+		o = &other
 	case *SupplyDelivery:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2166,12 +2166,12 @@ func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return *eq
 }
 func (r SupplyDelivery) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyDelivery
+	var o *SupplyDelivery
 	switch other := other.(type) {
 	case SupplyDelivery:
-		o = other
+		o = &other
 	case *SupplyDelivery:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2381,12 +2381,12 @@ func (r SupplyDeliverySuppliedItem) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Quantity")
 }
 func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyDeliverySuppliedItem
+	var o *SupplyDeliverySuppliedItem
 	switch other := other.(type) {
 	case SupplyDeliverySuppliedItem:
-		o = other
+		o = &other
 	case *SupplyDeliverySuppliedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2397,12 +2397,12 @@ func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r SupplyDeliverySuppliedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o SupplyDeliverySuppliedItem
+	var o *SupplyDeliverySuppliedItem
 	switch other := other.(type) {
 	case SupplyDeliverySuppliedItem:
-		o = other
+		o = &other
 	case *SupplyDeliverySuppliedItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}

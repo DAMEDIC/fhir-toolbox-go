@@ -2926,12 +2926,12 @@ func (r AdverseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert AdverseEvent to Quantity")
 }
 func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEvent
+	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
-		o = other
+		o = &other
 	case *AdverseEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2942,12 +2942,12 @@ func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEvent
+	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
-		o = other
+		o = &other
 	case *AdverseEvent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3218,12 +3218,12 @@ func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
 }
 func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntity
+	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3234,12 +3234,12 @@ func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntity
+	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntity:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3361,12 +3361,12 @@ func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
 }
 func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntityCausality
+	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntityCausality:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3377,12 +3377,12 @@ func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o AdverseEventSuspectEntityCausality
+	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
-		o = other
+		o = &other
 	case *AdverseEventSuspectEntityCausality:
-		o = *other
+		o = other
 	default:
 		return false
 	}

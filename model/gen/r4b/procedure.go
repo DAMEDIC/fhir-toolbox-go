@@ -3982,12 +3982,12 @@ func (r Procedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Procedure to Quantity")
 }
 func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Procedure
+	var o *Procedure
 	switch other := other.(type) {
 	case Procedure:
-		o = other
+		o = &other
 	case *Procedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3998,12 +3998,12 @@ func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Procedure
+	var o *Procedure
 	switch other := other.(type) {
 	case Procedure:
-		o = other
+		o = &other
 	case *Procedure:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4335,12 +4335,12 @@ func (r ProcedurePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert ProcedurePerformer to Quantity")
 }
 func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProcedurePerformer
+	var o *ProcedurePerformer
 	switch other := other.(type) {
 	case ProcedurePerformer:
-		o = other
+		o = &other
 	case *ProcedurePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4351,12 +4351,12 @@ func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProcedurePerformer
+	var o *ProcedurePerformer
 	switch other := other.(type) {
 	case ProcedurePerformer:
-		o = other
+		o = &other
 	case *ProcedurePerformer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4473,12 +4473,12 @@ func (r ProcedureFocalDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ProcedureFocalDevice to Quantity")
 }
 func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProcedureFocalDevice
+	var o *ProcedureFocalDevice
 	switch other := other.(type) {
 	case ProcedureFocalDevice:
-		o = other
+		o = &other
 	case *ProcedureFocalDevice:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4489,12 +4489,12 @@ func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ProcedureFocalDevice
+	var o *ProcedureFocalDevice
 	switch other := other.(type) {
 	case ProcedureFocalDevice:
-		o = other
+		o = &other
 	case *ProcedureFocalDevice:
-		o = *other
+		o = other
 	default:
 		return false
 	}

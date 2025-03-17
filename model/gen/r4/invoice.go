@@ -3252,12 +3252,12 @@ func (r Invoice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Invoice to Quantity")
 }
 func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Invoice
+	var o *Invoice
 	switch other := other.(type) {
 	case Invoice:
-		o = other
+		o = &other
 	case *Invoice:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3268,12 +3268,12 @@ func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return *eq
 }
 func (r Invoice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Invoice
+	var o *Invoice
 	switch other := other.(type) {
 	case Invoice:
-		o = other
+		o = &other
 	case *Invoice:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3516,12 +3516,12 @@ func (r InvoiceParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	return nil, errors.New("can not convert InvoiceParticipant to Quantity")
 }
 func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceParticipant
+	var o *InvoiceParticipant
 	switch other := other.(type) {
 	case InvoiceParticipant:
-		o = other
+		o = &other
 	case *InvoiceParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3532,12 +3532,12 @@ func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return *eq
 }
 func (r InvoiceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceParticipant
+	var o *InvoiceParticipant
 	switch other := other.(type) {
 	case InvoiceParticipant:
-		o = other
+		o = &other
 	case *InvoiceParticipant:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3652,12 +3652,12 @@ func (r InvoiceLineItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert InvoiceLineItem to Quantity")
 }
 func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceLineItem
+	var o *InvoiceLineItem
 	switch other := other.(type) {
 	case InvoiceLineItem:
-		o = other
+		o = &other
 	case *InvoiceLineItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3668,12 +3668,12 @@ func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r InvoiceLineItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceLineItem
+	var o *InvoiceLineItem
 	switch other := other.(type) {
 	case InvoiceLineItem:
-		o = other
+		o = &other
 	case *InvoiceLineItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3800,12 +3800,12 @@ func (r InvoiceLineItemPriceComponent) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert InvoiceLineItemPriceComponent to Quantity")
 }
 func (r InvoiceLineItemPriceComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceLineItemPriceComponent
+	var o *InvoiceLineItemPriceComponent
 	switch other := other.(type) {
 	case InvoiceLineItemPriceComponent:
-		o = other
+		o = &other
 	case *InvoiceLineItemPriceComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3816,12 +3816,12 @@ func (r InvoiceLineItemPriceComponent) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r InvoiceLineItemPriceComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o InvoiceLineItemPriceComponent
+	var o *InvoiceLineItemPriceComponent
 	switch other := other.(type) {
 	case InvoiceLineItemPriceComponent:
-		o = other
+		o = &other
 	case *InvoiceLineItemPriceComponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

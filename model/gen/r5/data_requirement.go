@@ -3397,12 +3397,12 @@ func (r DataRequirement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert DataRequirement to Quantity")
 }
 func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirement
+	var o *DataRequirement
 	switch other := other.(type) {
 	case DataRequirement:
-		o = other
+		o = &other
 	case *DataRequirement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3413,12 +3413,12 @@ func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirement
+	var o *DataRequirement
 	switch other := other.(type) {
 	case DataRequirement:
-		o = other
+		o = &other
 	case *DataRequirement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3577,12 +3577,12 @@ func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert DataRequirementCodeFilter to Quantity")
 }
 func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementCodeFilter
+	var o *DataRequirementCodeFilter
 	switch other := other.(type) {
 	case DataRequirementCodeFilter:
-		o = other
+		o = &other
 	case *DataRequirementCodeFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3593,12 +3593,12 @@ func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementCodeFilter
+	var o *DataRequirementCodeFilter
 	switch other := other.(type) {
 	case DataRequirementCodeFilter:
-		o = other
+		o = &other
 	case *DataRequirementCodeFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3717,12 +3717,12 @@ func (r DataRequirementDateFilter) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert DataRequirementDateFilter to Quantity")
 }
 func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementDateFilter
+	var o *DataRequirementDateFilter
 	switch other := other.(type) {
 	case DataRequirementDateFilter:
-		o = other
+		o = &other
 	case *DataRequirementDateFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3733,12 +3733,12 @@ func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementDateFilter
+	var o *DataRequirementDateFilter
 	switch other := other.(type) {
 	case DataRequirementDateFilter:
-		o = other
+		o = &other
 	case *DataRequirementDateFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3855,12 +3855,12 @@ func (r DataRequirementValueFilter) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DataRequirementValueFilter to Quantity")
 }
 func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementValueFilter
+	var o *DataRequirementValueFilter
 	switch other := other.(type) {
 	case DataRequirementValueFilter:
-		o = other
+		o = &other
 	case *DataRequirementValueFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3871,12 +3871,12 @@ func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementValueFilter
+	var o *DataRequirementValueFilter
 	switch other := other.(type) {
 	case DataRequirementValueFilter:
-		o = other
+		o = &other
 	case *DataRequirementValueFilter:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3986,12 +3986,12 @@ func (r DataRequirementSort) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert DataRequirementSort to Quantity")
 }
 func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementSort
+	var o *DataRequirementSort
 	switch other := other.(type) {
 	case DataRequirementSort:
-		o = other
+		o = &other
 	case *DataRequirementSort:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4002,12 +4002,12 @@ func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DataRequirementSort
+	var o *DataRequirementSort
 	switch other := other.(type) {
 	case DataRequirementSort:
-		o = other
+		o = &other
 	case *DataRequirementSort:
-		o = *other
+		o = other
 	default:
 		return false
 	}

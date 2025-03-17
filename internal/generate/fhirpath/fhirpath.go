@@ -16,7 +16,7 @@ const (
 
 var (
 	stringTypes   = []string{"String", "Uri", "Code", "Oid", "Id", "Uuid", "Markdown", "Base64Binary"}
-	intTypes      = []string{"Integer", "UnsignedInteger", "PositiveInteger"}
+	intTypes      = []string{"Integer", "UnsignedInt", "PositiveInt"}
 	dateTimeTypes = []string{"Date", "DateTime", "Instant"}
 )
 
@@ -324,79 +324,86 @@ func generateEqualFunc(f *File, eqFn string, s ir.Struct) {
 		Id("other").Qual(fhirpathModuleName, "Element"),
 		Id("_noReverseTypeConversion").Op("...").Bool(),
 	).Bool().BlockFunc(func(g *Group) {
-		g.Var().Id("o").Id(s.Name)
-		g.Switch(Id("other").Op(":=").Id("other").Dot("(type)")).Block(
-			Case(Id(s.Name)).Block(
-				Id("o").Op("=").Id("other"),
-			),
-			Case(Op("*").Id(s.Name)).Block(
-				Id("o").Op("=").Op("*").Id("other"),
-			),
-			Default().Block(
-				Return(False()),
-			),
-		)
 		if s.IsPrimitive {
 			if s.Name == "Boolean" {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToBoolean").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToBoolean").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToBoolean").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if slices.Contains(stringTypes, s.Name) {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToString").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToString").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToString").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if slices.Contains(intTypes, s.Name) {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToInteger").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToInteger").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToInteger").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if s.Name == "Decimal" {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToDecimal").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToDecimal").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToDecimal").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if s.Name == "Time" {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToTime").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToTime").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToTime").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if slices.Contains(dateTimeTypes, s.Name) {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToDateTime").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToDateTime").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToDateTime").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if s.Name == "Quantity" {
 				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToQuantity").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("o").Dot("ToQuantity").Call(False())
+				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToQuantity").Call(False())
 				g.If(Err().Op("!=").Nil()).Block(Return(False()))
 			} else if s.Name == "Xhtml" {
-				g.Id("a").Op(":=").Id("&r.Value")
-				g.Id("b").Op(":=").Id("&o.Value")
+				g.List(Id("o"), Id("ok")).Op(":=").Id("other").Dot("").Call(Id(s.Name))
+				g.If(Op("!").Id("ok")).Block(Return(False()))
+				g.Return(Id("r.Value").Op("==").Id("o.Value"))
+				return
 			} else {
-				g.Id("a").Op(":=").Id("r.Value")
-				g.Id("b").Op(":=").Id("o.Value")
+				g.List(Id("o"), Id("ok")).Op(":=").Id("other").Dot("").Call(Id(s.Name))
+				g.If(Op("!").Id("ok")).Block(Return(False()))
+				g.If(Id("r.Value").Op("==").Nil().Op("||").Id("o.Value").Op("==").Nil()).
+					Block(Return(False()))
+
+				g.Return(Id("*r.Value").Op("==").Id("*o.Value"))
+				return
 			}
 
-			g.If(Id("a").Op("==").Nil().Op("&&").Id("b").Op("!=").Nil()).
-				Block(Return(False()))
-			g.If(Id("a").Op("!=").Nil().Op("&&").Id("b").Op("==").Nil()).
+			g.If(Id("a").Op("==").Nil().Op("||").Id("b").Op("==").Nil()).
 				Block(Return(False()))
 
 			g.If(Id("a").Op("!=").Nil().Op("&&").Id("b").Op("!=").Nil().Op("&&").
 				Id("*a").Op("!=").Id("*b")).
 				Block(Return(False()))
-		}
 
-		g.Id("eq").Op(":=").Id("r").Dot("Children").Call().Dot(eqFn).Call(
-			Id("o").Dot("Children").Call(),
-		)
-		g.If(Id("eq").Op("==").Nil()).Block(
-			Return(True()),
-		)
-		g.Return(Id("*eq"))
+			g.Return().Id("a").Dot(eqFn).Call(Id("b"))
+		} else {
+			g.Var().Id("o").Op("*").Id(s.Name)
+			g.Switch(Id("other").Op(":=").Id("other").Dot("(type)")).Block(
+				Case(Id(s.Name)).Block(
+					Id("o").Op("=").Op("&").Id("other"),
+				),
+				Case(Op("*").Id(s.Name)).Block(
+					Id("o").Op("=").Id("other"),
+				),
+				Default().Block(
+					Return(False()),
+				),
+			)
+			g.Id("eq").Op(":=").Id("r").Dot("Children").Call().Dot(eqFn).Call(
+				Id("o").Dot("Children").Call(),
+			)
+			g.If(Id("eq").Op("==").Nil()).Block(
+				Return(True()),
+			)
+			g.Return(Id("*eq"))
+		}
 	})
 }
 

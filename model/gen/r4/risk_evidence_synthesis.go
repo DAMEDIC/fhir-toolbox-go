@@ -5767,12 +5767,12 @@ func (r RiskEvidenceSynthesis) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert RiskEvidenceSynthesis to Quantity")
 }
 func (r RiskEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesis
+	var o *RiskEvidenceSynthesis
 	switch other := other.(type) {
 	case RiskEvidenceSynthesis:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5783,12 +5783,12 @@ func (r RiskEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r RiskEvidenceSynthesis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesis
+	var o *RiskEvidenceSynthesis
 	switch other := other.(type) {
 	case RiskEvidenceSynthesis:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesis:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6143,12 +6143,12 @@ func (r RiskEvidenceSynthesisSampleSize) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert RiskEvidenceSynthesisSampleSize to Quantity")
 }
 func (r RiskEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisSampleSize
+	var o *RiskEvidenceSynthesisSampleSize
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisSampleSize:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisSampleSize:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6159,12 +6159,12 @@ func (r RiskEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r RiskEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisSampleSize
+	var o *RiskEvidenceSynthesisSampleSize
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisSampleSize:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisSampleSize:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6308,12 +6308,12 @@ func (r RiskEvidenceSynthesisRiskEstimate) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert RiskEvidenceSynthesisRiskEstimate to Quantity")
 }
 func (r RiskEvidenceSynthesisRiskEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisRiskEstimate
+	var o *RiskEvidenceSynthesisRiskEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimate:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisRiskEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6324,12 +6324,12 @@ func (r RiskEvidenceSynthesisRiskEstimate) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r RiskEvidenceSynthesisRiskEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisRiskEstimate
+	var o *RiskEvidenceSynthesisRiskEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimate:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisRiskEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6486,12 +6486,12 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToQuantity(explicit 
 	return nil, errors.New("can not convert RiskEvidenceSynthesisRiskEstimatePrecisionEstimate to Quantity")
 }
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisRiskEstimatePrecisionEstimate
+	var o *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimatePrecisionEstimate:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6502,12 +6502,12 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equal(other fhirpath
 	return *eq
 }
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisRiskEstimatePrecisionEstimate
+	var o *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimatePrecisionEstimate:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6638,12 +6638,12 @@ func (r RiskEvidenceSynthesisCertainty) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert RiskEvidenceSynthesisCertainty to Quantity")
 }
 func (r RiskEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisCertainty
+	var o *RiskEvidenceSynthesisCertainty
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertainty:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisCertainty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6654,12 +6654,12 @@ func (r RiskEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r RiskEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisCertainty
+	var o *RiskEvidenceSynthesisCertainty
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertainty:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisCertainty:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6783,12 +6783,12 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToQuantity(explicit
 	return nil, errors.New("can not convert RiskEvidenceSynthesisCertaintyCertaintySubcomponent to Quantity")
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisCertaintyCertaintySubcomponent
+	var o *RiskEvidenceSynthesisCertaintyCertaintySubcomponent
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -6799,12 +6799,12 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpat
 	return *eq
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RiskEvidenceSynthesisCertaintyCertaintySubcomponent
+	var o *RiskEvidenceSynthesisCertaintyCertaintySubcomponent
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = other
+		o = &other
 	case *RiskEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = *other
+		o = other
 	default:
 		return false
 	}

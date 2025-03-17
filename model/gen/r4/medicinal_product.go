@@ -4899,12 +4899,12 @@ func (r MedicinalProduct) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert MedicinalProduct to Quantity")
 }
 func (r MedicinalProduct) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProduct
+	var o *MedicinalProduct
 	switch other := other.(type) {
 	case MedicinalProduct:
-		o = other
+		o = &other
 	case *MedicinalProduct:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4915,12 +4915,12 @@ func (r MedicinalProduct) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r MedicinalProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProduct
+	var o *MedicinalProduct
 	switch other := other.(type) {
 	case MedicinalProduct:
-		o = other
+		o = &other
 	case *MedicinalProduct:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5196,12 +5196,12 @@ func (r MedicinalProductName) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert MedicinalProductName to Quantity")
 }
 func (r MedicinalProductName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductName
+	var o *MedicinalProductName
 	switch other := other.(type) {
 	case MedicinalProductName:
-		o = other
+		o = &other
 	case *MedicinalProductName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5212,12 +5212,12 @@ func (r MedicinalProductName) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r MedicinalProductName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductName
+	var o *MedicinalProductName
 	switch other := other.(type) {
 	case MedicinalProductName:
-		o = other
+		o = &other
 	case *MedicinalProductName:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5332,12 +5332,12 @@ func (r MedicinalProductNameNamePart) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MedicinalProductNameNamePart to Quantity")
 }
 func (r MedicinalProductNameNamePart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductNameNamePart
+	var o *MedicinalProductNameNamePart
 	switch other := other.(type) {
 	case MedicinalProductNameNamePart:
-		o = other
+		o = &other
 	case *MedicinalProductNameNamePart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5348,12 +5348,12 @@ func (r MedicinalProductNameNamePart) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MedicinalProductNameNamePart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductNameNamePart
+	var o *MedicinalProductNameNamePart
 	switch other := other.(type) {
 	case MedicinalProductNameNamePart:
-		o = other
+		o = &other
 	case *MedicinalProductNameNamePart:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5466,12 +5466,12 @@ func (r MedicinalProductNameCountryLanguage) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert MedicinalProductNameCountryLanguage to Quantity")
 }
 func (r MedicinalProductNameCountryLanguage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductNameCountryLanguage
+	var o *MedicinalProductNameCountryLanguage
 	switch other := other.(type) {
 	case MedicinalProductNameCountryLanguage:
-		o = other
+		o = &other
 	case *MedicinalProductNameCountryLanguage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5482,12 +5482,12 @@ func (r MedicinalProductNameCountryLanguage) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r MedicinalProductNameCountryLanguage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductNameCountryLanguage
+	var o *MedicinalProductNameCountryLanguage
 	switch other := other.(type) {
 	case MedicinalProductNameCountryLanguage:
-		o = other
+		o = &other
 	case *MedicinalProductNameCountryLanguage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5626,12 +5626,12 @@ func (r MedicinalProductManufacturingBusinessOperation) ToQuantity(explicit bool
 	return nil, errors.New("can not convert MedicinalProductManufacturingBusinessOperation to Quantity")
 }
 func (r MedicinalProductManufacturingBusinessOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductManufacturingBusinessOperation
+	var o *MedicinalProductManufacturingBusinessOperation
 	switch other := other.(type) {
 	case MedicinalProductManufacturingBusinessOperation:
-		o = other
+		o = &other
 	case *MedicinalProductManufacturingBusinessOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5642,12 +5642,12 @@ func (r MedicinalProductManufacturingBusinessOperation) Equal(other fhirpath.Ele
 	return *eq
 }
 func (r MedicinalProductManufacturingBusinessOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductManufacturingBusinessOperation
+	var o *MedicinalProductManufacturingBusinessOperation
 	switch other := other.(type) {
 	case MedicinalProductManufacturingBusinessOperation:
-		o = other
+		o = &other
 	case *MedicinalProductManufacturingBusinessOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5812,12 +5812,12 @@ func (r MedicinalProductSpecialDesignation) ToQuantity(explicit bool) (*fhirpath
 	return nil, errors.New("can not convert MedicinalProductSpecialDesignation to Quantity")
 }
 func (r MedicinalProductSpecialDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductSpecialDesignation
+	var o *MedicinalProductSpecialDesignation
 	switch other := other.(type) {
 	case MedicinalProductSpecialDesignation:
-		o = other
+		o = &other
 	case *MedicinalProductSpecialDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5828,12 +5828,12 @@ func (r MedicinalProductSpecialDesignation) Equal(other fhirpath.Element, _noRev
 	return *eq
 }
 func (r MedicinalProductSpecialDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductSpecialDesignation
+	var o *MedicinalProductSpecialDesignation
 	switch other := other.(type) {
 	case MedicinalProductSpecialDesignation:
-		o = other
+		o = &other
 	case *MedicinalProductSpecialDesignation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

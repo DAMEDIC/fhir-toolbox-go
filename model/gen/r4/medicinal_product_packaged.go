@@ -2868,12 +2868,12 @@ func (r MedicinalProductPackaged) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert MedicinalProductPackaged to Quantity")
 }
 func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackaged
+	var o *MedicinalProductPackaged
 	switch other := other.(type) {
 	case MedicinalProductPackaged:
-		o = other
+		o = &other
 	case *MedicinalProductPackaged:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2884,12 +2884,12 @@ func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackaged
+	var o *MedicinalProductPackaged
 	switch other := other.(type) {
 	case MedicinalProductPackaged:
-		o = other
+		o = &other
 	case *MedicinalProductPackaged:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3083,12 +3083,12 @@ func (r MedicinalProductPackagedBatchIdentifier) ToQuantity(explicit bool) (*fhi
 	return nil, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Quantity")
 }
 func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackagedBatchIdentifier
+	var o *MedicinalProductPackagedBatchIdentifier
 	switch other := other.(type) {
 	case MedicinalProductPackagedBatchIdentifier:
-		o = other
+		o = &other
 	case *MedicinalProductPackagedBatchIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3099,12 +3099,12 @@ func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _
 	return *eq
 }
 func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackagedBatchIdentifier
+	var o *MedicinalProductPackagedBatchIdentifier
 	switch other := other.(type) {
 	case MedicinalProductPackagedBatchIdentifier:
-		o = other
+		o = &other
 	case *MedicinalProductPackagedBatchIdentifier:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3262,12 +3262,12 @@ func (r MedicinalProductPackagedPackageItem) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert MedicinalProductPackagedPackageItem to Quantity")
 }
 func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackagedPackageItem
+	var o *MedicinalProductPackagedPackageItem
 	switch other := other.(type) {
 	case MedicinalProductPackagedPackageItem:
-		o = other
+		o = &other
 	case *MedicinalProductPackagedPackageItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3278,12 +3278,12 @@ func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicinalProductPackagedPackageItem
+	var o *MedicinalProductPackagedPackageItem
 	switch other := other.(type) {
 	case MedicinalProductPackagedPackageItem:
-		o = other
+		o = &other
 	case *MedicinalProductPackagedPackageItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}

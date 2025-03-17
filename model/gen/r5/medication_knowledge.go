@@ -11511,12 +11511,12 @@ func (r MedicationKnowledge) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert MedicationKnowledge to Quantity")
 }
 func (r MedicationKnowledge) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledge
+	var o *MedicationKnowledge
 	switch other := other.(type) {
 	case MedicationKnowledge:
-		o = other
+		o = &other
 	case *MedicationKnowledge:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11527,12 +11527,12 @@ func (r MedicationKnowledge) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r MedicationKnowledge) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledge
+	var o *MedicationKnowledge
 	switch other := other.(type) {
 	case MedicationKnowledge:
-		o = other
+		o = &other
 	case *MedicationKnowledge:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11803,12 +11803,12 @@ func (r MedicationKnowledgeRelatedMedicationKnowledge) ToQuantity(explicit bool)
 	return nil, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Quantity")
 }
 func (r MedicationKnowledgeRelatedMedicationKnowledge) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRelatedMedicationKnowledge
+	var o *MedicationKnowledgeRelatedMedicationKnowledge
 	switch other := other.(type) {
 	case MedicationKnowledgeRelatedMedicationKnowledge:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRelatedMedicationKnowledge:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11819,12 +11819,12 @@ func (r MedicationKnowledgeRelatedMedicationKnowledge) Equal(other fhirpath.Elem
 	return *eq
 }
 func (r MedicationKnowledgeRelatedMedicationKnowledge) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRelatedMedicationKnowledge
+	var o *MedicationKnowledgeRelatedMedicationKnowledge
 	switch other := other.(type) {
 	case MedicationKnowledgeRelatedMedicationKnowledge:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRelatedMedicationKnowledge:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11936,12 +11936,12 @@ func (r MedicationKnowledgeMonograph) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MedicationKnowledgeMonograph to Quantity")
 }
 func (r MedicationKnowledgeMonograph) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMonograph
+	var o *MedicationKnowledgeMonograph
 	switch other := other.(type) {
 	case MedicationKnowledgeMonograph:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMonograph:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -11952,12 +11952,12 @@ func (r MedicationKnowledgeMonograph) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MedicationKnowledgeMonograph) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMonograph
+	var o *MedicationKnowledgeMonograph
 	switch other := other.(type) {
 	case MedicationKnowledgeMonograph:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMonograph:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12075,12 +12075,12 @@ func (r MedicationKnowledgeCost) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert MedicationKnowledgeCost to Quantity")
 }
 func (r MedicationKnowledgeCost) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeCost
+	var o *MedicationKnowledgeCost
 	switch other := other.(type) {
 	case MedicationKnowledgeCost:
-		o = other
+		o = &other
 	case *MedicationKnowledgeCost:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12091,12 +12091,12 @@ func (r MedicationKnowledgeCost) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r MedicationKnowledgeCost) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeCost
+	var o *MedicationKnowledgeCost
 	switch other := other.(type) {
 	case MedicationKnowledgeCost:
-		o = other
+		o = &other
 	case *MedicationKnowledgeCost:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12222,12 +12222,12 @@ func (r MedicationKnowledgeMonitoringProgram) ToQuantity(explicit bool) (*fhirpa
 	return nil, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Quantity")
 }
 func (r MedicationKnowledgeMonitoringProgram) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMonitoringProgram
+	var o *MedicationKnowledgeMonitoringProgram
 	switch other := other.(type) {
 	case MedicationKnowledgeMonitoringProgram:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMonitoringProgram:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12238,12 +12238,12 @@ func (r MedicationKnowledgeMonitoringProgram) Equal(other fhirpath.Element, _noR
 	return *eq
 }
 func (r MedicationKnowledgeMonitoringProgram) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMonitoringProgram
+	var o *MedicationKnowledgeMonitoringProgram
 	switch other := other.(type) {
 	case MedicationKnowledgeMonitoringProgram:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMonitoringProgram:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12355,12 +12355,12 @@ func (r MedicationKnowledgeIndicationGuideline) ToQuantity(explicit bool) (*fhir
 	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Quantity")
 }
 func (r MedicationKnowledgeIndicationGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuideline
+	var o *MedicationKnowledgeIndicationGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12371,12 +12371,12 @@ func (r MedicationKnowledgeIndicationGuideline) Equal(other fhirpath.Element, _n
 	return *eq
 }
 func (r MedicationKnowledgeIndicationGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuideline
+	var o *MedicationKnowledgeIndicationGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12498,12 +12498,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToQuantity(explic
 	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Quantity")
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuideline
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12514,12 +12514,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) Equal(other fhirp
 	return *eq
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuideline
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12643,12 +12643,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToQuantity(
 	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Quantity")
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12659,12 +12659,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) Equal(other
 	return *eq
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12774,12 +12774,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacterist
 	return nil, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Quantity")
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12790,12 +12790,12 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacterist
 	return *eq
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic
+	var o *MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic
 	switch other := other.(type) {
 	case MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic:
-		o = other
+		o = &other
 	case *MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12910,12 +12910,12 @@ func (r MedicationKnowledgeMedicineClassification) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert MedicationKnowledgeMedicineClassification to Quantity")
 }
 func (r MedicationKnowledgeMedicineClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMedicineClassification
+	var o *MedicationKnowledgeMedicineClassification
 	switch other := other.(type) {
 	case MedicationKnowledgeMedicineClassification:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMedicineClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -12926,12 +12926,12 @@ func (r MedicationKnowledgeMedicineClassification) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r MedicationKnowledgeMedicineClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeMedicineClassification
+	var o *MedicationKnowledgeMedicineClassification
 	switch other := other.(type) {
 	case MedicationKnowledgeMedicineClassification:
-		o = other
+		o = &other
 	case *MedicationKnowledgeMedicineClassification:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13050,12 +13050,12 @@ func (r MedicationKnowledgePackaging) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MedicationKnowledgePackaging to Quantity")
 }
 func (r MedicationKnowledgePackaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgePackaging
+	var o *MedicationKnowledgePackaging
 	switch other := other.(type) {
 	case MedicationKnowledgePackaging:
-		o = other
+		o = &other
 	case *MedicationKnowledgePackaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13066,12 +13066,12 @@ func (r MedicationKnowledgePackaging) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MedicationKnowledgePackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgePackaging
+	var o *MedicationKnowledgePackaging
 	switch other := other.(type) {
 	case MedicationKnowledgePackaging:
-		o = other
+		o = &other
 	case *MedicationKnowledgePackaging:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13193,12 +13193,12 @@ func (r MedicationKnowledgeStorageGuideline) ToQuantity(explicit bool) (*fhirpat
 	return nil, errors.New("can not convert MedicationKnowledgeStorageGuideline to Quantity")
 }
 func (r MedicationKnowledgeStorageGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeStorageGuideline
+	var o *MedicationKnowledgeStorageGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeStorageGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeStorageGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13209,12 +13209,12 @@ func (r MedicationKnowledgeStorageGuideline) Equal(other fhirpath.Element, _noRe
 	return *eq
 }
 func (r MedicationKnowledgeStorageGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeStorageGuideline
+	var o *MedicationKnowledgeStorageGuideline
 	switch other := other.(type) {
 	case MedicationKnowledgeStorageGuideline:
-		o = other
+		o = &other
 	case *MedicationKnowledgeStorageGuideline:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13336,12 +13336,12 @@ func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToQuantity(expl
 	return nil, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Quantity")
 }
 func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeStorageGuidelineEnvironmentalSetting
+	var o *MedicationKnowledgeStorageGuidelineEnvironmentalSetting
 	switch other := other.(type) {
 	case MedicationKnowledgeStorageGuidelineEnvironmentalSetting:
-		o = other
+		o = &other
 	case *MedicationKnowledgeStorageGuidelineEnvironmentalSetting:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13352,12 +13352,12 @@ func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) Equal(other fhi
 	return *eq
 }
 func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeStorageGuidelineEnvironmentalSetting
+	var o *MedicationKnowledgeStorageGuidelineEnvironmentalSetting
 	switch other := other.(type) {
 	case MedicationKnowledgeStorageGuidelineEnvironmentalSetting:
-		o = other
+		o = &other
 	case *MedicationKnowledgeStorageGuidelineEnvironmentalSetting:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13477,12 +13477,12 @@ func (r MedicationKnowledgeRegulatory) ToQuantity(explicit bool) (*fhirpath.Quan
 	return nil, errors.New("can not convert MedicationKnowledgeRegulatory to Quantity")
 }
 func (r MedicationKnowledgeRegulatory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatory
+	var o *MedicationKnowledgeRegulatory
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatory:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13493,12 +13493,12 @@ func (r MedicationKnowledgeRegulatory) Equal(other fhirpath.Element, _noReverseT
 	return *eq
 }
 func (r MedicationKnowledgeRegulatory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatory
+	var o *MedicationKnowledgeRegulatory
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatory:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatory:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13620,12 +13620,12 @@ func (r MedicationKnowledgeRegulatorySubstitution) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Quantity")
 }
 func (r MedicationKnowledgeRegulatorySubstitution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatorySubstitution
+	var o *MedicationKnowledgeRegulatorySubstitution
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatorySubstitution:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatorySubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13636,12 +13636,12 @@ func (r MedicationKnowledgeRegulatorySubstitution) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r MedicationKnowledgeRegulatorySubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatorySubstitution
+	var o *MedicationKnowledgeRegulatorySubstitution
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatorySubstitution:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatorySubstitution:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13751,12 +13751,12 @@ func (r MedicationKnowledgeRegulatoryMaxDispense) ToQuantity(explicit bool) (*fh
 	return nil, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Quantity")
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatoryMaxDispense
+	var o *MedicationKnowledgeRegulatoryMaxDispense
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatoryMaxDispense:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatoryMaxDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13767,12 +13767,12 @@ func (r MedicationKnowledgeRegulatoryMaxDispense) Equal(other fhirpath.Element, 
 	return *eq
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeRegulatoryMaxDispense
+	var o *MedicationKnowledgeRegulatoryMaxDispense
 	switch other := other.(type) {
 	case MedicationKnowledgeRegulatoryMaxDispense:
-		o = other
+		o = &other
 	case *MedicationKnowledgeRegulatoryMaxDispense:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13899,12 +13899,12 @@ func (r MedicationKnowledgeDefinitional) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert MedicationKnowledgeDefinitional to Quantity")
 }
 func (r MedicationKnowledgeDefinitional) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitional
+	var o *MedicationKnowledgeDefinitional
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitional:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitional:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -13915,12 +13915,12 @@ func (r MedicationKnowledgeDefinitional) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r MedicationKnowledgeDefinitional) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitional
+	var o *MedicationKnowledgeDefinitional
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitional:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitional:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14056,12 +14056,12 @@ func (r MedicationKnowledgeDefinitionalIngredient) ToQuantity(explicit bool) (*f
 	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Quantity")
 }
 func (r MedicationKnowledgeDefinitionalIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitionalIngredient
+	var o *MedicationKnowledgeDefinitionalIngredient
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitionalIngredient:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitionalIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14072,12 +14072,12 @@ func (r MedicationKnowledgeDefinitionalIngredient) Equal(other fhirpath.Element,
 	return *eq
 }
 func (r MedicationKnowledgeDefinitionalIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitionalIngredient
+	var o *MedicationKnowledgeDefinitionalIngredient
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitionalIngredient:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitionalIngredient:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14196,12 +14196,12 @@ func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToQuantity(explicit b
 	return nil, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Quantity")
 }
 func (r MedicationKnowledgeDefinitionalDrugCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitionalDrugCharacteristic
+	var o *MedicationKnowledgeDefinitionalDrugCharacteristic
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitionalDrugCharacteristic:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitionalDrugCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -14212,12 +14212,12 @@ func (r MedicationKnowledgeDefinitionalDrugCharacteristic) Equal(other fhirpath.
 	return *eq
 }
 func (r MedicationKnowledgeDefinitionalDrugCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationKnowledgeDefinitionalDrugCharacteristic
+	var o *MedicationKnowledgeDefinitionalDrugCharacteristic
 	switch other := other.(type) {
 	case MedicationKnowledgeDefinitionalDrugCharacteristic:
-		o = other
+		o = &other
 	case *MedicationKnowledgeDefinitionalDrugCharacteristic:
-		o = *other
+		o = other
 	default:
 		return false
 	}

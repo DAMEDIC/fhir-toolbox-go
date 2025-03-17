@@ -2075,12 +2075,12 @@ func (r CatalogEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert CatalogEntry to Quantity")
 }
 func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CatalogEntry
+	var o *CatalogEntry
 	switch other := other.(type) {
 	case CatalogEntry:
-		o = other
+		o = &other
 	case *CatalogEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2091,12 +2091,12 @@ func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r CatalogEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CatalogEntry
+	var o *CatalogEntry
 	switch other := other.(type) {
 	case CatalogEntry:
-		o = other
+		o = &other
 	case *CatalogEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2316,12 +2316,12 @@ func (r CatalogEntryRelatedEntry) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Quantity")
 }
 func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CatalogEntryRelatedEntry
+	var o *CatalogEntryRelatedEntry
 	switch other := other.(type) {
 	case CatalogEntryRelatedEntry:
-		o = other
+		o = &other
 	case *CatalogEntryRelatedEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2332,12 +2332,12 @@ func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r CatalogEntryRelatedEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o CatalogEntryRelatedEntry
+	var o *CatalogEntryRelatedEntry
 	switch other := other.(type) {
 	case CatalogEntryRelatedEntry:
-		o = other
+		o = &other
 	case *CatalogEntryRelatedEntry:
-		o = *other
+		o = other
 	default:
 		return false
 	}

@@ -358,12 +358,12 @@ func (r Reference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Reference to Quantity")
 }
 func (r Reference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Reference
+	var o *Reference
 	switch other := other.(type) {
 	case Reference:
-		o = other
+		o = &other
 	case *Reference:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -374,12 +374,12 @@ func (r Reference) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return *eq
 }
 func (r Reference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Reference
+	var o *Reference
 	switch other := other.(type) {
 	case Reference:
-		o = other
+		o = &other
 	case *Reference:
-		o = *other
+		o = other
 	default:
 		return false
 	}

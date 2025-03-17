@@ -1742,12 +1742,12 @@ func (r DeviceAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert DeviceAssociation to Quantity")
 }
 func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceAssociation
+	var o *DeviceAssociation
 	switch other := other.(type) {
 	case DeviceAssociation:
-		o = other
+		o = &other
 	case *DeviceAssociation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1758,12 +1758,12 @@ func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceAssociation
+	var o *DeviceAssociation
 	switch other := other.(type) {
 	case DeviceAssociation:
-		o = other
+		o = &other
 	case *DeviceAssociation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1962,12 +1962,12 @@ func (r DeviceAssociationOperation) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DeviceAssociationOperation to Quantity")
 }
 func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceAssociationOperation
+	var o *DeviceAssociationOperation
 	switch other := other.(type) {
 	case DeviceAssociationOperation:
-		o = other
+		o = &other
 	case *DeviceAssociationOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1978,12 +1978,12 @@ func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DeviceAssociationOperation
+	var o *DeviceAssociationOperation
 	switch other := other.(type) {
 	case DeviceAssociationOperation:
-		o = other
+		o = &other
 	case *DeviceAssociationOperation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

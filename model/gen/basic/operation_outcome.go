@@ -1061,12 +1061,12 @@ func (r OperationOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error) 
 	return nil, errors.New("can not convert OperationOutcome to Quantity")
 }
 func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationOutcome
+	var o *OperationOutcome
 	switch other := other.(type) {
 	case OperationOutcome:
-		o = other
+		o = &other
 	case *OperationOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1077,12 +1077,12 @@ func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return *eq
 }
 func (r OperationOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationOutcome
+	var o *OperationOutcome
 	switch other := other.(type) {
 	case OperationOutcome:
-		o = other
+		o = &other
 	case *OperationOutcome:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1238,12 +1238,12 @@ func (r OperationOutcomeIssue) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert OperationOutcomeIssue to Quantity")
 }
 func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationOutcomeIssue
+	var o *OperationOutcomeIssue
 	switch other := other.(type) {
 	case OperationOutcomeIssue:
-		o = other
+		o = &other
 	case *OperationOutcomeIssue:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1254,12 +1254,12 @@ func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r OperationOutcomeIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OperationOutcomeIssue
+	var o *OperationOutcomeIssue
 	switch other := other.(type) {
 	case OperationOutcomeIssue:
-		o = other
+		o = &other
 	case *OperationOutcomeIssue:
-		o = *other
+		o = other
 	default:
 		return false
 	}

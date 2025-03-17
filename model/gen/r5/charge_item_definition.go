@@ -4010,12 +4010,12 @@ func (r ChargeItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, err
 	return nil, errors.New("can not convert ChargeItemDefinition to Quantity")
 }
 func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinition
+	var o *ChargeItemDefinition
 	switch other := other.(type) {
 	case ChargeItemDefinition:
-		o = other
+		o = &other
 	case *ChargeItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4026,12 +4026,12 @@ func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConver
 	return *eq
 }
 func (r ChargeItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinition
+	var o *ChargeItemDefinition
 	switch other := other.(type) {
 	case ChargeItemDefinition:
-		o = other
+		o = &other
 	case *ChargeItemDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4351,12 +4351,12 @@ func (r ChargeItemDefinitionApplicability) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Quantity")
 }
 func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinitionApplicability
+	var o *ChargeItemDefinitionApplicability
 	switch other := other.(type) {
 	case ChargeItemDefinitionApplicability:
-		o = other
+		o = &other
 	case *ChargeItemDefinitionApplicability:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4367,12 +4367,12 @@ func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinitionApplicability
+	var o *ChargeItemDefinitionApplicability
 	switch other := other.(type) {
 	case ChargeItemDefinitionApplicability:
-		o = other
+		o = &other
 	case *ChargeItemDefinitionApplicability:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4491,12 +4491,12 @@ func (r ChargeItemDefinitionPropertyGroup) ToQuantity(explicit bool) (*fhirpath.
 	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Quantity")
 }
 func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinitionPropertyGroup
+	var o *ChargeItemDefinitionPropertyGroup
 	switch other := other.(type) {
 	case ChargeItemDefinitionPropertyGroup:
-		o = other
+		o = &other
 	case *ChargeItemDefinitionPropertyGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4507,12 +4507,12 @@ func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReve
 	return *eq
 }
 func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o ChargeItemDefinitionPropertyGroup
+	var o *ChargeItemDefinitionPropertyGroup
 	switch other := other.(type) {
 	case ChargeItemDefinitionPropertyGroup:
-		o = other
+		o = &other
 	case *ChargeItemDefinitionPropertyGroup:
-		o = *other
+		o = other
 	default:
 		return false
 	}

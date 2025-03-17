@@ -1616,12 +1616,12 @@ func (r OrganizationAffiliation) ToQuantity(explicit bool) (*fhirpath.Quantity, 
 	return nil, errors.New("can not convert OrganizationAffiliation to Quantity")
 }
 func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationAffiliation
+	var o *OrganizationAffiliation
 	switch other := other.(type) {
 	case OrganizationAffiliation:
-		o = other
+		o = &other
 	case *OrganizationAffiliation:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -1632,12 +1632,12 @@ func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeCon
 	return *eq
 }
 func (r OrganizationAffiliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o OrganizationAffiliation
+	var o *OrganizationAffiliation
 	switch other := other.(type) {
 	case OrganizationAffiliation:
-		o = other
+		o = &other
 	case *OrganizationAffiliation:
-		o = *other
+		o = other
 	default:
 		return false
 	}

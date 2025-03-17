@@ -3273,12 +3273,12 @@ func (r DocumentReference) ToQuantity(explicit bool) (*fhirpath.Quantity, error)
 	return nil, errors.New("can not convert DocumentReference to Quantity")
 }
 func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReference
+	var o *DocumentReference
 	switch other := other.(type) {
 	case DocumentReference:
-		o = other
+		o = &other
 	case *DocumentReference:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3289,12 +3289,12 @@ func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return *eq
 }
 func (r DocumentReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReference
+	var o *DocumentReference
 	switch other := other.(type) {
 	case DocumentReference:
-		o = other
+		o = &other
 	case *DocumentReference:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3535,12 +3535,12 @@ func (r DocumentReferenceRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantit
 	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Quantity")
 }
 func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceRelatesTo
+	var o *DocumentReferenceRelatesTo
 	switch other := other.(type) {
 	case DocumentReferenceRelatesTo:
-		o = other
+		o = &other
 	case *DocumentReferenceRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3551,12 +3551,12 @@ func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseType
 	return *eq
 }
 func (r DocumentReferenceRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceRelatesTo
+	var o *DocumentReferenceRelatesTo
 	switch other := other.(type) {
 	case DocumentReferenceRelatesTo:
-		o = other
+		o = &other
 	case *DocumentReferenceRelatesTo:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3666,12 +3666,12 @@ func (r DocumentReferenceContent) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert DocumentReferenceContent to Quantity")
 }
 func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceContent
+	var o *DocumentReferenceContent
 	switch other := other.(type) {
 	case DocumentReferenceContent:
-		o = other
+		o = &other
 	case *DocumentReferenceContent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3682,12 +3682,12 @@ func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r DocumentReferenceContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceContent
+	var o *DocumentReferenceContent
 	switch other := other.(type) {
 	case DocumentReferenceContent:
-		o = other
+		o = &other
 	case *DocumentReferenceContent:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3824,12 +3824,12 @@ func (r DocumentReferenceContext) ToQuantity(explicit bool) (*fhirpath.Quantity,
 	return nil, errors.New("can not convert DocumentReferenceContext to Quantity")
 }
 func (r DocumentReferenceContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceContext
+	var o *DocumentReferenceContext
 	switch other := other.(type) {
 	case DocumentReferenceContext:
-		o = other
+		o = &other
 	case *DocumentReferenceContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3840,12 +3840,12 @@ func (r DocumentReferenceContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	return *eq
 }
 func (r DocumentReferenceContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o DocumentReferenceContext
+	var o *DocumentReferenceContext
 	switch other := other.(type) {
 	case DocumentReferenceContext:
-		o = other
+		o = &other
 	case *DocumentReferenceContext:
-		o = *other
+		o = other
 	default:
 		return false
 	}

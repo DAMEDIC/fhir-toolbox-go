@@ -4047,12 +4047,12 @@ func (r Requirements) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert Requirements to Quantity")
 }
 func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Requirements
+	var o *Requirements
 	switch other := other.(type) {
 	case Requirements:
-		o = other
+		o = &other
 	case *Requirements:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4063,12 +4063,12 @@ func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return *eq
 }
 func (r Requirements) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o Requirements
+	var o *Requirements
 	switch other := other.(type) {
 	case Requirements:
-		o = other
+		o = &other
 	case *Requirements:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4384,12 +4384,12 @@ func (r RequirementsStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert RequirementsStatement to Quantity")
 }
 func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequirementsStatement
+	var o *RequirementsStatement
 	switch other := other.(type) {
 	case RequirementsStatement:
-		o = other
+		o = &other
 	case *RequirementsStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4400,12 +4400,12 @@ func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r RequirementsStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o RequirementsStatement
+	var o *RequirementsStatement
 	switch other := other.(type) {
 	case RequirementsStatement:
-		o = other
+		o = &other
 	case *RequirementsStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}

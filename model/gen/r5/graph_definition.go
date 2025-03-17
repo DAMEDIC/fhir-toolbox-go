@@ -4621,12 +4621,12 @@ func (r GraphDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
 	return nil, errors.New("can not convert GraphDefinition to Quantity")
 }
 func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinition
+	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
-		o = other
+		o = &other
 	case *GraphDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4637,12 +4637,12 @@ func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return *eq
 }
 func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinition
+	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
-		o = other
+		o = &other
 	case *GraphDefinition:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4921,12 +4921,12 @@ func (r GraphDefinitionNode) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert GraphDefinitionNode to Quantity")
 }
 func (r GraphDefinitionNode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionNode
+	var o *GraphDefinitionNode
 	switch other := other.(type) {
 	case GraphDefinitionNode:
-		o = other
+		o = &other
 	case *GraphDefinitionNode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4937,12 +4937,12 @@ func (r GraphDefinitionNode) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r GraphDefinitionNode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionNode
+	var o *GraphDefinitionNode
 	switch other := other.(type) {
 	case GraphDefinitionNode:
-		o = other
+		o = &other
 	case *GraphDefinitionNode:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5099,12 +5099,12 @@ func (r GraphDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert GraphDefinitionLink to Quantity")
 }
 func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLink
+	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
-		o = other
+		o = &other
 	case *GraphDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5115,12 +5115,12 @@ func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLink
+	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
-		o = other
+		o = &other
 	case *GraphDefinitionLink:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5290,12 +5290,12 @@ func (r GraphDefinitionLinkCompartment) ToQuantity(explicit bool) (*fhirpath.Qua
 	return nil, errors.New("can not convert GraphDefinitionLinkCompartment to Quantity")
 }
 func (r GraphDefinitionLinkCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkCompartment
+	var o *GraphDefinitionLinkCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkCompartment:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkCompartment:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -5306,12 +5306,12 @@ func (r GraphDefinitionLinkCompartment) Equal(other fhirpath.Element, _noReverse
 	return *eq
 }
 func (r GraphDefinitionLinkCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o GraphDefinitionLinkCompartment
+	var o *GraphDefinitionLinkCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkCompartment:
-		o = other
+		o = &other
 	case *GraphDefinitionLinkCompartment:
-		o = *other
+		o = other
 	default:
 		return false
 	}

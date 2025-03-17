@@ -3763,12 +3763,12 @@ func (r QuestionnaireResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, er
 	return nil, errors.New("can not convert QuestionnaireResponse to Quantity")
 }
 func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponse
+	var o *QuestionnaireResponse
 	switch other := other.(type) {
 	case QuestionnaireResponse:
-		o = other
+		o = &other
 	case *QuestionnaireResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -3779,12 +3779,12 @@ func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	return *eq
 }
 func (r QuestionnaireResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponse
+	var o *QuestionnaireResponse
 	switch other := other.(type) {
 	case QuestionnaireResponse:
-		o = other
+		o = &other
 	case *QuestionnaireResponse:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4007,12 +4007,12 @@ func (r QuestionnaireResponseItem) ToQuantity(explicit bool) (*fhirpath.Quantity
 	return nil, errors.New("can not convert QuestionnaireResponseItem to Quantity")
 }
 func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponseItem
+	var o *QuestionnaireResponseItem
 	switch other := other.(type) {
 	case QuestionnaireResponseItem:
-		o = other
+		o = &other
 	case *QuestionnaireResponseItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4023,12 +4023,12 @@ func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeC
 	return *eq
 }
 func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponseItem
+	var o *QuestionnaireResponseItem
 	switch other := other.(type) {
 	case QuestionnaireResponseItem:
-		o = other
+		o = &other
 	case *QuestionnaireResponseItem:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4159,12 +4159,12 @@ func (r QuestionnaireResponseItemAnswer) ToQuantity(explicit bool) (*fhirpath.Qu
 	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Quantity")
 }
 func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponseItemAnswer
+	var o *QuestionnaireResponseItemAnswer
 	switch other := other.(type) {
 	case QuestionnaireResponseItemAnswer:
-		o = other
+		o = &other
 	case *QuestionnaireResponseItemAnswer:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -4175,12 +4175,12 @@ func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noRevers
 	return *eq
 }
 func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o QuestionnaireResponseItemAnswer
+	var o *QuestionnaireResponseItemAnswer
 	switch other := other.(type) {
 	case QuestionnaireResponseItemAnswer:
-		o = other
+		o = &other
 	case *QuestionnaireResponseItemAnswer:
-		o = *other
+		o = other
 	default:
 		return false
 	}

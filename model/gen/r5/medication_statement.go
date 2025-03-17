@@ -2513,12 +2513,12 @@ func (r MedicationStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, erro
 	return nil, errors.New("can not convert MedicationStatement to Quantity")
 }
 func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationStatement
+	var o *MedicationStatement
 	switch other := other.(type) {
 	case MedicationStatement:
-		o = other
+		o = &other
 	case *MedicationStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2529,12 +2529,12 @@ func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return *eq
 }
 func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationStatement
+	var o *MedicationStatement
 	switch other := other.(type) {
 	case MedicationStatement:
-		o = other
+		o = &other
 	case *MedicationStatement:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2784,12 +2784,12 @@ func (r MedicationStatementAdherence) ToQuantity(explicit bool) (*fhirpath.Quant
 	return nil, errors.New("can not convert MedicationStatementAdherence to Quantity")
 }
 func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationStatementAdherence
+	var o *MedicationStatementAdherence
 	switch other := other.(type) {
 	case MedicationStatementAdherence:
-		o = other
+		o = &other
 	case *MedicationStatementAdherence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
@@ -2800,12 +2800,12 @@ func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTy
 	return *eq
 }
 func (r MedicationStatementAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o MedicationStatementAdherence
+	var o *MedicationStatementAdherence
 	switch other := other.(type) {
 	case MedicationStatementAdherence:
-		o = other
+		o = &other
 	case *MedicationStatementAdherence:
-		o = *other
+		o = other
 	default:
 		return false
 	}
