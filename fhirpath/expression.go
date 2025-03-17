@@ -148,6 +148,8 @@ func evalExpression(
 	isRoot bool,
 ) (result Collection, resultOrdered bool, err error) {
 	switch t := tree.(type) {
+	case *parser.ExpressionContext:
+		return nil, false, fmt.Errorf("can not evaluate empty expression")
 	case *parser.TermExpressionContext:
 		return evalTerm(ctx, root, target, inputOrdered, t.Term(), isRoot)
 	case *parser.InvocationExpressionContext:
